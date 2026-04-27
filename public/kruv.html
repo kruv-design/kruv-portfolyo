@@ -1,0 +1,3917 @@
+<!DOCTYPE html>
+<!--
+  Ana sayfa dosyası: kruv.html (ASCII yol; telefonda güvenilir). Tek link örneği:
+  http://192.168…:8080/kruv.html — hem Mac’te hem
+  telefonda aynısı (aynı Wi‑Fi). localhost / 127.0.0.1 yalnızca Mac’te “bu bilgisayar” demek.
+-->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kruv — Brand Identity for the Social-First Era</title>
+<link href="./kruv_site_files/css2" rel="stylesheet">
+<link rel="preload" as="image" href="assets/logo-white.svg?v=1">
+<link rel="preload" as="image" href="assets/logo-scroll.svg?v=2">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* ===== Foundation: colors (gri ekseni: --gray-pure-dark ↔ --gray-1000) ===== */
+  --color-accent: #5D5DFF;
+  --color-accent-soft: rgba(93,93,255,0.22);
+
+  /*
+    Gri skala 0–1000: beyaz opaklık üzerinde (N ≈ alpha×1000).
+    50’şer ana adım + kullanımda geçen ara değerler.
+  */
+  --gray-pure-dark: #000000;
+  --gray-0:    rgba(255, 255, 255, 0);
+  --gray-20:   rgba(255, 255, 255, 0.02);
+  --gray-50:   rgba(255, 255, 255, 0.05);
+  --gray-80:   rgba(255, 255, 255, 0.08);
+  --gray-100:  rgba(255, 255, 255, 0.10);
+  --gray-120:  rgba(255, 255, 255, 0.12);
+  --gray-150:  rgba(255, 255, 255, 0.15);
+  --gray-180:  rgba(255, 255, 255, 0.18);
+  --gray-200:  rgba(255, 255, 255, 0.20);
+  --gray-250:  rgba(255, 255, 255, 0.25);
+  --gray-300:  rgba(255, 255, 255, 0.30);
+  --gray-350:  rgba(255, 255, 255, 0.35);
+  --gray-400:  rgba(255, 255, 255, 0.40);
+  --gray-450:  rgba(255, 255, 255, 0.45);
+  --gray-500:  rgba(255, 255, 255, 0.50);
+  --gray-550:  rgba(255, 255, 255, 0.55);
+  --gray-600:  rgba(255, 255, 255, 0.60);
+  --gray-650:  rgba(255, 255, 255, 0.65);
+  --gray-700:  rgba(255, 255, 255, 0.70);
+  --gray-750:  rgba(255, 255, 255, 0.75);
+  --gray-800:  rgba(255, 255, 255, 0.80);
+  --gray-820:  rgba(255, 255, 255, 0.82);
+  --gray-850:  rgba(255, 255, 255, 0.85);
+  --gray-900:  rgba(255, 255, 255, 0.90);
+  --gray-950:  rgba(255, 255, 255, 0.95);
+  --gray-1000: rgba(255, 255, 255, 1);
+
+  /* Opak nötr yüzeyler (siyah↔beyaz karışımı) */
+  --gray-solid-deep:     color-mix(in srgb, var(--gray-pure-dark) 96.08%, var(--gray-1000) 3.92%);
+  --gray-solid-void:     color-mix(in srgb, var(--gray-pure-dark) 94.90%, var(--gray-1000) 5.10%);
+  --gray-solid-elevated: color-mix(in srgb, var(--gray-pure-dark) 93.33%, var(--gray-1000) 6.67%);
+  --gray-solid-panel:    color-mix(in srgb, var(--gray-pure-dark) 92.94%, var(--gray-1000) 7.06%);
+
+  --color-bg:          color-mix(in srgb, var(--gray-pure-dark) 94.51%, var(--gray-1000) 5.49%);
+  --color-surface:     color-mix(in srgb, var(--gray-pure-dark) 80%, var(--gray-1000) 20%);
+  --color-text:        color-mix(in srgb, var(--gray-pure-dark) 0.785%, var(--gray-1000) 99.215%);
+  --color-text-muted:  color-mix(in srgb, var(--gray-pure-dark) 50.196%, var(--gray-1000) 49.804%);
+
+  /* Siyah örtüler (gölge / gradient kararma) */
+  --gray-scrim-350: color-mix(in srgb, var(--gray-pure-dark) 35%, transparent);
+  --gray-scrim-600: color-mix(in srgb, var(--gray-pure-dark) 60%, transparent);
+  --gray-scrim-700: color-mix(in srgb, var(--gray-pure-dark) 70%, transparent);
+  --gray-scrim-800: color-mix(in srgb, var(--gray-pure-dark) 80%, transparent);
+  --gray-scrim-850: color-mix(in srgb, var(--gray-pure-dark) 85%, transparent);
+
+  /* Hero kart — üst vignette (daha hafif, çok duraklı geçiş) */
+  --hero-card-vignette-a: var(--gray-scrim-350);
+  --hero-card-vignette-b: color-mix(in srgb, var(--gray-scrim-600) 22%, transparent);
+  --hero-card-vignette-c: color-mix(in srgb, var(--gray-scrim-600) 6%, transparent);
+  --hero-card-hover-scrim: color-mix(in srgb, var(--gray-scrim-600) 55%, transparent);
+
+  --gray-midnight-veil-200: color-mix(in srgb, var(--color-bg) 20%, transparent);
+  --gray-midnight-veil-350: color-mix(in srgb, var(--color-bg) 35%, transparent);
+  --gray-hint-bar:          color-mix(in srgb, var(--color-bg) 92%, transparent);
+
+  --color-border-soft: var(--gray-50);
+
+  /* Logo ızgarası: çizgiler bir tık belirgin, skala içinde */
+  --ideal-clients-border: var(--gray-100);
+  --ideal-clients-divider: var(--gray-80);
+
+  /* ===== Foundation: fonts ===== */
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body: 'Outfit', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+
+  /* ===== Typography: type scale =====
+     Tek kaynak: yalnızca h1..h4 + b1, b2, b3 kullanılır.
+     Tüm font-size tanımları bu 7 token'a referansla yapılmalı. */
+  --type-h1: clamp(52px, 7vw, 96px);
+  --type-h2: clamp(32px, 8vw, 44px);
+  --type-h3: clamp(24px, 6vw, 30px);
+  --type-h4: 16px;
+  --type-b1: 14px;
+  --type-b2: 13px;
+  --type-b3: 10px;
+
+  /* ===== 7 Text Styles =====
+     Sayfadaki her yazı bu 7 reçeteden birini kullanır.
+     1 Display, 2 Heading, 3 Subheading, 4 Body, 5 Body Small, 6 Label, 7 Button */
+
+  /* 1 — DISPLAY : hero headline */
+  --ts-display-font:   var(--font-display);
+  --ts-display-size:   var(--type-h1);
+  --ts-display-weight: 400;
+  --ts-display-line:   var(--lh-tight);
+  --ts-display-letter: var(--ls-display);
+  --ts-display-case:   uppercase;
+
+  /* 2 — HEADING : section titles */
+  --ts-heading-font:   var(--font-display);
+  --ts-heading-size:   var(--type-h2);
+  --ts-heading-weight: 400;
+  --ts-heading-line:   var(--lh-tight);
+  --ts-heading-letter: var(--ls-display);
+  --ts-heading-case:   uppercase;
+
+  /* 3 — SUBHEADING : smaller titles, testimonial lead */
+  --ts-subheading-font:   var(--font-display);
+  --ts-subheading-size:   var(--type-h3);
+  --ts-subheading-weight: 400;
+  --ts-subheading-line:   var(--lh-tight);
+  --ts-subheading-letter: var(--ls-lg);
+  --ts-subheading-case:   uppercase;
+
+  /* 4 — BODY : primary paragraph */
+  --ts-body-font:   var(--font-body);
+  --ts-body-size:   var(--type-b1);
+  --ts-body-weight: 400;
+  --ts-body-line:   1.66;
+  --ts-body-letter: var(--ls-2xs);
+  --ts-body-case:   none;
+  --ts-body-color:  var(--silver);
+
+  /* 5 — BODY SMALL : captions, secondary text */
+  --ts-body-sm-font:   var(--font-body);
+  --ts-body-sm-size:   var(--type-b2);
+  --ts-body-sm-weight: 300;
+  --ts-body-sm-line:   var(--lh-body);
+  --ts-body-sm-letter: 0;
+  --ts-body-sm-case:   none;
+  --ts-body-sm-color:  var(--gray-400);
+
+  /* 6 — LABEL : tagline, nav links, meta, micro-copy */
+  --ts-label-font:   var(--font-mono);
+  --ts-label-size:   var(--type-b3);
+  --ts-label-weight: 400;
+  --ts-label-line:   var(--lh-tight);
+  --ts-label-letter: var(--ls-2xl);
+  --ts-label-case:   uppercase;
+
+  /* 7 — BUTTON : CTA, action */
+  --ts-button-font:   var(--font-display);
+  --ts-button-size:   var(--type-h4);
+  --ts-button-weight: 400;
+  --ts-button-line:   var(--lh-tight);
+  --ts-button-letter: var(--ls-xl);
+  --ts-button-case:   uppercase;
+
+
+  /* ===== Spacing ===== */
+  --space-0: 2px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-9: 36px;
+  --space-10: 40px;
+  --space-11: 44px;
+  --space-12: 48px;
+
+  --space-xxs: 5px;
+  --space-xs: 6px;
+  --space-sm: 9px;
+  --space-md: 14px;
+  --space-lg: 18px;
+  --space-xl: 22px;
+
+  /* ===== Typography: line heights ===== */
+  --lh-tightest: 1;
+  --lh-tight: 1.05;
+  --lh-snug: 1.4;
+  --lh-note: 1.45;
+  --lh-body: 1.55;
+  --lh-relaxed: 1.75;
+  --lh-quote: 1.35;
+
+  /* ===== Typography: letter spacing ===== */
+  --ls-2xs: .01em;
+  --ls-xs: .03em;
+  --ls-sm: .04em;
+  --ls-md: .06em;
+  --ls-lg: .08em;
+  --ls-lg2: .1em;
+  --ls-xl: .12em;
+  --ls-2xl: .14em;
+  --ls-mono: .16em;
+  --ls-3xl: .18em;
+  --ls-4xl: .2em;
+  --ls-5xl: .22em;
+  --ls-display: .06em;
+  --ls-anim-start: .3em;
+  --ls-anim-end: .16em;
+
+  /* ===== Layout: grid shell ===== */
+  --container-max: 920px;
+  --container-gutter: clamp(16px, 5vw, 52px);
+  --grid-shell-width: calc(100vw - (2 * var(--container-gutter)));
+  --section-pad-y: clamp(72px, 10vw, 100px);
+  --section-pad-x: var(--container-gutter);
+  /* Journey: dış blok yüksekliği (yalnızca space token’ları; içerik taşarsa liste içinde kayar) */
+  --focus-journey-viewport-h: calc(var(--space-12) * 14 + var(--space-9) * 5);
+  --focus-journey-viewport-h-mobile: calc(var(--space-12) * 10 + var(--space-9) * 4);
+
+  /* ===== Foundations: radius / border / shadow ===== */
+  --radius-xs: 2px;
+  --radius-sm: 3px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 20px;
+  --border-soft: 1px solid var(--color-border-soft);
+  --border-w-1: 1px;
+  --size-line-fine: 0.5px;
+  --size-line-thin: 1.5px;
+
+  --shadow-card: 0 24px 60px var(--gray-scrim-600);
+  --shadow-card-hover: 0 32px 80px var(--gray-scrim-800);
+  --shadow-cylinder-card: 0 24px 60px var(--gray-scrim-850);
+
+  /* ===== Motion ===== */
+  --ease-standard: cubic-bezier(0.4,0,0.2,1);
+  --dur-fast: .2s;
+  --dur-base: .3s;
+  --dur-slow: .6s;
+
+  /* ===== Component: button / ticker ===== */
+  --btn-pad-y: 13px;
+  --btn-pad-x: 36px;
+  --btn-radius: var(--radius-xs);
+
+  /*
+    Ticker el SVG’leri geniş viewBox içinde küçük çizili; sadece height büyütünce “büyümedi” hissi oluşuyor.
+    Orijinal piksel oranı 64×34; %50 büyütme = scale 1.5 + slot’ta overflow ile merkez kırpma.
+  */
+  --ticker-hand-art-h: 34px;
+  --ticker-hand-art-zoom: 1.5;
+  --ticker-hand-slot-h: calc(var(--ticker-hand-art-h) * var(--ticker-hand-art-zoom));
+  --ticker-hand-slot-w: calc(var(--ticker-hand-slot-h) * 64 / 34);
+  --ticker-pad-y: var(--space-4);
+  --ticker-height: calc(var(--ticker-hand-slot-h) + (2 * var(--ticker-pad-y)));
+  --ticker-item-pad-x: 32px;
+
+  /* Hero fan — özel portfolio imleci (daire) */
+  --hero-portfolio-cursor-size: 104px;
+  --hero-portfolio-cursor-lerp: 0.16;
+
+  /* Navbar: fixed logo slot (both SVGs share the same box — no layout shift) */
+  --nav-logo-slot-w: 160px;
+  --nav-logo-slot-h: 49px;
+  --nav-compact-dur: 570ms;
+  --nav-compact-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  /* Kompakt pill: logo | linkler | CTA arası sabit gap (üstte boşluk flex space-between ile eşitlenir) */
+  --nav-col-gap-scrolled: 16px;
+  /* Logo crossfade: tek süre, gecikme yok — iki logo aynı anda opacity ile değişir */
+  --nav-logo-cross-dur: calc(var(--nav-compact-dur) * 0.5);
+  /* Navbar 1 → 2: logo-1 biraz önce bitsin (logo-2 giriş süresi aynı) */
+  --nav-logo-1-out-dur: calc(var(--nav-compact-dur) * 0.36);
+
+  /* ===== Component: cards / panels ===== */
+  --card-radius: var(--radius-lg);
+
+  --panel-radius: var(--radius-md);
+  --panel-gap: var(--space-3);
+  --panel-pad: var(--space-3);
+  --panel-pad-lg: calc(var(--panel-pad) + var(--space-0));
+
+  /* Hero headline — harf harf giriş */
+  --headline-stagger-base: 0.32s;
+  --headline-stagger-step: 0.034s;
+  --headline-char-dur: 0.62s;
+
+  /* ===== Component: avatar ===== */
+  --size-avatar-xs: 28px;
+  --avatar-sm: 28px;
+  --avatar-md: 52px;
+
+  /* ===== Layout: shared sizes ===== */
+  --size-glow-w: 800px;
+  --size-glow-h: 500px;
+
+  --size-fan-max-w: 900px;
+  --size-fan-h: 380px;
+  --size-fan-h-md: 260px;
+  --space-fan-overlap: -20px;
+
+  --size-card-w: 220px;
+  --size-card-h: 300px;
+  --size-card-featured-w: 240px;
+  --size-card-featured-h: 330px;
+  --size-card-w-md: 140px;
+  --size-card-h-md: 200px;
+  --size-card-featured-w-md: 160px;
+  --size-card-featured-h-md: 220px;
+  --offset-card-hover-bottom: 10px;
+
+  --size-dot-xs: 3px;
+  --size-dot-sm: 5px;
+  --size-dot-md: 7px;
+  --size-dot-lg: 8px;
+
+  --size-avatar-xs: 28px;
+  --size-card-mobile-w: 180px;
+  --size-card-mobile-h: 252px;
+  --size-card-mobile-hh: -90px;
+  --size-card-mobile-hv: -126px;
+  --size-card-mobile-scene-h: 340px;
+  --size-card-mobile-pad: 14px;
+  --offset-mobile-swipe-bottom: -28px;
+
+  --size-scene-h: 520px;
+  --size-kadraj: 160px;
+  --size-corner: 16px;
+  --size-kadraj-label-bottom: -26px;
+
+  --size-post-card-w: 220px;
+  --size-action-icon: 14px;
+  --size-featured-mark: 18px;
+  --size-testimonial-card-w: 340px;
+  --size-testimonial-card-w-lg: 370px;
+  --size-testimonial-card-h: 240px;
+  --size-testimonial-card-h-lg: 264px;
+  --size-kadraj-label-bottom: -26px;
+  --size-sub-max-w: 440px;
+  --size-sub-max-w-mobile: 320px;
+  --size-hero-pad-top-mobile: 70px;
+
+  /* ===== Legacy aliases (backward compatibility) ===== */
+  --midnight: var(--color-bg);
+  --shadow:   var(--gray-200);
+  --silver:   var(--color-text-muted);
+  --frost:    var(--color-text);
+  --purple:   var(--color-accent);
+  --pb:       var(--color-accent-soft);
+  --bd:       var(--color-border-soft);
+  --fd:       var(--font-display);
+  --fb:       var(--font-body);
+  --fm:       var(--font-mono);
+
+  /* Sabit navbar + logo yüksekliği — anchor kaydırmada üst boşluk (smooth ile birlikte premium his) */
+  --scroll-padding-top: calc(var(--space-6) + var(--nav-logo-slot-h) + var(--space-6));
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--scroll-padding-top);
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+html, body {
+  height: 100%;
+  background: var(--midnight);
+  color: var(--frost);
+  font-family: var(--ts-body-font);
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* ===== 7 Text Style Utility Classes =====
+   HTML'de direkt kullan: <h1 class="ts-display">, <p class="ts-body">, vb.
+   Her sınıf ilgili reçetenin tüm özelliklerini uygular. */
+.ts-display {
+  font-family: var(--ts-display-font);
+  font-size: var(--ts-display-size);
+  font-weight: var(--ts-display-weight);
+  line-height: var(--ts-display-line);
+  letter-spacing: var(--ts-display-letter);
+  text-transform: var(--ts-display-case);
+}
+.ts-heading {
+  font-family: var(--ts-heading-font);
+  font-size: var(--ts-heading-size);
+  font-weight: var(--ts-heading-weight);
+  line-height: var(--ts-heading-line);
+  letter-spacing: var(--ts-heading-letter);
+  text-transform: var(--ts-heading-case);
+}
+.ts-subheading {
+  font-family: var(--ts-subheading-font);
+  font-size: var(--ts-subheading-size);
+  font-weight: var(--ts-subheading-weight);
+  line-height: var(--ts-subheading-line);
+  letter-spacing: var(--ts-subheading-letter);
+  text-transform: var(--ts-subheading-case);
+}
+.ts-body {
+  font-family: var(--ts-body-font);
+  font-size: var(--ts-body-size);
+  font-weight: var(--ts-body-weight);
+  line-height: var(--ts-body-line);
+  letter-spacing: var(--ts-body-letter);
+  text-transform: var(--ts-body-case);
+  color: var(--ts-body-color);
+}
+.ts-body-sm {
+  font-family: var(--ts-body-sm-font);
+  font-size: var(--ts-body-sm-size);
+  font-weight: var(--ts-body-sm-weight);
+  line-height: var(--ts-body-sm-line);
+  letter-spacing: var(--ts-body-sm-letter);
+  text-transform: var(--ts-body-sm-case);
+  color: var(--ts-body-sm-color);
+}
+.ts-label {
+  font-family: var(--ts-label-font);
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line);
+  letter-spacing: var(--ts-label-letter);
+  text-transform: var(--ts-label-case);
+}
+.ts-button {
+  font-family: var(--ts-button-font);
+  font-size: var(--ts-button-size);
+  font-weight: var(--ts-button-weight);
+  line-height: var(--ts-button-line);
+  letter-spacing: var(--ts-button-letter);
+  text-transform: var(--ts-button-case);
+}
+
+/* ambient glow center */
+body::before {
+  content: '';
+  position: fixed;
+  top: 40%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--size-glow-w); height: var(--size-glow-h);
+  background: radial-gradient(ellipse, rgba(93,93,255,0.09) 0%, transparent 65%);
+  pointer-events: none; z-index: 0;
+}
+
+/* NAV */
+nav.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: var(--space-6) var(--container-gutter);
+  isolation: isolate;
+  transition:
+    filter var(--dur-slow) var(--ease-standard),
+    opacity var(--dur-slow) var(--ease-standard),
+    padding var(--nav-compact-dur) var(--nav-compact-ease);
+}
+/* Üstte: nav padding içi = tam marjin–marjin; scroll’da dar pill */
+nav.navbar .nav-inner {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin-inline: auto;
+  interpolate-size: allow-keywords;
+}
+nav.navbar.is-scrolled .nav-inner {
+  width: fit-content;
+  max-width: 100%;
+}
+.nav-inner > * {
+  position: relative;
+  z-index: 1;
+}
+/* Üstte: flex space-between — logo|linkler|CTA arası iki boşluk eşit; scroll’da ortalı + sabit gap */
+.nav-cols {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0;
+  width: 100%;
+  max-width: 100%;
+  row-gap: var(--space-3);
+  transition: gap var(--nav-compact-dur) var(--nav-compact-ease);
+}
+nav.navbar.is-scrolled .nav-cols {
+  justify-content: center;
+  gap: var(--nav-col-gap-scrolled);
+  width: max-content;
+  max-width: 100%;
+}
+.nav-col {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  min-width: 0;
+}
+.nav-col--brand {
+  justify-content: flex-start;
+}
+.nav-col--links {
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+}
+.nav-col--cta {
+  justify-content: flex-end;
+}
+.nav-inner::before {
+  content: '';
+  position: absolute;
+  left: calc(var(--space-3) * -1);
+  right: calc(var(--space-3) * -1);
+  top: calc(var(--space-2) * -1);
+  bottom: calc(var(--space-2) * -1);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.92;
+  transform: translateY(0) scale(1);
+  transition:
+    opacity var(--nav-compact-dur) var(--nav-compact-ease),
+    transform var(--nav-compact-dur) var(--nav-compact-ease);
+  background: transparent;
+  backdrop-filter: blur(22px) saturate(1.2);
+  -webkit-backdrop-filter: blur(22px) saturate(1.2);
+  border: none;
+  border-radius: 999px;
+  box-shadow: none;
+}
+nav.navbar.is-scrolled .nav-inner::before {
+  opacity: 1;
+}
+nav.navbar.is-scrolled {
+  padding: var(--space-3) var(--container-gutter);
+}
+nav.navbar.is-scrolled .nav-cta {
+  padding: var(--space-xxs) var(--space-lg);
+  letter-spacing: calc(var(--ts-label-letter) - 0.02em);
+  font-size: calc(var(--ts-label-size) - 1px);
+}
+.nav-logo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  position: relative;
+  flex: 0 0 auto;
+  width: var(--nav-logo-slot-w);
+  height: var(--nav-logo-slot-h);
+}
+.nav-logo-stack {
+  position: relative;
+  display: block;
+  width: var(--nav-logo-slot-w);
+  height: var(--nav-logo-slot-h);
+  transform: scale3d(1, 1, 1);
+  transform-origin: left center;
+  transition: transform var(--nav-compact-dur) var(--nav-compact-ease);
+}
+nav.navbar.is-scrolled .nav-logo-stack {
+  transform: scale3d(0.92, 0.92, 1);
+}
+.nav-logo .logo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: left center;
+  pointer-events: none;
+}
+/* Logo 1: %30 küçült (slot / logo 2 boyutu değişmez) */
+.nav-logo .logo-1 {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(0.7);
+  transform-origin: left center;
+  transition:
+    opacity var(--nav-logo-cross-dur) var(--nav-compact-ease),
+    visibility 0ms linear 0ms;
+}
+.nav-logo .logo-2 {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--nav-logo-cross-dur) var(--nav-compact-ease),
+    visibility 0ms linear var(--nav-logo-cross-dur);
+}
+nav.navbar.is-scrolled .nav-logo .logo-1 {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--nav-logo-1-out-dur) var(--nav-compact-ease),
+    visibility 0ms linear var(--nav-logo-1-out-dur);
+}
+nav.navbar.is-scrolled .nav-logo .logo-2 {
+  opacity: 1;
+  visibility: visible;
+  transition:
+    visibility 0ms linear 0ms,
+    opacity var(--nav-logo-cross-dur) var(--nav-compact-ease);
+}
+nav.navbar:not(.is-scrolled) .nav-logo .logo-1 {
+  transition:
+    visibility 0ms linear 0ms,
+    opacity var(--nav-logo-cross-dur) var(--nav-compact-ease);
+}
+nav.navbar:not(.is-scrolled) .nav-logo .logo-2 {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--nav-logo-cross-dur) var(--nav-compact-ease),
+    visibility 0ms linear var(--nav-logo-cross-dur);
+}
+
+#nav-sentinel {
+  height: 1px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: var(--space-9);
+  list-style: none;
+  width: auto;
+  max-width: 100%;
+  transition: gap var(--nav-compact-dur) var(--nav-compact-ease);
+}
+nav.navbar.is-scrolled .nav-links {
+  gap: var(--space-6);
+}
+.nav-links a {
+  text-transform: uppercase;
+  color: var(--silver);
+  text-decoration: none;
+  transition:
+    color var(--dur-fast) var(--ease-standard),
+    letter-spacing var(--nav-compact-dur) var(--nav-compact-ease),
+    font-size var(--nav-compact-dur) var(--nav-compact-ease);
+}
+.navbar-item1,
+.navbar-item2,
+.navbar-item3 {
+  font-family: var(--ts-label-font);
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line);
+  letter-spacing: var(--ts-label-letter);
+  text-transform: var(--ts-label-case);
+}
+nav.navbar.is-scrolled .navbar-item1,
+nav.navbar.is-scrolled .navbar-item2,
+nav.navbar.is-scrolled .navbar-item3 {
+  letter-spacing: calc(var(--ts-label-letter) - 0.02em);
+  font-size: calc(var(--ts-label-size) - 1px);
+}
+.nav-links a:hover { color: var(--frost); }
+.nav-actions {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.nav-cta {
+  font-family: var(--ts-label-font);
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line);
+  letter-spacing: var(--ts-label-letter);
+  text-transform: var(--ts-label-case); padding: var(--space-sm) var(--space-xl);
+  border: 1px solid var(--pb); color: var(--purple);
+  text-decoration: none; border-radius: var(--radius-xs);
+  transition:
+    background var(--dur-fast) var(--ease-standard),
+    color var(--dur-fast) var(--ease-standard),
+    border-color var(--dur-fast) var(--ease-standard),
+    padding var(--nav-compact-dur) var(--nav-compact-ease),
+    letter-spacing var(--nav-compact-dur) var(--nav-compact-ease),
+    font-size var(--nav-compact-dur) var(--nav-compact-ease);
+}
+.nav-cta:hover { background: var(--purple); color: var(--frost); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  position: relative; z-index: 1;
+  padding: calc(var(--section-pad-y) + var(--space-2)) var(--section-pad-x) calc(var(--section-pad-y) - var(--space-3));
+  gap: 0;
+}
+
+/* ── FAN CARDS ── */
+.fan-wrap {
+  position: relative;
+  width: 100%;
+  max-width: var(--size-fan-max-w);
+  height: var(--size-fan-h);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin-bottom: var(--space-fan-overlap);
+}
+
+.card {
+  position: absolute;
+  width: var(--size-card-w);
+  height: var(--size-card-h);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--dur-base) ease, box-shadow var(--dur-base) ease, bottom var(--dur-base) ease, filter var(--dur-base) ease, opacity var(--dur-base) ease;
+  cursor: pointer;
+  bottom: 0;
+}
+@media (min-width: 601px) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .fan-wrap .card {
+    cursor: none;
+  }
+}
+.card:hover {
+  box-shadow:
+    var(--shadow-card-hover),
+    0 0 56px color-mix(in srgb, var(--purple) 42%, transparent),
+    0 0 104px color-mix(in srgb, var(--purple) 18%, transparent);
+  z-index: 10 !important;
+  bottom: var(--offset-card-hover-bottom);
+}
+
+/* Blur efekti — hover'lanmayan kartlar ve sayfa */
+.fan-wrap:has(.card:hover) .card:not(:hover) {
+  filter: blur(4px);
+  opacity: 0.5;
+  transition: filter .2s cubic-bezier(0.4,0,0.2,1), opacity .2s cubic-bezier(0.4,0,0.2,1);
+}
+.hero:has(.card:hover) .hero-bottom,
+body:has(.card:hover) nav,
+body:has(.card:hover) .ticker,
+body:has(.featured-work-card:hover) nav,
+body:has(.featured-work-card:hover) .ticker,
+body:has(.featured-work-card:hover) .hero-bottom {
+  filter: blur(6px);
+  opacity: 0.4;
+  transition: filter .2s cubic-bezier(0.4,0,0.2,1), opacity .2s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* Featured: hover’lanmayan kartlar + üstteki kadraj alanı (hero fan ile aynı dil) */
+.featured-works:has(.featured-work-card:hover) .featured-work-card:not(:hover) {
+  filter: blur(4px);
+  opacity: 0.5;
+  transition: filter .2s cubic-bezier(0.4,0,0.2,1), opacity .2s cubic-bezier(0.4,0,0.2,1);
+}
+.scene-section:has(.featured-work-card:hover) .scene-label,
+.scene-section:has(.featured-work-card:hover) .scene {
+  filter: blur(6px);
+  opacity: 0.4;
+  transition: filter .2s cubic-bezier(0.4,0,0.2,1), opacity .2s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* card positions — fan layout */
+.card-1 {
+  transform: rotate(-18deg) translateX(-340px) translateY(30px);
+  z-index: 1;
+}
+.card-2 {
+  transform: rotate(-9deg) translateX(-180px) translateY(10px);
+  z-index: 2;
+}
+.card-3 {
+  transform: rotate(0deg) translateX(0px) translateY(0px);
+  z-index: 5;
+  width: var(--size-card-featured-w);
+  height: var(--size-card-featured-h);
+}
+.card-4 {
+  transform: rotate(9deg) translateX(180px) translateY(10px);
+  z-index: 2;
+}
+.card-5 {
+  transform: rotate(18deg) translateX(340px) translateY(30px);
+  z-index: 1;
+}
+
+/* card inner */
+.card-bg {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  justify-content: flex-start;
+  padding: var(--space-4);
+  position: relative;
+  isolation: isolate;
+}
+/* Mobildeki ön kart mor parlama hissi: alttan mor radial (görselin alt katmanı) */
+.card-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-standard);
+  background: radial-gradient(
+    ellipse 115% 88% at 50% 108%,
+    color-mix(in srgb, var(--purple) 30%, transparent) 0%,
+    color-mix(in srgb, var(--purple) 9%, transparent) 46%,
+    transparent 72%
+  );
+}
+.fan-wrap .card:hover .card-bg::before {
+  opacity: 1;
+}
+.card-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: inherit;
+  /* Hafif üst okunabilirlik + uzun yumuşak çıkış; tek düz %70 kararma yok */
+  background: linear-gradient(
+    168deg,
+    var(--hero-card-vignette-a) 0%,
+    var(--hero-card-vignette-b) 22%,
+    var(--hero-card-vignette-c) 44%,
+    transparent 62%
+  );
+}
+.card-label {
+  position: relative; z-index: 2;
+}
+.card-label-name {
+  font-family: var(--ts-button-font);
+  font-size: var(--ts-button-size);
+  font-weight: var(--ts-button-weight);
+  line-height: var(--lh-tightest);
+  letter-spacing: var(--ts-button-letter);
+  text-transform: var(--ts-button-case);
+  color: var(--frost); margin-bottom: var(--space-0);
+}
+.card-label-type {
+  font-family: var(--ts-label-font);
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line);
+  letter-spacing: var(--ts-label-letter);
+  text-transform: var(--ts-label-case);
+  color: var(--gray-500);
+}
+
+/* card color themes */
+.card-1 .card-bg { background: url("assets/hero-card-1.jpg") center/cover no-repeat; }
+.card-2 .card-bg { background: url("assets/hero-card-2.jpg") center/cover no-repeat; }
+.card-3 .card-bg { background: url("assets/hero-card-4.jpg") center/cover no-repeat; }
+.card-4 .card-bg { background: url("assets/hero-card-3.jpg") center/cover no-repeat; }
+.card-5 .card-bg { background: url("assets/hero-card-5.png") center/cover no-repeat; }
+
+/* card dot accent — metin üstte; nokta sağ altta */
+.card-dot {
+  position: absolute;
+  top: auto;
+  bottom: var(--space-4);
+  right: var(--space-4);
+  width: var(--size-dot-lg); height: var(--size-dot-lg); border-radius: 50%;
+  background: var(--purple); opacity: 0.7;
+  box-shadow: 0 0 8px rgba(93,93,255,0.6);
+}
+.card-3 .card-dot { opacity: 1; }
+
+/* Hero kart hover: Projects satırı ile aynı tipografi (başlık + kategori + CTA) */
+.hero-card-hover-reveal {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 4;
+  padding: var(--space-4);
+  padding-top: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity var(--dur-base) var(--ease-standard),
+    transform var(--dur-base) var(--ease-standard);
+  background: linear-gradient(
+    to top,
+    var(--hero-card-hover-scrim) 0%,
+    color-mix(in srgb, var(--gray-scrim-600) 8%, transparent) 52%,
+    transparent 100%
+  );
+}
+.hero-card-hover-head {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-3);
+  width: 100%;
+}
+.hero-card-hover-title {
+  font-family: var(--ts-button-font);
+  font-size: var(--ts-button-size);
+  font-weight: var(--ts-button-weight);
+  line-height: var(--ts-button-line);
+  letter-spacing: var(--ts-button-letter);
+  text-transform: var(--ts-button-case);
+  color: var(--frost);
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  text-shadow: 0 1px 10px var(--gray-scrim-700);
+}
+.hero-card-hover-category {
+  font-family: var(--ts-label-font);
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line);
+  letter-spacing: var(--ts-label-letter);
+  text-transform: var(--ts-label-case);
+  color: var(--silver);
+  text-align: right;
+  margin: 0;
+  flex-shrink: 0;
+  max-width: 46%;
+  text-shadow: 0 1px 10px var(--gray-scrim-700);
+}
+.hero-card-hover-cta {
+  position: relative;
+  z-index: 2;
+  margin-top: var(--space-0);
+  font-family: var(--ts-label-font);
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line);
+  letter-spacing: var(--ts-label-letter);
+  text-transform: var(--ts-label-case);
+  color: var(--purple);
+  text-decoration: none;
+  align-self: flex-start;
+  text-shadow: 0 1px 8px var(--gray-scrim-700);
+  transition: color var(--dur-fast) var(--ease-standard);
+}
+.hero-card-hover-cta:hover { color: var(--frost); }
+
+/* Fan (masaüstü): kart üstünde ekstra hover paneli yok — içerik imleç ipucunda */
+.fan-wrap .hero-card-hover-reveal {
+  display: none;
+}
+
+/* Özel portfolio imleci — fan kartları (masaüstü ince işaretçi) */
+.hero-portfolio-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9999;
+  width: var(--hero-portfolio-cursor-size);
+  height: var(--hero-portfolio-cursor-size);
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  will-change: transform, opacity;
+  transform: translate3d(-9999px, -9999px, 0);
+  transition:
+    opacity 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 0.4s;
+}
+.hero-portfolio-cursor.is-active {
+  visibility: visible;
+  opacity: 1;
+  transition:
+    opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 0s;
+}
+.hero-portfolio-cursor:not(.is-active) {
+  transition:
+    opacity 0.34s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0s linear 0.35s;
+}
+.hero-portfolio-cursor__ring {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-2);
+  box-sizing: border-box;
+  background: color-mix(in srgb, var(--gray-solid-elevated) 72%, transparent);
+  border: 0.5px solid var(--gray-120);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow:
+    0 12px 40px var(--gray-scrim-600),
+    inset 0 0 0 1px color-mix(in srgb, var(--gray-100) 35%, transparent);
+  transform: scale(0.88);
+  opacity: 0.94;
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hero-portfolio-cursor.is-active .hero-portfolio-cursor__ring {
+  transform: scale(1);
+  opacity: 1;
+}
+.hero-portfolio-cursor__text {
+  font-family: var(--ts-label-font);
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--lh-tightest);
+  letter-spacing: var(--ts-label-letter);
+  text-transform: var(--ts-label-case);
+  color: var(--frost);
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fan-wrap .card {
+    cursor: pointer;
+  }
+  .hero-portfolio-cursor,
+  .hero-portfolio-cursor__ring {
+    transition: none !important;
+  }
+  .hero-portfolio-cursor.is-active .hero-portfolio-cursor__ring {
+    transform: none;
+  }
+}
+
+/* ── BOTTOM TEXT ── */
+.hero-bottom {
+  text-align: center;
+  z-index: 2;
+  position: relative;
+  padding-top: var(--space-10);
+  transition: filter var(--dur-slow) var(--ease-standard), opacity var(--dur-slow) var(--ease-standard);
+}
+
+.eyebrow {
+  display: flex; align-items: center; justify-content: center;
+  gap: var(--space-2); margin-bottom: var(--space-4);
+  opacity: 0; animation: fadeUp .5s .2s ease forwards;
+}
+.eyebrow-dot {
+  width: var(--size-dot-sm); height: var(--size-dot-sm); border-radius: 50%;
+  background: var(--purple);
+  box-shadow: 0 0 8px rgba(93,93,255,0.7);
+}
+.eyebrow-text {
+  font-family: var(--ts-label-font);
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line);
+  letter-spacing: var(--ts-label-letter);
+  text-transform: var(--ts-label-case);
+  color: var(--purple);
+}
+
+.headline {
+  margin-bottom: var(--space-5);
+}
+.headline .hero-headline {
+  font-family: var(--ts-display-font);
+  font-size: var(--ts-display-size);
+  font-weight: var(--ts-display-weight);
+  line-height: var(--lh-tightest);
+  letter-spacing: var(--ts-display-letter);
+  text-transform: var(--ts-display-case);
+  color: var(--frost);
+  margin: 0;
+  text-wrap: balance;
+}
+.headline .hero-headline .accent { color: var(--purple); }
+
+.headline-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translate3d(0, 0.42em, 0) rotateZ(-5deg);
+  filter: blur(5px);
+  animation: headlineCharIn var(--headline-char-dur) cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(var(--headline-stagger-base) + var(--d, 0) * var(--headline-stagger-step));
+}
+.headline-char--accent {
+  color: var(--purple);
+}
+.headline-char--space {
+  white-space: pre;
+}
+@keyframes headlineCharIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0.42em, 0) rotateZ(-5deg);
+    filter: blur(5px);
+  }
+  55% {
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotateZ(0deg);
+    filter: blur(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .headline-char {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+.sub {
+  font-family: var(--ts-body-font);
+  font-size: var(--ts-body-size);
+  font-weight: var(--ts-body-weight);
+  line-height: var(--ts-body-line);
+  letter-spacing: var(--ts-body-letter);
+  color: var(--ts-body-color);
+  max-width: var(--size-sub-max-w); margin: 0 auto var(--space-7);
+  opacity: 0; animation: fadeUp .5s 1s ease forwards;
+}
+.sub strong { color: var(--frost); font-weight: 400; }
+
+.cta-row {
+  display: flex; align-items: center; justify-content: center;
+  gap: var(--space-4);
+  opacity: 0; animation: fadeUp .5s 1.12s ease forwards;
+}
+.cta-main {
+  font-family: var(--ts-button-font);
+  font-size: var(--ts-button-size);
+  font-weight: var(--ts-button-weight);
+  line-height: var(--ts-button-line);
+  letter-spacing: var(--ts-button-letter);
+  text-transform: var(--ts-button-case);
+  padding: var(--btn-pad-y) var(--btn-pad-x); background: var(--purple); color: var(--frost);
+  border-radius: var(--btn-radius); text-decoration: none;
+  transition: opacity .15s, transform .1s;
+}
+.cta-main:hover { opacity: .85; transform: translateY(-1px); }
+.cta-sub {
+  font-family: var(--ts-label-font);
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line);
+  letter-spacing: var(--ts-label-letter);
+  text-transform: var(--ts-label-case);
+  color: var(--silver); text-decoration: none;
+  display: flex; align-items: center; gap: var(--space-xs); transition: color .15s;
+}
+.cta-sub::after { content: '→'; transition: transform .2s; }
+.cta-sub:hover { color: var(--frost); }
+.cta-sub:hover::after { transform: translateX(3px); }
+
+/* locs */
+.locs {
+  margin-top: var(--space-6); display: flex; align-items: center;
+  justify-content: center; gap: var(--space-5);
+  opacity: 0; animation: fadeUp .5s 1.24s ease forwards;
+}
+.loc {
+  font-family: var(--ts-label-font);
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line);
+  letter-spacing: var(--ts-label-letter);
+  text-transform: var(--ts-label-case);
+  color: var(--shadow);
+  display: flex; align-items: center; gap: var(--space-xxs);
+}
+.loc::before {
+  content: ''; width: var(--size-dot-xs); height: var(--size-dot-xs); border-radius: 50%;
+  background: var(--purple); opacity: .5;
+}
+.loc-sep { color: var(--shadow); }
+
+/* TICKER */
+.ticker {
+  border-top: var(--border-soft);
+  overflow-x: hidden;
+  overflow-y: visible;
+  box-sizing: border-box;
+  height: var(--ticker-height);
+  padding-block: var(--ticker-pad-y);
+  display: flex;
+  align-items: center;
+  background: rgba(93,93,255,0.02);
+  position: relative; z-index: 2;
+  transition: filter var(--dur-slow) var(--ease-standard), opacity var(--dur-slow) var(--ease-standard);
+}
+.ticker-track {
+  display: flex; white-space: nowrap;
+  animation: tickerRoll 32s linear infinite;
+}
+.ticker-item {
+  font-family: var(--ts-label-font);
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line);
+  letter-spacing: var(--ts-label-letter);
+  text-transform: var(--ts-label-case);
+  color: var(--silver);
+  padding: 0 var(--ticker-item-pad-x);
+  display: inline-flex;
+  align-items: center;
+}
+.ticker-hand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding-inline: var(--space-2);
+  line-height: 0;
+  width: var(--ticker-hand-slot-w);
+  height: var(--ticker-hand-slot-h);
+  overflow: hidden;
+}
+.ticker-hand img {
+  height: var(--ticker-hand-art-h);
+  width: auto;
+  display: block;
+  opacity: 0.9;
+  transform: scale(var(--ticker-hand-art-zoom));
+  transform-origin: center center;
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes tickerRoll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Yerel ağ / mobil paylaşım ipucu (http veya file) */
+.lan-share-hint {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  padding: var(--space-2) var(--space-3) var(--space-3);
+  background: var(--gray-hint-bar);
+  border-top: var(--border-w-1) solid var(--pb);
+  font-family: var(--ts-label-font);
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line);
+  letter-spacing: var(--ts-label-letter);
+  text-transform: none;
+  color: var(--silver);
+  display: none;
+  align-items: flex-start;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+.lan-share-hint.is-visible { display: flex; }
+.lan-share-hint__main { flex: 1; min-width: 0; }
+.lan-share-hint__title {
+  flex: 1 1 100%;
+  color: var(--frost);
+  text-transform: var(--ts-label-case);
+  letter-spacing: var(--ts-label-letter);
+  font-size: var(--ts-label-size);
+}
+.lan-share-hint__body {
+  flex: 1 1 220px;
+  line-height: var(--lh-body);
+  word-break: break-all;
+}
+.lan-share-hint__url {
+  color: var(--purple);
+  margin-top: var(--space-1);
+}
+.lan-share-hint__link {
+  color: var(--purple);
+  text-decoration: underline;
+  word-break: break-all;
+}
+.lan-share-hint__link:hover { color: var(--frost); }
+.lan-share-hint__tip {
+  margin-top: var(--space-2);
+  opacity: 0.88;
+  line-height: var(--lh-note);
+}
+.lan-share-hint__actions {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  flex-shrink: 0;
+}
+.lan-share-hint button {
+  font-family: var(--ts-label-font);
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line);
+  letter-spacing: var(--ts-label-letter);
+  text-transform: var(--ts-label-case);
+  padding: var(--space-xs) var(--space-3);
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--pb);
+  background: rgba(93,93,255,0.15);
+  color: var(--purple);
+  cursor: pointer;
+}
+.lan-share-hint button:hover { background: rgba(93,93,255,0.28); }
+.lan-share-hint__close {
+  width: var(--size-avatar-xs);
+  height: var(--size-avatar-xs);
+  padding: 0 !important;
+  border-color: var(--gray-120) !important;
+  background: transparent !important;
+  color: var(--silver) !important;
+  font-size: var(--type-h4) !important;
+  line-height: var(--lh-tightest);
+}
+@media (min-width: 769px) {
+  .lan-share-hint { padding-right: var(--space-12); }
+}
+
+/* fan cards entrance (sadece masaüstü fan) */
+.fan-wrap .card-1 { opacity: 0; animation: cardIn .6s .1s ease forwards; }
+.fan-wrap .card-2 { opacity: 0; animation: cardIn .6s .2s ease forwards; }
+.fan-wrap .card-3 { opacity: 0; animation: cardIn .6s .3s ease forwards; }
+.fan-wrap .card-4 { opacity: 0; animation: cardIn .6s .2s ease forwards; }
+.fan-wrap .card-5 { opacity: 0; animation: cardIn .6s .1s ease forwards; }
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(40px) rotate(var(--r, 0deg)); }
+  to   { opacity: 1; }
+}
+
+/* deck / carousel dots — hidden on desktop */
+.deck-dots { display: none; }
+
+/* Mobil silindir carousel (≤600px’te görünür) */
+.hero-mobile-carousel { display: none; }
+
+@media (min-width: 601px) {
+  .hero-mobile-carousel { display: none !important; }
+}
+
+/* responsive 768px */
+@media (max-width: 768px) {
+  .fan-wrap { height: var(--size-fan-h-md); }
+  .card { width: var(--size-card-w-md); height: var(--size-card-h-md); }
+  .card-3 { width: var(--size-card-featured-w-md); height: var(--size-card-featured-h-md); }
+  .card-1 { transform: rotate(-18deg) translateX(-210px) translateY(30px); }
+  .card-2 { transform: rotate(-9deg) translateX(-110px) translateY(10px); }
+  .card-4 { transform: rotate(9deg) translateX(110px) translateY(10px); }
+  .card-5 { transform: rotate(18deg) translateX(210px) translateY(30px); }
+  nav.navbar { padding: var(--space-5) var(--space-6); }
+  .nav-inner::before {
+    left: calc(var(--space-2) * -1);
+    right: calc(var(--space-2) * -1);
+  }
+  nav.navbar.is-scrolled { padding: var(--space-2) var(--space-6); }
+  nav.navbar .nav-inner {
+    width: 100%;
+    max-width: 100%;
+  }
+  .nav-cols {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+  .nav-col--links {
+    display: none;
+  }
+}
+
+/* ── MOBILE: 3D silindir carousel (≤600px) ── */
+@media (max-width: 600px) {
+
+  html, body { overscroll-behavior: none; }
+
+  .fan-wrap { display: none !important; }
+
+  .hero-mobile-carousel {
+    display: block;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-mobile-carousel .carousel-scene {
+    width: 100%;
+    height: var(--size-card-mobile-scene-h);
+    perspective: 800px;
+    perspective-origin: 50% 38%;
+    position: relative;
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    overflow: visible;
+  }
+
+  .hero-mobile-carousel .cylinder {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+  }
+
+  .hero-mobile-carousel .card {
+    position: absolute;
+    width: var(--size-card-mobile-w);
+    height: var(--size-card-mobile-h);
+    left: 50%; top: 50%;
+    margin-left: var(--size-card-mobile-hh);
+    margin-top: var(--size-card-mobile-hv);
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    backface-visibility: hidden;
+    bottom: auto;
+    cursor: default;
+    animation: none;
+    transition: none;
+    box-shadow: var(--shadow-cylinder-card);
+  }
+
+  .hero-mobile-carousel .card:hover {
+    bottom: auto !important;
+    z-index: auto !important;
+    box-shadow: var(--shadow-cylinder-card);
+  }
+
+  /* Fan layout .card-N transform’larını silindir alanında iptal et */
+  .hero-mobile-carousel .card-1,
+  .hero-mobile-carousel .card-2,
+  .hero-mobile-carousel .card-3,
+  .hero-mobile-carousel .card-4,
+  .hero-mobile-carousel .card-5 {
+    transform: none;
+  }
+
+  .hero-mobile-carousel .card-label-name { font-size: var(--type-b1); }
+  .hero-mobile-carousel .card-label-type { font-size: var(--type-b3); }
+  .hero-mobile-carousel .card-bg { padding: var(--size-card-mobile-pad); }
+  .hero-mobile-carousel .card.active .card-bg::before {
+    opacity: 1;
+  }
+  .hero-mobile-carousel .card-dot {
+    top: auto;
+    bottom: var(--size-card-mobile-pad);
+    right: var(--size-card-mobile-pad);
+    width: var(--size-dot-md); height: var(--size-dot-md);
+  }
+
+  .hero-mobile-carousel .card .card-label {
+    transition: opacity var(--dur-base) var(--ease-standard);
+  }
+  .hero-mobile-carousel .card.active .card-label {
+    opacity: 0.35;
+  }
+  .hero-mobile-carousel .card.active .hero-card-hover-reveal {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .hero-mobile-carousel .hero-card-hover-reveal {
+    padding: var(--size-card-mobile-pad);
+    padding-top: var(--space-5);
+  }
+  .hero-mobile-carousel .hero-card-hover-title {
+    font-size: var(--type-b1);
+  }
+  .hero-mobile-carousel .hero-card-hover-category {
+    font-size: var(--type-b3);
+    max-width: 48%;
+  }
+  .hero-mobile-carousel .hero-card-hover-cta {
+    font-size: var(--type-b3);
+  }
+  .hero-mobile-carousel .card.active .hero-card-hover-cta {
+    color: var(--frost);
+  }
+
+  .hero-mobile-carousel .swipe-hint {
+    position: absolute;
+    bottom: var(--offset-mobile-swipe-bottom); left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--ts-label-font);
+    font-size: var(--ts-label-size);
+    font-weight: var(--ts-label-weight);
+    line-height: var(--ts-label-line);
+    letter-spacing: var(--ts-label-letter);
+    text-transform: var(--ts-label-case);
+    color: var(--gray-200); white-space: nowrap;
+    animation: swipeHintFade 3s 1.5s ease forwards;
+  }
+  @keyframes swipeHintFade { to { opacity: 0; } }
+
+  .hero-mobile-carousel .deck-dots {
+    display: flex !important;
+    gap: var(--space-xs);
+    justify-content: center;
+    margin-top: var(--space-6);
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    animation: fadeUp 0.4s 0.5s ease forwards;
+  }
+  .hero-mobile-carousel .deck-dots .dot {
+    width: var(--size-dot-sm); height: var(--size-dot-sm); border-radius: 50%;
+    background: var(--gray-180);
+    transition: background 0.3s, transform 0.3s;
+    cursor: pointer;
+  }
+  .hero-mobile-carousel .deck-dots .dot.active {
+    background: var(--purple);
+    transform: scale(1.4);
+  }
+
+  /* Silindir kartlarında global hover blur’u kapat */
+  .hero:has(.hero-mobile-carousel .card:hover) .hero-bottom,
+  body:has(.hero-mobile-carousel .card:hover) nav,
+  body:has(.hero-mobile-carousel .card:hover) .ticker {
+    filter: none !important;
+    opacity: 1 !important;
+  }
+
+  /* Hero metin */
+  .hero { padding: var(--size-hero-pad-top-mobile) var(--space-4) var(--space-9); }
+  .hero-bottom { padding-top: var(--space-4); }
+  .headline .hero-headline { font-size: var(--type-h1); }
+  .sub { font-size: var(--ts-body-size); max-width: var(--size-sub-max-w-mobile); }
+  .cta-row { flex-direction: column; gap: var(--space-3); align-items: center; }
+  .cta-main { text-align: center; padding: var(--space-3) var(--space-10); }
+}
+
+</style>
+</head>
+<body>
+
+<div id="nav-sentinel" aria-hidden="true"></div>
+
+<nav id="site-nav" class="navbar" aria-label="Primary">
+  <div class="nav-inner">
+    <div class="nav-cols">
+      <div class="nav-col nav-col--brand">
+        <a class="nav-logo brand" href="#" aria-label="KRUV">
+          <span class="nav-logo-stack">
+            <img class="logo logo-1" src="assets/logo-white.svg?v=1" width="160" height="49" alt="">
+            <img class="logo logo-2" src="assets/logo-scroll.svg?v=2" width="160" height="49" alt="">
+          </span>
+        </a>
+      </div>
+      <div class="nav-col nav-col--links">
+        <ul class="nav-links">
+          <li><a class="navbar-item1" href="#">Work</a></li>
+          <li><a class="navbar-item2" href="#">About</a></li>
+          <li><a class="navbar-item3" href="#">Process</a></li>
+        </ul>
+      </div>
+      <div class="nav-col nav-col--cta">
+        <div class="nav-actions">
+          <a class="nav-cta" href="#">Start a project</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div id="lanShareHint" class="lan-share-hint" role="region" aria-label="Yerel ağda mobil adres">
+  <div class="lan-share-hint__main">
+    <div class="lan-share-hint__title" id="lanShareTitle">Aynı Wi‑Fi — mobilde aç</div>
+    <div class="lan-share-hint__body" id="lanShareBody"></div>
+  </div>
+  <div class="lan-share-hint__actions">
+    <button type="button" id="lanShareCopy" hidden>Kopyala</button>
+    <button type="button" class="lan-share-hint__close" id="lanShareClose" aria-label="Kapat">×</button>
+  </div>
+</div>
+
+<section class="hero">
+
+  <!-- FAN CARDS -->
+  <div class="fan-wrap">
+
+    <div class="card card-1">
+      <div class="card-bg">
+        <div class="card-dot"></div>
+        <div class="card-label">
+          <p class="card-label-name">LABRAUNDA</p>
+          <p class="card-label-type">Editorial Design</p>
+        </div>
+        <div class="hero-card-hover-reveal">
+          <div class="hero-card-hover-head">
+            <h4 class="hero-card-hover-title">LABRAUNDA</h4>
+            <p class="hero-card-hover-category">Editorial Design</p>
+          </div>
+          <a class="hero-card-hover-cta" href="#">View case study →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-2">
+      <div class="card-bg">
+        <div class="card-dot"></div>
+        <div class="card-label">
+          <p class="card-label-name">CLOUD VAULT</p>
+          <p class="card-label-type">Brand Identity</p>
+        </div>
+        <div class="hero-card-hover-reveal">
+          <div class="hero-card-hover-head">
+            <h4 class="hero-card-hover-title">CLOUD VAULT</h4>
+            <p class="hero-card-hover-category">Brand Identity</p>
+          </div>
+          <a class="hero-card-hover-cta" href="#">View case study →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-3">
+      <div class="card-bg">
+        <div class="card-dot"></div>
+        <div class="card-label">
+          <p class="card-label-name">LEVANTENLER</p>
+          <p class="card-label-type">Editorial · Print</p>
+        </div>
+        <div class="hero-card-hover-reveal">
+          <div class="hero-card-hover-head">
+            <h4 class="hero-card-hover-title">LEVANTENLER</h4>
+            <p class="hero-card-hover-category">Editorial · Print</p>
+          </div>
+          <a class="hero-card-hover-cta" href="#">View case study →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-4">
+      <div class="card-bg">
+        <div class="card-dot"></div>
+        <div class="card-label">
+          <p class="card-label-name">MARKER</p>
+          <p class="card-label-type">Packaging Design</p>
+        </div>
+        <div class="hero-card-hover-reveal">
+          <div class="hero-card-hover-head">
+            <h4 class="hero-card-hover-title">MARKER</h4>
+            <p class="hero-card-hover-category">Packaging Design</p>
+          </div>
+          <a class="hero-card-hover-cta" href="#">View case study →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-5">
+      <div class="card-bg">
+        <div class="card-dot"></div>
+        <div class="card-label">
+          <p class="card-label-name">ROOTS</p>
+          <p class="card-label-type">Identity · Travel</p>
+        </div>
+        <div class="hero-card-hover-reveal">
+          <div class="hero-card-hover-head">
+            <h4 class="hero-card-hover-title">ROOTS</h4>
+            <p class="hero-card-hover-category">Identity · Travel</p>
+          </div>
+          <a class="hero-card-hover-cta" href="#">View case study →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="heroPortfolioCursor" class="hero-portfolio-cursor" aria-hidden="true" role="presentation">
+    <div class="hero-portfolio-cursor__ring">
+      <span class="hero-portfolio-cursor__text"></span>
+    </div>
+  </div>
+
+  <!-- MOBILE: 3D silindir carousel (≤600px) -->
+  <div class="hero-mobile-carousel">
+    <div class="carousel-scene" id="carouselScene">
+      <div class="cylinder" id="heroCylinder">
+
+        <div class="card card-1" data-index="0">
+          <div class="card-bg">
+            <div class="card-dot"></div>
+            <div class="card-label">
+              <p class="card-label-name">LABRAUNDA</p>
+              <p class="card-label-type">Editorial Design</p>
+            </div>
+            <div class="hero-card-hover-reveal">
+              <div class="hero-card-hover-head">
+                <h4 class="hero-card-hover-title">LABRAUNDA</h4>
+                <p class="hero-card-hover-category">Editorial Design</p>
+              </div>
+              <a class="hero-card-hover-cta" href="#">View case study →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-2" data-index="1">
+          <div class="card-bg">
+            <div class="card-dot"></div>
+            <div class="card-label">
+              <p class="card-label-name">CLOUD VAULT</p>
+              <p class="card-label-type">Brand Identity</p>
+            </div>
+            <div class="hero-card-hover-reveal">
+              <div class="hero-card-hover-head">
+                <h4 class="hero-card-hover-title">CLOUD VAULT</h4>
+                <p class="hero-card-hover-category">Brand Identity</p>
+              </div>
+              <a class="hero-card-hover-cta" href="#">View case study →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-3" data-index="2">
+          <div class="card-bg">
+            <div class="card-dot"></div>
+            <div class="card-label">
+              <p class="card-label-name">LEVANTENLER</p>
+              <p class="card-label-type">Editorial · Print</p>
+            </div>
+            <div class="hero-card-hover-reveal">
+              <div class="hero-card-hover-head">
+                <h4 class="hero-card-hover-title">LEVANTENLER</h4>
+                <p class="hero-card-hover-category">Editorial · Print</p>
+              </div>
+              <a class="hero-card-hover-cta" href="#">View case study →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-4" data-index="3">
+          <div class="card-bg">
+            <div class="card-dot"></div>
+            <div class="card-label">
+              <p class="card-label-name">MARKER</p>
+              <p class="card-label-type">Packaging Design</p>
+            </div>
+            <div class="hero-card-hover-reveal">
+              <div class="hero-card-hover-head">
+                <h4 class="hero-card-hover-title">MARKER</h4>
+                <p class="hero-card-hover-category">Packaging Design</p>
+              </div>
+              <a class="hero-card-hover-cta" href="#">View case study →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-5" data-index="4">
+          <div class="card-bg">
+            <div class="card-dot"></div>
+            <div class="card-label">
+              <p class="card-label-name">ROOTS</p>
+              <p class="card-label-type">Identity · Travel</p>
+            </div>
+            <div class="hero-card-hover-reveal">
+              <div class="hero-card-hover-head">
+                <h4 class="hero-card-hover-title">ROOTS</h4>
+                <p class="hero-card-hover-category">Identity · Travel</p>
+              </div>
+              <a class="hero-card-hover-cta" href="#">View case study →</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="swipe-hint">← swipe →</div>
+    </div>
+
+    <div class="deck-dots" id="cylinderDeckDots">
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </div>
+
+  <!-- BOTTOM TEXT -->
+  <div class="hero-bottom">
+    <div class="eyebrow">
+      <div class="eyebrow-dot"></div>
+    </div>
+    <div class="headline">
+      <h1 id="heroHeadline" class="hero-headline">WE DESIGN BRANDS <span class="accent">BUILT TO BE</span> SHARED.</h1>
+    </div>
+    <script>
+(function () {
+  var h1 = document.getElementById('heroHeadline');
+  if (!h1 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var parts = [];
+  function collect(node, accent) {
+    var children = node.childNodes;
+    for (var i = 0; i < children.length; i++) {
+      var child = children[i];
+      if (child.nodeType === 3) {
+        var t = child.textContent;
+        for (var j = 0; j < t.length; j++) {
+          parts.push({ ch: t.charAt(j), accent: accent });
+        }
+      } else if (child.nodeType === 1) {
+        collect(child, accent || (child.classList && child.classList.contains('accent')));
+      }
+    }
+  }
+  collect(h1, false);
+
+  var frag = document.createDocumentFragment();
+  for (var k = 0; k < parts.length; k++) {
+    var p = parts[k];
+    var span = document.createElement('span');
+    var cls = 'headline-char';
+    if (p.accent) cls += ' headline-char--accent';
+    if (p.ch === ' ') {
+      cls += ' headline-char--space';
+      span.textContent = ' ';
+    } else {
+      span.textContent = p.ch;
+    }
+    span.className = cls;
+    span.style.setProperty('--d', String(k));
+    frag.appendChild(span);
+  }
+  while (h1.firstChild) h1.removeChild(h1.firstChild);
+  h1.appendChild(frag);
+  h1.classList.add('hero-headline--split');
+})();
+    </script>
+    <p class="sub">
+      Most brands are designed for walls.<br>
+      <strong>We design for feeds.</strong>
+    </p>
+    <div class="cta-row">
+      <a href="#" class="cta-main">SEE OUR WORK</a>
+      <a href="#" class="cta-sub">How we work</a>
+    </div>
+    <div class="locs">
+      <span class="loc">İstanbul, Türkiye</span>
+    </div>
+  </div>
+
+</section>
+
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item">Brand Identity</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-1.svg" width="96" height="51" alt=""></span>
+    <span class="ticker-item">Social Media Design</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-2.svg" width="96" height="51" alt=""></span>
+    <span class="ticker-item">Motion Design</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-3.svg" width="96" height="51" alt=""></span>
+    <span class="ticker-item">Feed-First Strategy</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-4.svg" width="96" height="51" alt=""></span>
+    <span class="ticker-item">Social Native</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-5.svg" width="96" height="51" alt=""></span>
+    <span class="ticker-item">D2C Brands</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-6.svg" width="96" height="51" alt=""></span>
+    <span class="ticker-item">İstanbul</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-7.svg" width="96" height="51" alt=""></span>
+    <span class="ticker-item">Brand Identity</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-1.svg" width="96" height="51" alt=""></span>
+    <span class="ticker-item">Social Media Design</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-2.svg" width="96" height="51" alt=""></span>
+    <span class="ticker-item">Motion Design</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-3.svg" width="96" height="51" alt=""></span>
+    <span class="ticker-item">Feed-First Strategy</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-4.svg" width="96" height="51" alt=""></span>
+    <span class="ticker-item">Social Native</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-5.svg" width="96" height="51" alt=""></span>
+    <span class="ticker-item">D2C Brands</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-6.svg" width="96" height="51" alt=""></span>
+    <span class="ticker-item">İstanbul</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-7.svg" width="96" height="51" alt=""></span>
+  </div>
+</div>
+
+<!-- CLIENT LOGOS -->
+<section class="ideal-section" id="ideal-client" aria-labelledby="ideal-heading">
+  <div class="ideal-inner">
+    <div class="ideal-intro">
+      <span class="ideal-tag">Selected Clients</span>
+      <h3 class="ideal-title" id="ideal-heading">Kiminle çalışıyoruz</h3>
+    </div>
+
+    <div class="ideal-clients-wrap">
+      <div class="ideal-clients-grid">
+        <div class="ideal-logo-cell"><span class="ideal-logo ideal-logo-1" role="img" aria-label="Beyoglu"></span></div>
+        <div class="ideal-logo-cell"><span class="ideal-logo ideal-logo-2" role="img" aria-label="Group 19"></span></div>
+        <div class="ideal-logo-cell"><span class="ideal-logo ideal-logo-3" role="img" aria-label="Group 297"></span></div>
+        <div class="ideal-logo-cell"><span class="ideal-logo ideal-logo-4" role="img" aria-label="Asset 18"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section" id="testimonials" aria-labelledby="testimonials-heading" hidden>
+  <div class="testimonials-inner">
+    <div class="testimonials-intro">
+      <span class="testimonials-tag">Testimonials</span>
+      <h3 class="testimonials-title" id="testimonials-heading">What clients say</h3>
+    </div>
+
+    <div class="testimonials-marquee" id="testimonialsMarquee">
+      <div class="testimonials-track" id="testimonialsTrack">
+        <article class="testimonial-card">
+          <div class="testimonial-head">
+            <img class="testimonial-avatar" src="assets/hero-card-1.jpg" alt="Ayse Yilmaz">
+            <div class="testimonial-meta">
+              <h3 class="testimonial-name">Ayse Yilmaz</h3>
+              <p class="testimonial-role">Marketing Director</p>
+            </div>
+          </div>
+          <p class="testimonial-quote">"Kruv ile marka dilimiz sosyal mecralarda cok daha net oldu. Kisa surede geri donus kalitemiz gozle gorulur bicimde artti."</p>
+        </article>
+
+        <article class="testimonial-card">
+          <div class="testimonial-head">
+            <img class="testimonial-avatar" src="assets/hero-card-2.jpg" alt="Mert Aydin">
+            <div class="testimonial-meta">
+              <h3 class="testimonial-name">Mert Aydin</h3>
+              <p class="testimonial-role">Founder</p>
+            </div>
+          </div>
+          <p class="testimonial-quote">"Sadece guzel gorunen tasarim degil, isleyen bir sistem kurduk. Her postta marka tutarliligini korumak artik cok daha kolay."</p>
+        </article>
+
+        <article class="testimonial-card">
+          <div class="testimonial-head">
+            <img class="testimonial-avatar" src="assets/hero-card-3.jpg" alt="Elif Kara">
+            <div class="testimonial-meta">
+              <h3 class="testimonial-name">Elif Kara</h3>
+              <p class="testimonial-role">Brand Manager</p>
+            </div>
+          </div>
+          <p class="testimonial-quote">"Ekibimizle ayni dili konusan bir partner bulduk. Kruv, hem stratejiyi hem de kreatifi cok hizli ve odakli sekilde birlestirdi."</p>
+        </article>
+
+        <article class="testimonial-card">
+          <div class="testimonial-head">
+            <img class="testimonial-avatar" src="assets/hero-card-4.jpg" alt="Derya Sen">
+            <div class="testimonial-meta">
+              <h3 class="testimonial-name">Derya Sen</h3>
+              <p class="testimonial-role">Social Lead</p>
+            </div>
+          </div>
+          <p class="testimonial-quote">"Feed-first yaklasim sayesinde iceriklerimiz hem daha cesur hem daha olculu hale geldi. Sonuclari ilk aydan itibaren hissettik."</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* ── IDEAL CLIENT LOGO GRID ── */
+.ideal-section {
+  position: relative;
+  z-index: 1;
+  padding: var(--section-pad-y) var(--section-pad-x) calc(var(--section-pad-y) + var(--space-4));
+  background: linear-gradient(180deg, var(--midnight) 0%, var(--gray-solid-deep) 50%, var(--midnight) 100%);
+  border-top: var(--border-soft);
+  border-bottom: var(--border-soft);
+}
+.ideal-inner {
+  width: var(--grid-shell-width);
+  max-width: var(--grid-shell-width);
+  margin: 0 auto;
+}
+.ideal-intro {
+  margin-bottom: var(--space-xl);
+  text-align: left;
+}
+.ideal-tag {
+  font-family: var(--ts-label-font);
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line);
+  letter-spacing: var(--ts-label-letter);
+  text-transform: var(--ts-label-case);
+  color: var(--silver);
+  display: block;
+  margin-bottom: var(--space-2);
+}
+.ideal-title {
+  font-family: var(--ts-heading-font);
+  font-size: var(--ts-heading-size);
+  font-weight: var(--ts-heading-weight);
+  line-height: var(--ts-heading-line);
+  letter-spacing: var(--ts-heading-letter);
+  text-transform: var(--ts-heading-case);
+  color: var(--frost);
+  white-space: nowrap;
+}
+
+.ideal-clients-wrap {
+  border: 1px solid var(--ideal-clients-border);
+  overflow: hidden;
+}
+.ideal-clients-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  background: transparent;
+}
+.ideal-logo-cell {
+  background: transparent;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: 1px solid var(--ideal-clients-divider);
+}
+.ideal-logo-cell:first-child { border-left: none; }
+.ideal-logo {
+  width: 48%;
+  height: 25%;
+  display: block;
+  background-color: var(--gray-100);
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  opacity: 1;
+}
+.ideal-logo-1 { -webkit-mask-image: url("./beyoglu.svg"); mask-image: url("./beyoglu.svg"); }
+.ideal-logo-2 { -webkit-mask-image: url("assets/clients/group-19.svg"); mask-image: url("assets/clients/group-19.svg"); }
+.ideal-logo-3 { -webkit-mask-image: url("assets/clients/group-297.svg"); mask-image: url("assets/clients/group-297.svg"); }
+.ideal-logo-4 { -webkit-mask-image: url("assets/clients/asset-18.svg"); mask-image: url("assets/clients/asset-18.svg"); }
+
+@media (max-width: 980px) {
+  .ideal-clients-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .ideal-section { padding: calc(var(--section-pad-y) - var(--space-2)) var(--section-pad-x) calc(var(--section-pad-y) - var(--space-4)); }
+  .ideal-clients-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ── TESTIMONIALS ── */
+.testimonials-section {
+  position: relative;
+  z-index: 1;
+  padding: calc(var(--section-pad-y) + var(--space-2)) 0 calc(var(--section-pad-y) + var(--space-6));
+  border-top: var(--border-soft);
+  border-bottom: var(--border-soft);
+  background: linear-gradient(180deg, var(--gray-solid-deep) 0%, var(--midnight) 100%);
+}
+.testimonials-inner {
+  width: var(--grid-shell-width);
+  max-width: var(--grid-shell-width);
+  margin: 0 auto;
+}
+.testimonials-intro {
+  text-align: left;
+  padding: 0;
+  margin-bottom: var(--space-xl);
+}
+.testimonials-tag {
+  font-family: var(--ts-label-font);
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line);
+  letter-spacing: var(--ts-label-letter);
+  text-transform: var(--ts-label-case);
+  color: var(--silver);
+  display: block;
+  margin-bottom: var(--space-2);
+}
+.testimonials-title {
+  font-family: var(--ts-heading-font);
+  font-size: var(--ts-heading-size);
+  font-weight: var(--ts-heading-weight);
+  line-height: var(--ts-heading-line);
+  letter-spacing: var(--ts-heading-letter);
+  text-transform: var(--ts-heading-case);
+  color: var(--frost);
+}
+.testimonials-marquee {
+  overflow: hidden;
+  padding: var(--space-1) 0;
+  cursor: grab;
+}
+.testimonials-marquee:active { cursor: grabbing; }
+.testimonials-track {
+  display: flex;
+  gap: var(--space-4);
+  width: max-content;
+  animation: testimonialsScroll 52s linear infinite;
+  will-change: transform;
+}
+.testimonials-marquee:hover .testimonials-track,
+.testimonials-track.is-paused {
+  animation-play-state: paused;
+}
+.testimonial-card {
+  width: min(85vw, var(--size-testimonial-card-w));
+  min-height: var(--size-testimonial-card-h);
+  padding: var(--space-lg);
+  border: 1px solid var(--bd);
+  background: var(--gray-20);
+  border-radius: var(--panel-radius);
+  backdrop-filter: blur(2px);
+}
+.testimonial-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-md);
+}
+.testimonial-avatar {
+  width: var(--avatar-md);
+  height: var(--avatar-md);
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--gray-180);
+  flex-shrink: 0;
+}
+.testimonial-name {
+  font-family: var(--ts-subheading-font);
+  font-size: var(--ts-subheading-size);
+  font-weight: var(--ts-subheading-weight);
+  line-height: var(--lh-tightest);
+  letter-spacing: var(--ts-subheading-letter);
+  text-transform: var(--ts-subheading-case);
+  color: var(--frost);
+  margin-bottom: var(--space-1);
+}
+.testimonial-role {
+  font-family: var(--ts-label-font);
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line);
+  letter-spacing: var(--ts-label-letter);
+  text-transform: var(--ts-label-case);
+  color: var(--silver);
+}
+.testimonial-quote {
+  font-family: var(--ts-body-font);
+  font-size: var(--ts-body-size);
+  font-weight: var(--ts-body-weight);
+  line-height: var(--ts-body-line);
+  letter-spacing: var(--ts-body-letter);
+  color: var(--ts-body-color);
+  text-wrap: pretty;
+}
+@keyframes testimonialsScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (min-width: 768px) {
+  .testimonials-section { padding: calc(var(--section-pad-y) + var(--space-6)) 0 calc(var(--section-pad-y) + var(--space-10)); }
+  .testimonials-track { gap: var(--space-xl); }
+  .testimonial-card {
+    width: var(--size-testimonial-card-w-lg);
+    min-height: var(--size-testimonial-card-h-lg);
+    padding: var(--space-5) var(--space-xl);
+  }
+  .testimonial-quote { font-size: var(--type-b1); }
+}
+</style>
+
+<style>
+/* ── JOURNEY SECTION (intro + liste; hover’da başlık altı metin) ── */
+.focus-list-section {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  height: calc((2 * var(--section-pad-y)) + var(--focus-journey-viewport-h));
+  max-height: calc((2 * var(--section-pad-y)) + var(--focus-journey-viewport-h));
+  flex-shrink: 0;
+  padding: var(--section-pad-y) var(--section-pad-x);
+  border-top: var(--border-soft);
+  border-bottom: var(--border-soft);
+  background: linear-gradient(180deg, var(--midnight) 0%, var(--gray-solid-deep) 100%);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.focus-list-inner {
+  width: var(--grid-shell-width);
+  max-width: var(--grid-shell-width);
+  margin: 0 auto;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.focus-list-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+  gap: var(--space-9);
+  text-align: left;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+.focus-list-container {
+  min-width: 0;
+}
+.focus-list-tag {
+  font-family: var(--ts-label-font);
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line);
+  letter-spacing: var(--ts-label-letter);
+  text-transform: var(--ts-label-case);
+  color: var(--silver);
+  display: block;
+  margin-bottom: var(--space-2);
+}
+.focus-list-heading {
+  font-family: var(--ts-heading-font);
+  font-size: var(--ts-heading-size);
+  font-weight: var(--ts-heading-weight);
+  line-height: var(--ts-heading-line);
+  letter-spacing: var(--ts-heading-letter);
+  text-transform: var(--ts-heading-case);
+  color: var(--frost);
+  text-wrap: balance;
+}
+.focus-list-note {
+  margin-top: var(--space-4);
+  max-width: 26ch;
+  font-family: var(--ts-body-font);
+  font-size: var(--ts-body-size);
+  font-weight: var(--ts-body-weight);
+  line-height: var(--ts-body-line);
+  letter-spacing: var(--ts-body-letter);
+  color: var(--gray-550);
+}
+
+.focus-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 var(--space-6);
+  /* flex-basis: 0% — içerik uzayınca taşma oluşsun; auto bazında ul büyür, scroll oluşmaz */
+  flex: 1 1 0%;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: auto;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+}
+.focus-list-container--direction {
+  max-width: 760px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+.focus-list-container--direction > .focus-list-tag,
+.focus-list-container--direction > .focus-list-heading {
+  flex-shrink: 0;
+}
+.focus-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.focus-item {
+  display: grid;
+  grid-template-columns: var(--space-8) minmax(0, 1fr);
+  column-gap: var(--space-6);
+  align-items: start;
+  min-height: 0;
+  padding: var(--space-5) clamp(4.5rem, 14vw, 8.5rem) var(--space-5) 0;
+  border-top: 1px solid var(--gray-120);
+  opacity: 1;
+  position: relative;
+  transition: opacity 340ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.focus-item:last-child {
+  border-bottom: 1px solid var(--gray-120);
+}
+.focus-number {
+  align-self: start;
+  padding-top: var(--space-0);
+  font-family: var(--ts-label-font);
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line);
+  letter-spacing: var(--ts-label-letter);
+  text-transform: var(--ts-label-case);
+  color: var(--gray-550);
+}
+.focus-title {
+  font-family: var(--ts-subheading-font);
+  font-size: var(--ts-subheading-size);
+  font-weight: var(--ts-subheading-weight);
+  line-height: var(--ts-subheading-line);
+  letter-spacing: var(--ts-subheading-letter);
+  text-transform: var(--ts-subheading-case);
+  color: var(--frost);
+}
+/* Akış içi: açılınca alt satırlar aşağı kayar; shell = yumuşak yükseklik animasyonu */
+.focus-dropdown-shell {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.focus-item:hover .focus-dropdown-shell,
+.focus-item:focus-within .focus-dropdown-shell {
+  grid-template-rows: 1fr;
+}
+.focus-list.is-touch .focus-dropdown-shell {
+  grid-template-rows: 0fr;
+}
+.focus-list.is-touch .focus-item.is-active .focus-dropdown-shell {
+  grid-template-rows: 1fr;
+}
+.focus-dropdown {
+  min-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(calc(-1 * var(--space-2)));
+  pointer-events: none;
+  margin-top: var(--space-2);
+  padding-top: var(--space-3);
+  padding-bottom: var(--space-4);
+  border-top: 1px solid var(--gray-120);
+  background: var(--midnight);
+  transition:
+    opacity 400ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 440ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.focus-lede {
+  margin: 0;
+}
+.focus-lede p {
+  margin: 0;
+  font-family: var(--ts-body-font);
+  font-size: var(--ts-body-size);
+  font-weight: var(--ts-body-weight);
+  line-height: var(--ts-body-line);
+  letter-spacing: var(--ts-body-letter);
+  color: var(--gray-650);
+  text-wrap: pretty;
+}
+.focus-lede p + p {
+  margin-top: var(--space-1);
+}
+.focus-dropdown .focus-cta {
+  margin-top: var(--space-3);
+}
+.focus-item:hover .focus-dropdown,
+.focus-item:focus-within .focus-dropdown {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Touch: yalnızca aktif satır açık (dropdown / accordion) */
+.focus-list.is-touch .focus-dropdown {
+  opacity: 0;
+  transform: translateY(calc(-1 * var(--space-2)));
+  pointer-events: none;
+}
+.focus-list.is-touch .focus-item.is-active .focus-dropdown {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.focus-cta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  font-family: var(--ts-body-font);
+  font-size: var(--ts-body-size);
+  font-weight: var(--ts-body-weight);
+  line-height: var(--ts-body-line);
+  letter-spacing: var(--ts-body-letter);
+  color: var(--gray-700);
+  text-decoration: none;
+  transform: translateX(-8px);
+  opacity: 0;
+  transition:
+    max-height 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    min-height 320ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    color 220ms var(--ease-standard);
+}
+.focus-cta.focus-cta-desktop {
+  position: absolute;
+  right: 0;
+  top: var(--space-5);
+  max-height: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+.focus-item:hover .focus-cta,
+.focus-item:focus-within .focus-cta,
+.focus-item.is-active .focus-cta {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--frost);
+}
+.focus-item:hover .focus-cta.focus-cta-desktop,
+.focus-item:focus-within .focus-cta.focus-cta-desktop,
+.focus-item.is-active .focus-cta.focus-cta-desktop {
+  max-height: 4rem;
+  min-height: 48px;
+  overflow: visible;
+}
+.focus-cta:not(.focus-cta-desktop) {
+  display: none;
+}
+.focus-list:hover .focus-item {
+  opacity: 0.28;
+}
+.focus-list:hover .focus-item:hover,
+.focus-item.is-active {
+  opacity: 1;
+}
+.focus-cta:focus-visible {
+  outline: 1px solid var(--gray-700);
+  outline-offset: 3px;
+}
+
+@media (min-width: 900px) {
+  .focus-list-grid {
+    grid-template-columns: minmax(0, 0.4fr) minmax(0, 1fr);
+    grid-template-rows: 1fr;
+    column-gap: clamp(var(--space-8), 5vw, var(--space-12));
+    align-items: stretch;
+  }
+  .focus-list-container--recognition {
+    align-self: start;
+  }
+}
+
+@media (max-width: 899px) {
+  .focus-list-note {
+    max-width: 42ch;
+  }
+}
+
+@media (max-width: 768px) {
+  .focus-list-section {
+    padding: calc(var(--section-pad-y) - var(--space-2)) var(--section-pad-x) var(--section-pad-y);
+    --focus-journey-viewport-h: var(--focus-journey-viewport-h-mobile);
+    height: calc((2 * var(--section-pad-y)) - var(--space-2) + var(--focus-journey-viewport-h));
+    max-height: calc((2 * var(--section-pad-y)) - var(--space-2) + var(--focus-journey-viewport-h));
+  }
+  .focus-item {
+    grid-template-columns: var(--space-6) minmax(0, 1fr);
+    column-gap: var(--space-4);
+    padding: var(--space-5) 0;
+  }
+  .focus-cta-desktop {
+    display: none;
+  }
+  .focus-cta:not(.focus-cta-desktop) {
+    display: inline-flex;
+    transform: translateX(0);
+    opacity: 0.85;
+    transition: opacity 320ms cubic-bezier(0.16, 1, 0.3, 1), color 220ms var(--ease-standard);
+  }
+  .focus-list:hover .focus-item,
+  .focus-list:hover .focus-item:hover {
+    opacity: 1;
+  }
+  .focus-list.is-touch .focus-item {
+    opacity: 0.35;
+  }
+  .focus-list.is-touch .focus-item.is-active {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .focus-item,
+  .focus-cta,
+  .focus-dropdown,
+  .focus-dropdown-shell {
+    transition: none;
+  }
+  .focus-dropdown-shell,
+  .focus-list.is-touch .focus-dropdown-shell {
+    grid-template-rows: 1fr;
+  }
+  .focus-dropdown,
+  .focus-list.is-touch .focus-dropdown {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    overflow: visible;
+  }
+  .focus-cta.focus-cta-desktop {
+    max-height: none;
+    min-height: 48px;
+    overflow: visible;
+    opacity: 1;
+    transform: none;
+  }
+  .focus-cta:not(.focus-cta-desktop) {
+    opacity: 0.85;
+  }
+}
+</style>
+
+<section class="focus-list-section" id="journey-focus" aria-labelledby="focus-heading-recognition focus-heading-direction">
+  <div class="focus-list-inner">
+    <div class="focus-list-grid">
+      <div class="focus-list-container focus-list-container--recognition">
+        <span class="focus-list-tag">Tanıma</span>
+        <h2 class="focus-list-heading" id="focus-heading-recognition">Neredesin?</h2>
+        <p class="focus-list-note">Markanın şu anki evresini tanımla. Sonraki adım, doğru sistemle kontrollü biçimde ilerlemek.</p>
+      </div>
+      <div class="focus-list-container focus-list-container--direction">
+        <span class="focus-list-tag">Yönlendirme</span>
+        <h3 class="focus-list-heading" id="focus-heading-direction">Buradan nereye gidiyorsun?</h3>
+        <ul class="focus-list" id="focusList">
+          <li class="focus-item" data-focus-item>
+            <span class="focus-number">01</span>
+            <div class="focus-copy">
+              <h4 class="focus-title">Starting from zero</h4>
+              <div class="focus-dropdown-shell">
+                <div class="focus-dropdown">
+                  <div class="focus-lede">
+                    <p>You have an idea, but everything still feels scattered. No identity, no system, nothing solid to build on.</p>
+                    <p>A clear brand identity, a consistent visual language, and a system that works across every place you show up.</p>
+                  </div>
+                  <a class="focus-cta" href="#contact">Start here →</a>
+                </div>
+              </div>
+            </div>
+            <a class="focus-cta focus-cta-desktop" href="#contact">Start here →</a>
+          </li>
+          <li class="focus-item" data-focus-item>
+            <span class="focus-number">02</span>
+            <div class="focus-copy">
+              <h4 class="focus-title">Ready to scale</h4>
+              <div class="focus-dropdown-shell">
+                <div class="focus-dropdown">
+                  <div class="focus-lede">
+                    <p>Your product is working, but your brand is holding you back. You're growing, but it doesn't feel controlled.</p>
+                    <p>A brand that matches the business you've become. Consistent, intentional, and ready for the next stage.</p>
+                  </div>
+                  <a class="focus-cta" href="#contact">Get in control →</a>
+                </div>
+              </div>
+            </div>
+            <a class="focus-cta focus-cta-desktop" href="#contact">Get in control →</a>
+          </li>
+          <li class="focus-item" data-focus-item>
+            <span class="focus-number">03</span>
+            <div class="focus-copy">
+              <h4 class="focus-title">Need visibility</h4>
+              <div class="focus-dropdown-shell">
+                <div class="focus-dropdown">
+                  <div class="focus-lede">
+                    <p>You're doing serious work, but it's not seen that way. The perception doesn't match the level you operate at.</p>
+                    <p>A presence that speaks before you do. So when the right people find you, they immediately understand the level you're at.</p>
+                  </div>
+                  <a class="focus-cta" href="#contact">Change perception →</a>
+                </div>
+              </div>
+            </div>
+            <a class="focus-cta focus-cta-desktop" href="#contact">Change perception →</a>
+          </li>
+          <li class="focus-item" data-focus-item>
+            <span class="focus-number">04</span>
+            <div class="focus-copy">
+              <h4 class="focus-title">Outdated identity</h4>
+              <div class="focus-dropdown-shell">
+                <div class="focus-dropdown">
+                  <div class="focus-lede">
+                    <p>Your brand got you here, but it won't take you further. It feels dated, inconsistent, and out of sync.</p>
+                    <p>A brand rebuilt for where you're going. Keeping what still works, replacing what holds you back.</p>
+                  </div>
+                  <a class="focus-cta" href="#contact">Evolve the brand →</a>
+                </div>
+              </div>
+            </div>
+            <a class="focus-cta focus-cta-desktop" href="#contact">Evolve the brand →</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCENE SECTION -->
+<section class="scene-section">
+  <div class="scene-label">
+    <span class="scene-section-tag">Selected Work</span>
+    <h3 class="scene-section-title">Projects</h3>
+  </div>
+
+  <div class="scene" id="scene" hidden>
+    <!-- Karartılmış arka plan görseli -->
+    <div class="scene-bg-dim"></div>
+    <!-- Aynı görsel, kadraj clip-path ile -->
+    <div class="scene-bg-bright" id="sceneBright"></div>
+
+    <div class="hint">Formatı seç · Fareyi gezdir</div>
+
+    <!-- Kadraj çerçevesi -->
+    <div class="kadraj-cursor" id="kadrajCursor">
+      <div class="kadraj-frame" id="kadrajFrame">
+        <div class="corner tl"></div>
+        <div class="corner tr"></div>
+        <div class="corner bl"></div>
+        <div class="corner br"></div>
+        <div class="kadraj-grid-line-v" style="left:33.3%"></div>
+        <div class="kadraj-grid-line-v" style="left:66.6%"></div>
+        <div class="kadraj-grid-line-h" style="top:33.3%"></div>
+        <div class="kadraj-grid-line-h" style="top:66.6%"></div>
+        <div class="kadraj-label" id="kadrajLabel">1:1 Post</div>
+      </div>
+    </div>
+
+    <!-- Post önizleme kartı -->
+    <div class="post-preview" id="postPreview">
+      <div class="post-card">
+        <div class="post-header">
+          <div class="post-avatar"></div>
+          <div>
+            <div class="post-username">marker™</div>
+            <div class="post-handle">@markerpackaging</div>
+          </div>
+        </div>
+        <div class="post-image-area" id="postImageArea">
+          <div class="post-image-crop"></div>
+        </div>
+        <div class="post-footer">
+          <div class="post-actions">
+            <div class="post-action-icon"></div>
+            <div class="post-action-icon"></div>
+            <div class="post-action-icon"></div>
+          </div>
+          <div class="post-caption" id="previewCaption">
+            <strong>Feed post</strong> — kare formatta net ve tutarlı bir marka kimliği.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="format-pills">
+      <div class="format-pill active" data-format="square">1:1 Post</div>
+      <div class="format-pill" data-format="story">9:16 Story</div>
+      <div class="format-pill" data-format="landscape">16:9 Banner</div>
+      <div class="format-pill" data-format="portrait">4:5 Portrait</div>
+    </div>
+  </div>
+
+  <div class="featured-works" aria-label="Featured works list">
+    <article class="featured-work-card">
+      <a class="featured-work-hit" href="#" aria-label="View case study — Marker Packaging System"></a>
+      <div class="featured-work-media featured-work-media-1" aria-hidden="true"></div>
+      <div class="featured-work-meta">
+        <div class="featured-work-head">
+          <h4 class="featured-work-title">Marker Packaging System</h4>
+          <p class="featured-work-category">Brand Identity · Social</p>
+        </div>
+        <span class="featured-work-cta">View case study →</span>
+      </div>
+    </article>
+
+    <article class="featured-work-card">
+      <a class="featured-work-hit" href="#" aria-label="View case study — Labraunda Journal"></a>
+      <div class="featured-work-media featured-work-media-2" aria-hidden="true"></div>
+      <div class="featured-work-meta">
+        <div class="featured-work-head">
+          <h4 class="featured-work-title">Labraunda Journal</h4>
+          <p class="featured-work-category">Editorial Design</p>
+        </div>
+        <span class="featured-work-cta">View case study →</span>
+      </div>
+    </article>
+
+    <article class="featured-work-card">
+      <a class="featured-work-hit" href="#" aria-label="View case study — Roots Travel Brand"></a>
+      <div class="featured-work-media featured-work-media-3" aria-hidden="true"></div>
+      <div class="featured-work-meta">
+        <div class="featured-work-head">
+          <h4 class="featured-work-title">Roots Travel Brand</h4>
+          <p class="featured-work-category">D2C Identity</p>
+        </div>
+        <span class="featured-work-cta">View case study →</span>
+      </div>
+    </article>
+
+    <article class="featured-work-card">
+      <a class="featured-work-hit" href="#" aria-label="View case study — Cloud Vault Product Line"></a>
+      <div class="featured-work-media featured-work-media-4" aria-hidden="true"></div>
+      <div class="featured-work-meta">
+        <div class="featured-work-head">
+          <h4 class="featured-work-title">Cloud Vault Product Line</h4>
+          <p class="featured-work-category">Packaging Design</p>
+        </div>
+        <span class="featured-work-cta">View case study →</span>
+      </div>
+    </article>
+
+    <article class="featured-work-card">
+      <a class="featured-work-hit" href="#" aria-label="View case study — Levantenler Launch Sprint"></a>
+      <div class="featured-work-media featured-work-media-5" aria-hidden="true"></div>
+      <div class="featured-work-meta">
+        <div class="featured-work-head">
+          <h4 class="featured-work-title">Levantenler Launch Sprint</h4>
+          <p class="featured-work-category">Campaign Design</p>
+        </div>
+        <span class="featured-work-cta">View case study →</span>
+      </div>
+    </article>
+  </div>
+  <p class="featured-work-cursor-hint" id="featuredWorkCursorHint" aria-hidden="true">See case study</p>
+</section>
+
+<style>
+/* ── SCENE SECTION ── */
+.scene-section {
+  min-height: 100vh;
+  background: var(--midnight);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--section-pad-y) var(--section-pad-x);
+  gap: calc(var(--space-10) + var(--space-2));
+  position: relative;
+  z-index: 1;
+}
+.scene-label {
+  width: var(--grid-shell-width);
+  max-width: var(--grid-shell-width);
+  text-align: left;
+  transition: filter .2s cubic-bezier(0.4,0,0.2,1), opacity .2s cubic-bezier(0.4,0,0.2,1);
+}
+.scene-section-tag {
+  font-family: var(--ts-label-font);
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line);
+  letter-spacing: var(--ts-label-letter);
+  text-transform: var(--ts-label-case);
+  color: var(--silver);
+}
+.scene-section-title {
+  font-family: var(--ts-heading-font);
+  font-size: var(--ts-heading-size);
+  font-weight: var(--ts-heading-weight);
+  line-height: var(--ts-heading-line);
+  letter-spacing: var(--ts-heading-letter);
+  text-transform: var(--ts-heading-case);
+  color: var(--frost);
+  margin-top: var(--space-2);
+}
+
+.scene {
+  position: relative;
+  width: var(--grid-shell-width);
+  max-width: var(--grid-shell-width);
+  height: var(--size-scene-h);
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  cursor: none;
+  background: var(--gray-solid-void);
+  user-select: none;
+  transition: filter .2s cubic-bezier(0.4,0,0.2,1), opacity .2s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* Karartılmış arka plan */
+.scene-bg-dim {
+  position: absolute;
+  inset: 0;
+  background-image: url('link/11-Post-Pro-V2.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.25;
+  z-index: 0;
+}
+
+/* Parlak katman — clip-path ile sadece kadraj içi görünür */
+.scene-bg-bright {
+  position: absolute;
+  inset: 0;
+  background-image: url('link/11-Post-Pro-V2.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  z-index: 1;
+  clip-path: inset(50% 50% 50% 50%);
+  transition: clip-path 0.05s linear, opacity 0.2s;
+  pointer-events: none;
+}
+.scene:hover .scene-bg-bright { opacity: 1; }
+
+.hint {
+  position: absolute;
+  top: 1.5rem; left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--ts-label-font);
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line);
+  letter-spacing: var(--ts-label-letter);
+  text-transform: var(--ts-label-case);
+  color: var(--gray-300);
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity var(--dur-base);
+  z-index: 5;
+}
+.scene:hover .hint { opacity: 0; }
+
+/* Kadraj imleci */
+.kadraj-cursor {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--dur-fast);
+  z-index: 3;
+}
+.scene:hover .kadraj-cursor { opacity: 1; }
+
+.kadraj-frame {
+  position: relative;
+  width: var(--size-kadraj); height: var(--size-kadraj);
+  transform: translate(-50%, -50%);
+  transition: width 0.25s ease, height 0.25s ease;
+}
+.corner {
+  position: absolute;
+  width: var(--size-corner); height: var(--size-corner);
+}
+.corner::before, .corner::after {
+  content: '';
+  position: absolute;
+  background: var(--gray-1000);
+}
+.corner::before { width: 100%; height: var(--size-line-thin); top: 0; left: 0; }
+.corner::after  { width: var(--size-line-thin); height: 100%; top: 0; left: 0; }
+.corner.tl { top: 0; left: 0; }
+.corner.tr { top: 0; right: 0; transform: scaleX(-1); }
+.corner.bl { bottom: 0; left: 0; transform: scaleY(-1); }
+.corner.br { bottom: 0; right: 0; transform: scale(-1); }
+
+.kadraj-grid-line-v {
+  position: absolute; top: 0; bottom: 0;
+  width: var(--size-line-fine); background: var(--gray-200);
+}
+.kadraj-grid-line-h {
+  position: absolute; left: 0; right: 0;
+  height: var(--size-line-fine); background: var(--gray-200);
+}
+.kadraj-label {
+  position: absolute;
+  bottom: var(--size-kadraj-label-bottom); left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: var(--ts-label-font);
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line);
+  letter-spacing: var(--ts-label-letter);
+  text-transform: var(--ts-label-case);
+  color: var(--gray-600);
+}
+
+/* Post önizleme kartı */
+.post-preview {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s, transform 0.25s;
+  transform: translateY(6px);
+  z-index: 10;
+}
+.post-preview.show { opacity: 1; transform: translateY(0); }
+
+.post-card {
+  width: var(--size-post-card-w);
+  background: var(--gray-solid-elevated);
+  border-radius: var(--panel-radius);
+  overflow: hidden;
+  border: 0.5px solid var(--gray-120);
+  box-shadow: 0 20px 60px var(--gray-scrim-600);
+}
+.post-header {
+  display: flex; align-items: center; gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-bottom: var(--size-line-fine) solid var(--gray-80);
+}
+.post-avatar {
+  width: var(--avatar-sm); height: var(--avatar-sm); border-radius: 50%;
+  background: linear-gradient(135deg, var(--purple), var(--color-surface));
+  flex-shrink: 0;
+}
+.post-username {
+  font-family: var(--ts-body-sm-font);
+  font-size: var(--ts-body-sm-size);
+  font-weight: 500;
+  line-height: var(--ts-body-sm-line);
+  letter-spacing: var(--ts-body-sm-letter);
+  color: var(--gray-900);
+}
+.post-handle {
+  font-family: var(--ts-body-sm-font);
+  font-size: var(--ts-body-sm-size);
+  font-weight: var(--ts-body-sm-weight);
+  line-height: var(--ts-body-sm-line);
+  letter-spacing: var(--ts-body-sm-letter);
+  color: var(--gray-350);
+}
+
+.post-image-area {
+  width: 100%; aspect-ratio: 1;
+  position: relative; overflow: hidden;
+  transition: aspect-ratio 0.25s ease;
+}
+.post-image-crop {
+  position: absolute; inset: 0;
+  background-image: url('link/11-Post-Pro-V2.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.post-footer { padding: var(--space-2) var(--space-3) var(--space-3); }
+.post-actions { display: flex; gap: var(--space-3); margin-bottom: var(--space-2); }
+.post-action-icon {
+  width: var(--size-action-icon); height: var(--size-action-icon); border-radius: var(--radius-xs);
+  background: var(--gray-200);
+}
+.post-caption {
+  font-family: var(--ts-body-sm-font);
+  font-size: var(--ts-body-sm-size);
+  font-weight: var(--ts-body-sm-weight);
+  line-height: var(--ts-body-sm-line);
+  letter-spacing: var(--ts-body-sm-letter);
+  color: var(--gray-400);
+}
+.post-caption strong { color: var(--gray-800); font-weight: 500; }
+
+/* Format pilleri */
+.format-pills {
+  position: absolute;
+  bottom: 1.5rem; left: 50%;
+  transform: translateX(-50%);
+  display: flex; gap: var(--space-xs);
+  pointer-events: all; z-index: 20;
+}
+.format-pill {
+  font-family: var(--ts-label-font);
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line);
+  letter-spacing: var(--ts-label-letter);
+  text-transform: var(--ts-label-case);
+  color: var(--gray-500);
+  border: 0.5px solid var(--gray-150);
+  padding: var(--space-xxs) var(--space-md); border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--gray-scrim-600);
+  white-space: nowrap;
+}
+.format-pill:hover, .format-pill.active {
+  color: var(--gray-1000);
+  border-color: var(--gray-500);
+  background: var(--gray-100);
+}
+
+.featured-works {
+  width: var(--grid-shell-width);
+  max-width: var(--grid-shell-width);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--panel-gap);
+}
+.featured-work-card {
+  position: relative;
+  border: 1px solid var(--bd);
+  border-radius: var(--panel-radius);
+  padding: var(--panel-pad);
+  background: var(--gray-20);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  transition: filter .2s cubic-bezier(0.4,0,0.2,1), opacity .2s cubic-bezier(0.4,0,0.2,1);
+}
+.featured-work-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-3);
+  width: 100%;
+}
+.featured-work-hit {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  text-decoration: none;
+  color: transparent;
+}
+.featured-work-hit:focus-visible {
+  outline: 2px solid var(--purple);
+  outline-offset: 2px;
+}
+.featured-work-card:hover {
+  z-index: 2;
+}
+.featured-work-media {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--space-sm);
+  border: none;
+  outline: none;
+  box-shadow: none;
+  position: relative;
+  overflow: hidden;
+  /* Kart dolgusu ile aynı: köşe anti-alias’te açık halka oluşmasın */
+  background-color: var(--gray-20);
+  background-size: cover;
+  background-position: center;
+  background-clip: padding-box;
+}
+.featured-work-media-1 { background-image: url("assets/featured-1.png"); }
+.featured-work-media-2 { background-image: url("assets/featured-2.png"); }
+.featured-work-media-3 { background-image: url("assets/featured-3.png"); }
+.featured-work-media-4 { background-image: url("assets/featured-4.png"); }
+.featured-work-media-5 { background-image: url("assets/featured-5.png"); }
+.featured-work-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  column-gap: var(--space-4);
+  row-gap: var(--space-2);
+  width: 100%;
+}
+.featured-work-category {
+  font-family: var(--ts-label-font);
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line);
+  letter-spacing: var(--ts-label-letter);
+  text-transform: var(--ts-label-case);
+  color: var(--silver);
+  text-align: right;
+  margin: 0;
+  justify-self: end;
+  max-width: min(100%, calc(5 * var(--space-10)));
+}
+.featured-work-title {
+  font-family: var(--ts-button-font);
+  font-size: var(--ts-button-size);
+  font-weight: var(--ts-button-weight);
+  line-height: var(--ts-button-line);
+  letter-spacing: var(--ts-button-letter);
+  text-transform: var(--ts-button-case);
+  color: var(--frost);
+  margin: 0;
+  min-width: 0;
+}
+.featured-work-cta {
+  position: relative;
+  z-index: 0;
+  margin: 0;
+  font-family: var(--ts-label-font);
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line);
+  letter-spacing: var(--ts-label-letter);
+  text-transform: var(--ts-label-case);
+  color: var(--purple);
+  pointer-events: none;
+  align-self: flex-start;
+  padding-block: var(--space-0);
+}
+.featured-work-card:hover .featured-work-cta { color: var(--frost); }
+
+.featured-work-cursor-hint {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9998;
+  margin: 0;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+  padding: var(--space-xs) var(--space-3);
+  border: 1px solid var(--purple);
+  border-radius: var(--radius-xs);
+  background: var(--purple);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-family: var(--ts-label-font);
+  font-size: var(--ts-label-size);
+  font-weight: var(--ts-label-weight);
+  line-height: var(--ts-label-line);
+  letter-spacing: var(--ts-label-letter);
+  text-transform: var(--ts-label-case);
+  color: var(--frost);
+  white-space: nowrap;
+  box-shadow: 0 8px 24px var(--gray-scrim-600);
+}
+.featured-work-cursor-hint.is-visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Featured grid: üstte ⅔ + ⅓, altta üç eşit (12 sütun / shell ile hizalı) */
+@media (min-width: 700px) {
+  .featured-works {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: var(--space-md);
+    align-items: start;
+  }
+  .featured-work-card { padding: var(--panel-pad-lg); }
+  .featured-work-card:nth-child(1) { grid-column: 1 / span 4; }
+  .featured-work-card:nth-child(2) { grid-column: 5 / span 2; }
+  .featured-work-card:nth-child(3) { grid-column: 1 / span 2; }
+  .featured-work-card:nth-child(4) { grid-column: 3 / span 2; }
+  .featured-work-card:nth-child(5) { grid-column: 5 / span 2; }
+}
+
+@media (min-width: 1024px) {
+  .featured-works {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--panel-gap);
+  }
+  .featured-work-card:nth-child(1) { grid-column: 1 / span 8; }
+  .featured-work-card:nth-child(2) { grid-column: 9 / span 4; }
+  .featured-work-card:nth-child(3) { grid-column: 1 / span 4; }
+  .featured-work-card:nth-child(4) { grid-column: 5 / span 4; }
+  .featured-work-card:nth-child(5) { grid-column: 9 / span 4; }
+}
+</style>
+
+<script>
+(function () {
+  var grid = document.querySelector('.featured-works');
+  var hint = document.getElementById('featuredWorkCursorHint');
+  if (!grid || !hint) return;
+
+  var padX = 14;
+  var padY = 14;
+  var active = false;
+
+  function place(e) {
+    hint.style.left = (e.clientX + padX) + 'px';
+    hint.style.top = (e.clientY + padY) + 'px';
+    var rect = hint.getBoundingClientRect();
+    var vw = window.innerWidth;
+    var vh = window.innerHeight;
+    if (rect.right > vw - 8) {
+      hint.style.left = Math.max(8, e.clientX - rect.width - padX) + 'px';
+    }
+    if (rect.bottom > vh - 8) {
+      hint.style.top = Math.max(8, e.clientY - rect.height - padY) + 'px';
+    }
+  }
+
+  grid.addEventListener('mousemove', function (e) {
+    var card = e.target.closest('.featured-work-card');
+    if (!card) {
+      if (active) {
+        active = false;
+        hint.classList.remove('is-visible');
+        hint.setAttribute('aria-hidden', 'true');
+      }
+      return;
+    }
+    if (!active) {
+      active = true;
+      hint.classList.add('is-visible');
+      hint.setAttribute('aria-hidden', 'false');
+    }
+    place(e);
+  });
+
+  grid.addEventListener('mouseleave', function () {
+    active = false;
+    hint.classList.remove('is-visible');
+    hint.setAttribute('aria-hidden', 'true');
+  });
+})();
+
+(function () {
+  var wrap = document.querySelector('.fan-wrap');
+  var el = document.getElementById('heroPortfolioCursor');
+  var textEl = el && el.querySelector('.hero-portfolio-cursor__text');
+  if (!wrap || !el || !textEl) return;
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var mq = window.matchMedia('(min-width: 601px) and (pointer: fine)');
+
+  var rootStyle = getComputedStyle(document.documentElement);
+  function readLerp() {
+    var v = parseFloat(rootStyle.getPropertyValue('--hero-portfolio-cursor-lerp').trim());
+    return v > 0 && v < 1 ? v : 0.16;
+  }
+
+  var targetX = 0;
+  var targetY = 0;
+  var posX = 0;
+  var posY = 0;
+  var visible = false;
+  var rafId = 0;
+  var lastCard = null;
+
+  function setTransform() {
+    el.style.transform =
+      'translate3d(' + posX.toFixed(2) + 'px,' + posY.toFixed(2) + 'px,0) translate(-50%,-50%)';
+  }
+
+  function stepLerp() {
+    var k = readLerp();
+    posX += (targetX - posX) * k;
+    posY += (targetY - posY) * k;
+    setTransform();
+    var dist = Math.hypot(targetX - posX, targetY - posY);
+    if (dist > 0.12) {
+      rafId = requestAnimationFrame(stepLerp);
+    } else {
+      rafId = 0;
+    }
+  }
+
+  function kickLerp() {
+    if (!rafId) rafId = requestAnimationFrame(stepLerp);
+  }
+
+  function hideCursor() {
+    visible = false;
+    lastCard = null;
+    el.classList.remove('is-active');
+    el.setAttribute('aria-hidden', 'true');
+  }
+
+  wrap.addEventListener('mousemove', function (e) {
+    if (!mq.matches) return;
+    targetX = e.clientX;
+    targetY = e.clientY;
+
+    var card = e.target.closest('.fan-wrap .card');
+    if (!card) {
+      if (visible) hideCursor();
+      kickLerp();
+      return;
+    }
+
+    var nameEl = card.querySelector('.card-label-name');
+    var raw = nameEl && nameEl.textContent ? nameEl.textContent.trim() : '';
+    if (!raw) {
+      if (visible) hideCursor();
+      kickLerp();
+      return;
+    }
+
+    var label = 'Explore ' + raw;
+    if (label !== textEl.textContent) textEl.textContent = label;
+
+    if (card !== lastCard) {
+      lastCard = card;
+      if (!visible) {
+        posX = targetX;
+        posY = targetY;
+        setTransform();
+      }
+    }
+
+    if (!visible) {
+      visible = true;
+      el.classList.add('is-active');
+      el.setAttribute('aria-hidden', 'false');
+      kickLerp();
+    } else {
+      kickLerp();
+    }
+  });
+
+  wrap.addEventListener('mouseleave', function () {
+    if (!mq.matches) return;
+    if (visible) hideCursor();
+    kickLerp();
+  });
+})();
+</script>
+
+<script>
+(function () {
+  var isTouch = window.matchMedia('(hover: none)').matches;
+  if (!isTouch) return;
+
+  var list = document.getElementById('focusList');
+  if (!list) return;
+
+  var items = list.querySelectorAll('[data-focus-item]');
+  if (!items.length) return;
+
+  function activate(item) {
+    for (var i = 0; i < items.length; i++) {
+      items[i].classList.toggle('is-active', items[i] === item);
+    }
+  }
+
+  list.classList.add('is-touch');
+  activate(items[0]);
+
+  for (var j = 0; j < items.length; j++) {
+    items[j].addEventListener('click', function () {
+      if (this.classList.contains('is-active')) return;
+      activate(this);
+    });
+  }
+})();
+</script>
+
+<script>
+(function() {
+  var scene     = document.getElementById('scene');
+  var bright    = document.getElementById('sceneBright');
+  var cursor    = document.getElementById('kadrajCursor');
+  var frame     = document.getElementById('kadrajFrame');
+  var preview   = document.getElementById('postPreview');
+  var label     = document.getElementById('kadrajLabel');
+  var caption   = document.getElementById('previewCaption');
+  var imgArea   = document.getElementById('postImageArea');
+  var imgCrop   = imgArea ? imgArea.querySelector('.post-image-crop') : null;
+  var bgImage   = new Image();
+  bgImage.src   = 'link/11-Post-Pro-V2.jpg';
+
+  if (!scene) return;
+
+  var formats = {
+    square:    { fw: 160, fh: 160, label: '1:1 Post',    ar: '1 / 1',   caption: '<strong>Feed post</strong> — kare formatta net ve tutarlı bir marka kimliği.' },
+    story:     { fw: 90,  fh: 160, label: '9:16 Story',  ar: '9 / 16',  caption: '<strong>Story</strong> — tam ekran deneyim, 24 saatte iz bırak.' },
+    landscape: { fw: 200, fh: 113, label: '16:9 Banner', ar: '16 / 9',  caption: '<strong>Banner</strong> — LinkedIn cover ve YouTube thumbnail için tasarlandı.' },
+    portrait:  { fw: 130, fh: 163, label: '4:5 Portrait',ar: '4 / 5',   caption: '<strong>Portrait</strong> — feed\'de en fazla alan kaplayan, dikkat çeken format.' }
+  };
+
+  var current = 'square';
+  var mx = 450, my = 260;
+
+  function updateClip() {
+    var f   = formats[current];
+    var r   = scene.getBoundingClientRect();
+    var hw  = f.fw / 2;
+    var hh  = f.fh / 2;
+    var top    = Math.max(0, my - hh);
+    var left   = Math.max(0, mx - hw);
+    var bottom = Math.max(0, r.height - Math.min(r.height, my + hh));
+    var right  = Math.max(0, r.width  - Math.min(r.width,  mx + hw));
+    bright.style.clipPath = 'inset(' + top + 'px ' + right + 'px ' + bottom + 'px ' + left + 'px)';
+
+    // Post kartı: kadrajlanan alanı göster
+    if (imgCrop) {
+      var sceneW = r.width;
+      var sceneH = r.height;
+      var cardW  = 220;
+      var scale  = cardW / f.fw;
+      var cropL  = Math.max(0, mx - hw);
+      var cropT  = Math.max(0, my - hh);
+      var iw     = bgImage.naturalWidth || sceneW;
+      var ih     = bgImage.naturalHeight || sceneH;
+      var cover  = Math.max(sceneW / iw, sceneH / ih);
+      var bgW    = iw * cover;
+      var bgH    = ih * cover;
+      var offX   = (sceneW - bgW) / 2;
+      var offY   = (sceneH - bgH) / 2;
+
+      // Keep the same "cover" projection as the scene to avoid distortion.
+      imgCrop.style.backgroundSize     = (bgW * scale) + 'px ' + (bgH * scale) + 'px';
+      imgCrop.style.backgroundPosition = ((offX - cropL) * scale) + 'px ' + ((offY - cropT) * scale) + 'px';
+    }
+  }
+
+  function applyFormat(key) {
+    var f = formats[key];
+    frame.style.width  = f.fw + 'px';
+    frame.style.height = f.fh + 'px';
+    label.textContent  = f.label;
+    caption.innerHTML  = f.caption;
+    imgArea.style.aspectRatio = f.ar;
+    current = key;
+    updateClip();
+  }
+
+  scene.addEventListener('mousemove', function(e) {
+    var r  = scene.getBoundingClientRect();
+    mx = e.clientX - r.left;
+    my = e.clientY - r.top;
+
+    cursor.style.left = mx + 'px';
+    cursor.style.top  = my + 'px';
+    updateClip();
+
+    var f  = formats[current];
+    var pw = 220, ph = 320;
+    var px = mx + f.fw / 2 + 20;
+    var py = my - ph / 2;
+
+    if (px + pw > r.width - 10)  px = mx - f.fw / 2 - pw - 20;
+    if (py < 10)                  py = 10;
+    if (py + ph > r.height - 10) py = r.height - ph - 10;
+
+    preview.style.left = px + 'px';
+    preview.style.top  = py + 'px';
+    preview.classList.add('show');
+  });
+
+  scene.addEventListener('mouseleave', function() {
+    preview.classList.remove('show');
+  });
+
+  document.querySelectorAll('.format-pill').forEach(function(pill) {
+    pill.addEventListener('click', function() {
+      document.querySelectorAll('.format-pill').forEach(function(p) { p.classList.remove('active'); });
+      pill.classList.add('active');
+      applyFormat(pill.dataset.format);
+    });
+  });
+
+  applyFormat('square');
+})();
+
+/* Testimonials auto-slide (pause on hover/touch/pointer) */
+(function () {
+  var marquee = document.getElementById('testimonialsMarquee');
+  var track = document.getElementById('testimonialsTrack');
+  if (!marquee || !track || track.children.length < 2) return;
+
+  track.innerHTML += track.innerHTML;
+
+  function pause() {
+    track.classList.add('is-paused');
+  }
+
+  function play() {
+    track.classList.remove('is-paused');
+  }
+
+  marquee.addEventListener('pointerenter', pause);
+  marquee.addEventListener('pointerleave', play);
+  marquee.addEventListener('pointerdown', pause);
+  marquee.addEventListener('pointerup', play);
+  marquee.addEventListener('pointercancel', play);
+})();
+
+/* ── MOBILE: 3D silindir carousel (lerp + touch/mouse) ── */
+(function () {
+  var cylinder = document.getElementById('heroCylinder');
+  var scene    = document.getElementById('carouselScene');
+  var dotsRoot = document.getElementById('cylinderDeckDots');
+  if (!cylinder || !scene || !dotsRoot) return;
+
+  var cards = Array.from(cylinder.querySelectorAll('.card'));
+  var dots  = Array.from(dotsRoot.querySelectorAll('.dot'));
+  var total = cards.length;
+  if (!total) return;
+
+  var rootStyle = getComputedStyle(document.documentElement);
+  var shadowCylinder = rootStyle.getPropertyValue('--shadow-cylinder-card').trim() || '0 24px 60px rgba(0,0,0,0.85)';
+
+  var ANGLE  = 360 / total;
+  var RADIUS = 130;
+
+  cylinder.style.transition = 'none';
+
+  var steps     = 0;
+  var targetRot = 0;
+  var liveRot   = 0;
+  var dragging  = false;
+  var startX    = 0;
+  var dragRot   = 0;
+  var rafId     = null;
+
+  var cardGlows = cards.map(function (_, i) { return i === 0 ? 1 : 0; });
+
+  function getCardAngle(i) {
+    var a = (liveRot + i * ANGLE) % 360;
+    if (a >  180) a -= 360;
+    if (a < -180) a += 360;
+    return a;
+  }
+
+  function applyCardEffects() {
+    cards.forEach(function (card, i) {
+      var angle  = getCardAngle(i);
+      var absDeg = Math.abs(angle);
+
+      var blurPx, opacity;
+      if (absDeg < 30) {
+        blurPx  = 0;
+        opacity = 1;
+      } else if (absDeg < 90) {
+        var t  = (absDeg - 30) / 60;
+        blurPx  = t * 2.5;
+        opacity = 1 - t * 0.45;
+      } else {
+        var t2  = (absDeg - 90) / 90;
+        blurPx  = 2.5 + t2 * 2;
+        opacity = 0.55 - t2 * 0.35;
+      }
+
+      var targetGlow = absDeg < 38 ? (1 - absDeg / 38) : 0;
+      cardGlows[i] += (targetGlow - cardGlows[i]) * 0.09;
+      var g = cardGlows[i];
+
+      var tiltX = 0;
+      if (absDeg < 55) {
+        tiltX = dragRot * -0.042;
+        if (tiltX >  9) tiltX =  9;
+        if (tiltX < -9) tiltX = -9;
+      }
+
+      card.style.transform =
+        'rotateY(' + (i * ANGLE) + 'deg) ' +
+        'translateZ(' + RADIUS + 'px) ' +
+        'rotateX(' + tiltX.toFixed(2) + 'deg)';
+
+      card.style.filter  = blurPx > 0.05
+        ? 'blur(' + blurPx.toFixed(2) + 'px)'
+        : '';
+      card.style.opacity = Math.max(0.05, opacity).toFixed(3);
+
+      var glowSize    = (25 + g * 55).toFixed(0);
+      var glowOpacity = (g * 0.5).toFixed(3);
+      card.style.boxShadow =
+        shadowCylinder +
+        (g > 0.01
+          ? ', 0 0 ' + glowSize + 'px rgba(93,93,255,' + glowOpacity + ')'
+          : '');
+    });
+  }
+
+  function tick() {
+    var rot  = dragging ? targetRot + dragRot : targetRot;
+    var diff = rot - liveRot;
+
+    if (!dragging && Math.abs(diff) < 0.02) {
+      liveRot = rot;
+      cylinder.style.transform = 'rotateY(' + liveRot + 'deg)';
+      applyCardEffects();
+      rafId = null;
+      return;
+    }
+
+    liveRot += diff * (dragging ? 0.35 : 0.13);
+    cylinder.style.transform = 'rotateY(' + liveRot + 'deg)';
+    applyCardEffects();
+    rafId = requestAnimationFrame(tick);
+  }
+
+  function startTick() {
+    if (!rafId) rafId = requestAnimationFrame(tick);
+  }
+
+  function currentIndex() {
+    return ((steps % total) + total) % total;
+  }
+
+  function updateActive() {
+    var cur = currentIndex();
+    cards.forEach(function (c, i) { c.classList.toggle('active', i === cur); });
+    dots.forEach(function  (d, i) { d.classList.toggle('active', i === cur); });
+  }
+
+  function stepDir(dir) {
+    steps    += dir;
+    targetRot = -steps * ANGLE;
+    dragRot   = 0;
+    dragging  = false;
+    updateActive();
+    startTick();
+  }
+
+  function handleEnd(endX) {
+    var diff = endX - startX;
+    if      (diff < -40) stepDir(+1);
+    else if (diff >  40) stepDir(-1);
+    else { dragRot = 0; dragging = false; startTick(); }
+  }
+
+  scene.addEventListener('touchstart', function (e) {
+    dragging = true;
+    startX   = e.touches[0].clientX;
+    dragRot  = 0;
+    startTick();
+  }, { passive: true });
+
+  scene.addEventListener('touchmove', function (e) {
+    if (!dragging) return;
+    dragRot = (e.touches[0].clientX - startX) * 0.25;
+    startTick();
+  }, { passive: true });
+
+  scene.addEventListener('touchend', function (e) {
+    if (!dragging) return;
+    handleEnd(e.changedTouches[0].clientX);
+  });
+
+  scene.addEventListener('mousedown', function (e) {
+    dragging = true;
+    startX   = e.clientX;
+    dragRot  = 0;
+    e.preventDefault();
+    startTick();
+  });
+
+  window.addEventListener('mousemove', function (e) {
+    if (!dragging) return;
+    dragRot = (e.clientX - startX) * 0.25;
+    startTick();
+  });
+
+  window.addEventListener('mouseup', function (e) {
+    if (!dragging) return;
+    handleEnd(e.clientX);
+  });
+
+  dots.forEach(function (dot, i) {
+    dot.addEventListener('click', function () {
+      var cur = currentIndex();
+      var d   = i - cur;
+      if (d >  total / 2) d -= total;
+      if (d < -total / 2) d += total;
+      steps    += d;
+      targetRot = -steps * ANGLE;
+      dragRot   = 0;
+      dragging  = false;
+      updateActive();
+      startTick();
+    });
+  });
+
+  cylinder.style.transform = 'rotateY(0deg)';
+  cards.forEach(function (card, i) {
+    var a = (i * ANGLE) % 360;
+    if (a > 180) a -= 360;
+    var abs = Math.abs(a);
+    var blur, opacity;
+    if (abs < 30)       { blur = 0;   opacity = 1; }
+    else if (abs < 90)  { var t  = (abs-30)/60; blur = t*2.5; opacity = 1-t*0.45; }
+    else                { var t2 = (abs-90)/90; blur = 2.5+t2*2; opacity = 0.55-t2*0.35; }
+    card.style.transform  = 'rotateY(' + (i * ANGLE) + 'deg) translateZ(' + RADIUS + 'px) rotateX(0deg)';
+    card.style.opacity    = Math.max(0.05, opacity).toFixed(3);
+    card.style.filter     = blur > 0.05 ? 'blur(' + blur.toFixed(2) + 'px)' : '';
+    card.style.boxShadow  = i === 0
+      ? shadowCylinder + ', 0 0 80px rgba(93,93,255,0.5)'
+      : shadowCylinder;
+  });
+  updateActive();
+  startTick();
+})();
+
+/* Yerel sunucu + mobil (aynı Wi‑Fi) adres ipucu */
+(function () {
+  var box = document.getElementById('lanShareHint');
+  var body = document.getElementById('lanShareBody');
+  var btnCopy = document.getElementById('lanShareCopy');
+  var btnClose = document.getElementById('lanShareClose');
+  if (!box || !body) return;
+  if (sessionStorage.getItem('lanShareHintDismissed') === '1') return;
+
+  function isPrivateHost(h) {
+    if (!h) return false;
+    if (h === 'localhost' || h === '127.0.0.1') return true;
+    if (/^192\.168\.\d{1,3}\.\d{1,3}$/.test(h)) return true;
+    if (/^10\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(h)) return true;
+    return /^172\.(1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3}$/.test(h);
+  }
+
+  var proto = location.protocol;
+  var host = location.hostname;
+  var port = location.port;
+  var path = location.pathname + location.search + location.hash;
+  var mobileUrl = '';
+
+  function linkHtml(url, label) {
+    var u = String(url).replace(/"/g, '&quot;');
+    var t = label || url;
+    return '<a class="lan-share-hint__link" href="' + u + '">' + t + '</a>';
+  }
+
+  if (proto === 'file:') {
+    body.innerHTML =
+      '<strong>file://</strong> ile açıksın; linkler ancak küçük sunucu çalışınca çalışır.<br><br>' +
+      '1) Terminal: <code style="color:#5D5DFF">cd kruv-website && ./serve.sh</code><br>' +
+      '2) Terminal’deki <strong>tek link</strong> <code style="color:#5D5DFF">http://192.168…:8080/kruv.html</code> hem Mac’te hem telefonda aynen çalışır (aynı Wi‑Fi).<br>' +
+      '<p class="lan-share-hint__tip"><code>localhost</code> telefonda Mac değildir. Tıklanmıyorsa <code>chmod +x serve.sh</code>. “Ulaşılamıyor” = sunucu kapalı veya farklı ağ.</p>';
+    box.classList.add('is-visible');
+  } else if (proto === 'http:' || proto === 'https:') {
+    var shortPath = '/kruv.html';
+    var p = port || (proto === 'https:' ? '443' : '80');
+    if (host === 'localhost' || host === '127.0.0.1') {
+      var localTest = proto + '//127.0.0.1:' + p + shortPath;
+      body.innerHTML =
+        '<strong>Tek link ister misin?</strong> Terminal’de <code style="color:#5D5DFF">./serve.sh</code> yazınca çıkan <code style="color:#5D5DFF">http://192.168…:' + p + '/kruv.html</code> adresini <em>hem Mac’te hem telefonda</em> aynen kullan (dosya adı sadece harf; uzun başlıklı isimler bazen telefonda takılır).<br><br>' +
+        '<code>localhost</code> / <code>127.0.0.1</code> = “sadece bu Mac”; telefonda aynı yazı telefonun kendisini gösterir, bu yüzden iki cihaz için ortak adres <strong>192.168…</strong> olur.<br><br>' +
+        'Sadece bu Mac’te kısayol: <span class="lan-share-hint__url">' + linkHtml(localTest, localTest) + '</span>' +
+        '<p class="lan-share-hint__tip">Sunucu kapalıysa veya misafir Wi‑Fi kullanıyorsan bağlanamazsın.</p>';
+      mobileUrl = '';
+    } else if (isPrivateHost(host)) {
+      mobileUrl = location.origin + shortPath;
+      body.innerHTML =
+        'Mac ve telefonda <strong>aynı link</strong> (tıklanabilir):<br>' +
+        '<span class="lan-share-hint__url">' + linkHtml(mobileUrl, mobileUrl) + '</span>' +
+        '<p class="lan-share-hint__tip">Açılmıyorsa <code>./serve.sh</code> çalışıyor mu bak; iki cihaz da aynı Wi‑Fi’de olmalı.</p>';
+      if (btnCopy) {
+        btnCopy.hidden = false;
+        btnCopy.addEventListener('click', function () {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(mobileUrl).then(function () {
+              btnCopy.textContent = 'Kopyalandı';
+              setTimeout(function () { btnCopy.textContent = 'Kopyala'; }, 2000);
+            });
+          }
+        });
+      }
+    } else {
+      return;
+    }
+    box.classList.add('is-visible');
+  }
+
+  if (btnClose) {
+    btnClose.addEventListener('click', function () {
+      box.classList.remove('is-visible');
+      sessionStorage.setItem('lanShareHintDismissed', '1');
+    });
+  }
+})();
+</script>
+
+<script>
+/* Global wheel dampening (desktop): site scroll hizini cok az dusurur. */
+(function () {
+  /*
+    Disabled: global wheel interception can fully block native page scroll
+    on some browsers/input devices.
+  */
+  return;
+})();
+</script>
+
+<script>
+(function () {
+  var nav = document.getElementById('site-nav');
+  var sentinel = document.getElementById('nav-sentinel');
+  if (!nav || !sentinel) return;
+
+  function applySentinelEntry(entry) {
+    if (!entry || entry.target !== sentinel) return;
+    /* threshold:0 — viewport ile en az 1px kesişme yoksa sayfa kaymış sayılır */
+    nav.classList.toggle('is-scrolled', !entry.isIntersecting);
+  }
+
+  function syncScrolledFromSentinelRect() {
+    var r = sentinel.getBoundingClientRect();
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    var inView = r.bottom > 0 && r.top < vh;
+    nav.classList.toggle('is-scrolled', !inView);
+  }
+
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) {
+        applySentinelEntry(entries[i]);
+      }
+    }, { threshold: 0, root: null, rootMargin: '0px' });
+    observer.observe(sentinel);
+    var pending = observer.takeRecords();
+    for (var j = 0; j < pending.length; j++) {
+      applySentinelEntry(pending[j]);
+    }
+    requestAnimationFrame(syncScrolledFromSentinelRect);
+    return;
+  }
+
+  function syncScrolledFromScroll() {
+    nav.classList.toggle('is-scrolled', (window.scrollY || 0) > 0);
+  }
+  syncScrolledFromScroll();
+  window.addEventListener('scroll', syncScrolledFromScroll, { passive: true });
+})();
+</script>
+
+<!-- ───────────────────── CMS BIND (Supabase via Next.js API) ─────────────────────
+     Hero fan kartlarını ve Featured Works grid'ini /api/projects'ten doldurur.
+     Featured işaretli proje hero'nun ortasındaki karta (card-3) yerleşir.
+     Tıklayınca /projects/[slug] detay sayfasına gider.
+     Veri yoksa veya istek başarısızsa hardcoded içerik korunur (fallback). -->
+<script>
+(function bindCMS() {
+  var API_URL = '/api/projects';
+
+  function ready(fn) {
+    if (document.readyState !== 'loading') fn();
+    else document.addEventListener('DOMContentLoaded', fn);
+  }
+
+  function projectURL(slug) {
+    return '/projects/' + encodeURIComponent(slug || '');
+  }
+
+  function paintHeroCard(card, p) {
+    if (!card || !p) return;
+    var bg = card.querySelector('.card-bg');
+    if (bg && p.gorsel) {
+      bg.style.background = 'url("' + p.gorsel + '") center/cover no-repeat';
+    }
+    var labelName = card.querySelector('.card-label-name');
+    var labelType = card.querySelector('.card-label-type');
+    var hoverTitle = card.querySelector('.hero-card-hover-title');
+    var hoverCat = card.querySelector('.hero-card-hover-category');
+    var hoverCta = card.querySelector('.hero-card-hover-cta');
+    if (labelName) labelName.textContent = (p.baslik || '').toUpperCase();
+    if (labelType) labelType.textContent = p.kategori || '';
+    if (hoverTitle) hoverTitle.textContent = (p.baslik || '').toUpperCase();
+    if (hoverCat) hoverCat.textContent = p.kategori || '';
+    if (hoverCta) hoverCta.setAttribute('href', projectURL(p.slug));
+
+    // Tüm kartı tıklanabilir yap (orijinal hover-CTA link'i yine korunur).
+    var url = projectURL(p.slug);
+    card.style.cursor = 'pointer';
+    card.setAttribute('role', 'link');
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('aria-label', 'Projeyi aç — ' + (p.baslik || ''));
+    card.dataset.cmsHref = url;
+    if (!card.dataset.cmsBound) {
+      card.dataset.cmsBound = '1';
+      card.addEventListener('click', function (ev) {
+        // Hover-CTA <a> kendi navigasyonunu yapsın; etkinleştirilmiş bir link tıklamasını duplicate etme.
+        if (ev.target && ev.target.closest('a')) return;
+        window.location.href = card.dataset.cmsHref;
+      });
+      card.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Enter' || ev.key === ' ') {
+          ev.preventDefault();
+          window.location.href = card.dataset.cmsHref;
+        }
+      });
+    }
+  }
+
+  function paintFeaturedCard(card, p) {
+    if (!card || !p) return;
+    var media = card.querySelector('.featured-work-media');
+    if (media && p.gorsel) {
+      media.style.backgroundImage = 'url("' + p.gorsel + '")';
+    }
+    var title = card.querySelector('.featured-work-title');
+    var cat = card.querySelector('.featured-work-category');
+    var hit = card.querySelector('.featured-work-hit');
+    if (title) title.textContent = p.baslik || '';
+    if (cat) cat.textContent = p.kategori || '';
+    if (hit) {
+      hit.setAttribute('href', projectURL(p.slug));
+      hit.setAttribute('aria-label', 'View case study — ' + (p.baslik || ''));
+    }
+  }
+
+  ready(function () {
+    fetch(API_URL, { cache: 'no-store', credentials: 'same-origin' })
+      .then(function (res) { return res.ok ? res.json() : null; })
+      .then(function (json) {
+        var projects = json && Array.isArray(json.data) ? json.data : [];
+        if (!projects.length) return;
+
+        var sorted = projects.slice().sort(function (a, b) {
+          if (a.featured !== b.featured) return a.featured ? -1 : 1;
+          return (a.sira || 0) - (b.sira || 0);
+        });
+
+        // Hero ortası (card-3) için featured proje; yoksa en üstteki.
+        var center = sorted.find(function (p) { return p.featured; }) || sorted[0];
+        var rest = sorted.filter(function (p) { return p.id !== center.id; });
+
+        // Görsel sıralama: kenarlardan ortaya doğru — card-1, card-2, [CENTER], card-4, card-5
+        var heroOrder = [rest[0], rest[1], center, rest[2], rest[3]];
+
+        document.querySelectorAll('.fan-wrap > .card').forEach(function (card, i) {
+          paintHeroCard(card, heroOrder[i]);
+        });
+        document.querySelectorAll('.cylinder > .card').forEach(function (card, i) {
+          paintHeroCard(card, heroOrder[i]);
+        });
+
+        // Featured Works grid: ilk 5 (sira'ya göre, featured üstte)
+        var top5 = sorted.slice(0, 5);
+        document.querySelectorAll('.featured-works > .featured-work-card').forEach(function (card, i) {
+          paintFeaturedCard(card, top5[i]);
+        });
+      })
+      .catch(function (err) {
+        console.warn('[CMS] /api/projects yüklenemedi:', err);
+      });
+  });
+})();
+</script>
+
+</body></html>

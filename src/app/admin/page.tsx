@@ -1,0 +1,26 @@
+import Link from "next/link";
+import { getProjects } from "@/lib/queries";
+import { ProjectList } from "@/components/admin/ProjectList";
+
+export const dynamic = "force-dynamic";
+
+export default async function AdminDashboardPage() {
+  const projects = await getProjects();
+
+  return (
+    <>
+      <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+        <h1
+          className="serif text-[1.8rem]"
+          style={{ color: "var(--ink)" }}
+        >
+          Projeler
+        </h1>
+        <Link href="/admin/projects/new" className="btn btn-primary">
+          ＋ Yeni Proje
+        </Link>
+      </div>
+      <ProjectList initial={projects} />
+    </>
+  );
+}

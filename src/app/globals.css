@@ -1,0 +1,298 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────────────────
+   DESIGN TOKENS — kruv.html visual language
+   Dark foundation, #5D5DFF accent, Bebas/Outfit/DM Mono.
+   Aligned with /kruv-website/kruv.html tokens.
+   ───────────────────────────────────────────────────────── */
+:root {
+  /* ===== Foundation: accent ===== */
+  --color-accent: #5D5DFF;
+  --color-accent-soft: rgba(93, 93, 255, 0.22);
+  --color-accent-hover: #4646ff;
+
+  /* ===== Foundation: gray scale (white opacity on dark) ===== */
+  --gray-pure-dark: #000000;
+  --gray-0:    rgba(255, 255, 255, 0);
+  --gray-20:   rgba(255, 255, 255, 0.02);
+  --gray-50:   rgba(255, 255, 255, 0.05);
+  --gray-70:   rgba(255, 255, 255, 0.07);
+  --gray-80:   rgba(255, 255, 255, 0.08);
+  --gray-100:  rgba(255, 255, 255, 0.10);
+  --gray-120:  rgba(255, 255, 255, 0.12);
+  --gray-150:  rgba(255, 255, 255, 0.15);
+  --gray-180:  rgba(255, 255, 255, 0.18);
+  --gray-200:  rgba(255, 255, 255, 0.20);
+  --gray-250:  rgba(255, 255, 255, 0.25);
+  --gray-300:  rgba(255, 255, 255, 0.30);
+  --gray-400:  rgba(255, 255, 255, 0.40);
+  --gray-500:  rgba(255, 255, 255, 0.50);
+  --gray-600:  rgba(255, 255, 255, 0.60);
+  --gray-700:  rgba(255, 255, 255, 0.70);
+  --gray-800:  rgba(255, 255, 255, 0.80);
+  --gray-850:  rgba(255, 255, 255, 0.85);
+  --gray-900:  rgba(255, 255, 255, 0.90);
+  --gray-950:  rgba(255, 255, 255, 0.95);
+  --gray-1000: rgba(255, 255, 255, 1);
+
+  /* Opak nötr yüzeyler (siyah↔beyaz karışımı) */
+  --gray-solid-deep:     color-mix(in srgb, var(--gray-pure-dark) 96.08%, var(--gray-1000) 3.92%);
+  --gray-solid-void:     color-mix(in srgb, var(--gray-pure-dark) 94.90%, var(--gray-1000) 5.10%);
+  --gray-solid-elevated: color-mix(in srgb, var(--gray-pure-dark) 93.33%, var(--gray-1000) 6.67%);
+  --gray-solid-panel:    color-mix(in srgb, var(--gray-pure-dark) 92.94%, var(--gray-1000) 7.06%);
+
+  /* Siyah örtüler (gradient / scrim) */
+  --gray-scrim-350: color-mix(in srgb, var(--gray-pure-dark) 35%, transparent);
+  --gray-scrim-600: color-mix(in srgb, var(--gray-pure-dark) 60%, transparent);
+  --gray-scrim-800: color-mix(in srgb, var(--gray-pure-dark) 80%, transparent);
+  --gray-scrim-900: color-mix(in srgb, var(--gray-pure-dark) 93%, transparent);
+
+  /* ===== Semantic aliases (public site) ===== */
+  --bg:              color-mix(in srgb, var(--gray-pure-dark) 94.51%, var(--gray-1000) 5.49%);
+  --surface:         var(--gray-solid-elevated);
+  --ink:             color-mix(in srgb, var(--gray-pure-dark) 0.785%, var(--gray-1000) 99.215%);
+  --ink-soft:        var(--gray-600);
+  --ink-faint:       var(--gray-400);
+  --accent:          var(--color-accent);
+  --accent-soft:     var(--color-accent-soft);
+  --accent-hover:    var(--color-accent-hover);
+  --border:          var(--gray-80);
+  --border-md:       var(--gray-180);
+
+  /* ===== Semantic aliases (admin) ===== */
+  --adm-bg:            var(--gray-solid-void);
+  --adm-surface:       var(--gray-solid-elevated);
+  --adm-border:        var(--gray-100);
+  --adm-sidebar:       var(--gray-solid-deep);
+  --adm-sidebar-text:  var(--gray-500);
+  --adm-sidebar-hover: var(--gray-70);
+
+  /* ===== Danger / success ===== */
+  --danger:        #F87171;
+  --danger-soft:   rgba(248, 113, 113, 0.12);
+  --danger-border: rgba(248, 113, 113, 0.35);
+  --success:       #4ADE80;
+
+  /* ===== Typography ===== */
+  --font-display: "Bebas Neue", "Impact", sans-serif;
+  --font-body:    "Outfit", system-ui, sans-serif;
+  --font-mono:    "DM Mono", ui-monospace, monospace;
+  /* Backward-compat: existing .serif / Tailwind serif class points to display */
+  --font-serif:   var(--font-display);
+  --font-sans:    var(--font-body);
+
+  /* Type scale (kruv.html) */
+  --type-h1: clamp(52px, 7vw, 96px);
+  --type-h2: clamp(32px, 8vw, 44px);
+  --type-h3: clamp(24px, 6vw, 30px);
+  --type-h4: 16px;
+  --type-b1: 14px;
+  --type-b2: 13px;
+
+  /* ===== Space scale (kruv.html) ===== */
+  --space-0:  2px;
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-7:  28px;
+  --space-8:  32px;
+  --space-9:  36px;
+  --space-10: 40px;
+  --space-11: 44px;
+  --space-12: 48px;
+
+  --space-xxs: 5px;
+  --space-xs:  6px;
+  --space-sm:  9px;
+  --space-md:  14px;
+  --space-lg:  18px;
+  --space-xl:  22px;
+
+  /* Section / gutter scale */
+  --container-gutter: clamp(16px, 5vw, 52px);
+  --section-pad-y:    clamp(72px, 10vw, 100px);
+
+  /* Radius / border */
+  --radius-xs:   2px;
+  --radius-sm:   3px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-pill: 20px;
+
+  /* Motion */
+  --ease:         cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast:     0.2s;
+  --dur-base:     0.3s;
+  --dur-slow:     0.6s;
+
+  /* Buttons */
+  --btn-pad-y:  13px;
+  --btn-pad-x:  36px;
+  --btn-radius: var(--radius-xs);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: 0.01em;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: var(--color-accent-soft);
+  color: var(--ink);
+}
+
+/* Utility classes that mirror the prototype naming so markup stays readable */
+@layer components {
+  .serif,
+  .display {
+    font-family: var(--font-display);
+    letter-spacing: 0.02em;
+  }
+  .mono {
+    font-family: var(--font-mono);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center gap-2 text-[13px] font-medium transition-colors duration-150;
+    padding: var(--space-3) var(--space-5);
+    border-radius: var(--btn-radius);
+  }
+  .btn-sm {
+    @apply text-[12px];
+    padding: var(--space-2) var(--space-3);
+  }
+  .btn-primary {
+    background: var(--color-accent);
+    color: var(--gray-1000);
+  }
+  .btn-primary:hover {
+    background: var(--accent-hover);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink-soft);
+    border: 1px solid var(--adm-border);
+  }
+  .btn-ghost:hover {
+    border-color: var(--gray-300);
+    color: var(--ink);
+  }
+  .btn-danger {
+    background: var(--danger-soft);
+    color: var(--danger);
+    border: 1px solid var(--danger-border);
+  }
+  .btn-danger:hover {
+    background: var(--danger);
+    color: var(--gray-solid-deep);
+  }
+  .btn-accent {
+    background: var(--color-accent);
+    color: var(--gray-1000);
+  }
+  .btn-accent:hover {
+    background: var(--accent-hover);
+  }
+
+  /* Form controls */
+  .form-label {
+    @apply text-[11px] font-medium uppercase;
+    font-family: var(--font-mono);
+    letter-spacing: 0.12em;
+    color: var(--ink-soft);
+  }
+  .form-hint {
+    @apply text-[11px];
+    color: var(--ink-faint);
+  }
+  .form-input,
+  .form-textarea,
+  .form-select {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--ink);
+    background: var(--gray-50);
+    border: 1px solid var(--adm-border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-sm) var(--space-3);
+    transition: border-color 0.15s, background 0.15s;
+    width: 100%;
+  }
+  .form-input::placeholder,
+  .form-textarea::placeholder {
+    color: var(--ink-faint);
+  }
+  .form-input:focus,
+  .form-textarea:focus,
+  .form-select:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    background: var(--gray-80);
+  }
+  .form-textarea {
+    min-height: 90px;
+    resize: vertical;
+    line-height: 1.6;
+  }
+
+  /* Card-ish admin surfaces */
+  .adm-card {
+    background: var(--adm-surface);
+    border: 1px solid var(--adm-border);
+    border-radius: var(--radius-md);
+  }
+}
+
+/* Image placeholder used when a project has no cover yet */
+.img-ph {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+}
+
+/* Reusable portfolio grid (public) */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2px;
+  padding: 2px;
+  background: var(--gray-50);
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
