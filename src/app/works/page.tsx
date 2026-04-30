@@ -9,11 +9,17 @@ const FALLBACK_SETTINGS: SiteSettings = {
   siteAdi: "kruv.",
   tagline: "Seçilmiş projeler & çalışmalar",
   footerYazi: "kruv. — portfolyo",
+  instagramUrl: "",
+  xUrl: "",
+  linkedinUrl: "",
+  behanceUrl: "",
+  dribbbleUrl: "",
+  youtubeUrl: "",
+  githubUrl: "",
 };
 
-export default async function HomePage() {
-  // Graceful degradation: if DB is unreachable (e.g. during a first build
-  // before env is wired) we still render a valid shell.
+/** CMS “Works” — proje ızgarası (anasayfa `kruv.html` değil). */
+export default async function WorksPage() {
   const [projects, settings] = await Promise.all([
     getProjects().catch(() => []),
     getSettings().catch(() => FALLBACK_SETTINGS),

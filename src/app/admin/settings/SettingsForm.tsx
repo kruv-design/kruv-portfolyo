@@ -85,6 +85,106 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
         </div>
       </div>
 
+      <div className="adm-card mb-5 p-7">
+        <div
+          className="mb-5 border-b pb-3 text-[14px] font-medium"
+          style={{ borderColor: "var(--adm-border)", color: "var(--ink)" }}
+        >
+          Sosyal medya (footer ikonları)
+        </div>
+        <p
+          className="mb-5 text-[12px] leading-relaxed"
+          style={{ color: "var(--ink-soft)" }}
+        >
+          Boş bırakılanlar gösterilmez. Tam adres girin (örn.{" "}
+          <span className="mono text-[11px]">https://instagram.com/kruv</span>).
+        </p>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Field label="Instagram">
+            <input
+              type="url"
+              inputMode="url"
+              placeholder="https://"
+              className="form-input"
+              value={state.instagramUrl}
+              onChange={(e) =>
+                setState((s) => ({ ...s, instagramUrl: e.target.value }))
+              }
+            />
+          </Field>
+          <Field label="X (Twitter)">
+            <input
+              type="url"
+              inputMode="url"
+              placeholder="https://"
+              className="form-input"
+              value={state.xUrl}
+              onChange={(e) => setState((s) => ({ ...s, xUrl: e.target.value }))}
+            />
+          </Field>
+          <Field label="LinkedIn">
+            <input
+              type="url"
+              inputMode="url"
+              placeholder="https://"
+              className="form-input"
+              value={state.linkedinUrl}
+              onChange={(e) =>
+                setState((s) => ({ ...s, linkedinUrl: e.target.value }))
+              }
+            />
+          </Field>
+          <Field label="Behance">
+            <input
+              type="url"
+              inputMode="url"
+              placeholder="https://"
+              className="form-input"
+              value={state.behanceUrl}
+              onChange={(e) =>
+                setState((s) => ({ ...s, behanceUrl: e.target.value }))
+              }
+            />
+          </Field>
+          <Field label="Dribbble">
+            <input
+              type="url"
+              inputMode="url"
+              placeholder="https://"
+              className="form-input"
+              value={state.dribbbleUrl}
+              onChange={(e) =>
+                setState((s) => ({ ...s, dribbbleUrl: e.target.value }))
+              }
+            />
+          </Field>
+          <Field label="YouTube">
+            <input
+              type="url"
+              inputMode="url"
+              placeholder="https://"
+              className="form-input"
+              value={state.youtubeUrl}
+              onChange={(e) =>
+                setState((s) => ({ ...s, youtubeUrl: e.target.value }))
+              }
+            />
+          </Field>
+          <Field label="GitHub">
+            <input
+              type="url"
+              inputMode="url"
+              placeholder="https://"
+              className="form-input"
+              value={state.githubUrl}
+              onChange={(e) =>
+                setState((s) => ({ ...s, githubUrl: e.target.value }))
+              }
+            />
+          </Field>
+        </div>
+      </div>
+
       <div className="adm-card p-7">
         <div
           className="mb-3 text-[14px] font-medium"

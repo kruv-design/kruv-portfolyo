@@ -82,10 +82,18 @@ export async function getSettings(): Promise<SiteSettings> {
     .select("*")
     .eq("id", 1)
     .maybeSingle();
+  const row = data as Partial<SiteSettings> | null | undefined;
   return {
-    siteAdi: data?.siteAdi ?? "kruv.",
-    tagline: data?.tagline ?? "Seçilmiş projeler & çalışmalar",
-    footerYazi: data?.footerYazi ?? "kruv. — portfolyo",
+    siteAdi: row?.siteAdi ?? "kruv.",
+    tagline: row?.tagline ?? "Seçilmiş projeler & çalışmalar",
+    footerYazi: row?.footerYazi ?? "kruv. — portfolyo",
+    instagramUrl: row?.instagramUrl ?? "",
+    xUrl: row?.xUrl ?? "",
+    linkedinUrl: row?.linkedinUrl ?? "",
+    behanceUrl: row?.behanceUrl ?? "",
+    dribbbleUrl: row?.dribbbleUrl ?? "",
+    youtubeUrl: row?.youtubeUrl ?? "",
+    githubUrl: row?.githubUrl ?? "",
   };
 }
 

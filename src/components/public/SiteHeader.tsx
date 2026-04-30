@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { SiteSettings } from "@/types";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function SiteHeader({ settings }: { settings: SiteSettings }) {
   const [left, right = ""] = settings.siteAdi.split(".");
@@ -10,6 +11,8 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
     >
       <Link
         href="/"
+        title="Ana sayfa"
+        aria-label="Ana sayfa"
         className="serif select-none leading-none tracking-tight"
         style={{
           fontSize: "clamp(2rem, 5vw, 3.2rem)",
@@ -28,6 +31,7 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
         >
           {settings.tagline}
         </p>
+        <ThemeToggle />
         <Link
           href="/admin"
           title="Admin"

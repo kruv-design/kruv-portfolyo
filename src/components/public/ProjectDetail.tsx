@@ -27,7 +27,7 @@ export function ProjectDetail({
         style={{ borderBottom: "1px solid var(--border)" }}
       >
         <Link
-          href="/"
+          href="/works"
           className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[13px] transition-colors"
           style={{
             border: "1px solid var(--border)",
@@ -174,20 +174,6 @@ export function ProjectDetail({
                   ))}
                 </div>
               </div>
-            )}
-            {project.link && (
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-6 block rounded px-5 py-3 text-center text-[13px] font-medium transition-colors"
-                style={{
-                  background: "var(--ink)",
-                  color: "var(--surface)",
-                }}
-              >
-                Projeyi Gör →
-              </a>
             )}
           </div>
         </aside>

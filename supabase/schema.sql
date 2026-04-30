@@ -53,12 +53,28 @@ create table if not exists public.site_settings (
   "siteAdi"   text not null default 'kruv.',
   tagline     text not null default 'Seçilmiş projeler & çalışmalar',
   "footerYazi" text not null default 'kruv. — portfolyo',
+  "instagramUrl" text not null default '',
+  "xUrl" text not null default '',
+  "linkedinUrl" text not null default '',
+  "behanceUrl" text not null default '',
+  "dribbbleUrl" text not null default '',
+  "youtubeUrl" text not null default '',
+  "githubUrl" text not null default '',
   updated_at  timestamptz not null default now(),
   constraint site_settings_singleton check (id = 1)
 );
 
 insert into public.site_settings (id) values (1)
   on conflict (id) do nothing;
+
+-- Mevcut projeler: sosyal sütunları yoksa ekle (yeniden çalıştırılabilir)
+alter table public.site_settings add column if not exists "instagramUrl" text not null default '';
+alter table public.site_settings add column if not exists "xUrl" text not null default '';
+alter table public.site_settings add column if not exists "linkedinUrl" text not null default '';
+alter table public.site_settings add column if not exists "behanceUrl" text not null default '';
+alter table public.site_settings add column if not exists "dribbbleUrl" text not null default '';
+alter table public.site_settings add column if not exists "youtubeUrl" text not null default '';
+alter table public.site_settings add column if not exists "githubUrl" text not null default '';
 
 drop trigger if exists settings_touch on public.site_settings;
 create trigger settings_touch

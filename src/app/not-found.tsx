@@ -8,11 +8,11 @@ export default function NotFound() {
       </h1>
       <p style={{ color: "var(--ink-soft)" }}>Proje bulunamadı.</p>
       <Link
-        href="/"
+        href="/works"
         className="mt-2 rounded-full px-4 py-1.5 text-[13px]"
         style={{ border: "1px solid var(--border)", color: "var(--ink-soft)" }}
       >
-        ← Tüm projeler
+        ← Portföy
       </Link>
     </main>
   );

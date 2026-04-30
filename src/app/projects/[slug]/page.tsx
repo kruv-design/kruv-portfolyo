@@ -7,6 +7,7 @@ import {
   getSettings,
 } from "@/lib/queries";
 import { ProjectDetail } from "@/components/public/ProjectDetail";
+import { SiteHeader } from "@/components/public/SiteHeader";
 import { env } from "@/lib/env";
 
 export const revalidate = 60;
@@ -100,7 +101,16 @@ export default async function ProjectPage({
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ProjectDetail project={project} prevSlug={prev} nextSlug={next} />
+      {/* Detay sayfaları her zaman light tema; kullanıcının global tercihi
+          (localStorage'daki kruv-theme) dokunulmadan kalır.
+          background: var(--bg) wrapper'ın altında body'nin dark zeminini örter. */}
+      <div
+        data-theme="light"
+        style={{ background: "var(--bg)", color: "var(--ink)", minHeight: "100vh" }}
+      >
+        <SiteHeader settings={settings} />
+        <ProjectDetail project={project} prevSlug={prev} nextSlug={next} />
+      </div>
     </>
   );
 }

@@ -41,6 +41,14 @@ export type SiteSettings = {
   siteAdi: string;
   tagline: string;
   footerYazi: string;
+  /** Boş veya tam http(s) URL; footer’da ikon olarak gösterilir */
+  instagramUrl: string;
+  xUrl: string;
+  linkedinUrl: string;
+  behanceUrl: string;
+  dribbbleUrl: string;
+  youtubeUrl: string;
+  githubUrl: string;
 };
 
 export type ApiError = {

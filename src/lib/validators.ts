@@ -51,8 +51,26 @@ export const loginSchema = z.object({
   password: z.string().min(8, "En az 8 karakter."),
 });
 
+const optHttpUrl = z
+  .string()
+  .trim()
+  .max(500)
+  .optional()
+  .default("")
+  .refine(
+    (s) => s === "" || z.string().url().safeParse(s).success,
+    "Geçerli bir URL (https://…) veya boş bırakın.",
+  );
+
 export const settingsSchema = z.object({
   siteAdi: nonEmpty.max(100),
   tagline: optStr,
   footerYazi: optStr,
+  instagramUrl: optHttpUrl,
+  xUrl: optHttpUrl,
+  linkedinUrl: optHttpUrl,
+  behanceUrl: optHttpUrl,
+  dribbbleUrl: optHttpUrl,
+  youtubeUrl: optHttpUrl,
+  githubUrl: optHttpUrl,
 });

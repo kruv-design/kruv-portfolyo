@@ -1,4 +1,5 @@
 import type { SiteSettings } from "@/types";
+import { SocialFooterLinks } from "./SocialFooterLinks";
 
 export function SiteFooter({
   settings,
@@ -17,12 +18,17 @@ export function SiteFooter({
         color: "var(--ink-faint)",
       }}
     >
-      <span>
+      <span className="min-w-0 flex-shrink-0">
         {typeof count === "number" && typeof total === "number"
           ? `${count} / ${total} proje`
           : ""}
       </span>
-      <span>{settings.footerYazi}</span>
+      <div className="flex min-w-0 flex-1 flex-wrap items-center justify-end gap-4 sm:justify-between">
+        <span className="min-w-0 text-center sm:flex-1 sm:text-center">
+          {settings.footerYazi}
+        </span>
+        <SocialFooterLinks settings={settings} />
+      </div>
     </footer>
   );
 }

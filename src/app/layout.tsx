@@ -41,10 +41,19 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0E0E0E",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#FAFAFA" },
+    { media: "(prefers-color-scheme: dark)", color: "#0E0E0E" },
+  ],
   width: "device-width",
   initialScale: 1,
 };
+
+// Pre-paint theme bootstrap: read user's saved choice from localStorage
+// and set [data-theme] before React hydrates, preventing a flash.
+// If no saved choice, we leave the attribute unset so CSS
+// `prefers-color-scheme` media query takes over.
+const themeBootstrap = `(function(){try{var t=localStorage.getItem('kruv-theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();`;
 
 export default function RootLayout({
   children,
@@ -55,7 +64,11 @@ export default function RootLayout({
     <html
       lang="tr"
       className={`${body.variable} ${display.variable} ${mono.variable}`}
+      suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
+      </head>
       <body>{children}</body>
     </html>
   );

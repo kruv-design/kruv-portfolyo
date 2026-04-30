@@ -4,55 +4,72 @@
 
 /* ─────────────────────────────────────────────────────────
    DESIGN TOKENS — kruv.html visual language
-   Dark foundation, #5D5DFF accent, Bebas/Outfit/DM Mono.
-   Aligned with /kruv-website/kruv.html tokens.
+   Theme-aware: dark default, light via [data-theme="light"]
+   or system `prefers-color-scheme: light`.
+   Accent #5D5DFF · Bebas/Outfit/DM Mono.
    ───────────────────────────────────────────────────────── */
 :root {
+  color-scheme: light dark;
+
   /* ===== Foundation: accent ===== */
   --color-accent: #5D5DFF;
   --color-accent-soft: rgba(93, 93, 255, 0.22);
   --color-accent-hover: #4646ff;
 
-  /* ===== Foundation: gray scale (white opacity on dark) ===== */
-  --gray-pure-dark: #000000;
-  --gray-0:    rgba(255, 255, 255, 0);
-  --gray-20:   rgba(255, 255, 255, 0.02);
-  --gray-50:   rgba(255, 255, 255, 0.05);
-  --gray-70:   rgba(255, 255, 255, 0.07);
-  --gray-80:   rgba(255, 255, 255, 0.08);
-  --gray-100:  rgba(255, 255, 255, 0.10);
-  --gray-120:  rgba(255, 255, 255, 0.12);
-  --gray-150:  rgba(255, 255, 255, 0.15);
-  --gray-180:  rgba(255, 255, 255, 0.18);
-  --gray-200:  rgba(255, 255, 255, 0.20);
-  --gray-250:  rgba(255, 255, 255, 0.25);
-  --gray-300:  rgba(255, 255, 255, 0.30);
-  --gray-400:  rgba(255, 255, 255, 0.40);
-  --gray-500:  rgba(255, 255, 255, 0.50);
-  --gray-600:  rgba(255, 255, 255, 0.60);
-  --gray-700:  rgba(255, 255, 255, 0.70);
-  --gray-800:  rgba(255, 255, 255, 0.80);
-  --gray-850:  rgba(255, 255, 255, 0.85);
-  --gray-900:  rgba(255, 255, 255, 0.90);
-  --gray-950:  rgba(255, 255, 255, 0.95);
-  --gray-1000: rgba(255, 255, 255, 1);
+  /* ===== Theme-invariant absolutes (do NOT theme) ===== */
+  --white-fixed: #ffffff;
+  --black-fixed: #000000;
 
-  /* Opak nötr yüzeyler (siyah↔beyaz karışımı) */
-  --gray-solid-deep:     color-mix(in srgb, var(--gray-pure-dark) 96.08%, var(--gray-1000) 3.92%);
-  --gray-solid-void:     color-mix(in srgb, var(--gray-pure-dark) 94.90%, var(--gray-1000) 5.10%);
-  --gray-solid-elevated: color-mix(in srgb, var(--gray-pure-dark) 93.33%, var(--gray-1000) 6.67%);
-  --gray-solid-panel:    color-mix(in srgb, var(--gray-pure-dark) 92.94%, var(--gray-1000) 7.06%);
+  /* ===== Theme-aware foundations (DARK defaults) =====
+     `--gray-base`  = background foundation (black in dark / white in light)
+     `--gray-anti`  = opposing foundation  (white in dark / black in light)
+     `--gray-tint-rgb` = rgb channel for translucent grays */
+  --gray-base: var(--black-fixed);
+  --gray-anti: var(--white-fixed);
+  --gray-tint-rgb: 255, 255, 255;
 
-  /* Siyah örtüler (gradient / scrim) */
-  --gray-scrim-350: color-mix(in srgb, var(--gray-pure-dark) 35%, transparent);
-  --gray-scrim-600: color-mix(in srgb, var(--gray-pure-dark) 60%, transparent);
-  --gray-scrim-800: color-mix(in srgb, var(--gray-pure-dark) 80%, transparent);
-  --gray-scrim-900: color-mix(in srgb, var(--gray-pure-dark) 93%, transparent);
+  /* Backward-compat alias (legacy markup may still reference it) */
+  --gray-pure-dark: var(--gray-base);
+
+  /* ===== Translucent gray scale (auto-inverts via tint-rgb) ===== */
+  --gray-0:    rgba(var(--gray-tint-rgb), 0);
+  --gray-20:   rgba(var(--gray-tint-rgb), 0.02);
+  --gray-50:   rgba(var(--gray-tint-rgb), 0.05);
+  --gray-70:   rgba(var(--gray-tint-rgb), 0.07);
+  --gray-80:   rgba(var(--gray-tint-rgb), 0.08);
+  --gray-100:  rgba(var(--gray-tint-rgb), 0.10);
+  --gray-120:  rgba(var(--gray-tint-rgb), 0.12);
+  --gray-150:  rgba(var(--gray-tint-rgb), 0.15);
+  --gray-180:  rgba(var(--gray-tint-rgb), 0.18);
+  --gray-200:  rgba(var(--gray-tint-rgb), 0.20);
+  --gray-250:  rgba(var(--gray-tint-rgb), 0.25);
+  --gray-300:  rgba(var(--gray-tint-rgb), 0.30);
+  --gray-400:  rgba(var(--gray-tint-rgb), 0.40);
+  --gray-500:  rgba(var(--gray-tint-rgb), 0.50);
+  --gray-600:  rgba(var(--gray-tint-rgb), 0.60);
+  --gray-700:  rgba(var(--gray-tint-rgb), 0.70);
+  --gray-800:  rgba(var(--gray-tint-rgb), 0.80);
+  --gray-850:  rgba(var(--gray-tint-rgb), 0.85);
+  --gray-900:  rgba(var(--gray-tint-rgb), 0.90);
+  --gray-950:  rgba(var(--gray-tint-rgb), 0.95);
+  --gray-1000: rgba(var(--gray-tint-rgb), 1);
+
+  /* Opak nötr yüzeyler (base ↔ anti karışımı) */
+  --gray-solid-deep:     color-mix(in srgb, var(--gray-base) 96.08%, var(--gray-anti) 3.92%);
+  --gray-solid-void:     color-mix(in srgb, var(--gray-base) 94.90%, var(--gray-anti) 5.10%);
+  --gray-solid-elevated: color-mix(in srgb, var(--gray-base) 93.33%, var(--gray-anti) 6.67%);
+  --gray-solid-panel:    color-mix(in srgb, var(--gray-base) 92.94%, var(--gray-anti) 7.06%);
+
+  /* Örtüler (gradient / scrim) — base alpha */
+  --gray-scrim-350: color-mix(in srgb, var(--gray-base) 35%, transparent);
+  --gray-scrim-600: color-mix(in srgb, var(--gray-base) 60%, transparent);
+  --gray-scrim-800: color-mix(in srgb, var(--gray-base) 80%, transparent);
+  --gray-scrim-900: color-mix(in srgb, var(--gray-base) 93%, transparent);
 
   /* ===== Semantic aliases (public site) ===== */
-  --bg:              color-mix(in srgb, var(--gray-pure-dark) 94.51%, var(--gray-1000) 5.49%);
+  --bg:              color-mix(in srgb, var(--gray-base) 94.51%, var(--gray-anti) 5.49%);
   --surface:         var(--gray-solid-elevated);
-  --ink:             color-mix(in srgb, var(--gray-pure-dark) 0.785%, var(--gray-1000) 99.215%);
+  --ink:             color-mix(in srgb, var(--gray-base) 0.785%, var(--gray-anti) 99.215%);
   --ink-soft:        var(--gray-600);
   --ink-faint:       var(--gray-400);
   --accent:          var(--color-accent);
@@ -136,6 +153,32 @@
   --btn-radius: var(--radius-xs);
 }
 
+/* ─────────────────────────────────────────────────────────
+   LIGHT THEME — explicit user choice via [data-theme="light"]
+   Inverts only the foundational tokens; all semantic
+   aliases above auto-recompute via color-mix + tint-rgb.
+   ───────────────────────────────────────────────────────── */
+[data-theme="light"] {
+  color-scheme: light;
+  --gray-base: var(--white-fixed);
+  --gray-anti: var(--black-fixed);
+  --gray-tint-rgb: 0, 0, 0;
+  /* Slightly stronger accent tint for legibility on light bg */
+  --color-accent-soft: rgba(93, 93, 255, 0.14);
+}
+
+/* Auto = follow system preference when no manual override.
+   `[data-theme="dark"]` always wins (user opted into dark). */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+    --gray-base: var(--white-fixed);
+    --gray-anti: var(--black-fixed);
+    --gray-tint-rgb: 0, 0, 0;
+    --color-accent-soft: rgba(93, 93, 255, 0.14);
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -185,7 +228,7 @@ body {
   }
   .btn-primary {
     background: var(--color-accent);
-    color: var(--gray-1000);
+    color: var(--white-fixed);
   }
   .btn-primary:hover {
     background: var(--accent-hover);
@@ -210,7 +253,7 @@ body {
   }
   .btn-accent {
     background: var(--color-accent);
-    color: var(--gray-1000);
+    color: var(--white-fixed);
   }
   .btn-accent:hover {
     background: var(--accent-hover);
