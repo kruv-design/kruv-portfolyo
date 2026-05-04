@@ -12,7 +12,7 @@ export function SiteFooter({
 }) {
   return (
     <footer
-      className="mt-0.5 flex flex-wrap items-center justify-between gap-4 px-[4vw] py-7 text-[12px]"
+      className="b2 mt-0.5 flex flex-wrap items-center justify-between gap-4 px-[4vw] py-7"
       style={{
         borderTop: "1px solid var(--border)",
         color: "var(--ink-faint)",

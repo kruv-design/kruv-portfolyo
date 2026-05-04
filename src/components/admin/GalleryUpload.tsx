@@ -53,7 +53,7 @@ export function GalleryUpload({
               type="button"
               aria-label="Kaldır"
               onClick={() => onChange(value.filter((_, idx) => idx !== i))}
-              className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full text-[11px] transition-colors hover:[background:var(--danger)]"
+              className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full b3 transition-colors hover:[background:var(--danger)]"
               style={{ background: "var(--gray-scrim-600)", color: "var(--gray-1000)" }}
             >
               ×
@@ -61,7 +61,7 @@ export function GalleryUpload({
           </div>
         ))}
         <label
-          className="relative flex cursor-pointer flex-col items-center justify-center rounded-md text-[1.4rem] transition-colors"
+          className="relative flex h4 cursor-pointer flex-col items-center justify-center rounded-md transition-colors"
           style={{
             aspectRatio: "4 / 3",
             border: "2px dashed var(--adm-border)",
@@ -81,7 +81,7 @@ export function GalleryUpload({
             className="absolute inset-0 cursor-pointer opacity-0"
           />
           <span>{busy ? "…" : "＋"}</span>
-          <span className="mt-1 text-[11px]">Ekle</span>
+          <span className="b3 mt-1 normal-case">Ekle</span>
         </label>
       </div>
     </div>

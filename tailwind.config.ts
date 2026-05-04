@@ -22,7 +22,6 @@ const config: Config = {
       },
       fontFamily: {
         display: ["var(--font-display)", "Impact", "sans-serif"],
-        serif: ["var(--font-display)", "Impact", "sans-serif"],
         sans: ["var(--font-body)", "system-ui", "sans-serif"],
         body: ["var(--font-body)", "system-ui", "sans-serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],

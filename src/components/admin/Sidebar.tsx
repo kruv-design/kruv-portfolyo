@@ -24,13 +24,13 @@ export function Sidebar() {
       >
         <Link
           href="/admin"
-          className="display text-[1.9rem] leading-none"
+          className="h3 leading-none"
           style={{ color: "var(--gray-1000)", letterSpacing: "0.04em" }}
         >
           kruv<em style={{ color: "var(--accent)", fontStyle: "italic" }}>.</em>
         </Link>
         <div
-          className="mono mt-2 text-[10px]"
+          className="b3 mt-2 normal-case"
           style={{ color: "var(--gray-400)", letterSpacing: "0.18em" }}
         >
           Admin
@@ -47,7 +47,7 @@ export function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className="flex items-center gap-2.5 px-6 py-2.5 text-[13px] transition-colors"
+              className="flex items-center gap-2.5 px-6 py-2.5 b2 normal-case transition-colors"
               style={{
                 color: isActive ? "var(--gray-1000)" : "var(--adm-sidebar-text)",
                 borderLeft: "2px solid transparent",
@@ -55,7 +55,7 @@ export function Sidebar() {
                 background: isActive ? "var(--gray-70)" : "transparent",
               }}
             >
-              <span className="w-5 text-center text-[15px]">{item.icon}</span>
+              <span className="h4 w-5 text-center">{item.icon}</span>
               {item.label}
             </Link>
           );
@@ -69,7 +69,7 @@ export function Sidebar() {
       >
         <button
           type="submit"
-          className="text-[12px] transition-colors"
+          className="b2 w-full px-0 py-2 text-left normal-case transition-colors"
           style={{ color: "var(--gray-400)" }}
         >
           ← Çıkış

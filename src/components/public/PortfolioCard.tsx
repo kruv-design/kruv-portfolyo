@@ -47,13 +47,13 @@ export function PortfolioCard({
         }}
       >
         <div
-          className="mono mb-2 text-[10px]"
+          className="b3 mb-2"
           style={{ color: "var(--accent)", letterSpacing: "0.18em" }}
         >
           {project.kategori}
         </div>
         <div
-          className="display mb-2 text-[1.6rem] leading-[1.05]"
+          className="h3 mb-2"
           style={{ color: "var(--gray-1000)", letterSpacing: "0.02em" }}
         >
           {project.baslik}
@@ -63,7 +63,7 @@ export function PortfolioCard({
             {tags.map((t) => (
               <span
                 key={t}
-                className="rounded-full border px-2.5 py-0.5 text-[10px]"
+                className="rounded-full border px-2.5 py-0.5 b3 normal-case"
                 style={{
                   borderColor: "var(--gray-300)",
                   color: "var(--gray-700)",

@@ -16,7 +16,7 @@ export function Field({
       <span className="form-label">{label}</span>
       {children}
       {error ? (
-        <span className="text-[11px]" style={{ color: "var(--danger)" }}>
+        <span className="b3" style={{ color: "var(--danger)" }}>
           {error}
         </span>
       ) : hint ? (

@@ -32,7 +32,7 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
   return (
     <form onSubmit={onSave}>
       <div className="mb-8 flex items-center justify-between">
-        <h1 className="serif text-[1.8rem]">Ayarlar</h1>
+        <h1 className="h2">Ayarlar</h1>
         <button
           type="submit"
           disabled={pending}
@@ -44,7 +44,7 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
 
       <div className="adm-card mb-5 p-7">
         <div
-          className="mb-5 border-b pb-3 text-[14px] font-medium"
+          className="mb-5 border-b pb-3 b1 font-medium"
           style={{ borderColor: "var(--adm-border)", color: "var(--ink)" }}
         >
           Site Bilgileri
@@ -87,17 +87,14 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
 
       <div className="adm-card mb-5 p-7">
         <div
-          className="mb-5 border-b pb-3 text-[14px] font-medium"
+          className="mb-5 border-b pb-3 b1 font-medium"
           style={{ borderColor: "var(--adm-border)", color: "var(--ink)" }}
         >
           Sosyal medya (footer ikonları)
         </div>
-        <p
-          className="mb-5 text-[12px] leading-relaxed"
-          style={{ color: "var(--ink-soft)" }}
-        >
+        <p className="b1 mb-5" style={{ color: "var(--b1-color)" }}>
           Boş bırakılanlar gösterilmez. Tam adres girin (örn.{" "}
-          <span className="mono text-[11px]">https://instagram.com/kruv</span>).
+          <span className="b2">https://instagram.com/kruv</span>).
         </p>
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label="Instagram">
@@ -186,16 +183,10 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
       </div>
 
       <div className="adm-card p-7">
-        <div
-          className="mb-3 text-[14px] font-medium"
-          style={{ color: "var(--ink)" }}
-        >
+        <div className="mb-3 b1 font-medium" style={{ color: "var(--ink)" }}>
           Güvenlik
         </div>
-        <p
-          className="text-[13px] leading-relaxed"
-          style={{ color: "var(--ink-soft)" }}
-        >
+        <p className="b2" style={{ color: "var(--b2-color)" }}>
           Şifre değişiklikleri <strong>Supabase Dashboard → Authentication</strong>
           {" "}üzerinden yapılır. E-posta ve şifre sıfırlama akışları tamamen
           Supabase tarafından yönetilir; hiçbir credential burada saklanmaz.

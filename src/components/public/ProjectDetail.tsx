@@ -28,10 +28,10 @@ export function ProjectDetail({
       >
         <Link
           href="/works"
-          className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[13px] transition-colors"
+          className="b2 inline-flex items-center gap-2 rounded-full px-4 py-1.5 transition-colors"
           style={{
             border: "1px solid var(--border)",
-            color: "var(--ink-soft)",
+            color: "var(--b2-color)",
           }}
         >
           ← Tüm projeler
@@ -67,23 +67,15 @@ export function ProjectDetail({
         className="mx-auto grid max-w-[1200px] gap-20 px-[4vw] pb-20 pt-16 md:grid-cols-[1fr_340px]"
       >
         <div className="animate-fadeUp">
-          <div
-            className="mb-4 text-[10px] font-medium uppercase tracking-[0.14em]"
-            style={{ color: "var(--accent)" }}
-          >
+          <div className="b3 mb-4" style={{ color: "var(--accent)" }}>
             {project.kategori}
           </div>
-          <h1
-            className="serif mb-7 leading-[1.08] tracking-tight"
-            style={{ fontSize: "clamp(2.2rem,5vw,3.8rem)" }}
-          >
-            {project.baslik}
-          </h1>
+          <h1 className="h1 mb-7">{project.baslik}</h1>
           {project.aciklama && (
             <p
-              className="mb-10 pl-5 text-[1.05rem] leading-[1.75]"
+              className="b1 mb-10 pl-5"
               style={{
-                color: "var(--ink-soft)",
+                color: "var(--b1-color)",
                 borderLeft: "2px solid var(--accent)",
               }}
             >
@@ -95,13 +87,10 @@ export function ProjectDetail({
             {project.bolumler?.map((b, i) => (
               <section key={i}>
                 {b.baslik && (
-                  <h2 className="serif mb-2 text-[1.2rem]">{b.baslik}</h2>
+                  <h2 className="h4 mb-2 normal-case">{b.baslik}</h2>
                 )}
                 {b.metin && (
-                  <p
-                    className="whitespace-pre-wrap text-[14px] leading-[1.8]"
-                    style={{ color: "var(--ink-soft)" }}
-                  >
+                  <p className="b1 whitespace-pre-wrap" style={{ color: "var(--b1-color)" }}>
                     {b.metin}
                   </p>
                 )}
@@ -153,17 +142,14 @@ export function ProjectDetail({
             <MetaRow label="Süre" value={project.sure || "—"} />
             {project.etiketler?.length > 0 && (
               <div className="flex flex-col gap-1 py-4" style={{ borderTop: "1px solid var(--border)" }}>
-                <span
-                  className="text-[10px] font-medium uppercase tracking-[0.1em]"
-                  style={{ color: "var(--ink-faint)" }}
-                >
+                <span className="b3" style={{ color: "var(--ink-faint)" }}>
                   Etiketler
                 </span>
                 <div className="mt-1 flex flex-wrap gap-1.5">
                   {project.etiketler.map((t) => (
                     <span
                       key={t}
-                      className="rounded-full px-2.5 py-0.5 text-[11px] font-medium"
+                      className="rounded-full px-2.5 py-0.5 b3 normal-case font-medium"
                       style={{
                         background: "var(--accent-soft)",
                         color: "var(--accent)",
@@ -190,13 +176,10 @@ function MetaRow({ label, value }: { label: string; value: string }) {
       className="flex flex-col gap-1 py-4 first:pt-0 last:border-b-0"
       style={{ borderBottom: "1px solid var(--border)" }}
     >
-      <span
-        className="text-[10px] font-medium uppercase tracking-[0.1em]"
-        style={{ color: "var(--ink-faint)" }}
-      >
+      <span className="b3" style={{ color: "var(--ink-faint)" }}>
         {label}
       </span>
-      <span className="text-[14px]" style={{ color: "var(--ink)" }}>
+      <span className="b1" style={{ color: "var(--ink)" }}>
         {value}
       </span>
     </div>

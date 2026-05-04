@@ -13,11 +13,8 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
         href="/"
         title="Ana sayfa"
         aria-label="Ana sayfa"
-        className="serif select-none leading-none tracking-tight"
-        style={{
-          fontSize: "clamp(2rem, 5vw, 3.2rem)",
-          color: "var(--ink)",
-        }}
+        className="h1 select-none"
+        style={{ color: "var(--ink)" }}
       >
         {left}
         <em className="not-italic" style={{ color: "var(--accent)", fontStyle: "italic" }}>
@@ -25,10 +22,7 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
         </em>
       </Link>
       <div className="flex items-center gap-3">
-        <p
-          className="max-w-[280px] text-[13px] leading-relaxed"
-          style={{ color: "var(--ink-soft)" }}
-        >
+        <p className="b1 max-w-[280px]" style={{ color: "var(--b1-color)" }}>
           {settings.tagline}
         </p>
         <ThemeToggle />
@@ -36,8 +30,8 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
           href="/admin"
           title="Admin"
           aria-label="Admin"
-          className="rounded px-2 py-1 text-[11px] transition-colors hover:text-[color:var(--ink-soft)]"
-          style={{ color: "var(--ink-faint)" }}
+          className="b3 rounded px-2 py-1 normal-case transition-colors hover:text-[color:var(--ink-soft)]"
+          style={{ color: "var(--ink-faint)", letterSpacing: "var(--ls-2xs)" }}
         >
           ⚙
         </Link>

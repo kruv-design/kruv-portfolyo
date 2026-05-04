@@ -38,7 +38,7 @@ export function ToastHost() {
       {items.map((i) => (
         <div
           key={i.id}
-          className="pointer-events-auto rounded-lg px-4 py-2.5 text-[13px] font-medium text-white shadow-lg transition-all"
+          className="pointer-events-auto b2 rounded-lg px-4 py-2.5 font-medium text-white shadow-lg transition-all"
           style={{
             background:
               i.kind === "error"

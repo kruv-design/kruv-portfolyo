@@ -10,10 +10,7 @@ export default async function AdminDashboardPage() {
   return (
     <>
       <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
-        <h1
-          className="serif text-[1.8rem]"
-          style={{ color: "var(--ink)" }}
-        >
+        <h1 className="h2" style={{ color: "var(--ink)" }}>
           Projeler
         </h1>
         <Link href="/admin/projects/new" className="btn btn-primary">

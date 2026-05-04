@@ -17,10 +17,7 @@ export function FilterBar({
       className="flex flex-wrap items-center gap-[7px] px-[4vw] py-5"
       style={{ borderBottom: "1px solid var(--border)" }}
     >
-      <span
-        className="mr-1.5 text-[10px] font-medium uppercase tracking-[0.1em]"
-        style={{ color: "var(--ink-faint)" }}
-      >
+      <span className="b3 mr-1.5" style={{ color: "var(--ink-faint)" }}>
         Filtre
       </span>
       {list.map((cat) => {
@@ -30,7 +27,7 @@ export function FilterBar({
             key={cat}
             type="button"
             onClick={() => onChange(cat)}
-            className="rounded-full px-[15px] py-1.5 text-[13px] transition-all duration-200"
+            className="b2 rounded-full px-[15px] py-1.5 transition-all duration-200 normal-case"
             style={{
               border: "1px solid var(--border)",
               borderColor: isActive ? "var(--ink)" : "var(--border)",

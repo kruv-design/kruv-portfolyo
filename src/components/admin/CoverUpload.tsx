@@ -51,7 +51,7 @@ export function CoverUpload({
         ) : (
           <>
             <div className="mb-2 text-[2rem]">🖼</div>
-            <div className="text-[13px]" style={{ color: "var(--ink-faint)" }}>
+            <div className="b2" style={{ color: "var(--ink-faint)" }}>
               Sürükle veya{" "}
               <strong style={{ color: "var(--accent)" }}>tıkla</strong>
             </div>
@@ -62,7 +62,7 @@ export function CoverUpload({
         )}
         {busy && (
           <div
-            className="absolute inset-0 flex items-center justify-center rounded-lg text-[12px] font-medium"
+            className="absolute inset-0 flex items-center justify-center rounded-lg b2 font-medium"
             style={{ background: "var(--gray-scrim-800)", color: "var(--gray-1000)" }}
           >
             Yükleniyor…

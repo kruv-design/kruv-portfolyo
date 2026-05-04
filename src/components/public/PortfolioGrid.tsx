@@ -33,8 +33,8 @@ export function PortfolioGrid({
       <main className="portfolio-grid">
         {filtered.length === 0 ? (
           <div
-            className="serif col-span-full py-20 text-center italic"
-            style={{ color: "var(--ink-faint)", fontSize: "1.5rem" }}
+            className="b1 col-span-full py-20 text-center italic"
+            style={{ color: "var(--b1-color)" }}
           >
             Bu kategoride proje yok.
           </div>

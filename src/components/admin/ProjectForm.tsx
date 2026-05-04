@@ -121,7 +121,7 @@ export function ProjectForm({
   return (
     <form onSubmit={handleSubmit} className="pb-20">
       <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
-        <h1 className="serif text-[1.8rem]">
+        <h1 className="h2">
           {mode === "create" ? "Yeni Proje" : "Projeyi Düzenle"}
         </h1>
         <div className="flex gap-2">
@@ -232,7 +232,7 @@ export function ProjectForm({
           />
         </Field>
 
-        <label className="flex cursor-pointer items-center gap-2 text-[13px]" style={{ color: "var(--ink-soft)" }}>
+        <label className="b2 flex cursor-pointer items-center gap-2" style={{ color: "var(--ink-soft)" }}>
           <input
             type="checkbox"
             checked={form.featured}

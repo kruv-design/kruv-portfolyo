@@ -57,8 +57,8 @@ export function ProjectList({ initial }: { initial: Project[] }) {
   if (items.length === 0) {
     return (
       <div
-        className="py-16 text-center text-[13px]"
-        style={{ color: "var(--ink-faint)" }}
+        className="b2 py-16 text-center"
+        style={{ color: "var(--b2-color)" }}
       >
         Henüz proje yok. İlk projeyi ekle!
       </div>
@@ -98,23 +98,20 @@ export function ProjectList({ initial }: { initial: Project[] }) {
             {p.gorsel ? (
               <Image src={p.gorsel} alt="" width={64} height={48} className="h-full w-full object-cover" />
             ) : (
-              <span className="serif text-base">{p.baslik.slice(0, 1)}</span>
+              <span className="h4">{p.baslik.slice(0, 1)}</span>
             )}
           </div>
           <div className="min-w-0 flex-1">
-            <div
-              className="truncate text-[14px] font-medium"
-              style={{ color: "var(--ink)" }}
-            >
+            <div className="b1 truncate font-medium" style={{ color: "var(--ink)" }}>
               {p.baslik}
             </div>
-            <div className="mt-0.5 text-[11px]" style={{ color: "var(--ink-faint)" }}>
+            <div className="b3 mt-0.5 normal-case" style={{ color: "var(--ink-faint)" }}>
               {p.kategori} · {p.yil || "—"} · {p.musteri || "—"}
             </div>
           </div>
           {p.featured && (
             <span
-              className="flex-shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium"
+              className="b3 flex-shrink-0 rounded-full px-2 py-0.5 normal-case font-medium"
               style={{ background: "var(--accent-soft)", color: "var(--accent)" }}
             >
               Öne Çıkar

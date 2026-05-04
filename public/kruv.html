@@ -4,13 +4,11 @@
   http://192.168…:8080/kruv.html — hem Mac’te hem
   telefonda aynısı (aynı Wi‑Fi). localhost / 127.0.0.1 yalnızca Mac’te “bu bilgisayar” demek.
 -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="tr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kruv — Brand Identity for the Social-First Era</title>
 <link href="./kruv_site_files/css2" rel="stylesheet">
-<link rel="preload" as="image" href="assets/logo-white.svg?v=1">
-<link rel="preload" as="image" href="assets/logo-scroll.svg?v=2">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -101,67 +99,59 @@
   --type-b2: 13px;
   --type-b3: 10px;
 
-  /* ===== 7 Text Styles =====
-     Sayfadaki her yazı bu 7 reçeteden birini kullanır.
-     1 Display, 2 Heading, 3 Subheading, 4 Body, 5 Body Small, 6 Label, 7 Button */
+  /* ===== Typography tokens — yalnızca h1–h4 ve b1–b3 ===== */
 
-  /* 1 — DISPLAY : hero headline */
-  --ts-display-font:   var(--font-display);
-  --ts-display-size:   var(--type-h1);
-  --ts-display-weight: 400;
-  --ts-display-line:   var(--lh-tight);
-  --ts-display-letter: var(--ls-display);
-  --ts-display-case:   uppercase;
+  --h1-font-family: var(--font-display);
+  --h1-font-size: var(--type-h1);
+  --h1-font-weight: 400;
+  --h1-line-height: var(--lh-tight);
+  --h1-letter-spacing: var(--ls-display);
+  --h1-text-transform: uppercase;
 
-  /* 2 — HEADING : section titles */
-  --ts-heading-font:   var(--font-display);
-  --ts-heading-size:   var(--type-h2);
-  --ts-heading-weight: 400;
-  --ts-heading-line:   var(--lh-tight);
-  --ts-heading-letter: var(--ls-display);
-  --ts-heading-case:   uppercase;
+  --h2-font-family: var(--font-display);
+  --h2-font-size: var(--type-h2);
+  --h2-font-weight: 400;
+  --h2-line-height: var(--lh-tight);
+  --h2-letter-spacing: var(--ls-display);
+  --h2-text-transform: uppercase;
 
-  /* 3 — SUBHEADING : smaller titles, testimonial lead */
-  --ts-subheading-font:   var(--font-display);
-  --ts-subheading-size:   var(--type-h3);
-  --ts-subheading-weight: 400;
-  --ts-subheading-line:   var(--lh-tight);
-  --ts-subheading-letter: var(--ls-lg);
-  --ts-subheading-case:   uppercase;
+  --h3-font-family: var(--font-display);
+  --h3-font-size: var(--type-h3);
+  --h3-font-weight: 400;
+  --h3-line-height: var(--lh-tight);
+  --h3-letter-spacing: var(--ls-lg);
+  --h3-text-transform: uppercase;
 
-  /* 4 — BODY : primary paragraph */
-  --ts-body-font:   var(--font-body);
-  --ts-body-size:   var(--type-b1);
-  --ts-body-weight: 400;
-  --ts-body-line:   1.66;
-  --ts-body-letter: var(--ls-2xs);
-  --ts-body-case:   none;
-  --ts-body-color:  var(--silver);
+  --h4-font-family: var(--font-display);
+  --h4-font-size: var(--type-h4);
+  --h4-font-weight: 400;
+  --h4-line-height: var(--lh-tight);
+  --h4-letter-spacing: var(--ls-xl);
+  --h4-text-transform: uppercase;
 
-  /* 5 — BODY SMALL : captions, secondary text */
-  --ts-body-sm-font:   var(--font-body);
-  --ts-body-sm-size:   var(--type-b2);
-  --ts-body-sm-weight: 300;
-  --ts-body-sm-line:   var(--lh-body);
-  --ts-body-sm-letter: 0;
-  --ts-body-sm-case:   none;
-  --ts-body-sm-color:  var(--gray-400);
+  --b1-font-family: var(--font-body);
+  --b1-font-size: var(--type-b1);
+  --b1-font-weight: 400;
+  --b1-line-height: 1.66;
+  --b1-letter-spacing: var(--ls-2xs);
+  /* Metin gövdesi: sayfada tek ses — tüm b1/b2 büyük harf (görsel hiyerarşi h1–h4 + b1–b3 ile) */
+  --b1-text-transform: uppercase;
+  --b1-color: var(--silver);
 
-  /* 6 — LABEL : tagline, nav links, meta, micro-copy */
-  --ts-label-font:   var(--font-mono);
-  --ts-label-size:   var(--type-b3);
-  --ts-label-weight: 400;
-  --ts-label-line:   var(--lh-tight);
-  --ts-label-letter: var(--ls-2xl);
-  --ts-label-case:   uppercase;
+  --b2-font-family: var(--font-body);
+  --b2-font-size: var(--type-b2);
+  --b2-font-weight: 300;
+  --b2-line-height: var(--lh-body);
+  --b2-letter-spacing: 0;
+  --b2-text-transform: uppercase;
+  --b2-color: var(--gray-400);
 
-  /* 7 — BUTTON : CTA, action */
-  --ts-button-font:   var(--font-display);
-  --ts-button-size:   var(--type-h4);
-  --ts-button-weight: 400;
-  --ts-button-line:   var(--lh-tight);
-  --ts-button-letter: var(--ls-xl);
-  --ts-button-case:   uppercase;
+  --b3-font-family: var(--font-mono);
+  --b3-font-size: var(--type-b3);
+  --b3-font-weight: 400;
+  --b3-line-height: var(--lh-tight);
+  --b3-letter-spacing: var(--ls-2xl);
+  --b3-text-transform: uppercase;
 
 
   /* ===== Spacing ===== */
@@ -264,17 +254,13 @@
   --hero-portfolio-cursor-size: 104px;
   --hero-portfolio-cursor-lerp: 0.16;
 
-  /* Navbar: fixed logo slot (both SVGs share the same box — no layout shift) */
+  /* Navbar: logo yuvası (metin markası KRUV) */
   --nav-logo-slot-w: 160px;
   --nav-logo-slot-h: 49px;
   --nav-compact-dur: 570ms;
   --nav-compact-ease: cubic-bezier(0.22, 1, 0.36, 1);
   /* Kompakt pill: logo | linkler | CTA arası sabit gap (üstte boşluk flex space-between ile eşitlenir) */
   --nav-col-gap-scrolled: 16px;
-  /* Logo crossfade: tek süre, gecikme yok — iki logo aynı anda opacity ile değişir */
-  --nav-logo-cross-dur: calc(var(--nav-compact-dur) * 0.5);
-  /* Navbar 1 → 2: logo-1 biraz önce bitsin (logo-2 giriş süresi aynı) */
-  --nav-logo-1-out-dur: calc(var(--nav-compact-dur) * 0.36);
 
   /* ===== Component: cards / panels ===== */
   --card-radius: var(--radius-lg);
@@ -374,71 +360,70 @@ html, body {
   height: 100%;
   background: var(--midnight);
   color: var(--frost);
-  font-family: var(--ts-body-font);
+  font-family: var(--b1-font-family);
   font-weight: 300;
   overflow-x: hidden;
 }
 
-/* ===== 7 Text Style Utility Classes =====
-   HTML'de direkt kullan: <h1 class="ts-display">, <p class="ts-body">, vb.
-   Her sınıf ilgili reçetenin tüm özelliklerini uygular. */
-.ts-display {
-  font-family: var(--ts-display-font);
-  font-size: var(--ts-display-size);
-  font-weight: var(--ts-display-weight);
-  line-height: var(--ts-display-line);
-  letter-spacing: var(--ts-display-letter);
-  text-transform: var(--ts-display-case);
+/* ===== Tipografi yardımcıları — yalnızca .h1 … .h4, .b1 … .b3 =====
+   Örnek: <h1 class="h1">, <p class="b1"> */
+.h1 {
+  font-family: var(--h1-font-family);
+  font-size: var(--h1-font-size);
+  font-weight: var(--h1-font-weight);
+  line-height: var(--h1-line-height);
+  letter-spacing: var(--h1-letter-spacing);
+  text-transform: var(--h1-text-transform);
 }
-.ts-heading {
-  font-family: var(--ts-heading-font);
-  font-size: var(--ts-heading-size);
-  font-weight: var(--ts-heading-weight);
-  line-height: var(--ts-heading-line);
-  letter-spacing: var(--ts-heading-letter);
-  text-transform: var(--ts-heading-case);
+.h2 {
+  font-family: var(--h2-font-family);
+  font-size: var(--h2-font-size);
+  font-weight: var(--h2-font-weight);
+  line-height: var(--h2-line-height);
+  letter-spacing: var(--h2-letter-spacing);
+  text-transform: var(--h2-text-transform);
 }
-.ts-subheading {
-  font-family: var(--ts-subheading-font);
-  font-size: var(--ts-subheading-size);
-  font-weight: var(--ts-subheading-weight);
-  line-height: var(--ts-subheading-line);
-  letter-spacing: var(--ts-subheading-letter);
-  text-transform: var(--ts-subheading-case);
+.h3 {
+  font-family: var(--h3-font-family);
+  font-size: var(--h3-font-size);
+  font-weight: var(--h3-font-weight);
+  line-height: var(--h3-line-height);
+  letter-spacing: var(--h3-letter-spacing);
+  text-transform: var(--h3-text-transform);
 }
-.ts-body {
-  font-family: var(--ts-body-font);
-  font-size: var(--ts-body-size);
-  font-weight: var(--ts-body-weight);
-  line-height: var(--ts-body-line);
-  letter-spacing: var(--ts-body-letter);
-  text-transform: var(--ts-body-case);
-  color: var(--ts-body-color);
+.b1 {
+  font-family: var(--b1-font-family);
+  font-size: var(--b1-font-size);
+  font-weight: var(--b1-font-weight);
+  line-height: var(--b1-line-height);
+  letter-spacing: var(--b1-letter-spacing);
+  text-transform: var(--b1-text-transform);
+  color: var(--b1-color);
 }
-.ts-body-sm {
-  font-family: var(--ts-body-sm-font);
-  font-size: var(--ts-body-sm-size);
-  font-weight: var(--ts-body-sm-weight);
-  line-height: var(--ts-body-sm-line);
-  letter-spacing: var(--ts-body-sm-letter);
-  text-transform: var(--ts-body-sm-case);
-  color: var(--ts-body-sm-color);
+.b2 {
+  font-family: var(--b2-font-family);
+  font-size: var(--b2-font-size);
+  font-weight: var(--b2-font-weight);
+  line-height: var(--b2-line-height);
+  letter-spacing: var(--b2-letter-spacing);
+  text-transform: var(--b2-text-transform);
+  color: var(--b2-color);
 }
-.ts-label {
-  font-family: var(--ts-label-font);
-  font-size: var(--ts-label-size);
-  font-weight: var(--ts-label-weight);
-  line-height: var(--ts-label-line);
-  letter-spacing: var(--ts-label-letter);
-  text-transform: var(--ts-label-case);
+.b3 {
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
 }
-.ts-button {
-  font-family: var(--ts-button-font);
-  font-size: var(--ts-button-size);
-  font-weight: var(--ts-button-weight);
-  line-height: var(--ts-button-line);
-  letter-spacing: var(--ts-button-letter);
-  text-transform: var(--ts-button-case);
+.h4 {
+  font-family: var(--h4-font-family);
+  font-size: var(--h4-font-size);
+  font-weight: var(--h4-font-weight);
+  line-height: var(--h4-line-height);
+  letter-spacing: var(--h4-letter-spacing);
+  text-transform: var(--h4-text-transform);
 }
 
 /* ambient glow center */
@@ -544,8 +529,8 @@ nav.navbar.is-scrolled {
 }
 nav.navbar.is-scrolled .nav-cta {
   padding: var(--space-xxs) var(--space-lg);
-  letter-spacing: calc(var(--ts-label-letter) - 0.02em);
-  font-size: calc(var(--ts-label-size) - 1px);
+  letter-spacing: calc(var(--b3-letter-spacing) - 0.02em);
+  font-size: calc(var(--b3-font-size) - 1px);
 }
 .nav-logo {
   display: inline-flex;
@@ -558,7 +543,8 @@ nav.navbar.is-scrolled .nav-cta {
 }
 .nav-logo-stack {
   position: relative;
-  display: block;
+  display: flex;
+  align-items: center;
   width: var(--nav-logo-slot-w);
   height: var(--nav-logo-slot-h);
   transform: scale3d(1, 1, 1);
@@ -568,57 +554,21 @@ nav.navbar.is-scrolled .nav-cta {
 nav.navbar.is-scrolled .nav-logo-stack {
   transform: scale3d(0.92, 0.92, 1);
 }
-.nav-logo .logo {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: left center;
-  pointer-events: none;
+/* Logo: tipografi token’ları — KRUV (SVG küçük harf yerine tek yazım kuralı) */
+.nav-wordmark {
+  font-family: var(--h3-font-family);
+  font-size: var(--type-h3);
+  font-weight: var(--h3-font-weight);
+  line-height: 1;
+  letter-spacing: var(--h3-letter-spacing);
+  text-transform: var(--h3-text-transform);
+  color: var(--frost);
+  display: block;
+  white-space: nowrap;
+  transition: color var(--nav-compact-dur) var(--nav-compact-ease);
 }
-/* Logo 1: %30 küçült (slot / logo 2 boyutu değişmez) */
-.nav-logo .logo-1 {
-  opacity: 1;
-  visibility: visible;
-  transform: scale(0.7);
-  transform-origin: left center;
-  transition:
-    opacity var(--nav-logo-cross-dur) var(--nav-compact-ease),
-    visibility 0ms linear 0ms;
-}
-.nav-logo .logo-2 {
-  opacity: 0;
-  visibility: hidden;
-  transition:
-    opacity var(--nav-logo-cross-dur) var(--nav-compact-ease),
-    visibility 0ms linear var(--nav-logo-cross-dur);
-}
-nav.navbar.is-scrolled .nav-logo .logo-1 {
-  opacity: 0;
-  visibility: hidden;
-  transition:
-    opacity var(--nav-logo-1-out-dur) var(--nav-compact-ease),
-    visibility 0ms linear var(--nav-logo-1-out-dur);
-}
-nav.navbar.is-scrolled .nav-logo .logo-2 {
-  opacity: 1;
-  visibility: visible;
-  transition:
-    visibility 0ms linear 0ms,
-    opacity var(--nav-logo-cross-dur) var(--nav-compact-ease);
-}
-nav.navbar:not(.is-scrolled) .nav-logo .logo-1 {
-  transition:
-    visibility 0ms linear 0ms,
-    opacity var(--nav-logo-cross-dur) var(--nav-compact-ease);
-}
-nav.navbar:not(.is-scrolled) .nav-logo .logo-2 {
-  opacity: 0;
-  visibility: hidden;
-  transition:
-    opacity var(--nav-logo-cross-dur) var(--nav-compact-ease),
-    visibility 0ms linear var(--nav-logo-cross-dur);
+nav.navbar.is-scrolled .nav-wordmark {
+  color: var(--purple);
 }
 
 #nav-sentinel {
@@ -657,18 +607,18 @@ nav.navbar.is-scrolled .nav-links {
 .navbar-item1,
 .navbar-item2,
 .navbar-item3 {
-  font-family: var(--ts-label-font);
-  font-size: var(--ts-label-size);
-  font-weight: var(--ts-label-weight);
-  line-height: var(--ts-label-line);
-  letter-spacing: var(--ts-label-letter);
-  text-transform: var(--ts-label-case);
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
 }
 nav.navbar.is-scrolled .navbar-item1,
 nav.navbar.is-scrolled .navbar-item2,
 nav.navbar.is-scrolled .navbar-item3 {
-  letter-spacing: calc(var(--ts-label-letter) - 0.02em);
-  font-size: calc(var(--ts-label-size) - 1px);
+  letter-spacing: calc(var(--b3-letter-spacing) - 0.02em);
+  font-size: calc(var(--b3-font-size) - 1px);
 }
 .nav-links a:hover { color: var(--frost); }
 .nav-actions {
@@ -677,12 +627,12 @@ nav.navbar.is-scrolled .navbar-item3 {
   flex-shrink: 0;
 }
 .nav-cta {
-  font-family: var(--ts-label-font);
-  font-size: var(--ts-label-size);
-  font-weight: var(--ts-label-weight);
-  line-height: var(--ts-label-line);
-  letter-spacing: var(--ts-label-letter);
-  text-transform: var(--ts-label-case); padding: var(--space-sm) var(--space-xl);
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform); padding: var(--space-sm) var(--space-xl);
   border: 1px solid var(--pb); color: var(--purple);
   text-decoration: none; border-radius: var(--radius-xs);
   transition:
@@ -845,21 +795,21 @@ body:has(.featured-work-card:hover) .hero-bottom {
   position: relative; z-index: 2;
 }
 .card-label-name {
-  font-family: var(--ts-button-font);
-  font-size: var(--ts-button-size);
-  font-weight: var(--ts-button-weight);
+  font-family: var(--h4-font-family);
+  font-size: var(--h4-font-size);
+  font-weight: var(--h4-font-weight);
   line-height: var(--lh-tightest);
-  letter-spacing: var(--ts-button-letter);
-  text-transform: var(--ts-button-case);
+  letter-spacing: var(--h4-letter-spacing);
+  text-transform: var(--h4-text-transform);
   color: var(--frost); margin-bottom: var(--space-0);
 }
 .card-label-type {
-  font-family: var(--ts-label-font);
-  font-size: var(--ts-label-size);
-  font-weight: var(--ts-label-weight);
-  line-height: var(--ts-label-line);
-  letter-spacing: var(--ts-label-letter);
-  text-transform: var(--ts-label-case);
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
   color: var(--gray-500);
 }
 
@@ -916,12 +866,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
   width: 100%;
 }
 .hero-card-hover-title {
-  font-family: var(--ts-button-font);
-  font-size: var(--ts-button-size);
-  font-weight: var(--ts-button-weight);
-  line-height: var(--ts-button-line);
-  letter-spacing: var(--ts-button-letter);
-  text-transform: var(--ts-button-case);
+  font-family: var(--h4-font-family);
+  font-size: var(--h4-font-size);
+  font-weight: var(--h4-font-weight);
+  line-height: var(--h4-line-height);
+  letter-spacing: var(--h4-letter-spacing);
+  text-transform: var(--h4-text-transform);
   color: var(--frost);
   margin: 0;
   flex: 1;
@@ -929,12 +879,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
   text-shadow: 0 1px 10px var(--gray-scrim-700);
 }
 .hero-card-hover-category {
-  font-family: var(--ts-label-font);
-  font-size: var(--ts-label-size);
-  font-weight: var(--ts-label-weight);
-  line-height: var(--ts-label-line);
-  letter-spacing: var(--ts-label-letter);
-  text-transform: var(--ts-label-case);
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
   color: var(--silver);
   text-align: right;
   margin: 0;
@@ -946,12 +896,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
   position: relative;
   z-index: 2;
   margin-top: var(--space-0);
-  font-family: var(--ts-label-font);
-  font-size: var(--ts-label-size);
-  font-weight: var(--ts-label-weight);
-  line-height: var(--ts-label-line);
-  letter-spacing: var(--ts-label-letter);
-  text-transform: var(--ts-label-case);
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
   color: var(--purple);
   text-decoration: none;
   align-self: flex-start;
@@ -1024,12 +974,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
   opacity: 1;
 }
 .hero-portfolio-cursor__text {
-  font-family: var(--ts-label-font);
-  font-size: var(--ts-label-size);
-  font-weight: var(--ts-label-weight);
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
   line-height: var(--lh-tightest);
-  letter-spacing: var(--ts-label-letter);
-  text-transform: var(--ts-label-case);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
   color: var(--frost);
   display: block;
   max-width: 100%;
@@ -1070,12 +1020,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
   box-shadow: 0 0 8px rgba(93,93,255,0.7);
 }
 .eyebrow-text {
-  font-family: var(--ts-label-font);
-  font-size: var(--ts-label-size);
-  font-weight: var(--ts-label-weight);
-  line-height: var(--ts-label-line);
-  letter-spacing: var(--ts-label-letter);
-  text-transform: var(--ts-label-case);
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
   color: var(--purple);
 }
 
@@ -1083,12 +1033,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
   margin-bottom: var(--space-5);
 }
 .headline .hero-headline {
-  font-family: var(--ts-display-font);
-  font-size: var(--ts-display-size);
-  font-weight: var(--ts-display-weight);
+  font-family: var(--h1-font-family);
+  font-size: var(--h1-font-size);
+  font-weight: var(--h1-font-weight);
   line-height: var(--lh-tightest);
-  letter-spacing: var(--ts-display-letter);
-  text-transform: var(--ts-display-case);
+  letter-spacing: var(--h1-letter-spacing);
+  text-transform: var(--h1-text-transform);
   color: var(--frost);
   margin: 0;
   text-wrap: balance;
@@ -1134,12 +1084,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 
 .sub {
-  font-family: var(--ts-body-font);
-  font-size: var(--ts-body-size);
-  font-weight: var(--ts-body-weight);
-  line-height: var(--ts-body-line);
-  letter-spacing: var(--ts-body-letter);
-  color: var(--ts-body-color);
   max-width: var(--size-sub-max-w); margin: 0 auto var(--space-7);
   opacity: 0; animation: fadeUp .5s 1s ease forwards;
 }
@@ -1151,24 +1095,24 @@ body:has(.featured-work-card:hover) .hero-bottom {
   opacity: 0; animation: fadeUp .5s 1.12s ease forwards;
 }
 .cta-main {
-  font-family: var(--ts-button-font);
-  font-size: var(--ts-button-size);
-  font-weight: var(--ts-button-weight);
-  line-height: var(--ts-button-line);
-  letter-spacing: var(--ts-button-letter);
-  text-transform: var(--ts-button-case);
+  font-family: var(--h4-font-family);
+  font-size: var(--h4-font-size);
+  font-weight: var(--h4-font-weight);
+  line-height: var(--h4-line-height);
+  letter-spacing: var(--h4-letter-spacing);
+  text-transform: var(--h4-text-transform);
   padding: var(--btn-pad-y) var(--btn-pad-x); background: var(--purple); color: var(--frost);
   border-radius: var(--btn-radius); text-decoration: none;
   transition: opacity .15s, transform .1s;
 }
 .cta-main:hover { opacity: .85; transform: translateY(-1px); }
 .cta-sub {
-  font-family: var(--ts-label-font);
-  font-size: var(--ts-label-size);
-  font-weight: var(--ts-label-weight);
-  line-height: var(--ts-label-line);
-  letter-spacing: var(--ts-label-letter);
-  text-transform: var(--ts-label-case);
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
   color: var(--silver); text-decoration: none;
   display: flex; align-items: center; gap: var(--space-xs); transition: color .15s;
 }
@@ -1183,12 +1127,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
   opacity: 0; animation: fadeUp .5s 1.24s ease forwards;
 }
 .loc {
-  font-family: var(--ts-label-font);
-  font-size: var(--ts-label-size);
-  font-weight: var(--ts-label-weight);
-  line-height: var(--ts-label-line);
-  letter-spacing: var(--ts-label-letter);
-  text-transform: var(--ts-label-case);
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
   color: var(--shadow);
   display: flex; align-items: center; gap: var(--space-xxs);
 }
@@ -1217,12 +1161,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
   animation: tickerRoll 32s linear infinite;
 }
 .ticker-item {
-  font-family: var(--ts-label-font);
-  font-size: var(--ts-label-size);
-  font-weight: var(--ts-label-weight);
-  line-height: var(--ts-label-line);
-  letter-spacing: var(--ts-label-letter);
-  text-transform: var(--ts-label-case);
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
   color: var(--silver);
   padding: 0 var(--ticker-item-pad-x);
   display: inline-flex;
@@ -1268,12 +1212,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
   padding: var(--space-2) var(--space-3) var(--space-3);
   background: var(--gray-hint-bar);
   border-top: var(--border-w-1) solid var(--pb);
-  font-family: var(--ts-label-font);
-  font-size: var(--ts-label-size);
-  font-weight: var(--ts-label-weight);
-  line-height: var(--ts-label-line);
-  letter-spacing: var(--ts-label-letter);
-  text-transform: none;
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
   color: var(--silver);
   display: none;
   align-items: flex-start;
@@ -1285,9 +1229,9 @@ body:has(.featured-work-card:hover) .hero-bottom {
 .lan-share-hint__title {
   flex: 1 1 100%;
   color: var(--frost);
-  text-transform: var(--ts-label-case);
-  letter-spacing: var(--ts-label-letter);
-  font-size: var(--ts-label-size);
+  text-transform: var(--b3-text-transform);
+  letter-spacing: var(--b3-letter-spacing);
+  font-size: var(--b3-font-size);
 }
 .lan-share-hint__body {
   flex: 1 1 220px;
@@ -1316,12 +1260,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
   flex-shrink: 0;
 }
 .lan-share-hint button {
-  font-family: var(--ts-label-font);
-  font-size: var(--ts-label-size);
-  font-weight: var(--ts-label-weight);
-  line-height: var(--ts-label-line);
-  letter-spacing: var(--ts-label-letter);
-  text-transform: var(--ts-label-case);
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
   padding: var(--space-xs) var(--space-3);
   border-radius: var(--radius-xs);
   border: 1px solid var(--pb);
@@ -1508,12 +1452,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
     position: absolute;
     bottom: var(--offset-mobile-swipe-bottom); left: 50%;
     transform: translateX(-50%);
-    font-family: var(--ts-label-font);
-    font-size: var(--ts-label-size);
-    font-weight: var(--ts-label-weight);
-    line-height: var(--ts-label-line);
-    letter-spacing: var(--ts-label-letter);
-    text-transform: var(--ts-label-case);
+    font-family: var(--b3-font-family);
+    font-size: var(--b3-font-size);
+    font-weight: var(--b3-font-weight);
+    line-height: var(--b3-line-height);
+    letter-spacing: var(--b3-letter-spacing);
+    text-transform: var(--b3-text-transform);
     color: var(--gray-200); white-space: nowrap;
     animation: swipeHintFade 3s 1.5s ease forwards;
   }
@@ -1552,7 +1496,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   .hero { padding: var(--size-hero-pad-top-mobile) var(--space-4) var(--space-9); }
   .hero-bottom { padding-top: var(--space-4); }
   .headline .hero-headline { font-size: var(--type-h1); }
-  .sub { font-size: var(--ts-body-size); max-width: var(--size-sub-max-w-mobile); }
+  .sub { font-size: var(--b1-font-size); max-width: var(--size-sub-max-w-mobile); }
   .cta-row { flex-direction: column; gap: var(--space-3); align-items: center; }
   .cta-main { text-align: center; padding: var(--space-3) var(--space-10); }
 }
@@ -1569,8 +1513,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
       <div class="nav-col nav-col--brand">
         <a class="nav-logo brand" href="/" aria-label="Ana sayfa — KRUV">
           <span class="nav-logo-stack">
-            <img class="logo logo-1" src="assets/logo-white.svg?v=1" width="160" height="49" alt="">
-            <img class="logo logo-2" src="assets/logo-scroll.svg?v=2" width="160" height="49" alt="">
+            <span class="nav-wordmark" aria-hidden="true">KRUV</span>
           </span>
         </a>
       </div>
@@ -1853,7 +1796,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   h1.classList.add('hero-headline--split');
 })();
     </script>
-    <p class="sub">
+    <p class="sub b1">
       Most brands are designed for walls.<br>
       <strong>We design for feeds.</strong>
     </p>
@@ -1984,23 +1927,23 @@ body:has(.featured-work-card:hover) .hero-bottom {
   text-align: left;
 }
 .ideal-tag {
-  font-family: var(--ts-label-font);
-  font-size: var(--ts-label-size);
-  font-weight: var(--ts-label-weight);
-  line-height: var(--ts-label-line);
-  letter-spacing: var(--ts-label-letter);
-  text-transform: var(--ts-label-case);
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
   color: var(--silver);
   display: block;
   margin-bottom: var(--space-2);
 }
 .ideal-title {
-  font-family: var(--ts-heading-font);
-  font-size: var(--ts-heading-size);
-  font-weight: var(--ts-heading-weight);
-  line-height: var(--ts-heading-line);
-  letter-spacing: var(--ts-heading-letter);
-  text-transform: var(--ts-heading-case);
+  font-family: var(--h2-font-family);
+  font-size: var(--h2-font-size);
+  font-weight: var(--h2-font-weight);
+  line-height: var(--h2-line-height);
+  letter-spacing: var(--h2-letter-spacing);
+  text-transform: var(--h2-text-transform);
   color: var(--frost);
   white-space: nowrap;
 }
@@ -2070,23 +2013,23 @@ body:has(.featured-work-card:hover) .hero-bottom {
   margin-bottom: var(--space-xl);
 }
 .testimonials-tag {
-  font-family: var(--ts-label-font);
-  font-size: var(--ts-label-size);
-  font-weight: var(--ts-label-weight);
-  line-height: var(--ts-label-line);
-  letter-spacing: var(--ts-label-letter);
-  text-transform: var(--ts-label-case);
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
   color: var(--silver);
   display: block;
   margin-bottom: var(--space-2);
 }
 .testimonials-title {
-  font-family: var(--ts-heading-font);
-  font-size: var(--ts-heading-size);
-  font-weight: var(--ts-heading-weight);
-  line-height: var(--ts-heading-line);
-  letter-spacing: var(--ts-heading-letter);
-  text-transform: var(--ts-heading-case);
+  font-family: var(--h2-font-family);
+  font-size: var(--h2-font-size);
+  font-weight: var(--h2-font-weight);
+  line-height: var(--h2-line-height);
+  letter-spacing: var(--h2-letter-spacing);
+  text-transform: var(--h2-text-transform);
   color: var(--frost);
 }
 .testimonials-marquee {
@@ -2130,31 +2073,32 @@ body:has(.featured-work-card:hover) .hero-bottom {
   flex-shrink: 0;
 }
 .testimonial-name {
-  font-family: var(--ts-subheading-font);
-  font-size: var(--ts-subheading-size);
-  font-weight: var(--ts-subheading-weight);
+  font-family: var(--h3-font-family);
+  font-size: var(--h3-font-size);
+  font-weight: var(--h3-font-weight);
   line-height: var(--lh-tightest);
-  letter-spacing: var(--ts-subheading-letter);
-  text-transform: var(--ts-subheading-case);
+  letter-spacing: var(--h3-letter-spacing);
+  text-transform: var(--h3-text-transform);
   color: var(--frost);
   margin-bottom: var(--space-1);
 }
 .testimonial-role {
-  font-family: var(--ts-label-font);
-  font-size: var(--ts-label-size);
-  font-weight: var(--ts-label-weight);
-  line-height: var(--ts-label-line);
-  letter-spacing: var(--ts-label-letter);
-  text-transform: var(--ts-label-case);
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
   color: var(--silver);
 }
 .testimonial-quote {
-  font-family: var(--ts-body-font);
-  font-size: var(--ts-body-size);
-  font-weight: var(--ts-body-weight);
-  line-height: var(--ts-body-line);
-  letter-spacing: var(--ts-body-letter);
-  color: var(--ts-body-color);
+  font-family: var(--b1-font-family);
+  font-size: var(--b1-font-size);
+  font-weight: var(--b1-font-weight);
+  line-height: var(--b1-line-height);
+  letter-spacing: var(--b1-letter-spacing);
+  text-transform: var(--b1-text-transform);
+  color: var(--b1-color);
   text-wrap: pretty;
 }
 @keyframes testimonialsScroll {
@@ -2215,34 +2159,35 @@ body:has(.featured-work-card:hover) .hero-bottom {
   min-width: 0;
 }
 .focus-list-tag {
-  font-family: var(--ts-label-font);
-  font-size: var(--ts-label-size);
-  font-weight: var(--ts-label-weight);
-  line-height: var(--ts-label-line);
-  letter-spacing: var(--ts-label-letter);
-  text-transform: var(--ts-label-case);
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
   color: var(--silver);
   display: block;
   margin-bottom: var(--space-2);
 }
 .focus-list-heading {
-  font-family: var(--ts-heading-font);
-  font-size: var(--ts-heading-size);
-  font-weight: var(--ts-heading-weight);
-  line-height: var(--ts-heading-line);
-  letter-spacing: var(--ts-heading-letter);
-  text-transform: var(--ts-heading-case);
+  font-family: var(--h2-font-family);
+  font-size: var(--h2-font-size);
+  font-weight: var(--h2-font-weight);
+  line-height: var(--h2-line-height);
+  letter-spacing: var(--h2-letter-spacing);
+  text-transform: var(--h2-text-transform);
   color: var(--frost);
   text-wrap: balance;
 }
 .focus-list-note {
   margin-top: var(--space-4);
   max-width: 26ch;
-  font-family: var(--ts-body-font);
-  font-size: var(--ts-body-size);
-  font-weight: var(--ts-body-weight);
-  line-height: var(--ts-body-line);
-  letter-spacing: var(--ts-body-letter);
+  font-family: var(--b1-font-family);
+  font-size: var(--b1-font-size);
+  font-weight: var(--b1-font-weight);
+  line-height: var(--b1-line-height);
+  letter-spacing: var(--b1-letter-spacing);
+  text-transform: var(--b1-text-transform);
   color: var(--gray-550);
 }
 
@@ -2294,21 +2239,21 @@ body:has(.featured-work-card:hover) .hero-bottom {
 .focus-number {
   align-self: start;
   padding-top: var(--space-0);
-  font-family: var(--ts-label-font);
-  font-size: var(--ts-label-size);
-  font-weight: var(--ts-label-weight);
-  line-height: var(--ts-label-line);
-  letter-spacing: var(--ts-label-letter);
-  text-transform: var(--ts-label-case);
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
   color: var(--gray-550);
 }
 .focus-title {
-  font-family: var(--ts-subheading-font);
-  font-size: var(--ts-subheading-size);
-  font-weight: var(--ts-subheading-weight);
-  line-height: var(--ts-subheading-line);
-  letter-spacing: var(--ts-subheading-letter);
-  text-transform: var(--ts-subheading-case);
+  font-family: var(--h3-font-family);
+  font-size: var(--h3-font-size);
+  font-weight: var(--h3-font-weight);
+  line-height: var(--h3-line-height);
+  letter-spacing: var(--h3-letter-spacing);
+  text-transform: var(--h3-text-transform);
   color: var(--frost);
 }
 /* Akış içi: açılınca alt satırlar aşağı kayar; shell = yumuşak yükseklik animasyonu */
@@ -2347,11 +2292,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 .focus-lede p {
   margin: 0;
-  font-family: var(--ts-body-font);
-  font-size: var(--ts-body-size);
-  font-weight: var(--ts-body-weight);
-  line-height: var(--ts-body-line);
-  letter-spacing: var(--ts-body-letter);
+  font-family: var(--b1-font-family);
+  font-size: var(--b1-font-size);
+  font-weight: var(--b1-font-weight);
+  line-height: var(--b1-line-height);
+  letter-spacing: var(--b1-letter-spacing);
+  text-transform: var(--b1-text-transform);
   color: var(--gray-650);
   text-wrap: pretty;
 }
@@ -2383,11 +2329,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
   display: inline-flex;
   align-items: center;
   min-height: 48px;
-  font-family: var(--ts-body-font);
-  font-size: var(--ts-body-size);
-  font-weight: var(--ts-body-weight);
-  line-height: var(--ts-body-line);
-  letter-spacing: var(--ts-body-letter);
+  font-family: var(--b1-font-family);
+  font-size: var(--b1-font-size);
+  font-weight: var(--b1-font-weight);
+  line-height: var(--b1-line-height);
+  letter-spacing: var(--b1-letter-spacing);
+  text-transform: var(--b1-text-transform);
   color: var(--gray-700);
   text-decoration: none;
   transform: translateX(-8px);
@@ -2749,21 +2696,21 @@ body:has(.featured-work-card:hover) .hero-bottom {
   transition: filter .2s cubic-bezier(0.4,0,0.2,1), opacity .2s cubic-bezier(0.4,0,0.2,1);
 }
 .scene-section-tag {
-  font-family: var(--ts-label-font);
-  font-size: var(--ts-label-size);
-  font-weight: var(--ts-label-weight);
-  line-height: var(--ts-label-line);
-  letter-spacing: var(--ts-label-letter);
-  text-transform: var(--ts-label-case);
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
   color: var(--silver);
 }
 .scene-section-title {
-  font-family: var(--ts-heading-font);
-  font-size: var(--ts-heading-size);
-  font-weight: var(--ts-heading-weight);
-  line-height: var(--ts-heading-line);
-  letter-spacing: var(--ts-heading-letter);
-  text-transform: var(--ts-heading-case);
+  font-family: var(--h2-font-family);
+  font-size: var(--h2-font-size);
+  font-weight: var(--h2-font-weight);
+  line-height: var(--h2-line-height);
+  letter-spacing: var(--h2-letter-spacing);
+  text-transform: var(--h2-text-transform);
   color: var(--frost);
   margin-top: var(--space-2);
 }
@@ -2811,12 +2758,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
   position: absolute;
   top: 1.5rem; left: 50%;
   transform: translateX(-50%);
-  font-family: var(--ts-label-font);
-  font-size: var(--ts-label-size);
-  font-weight: var(--ts-label-weight);
-  line-height: var(--ts-label-line);
-  letter-spacing: var(--ts-label-letter);
-  text-transform: var(--ts-label-case);
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
   color: var(--gray-300);
   white-space: nowrap;
   pointer-events: none;
@@ -2870,12 +2817,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
   bottom: var(--size-kadraj-label-bottom); left: 50%;
   transform: translateX(-50%);
   white-space: nowrap;
-  font-family: var(--ts-label-font);
-  font-size: var(--ts-label-size);
-  font-weight: var(--ts-label-weight);
-  line-height: var(--ts-label-line);
-  letter-spacing: var(--ts-label-letter);
-  text-transform: var(--ts-label-case);
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
   color: var(--gray-600);
 }
 
@@ -2909,19 +2856,21 @@ body:has(.featured-work-card:hover) .hero-bottom {
   flex-shrink: 0;
 }
 .post-username {
-  font-family: var(--ts-body-sm-font);
-  font-size: var(--ts-body-sm-size);
+  font-family: var(--b2-font-family);
+  font-size: var(--b2-font-size);
   font-weight: 500;
-  line-height: var(--ts-body-sm-line);
-  letter-spacing: var(--ts-body-sm-letter);
+  line-height: var(--b2-line-height);
+  letter-spacing: var(--b2-letter-spacing);
+  text-transform: var(--b2-text-transform);
   color: var(--gray-900);
 }
 .post-handle {
-  font-family: var(--ts-body-sm-font);
-  font-size: var(--ts-body-sm-size);
-  font-weight: var(--ts-body-sm-weight);
-  line-height: var(--ts-body-sm-line);
-  letter-spacing: var(--ts-body-sm-letter);
+  font-family: var(--b2-font-family);
+  font-size: var(--b2-font-size);
+  font-weight: var(--b2-font-weight);
+  line-height: var(--b2-line-height);
+  letter-spacing: var(--b2-letter-spacing);
+  text-transform: var(--b2-text-transform);
   color: var(--gray-350);
 }
 
@@ -2943,11 +2892,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
   background: var(--gray-200);
 }
 .post-caption {
-  font-family: var(--ts-body-sm-font);
-  font-size: var(--ts-body-sm-size);
-  font-weight: var(--ts-body-sm-weight);
-  line-height: var(--ts-body-sm-line);
-  letter-spacing: var(--ts-body-sm-letter);
+  font-family: var(--b2-font-family);
+  font-size: var(--b2-font-size);
+  font-weight: var(--b2-font-weight);
+  line-height: var(--b2-line-height);
+  letter-spacing: var(--b2-letter-spacing);
+  text-transform: var(--b2-text-transform);
   color: var(--gray-400);
 }
 .post-caption strong { color: var(--gray-800); font-weight: 500; }
@@ -2961,12 +2911,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
   pointer-events: all; z-index: 20;
 }
 .format-pill {
-  font-family: var(--ts-label-font);
-  font-size: var(--ts-label-size);
-  font-weight: var(--ts-label-weight);
-  line-height: var(--ts-label-line);
-  letter-spacing: var(--ts-label-letter);
-  text-transform: var(--ts-label-case);
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
   color: var(--gray-500);
   border: 0.5px solid var(--gray-150);
   padding: var(--space-xxs) var(--space-md); border-radius: var(--radius-pill);
@@ -3050,12 +3000,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
   width: 100%;
 }
 .featured-work-category {
-  font-family: var(--ts-label-font);
-  font-size: var(--ts-label-size);
-  font-weight: var(--ts-label-weight);
-  line-height: var(--ts-label-line);
-  letter-spacing: var(--ts-label-letter);
-  text-transform: var(--ts-label-case);
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
   color: var(--silver);
   text-align: right;
   margin: 0;
@@ -3063,12 +3013,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
   max-width: min(100%, calc(5 * var(--space-10)));
 }
 .featured-work-title {
-  font-family: var(--ts-button-font);
-  font-size: var(--ts-button-size);
-  font-weight: var(--ts-button-weight);
-  line-height: var(--ts-button-line);
-  letter-spacing: var(--ts-button-letter);
-  text-transform: var(--ts-button-case);
+  font-family: var(--h4-font-family);
+  font-size: var(--h4-font-size);
+  font-weight: var(--h4-font-weight);
+  line-height: var(--h4-line-height);
+  letter-spacing: var(--h4-letter-spacing);
+  text-transform: var(--h4-text-transform);
   color: var(--frost);
   margin: 0;
   min-width: 0;
@@ -3077,12 +3027,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
   position: relative;
   z-index: 0;
   margin: 0;
-  font-family: var(--ts-label-font);
-  font-size: var(--ts-label-size);
-  font-weight: var(--ts-label-weight);
-  line-height: var(--ts-label-line);
-  letter-spacing: var(--ts-label-letter);
-  text-transform: var(--ts-label-case);
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
   color: var(--purple);
   pointer-events: none;
   align-self: flex-start;
@@ -3106,12 +3056,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
   background: var(--purple);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  font-family: var(--ts-label-font);
-  font-size: var(--ts-label-size);
-  font-weight: var(--ts-label-weight);
-  line-height: var(--ts-label-line);
-  letter-spacing: var(--ts-label-letter);
-  text-transform: var(--ts-label-case);
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
   color: var(--frost);
   white-space: nowrap;
   box-shadow: 0 8px 24px var(--gray-scrim-600);

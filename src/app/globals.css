@@ -96,17 +96,77 @@
   --font-display: "Bebas Neue", "Impact", sans-serif;
   --font-body:    "Outfit", system-ui, sans-serif;
   --font-mono:    "DM Mono", ui-monospace, monospace;
-  /* Backward-compat: existing .serif / Tailwind serif class points to display */
-  --font-serif:   var(--font-display);
   --font-sans:    var(--font-body);
 
-  /* Type scale (kruv.html) */
+  /* Type scale — yalnızca h1–h4 ve b1–b3 (kruv.html ile aynı isimler) */
   --type-h1: clamp(52px, 7vw, 96px);
   --type-h2: clamp(32px, 8vw, 44px);
   --type-h3: clamp(24px, 6vw, 30px);
   --type-h4: 16px;
   --type-b1: 14px;
   --type-b2: 13px;
+  --type-b3: 10px;
+
+  --lh-tightest: 1;
+  --lh-tight: 1.05;
+  --lh-body: 1.55;
+  --lh-note: 1.45;
+  --ls-2xs: 0.01em;
+  --ls-display: 0.06em;
+  --ls-lg: 0.08em;
+  --ls-xl: 0.12em;
+  --ls-2xl: 0.14em;
+
+  --h1-font-family: var(--font-display);
+  --h1-font-size: var(--type-h1);
+  --h1-font-weight: 400;
+  --h1-line-height: var(--lh-tight);
+  --h1-letter-spacing: var(--ls-display);
+  --h1-text-transform: uppercase;
+
+  --h2-font-family: var(--font-display);
+  --h2-font-size: var(--type-h2);
+  --h2-font-weight: 400;
+  --h2-line-height: var(--lh-tight);
+  --h2-letter-spacing: var(--ls-display);
+  --h2-text-transform: uppercase;
+
+  --h3-font-family: var(--font-display);
+  --h3-font-size: var(--type-h3);
+  --h3-font-weight: 400;
+  --h3-line-height: var(--lh-tight);
+  --h3-letter-spacing: var(--ls-lg);
+  --h3-text-transform: uppercase;
+
+  --h4-font-family: var(--font-display);
+  --h4-font-size: var(--type-h4);
+  --h4-font-weight: 400;
+  --h4-line-height: var(--lh-tight);
+  --h4-letter-spacing: var(--ls-xl);
+  --h4-text-transform: uppercase;
+
+  --b1-font-family: var(--font-body);
+  --b1-font-size: var(--type-b1);
+  --b1-font-weight: 400;
+  --b1-line-height: 1.66;
+  --b1-letter-spacing: var(--ls-2xs);
+  --b1-text-transform: none;
+  --b1-color: var(--ink-soft);
+
+  --b2-font-family: var(--font-body);
+  --b2-font-size: var(--type-b2);
+  --b2-font-weight: 300;
+  --b2-line-height: var(--lh-body);
+  --b2-letter-spacing: 0;
+  --b2-text-transform: none;
+  --b2-color: var(--ink-faint);
+
+  --b3-font-family: var(--font-mono);
+  --b3-font-size: var(--type-b3);
+  --b3-font-weight: 400;
+  --b3-line-height: var(--lh-tight);
+  --b3-letter-spacing: var(--ls-2xl);
+  --b3-text-transform: uppercase;
 
   /* ===== Space scale (kruv.html) ===== */
   --space-0:  2px;
@@ -203,27 +263,78 @@ body {
   color: var(--ink);
 }
 
-/* Utility classes that mirror the prototype naming so markup stays readable */
 @layer components {
-  .serif,
-  .display {
-    font-family: var(--font-display);
-    letter-spacing: 0.02em;
+  .h1 {
+    font-family: var(--h1-font-family);
+    font-size: var(--h1-font-size);
+    font-weight: var(--h1-font-weight);
+    line-height: var(--h1-line-height);
+    letter-spacing: var(--h1-letter-spacing);
+    text-transform: var(--h1-text-transform);
   }
-  .mono {
-    font-family: var(--font-mono);
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
+  .h2 {
+    font-family: var(--h2-font-family);
+    font-size: var(--h2-font-size);
+    font-weight: var(--h2-font-weight);
+    line-height: var(--h2-line-height);
+    letter-spacing: var(--h2-letter-spacing);
+    text-transform: var(--h2-text-transform);
+  }
+  .h3 {
+    font-family: var(--h3-font-family);
+    font-size: var(--h3-font-size);
+    font-weight: var(--h3-font-weight);
+    line-height: var(--h3-line-height);
+    letter-spacing: var(--h3-letter-spacing);
+    text-transform: var(--h3-text-transform);
+  }
+  .h4 {
+    font-family: var(--h4-font-family);
+    font-size: var(--h4-font-size);
+    font-weight: var(--h4-font-weight);
+    line-height: var(--h4-line-height);
+    letter-spacing: var(--h4-letter-spacing);
+    text-transform: var(--h4-text-transform);
+  }
+  .b1 {
+    font-family: var(--b1-font-family);
+    font-size: var(--b1-font-size);
+    font-weight: var(--b1-font-weight);
+    line-height: var(--b1-line-height);
+    letter-spacing: var(--b1-letter-spacing);
+    text-transform: var(--b1-text-transform);
+    color: var(--b1-color);
+  }
+  .b2 {
+    font-family: var(--b2-font-family);
+    font-size: var(--b2-font-size);
+    font-weight: var(--b2-font-weight);
+    line-height: var(--b2-line-height);
+    letter-spacing: var(--b2-letter-spacing);
+    text-transform: var(--b2-text-transform);
+    color: var(--b2-color);
+  }
+  .b3 {
+    font-family: var(--b3-font-family);
+    font-size: var(--b3-font-size);
+    font-weight: var(--b3-font-weight);
+    line-height: var(--b3-line-height);
+    letter-spacing: var(--b3-letter-spacing);
+    text-transform: var(--b3-text-transform);
   }
 
   /* Buttons */
   .btn {
-    @apply inline-flex items-center gap-2 text-[13px] font-medium transition-colors duration-150;
+    @apply inline-flex items-center gap-2 font-medium transition-colors duration-150;
+    font-family: var(--b2-font-family);
+    font-size: var(--b2-font-size);
+    line-height: var(--b2-line-height);
     padding: var(--space-3) var(--space-5);
     border-radius: var(--btn-radius);
   }
   .btn-sm {
-    @apply text-[12px];
+    font-size: var(--b3-font-size);
+    line-height: var(--b3-line-height);
     padding: var(--space-2) var(--space-3);
   }
   .btn-primary {
@@ -261,20 +372,25 @@ body {
 
   /* Form controls */
   .form-label {
-    @apply text-[11px] font-medium uppercase;
-    font-family: var(--font-mono);
-    letter-spacing: 0.12em;
+    font-family: var(--b3-font-family);
+    font-size: var(--b3-font-size);
+    font-weight: 500;
+    line-height: var(--b3-line-height);
+    letter-spacing: var(--b3-letter-spacing);
+    text-transform: var(--b3-text-transform);
     color: var(--ink-soft);
   }
   .form-hint {
-    @apply text-[11px];
-    color: var(--ink-faint);
+    font-family: var(--b2-font-family);
+    font-size: var(--b2-font-size);
+    line-height: var(--b2-line-height);
+    color: var(--b2-color);
   }
   .form-input,
   .form-textarea,
   .form-select {
-    font-family: var(--font-body);
-    font-size: 13px;
+    font-family: var(--b2-font-family);
+    font-size: var(--b2-font-size);
     color: var(--ink);
     background: var(--gray-50);
     border: 1px solid var(--adm-border);
@@ -315,8 +431,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-display);
-  letter-spacing: 0.06em;
+  font-family: var(--h4-font-family);
+  font-size: var(--h4-font-size);
+  font-weight: var(--h4-font-weight);
+  line-height: var(--h4-line-height);
+  letter-spacing: var(--h4-letter-spacing);
+  text-transform: var(--h4-text-transform);
   color: var(--ink-faint);
 }
 

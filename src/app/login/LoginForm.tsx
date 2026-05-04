@@ -13,17 +13,11 @@ export function LoginForm({ next }: { next: string }) {
       action={formAction}
       className="adm-card w-full max-w-[360px] p-10 text-center"
     >
-      <div
-        className="serif text-[2.2rem] leading-none tracking-tight"
-        style={{ color: "var(--ink)" }}
-      >
+      <div className="h2" style={{ color: "var(--ink)" }}>
         kruv
         <em style={{ color: "var(--accent)", fontStyle: "italic" }}>.</em>
       </div>
-      <div
-        className="mb-8 mt-1 text-[12px] uppercase tracking-[0.06em]"
-        style={{ color: "var(--ink-faint)" }}
-      >
+      <div className="b3 mb-8 mt-1 normal-case" style={{ color: "var(--ink-faint)" }}>
         Admin Paneli
       </div>
 
@@ -55,7 +49,7 @@ export function LoginForm({ next }: { next: string }) {
       </button>
 
       <div
-        className="mt-3 min-h-[18px] text-[12px]"
+        className="b2 mt-3 min-h-[18px]"
         style={{ color: "var(--accent)" }}
         aria-live="polite"
       >

@@ -39,7 +39,7 @@ export function TagInput({
       {value.map((tag, i) => (
         <span
           key={tag + i}
-          className="inline-flex items-center gap-1.5 rounded-full py-0.5 pl-2.5 pr-2 text-[11px]"
+          className="inline-flex items-center gap-1.5 rounded-full py-0.5 pl-2.5 pr-2 b3 normal-case"
           style={{ background: "var(--accent-soft)", color: "var(--accent)" }}
         >
           {tag}
@@ -47,7 +47,7 @@ export function TagInput({
             type="button"
             onClick={() => onChange(value.filter((_, idx) => idx !== i))}
             aria-label={`Kaldır: ${tag}`}
-            className="text-[13px] leading-none opacity-70 hover:opacity-100"
+            className="b2 leading-none opacity-70 hover:opacity-100"
             style={{ color: "var(--accent)" }}
           >
             ×
@@ -68,7 +68,7 @@ export function TagInput({
         }}
         onBlur={commit}
         placeholder={value.length ? "" : placeholder}
-        className="min-w-[80px] flex-1 border-0 bg-transparent text-[12px] outline-none"
+        className="b2 min-w-[80px] flex-1 border-0 bg-transparent outline-none"
         style={{ color: "var(--ink)" }}
       />
     </div>
