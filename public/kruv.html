@@ -522,7 +522,7 @@ html[data-theme="light"] .featured-work-media {
   text-transform: var(--h4-text-transform);
 }
 
-/* ambient glow center */
+/* ambient glow center — scroll-tema gradient ayrıca body::after (üst üste; glow biraz daha önde) */
 body::before {
   content: '';
   position: fixed;
@@ -530,7 +530,9 @@ body::before {
   transform: translate(-50%, -50%);
   width: var(--size-glow-w); height: var(--size-glow-h);
   background: radial-gradient(ellipse, rgba(93,93,255,0.09) 0%, transparent 65%);
-  pointer-events: none; z-index: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 1;
 }
 
 /* NAV */
