@@ -367,32 +367,7 @@ html, body {
   transition: background 0.8s ease, background-color 0.8s ease, color 0.8s ease;
 }
 
-/* Açık tema: tam ekran gradient — body::before ambient glow ile çakışmaması için ::after kullanılır */
-body {
-  position: relative;
-  z-index: 0;
-}
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  background: linear-gradient(
-    180deg,
-    var(--gray-solid-panel) 0%,
-    var(--color-surface) 48%,
-    var(--gray-solid-panel) 100%
-  );
-  opacity: 0;
-  transition: opacity 0.8s ease;
-  pointer-events: none;
-}
-body > * {
-  position: relative;
-  z-index: 2;
-}
-
-/* scroll-theme: Selected Clients alt sınırı geçince açık tema (düz yüzey + üstteki gradient katmanı) */
+/* scroll-theme: Selected Clients alt sınırı geçince açık tema (düz yüzey) */
 html[data-theme="light"] {
   background: var(--gray-solid-panel);
   background-color: var(--gray-solid-panel);
@@ -401,9 +376,6 @@ html[data-theme="light"] body {
   background: var(--gray-solid-panel);
   background-color: var(--gray-solid-panel);
   color: var(--frost);
-}
-html[data-theme="light"] body::after {
-  opacity: 1;
 }
 html[data-theme="light"] .ideal-section {
   background-color: var(--gray-solid-panel);
@@ -427,20 +399,10 @@ html[data-theme="light"] .featured-work-media {
   html, body {
     transition: none;
   }
-  body::after {
-    transition: none;
-  }
   .scene-section {
     transition: none;
   }
   .ideal-section {
-    transition: none;
-  }
-  .ideal-section::before,
-  .ideal-section::after {
-    transition: none;
-  }
-  .scene-section::before {
     transition: none;
   }
   .scene {
@@ -522,7 +484,7 @@ html[data-theme="light"] .featured-work-media {
   text-transform: var(--h4-text-transform);
 }
 
-/* ambient glow center — scroll-tema gradient ayrıca body::after (üst üste; glow biraz daha önde) */
+/* ambient glow center */
 body::before {
   content: '';
   position: fixed;
@@ -531,8 +493,7 @@ body::before {
   width: var(--size-glow-w); height: var(--size-glow-h);
   background: radial-gradient(ellipse, rgba(93,93,255,0.09) 0%, transparent 65%);
   pointer-events: none;
-  z-index: 1;
-  opacity: 1;
+  z-index: 0;
 }
 
 /* NAV */
@@ -1995,48 +1956,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
 /* ── IDEAL CLIENT LOGO GRID ── */
 .ideal-section {
   position: relative;
-  isolation: isolate;
   z-index: 1;
   padding: var(--section-pad-y) var(--section-pad-x) calc(var(--section-pad-y) + var(--space-4));
   background-color: var(--midnight);
   border-top: var(--border-soft);
   border-bottom: var(--border-soft);
   transition: background-color 0.8s ease, border-color 0.8s ease;
-}
-.ideal-section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(
-    180deg,
-    var(--gray-solid-panel) 0%,
-    var(--color-surface) 40%,
-    var(--gray-solid-panel) 100%
-  );
-  opacity: 0;
-  transition: opacity 0.8s ease;
-  pointer-events: none;
-}
-html[data-theme="light"] .ideal-section::before {
-  opacity: 1;
-}
-.ideal-section::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: linear-gradient(180deg, var(--midnight) 0%, var(--gray-solid-deep) 50%, var(--midnight) 100%);
-  opacity: 1;
-  transition: opacity 0.8s ease;
-  pointer-events: none;
-}
-html[data-theme="light"] .ideal-section::after {
-  opacity: 0;
-}
-.ideal-section > * {
-  position: relative;
-  z-index: 2;
 }
 .ideal-inner {
   width: var(--grid-shell-width);
@@ -2839,7 +2764,6 @@ html[data-theme="light"] .ideal-section::after {
 /* ── SCENE SECTION ── */
 .scene-section {
   min-height: 100vh;
-  isolation: isolate;
   background-color: var(--midnight);
   transition: background-color 0.8s ease;
   display: flex;
@@ -2848,28 +2772,6 @@ html[data-theme="light"] .ideal-section::after {
   justify-content: flex-start;
   padding: var(--section-pad-y) var(--section-pad-x);
   gap: calc(var(--space-10) + var(--space-2));
-  position: relative;
-  z-index: 1;
-}
-.scene-section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: linear-gradient(
-    180deg,
-    var(--gray-solid-panel) 0%,
-    var(--color-surface) 35%,
-    var(--gray-solid-panel) 100%
-  );
-  opacity: 0;
-  transition: opacity 0.8s ease;
-  pointer-events: none;
-}
-html[data-theme="light"] .scene-section::before {
-  opacity: 1;
-}
-.scene-section > * {
   position: relative;
   z-index: 1;
 }
