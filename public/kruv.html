@@ -206,7 +206,7 @@
   --container-max: 920px;
   --container-gutter: clamp(16px, 5vw, 52px);
   --grid-shell-width: calc(100vw - (2 * var(--container-gutter)));
-  --section-pad-y: clamp(72px, 10vw, 100px);
+  --section-pad-y: clamp(144px, 20vw, 200px);
   --section-pad-x: var(--container-gutter);
   /* Journey: dış blok yüksekliği (yalnızca space token’ları; içerik taşarsa liste içinde kayar) */
   --focus-journey-viewport-h: calc(var(--space-12) * 14 + var(--space-9) * 5);
@@ -1106,19 +1106,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
   transition: opacity .15s, transform .1s;
 }
 .cta-main:hover { opacity: .85; transform: translateY(-1px); }
-.cta-sub {
-  font-family: var(--b3-font-family);
-  font-size: var(--b3-font-size);
-  font-weight: var(--b3-font-weight);
-  line-height: var(--b3-line-height);
-  letter-spacing: var(--b3-letter-spacing);
-  text-transform: var(--b3-text-transform);
-  color: var(--silver); text-decoration: none;
-  display: flex; align-items: center; gap: var(--space-xs); transition: color .15s;
-}
-.cta-sub::after { content: '→'; transition: transform .2s; }
-.cta-sub:hover { color: var(--frost); }
-.cta-sub:hover::after { transform: translateX(3px); }
 
 /* locs */
 .locs {
@@ -1751,7 +1738,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
       <div class="eyebrow-dot"></div>
     </div>
     <div class="headline">
-      <h1 id="heroHeadline" class="hero-headline">WE DESIGN BRANDS <span class="accent">BUILT TO BE</span> SHARED.</h1>
+      <h1 id="heroHeadline" class="hero-headline">WE BUILD BRANDS <span class="accent">WORTH SHARING</span>.</h1>
     </div>
     <script>
 (function () {
@@ -1801,8 +1788,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
       <strong>We design for feeds.</strong>
     </p>
     <div class="cta-row">
-      <a href="#" class="cta-main">SEE OUR WORK</a>
-      <a href="#" class="cta-sub">How we work</a>
+      <a href="#" class="cta-main">See projects</a>
     </div>
     <div class="locs">
       <span class="loc">İstanbul, Türkiye</span>
@@ -2216,18 +2202,25 @@ body:has(.featured-work-card:hover) .hero-bottom {
 .focus-list-container--direction > .focus-list-heading {
   flex-shrink: 0;
 }
+/* Sol sütundaki .focus-list-note ile aynı ritim: başlık → içerik boşluğu (liste üst çizgisinden önce) */
+.focus-list-container--direction .focus-list {
+  margin-top: var(--space-4);
+}
 .focus-copy {
   min-width: 0;
+  min-height: 0;
   display: flex;
   flex-direction: column;
 }
 .focus-item {
+  position: relative;
   display: grid;
   grid-template-columns: var(--space-8) minmax(0, 1fr);
   column-gap: var(--space-6);
-  align-items: start;
+  align-items: center;
   min-height: 0;
-  padding: var(--space-5) clamp(4.5rem, 14vw, 8.5rem) var(--space-5) 0;
+  /* Üst çizgi ↔ başlık ↔ alt çizgi: dikey padding simetrik */
+  padding: var(--space-4) clamp(4.5rem, 14vw, 8.5rem) var(--space-4) 0;
   border-top: 1px solid var(--gray-120);
   opacity: 1;
   position: relative;
@@ -2237,8 +2230,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
   border-bottom: 1px solid var(--gray-120);
 }
 .focus-number {
-  align-self: start;
-  padding-top: var(--space-0);
+  align-self: center;
+  padding-top: 0;
   font-family: var(--b3-font-family);
   font-size: var(--b3-font-size);
   font-weight: var(--b3-font-weight);
@@ -2248,38 +2241,48 @@ body:has(.featured-work-card:hover) .hero-bottom {
   color: var(--gray-550);
 }
 .focus-title {
+  margin: 0;
+  /* Tek satır başlık: optik olarak çizgiler arasında daha dengeli */
+  line-height: 1;
   font-family: var(--h3-font-family);
   font-size: var(--h3-font-size);
   font-weight: var(--h3-font-weight);
-  line-height: var(--h3-line-height);
   letter-spacing: var(--h3-letter-spacing);
   text-transform: var(--h3-text-transform);
   color: var(--frost);
 }
-/* Akış içi: açılınca alt satırlar aşağı kayar; shell = yumuşak yükseklik animasyonu */
+/* Kapalıyken satır yüksekliğine katkı 0 — üst/alt çizgi mesafesi simetrik kalır */
 .focus-dropdown-shell {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 480ms cubic-bezier(0.22, 1, 0.36, 1);
+  min-height: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition:
+    grid-template-rows 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    max-height 480ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .focus-item:hover .focus-dropdown-shell,
 .focus-item:focus-within .focus-dropdown-shell {
   grid-template-rows: 1fr;
+  max-height: min(70vh, 28rem);
 }
 .focus-list.is-touch .focus-dropdown-shell {
   grid-template-rows: 0fr;
+  max-height: 0;
 }
 .focus-list.is-touch .focus-item.is-active .focus-dropdown-shell {
   grid-template-rows: 1fr;
+  max-height: min(70vh, 28rem);
 }
 .focus-dropdown {
   min-height: 0;
   overflow: hidden;
   opacity: 0;
-  transform: translateY(calc(-1 * var(--space-2)));
+  transform: translateY(calc(-1 * var(--space-1)));
   pointer-events: none;
-  margin-top: var(--space-2);
-  padding-top: var(--space-3);
+  margin-top: var(--space-0);
+  padding-top: var(--space-2);
   padding-bottom: var(--space-4);
   border-top: 1px solid var(--gray-120);
   background: var(--midnight);
@@ -2393,6 +2396,18 @@ body:has(.featured-work-card:hover) .hero-bottom {
   .focus-list-container--recognition {
     align-self: start;
   }
+  /* Tanıma sütunu kapalıyken boş kolon kalmaması için tek sütun */
+  .focus-list-section--recognition-off .focus-list-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Tanıma / Neredesin? — tekrar göstermek: section’dan sınıfı kaldır + aria-labelledby’a focus-heading-recognition ekle */
+.focus-list-section--recognition-off .focus-list-container--recognition {
+  display: none;
+}
+.focus-list-section--recognition-off .focus-list-container--direction {
+  max-width: none;
 }
 
 @media (max-width: 899px) {
@@ -2411,7 +2426,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   .focus-item {
     grid-template-columns: var(--space-6) minmax(0, 1fr);
     column-gap: var(--space-4);
-    padding: var(--space-5) 0;
+    padding: var(--space-4) 0 var(--space-4) 0;
   }
   .focus-cta-desktop {
     display: none;
@@ -2444,6 +2459,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   .focus-dropdown-shell,
   .focus-list.is-touch .focus-dropdown-shell {
     grid-template-rows: 1fr;
+    max-height: none;
   }
   .focus-dropdown,
   .focus-list.is-touch .focus-dropdown {
@@ -2465,7 +2481,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 </style>
 
-<section class="focus-list-section" id="journey-focus" aria-labelledby="focus-heading-recognition focus-heading-direction">
+<!-- Journey: Tanıma/Neredesin? sütununu geri açmak için → section’dan class="focus-list-section--recognition-off" kaldır; aria-labelledby="focus-heading-recognition focus-heading-direction" yap. -->
+<section class="focus-list-section focus-list-section--recognition-off" id="journey-focus" aria-labelledby="focus-heading-direction">
   <div class="focus-list-inner">
     <div class="focus-list-grid">
       <div class="focus-list-container focus-list-container--recognition">
