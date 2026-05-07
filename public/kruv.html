@@ -4,7 +4,7 @@
   http://192.168…:8080/kruv.html — hem Mac’te hem
   telefonda aynısı (aynı Wi‑Fi). localhost / 127.0.0.1 yalnızca Mac’te “bu bilgisayar” demek.
 -->
-<html lang="tr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="tr" data-theme="dark"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kruv — Brand Identity for the Social-First Era</title>
@@ -363,6 +363,62 @@ html, body {
   font-family: var(--b1-font-family);
   font-weight: 300;
   overflow-x: hidden;
+  transition: background-color 0.8s ease, color 0.8s ease;
+}
+
+/* scroll-theme_1.html ile aynı mantık: Selected Clients → Works geçişinde yüzey koyudan “açılan” banda */
+html[data-theme="light"] body {
+  background: var(--gray-solid-panel);
+  color: var(--frost);
+}
+html[data-theme="light"] .scene-section {
+  background: var(--gray-solid-panel);
+}
+html[data-theme="light"] .scene {
+  background: var(--gray-solid-elevated);
+}
+html[data-theme="light"] .featured-work-card {
+  background: var(--gray-solid-void);
+  border-color: var(--gray-150);
+}
+html[data-theme="light"] .featured-work-media {
+  background-color: var(--gray-solid-void);
+}
+
+/* Clients ↔ Works tema geçişi (IntersectionObserver hedefi; scroll-theme_1.html ile aynı fikir) */
+.scroll-theme-trigger {
+  height: 1px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  pointer-events: none;
+  visibility: hidden;
+  position: relative;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html, body {
+    transition: none;
+  }
+  .scene-section {
+    transition: none;
+  }
+  .scene {
+    transition: filter .2s cubic-bezier(0.4,0,0.2,1), opacity .2s cubic-bezier(0.4,0,0.2,1);
+  }
+  .featured-work-card {
+    transition: filter .2s cubic-bezier(0.4,0,0.2,1), opacity .2s cubic-bezier(0.4,0,0.2,1);
+  }
+  .featured-work-media {
+    transition: none;
+  }
+  html[data-theme="light"] .scene-section,
+  html[data-theme="light"] .featured-work-card,
+  html[data-theme="light"] .featured-work-media,
+  html[data-theme="light"] .scene {
+    transition: none;
+  }
 }
 
 /* ===== Tipografi yardımcıları — yalnızca .h1 … .h4, .b1 … .b3 =====
@@ -2131,18 +2187,37 @@ body:has(.featured-work-card:hover) .hero-bottom {
   flex-direction: column;
   overflow: hidden;
 }
+/* Journey gövdesi: etiket + başlık + liste tek birim (section içi) */
+.focus-list-panel {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
 .focus-list-grid {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr;
-  gap: var(--space-9);
+  grid-template-rows: 1fr;
+  gap: 0;
   text-align: left;
   flex: 1;
   min-height: 0;
   overflow: hidden;
 }
-.focus-list-container {
+.focus-list-container--recognition {
   min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-9);
+  align-items: start;
+  overflow: hidden;
+}
+.focus-list-recognition-column {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 .focus-list-tag {
   font-family: var(--b3-font-family);
@@ -2387,27 +2462,22 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 
 @media (min-width: 900px) {
-  .focus-list-grid {
+  .focus-list-container--recognition {
     grid-template-columns: minmax(0, 0.4fr) minmax(0, 1fr);
-    grid-template-rows: 1fr;
     column-gap: clamp(var(--space-8), 5vw, var(--space-12));
     align-items: stretch;
   }
-  .focus-list-container--recognition {
+  .focus-list-recognition-column {
     align-self: start;
   }
-  /* Tanıma sütunu kapalıyken boş kolon kalmaması için tek sütun */
-  .focus-list-section--recognition-off .focus-list-grid {
-    grid-template-columns: minmax(0, 1fr);
+  .focus-list-container--direction {
+    min-height: 0;
   }
 }
 
-/* Tanıma / Neredesin? — tekrar göstermek: section’dan sınıfı kaldır + aria-labelledby’a focus-heading-recognition ekle */
-.focus-list-section--recognition-off .focus-list-container--recognition {
+/* Journey kapalıyken tüm bölüm layout’ta yer tutmasın — Selected Clients ile Works bitişik */
+.focus-list-section.focus-list-section--recognition-off {
   display: none;
-}
-.focus-list-section--recognition-off .focus-list-container--direction {
-  max-width: none;
 }
 
 @media (max-width: 899px) {
@@ -2481,15 +2551,17 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 </style>
 
-<!-- Journey: Tanıma/Neredesin? sütununu geri açmak için → section’dan class="focus-list-section--recognition-off" kaldır; aria-labelledby="focus-heading-recognition focus-heading-direction" yap. -->
+<!-- Journey’i geri açmak: section’dan focus-list-section--recognition-off kaldır; aria-labelledby="focus-heading-recognition focus-heading-direction" -->
 <section class="focus-list-section focus-list-section--recognition-off" id="journey-focus" aria-labelledby="focus-heading-direction">
   <div class="focus-list-inner">
-    <div class="focus-list-grid">
+    <div class="focus-list-panel">
+      <div class="focus-list-grid">
       <div class="focus-list-container focus-list-container--recognition">
+        <div class="focus-list-recognition-column">
         <span class="focus-list-tag">Tanıma</span>
         <h2 class="focus-list-heading" id="focus-heading-recognition">Neredesin?</h2>
         <p class="focus-list-note">Markanın şu anki evresini tanımla. Sonraki adım, doğru sistemle kontrollü biçimde ilerlemek.</p>
-      </div>
+        </div>
       <div class="focus-list-container focus-list-container--direction">
         <span class="focus-list-tag">Yönlendirme</span>
         <h3 class="focus-list-heading" id="focus-heading-direction">Buradan nereye gidiyorsun?</h3>
@@ -2560,9 +2632,13 @@ body:has(.featured-work-card:hover) .hero-bottom {
           </li>
         </ul>
       </div>
+      </div>
+    </div>
     </div>
   </div>
 </section>
+
+<div id="scroll-theme-trigger" class="scroll-theme-trigger" aria-hidden="true"></div>
 
 <!-- SCENE SECTION -->
 <section class="scene-section">
@@ -2697,6 +2773,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
 .scene-section {
   min-height: 100vh;
   background: var(--midnight);
+  transition: background-color 0.8s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2742,7 +2819,10 @@ body:has(.featured-work-card:hover) .hero-bottom {
   cursor: none;
   background: var(--gray-solid-void);
   user-select: none;
-  transition: filter .2s cubic-bezier(0.4,0,0.2,1), opacity .2s cubic-bezier(0.4,0,0.2,1);
+  transition:
+    filter .2s cubic-bezier(0.4,0,0.2,1),
+    opacity .2s cubic-bezier(0.4,0,0.2,1),
+    background-color 0.8s ease;
 }
 
 /* Karartılmış arka plan */
@@ -2964,7 +3044,11 @@ body:has(.featured-work-card:hover) .hero-bottom {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
-  transition: filter .2s cubic-bezier(0.4,0,0.2,1), opacity .2s cubic-bezier(0.4,0,0.2,1);
+  transition:
+    filter .2s cubic-bezier(0.4,0,0.2,1),
+    opacity .2s cubic-bezier(0.4,0,0.2,1),
+    background-color 0.8s ease,
+    border-color 0.8s ease;
 }
 .featured-work-meta {
   display: flex;
@@ -2999,6 +3083,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   overflow: hidden;
   /* Kart dolgusu ile aynı: köşe anti-alias’te açık halka oluşmasın */
   background-color: var(--gray-20);
+  transition: background-color 0.8s ease;
   background-size: cover;
   background-position: center;
   background-clip: padding-box;
@@ -3113,6 +3198,19 @@ body:has(.featured-work-card:hover) .hero-bottom {
   .featured-work-card:nth-child(3) { grid-column: 1 / span 4; }
   .featured-work-card:nth-child(4) { grid-column: 5 / span 4; }
   .featured-work-card:nth-child(5) { grid-column: 9 / span 4; }
+}
+
+/* Mobil / dokunmatik: Selected Work hover blur + soluklama kapalı */
+@media (max-width: 699px), (hover: none) {
+  body:has(.featured-work-card:hover) nav,
+  body:has(.featured-work-card:hover) .ticker,
+  body:has(.featured-work-card:hover) .hero-bottom,
+  .featured-works:has(.featured-work-card:hover) .featured-work-card:not(:hover),
+  .scene-section:has(.featured-work-card:hover) .scene-label,
+  .scene-section:has(.featured-work-card:hover) .scene {
+    filter: none;
+    opacity: 1;
+  }
 }
 </style>
 
@@ -3878,6 +3976,23 @@ body:has(.featured-work-card:hover) .hero-bottom {
         console.warn('[CMS] /api/projects yüklenemedi:', err);
       });
   });
+})();
+</script>
+
+<script>
+(function () {
+  var trigger = document.getElementById('scroll-theme-trigger');
+  if (!trigger) return;
+  var root = document.documentElement;
+  var obs = new IntersectionObserver(
+    function (entries) {
+      var e = entries[0];
+      if (!e) return;
+      root.setAttribute('data-theme', e.isIntersecting ? 'light' : 'dark');
+    },
+    { threshold: 0 }
+  );
+  obs.observe(trigger);
 })();
 </script>
 
