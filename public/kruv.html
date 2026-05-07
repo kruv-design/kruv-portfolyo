@@ -359,49 +359,88 @@ html {
 html, body {
   height: 100%;
   background: var(--midnight);
+  background-color: var(--midnight);
   color: var(--frost);
   font-family: var(--b1-font-family);
   font-weight: 300;
   overflow-x: hidden;
-  transition: background-color 0.8s ease, color 0.8s ease;
+  transition: background 0.8s ease, background-color 0.8s ease, color 0.8s ease;
 }
 
-/* scroll-theme_1.html ile aynı mantık: Selected Clients → Works geçişinde yüzey koyudan “açılan” banda */
+/* Açık tema: tam ekran gradient — body::before ambient glow ile çakışmaması için ::after kullanılır */
+body {
+  position: relative;
+  z-index: 0;
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    180deg,
+    var(--gray-solid-panel) 0%,
+    var(--color-surface) 48%,
+    var(--gray-solid-panel) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+}
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* scroll-theme: Selected Clients alt sınırı geçince açık tema (düz yüzey + üstteki gradient katmanı) */
+html[data-theme="light"] {
+  background: var(--gray-solid-panel);
+  background-color: var(--gray-solid-panel);
+}
 html[data-theme="light"] body {
   background: var(--gray-solid-panel);
+  background-color: var(--gray-solid-panel);
   color: var(--frost);
 }
+html[data-theme="light"] body::after {
+  opacity: 1;
+}
+html[data-theme="light"] .ideal-section {
+  background-color: var(--gray-solid-panel);
+}
 html[data-theme="light"] .scene-section {
-  background: var(--gray-solid-panel);
+  background-color: var(--gray-solid-panel);
 }
 html[data-theme="light"] .scene {
   background: var(--gray-solid-elevated);
 }
 html[data-theme="light"] .featured-work-card {
-  background: var(--gray-solid-void);
-  border-color: var(--gray-150);
+  background: transparent;
+  border-color: transparent;
 }
 html[data-theme="light"] .featured-work-media {
-  background-color: var(--gray-solid-void);
+  background-color: transparent;
 }
 
-/* Clients ↔ Works tema geçişi (IntersectionObserver hedefi; scroll-theme_1.html ile aynı fikir) */
-.scroll-theme-trigger {
-  height: 1px;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  pointer-events: none;
-  visibility: hidden;
-  position: relative;
-}
-
+/* Tema: #ideal-client alt kenarı viewport eşiğini geçince (scroll; çizgi = bölüm border’ı) */
 @media (prefers-reduced-motion: reduce) {
   html, body {
     transition: none;
   }
+  body::after {
+    transition: none;
+  }
   .scene-section {
+    transition: none;
+  }
+  .ideal-section {
+    transition: none;
+  }
+  .ideal-section::before,
+  .ideal-section::after {
+    transition: none;
+  }
+  .scene-section::before {
     transition: none;
   }
   .scene {
@@ -413,6 +452,7 @@ html[data-theme="light"] .featured-work-media {
   .featured-work-media {
     transition: none;
   }
+  html[data-theme="light"] .ideal-section,
   html[data-theme="light"] .scene-section,
   html[data-theme="light"] .featured-work-card,
   html[data-theme="light"] .featured-work-media,
@@ -1953,11 +1993,44 @@ body:has(.featured-work-card:hover) .hero-bottom {
 /* ── IDEAL CLIENT LOGO GRID ── */
 .ideal-section {
   position: relative;
+  isolation: isolate;
   z-index: 1;
   padding: var(--section-pad-y) var(--section-pad-x) calc(var(--section-pad-y) + var(--space-4));
-  background: linear-gradient(180deg, var(--midnight) 0%, var(--gray-solid-deep) 50%, var(--midnight) 100%);
+  background-color: var(--midnight);
   border-top: var(--border-soft);
   border-bottom: var(--border-soft);
+  transition: background-color 0.8s ease, border-color 0.8s ease;
+}
+.ideal-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    180deg,
+    var(--gray-solid-panel) 0%,
+    var(--color-surface) 40%,
+    var(--gray-solid-panel) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+}
+html[data-theme="light"] .ideal-section::before {
+  opacity: 1;
+}
+.ideal-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: linear-gradient(180deg, var(--midnight) 0%, var(--gray-solid-deep) 50%, var(--midnight) 100%);
+  opacity: 1;
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+}
+html[data-theme="light"] .ideal-section::after {
+  opacity: 0;
 }
 .ideal-inner {
   width: var(--grid-shell-width);
@@ -2638,8 +2711,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
   </div>
 </section>
 
-<div id="scroll-theme-trigger" class="scroll-theme-trigger" aria-hidden="true"></div>
-
 <!-- SCENE SECTION -->
 <section class="scene-section">
   <div class="scene-label">
@@ -2706,73 +2777,64 @@ body:has(.featured-work-card:hover) .hero-bottom {
 
   <div class="featured-works" aria-label="Featured works list">
     <article class="featured-work-card">
-      <a class="featured-work-hit" href="#" aria-label="View case study — Marker Packaging System"></a>
+      <a class="featured-work-hit" href="#" aria-label="Projeyi aç — Marker Packaging System"></a>
       <div class="featured-work-media featured-work-media-1" aria-hidden="true"></div>
       <div class="featured-work-meta">
-        <div class="featured-work-head">
-          <h4 class="featured-work-title">Marker Packaging System</h4>
-          <p class="featured-work-category">Brand Identity · Social</p>
-        </div>
-        <span class="featured-work-cta">View case study →</span>
+        <h4 class="featured-work-title">Marker Packaging System</h4>
+        <p class="featured-work-desc">Packaging and feed-first social visuals as one coherent system.</p>
+        <p class="featured-work-category">Brand Identity · Social</p>
       </div>
     </article>
 
     <article class="featured-work-card">
-      <a class="featured-work-hit" href="#" aria-label="View case study — Labraunda Journal"></a>
+      <a class="featured-work-hit" href="#" aria-label="Projeyi aç — Labraunda Journal"></a>
       <div class="featured-work-media featured-work-media-2" aria-hidden="true"></div>
       <div class="featured-work-meta">
-        <div class="featured-work-head">
-          <h4 class="featured-work-title">Labraunda Journal</h4>
-          <p class="featured-work-category">Editorial Design</p>
-        </div>
-        <span class="featured-work-cta">View case study →</span>
+        <h4 class="featured-work-title">Labraunda Journal</h4>
+        <p class="featured-work-desc">Editorial rhythm, typographic hierarchy, and print-to-digital consistency.</p>
+        <p class="featured-work-category">Editorial Design</p>
       </div>
     </article>
 
     <article class="featured-work-card">
-      <a class="featured-work-hit" href="#" aria-label="View case study — Roots Travel Brand"></a>
+      <a class="featured-work-hit" href="#" aria-label="Projeyi aç — Roots Travel Brand"></a>
       <div class="featured-work-media featured-work-media-3" aria-hidden="true"></div>
       <div class="featured-work-meta">
-        <div class="featured-work-head">
-          <h4 class="featured-work-title">Roots Travel Brand</h4>
-          <p class="featured-work-category">D2C Identity</p>
-        </div>
-        <span class="featured-work-cta">View case study →</span>
+        <h4 class="featured-work-title">Roots Travel Brand</h4>
+        <p class="featured-work-desc">D2C identity built for discovery, trust, and repeat booking moments.</p>
+        <p class="featured-work-category">D2C Identity</p>
       </div>
     </article>
 
     <article class="featured-work-card">
-      <a class="featured-work-hit" href="#" aria-label="View case study — Cloud Vault Product Line"></a>
+      <a class="featured-work-hit" href="#" aria-label="Projeyi aç — Cloud Vault Product Line"></a>
       <div class="featured-work-media featured-work-media-4" aria-hidden="true"></div>
       <div class="featured-work-meta">
-        <div class="featured-work-head">
-          <h4 class="featured-work-title">Cloud Vault Product Line</h4>
-          <p class="featured-work-category">Packaging Design</p>
-        </div>
-        <span class="featured-work-cta">View case study →</span>
+        <h4 class="featured-work-title">Cloud Vault Product Line</h4>
+        <p class="featured-work-desc">Product architecture and shelf presence aligned with a single visual language.</p>
+        <p class="featured-work-category">Packaging Design</p>
       </div>
     </article>
 
     <article class="featured-work-card">
-      <a class="featured-work-hit" href="#" aria-label="View case study — Levantenler Launch Sprint"></a>
+      <a class="featured-work-hit" href="#" aria-label="Projeyi aç — Levantenler Launch Sprint"></a>
       <div class="featured-work-media featured-work-media-5" aria-hidden="true"></div>
       <div class="featured-work-meta">
-        <div class="featured-work-head">
-          <h4 class="featured-work-title">Levantenler Launch Sprint</h4>
-          <p class="featured-work-category">Campaign Design</p>
-        </div>
-        <span class="featured-work-cta">View case study →</span>
+        <h4 class="featured-work-title">Levantenler Launch Sprint</h4>
+        <p class="featured-work-desc">Campaign toolkit for launch week: OOH, social, and landing in one motion.</p>
+        <p class="featured-work-category">Campaign Design</p>
       </div>
     </article>
   </div>
-  <p class="featured-work-cursor-hint" id="featuredWorkCursorHint" aria-hidden="true">See case study</p>
+  <p class="featured-work-cursor-hint" id="featuredWorkCursorHint" aria-hidden="true">Projeyi aç</p>
 </section>
 
 <style>
 /* ── SCENE SECTION ── */
 .scene-section {
   min-height: 100vh;
-  background: var(--midnight);
+  isolation: isolate;
+  background-color: var(--midnight);
   transition: background-color 0.8s ease;
   display: flex;
   flex-direction: column;
@@ -2782,6 +2844,24 @@ body:has(.featured-work-card:hover) .hero-bottom {
   gap: calc(var(--space-10) + var(--space-2));
   position: relative;
   z-index: 1;
+}
+.scene-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    180deg,
+    var(--gray-solid-panel) 0%,
+    var(--color-surface) 35%,
+    var(--gray-solid-panel) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+}
+html[data-theme="light"] .scene-section::before {
+  opacity: 1;
 }
 .scene-label {
   width: var(--grid-shell-width);
@@ -3037,10 +3117,10 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 .featured-work-card {
   position: relative;
-  border: 1px solid var(--bd);
-  border-radius: var(--panel-radius);
-  padding: var(--panel-pad);
-  background: var(--gray-20);
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
@@ -3061,7 +3141,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   position: absolute;
   inset: 0;
   z-index: 1;
-  border-radius: inherit;
+  border-radius: var(--space-sm);
   text-decoration: none;
   color: transparent;
 }
@@ -3074,15 +3154,15 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 .featured-work-media {
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 12;
   border-radius: var(--space-sm);
   border: none;
   outline: none;
   box-shadow: none;
   position: relative;
   overflow: hidden;
-  /* Kart dolgusu ile aynı: köşe anti-alias’te açık halka oluşmasın */
-  background-color: var(--gray-20);
+  /* Kart dolgusu ile aynı köşe yarıçapı; arka plan sayfa zeminiyle birleşir */
+  background-color: transparent;
   transition: background-color 0.8s ease;
   background-size: cover;
   background-position: center;
@@ -3093,27 +3173,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
 .featured-work-media-3 { background-image: url("assets/featured-3.png"); }
 .featured-work-media-4 { background-image: url("assets/featured-4.png"); }
 .featured-work-media-5 { background-image: url("assets/featured-5.png"); }
-.featured-work-head {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: start;
-  column-gap: var(--space-4);
-  row-gap: var(--space-2);
-  width: 100%;
-}
-.featured-work-category {
-  font-family: var(--b3-font-family);
-  font-size: var(--b3-font-size);
-  font-weight: var(--b3-font-weight);
-  line-height: var(--b3-line-height);
-  letter-spacing: var(--b3-letter-spacing);
-  text-transform: var(--b3-text-transform);
-  color: var(--silver);
-  text-align: right;
-  margin: 0;
-  justify-self: end;
-  max-width: min(100%, calc(5 * var(--space-10)));
-}
 .featured-work-title {
   font-family: var(--h4-font-family);
   font-size: var(--h4-font-size);
@@ -3125,22 +3184,29 @@ body:has(.featured-work-card:hover) .hero-bottom {
   margin: 0;
   min-width: 0;
 }
-.featured-work-cta {
-  position: relative;
-  z-index: 0;
+.featured-work-desc {
+  font-family: var(--b1-font-family);
+  font-size: var(--b1-font-size);
+  font-weight: var(--b1-font-weight);
+  line-height: var(--b1-line-height);
+  letter-spacing: var(--b1-letter-spacing);
+  text-transform: none;
+  color: var(--silver);
   margin: 0;
+  max-width: min(100%, calc(42 * var(--space-4)));
+}
+.featured-work-category {
   font-family: var(--b3-font-family);
   font-size: var(--b3-font-size);
   font-weight: var(--b3-font-weight);
   line-height: var(--b3-line-height);
   letter-spacing: var(--b3-letter-spacing);
   text-transform: var(--b3-text-transform);
-  color: var(--purple);
-  pointer-events: none;
-  align-self: flex-start;
-  padding-block: var(--space-0);
+  color: var(--gray-400);
+  text-align: left;
+  margin: 0;
+  max-width: min(100%, calc(5 * var(--space-10)));
 }
-.featured-work-card:hover .featured-work-cta { color: var(--frost); }
 
 .featured-work-cursor-hint {
   position: fixed;
@@ -3180,7 +3246,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
     gap: var(--space-md);
     align-items: start;
   }
-  .featured-work-card { padding: var(--panel-pad-lg); }
   .featured-work-card:nth-child(1) { grid-column: 1 / span 4; }
   .featured-work-card:nth-child(2) { grid-column: 5 / span 2; }
   .featured-work-card:nth-child(3) { grid-column: 1 / span 2; }
@@ -3930,13 +3995,19 @@ body:has(.featured-work-card:hover) .hero-bottom {
       media.style.backgroundImage = 'url("' + p.gorsel + '")';
     }
     var title = card.querySelector('.featured-work-title');
+    var desc = card.querySelector('.featured-work-desc');
     var cat = card.querySelector('.featured-work-category');
     var hit = card.querySelector('.featured-work-hit');
     if (title) title.textContent = p.baslik || '';
+    if (desc) {
+      var t = (p.aciklama || '').trim();
+      desc.textContent = t;
+      desc.hidden = !t;
+    }
     if (cat) cat.textContent = p.kategori || '';
     if (hit) {
       hit.setAttribute('href', projectURL(p.slug));
-      hit.setAttribute('aria-label', 'View case study — ' + (p.baslik || ''));
+      hit.setAttribute('aria-label', 'Projeyi aç — ' + (p.baslik || ''));
     }
   }
 
@@ -3981,18 +4052,54 @@ body:has(.featured-work-card:hover) .hero-bottom {
 
 <script>
 (function () {
-  var trigger = document.getElementById('scroll-theme-trigger');
-  if (!trigger) return;
+  var ideal = document.getElementById('ideal-client');
+  if (!ideal) return;
   var root = document.documentElement;
-  var obs = new IntersectionObserver(
-    function (entries) {
-      var e = entries[0];
-      if (!e) return;
-      root.setAttribute('data-theme', e.isIntersecting ? 'light' : 'dark');
-    },
-    { threshold: 0 }
-  );
-  obs.observe(trigger);
+  /* Client bloğunun alt kenarı bu çizginin üstüne çıkınca açık tema (görünen border = .ideal-section alt sınırı) */
+  var thresholdFrac = 0.48;
+  var ticking = false;
+
+  function syncThemeFromIdeal() {
+    var r = ideal.getBoundingClientRect();
+    var vh = window.innerHeight || document.documentElement.clientHeight || 0;
+    if (vh <= 0) return;
+    var light = r.bottom < vh * thresholdFrac;
+    root.setAttribute('data-theme', light ? 'light' : 'dark');
+  }
+
+  function scheduleSync() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      ticking = false;
+      syncThemeFromIdeal();
+    });
+  }
+
+  function bindScroll(el) {
+    if (!el) return;
+    el.addEventListener('scroll', scheduleSync, { passive: true });
+  }
+
+  syncThemeFromIdeal();
+  bindScroll(window);
+  bindScroll(document);
+  bindScroll(document.documentElement);
+  bindScroll(document.body);
+  window.addEventListener('resize', scheduleSync);
+  window.addEventListener('load', syncThemeFromIdeal);
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('scroll', scheduleSync, { passive: true });
+    window.visualViewport.addEventListener('resize', scheduleSync);
+  }
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function () {
+      syncThemeFromIdeal();
+    });
+  }
+  requestAnimationFrame(function () {
+    syncThemeFromIdeal();
+  });
 })();
 </script>
 

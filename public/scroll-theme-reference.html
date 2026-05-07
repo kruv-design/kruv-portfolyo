@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<!--
+  Bu dosya yalnızca inceleme: public/kruv.html içindeki scroll-tema CSS + JS ile aynı mantık.
+  Tarayıcıda doğrudan açıp kaydırarak data-theme ve arka plan davranışını test edebilirsin.
+-->
+<html lang="tr" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scroll tema referansı (kruv ile aynı mantık)</title>
+  <style>
+    /* —— :root: kruv.html’deki ilgili token’ların kısaltılmış kopyası —— */
+    :root {
+      --gray-pure-dark: #000000;
+      --gray-1000: rgba(255, 255, 255, 1);
+      --gray-solid-deep: color-mix(in srgb, var(--gray-pure-dark) 96.08%, var(--gray-1000) 3.92%);
+      --gray-solid-elevated: color-mix(in srgb, var(--gray-pure-dark) 93.33%, var(--gray-1000) 6.67%);
+      --gray-solid-panel: color-mix(in srgb, var(--gray-pure-dark) 92.94%, var(--gray-1000) 7.06%);
+      --color-bg: color-mix(in srgb, var(--gray-pure-dark) 94.51%, var(--gray-1000) 5.49%);
+      --color-surface: color-mix(in srgb, var(--gray-pure-dark) 80%, var(--gray-1000) 20%);
+      --color-text: color-mix(in srgb, var(--gray-pure-dark) 0.785%, var(--gray-1000) 99.215%);
+      --color-text-muted: color-mix(in srgb, var(--gray-pure-dark) 50.196%, var(--gray-1000) 49.804%);
+      --color-border-soft: rgba(255, 255, 255, 0.08);
+      --midnight: var(--color-bg);
+      --frost: var(--color-text);
+      --silver: var(--color-text-muted);
+      --border-soft: 1px solid var(--color-border-soft);
+      --section-pad-y: 64px;
+      --section-pad-x: 24px;
+      --space-2: 8px;
+      --space-4: 16px;
+      --space-10: 40px;
+      --space-xl: 48px;
+      --font-body: system-ui, sans-serif;
+      --b1-font-family: var(--font-body);
+      --b3-font-family: var(--font-body);
+      --h2-font-family: var(--font-body);
+      --b1-font-size: 15px;
+      --b3-font-size: 11px;
+      --h2-font-size: clamp(28px, 5vw, 48px);
+    }
+
+    /* kruv.html satır ~359 — scroll-tema + opacity gradient katmanı */
+    html, body {
+      min-height: 100%;
+      margin: 0;
+      background: var(--midnight);
+      background-color: var(--midnight);
+      color: var(--frost);
+      font-family: var(--b1-font-family);
+      transition: background 0.8s ease, background-color 0.8s ease, color 0.8s ease;
+    }
+    body {
+      position: relative;
+      z-index: 0;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(
+        180deg,
+        var(--gray-solid-panel) 0%,
+        var(--color-surface) 48%,
+        var(--gray-solid-panel) 100%
+      );
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      pointer-events: none;
+    }
+    html[data-theme="light"] {
+      background: var(--gray-solid-panel);
+      background-color: var(--gray-solid-panel);
+    }
+    html[data-theme="light"] body {
+      background: var(--gray-solid-panel);
+      background-color: var(--gray-solid-panel);
+      color: var(--frost);
+    }
+    html[data-theme="light"] body::before {
+      opacity: 1;
+    }
+    html[data-theme="light"] .ideal-section {
+      background-color: var(--gray-solid-panel);
+    }
+    html[data-theme="light"] .scene-section {
+      background-color: var(--gray-solid-panel);
+    }
+
+    /* kruv.html .ideal-section — border-bottom çizgisi burada */
+    .ideal-section {
+      position: relative;
+      isolation: isolate;
+      z-index: 1;
+      padding: var(--section-pad-y) var(--section-pad-x) calc(var(--section-pad-y) + var(--space-4));
+      background-color: var(--midnight);
+      border-top: var(--border-soft);
+      border-bottom: var(--border-soft);
+      transition: background-color 0.8s ease, border-color 0.8s ease;
+    }
+    .ideal-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(
+        180deg,
+        var(--gray-solid-panel) 0%,
+        var(--color-surface) 40%,
+        var(--gray-solid-panel) 100%
+      );
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      pointer-events: none;
+    }
+    html[data-theme="light"] .ideal-section::before {
+      opacity: 1;
+    }
+    .ideal-section::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background: linear-gradient(180deg, var(--midnight) 0%, var(--gray-solid-deep) 50%, var(--midnight) 100%);
+      opacity: 1;
+      transition: opacity 0.8s ease;
+      pointer-events: none;
+    }
+    html[data-theme="light"] .ideal-section::after {
+      opacity: 0;
+    }
+
+    /* kruv.html .scene-section */
+    .scene-section {
+      min-height: 100vh;
+      isolation: isolate;
+      background-color: var(--midnight);
+      transition: background-color 0.8s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--section-pad-y) var(--section-pad-x);
+      gap: calc(var(--space-10) + var(--space-2));
+      position: relative;
+      z-index: 1;
+    }
+    .scene-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(
+        180deg,
+        var(--gray-solid-panel) 0%,
+        var(--color-surface) 35%,
+        var(--gray-solid-panel) 100%
+      );
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      pointer-events: none;
+    }
+    html[data-theme="light"] .scene-section::before {
+      opacity: 1;
+    }
+
+    .demo-spacer {
+      height: 45vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--silver);
+      font-size: var(--b1-font-size);
+    }
+
+    .ideal-inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .ideal-tag {
+      font-size: var(--b3-font-size);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--silver);
+    }
+    .ideal-title {
+      margin-top: var(--space-2);
+      font-family: var(--h2-font-family);
+      font-size: var(--h2-font-size);
+    }
+    .fake-logos {
+      margin-top: var(--space-xl);
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .fake-cell {
+      aspect-ratio: 1;
+      border-left: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--silver);
+      font-size: 14px;
+    }
+    .fake-cell:first-child {
+      border-left: none;
+    }
+
+    .scene-label {
+      width: 100%;
+      max-width: 720px;
+    }
+    .scene-section-tag {
+      font-size: var(--b3-font-size);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--silver);
+    }
+    .scene-section-title {
+      margin-top: var(--space-2);
+      font-family: var(--h2-font-family);
+      font-size: var(--h2-font-size);
+    }
+
+    .debug {
+      position: fixed;
+      bottom: 12px;
+      left: 12px;
+      right: 12px;
+      padding: 10px 12px;
+      font-family: ui-monospace, monospace;
+      font-size: 12px;
+      background: color-mix(in srgb, var(--midnight) 88%, transparent);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--silver);
+      z-index: 99;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-spacer">↑ Üstte boşluk (kaydırma testi)</div>
+
+  <section class="ideal-section" id="ideal-client" aria-labelledby="ideal-heading">
+    <div class="ideal-inner">
+      <span class="ideal-tag">Selected Clients</span>
+      <h2 class="ideal-title" id="ideal-heading">Örnek başlık</h2>
+      <div class="fake-logos">
+        <div class="fake-cell">Logo A</div>
+        <div class="fake-cell">Logo B</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene-section">
+    <div class="scene-label">
+      <span class="scene-section-tag">Selected Work</span>
+      <h3 class="scene-section-title">Projects</h3>
+    </div>
+  </section>
+
+  <p class="debug" id="debug"></p>
+
+  <!-- kruv.html satır ~3961–4011 ile aynı JS -->
+  <script>
+    (function () {
+      var ideal = document.getElementById('ideal-client');
+      var root = document.documentElement;
+      var debug = document.getElementById('debug');
+      if (!ideal) return;
+      var thresholdFrac = 0.48;
+      var ticking = false;
+
+      function syncThemeFromIdeal() {
+        var r = ideal.getBoundingClientRect();
+        var vh = window.innerHeight || document.documentElement.clientHeight || 0;
+        if (vh <= 0) return;
+        var light = r.bottom < vh * thresholdFrac;
+        root.setAttribute('data-theme', light ? 'light' : 'dark');
+        if (debug) {
+          debug.textContent =
+            'data-theme=' +
+            root.getAttribute('data-theme') +
+            ' | ideal.bottom=' +
+            r.bottom.toFixed(0) +
+            'px | eşik=' +
+            (vh * thresholdFrac).toFixed(0) +
+            'px (vh×' +
+            thresholdFrac +
+            ') | light=' +
+            light;
+        }
+      }
+
+      function scheduleSync() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          ticking = false;
+          syncThemeFromIdeal();
+        });
+      }
+
+      function bindScroll(el) {
+        if (!el) return;
+        el.addEventListener('scroll', scheduleSync, { passive: true });
+      }
+
+      syncThemeFromIdeal();
+      bindScroll(window);
+      bindScroll(document);
+      bindScroll(document.documentElement);
+      bindScroll(document.body);
+      window.addEventListener('resize', scheduleSync);
+      window.addEventListener('load', syncThemeFromIdeal);
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('scroll', scheduleSync, { passive: true });
+        window.visualViewport.addEventListener('resize', scheduleSync);
+      }
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function () {
+          syncThemeFromIdeal();
+        });
+      }
+      requestAnimationFrame(function () {
+        syncThemeFromIdeal();
+      });
+    })();
+  </script>
+</body>
+</html>
