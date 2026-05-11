@@ -24,7 +24,11 @@ function applyTheme(theme: Theme) {
   }
 }
 
-export function ThemeToggle() {
+type ThemeToggleProps = {
+  className?: string;
+};
+
+export function ThemeToggle({ className }: ThemeToggleProps) {
   const [theme, setTheme] = useState<Theme>("dark");
   const [mounted, setMounted] = useState(false);
 
@@ -50,7 +54,7 @@ export function ThemeToggle() {
       aria-label={label}
       aria-pressed={isLight}
       suppressHydrationWarning
-      className="inline-flex h-7 w-7 items-center justify-center rounded transition-colors"
+      className={`inline-flex items-center justify-center rounded transition-colors ${className ?? "h-7 w-7"}`}
       style={{
         color: "var(--ink-faint)",
         background: "transparent",

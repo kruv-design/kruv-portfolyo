@@ -76,7 +76,7 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
             </div>
             <div className="marketing-navbar-col marketing-navbar-col--cta">
               <div className="marketing-navbar-actions">
-                <ThemeToggle />
+                <ThemeToggle className="marketing-navbar-theme-toggle" />
                 <Link href="/works#contact" className="marketing-navbar-cta">
                   Start a project
                 </Link>

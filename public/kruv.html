@@ -293,6 +293,10 @@
   --btn-radius: var(--radius-xs);
   --btn-border-width: 1px;
   --btn-gap: var(--space-2);
+  /* Navbar kontrolleri (logo yuvası yüksekliği, tema kutusu, CTA) — scroll’da küçülmez */
+  --nav-bar-ctrl-h: calc(
+    2 * var(--btn-pad-y) + var(--btn-font-size) + 2 * var(--btn-border-width)
+  );
 
   /* ===== Component: ticker ===== */
 
@@ -312,9 +316,9 @@
   --hero-portfolio-cursor-size: calc(104px * 1.3);
   --hero-portfolio-cursor-lerp: 0.16;
 
-  /* Navbar: logo yuvası (metin markası KRUV) */
-  --nav-logo-slot-w: 160px;
-  --nav-logo-slot-h: 49px;
+  /* Navbar: logo yuvası (~%50 genişlik; yükseklik tema + CTA ile aynı) */
+  --nav-logo-slot-w: 80px;
+  --nav-logo-slot-h: var(--nav-bar-ctrl-h);
   --nav-compact-dur: 570ms;
   --nav-compact-ease: cubic-bezier(0.22, 1, 0.36, 1);
   /* Kompakt pill: logo | linkler | CTA arası sabit gap (üstte boşluk flex space-between ile eşitlenir) */
@@ -629,11 +633,6 @@ nav.navbar.is-scrolled .nav-inner::before {
 nav.navbar.is-scrolled {
   padding: var(--space-3) var(--container-gutter);
 }
-nav.navbar.is-scrolled .nav-cta {
-  padding: var(--space-xxs) var(--space-lg);
-  letter-spacing: calc(var(--b3-letter-spacing) - 0.02em);
-  font-size: calc(var(--b3-font-size) - 1px);
-}
 .nav-logo {
   display: inline-flex;
   align-items: center;
@@ -649,12 +648,6 @@ nav.navbar.is-scrolled .nav-cta {
   align-items: center;
   width: var(--nav-logo-slot-w);
   height: var(--nav-logo-slot-h);
-  transform: scale3d(1, 1, 1);
-  transform-origin: left center;
-  transition: transform var(--nav-compact-dur) var(--nav-compact-ease);
-}
-nav.navbar.is-scrolled .nav-logo-stack {
-  transform: scale3d(0.92, 0.92, 1);
 }
 /* Logo: kurumsal wordmark SVG (Asset 3) — renk token ile tema uyumu */
 .nav-logo-mark {
@@ -739,8 +732,9 @@ nav.navbar.is-scrolled .navbar-item3 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  flex-shrink: 0;
+  width: var(--nav-bar-ctrl-h);
+  height: var(--nav-bar-ctrl-h);
   padding: 0;
   border-radius: var(--radius-xs);
   border: 1px solid var(--gray-100);
@@ -761,8 +755,8 @@ nav.navbar.is-scrolled .navbar-item3 {
   outline-offset: 2px;
 }
 .nav-theme-toggle svg {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   display: block;
 }
 .nav-theme-toggle .icon-sun { display: none; }
@@ -773,15 +767,12 @@ nav.navbar.is-scrolled .navbar-item3 {
   :root:not([data-theme="dark"]) .nav-theme-toggle .icon-sun { display: block; }
   :root:not([data-theme="dark"]) .nav-theme-toggle .icon-moon { display: none; }
 }
-nav.navbar.is-scrolled .nav-theme-toggle {
-  width: 28px;
-  height: 28px;
-}
-
 .nav-cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
+  min-height: var(--nav-bar-ctrl-h);
   gap: var(--btn-gap);
   font-family: var(--btn-font-family);
   font-size: var(--btn-font-size);
@@ -798,9 +789,7 @@ nav.navbar.is-scrolled .nav-theme-toggle {
   transition:
     background var(--dur-fast) var(--ease-standard),
     color var(--dur-fast) var(--ease-standard),
-    border-color var(--dur-fast) var(--ease-standard),
-    padding var(--nav-compact-dur) var(--nav-compact-ease),
-    font-size var(--nav-compact-dur) var(--nav-compact-ease);
+    border-color var(--dur-fast) var(--ease-standard);
 }
 .nav-cta:hover { background: var(--purple); color: var(--white-fixed); border-color: var(--purple); }
 
@@ -1031,7 +1020,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
   margin: 0;
   flex: 1;
   min-width: 0;
-  text-shadow: 0 1px 10px var(--gray-scrim-700);
 }
 .hero-card-hover-category {
   font-family: var(--b3-font-family);
@@ -1045,7 +1033,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
   margin: 0;
   flex-shrink: 0;
   max-width: 46%;
-  text-shadow: 0 1px 10px var(--on-photo-shadow);
 }
 .hero-card-hover-cta {
   position: relative;
@@ -1060,7 +1047,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
   color: var(--purple);
   text-decoration: none;
   align-self: flex-start;
-  text-shadow: 0 1px 8px var(--on-photo-shadow);
   transition: color var(--dur-fast) var(--ease-standard);
 }
 .hero-card-hover-cta:hover { color: var(--white-fixed); }
@@ -1771,13 +1757,13 @@ body:has(.featured-work-card:hover) .hero-bottom {
 <section class="hero-v2" aria-labelledby="hero-v2-headline">
   <div class="hero-v2-inner">
     <div class="hero-v2-headline" id="hero-v2-headline">
-      <span class="hero-v2-static">We build</span>
-      <div class="hero-v2-row">
+      <div class="hero-v2-line1">
+        <span class="hero-v2-static">We build</span>
         <div class="hero-v2-word-box" id="hero-v2-wb">
           <span class="hero-v2-word" id="hero-v2-wa">brands</span>
         </div>
-        <span class="hero-v2-suffix">worth sharing.</span>
       </div>
+      <span class="hero-v2-suffix">worth sharing.</span>
     </div>
     <p class="hero-v2-sub">
       Share or it didn't happen.<br>
@@ -2966,9 +2952,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
 
 <section class="lets-talk" lang="en" aria-labelledby="lets-talk-heading">
   <p class="lets-talk-eyebrow b3">Let's talk</p>
-  <h2 id="lets-talk-heading" class="lets-talk-heading h2">
-    Got a brand <em>worth building?</em>
-  </h2>
+  <div class="lets-talk-head-row">
+    <h2 id="lets-talk-heading" class="lets-talk-heading h2">
+      Got a brand <em>worth building?</em>
+    </h2>
+    <a class="cta-ghost lets-talk-cta" href="mailto:hello@kruv.studio">Start a project</a>
+  </div>
   <ul class="lets-talk-contacts">
     <li>
       <a class="lets-talk-contact" href="mailto:hello@kruv.studio">hello@kruv.studio</a>
@@ -2986,7 +2975,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
       <a class="lets-talk-contact" href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     </li>
   </ul>
-  <a class="cta-ghost" href="mailto:hello@kruv.studio">Start a project</a>
 </section>
 
 <footer class="site-footer" id="contact" lang="en">
@@ -3723,8 +3711,18 @@ body:has(.featured-work-card:hover) .hero-bottom {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 2px;
   opacity: 0;
   animation: fadeUp 0.5s 0.12s ease forwards;
+}
+.hero-v2-line1 {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: var(--space-3);
+  max-width: 100%;
 }
 .hero-v2-static {
   font-family: var(--font-display);
@@ -3733,13 +3731,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   color: var(--frost);
   letter-spacing: -0.035em;
   line-height: 1.04;
-}
-.hero-v2-row {
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-  gap: var(--space-3);
-  margin-top: 2px;
+  flex-shrink: 0;
 }
 .hero-v2-word-box {
   position: relative;
@@ -3748,6 +3740,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
   padding-bottom: 14px;
   margin-bottom: -14px;
   transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  min-width: 0;
 }
 .hero-v2-word {
   font-family: var(--font-display);
@@ -3767,6 +3761,9 @@ body:has(.featured-work-card:hover) .hero-bottom {
   color: var(--purple);
   letter-spacing: -0.02em;
   white-space: nowrap;
+  display: block;
+  text-align: center;
+  line-height: 1.04;
 }
 .hero-v2-sub {
   font-family: var(--font-body);
@@ -3829,13 +3826,14 @@ body:has(.featured-work-card:hover) .hero-bottom {
 @media (max-width: 700px) {
   .hero-v2 { min-height: 100vh; padding: var(--section-pad-y) var(--space-4); }
   .hero-v2-inner { gap: var(--space-6); }
-  /* 2 satır: "We build" + "[brands] worth sharing." — row layout korunur, dar
-     ekranlarda font biraz küçülerek tek satıra sığar */
-  .hero-v2-row { flex-direction: row; flex-wrap: wrap; gap: var(--space-2); justify-content: center; }
+  /* Tam 2 satır: satır1 = We build + kelime (nowrap), satır2 = worth sharing. */
+  .hero-v2-line1 { gap: var(--space-2); max-width: 100%; }
   .hero-v2-static,
-  .hero-v2-word,
+  .hero-v2-word {
+    font-size: clamp(22px, 6vw, 36px);
+  }
   .hero-v2-suffix {
-    font-size: clamp(28px, 9vw, 44px);
+    font-size: clamp(24px, 6.5vw, 38px);
   }
 }
 
@@ -3857,10 +3855,25 @@ body:has(.featured-work-card:hover) .hero-bottom {
   color: var(--silver);
   margin: 0;
 }
+.lets-talk-head-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-6);
+  width: 100%;
+}
 .lets-talk-heading {
   margin: 0;
-  max-width: 18ch;
+  flex: 1 1 auto;
+  min-width: 0;
   color: var(--frost);
+  white-space: nowrap;
+  font-size: clamp(22px, 4.2vw, 44px);
+}
+.lets-talk-cta {
+  flex-shrink: 0;
 }
 .lets-talk-heading em {
   font-style: italic;
@@ -3871,7 +3884,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-8);
+  gap: var(--space-10);
   list-style: none;
   padding: 0;
   margin: 0;
@@ -3935,7 +3948,16 @@ body:has(.featured-work-card:hover) .hero-bottom {
 
 @media (max-width: 700px) {
   .lets-talk { gap: var(--space-7); }
-  .lets-talk-contacts { gap: var(--space-4); }
+  .lets-talk-head-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-5);
+  }
+  .lets-talk-heading {
+    font-size: clamp(17px, 4.9vw, 36px);
+  }
+  .lets-talk-cta { align-self: flex-end; }
+  .lets-talk-contacts { gap: var(--space-6); }
   .lets-talk-divider { display: none; }
 }
 </style>

@@ -202,12 +202,9 @@
     130vh
   );
   --panel-gap:        var(--space-3);
-  --nav-logo-slot-w:  160px;
-  --nav-logo-slot-h:  49px;
   --nav-compact-dur:  570ms;
   --nav-compact-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --nav-col-gap-scrolled: 16px;
-  --works-body-pad-top: calc(var(--space-6) + var(--nav-logo-slot-h) + var(--space-6));
 
   /* Radius / border */
   --radius-xs:   2px;
@@ -234,6 +231,13 @@
   --btn-radius:         var(--radius-xs);
   --btn-border-width:   1px;
   --btn-gap:            var(--space-2);
+
+  --nav-bar-ctrl-h: calc(
+    2 * var(--btn-pad-y) + var(--btn-font-size) + 2 * var(--btn-border-width)
+  );
+  --nav-logo-slot-w: 80px;
+  --nav-logo-slot-h: var(--nav-bar-ctrl-h);
+  --works-body-pad-top: calc(var(--space-6) + var(--nav-logo-slot-h) + var(--space-6));
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -628,13 +632,6 @@ body {
   align-items: center;
   width: var(--nav-logo-slot-w);
   height: var(--nav-logo-slot-h);
-  transform: scale3d(1, 1, 1);
-  transform-origin: left center;
-  transition: transform var(--nav-compact-dur) var(--nav-compact-ease);
-}
-
-.marketing-navbar.is-scrolled .marketing-navbar-logo-stack {
-  transform: scale3d(0.92, 0.92, 1);
 }
 
 .marketing-navbar-logo-mark {
@@ -707,10 +704,29 @@ body {
   gap: var(--space-3);
 }
 
+/* Theme toggle — navbar satırında CTA ile aynı kutu yüksekliği */
+.marketing-navbar-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--nav-bar-ctrl-h);
+  height: var(--nav-bar-ctrl-h);
+  padding: 0;
+  border-radius: var(--radius-xs);
+}
+
+.marketing-navbar-theme-toggle svg {
+  width: 16px;
+  height: 16px;
+}
+
 .marketing-navbar-cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
+  min-height: var(--nav-bar-ctrl-h);
   gap: var(--btn-gap);
   font-family: var(--btn-font-family);
   font-size: var(--btn-font-size);
@@ -727,12 +743,7 @@ body {
   transition:
     background var(--dur-fast) var(--ease),
     color var(--dur-fast) var(--ease),
-    border-color var(--dur-fast) var(--ease),
-    padding var(--nav-compact-dur) var(--nav-compact-ease);
-}
-
-.marketing-navbar.is-scrolled .marketing-navbar-cta {
-  padding: calc(var(--btn-pad-y) - 4px) calc(var(--btn-pad-x) - 8px);
+    border-color var(--dur-fast) var(--ease);
 }
 
 .marketing-navbar-cta:hover {
