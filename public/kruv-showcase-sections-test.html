@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KRUV — Showcase sections (test)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* Test dosyası — üretimde kruv.html’e taşımadan önce burada bakın.
+       Renkler yalnızca :root tokenlarında tanımlı (kruv-hero-final_4 ile aynı dil). */
+    :root {
+      --page-bg: #fafaf8;
+      --page-border: #e8e4de;
+      --ink: #0a0a0a;
+      --muted: #bbbbbb;
+      --accent: #e87a00;
+      --font: "Manrope", system-ui, sans-serif;
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --space-9: 40px;
+      --space-10: 48px;
+      --space-xl: 56px;
+      --section-y: clamp(72px, 12vw, 120px);
+      --gutter: clamp(20px, 4vw, 40px);
+      --shell: min(1100px, 100%);
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: var(--font);
+      background: var(--page-bg);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    .test-hero {
+      text-align: center;
+      padding: var(--section-y) var(--gutter);
+      border-bottom: 0.5px solid var(--page-border);
+    }
+    .test-hero__static {
+      display: block;
+      font-size: clamp(32px, 6vw, 48px);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.05;
+      color: var(--ink);
+    }
+    .test-hero__row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: center;
+      gap: var(--space-3);
+      margin-top: var(--space-1);
+    }
+    .test-hero__word {
+      font-size: clamp(32px, 6vw, 48px);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      color: var(--ink);
+    }
+    .test-hero__suffix {
+      font-size: clamp(32px, 6vw, 48px);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+    }
+    .test-hero__sub {
+      margin-top: var(--space-6);
+      font-size: 13px;
+      line-height: 1.85;
+      color: var(--muted);
+      max-width: 36ch;
+      margin-inline: auto;
+    }
+    .test-hero__sub strong {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .showcase-sec {
+      padding: var(--section-y) var(--gutter);
+      border-top: 0.5px solid var(--page-border);
+      background: var(--page-bg);
+    }
+    .showcase-belief {
+      border-bottom: 0.5px solid var(--page-border);
+    }
+    .showcase-inner {
+      width: var(--shell);
+      margin: 0 auto;
+    }
+    .showcase-inner--split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .showcase-eyebrow {
+      display: block;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: var(--space-2);
+    }
+    .showcase-title {
+      font-size: clamp(22px, 3.2vw, 28px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--ink);
+      margin: 0 0 var(--space-4);
+    }
+    .showcase-title--row { margin-bottom: 0; }
+    .showcase-title--belief { max-width: 14ch; }
+    .showcase-lede {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.65;
+      color: var(--muted);
+      margin: 0 auto;
+      max-width: 42ch;
+    }
+    .showcase-lede--narrow {
+      margin: var(--space-8) auto 0;
+      text-align: center;
+    }
+    .showcase-lede--tight {
+      margin: var(--space-4) 0 0;
+      max-width: none;
+    }
+    .showcase-feed-head {
+      text-align: center;
+      margin-bottom: var(--space-9);
+    }
+    .showcase-feed-head .showcase-title {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .showcase-footnote {
+      text-align: center;
+      margin-top: var(--space-8);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .showcase-feed-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-2);
+      max-width: min(420px, 100%);
+      margin-inline: auto;
+    }
+    .showcase-feed-tile {
+      aspect-ratio: 1;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--page-border);
+      background-size: cover;
+      background-position: center;
+      background-color: color-mix(in srgb, var(--page-border) 35%, var(--page-bg));
+    }
+    .showcase-feed-tile--accent {
+      border-color: color-mix(in srgb, var(--accent) 40%, var(--page-border));
+      background:
+        linear-gradient(
+          145deg,
+          color-mix(in srgb, var(--accent) 18%, transparent),
+          color-mix(in srgb, var(--accent) 5%, transparent)
+        ),
+        color-mix(in srgb, var(--page-border) 25%, var(--page-bg));
+    }
+    .showcase-feed-tile--a { background-image: url("assets/featured-1.png"); }
+    .showcase-feed-tile--b { background-image: url("assets/featured-2.png"); }
+    .showcase-feed-tile--c {
+      background: linear-gradient(
+        160deg,
+        color-mix(in srgb, var(--ink) 6%, var(--page-bg)),
+        color-mix(in srgb, var(--page-border) 40%, var(--page-bg))
+      );
+    }
+    .showcase-feed-tile--d { background-image: url("assets/featured-3.png"); }
+    .showcase-feed-tile--e {
+      background: linear-gradient(
+        -20deg,
+        color-mix(in srgb, var(--ink) 10%, var(--page-bg)),
+        color-mix(in srgb, var(--page-border) 35%, var(--page-bg))
+      );
+    }
+    .showcase-feed-tile--f { background-image: url("assets/featured-4.png"); }
+    .showcase-feed-tile--g {
+      background: linear-gradient(
+        40deg,
+        color-mix(in srgb, var(--page-border) 45%, var(--page-bg)),
+        color-mix(in srgb, var(--ink) 5%, var(--page-bg))
+      );
+    }
+    .showcase-feed-tile--h { background-image: url("assets/featured-5.png"); }
+    .showcase-feed-tile--i {
+      background: linear-gradient(
+        220deg,
+        color-mix(in srgb, var(--page-border) 30%, var(--page-bg)),
+        color-mix(in srgb, var(--ink) 8%, var(--page-bg))
+      );
+    }
+
+    .showcase-row-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-4) var(--space-8);
+      margin-bottom: var(--space-9);
+    }
+    .showcase-row-head .showcase-eyebrow { margin-bottom: 0; }
+
+    .showcase-triptych {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-6);
+      align-items: end;
+    }
+    .showcase-frame {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+    .showcase-frame-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .showcase-frame-window {
+      width: 100%;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--page-border);
+      overflow: hidden;
+      background: color-mix(in srgb, var(--ink) 4%, var(--page-bg));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .showcase-frame-window--square { aspect-ratio: 1; }
+    .showcase-frame-window--story,
+    .showcase-frame-window--reel {
+      aspect-ratio: 9 / 16;
+      max-height: 280px;
+      margin-inline: auto;
+      width: min(100%, 160px);
+    }
+    .showcase-frame-window--reel {
+      width: min(100%, 120px);
+      border-radius: var(--radius-lg);
+    }
+    .showcase-frame-fill {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      background-size: cover;
+      background-position: center;
+    }
+    .showcase-frame-fill--1 { background-image: url("assets/featured-1.png"); }
+    .showcase-frame-fill--2 { background-image: url("assets/featured-2.png"); }
+    .showcase-frame-fill--3 { background-image: url("assets/featured-3.png"); }
+
+    .showcase-belief-list {
+      list-style: none;
+      margin: var(--space-10) 0 0;
+      padding: 0 0 0 var(--space-8);
+      border-left: 1px solid var(--page-border);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+    }
+    .showcase-belief-list li {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+    .showcase-belief-strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    @media (max-width: 900px) {
+      .test-hero__row {
+        flex-direction: column;
+        align-items: center;
+      }
+      .showcase-inner--split {
+        grid-template-columns: 1fr;
+        gap: var(--space-6);
+      }
+      .showcase-belief-list {
+        border-left: none;
+        padding-left: 0;
+        margin-top: 0;
+        padding-top: var(--space-6);
+        border-top: 0.5px solid var(--page-border);
+      }
+      .showcase-triptych {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+      }
+      .showcase-frame-window--story,
+      .showcase-frame-window--reel {
+        max-height: none;
+        width: min(100%, 220px);
+      }
+      .showcase-frame-window--reel {
+        width: min(100%, 180px);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="test-hero">
+    <span class="test-hero__static">We build</span>
+    <div class="test-hero__row">
+      <span class="test-hero__word">identities</span>
+      <span class="test-hero__suffix">worth sharing.</span>
+    </div>
+    <p class="test-hero__sub">
+      Share or it didn't happen.<br />
+      <strong>We make sure it happens.</strong>
+    </p>
+  </header>
+
+  <section class="showcase-sec showcase-feed" id="projects" aria-labelledby="showcase-feed-heading">
+    <div class="showcase-inner">
+      <header class="showcase-feed-head">
+        <span class="showcase-eyebrow">Selected feed</span>
+        <h2 class="showcase-title" id="showcase-feed-heading">One system. Every square.</h2>
+        <p class="showcase-lede">We treat the grid as a single composition — typography, color rhythm, and crops lock in before a single post ships.</p>
+      </header>
+      <div class="showcase-feed-grid" aria-hidden="true">
+        <div class="showcase-feed-tile showcase-feed-tile--a"></div>
+        <div class="showcase-feed-tile showcase-feed-tile--b"></div>
+        <div class="showcase-feed-tile showcase-feed-tile--accent"></div>
+        <div class="showcase-feed-tile showcase-feed-tile--c"></div>
+        <div class="showcase-feed-tile showcase-feed-tile--d"></div>
+        <div class="showcase-feed-tile showcase-feed-tile--e"></div>
+        <div class="showcase-feed-tile showcase-feed-tile--f"></div>
+        <div class="showcase-feed-tile showcase-feed-tile--g"></div>
+        <div class="showcase-feed-tile showcase-feed-tile--h"></div>
+        <div class="showcase-feed-tile showcase-feed-tile--i"></div>
+      </div>
+      <p class="showcase-footnote">Campaign-scale art direction, not one-off templates.</p>
+    </div>
+  </section>
+
+  <section class="showcase-sec showcase-formats" aria-labelledby="showcase-formats-heading">
+    <div class="showcase-inner">
+      <header class="showcase-row-head">
+        <span class="showcase-eyebrow">Formats</span>
+        <h2 class="showcase-title showcase-title--row" id="showcase-formats-heading">Same story. Three surfaces.</h2>
+      </header>
+      <div class="showcase-triptych">
+        <figure class="showcase-frame">
+          <figcaption class="showcase-frame-label">Post · 1:1</figcaption>
+          <div class="showcase-frame-window showcase-frame-window--square">
+            <span class="showcase-frame-fill showcase-frame-fill--1"></span>
+          </div>
+        </figure>
+        <figure class="showcase-frame">
+          <figcaption class="showcase-frame-label">Stories · 9:16</figcaption>
+          <div class="showcase-frame-window showcase-frame-window--story">
+            <span class="showcase-frame-fill showcase-frame-fill--2"></span>
+          </div>
+        </figure>
+        <figure class="showcase-frame">
+          <figcaption class="showcase-frame-label">Reels cover</figcaption>
+          <div class="showcase-frame-window showcase-frame-window--reel">
+            <span class="showcase-frame-fill showcase-frame-fill--3"></span>
+          </div>
+        </figure>
+      </div>
+      <p class="showcase-lede showcase-lede--narrow">Layouts inherit the same grid logic — safe zones, type scale, and motion hooks stay aligned so handoffs stay quiet.</p>
+    </div>
+  </section>
+
+  <section class="showcase-sec showcase-belief" aria-labelledby="showcase-belief-heading">
+    <div class="showcase-inner showcase-inner--split">
+      <div class="showcase-belief-copy">
+        <span class="showcase-eyebrow">Principle</span>
+        <h2 class="showcase-title showcase-title--belief" id="showcase-belief-heading">Share or it didn't happen.</h2>
+        <p class="showcase-lede showcase-lede--tight">We build identities worth sharing — then we make sure the feed, stories, and reels actually carry that promise without diluting the brand.</p>
+      </div>
+      <ul class="showcase-belief-list">
+        <li><strong class="showcase-belief-strong">Editorial pace</strong> — cadence and contrast designed for thumbs, not print pages.</li>
+        <li><strong class="showcase-belief-strong">Premium restraint</strong> — fewer gimmicks, clearer hierarchy, no noisy chrome.</li>
+        <li><strong class="showcase-belief-strong">Ship-ready files</strong> — naming, versions, and specs your team can run without a rescue thread.</li>
+      </ul>
+    </div>
+  </section>
+
+</body>
+</html>

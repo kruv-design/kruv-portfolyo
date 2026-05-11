@@ -14,7 +14,7 @@ export function ImagePlaceholder({
     <div
       className={`img-ph ${className ?? ""}`}
       style={{
-        background: `linear-gradient(135deg, ${base}33, ${base}66)`,
+        background: `${base}33`,
         fontSize,
       }}
       aria-hidden="true"

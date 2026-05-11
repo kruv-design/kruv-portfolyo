@@ -161,9 +161,9 @@
   --b2-text-transform: lowercase;
   --b2-color: var(--ink-faint);
 
-  --b3-font-family: var(--font-mono);
+  --b3-font-family: var(--font-body);
   --b3-font-size: var(--type-b3);
-  --b3-font-weight: 400;
+  --b3-font-weight: 500;
   --b3-line-height: var(--lh-tight);
   --b3-letter-spacing: var(--ls-2xl);
   --b3-text-transform: lowercase;
@@ -193,7 +193,14 @@
   /* Section / gutter scale */
   --container-gutter: clamp(16px, 5vw, 52px);
   --section-pad-y:    clamp(72px, 10vw, 100px);
-  --grid-shell-width: calc(100vw - (2 * var(--container-gutter)));
+  /* Üst sınır: geniş ekranlarda içerik ve kartlar viewport'u aşmasın.
+     130vh cap → yatay kısa ekranlarda da büyük kartlar viewport yüksekliğini geçmez. */
+  --grid-shell-max:   1440px;
+  --grid-shell-width: min(
+    calc(100vw - (2 * var(--container-gutter))),
+    var(--grid-shell-max),
+    130vh
+  );
   --panel-gap:        var(--space-3);
   --nav-logo-slot-w:  160px;
   --nav-logo-slot-h:  49px;
@@ -215,10 +222,18 @@
   --dur-base:     0.3s;
   --dur-slow:     0.6s;
 
-  /* Buttons */
-  --btn-pad-y:  13px;
-  --btn-pad-x:  36px;
-  --btn-radius: var(--radius-xs);
+  /* Buttons (unified system) */
+  --btn-font-family:    var(--font-display);
+  --btn-font-size:      var(--type-b2);
+  --btn-font-weight:    600;
+  --btn-line-height:    1;
+  --btn-letter-spacing: 0.02em;
+  --btn-text-transform: lowercase;
+  --btn-pad-y:          14px;
+  --btn-pad-x:          28px;
+  --btn-radius:         var(--radius-xs);
+  --btn-border-width:   1px;
+  --btn-gap:            var(--space-2);
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -331,51 +346,69 @@ body {
     text-transform: var(--b3-text-transform);
   }
 
-  /* Buttons */
+  /* Buttons — unified system. Base + fill/line/ghost variants
+     keep identical dimensions so the entire site has one button shape. */
   .btn {
-    @apply inline-flex items-center gap-2 font-medium transition-colors duration-150;
-    font-family: var(--b2-font-family);
-    font-size: var(--b2-font-size);
-    line-height: var(--b2-line-height);
-    padding: var(--space-3) var(--space-5);
+    @apply inline-flex items-center justify-center transition-colors duration-150;
+    gap: var(--btn-gap);
+    font-family: var(--btn-font-family);
+    font-size: var(--btn-font-size);
+    font-weight: var(--btn-font-weight);
+    line-height: var(--btn-line-height);
+    letter-spacing: var(--btn-letter-spacing);
+    text-transform: var(--btn-text-transform);
+    padding: var(--btn-pad-y) var(--btn-pad-x);
     border-radius: var(--btn-radius);
+    border: var(--btn-border-width) solid transparent;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
   }
   .btn-sm {
-    font-size: var(--b3-font-size);
-    line-height: var(--b3-line-height);
-    padding: var(--space-2) var(--space-3);
+    padding: calc(var(--btn-pad-y) - 4px) calc(var(--btn-pad-x) - 8px);
   }
-  .btn-primary {
+  .btn-fill,
+  .btn-primary,
+  .btn-accent {
     background: var(--color-accent);
     color: var(--white-fixed);
+    border-color: var(--color-accent);
   }
-  .btn-primary:hover {
+  .btn-fill:hover,
+  .btn-primary:hover,
+  .btn-accent:hover {
     background: var(--accent-hover);
+    border-color: var(--accent-hover);
+  }
+  .btn-line {
+    background: transparent;
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+  .btn-line:hover {
+    background: var(--color-accent);
+    color: var(--white-fixed);
+    border-color: var(--color-accent);
   }
   .btn-ghost {
     background: transparent;
     color: var(--ink-soft);
-    border: 1px solid var(--adm-border);
+    border-color: var(--adm-border);
   }
   .btn-ghost:hover {
-    border-color: var(--gray-300);
-    color: var(--ink);
+    background: var(--color-accent);
+    color: var(--white-fixed);
+    border-color: var(--color-accent);
   }
   .btn-danger {
     background: var(--danger-soft);
     color: var(--danger);
-    border: 1px solid var(--danger-border);
+    border-color: var(--danger-border);
   }
   .btn-danger:hover {
     background: var(--danger);
     color: var(--gray-solid-deep);
-  }
-  .btn-accent {
-    background: var(--color-accent);
-    color: var(--white-fixed);
-  }
-  .btn-accent:hover {
-    background: var(--accent-hover);
+    border-color: var(--danger);
   }
 
   /* Form controls */
@@ -671,30 +704,31 @@ body {
 }
 
 .marketing-navbar-cta {
-  font-family: var(--b3-font-family);
-  font-size: var(--b3-font-size);
-  font-weight: var(--b3-font-weight);
-  line-height: var(--b3-line-height);
-  letter-spacing: var(--b3-letter-spacing);
-  text-transform: var(--b3-text-transform);
-  padding: var(--space-sm) var(--space-xl);
-  border: 1px solid var(--accent-soft);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--btn-gap);
+  font-family: var(--btn-font-family);
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
+  line-height: var(--btn-line-height);
+  letter-spacing: var(--btn-letter-spacing);
+  text-transform: var(--btn-text-transform);
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  background: transparent;
+  border: var(--btn-border-width) solid var(--accent);
   color: var(--accent);
   text-decoration: none;
-  border-radius: var(--radius-xs);
+  border-radius: var(--btn-radius);
   transition:
     background var(--dur-fast) var(--ease),
     color var(--dur-fast) var(--ease),
     border-color var(--dur-fast) var(--ease),
-    padding var(--nav-compact-dur) var(--nav-compact-ease),
-    letter-spacing var(--nav-compact-dur) var(--nav-compact-ease),
-    font-size var(--nav-compact-dur) var(--nav-compact-ease);
+    padding var(--nav-compact-dur) var(--nav-compact-ease);
 }
 
 .marketing-navbar.is-scrolled .marketing-navbar-cta {
-  padding: var(--space-xxs) var(--space-lg);
-  letter-spacing: calc(var(--b3-letter-spacing) - 0.02em);
-  font-size: calc(var(--b3-font-size) - 1px);
+  padding: calc(var(--btn-pad-y) - 4px) calc(var(--btn-pad-x) - 8px);
 }
 
 .marketing-navbar-cta:hover {
@@ -740,12 +774,40 @@ body {
   object-position: center;
 }
 
+/* %15 siyah overlay — hover'lanmayan kartlar üzerinde belirir */
+.pw-card-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 2;
+}
+
+.portfolio-grid:has(.pw-card:hover) .pw-card:not(:hover) .pw-card-media::after {
+  opacity: 1;
+}
+.portfolio-grid:has(.pw-card:hover) .pw-card:not(:hover) .pw-card-meta {
+  opacity: 0.55;
+  transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: none) {
+  .portfolio-grid:has(.pw-card:hover) .pw-card:not(:hover) .pw-card-media::after,
+  .portfolio-grid:has(.pw-card:hover) .pw-card:not(:hover) .pw-card-meta {
+    opacity: 1;
+  }
+}
+
 .pw-card-meta {
   display: flex;
   flex-direction: column;
   align-items: stretch;
   gap: var(--space-3);
   width: 100%;
+  transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .pw-card-title {

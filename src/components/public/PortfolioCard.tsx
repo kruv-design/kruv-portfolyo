@@ -29,7 +29,7 @@ export function PortfolioCard({
             alt={project.baslik}
             fill
             sizes="(max-width: 699px) 100vw, 50vw"
-            className="object-cover object-center transition-transform duration-[550ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:scale-[1.05]"
+            className="object-cover object-center transition-transform duration-[1800ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-[1.07]"
             placeholder="empty"
             priority={index < 2}
           />

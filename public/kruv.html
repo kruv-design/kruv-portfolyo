@@ -184,9 +184,9 @@
   --b2-text-transform: lowercase;
   --b2-color: var(--gray-400);
 
-  --b3-font-family: var(--font-mono);
+  --b3-font-family: var(--font-body);
   --b3-font-size: var(--type-b3);
-  --b3-font-weight: 400;
+  --b3-font-weight: 500;
   --b3-line-height: var(--lh-tight);
   --b3-letter-spacing: var(--ls-2xl);
   --b3-text-transform: lowercase;
@@ -243,7 +243,15 @@
   /* ===== Layout: grid shell ===== */
   --container-max: 920px;
   --container-gutter: clamp(16px, 5vw, 52px);
-  --grid-shell-width: calc(100vw - (2 * var(--container-gutter)));
+  /* Üst sınır: geniş ekranlarda kartlar viewport'u aşmasın.
+     130vh cap → yatay kısa ekranlarda da soldaki büyük kart (8/12 × shell × 12/16
+     ≈ 0.5 × shell) viewport yüksekliğini geçmez. */
+  --grid-shell-max: 1440px;
+  --grid-shell-width: min(
+    calc(100vw - (2 * var(--container-gutter))),
+    var(--grid-shell-max),
+    130vh
+  );
   --section-pad-y: clamp(120px, 16vw, 176px);
   --section-pad-x: var(--container-gutter);
   /* Tema geçişi (scroll-t); görsel boşluk ideal → Projects arasında birikmesin */
@@ -273,22 +281,32 @@
   --dur-base: .3s;
   --dur-slow: .6s;
 
-  /* ===== Component: button / ticker ===== */
-  --btn-pad-y: 13px;
-  --btn-pad-x: 36px;
+  /* ===== Component: button (unified system) ===== */
+  --btn-font-family: var(--font-display);
+  --btn-font-size: var(--type-b2);
+  --btn-font-weight: 600;
+  --btn-line-height: 1;
+  --btn-letter-spacing: 0.02em;
+  --btn-text-transform: lowercase;
+  --btn-pad-y: 14px;
+  --btn-pad-x: 28px;
   --btn-radius: var(--radius-xs);
+  --btn-border-width: 1px;
+  --btn-gap: var(--space-2);
+
+  /* ===== Component: ticker ===== */
 
   /*
     Ticker el SVG’leri geniş viewBox içinde küçük çizili; sadece height büyütünce “büyümedi” hissi oluşuyor.
     Orijinal piksel oranı 64×34; %50 büyütme = scale 1.5 + slot’ta overflow ile merkez kırpma.
   */
-  --ticker-hand-art-h: 34px;
+  --ticker-hand-art-h: 68px;
   --ticker-hand-art-zoom: 1.5;
   --ticker-hand-slot-h: calc(var(--ticker-hand-art-h) * var(--ticker-hand-art-zoom));
   --ticker-hand-slot-w: calc(var(--ticker-hand-slot-h) * 64 / 34);
-  --ticker-pad-y: var(--space-4);
+  --ticker-pad-y: var(--space-5);
   --ticker-height: calc(var(--ticker-hand-slot-h) + (2 * var(--ticker-pad-y)));
-  --ticker-item-pad-x: 32px;
+  --ticker-item-pad-x: 48px;
 
   /* Hero fan — özel portfolio imleci (daire); önceki 104px + %30 */
   --hero-portfolio-cursor-size: calc(104px * 1.3);
@@ -321,9 +339,6 @@
   --avatar-md: 52px;
 
   /* ===== Layout: shared sizes ===== */
-  --size-glow-w: 800px;
-  --size-glow-h: 500px;
-
   --size-fan-max-w: 900px;
   --size-fan-h: 380px;
   --size-fan-h-md: 260px;
@@ -522,17 +537,7 @@ html, body {
   text-transform: var(--h4-text-transform);
 }
 
-/* ambient glow center */
-body::before {
-  content: '';
-  position: fixed;
-  top: 40%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: var(--size-glow-w); height: var(--size-glow-h);
-  background: radial-gradient(ellipse, rgba(93,93,255,0.09) 0%, transparent 65%);
-  pointer-events: none;
-  z-index: 0;
-}
+/* ambient glow kaldırıldı — zemin tek renk */
 
 /* NAV */
 nav.navbar {
@@ -770,23 +775,30 @@ nav.navbar.is-scrolled .nav-theme-toggle {
 }
 
 .nav-cta {
-  font-family: var(--b3-font-family);
-  font-size: var(--b3-font-size);
-  font-weight: var(--b3-font-weight);
-  line-height: var(--b3-line-height);
-  letter-spacing: var(--b3-letter-spacing);
-  text-transform: var(--b3-text-transform); padding: var(--space-sm) var(--space-xl);
-  border: 1px solid var(--pb); color: var(--purple);
-  text-decoration: none; border-radius: var(--radius-xs);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--btn-gap);
+  font-family: var(--btn-font-family);
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
+  line-height: var(--btn-line-height);
+  letter-spacing: var(--btn-letter-spacing);
+  text-transform: var(--btn-text-transform);
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  background: transparent;
+  color: var(--purple);
+  border: var(--btn-border-width) solid var(--purple);
+  border-radius: var(--btn-radius);
+  text-decoration: none;
   transition:
     background var(--dur-fast) var(--ease-standard),
     color var(--dur-fast) var(--ease-standard),
     border-color var(--dur-fast) var(--ease-standard),
     padding var(--nav-compact-dur) var(--nav-compact-ease),
-    letter-spacing var(--nav-compact-dur) var(--nav-compact-ease),
     font-size var(--nav-compact-dur) var(--nav-compact-ease);
 }
-.nav-cta:hover { background: var(--purple); color: var(--white-fixed); }
+.nav-cta:hover { background: var(--purple); color: var(--white-fixed); border-color: var(--purple); }
 
 /* HERO */
 .hero {
@@ -852,17 +864,15 @@ body:has(.featured-work-card:hover) .hero-bottom {
   transition: filter .2s cubic-bezier(0.4,0,0.2,1), opacity .2s cubic-bezier(0.4,0,0.2,1);
 }
 
-/* Featured: hover’lanmayan kartlar + üstteki kadraj alanı (hero fan ile aynı dil) */
-.featured-works:has(.featured-work-card:hover) .featured-work-card:not(:hover) {
-  filter: blur(4px);
-  opacity: 0.5;
-  transition: filter .2s cubic-bezier(0.4,0,0.2,1), opacity .2s cubic-bezier(0.4,0,0.2,1);
+/* Featured: hover'lanmayan kartlar — blur yerine sade overlay (alttaki .featured-work-media::after) */
+.featured-works:has(.featured-work-card:hover) .featured-work-card:not(:hover) .featured-work-meta {
+  opacity: 0.55;
+  transition: opacity .25s cubic-bezier(0.22,1,0.36,1);
 }
 .scene-section:has(.featured-work-card:hover) .scene-label,
 .scene-section:has(.featured-work-card:hover) .scene {
-  filter: blur(6px);
   opacity: 0.4;
-  transition: filter .2s cubic-bezier(0.4,0,0.2,1), opacity .2s cubic-bezier(0.4,0,0.2,1);
+  transition: opacity .2s cubic-bezier(0.4,0,0.2,1);
 }
 
 /* card positions — fan layout */
@@ -900,26 +910,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   /* Görsel tam kartı doldurur (cover); önemli detay ortada — kenarlar kırpılabilir */
   background-color: var(--color-surface);
 }
-/* Mobildeki ön kart mor parlama hissi: alttan mor radial (görselin alt katmanı) */
-.card-bg::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  border-radius: inherit;
-  opacity: 0;
-  transition: opacity var(--dur-base) var(--ease-standard);
-  background: radial-gradient(
-    ellipse 115% 88% at 50% 108%,
-    color-mix(in srgb, var(--purple) 30%, transparent) 0%,
-    color-mix(in srgb, var(--purple) 9%, transparent) 46%,
-    transparent 72%
-  );
-}
-.fan-wrap .card:hover .card-bg::before {
-  opacity: 1;
-}
+/* Mor hover glow kaldırıldı — sade kart */
 .card-bg::after {
   content: '';
   position: absolute;
@@ -1250,18 +1241,86 @@ body:has(.featured-work-card:hover) .hero-bottom {
   gap: var(--space-4);
   opacity: 0; animation: fadeUp .5s 1.12s ease forwards;
 }
-.cta-main {
-  font-family: var(--h4-font-family);
-  font-size: var(--h4-font-size);
-  font-weight: var(--h4-font-weight);
-  line-height: var(--h4-line-height);
-  letter-spacing: var(--h4-letter-spacing);
-  text-transform: var(--h4-text-transform);
-  padding: var(--btn-pad-y) var(--btn-pad-x); background: var(--purple); color: var(--white-fixed);
-  border-radius: var(--btn-radius); text-decoration: none;
-  transition: opacity .15s, transform .1s;
+/* ── Unified button system ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--btn-gap);
+  font-family: var(--btn-font-family);
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
+  line-height: var(--btn-line-height);
+  letter-spacing: var(--btn-letter-spacing);
+  text-transform: var(--btn-text-transform);
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  border-radius: var(--btn-radius);
+  border: var(--btn-border-width) solid transparent;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition:
+    background var(--dur-fast) var(--ease-standard),
+    color var(--dur-fast) var(--ease-standard),
+    border-color var(--dur-fast) var(--ease-standard),
+    transform var(--dur-fast) var(--ease-standard);
 }
-.cta-main:hover { opacity: .85; transform: translateY(-1px); }
+.btn--fill {
+  background: var(--purple);
+  color: var(--white-fixed);
+  border-color: var(--purple);
+}
+.btn--fill:hover {
+  background: var(--accent-hover, var(--purple));
+  border-color: var(--accent-hover, var(--purple));
+  transform: translateY(-1px);
+}
+.btn--line {
+  background: transparent;
+  color: var(--purple);
+  border-color: var(--purple);
+}
+.btn--line:hover {
+  background: var(--purple);
+  color: var(--white-fixed);
+  border-color: var(--purple);
+}
+.btn--ghost {
+  background: transparent;
+  color: var(--silver);
+  border-color: var(--gray-150);
+}
+.btn--ghost:hover {
+  background: var(--purple);
+  color: var(--white-fixed);
+  border-color: var(--purple);
+}
+
+.cta-main {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--btn-gap);
+  font-family: var(--btn-font-family);
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
+  line-height: var(--btn-line-height);
+  letter-spacing: var(--btn-letter-spacing);
+  text-transform: var(--btn-text-transform);
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  background: var(--purple);
+  color: var(--white-fixed);
+  border: var(--btn-border-width) solid var(--purple);
+  border-radius: var(--btn-radius);
+  text-decoration: none;
+  transition:
+    background var(--dur-fast) var(--ease-standard),
+    border-color var(--dur-fast) var(--ease-standard),
+    transform var(--dur-fast) var(--ease-standard),
+    opacity var(--dur-fast) var(--ease-standard);
+}
+.cta-main:hover { opacity: .9; transform: translateY(-1px); }
 
 /* locs */
 .locs {
@@ -1303,12 +1362,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
   animation: tickerRoll 32s linear infinite;
 }
 .ticker-item {
-  font-family: var(--b3-font-family);
-  font-size: var(--b3-font-size);
-  font-weight: var(--b3-font-weight);
-  line-height: var(--b3-line-height);
-  letter-spacing: var(--b3-letter-spacing);
-  text-transform: var(--b3-text-transform);
+  font-family: var(--b1-font-family);
+  font-size: var(--b1-font-size);
+  font-weight: var(--b1-font-weight);
+  line-height: var(--b1-line-height);
+  letter-spacing: var(--b1-letter-spacing);
+  text-transform: var(--b1-text-transform);
   color: var(--silver);
   padding: 0 var(--ticker-item-pad-x);
   display: inline-flex;
@@ -1635,7 +1694,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   .headline .hero-headline { font-size: var(--type-h1); }
   .sub { font-size: var(--b1-font-size); max-width: var(--size-sub-max-w-mobile); }
   .cta-row { flex-direction: column; gap: var(--space-3); align-items: center; }
-  .cta-main { text-align: center; padding: var(--space-3) var(--space-10); }
+  .cta-main { text-align: center; }
 }
 
 </style>
@@ -1720,7 +1779,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
       Share or it didn't happen.<br>
       <strong>We make sure it happens.</strong>
     </p>
-    <a href="#projects" class="hero-v2-cta">See the work</a>
+    <a href="#ideal-client" class="hero-v2-cta">See the work</a>
   </div>
 </section>
 
@@ -2012,7 +2071,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
 
     <div class="ideal-clients-wrap">
       <div class="ideal-clients-grid">
-        <div class="ideal-logo-cell"><span class="ideal-logo ideal-logo-1" role="img" aria-label="Beyoglu"></span></div>
+        <div class="ideal-logo-cell"><span class="ideal-logo ideal-logo-1" role="img" aria-label="Beyoğlu Kültür Yolu Festivali"></span></div>
         <div class="ideal-logo-cell"><span class="ideal-logo ideal-logo-2" role="img" aria-label="Group 19"></span></div>
         <div class="ideal-logo-cell"><span class="ideal-logo ideal-logo-3" role="img" aria-label="Group 297"></span></div>
         <div class="ideal-logo-cell"><span class="ideal-logo ideal-logo-4" role="img" aria-label="Asset 18"></span></div>
@@ -2111,12 +2170,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
   margin-bottom: var(--space-2);
 }
 .ideal-title {
-  font-family: var(--h2-font-family);
-  font-size: var(--h2-font-size);
-  font-weight: var(--h2-font-weight);
-  line-height: var(--h2-line-height);
-  letter-spacing: var(--h2-letter-spacing);
-  text-transform: var(--h2-text-transform);
+  font-family: var(--h3-font-family);
+  font-size: var(--h3-font-size);
+  font-weight: var(--h3-font-weight);
+  line-height: var(--h3-line-height);
+  letter-spacing: var(--h3-letter-spacing);
+  text-transform: var(--h3-text-transform);
   color: var(--frost);
   white-space: nowrap;
 }
@@ -2153,7 +2212,13 @@ body:has(.featured-work-card:hover) .hero-bottom {
   mask-size: contain;
   opacity: 1;
 }
-.ideal-logo-1 { -webkit-mask-image: url("./beyoglu.svg"); mask-image: url("./beyoglu.svg"); }
+.ideal-logo-1 {
+  -webkit-mask-image: url("assets/clients/beyoglu.svg");
+  mask-image: url("assets/clients/beyoglu.svg");
+  /* İki-tonlu SVG: koyu BEYOĞLU yazısı luminance modunda silüetten "delik" olarak görünür */
+  -webkit-mask-mode: luminance;
+  mask-mode: luminance;
+}
 .ideal-logo-2 { -webkit-mask-image: url("assets/clients/group-19.svg"); mask-image: url("assets/clients/group-19.svg"); }
 .ideal-logo-3 { -webkit-mask-image: url("assets/clients/group-297.svg"); mask-image: url("assets/clients/group-297.svg"); }
 .ideal-logo-4 { -webkit-mask-image: url("assets/clients/asset-18.svg"); mask-image: url("assets/clients/asset-18.svg"); }
@@ -2172,7 +2237,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   padding: calc(var(--section-pad-y) + var(--space-2)) 0 calc(var(--section-pad-y) + var(--space-6));
   border-top: var(--border-soft);
   border-bottom: var(--border-soft);
-  background: linear-gradient(180deg, var(--gray-solid-deep) 0%, var(--midnight) 100%);
+  background: var(--midnight);
 }
 .testimonials-inner {
   width: var(--grid-shell-width);
@@ -2196,12 +2261,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
   margin-bottom: var(--space-2);
 }
 .testimonials-title {
-  font-family: var(--h2-font-family);
-  font-size: var(--h2-font-size);
-  font-weight: var(--h2-font-weight);
-  line-height: var(--h2-line-height);
-  letter-spacing: var(--h2-letter-spacing);
-  text-transform: var(--h2-text-transform);
+  font-family: var(--h3-font-family);
+  font-size: var(--h3-font-size);
+  font-weight: var(--h3-font-weight);
+  line-height: var(--h3-line-height);
+  letter-spacing: var(--h3-letter-spacing);
+  text-transform: var(--h3-text-transform);
   color: var(--frost);
 }
 .testimonials-marquee {
@@ -2302,7 +2367,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   padding: var(--section-pad-y) var(--section-pad-x);
   border-top: var(--border-soft);
   border-bottom: var(--border-soft);
-  background: linear-gradient(180deg, var(--midnight) 0%, var(--gray-solid-deep) 100%);
+  background: var(--midnight);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -2361,12 +2426,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
   margin-bottom: var(--space-2);
 }
 .focus-list-heading {
-  font-family: var(--h2-font-family);
-  font-size: var(--h2-font-size);
-  font-weight: var(--h2-font-weight);
-  line-height: var(--h2-line-height);
-  letter-spacing: var(--h2-letter-spacing);
-  text-transform: var(--h2-text-transform);
+  font-family: var(--h3-font-family);
+  font-size: var(--h3-font-size);
+  font-weight: var(--h3-font-weight);
+  line-height: var(--h3-line-height);
+  letter-spacing: var(--h3-letter-spacing);
+  text-transform: var(--h3-text-transform);
   color: var(--frost);
   text-wrap: balance;
 }
@@ -2890,7 +2955,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
 
 <section class="lets-talk" lang="en" aria-labelledby="lets-talk-heading">
   <p class="lets-talk-eyebrow b3">Let's talk</p>
-  <h2 id="lets-talk-heading" class="lets-talk-heading h1">
+  <h2 id="lets-talk-heading" class="lets-talk-heading h2">
     Got a brand <em>worth building?</em>
   </h2>
   <ul class="lets-talk-contacts">
@@ -3026,12 +3091,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
   );
 }
 .scene-section-title {
-  font-family: var(--h2-font-family);
-  font-size: var(--h2-font-size);
-  font-weight: var(--h2-font-weight);
-  line-height: var(--h2-line-height);
-  letter-spacing: var(--h2-letter-spacing);
-  text-transform: var(--h2-text-transform);
+  font-family: var(--h3-font-family);
+  font-size: var(--h3-font-size);
+  font-weight: var(--h3-font-weight);
+  line-height: var(--h3-line-height);
+  letter-spacing: var(--h3-letter-spacing);
+  text-transform: var(--h3-text-transform);
   color: color-mix(
     in oklab,
     var(--frost) calc((1 - var(--kruv-scene-theme-t)) * 100%),
@@ -3180,7 +3245,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 .post-avatar {
   width: var(--avatar-sm); height: var(--avatar-sm); border-radius: 50%;
-  background: linear-gradient(135deg, var(--purple), var(--color-surface));
+  background: var(--purple);
   flex-shrink: 0;
 }
 .post-username {
@@ -3276,8 +3341,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
   flex-direction: column;
   gap: var(--space-4);
   transition:
-    filter .2s cubic-bezier(0.4,0,0.2,1),
-    opacity .2s cubic-bezier(0.4,0,0.2,1),
     background-color 0.8s ease,
     border-color 0.8s ease;
 }
@@ -3287,6 +3350,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   align-items: stretch;
   gap: var(--space-3);
   width: 100%;
+  transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .featured-work-hit {
   position: absolute;
@@ -3314,16 +3378,46 @@ body:has(.featured-work-card:hover) .hero-bottom {
   overflow: hidden;
   background-color: var(--color-surface);
   transition: background-color 0.8s ease;
+}
+/* Görsel pseudo elementte tutulur ki sadece o yavaşça zoom yapsın */
+.featured-work-media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  background-clip: padding-box;
+  transform: scale(1);
+  transform-origin: center center;
+  transition: transform 1.8s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+  z-index: 0;
 }
-.featured-work-media-1 { background-image: url("assets/featured-1.png"); }
-.featured-work-media-2 { background-image: url("assets/featured-2.png"); }
-.featured-work-media-3 { background-image: url("assets/featured-3.png"); }
-.featured-work-media-4 { background-image: url("assets/featured-4.png"); }
-.featured-work-media-5 { background-image: url("assets/featured-5.png"); }
+/* %15 siyah overlay — diğer kartlar dim edildiğinde aktifleşir */
+.featured-work-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 1;
+}
+.featured-work-media-1::before { background-image: url("assets/featured-1.png"); }
+.featured-work-media-2::before { background-image: url("assets/featured-2.png"); }
+.featured-work-media-3::before { background-image: url("assets/featured-3.png"); }
+.featured-work-media-4::before { background-image: url("assets/featured-4.png"); }
+.featured-work-media-5::before { background-image: url("assets/featured-5.png"); }
+
+/* Hover edilen kart → görseli yavaş büyür */
+.featured-work-card:hover .featured-work-media::before {
+  transform: scale(1.07);
+}
+/* Bir kart hover edildiğinde → diğer kartların görseli %15 siyah overlay alır */
+.featured-works:has(.featured-work-card:hover) .featured-work-card:not(:hover) .featured-work-media::after {
+  opacity: 1;
+}
 .featured-work-title {
   font-family: var(--h4-font-family);
   font-size: var(--h4-font-size);
@@ -3381,19 +3475,19 @@ body:has(.featured-work-card:hover) .hero-bottom {
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.12s ease;
-  padding: var(--space-xs) var(--space-3);
+  padding: var(--space-2) var(--space-4);
   border: 1px solid var(--purple);
   border-radius: var(--radius-xs);
   background: var(--purple);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  font-family: var(--b3-font-family);
-  font-size: var(--b3-font-size);
-  font-weight: var(--b3-font-weight);
-  line-height: var(--b3-line-height);
-  letter-spacing: var(--b3-letter-spacing);
-  text-transform: var(--b3-text-transform);
-  color: var(--frost);
+  font-family: var(--h4-font-family);
+  font-size: var(--h4-font-size);
+  font-weight: var(--h4-font-weight);
+  line-height: var(--h4-line-height);
+  letter-spacing: var(--h4-letter-spacing);
+  text-transform: var(--h4-text-transform);
+  color: var(--white-fixed);
   white-space: nowrap;
   box-shadow: 0 8px 24px var(--gray-scrim-600);
 }
@@ -3428,16 +3522,24 @@ body:has(.featured-work-card:hover) .hero-bottom {
   .featured-work-card:nth-child(5) { grid-column: 9 / span 4; }
 }
 
-/* Mobil / dokunmatik: Selected Work hover blur + soluklama kapalı */
+/* Mobil / dokunmatik: Selected Work hover efektleri kapalı (blur, overlay, zoom, dim) */
 @media (max-width: 699px), (hover: none) {
   body:has(.featured-work-card:hover) nav,
   body:has(.featured-work-card:hover) .ticker,
   body:has(.featured-work-card:hover) .hero-bottom,
-  .featured-works:has(.featured-work-card:hover) .featured-work-card:not(:hover),
   .scene-section:has(.featured-work-card:hover) .scene-label,
   .scene-section:has(.featured-work-card:hover) .scene {
     filter: none;
     opacity: 1;
+  }
+  .featured-works:has(.featured-work-card:hover) .featured-work-card:not(:hover) .featured-work-meta {
+    opacity: 1;
+  }
+  .featured-works:has(.featured-work-card:hover) .featured-work-card:not(:hover) .featured-work-media::after {
+    opacity: 0;
+  }
+  .featured-work-card:hover .featured-work-media::before {
+    transform: none;
   }
 }
 
@@ -3663,28 +3765,35 @@ body:has(.featured-work-card:hover) .hero-bottom {
   font-weight: 700;
 }
 .hero-v2-cta {
-  display: inline-block;
-  background: var(--frost);
-  color: var(--midnight);
-  font-family: var(--font-display);
-  font-size: var(--type-b3);
-  font-weight: 700;
-  letter-spacing: var(--ls-2xl);
-  text-transform: lowercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--btn-gap);
+  font-family: var(--btn-font-family);
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
+  line-height: var(--btn-line-height);
+  letter-spacing: var(--btn-letter-spacing);
+  text-transform: var(--btn-text-transform);
   padding: var(--btn-pad-y) var(--btn-pad-x);
+  background: var(--purple);
+  color: var(--white-fixed);
+  border: var(--btn-border-width) solid var(--purple);
   border-radius: var(--btn-radius);
   text-decoration: none;
-  border: none;
   cursor: pointer;
   opacity: 0;
   animation: fadeUp 0.5s 0.52s ease forwards;
   transition:
+    background var(--dur-fast) var(--ease-standard),
+    border-color var(--dur-fast) var(--ease-standard),
     transform var(--dur-fast) var(--ease-standard),
     opacity var(--dur-fast) var(--ease-standard);
 }
 .hero-v2-cta:hover {
+  background: var(--accent-hover, var(--purple));
+  border-color: var(--accent-hover, var(--purple));
   transform: translateY(-1px);
-  opacity: 0.9;
 }
 
 @keyframes hero-v2-slide-in {
@@ -3735,19 +3844,19 @@ body:has(.featured-work-card:hover) .hero-bottom {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-5);
+  gap: var(--space-8);
   list-style: none;
   padding: 0;
   margin: 0;
   width: 100%;
 }
 .lets-talk-contact {
-  font-family: var(--b3-font-family);
-  font-size: var(--b3-font-size);
-  font-weight: var(--b3-font-weight);
-  line-height: var(--b3-line-height);
-  letter-spacing: var(--b3-letter-spacing);
-  text-transform: var(--b3-text-transform);
+  font-family: var(--b2-font-family);
+  font-size: var(--b2-font-size);
+  font-weight: 500;
+  line-height: var(--b2-line-height);
+  letter-spacing: 0.01em;
+  text-transform: var(--b2-text-transform);
   color: var(--silver);
   text-decoration: none;
   padding-bottom: var(--space-1);
@@ -3763,37 +3872,43 @@ body:has(.featured-work-card:hover) .hero-bottom {
 .lets-talk-divider {
   display: inline-block;
   width: 1px;
-  height: 14px;
+  height: 18px;
   background: var(--gray-180);
   flex-shrink: 0;
 }
 .cta-ghost {
-  font-family: var(--h4-font-family);
-  font-size: var(--h4-font-size);
-  font-weight: var(--h4-font-weight);
-  line-height: var(--h4-line-height);
-  letter-spacing: var(--h4-letter-spacing);
-  text-transform: var(--h4-text-transform);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--btn-gap);
+  font-family: var(--btn-font-family);
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
+  line-height: var(--btn-line-height);
+  letter-spacing: var(--btn-letter-spacing);
+  text-transform: var(--btn-text-transform);
   padding: var(--btn-pad-y) var(--btn-pad-x);
   background: transparent;
   color: var(--silver);
-  border: 1px solid var(--gray-150);
+  border: var(--btn-border-width) solid var(--gray-150);
   border-radius: var(--btn-radius);
   text-decoration: none;
   transition:
     background var(--dur-fast) var(--ease-standard),
     color var(--dur-fast) var(--ease-standard),
-    border-color var(--dur-fast) var(--ease-standard);
+    border-color var(--dur-fast) var(--ease-standard),
+    transform var(--dur-fast) var(--ease-standard);
 }
 .cta-ghost:hover {
   background: var(--purple);
   color: var(--white-fixed);
   border-color: var(--purple);
+  transform: translateY(-1px);
 }
 
 @media (max-width: 700px) {
   .lets-talk { gap: var(--space-7); }
-  .lets-talk-contacts { gap: var(--space-3); }
+  .lets-talk-contacts { gap: var(--space-4); }
   .lets-talk-divider { display: none; }
 }
 </style>
@@ -4137,8 +4252,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
   var dragRot   = 0;
   var rafId     = null;
 
-  var cardGlows = cards.map(function (_, i) { return i === 0 ? 1 : 0; });
-
   function getCardAngle(i) {
     var a = (liveRot + i * ANGLE) % 360;
     if (a >  180) a -= 360;
@@ -4165,10 +4278,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
         opacity = 0.55 - t2 * 0.35;
       }
 
-      var targetGlow = absDeg < 38 ? (1 - absDeg / 38) : 0;
-      cardGlows[i] += (targetGlow - cardGlows[i]) * 0.09;
-      var g = cardGlows[i];
-
       var tiltX = 0;
       if (absDeg < 55) {
         tiltX = dragRot * -0.042;
@@ -4186,13 +4295,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
         : '';
       card.style.opacity = Math.max(0.05, opacity).toFixed(3);
 
-      var glowSize    = (25 + g * 55).toFixed(0);
-      var glowOpacity = (g * 0.5).toFixed(3);
-      card.style.boxShadow =
-        shadowCylinder +
-        (g > 0.01
-          ? ', 0 0 ' + glowSize + 'px rgba(93,93,255,' + glowOpacity + ')'
-          : '');
+      card.style.boxShadow = shadowCylinder;
     });
   }
 
