@@ -4207,8 +4207,17 @@ body:has(.featured-work-card:hover) .hero-bottom {
 @media (max-width: 700px) {
   .hero-v2 { min-height: 100vh; padding: var(--section-pad-y) var(--section-pad-x); }
   .hero-v2-inner { gap: var(--space-6); }
-  /* Mobil: We build … worth sharing = h1 tipografi token’ları (.h1 ile aynı; cümle biçimi için transform yok) */
-  .hero-v2-line1 { gap: var(--space-2); max-width: 100%; }
+  /* Mobil: üç satır — We build / dönen kelime / worth sharing. */
+  .hero-v2-headline {
+    gap: var(--space-2);
+  }
+  .hero-v2-line1 {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    max-width: 100%;
+  }
   .hero-v2-static,
   .hero-v2-word {
     font-family: var(--h1-font-family);
