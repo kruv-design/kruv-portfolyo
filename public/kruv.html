@@ -1704,6 +1704,28 @@ body:has(.featured-work-card:hover) .hero-bottom {
     font-size: calc(var(--b2-font-size) + 4px);
     padding-block: var(--space-2);
   }
+  .nav-logo,
+  .nav-logo-stack {
+    width: calc(var(--nav-logo-slot-w) * 0.75);
+    height: calc(var(--nav-logo-slot-h) * 0.75);
+  }
+  .nav-theme-toggle--dock {
+    display: none !important;
+  }
+  .nav-theme-toggle--drawer {
+    display: inline-flex;
+    position: relative;
+    z-index: 1;
+    align-self: flex-start;
+    margin-top: var(--space-8);
+    margin-inline: 0;
+  }
+}
+
+@media (min-width: 769px) {
+  .nav-theme-toggle--drawer {
+    display: none !important;
+  }
 }
 
 /* ── MOBILE: 3D silindir carousel (≤600px) ── */
@@ -1885,28 +1907,10 @@ body:has(.featured-work-card:hover) .hero-bottom {
             <li><a class="navbar-item2" href="#">About</a></li>
             <li><a class="navbar-item3" href="#">Process</a></li>
           </ul>
-        </div>
-      </div>
-      <div class="nav-col nav-col--cta">
-        <div class="nav-actions">
           <button
             type="button"
-            id="nav-menu-toggle"
-            class="nav-menu-toggle"
-            aria-expanded="false"
-            aria-controls="nav-menu-drawer"
-            aria-label="Menüyü aç"
-          >
-            <span class="nav-menu-toggle__inner" aria-hidden="true">
-              <span class="nav-menu-toggle__bar"></span>
-              <span class="nav-menu-toggle__bar"></span>
-              <span class="nav-menu-toggle__bar"></span>
-            </span>
-          </button>
-          <button
-            type="button"
-            id="theme-toggle"
-            class="nav-theme-toggle"
+            class="nav-theme-toggle nav-theme-toggle--drawer"
+            data-kruv-theme-toggle
             aria-label="Aydınlık moda geç"
             aria-pressed="false"
             title="Tema değiştir"
@@ -1926,7 +1930,49 @@ body:has(.featured-work-card:hover) .hero-bottom {
               <path d="m19.07 4.93-1.41 1.41"></path>
             </svg>
           </button>
+        </div>
+      </div>
+      <div class="nav-col nav-col--cta">
+        <div class="nav-actions">
           <a class="nav-cta" href="#">Start a project</a>
+          <button
+            type="button"
+            id="theme-toggle"
+            class="nav-theme-toggle nav-theme-toggle--dock"
+            data-kruv-theme-toggle
+            aria-label="Aydınlık moda geç"
+            aria-pressed="false"
+            title="Tema değiştir"
+          >
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+          </button>
+          <button
+            type="button"
+            id="nav-menu-toggle"
+            class="nav-menu-toggle"
+            aria-expanded="false"
+            aria-controls="nav-menu-drawer"
+            aria-label="Menüyü aç"
+          >
+            <span class="nav-menu-toggle__inner" aria-hidden="true">
+              <span class="nav-menu-toggle__bar"></span>
+              <span class="nav-menu-toggle__bar"></span>
+              <span class="nav-menu-toggle__bar"></span>
+            </span>
+          </button>
         </div>
       </div>
     </div>
@@ -3296,6 +3342,19 @@ body:has(.featured-work-card:hover) .hero-bottom {
 .scroll-theme-bridge + .scene-section {
   padding-top: max(var(--space-7), calc(var(--section-pad-y) - var(--section-bridge-height)));
 }
+
+/* Mobil: Kiminle çalışıyoruz → Projects arası çizgi + köprü boşluğu yok; diğer bölümlerle aynı dikey ritim */
+@media (max-width: 768px) {
+  .ideal-section {
+    border-bottom: none;
+  }
+  .scroll-theme-bridge {
+    height: 0;
+  }
+  .scroll-theme-bridge + .scene-section {
+    padding-top: var(--section-pad-y);
+  }
+}
 .scene-label {
   width: var(--grid-shell-width);
   max-width: var(--grid-shell-width);
@@ -4064,14 +4123,25 @@ body:has(.featured-work-card:hover) .hero-bottom {
 @media (max-width: 700px) {
   .hero-v2 { min-height: 100vh; padding: var(--section-pad-y) var(--section-pad-x); }
   .hero-v2-inner { gap: var(--space-6); }
-  /* Tam 2 satır: satır1 = We build + kelime (nowrap), satır2 = worth sharing. */
+  /* Mobil: We build … worth sharing = h1 tipografi token’ları (.h1 ile aynı; cümle biçimi için transform yok) */
   .hero-v2-line1 { gap: var(--space-2); max-width: 100%; }
   .hero-v2-static,
   .hero-v2-word {
-    font-size: clamp(22px, 6vw, 36px);
+    font-family: var(--h1-font-family);
+    font-size: var(--h1-font-size);
+    font-weight: var(--h1-font-weight);
+    line-height: var(--h1-line-height);
+    letter-spacing: var(--h1-letter-spacing);
+    text-transform: none;
   }
   .hero-v2-suffix {
-    font-size: clamp(24px, 6.5vw, 38px);
+    font-family: var(--h1-font-family);
+    font-size: var(--h1-font-size);
+    font-weight: var(--h1-font-weight);
+    font-style: italic;
+    line-height: var(--h1-line-height);
+    letter-spacing: var(--h1-letter-spacing);
+    text-transform: none;
   }
 }
 
@@ -5336,8 +5406,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
   // Next.js sayfalarıyla (works/projects) aynı anahtarı paylaşır.
   (function () {
     var STORAGE_KEY = 'kruv-theme';
-    var btn = document.getElementById('theme-toggle');
-    if (!btn) return;
+    var buttons = document.querySelectorAll('[data-kruv-theme-toggle]');
+    if (!buttons.length) return;
 
     function currentTheme() {
       var explicit = document.documentElement.getAttribute('data-theme');
@@ -5350,11 +5420,13 @@ body:has(.featured-work-card:hover) .hero-bottom {
     function syncButton() {
       var t = currentTheme();
       var isLight = t === 'light';
-      btn.setAttribute('aria-pressed', isLight ? 'true' : 'false');
-      btn.setAttribute(
-        'aria-label',
-        isLight ? 'Karanlık moda geç' : 'Aydınlık moda geç'
-      );
+      buttons.forEach(function (btn) {
+        btn.setAttribute('aria-pressed', isLight ? 'true' : 'false');
+        btn.setAttribute(
+          'aria-label',
+          isLight ? 'Karanlık moda geç' : 'Aydınlık moda geç'
+        );
+      });
     }
 
     function apply(next) {
@@ -5363,9 +5435,11 @@ body:has(.featured-work-card:hover) .hero-bottom {
       syncButton();
     }
 
-    btn.addEventListener('click', function () {
-      var next = currentTheme() === 'light' ? 'dark' : 'light';
-      apply(next);
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var next = currentTheme() === 'light' ? 'dark' : 'light';
+        apply(next);
+      });
     });
 
     // İlk render: bootstrap zaten attribute koymuş olabilir, butonu eşitle.
