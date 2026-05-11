@@ -1,20 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Bebas_Neue, DM_Mono, Outfit } from "next/font/google";
+import { DM_Mono, Fraunces, Manrope } from "next/font/google";
 import { env } from "@/lib/env";
 import "./globals.css";
 
-const body = Outfit({
+const body = Fraunces({
   subsets: ["latin", "latin-ext"],
   variable: "--font-body",
   display: "swap",
-  weight: ["300", "400", "500", "600"],
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
 });
 
-const display = Bebas_Neue({
+const display = Manrope({
   subsets: ["latin", "latin-ext"],
   variable: "--font-display",
   display: "swap",
-  weight: "400",
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 const mono = DM_Mono({
@@ -69,7 +70,7 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
       </head>
-      <body>{children}</body>
+      <body className="min-h-screen">{children}</body>
     </html>
   );
 }

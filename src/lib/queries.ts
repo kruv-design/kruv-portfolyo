@@ -93,6 +93,7 @@ export async function getSettings(): Promise<SiteSettings> {
     behanceUrl: row?.behanceUrl ?? "",
     dribbbleUrl: row?.dribbbleUrl ?? "",
     youtubeUrl: row?.youtubeUrl ?? "",
+    pinterestUrl: row?.pinterestUrl ?? "",
     githubUrl: row?.githubUrl ?? "",
   };
 }

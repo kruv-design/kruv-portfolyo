@@ -87,7 +87,7 @@ export function ProjectDetail({
             {project.bolumler?.map((b, i) => (
               <section key={i}>
                 {b.baslik && (
-                  <h2 className="h4 mb-2 normal-case">{b.baslik}</h2>
+                  <h2 className="h4 mb-2 lowercase">{b.baslik}</h2>
                 )}
                 {b.metin && (
                   <p className="b1 whitespace-pre-wrap" style={{ color: "var(--b1-color)" }}>
@@ -149,7 +149,7 @@ export function ProjectDetail({
                   {project.etiketler.map((t) => (
                     <span
                       key={t}
-                      className="rounded-full px-2.5 py-0.5 b3 normal-case font-medium"
+                      className="rounded-full px-2.5 py-0.5 b3 lowercase font-medium"
                       style={{
                         background: "var(--accent-soft)",
                         color: "var(--accent)",

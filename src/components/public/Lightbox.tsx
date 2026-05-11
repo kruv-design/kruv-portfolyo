@@ -31,7 +31,7 @@ export function Lightbox({
   return (
     <div
       className="fixed inset-0 z-[900] flex items-center justify-center p-8 transition-opacity"
-      style={{ background: "var(--gray-scrim-900)" }}
+      style={{ background: "rgba(0, 0, 0, 0.93)" }}
       onClick={onClose}
       role="dialog"
       aria-modal="true"
@@ -41,7 +41,10 @@ export function Lightbox({
         onClick={onClose}
         aria-label="Kapat"
         className="fixed right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full text-lg transition-colors"
-        style={{ background: "var(--gray-120)", color: "var(--gray-1000)" }}
+        style={{
+          background: "rgba(255, 255, 255, 0.12)",
+          color: "var(--white-fixed)",
+        }}
       >
         ✕
       </button>

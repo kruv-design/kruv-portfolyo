@@ -41,7 +41,7 @@ export function SectionEditor({
             }}
           >
             <div className="mb-2.5 flex items-center justify-between gap-2">
-              <span className="b3 font-medium normal-case" style={{ color: "var(--ink-faint)" }}>
+              <span className="b3 font-medium lowercase" style={{ color: "var(--ink-faint)" }}>
                 Bölüm {i + 1}
               </span>
               <button

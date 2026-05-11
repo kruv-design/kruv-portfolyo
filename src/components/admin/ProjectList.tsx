@@ -105,13 +105,13 @@ export function ProjectList({ initial }: { initial: Project[] }) {
             <div className="b1 truncate font-medium" style={{ color: "var(--ink)" }}>
               {p.baslik}
             </div>
-            <div className="b3 mt-0.5 normal-case" style={{ color: "var(--ink-faint)" }}>
+            <div className="b3 mt-0.5 lowercase" style={{ color: "var(--ink-faint)" }}>
               {p.kategori} · {p.yil || "—"} · {p.musteri || "—"}
             </div>
           </div>
           {p.featured && (
             <span
-              className="b3 flex-shrink-0 rounded-full px-2 py-0.5 normal-case font-medium"
+              className="b3 flex-shrink-0 rounded-full px-2 py-0.5 lowercase font-medium"
               style={{ background: "var(--accent-soft)", color: "var(--accent)" }}
             >
               Öne Çıkar

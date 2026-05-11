@@ -155,6 +155,18 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
               }
             />
           </Field>
+          <Field label="Pinterest">
+            <input
+              type="url"
+              inputMode="url"
+              placeholder="https://"
+              className="form-input"
+              value={state.pinterestUrl}
+              onChange={(e) =>
+                setState((s) => ({ ...s, pinterestUrl: e.target.value }))
+              }
+            />
+          </Field>
           <Field label="YouTube">
             <input
               type="url"

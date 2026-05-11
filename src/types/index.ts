@@ -48,6 +48,7 @@ export type SiteSettings = {
   behanceUrl: string;
   dribbbleUrl: string;
   youtubeUrl: string;
+  pinterestUrl: string;
   githubUrl: string;
 };
 

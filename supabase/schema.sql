@@ -59,6 +59,7 @@ create table if not exists public.site_settings (
   "behanceUrl" text not null default '',
   "dribbbleUrl" text not null default '',
   "youtubeUrl" text not null default '',
+  "pinterestUrl" text not null default '',
   "githubUrl" text not null default '',
   updated_at  timestamptz not null default now(),
   constraint site_settings_singleton check (id = 1)
@@ -74,6 +75,7 @@ alter table public.site_settings add column if not exists "linkedinUrl" text not
 alter table public.site_settings add column if not exists "behanceUrl" text not null default '';
 alter table public.site_settings add column if not exists "dribbbleUrl" text not null default '';
 alter table public.site_settings add column if not exists "youtubeUrl" text not null default '';
+alter table public.site_settings add column if not exists "pinterestUrl" text not null default '';
 alter table public.site_settings add column if not exists "githubUrl" text not null default '';
 
 drop trigger if exists settings_touch on public.site_settings;

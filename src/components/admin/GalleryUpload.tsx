@@ -81,7 +81,7 @@ export function GalleryUpload({
             className="absolute inset-0 cursor-pointer opacity-0"
           />
           <span>{busy ? "…" : "＋"}</span>
-          <span className="b3 mt-1 normal-case">Ekle</span>
+          <span className="b3 mt-1 lowercase">Ekle</span>
         </label>
       </div>
     </div>

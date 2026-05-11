@@ -1,5 +1,5 @@
 import { getProjects, getSettings } from "@/lib/queries";
-import { SiteHeader } from "@/components/public/SiteHeader";
+import { MarketingSiteNav } from "@/components/public/MarketingSiteNav";
 import { PortfolioGrid } from "@/components/public/PortfolioGrid";
 import type { SiteSettings } from "@/types";
 
@@ -15,6 +15,7 @@ const FALLBACK_SETTINGS: SiteSettings = {
   behanceUrl: "",
   dribbbleUrl: "",
   youtubeUrl: "",
+  pinterestUrl: "",
   githubUrl: "",
 };
 
@@ -26,9 +27,12 @@ export default async function WorksPage() {
   ]);
 
   return (
-    <>
-      <SiteHeader settings={settings} />
+    <div className="flex min-h-screen flex-col">
+      <MarketingSiteNav settings={settings} />
+      <p id="about" className="sr-only" tabIndex={-1}>
+        About — {settings.siteAdi} {settings.tagline}
+      </p>
       <PortfolioGrid projects={projects} settings={settings} />
-    </>
+    </div>
   );
 }

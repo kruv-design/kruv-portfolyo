@@ -14,8 +14,9 @@ export function FilterBar({
   const list = useMemo(() => ["Tümü", ...categories], [categories]);
   return (
     <nav
-      className="flex flex-wrap items-center gap-[7px] px-[4vw] py-5"
-      style={{ borderBottom: "1px solid var(--border)" }}
+      className="flex flex-wrap items-center gap-[7px] border-b py-5"
+      style={{ borderColor: "var(--border)" }}
+      lang="tr"
     >
       <span className="b3 mr-1.5" style={{ color: "var(--ink-faint)" }}>
         Filtre
@@ -27,7 +28,7 @@ export function FilterBar({
             key={cat}
             type="button"
             onClick={() => onChange(cat)}
-            className="b2 rounded-full px-[15px] py-1.5 transition-all duration-200 normal-case"
+            className="b2 rounded-full px-[15px] py-1.5 transition-all duration-200 lowercase"
             style={{
               border: "1px solid var(--border)",
               borderColor: isActive ? "var(--ink)" : "var(--border)",

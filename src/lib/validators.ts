@@ -72,5 +72,6 @@ export const settingsSchema = z.object({
   behanceUrl: optHttpUrl,
   dribbbleUrl: optHttpUrl,
   youtubeUrl: optHttpUrl,
+  pinterestUrl: optHttpUrl,
   githubUrl: optHttpUrl,
 });

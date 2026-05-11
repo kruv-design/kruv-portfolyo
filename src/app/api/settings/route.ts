@@ -1,8 +1,30 @@
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { supabaseServer } from "@/lib/supabase/server";
+import { getSettings } from "@/lib/queries";
 import { settingsSchema } from "@/lib/validators";
 import { requireUser } from "@/lib/auth-guard";
+
+/** Public footer / kruv.html: yalnızca sosyal URL’ler (auth yok). */
+export async function GET() {
+  try {
+    const s = await getSettings();
+    return NextResponse.json({
+      data: {
+        instagramUrl: s.instagramUrl,
+        behanceUrl: s.behanceUrl,
+        linkedinUrl: s.linkedinUrl,
+        dribbbleUrl: s.dribbbleUrl,
+        pinterestUrl: s.pinterestUrl,
+        youtubeUrl: s.youtubeUrl,
+        xUrl: s.xUrl,
+        githubUrl: s.githubUrl,
+      },
+    });
+  } catch {
+    return NextResponse.json({ data: {} });
+  }
+}
 
 export async function PATCH(req: Request) {
   try {

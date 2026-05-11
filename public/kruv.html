@@ -4,50 +4,86 @@
   http://192.168…:8080/kruv.html — hem Mac’te hem
   telefonda aynısı (aynı Wi‑Fi). localhost / 127.0.0.1 yalnızca Mac’te “bu bilgisayar” demek.
 -->
-<html lang="tr" data-theme="dark"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="tr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kruv — Brand Identity for the Social-First Era</title>
+<script>
+  // Pre-paint tema bootstrap'i — kullanıcı tercihini React tarafıyla (kruv-theme)
+  // paylaşır; flash önlemek için CSS'ten önce çalışmalı.
+  (function(){
+    try {
+      var t = localStorage.getItem('kruv-theme');
+      if (t === 'light' || t === 'dark') {
+        document.documentElement.setAttribute('data-theme', t);
+      }
+    } catch (e) {}
+  })();
+</script>
 <link href="./kruv_site_files/css2" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
+  color-scheme: light dark;
+
   /* ===== Foundation: colors (gri ekseni: --gray-pure-dark ↔ --gray-1000) ===== */
   --color-accent: #5D5DFF;
   --color-accent-soft: rgba(93,93,255,0.22);
 
+  /* Theme-invariant anchors (sahne geçişi ve sabit beyaz/siyah ihtiyaçları için). */
+  --white-fixed: #ffffff;
+  --black-fixed: #000000;
+
+  /* Theme-invariant translucent beyaz/siyah — fotoğraf üstü yazılar ve photo-scrim'ler.
+     Hem dark hem light modda aynı kalır (fotoğraf zemini tema bağımsız). */
+  --on-photo-ink:        var(--white-fixed);
+  --on-photo-ink-muted:  rgba(255, 255, 255, 0.55);
+  --on-photo-shadow:     rgba(0, 0, 0, 0.70);
+
+  /* Theme-aware foundations.
+     Dark default: base = siyah, anti = beyaz, tint = 255,255,255 (saydam grilerde beyaz alfa).
+     Light mode aşağıdaki [data-theme="light"] override’unda swap edilir. */
+  --gray-base: var(--black-fixed);
+  --gray-anti: var(--white-fixed);
+  --gray-tint-rgb: 255, 255, 255;
+
+  /* Legacy alias — eski kod hâlâ --gray-pure-dark referansı veriyor. */
+  --gray-pure-dark: var(--gray-base);
+
   /*
-    Gri skala 0–1000: beyaz opaklık üzerinde (N ≈ alpha×1000).
-    50’şer ana adım + kullanımda geçen ara değerler.
+    Gri skala 0–1000: --gray-tint-rgb kanalı üstünde alfa basamakları.
+    Dark’ta beyaz alfa, light’ta siyah alfa üretir; semantic tokenlar otomatik invert olur.
   */
-  --gray-pure-dark: #000000;
-  --gray-0:    rgba(255, 255, 255, 0);
-  --gray-20:   rgba(255, 255, 255, 0.02);
-  --gray-50:   rgba(255, 255, 255, 0.05);
-  --gray-80:   rgba(255, 255, 255, 0.08);
-  --gray-100:  rgba(255, 255, 255, 0.10);
-  --gray-120:  rgba(255, 255, 255, 0.12);
-  --gray-150:  rgba(255, 255, 255, 0.15);
-  --gray-180:  rgba(255, 255, 255, 0.18);
-  --gray-200:  rgba(255, 255, 255, 0.20);
-  --gray-250:  rgba(255, 255, 255, 0.25);
-  --gray-300:  rgba(255, 255, 255, 0.30);
-  --gray-350:  rgba(255, 255, 255, 0.35);
-  --gray-400:  rgba(255, 255, 255, 0.40);
-  --gray-450:  rgba(255, 255, 255, 0.45);
-  --gray-500:  rgba(255, 255, 255, 0.50);
-  --gray-550:  rgba(255, 255, 255, 0.55);
-  --gray-600:  rgba(255, 255, 255, 0.60);
-  --gray-650:  rgba(255, 255, 255, 0.65);
-  --gray-700:  rgba(255, 255, 255, 0.70);
-  --gray-750:  rgba(255, 255, 255, 0.75);
-  --gray-800:  rgba(255, 255, 255, 0.80);
-  --gray-820:  rgba(255, 255, 255, 0.82);
-  --gray-850:  rgba(255, 255, 255, 0.85);
-  --gray-900:  rgba(255, 255, 255, 0.90);
-  --gray-950:  rgba(255, 255, 255, 0.95);
-  --gray-1000: rgba(255, 255, 255, 1);
+  --gray-0:    rgba(var(--gray-tint-rgb), 0);
+  --gray-20:   rgba(var(--gray-tint-rgb), 0.02);
+  --gray-50:   rgba(var(--gray-tint-rgb), 0.05);
+  --gray-80:   rgba(var(--gray-tint-rgb), 0.08);
+  --gray-100:  rgba(var(--gray-tint-rgb), 0.10);
+  --gray-120:  rgba(var(--gray-tint-rgb), 0.12);
+  --gray-150:  rgba(var(--gray-tint-rgb), 0.15);
+  --gray-180:  rgba(var(--gray-tint-rgb), 0.18);
+  --gray-200:  rgba(var(--gray-tint-rgb), 0.20);
+  --gray-250:  rgba(var(--gray-tint-rgb), 0.25);
+  --gray-300:  rgba(var(--gray-tint-rgb), 0.30);
+  --gray-350:  rgba(var(--gray-tint-rgb), 0.35);
+  --gray-400:  rgba(var(--gray-tint-rgb), 0.40);
+  --gray-450:  rgba(var(--gray-tint-rgb), 0.45);
+  --gray-500:  rgba(var(--gray-tint-rgb), 0.50);
+  --gray-550:  rgba(var(--gray-tint-rgb), 0.55);
+  --gray-600:  rgba(var(--gray-tint-rgb), 0.60);
+  --gray-650:  rgba(var(--gray-tint-rgb), 0.65);
+  --gray-700:  rgba(var(--gray-tint-rgb), 0.70);
+  --gray-750:  rgba(var(--gray-tint-rgb), 0.75);
+  --gray-800:  rgba(var(--gray-tint-rgb), 0.80);
+  --gray-820:  rgba(var(--gray-tint-rgb), 0.82);
+  --gray-850:  rgba(var(--gray-tint-rgb), 0.85);
+  --gray-900:  rgba(var(--gray-tint-rgb), 0.90);
+  --gray-950:  rgba(var(--gray-tint-rgb), 0.95);
+  --gray-1000: rgba(var(--gray-tint-rgb), 1);
 
   /* Opak nötr yüzeyler (siyah↔beyaz karışımı) */
   --gray-solid-deep:     color-mix(in srgb, var(--gray-pure-dark) 96.08%, var(--gray-1000) 3.92%);
@@ -67,11 +103,13 @@
   --gray-scrim-800: color-mix(in srgb, var(--gray-pure-dark) 80%, transparent);
   --gray-scrim-850: color-mix(in srgb, var(--gray-pure-dark) 85%, transparent);
 
-  /* Hero kart — üst vignette (daha hafif, çok duraklı geçiş) */
-  --hero-card-vignette-a: var(--gray-scrim-350);
-  --hero-card-vignette-b: color-mix(in srgb, var(--gray-scrim-600) 22%, transparent);
-  --hero-card-vignette-c: color-mix(in srgb, var(--gray-scrim-600) 6%, transparent);
-  --hero-card-hover-scrim: color-mix(in srgb, var(--gray-scrim-600) 55%, transparent);
+  /* Hero kart — üst vignette (daha hafif, çok duraklı geçiş).
+     NOT: Fotoğraf zeminli kart vignette'leri TEMA-BAĞIMSIZ; her iki modda da
+     fotoğrafı koyulaştırmak için --black-fixed üstünden hesaplanır. */
+  --hero-card-vignette-a: color-mix(in srgb, var(--black-fixed) 35%, transparent);
+  --hero-card-vignette-b: color-mix(in srgb, var(--black-fixed) 14%, transparent);
+  --hero-card-vignette-c: color-mix(in srgb, var(--black-fixed) 3.6%, transparent);
+  --hero-card-hover-scrim: color-mix(in srgb, var(--black-fixed) 33%, transparent);
 
   --gray-midnight-veil-200: color-mix(in srgb, var(--color-bg) 20%, transparent);
   --gray-midnight-veil-350: color-mix(in srgb, var(--color-bg) 35%, transparent);
@@ -84,8 +122,8 @@
   --ideal-clients-divider: var(--gray-80);
 
   /* ===== Foundation: fonts ===== */
-  --font-display: 'Bebas Neue', sans-serif;
-  --font-body: 'Outfit', sans-serif;
+  --font-display: 'Manrope', system-ui, sans-serif;
+  --font-body: 'Fraunces', Georgia, serif;
   --font-mono: 'DM Mono', monospace;
 
   /* ===== Typography: type scale =====
@@ -103,39 +141,39 @@
 
   --h1-font-family: var(--font-display);
   --h1-font-size: var(--type-h1);
-  --h1-font-weight: 400;
+  --h1-font-weight: 700;
   --h1-line-height: var(--lh-tight);
   --h1-letter-spacing: var(--ls-display);
-  --h1-text-transform: uppercase;
+  --h1-text-transform: lowercase;
 
   --h2-font-family: var(--font-display);
   --h2-font-size: var(--type-h2);
-  --h2-font-weight: 400;
+  --h2-font-weight: 700;
   --h2-line-height: var(--lh-tight);
   --h2-letter-spacing: var(--ls-display);
-  --h2-text-transform: uppercase;
+  --h2-text-transform: lowercase;
 
   --h3-font-family: var(--font-display);
   --h3-font-size: var(--type-h3);
-  --h3-font-weight: 400;
+  --h3-font-weight: 700;
   --h3-line-height: var(--lh-tight);
   --h3-letter-spacing: var(--ls-lg);
-  --h3-text-transform: uppercase;
+  --h3-text-transform: lowercase;
 
   --h4-font-family: var(--font-display);
   --h4-font-size: var(--type-h4);
-  --h4-font-weight: 400;
+  --h4-font-weight: 600;
   --h4-line-height: var(--lh-tight);
   --h4-letter-spacing: var(--ls-xl);
-  --h4-text-transform: uppercase;
+  --h4-text-transform: lowercase;
 
   --b1-font-family: var(--font-body);
   --b1-font-size: var(--type-b1);
   --b1-font-weight: 400;
   --b1-line-height: 1.66;
   --b1-letter-spacing: var(--ls-2xs);
-  /* Metin gövdesi: sayfada tek ses — tüm b1/b2 büyük harf (görsel hiyerarşi h1–h4 + b1–b3 ile) */
-  --b1-text-transform: uppercase;
+  /* Metin gövdesi: sayfa boyunca tek ses — tüm yazılar küçük harf. */
+  --b1-text-transform: lowercase;
   --b1-color: var(--silver);
 
   --b2-font-family: var(--font-body);
@@ -143,7 +181,7 @@
   --b2-font-weight: 300;
   --b2-line-height: var(--lh-body);
   --b2-letter-spacing: 0;
-  --b2-text-transform: uppercase;
+  --b2-text-transform: lowercase;
   --b2-color: var(--gray-400);
 
   --b3-font-family: var(--font-mono);
@@ -151,7 +189,7 @@
   --b3-font-weight: 400;
   --b3-line-height: var(--lh-tight);
   --b3-letter-spacing: var(--ls-2xl);
-  --b3-text-transform: uppercase;
+  --b3-text-transform: lowercase;
 
 
   /* ===== Spacing ===== */
@@ -190,15 +228,15 @@
   --ls-xs: .03em;
   --ls-sm: .04em;
   --ls-md: .06em;
-  --ls-lg: .08em;
+  --ls-lg: -0.015em;
   --ls-lg2: .1em;
-  --ls-xl: .12em;
+  --ls-xl: -0.01em;
   --ls-2xl: .14em;
   --ls-mono: .16em;
   --ls-3xl: .18em;
   --ls-4xl: .2em;
   --ls-5xl: .22em;
-  --ls-display: .06em;
+  --ls-display: -0.02em;
   --ls-anim-start: .3em;
   --ls-anim-end: .16em;
 
@@ -206,8 +244,10 @@
   --container-max: 920px;
   --container-gutter: clamp(16px, 5vw, 52px);
   --grid-shell-width: calc(100vw - (2 * var(--container-gutter)));
-  --section-pad-y: clamp(144px, 20vw, 200px);
+  --section-pad-y: clamp(120px, 16vw, 176px);
   --section-pad-x: var(--container-gutter);
+  /* Tema geçişi (scroll-t); görsel boşluk ideal → Projects arasında birikmesin */
+  --section-bridge-height: clamp(64px, 9vh, 140px);
   /* Journey: dış blok yüksekliği (yalnızca space token’ları; içerik taşarsa liste içinde kayar) */
   --focus-journey-viewport-h: calc(var(--space-12) * 14 + var(--space-9) * 5);
   --focus-journey-viewport-h-mobile: calc(var(--space-12) * 10 + var(--space-9) * 4);
@@ -250,8 +290,8 @@
   --ticker-height: calc(var(--ticker-hand-slot-h) + (2 * var(--ticker-pad-y)));
   --ticker-item-pad-x: 32px;
 
-  /* Hero fan — özel portfolio imleci (daire) */
-  --hero-portfolio-cursor-size: 104px;
+  /* Hero fan — özel portfolio imleci (daire); önceki 104px + %30 */
+  --hero-portfolio-cursor-size: calc(104px * 1.3);
   --hero-portfolio-cursor-lerp: 0.16;
 
   /* Navbar: logo yuvası (metin markası KRUV) */
@@ -291,6 +331,12 @@
 
   --size-card-w: 220px;
   --size-card-h: 300px;
+  /* Hero kart görseli background-size: cover; kırpma minimum için oranlar:
+     yan kartlar 220×300 → 11:15 (ör. 880×1200 @2x)
+     orta kart 240×330 → 8:11 (ör. 960×1320 @2x)
+     mobil silindir 180×252 → 5:7 (ör. 900×1260 @2x)
+     Featured / Works kart medya: 16÷12 (= 4:3), cover — dosyada siyah şerit bırakma;
+     ideal export ör. 2400×1800 veya 2000×1500 (tam 4:3). */
   --size-card-featured-w: 240px;
   --size-card-featured-h: 330px;
   --size-card-w-md: 140px;
@@ -342,8 +388,45 @@
   --fb:       var(--font-body);
   --fm:       var(--font-mono);
 
+  /* Projects: scroll ile koyu → açık (JS --kruv-scene-theme-t, 0–1)
+     Ara tonlarda mor/magenta sapmasını önlemek için oklab (sRGB lineer karışım değil).
+     NOT: Tema geçişi (dark↔light) bu tokenları etkilememeli; bu yüzden --black-fixed/--white-fixed sabit çapaları kullanılır. */
+  --kruv-scene-theme-t: 0;
+  --scene-surface-light: color-mix(in oklab, var(--black-fixed) 3.5%, var(--white-fixed) 96.5%);
+  --scene-ink-primary-on-light: color-mix(in oklab, var(--black-fixed) 8%, var(--white-fixed) 92%);
+  --scene-ink-muted-on-light: color-mix(in oklab, var(--black-fixed) 42%, var(--white-fixed) 58%);
+  --scene-ink-caption-on-light: color-mix(in oklab, var(--black-fixed) 52%, var(--white-fixed) 48%);
+  /* Koyu zeminde kategori: opak gri — yarı saydam --gray-400 ile scroll-mix mor üretir */
+  --scene-category-on-dark: color-mix(in oklab, var(--black-fixed) 50%, var(--white-fixed) 50%);
+
   /* Sabit navbar + logo yüksekliği — anchor kaydırmada üst boşluk (smooth ile birlikte premium his) */
   --scroll-padding-top: calc(var(--space-6) + var(--nav-logo-slot-h) + var(--space-6));
+}
+
+/* ─────────────────────────────────────────────────────────
+   LIGHT THEME — açık tema override.
+   Sadece foundation tokenları (base/anti/tint) flip edilir;
+   semantic tokenlar color-mix ile otomatik yeniden hesaplanır.
+   Scene-theme-t sahne geçişi --black-fixed/--white-fixed üzerinden
+   çalıştığı için tema değişiminden etkilenmez.
+   ───────────────────────────────────────────────────────── */
+[data-theme="light"] {
+  color-scheme: light;
+  --gray-base: var(--white-fixed);
+  --gray-anti: var(--black-fixed);
+  --gray-tint-rgb: 0, 0, 0;
+  /* Açık zeminde aksan tonu daha hafif olsun (kontrast). */
+  --color-accent-soft: rgba(93, 93, 255, 0.14);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+    --gray-base: var(--white-fixed);
+    --gray-anti: var(--black-fixed);
+    --gray-tint-rgb: 0, 0, 0;
+    --color-accent-soft: rgba(93, 93, 255, 0.14);
+  }
 }
 
 html {
@@ -364,47 +447,9 @@ html, body {
   font-family: var(--b1-font-family);
   font-weight: 300;
   overflow-x: hidden;
-  transition: background 0.8s ease, background-color 0.8s ease, color 0.8s ease;
 }
 
-/* scroll-theme: Selected Clients alt sınırı geçince açık tema (düz yüzey) */
-html[data-theme="light"] {
-  background: var(--gray-solid-panel);
-  background-color: var(--gray-solid-panel);
-}
-html[data-theme="light"] body {
-  background: var(--gray-solid-panel);
-  background-color: var(--gray-solid-panel);
-  color: var(--frost);
-}
-html[data-theme="light"] .ideal-section {
-  background-color: var(--gray-solid-panel);
-}
-html[data-theme="light"] .scene-section {
-  background-color: var(--gray-solid-panel);
-}
-html[data-theme="light"] .scene {
-  background: var(--gray-solid-elevated);
-}
-html[data-theme="light"] .featured-work-card {
-  background: transparent;
-  border-color: transparent;
-}
-html[data-theme="light"] .featured-work-media {
-  background-color: transparent;
-}
-
-/* Tema: #ideal-client alt kenarı viewport eşiğini geçince (scroll; çizgi = bölüm border’ı) */
 @media (prefers-reduced-motion: reduce) {
-  html, body {
-    transition: none;
-  }
-  .scene-section {
-    transition: none;
-  }
-  .ideal-section {
-    transition: none;
-  }
   .scene {
     transition: filter .2s cubic-bezier(0.4,0,0.2,1), opacity .2s cubic-bezier(0.4,0,0.2,1);
   }
@@ -412,13 +457,6 @@ html[data-theme="light"] .featured-work-media {
     transition: filter .2s cubic-bezier(0.4,0,0.2,1), opacity .2s cubic-bezier(0.4,0,0.2,1);
   }
   .featured-work-media {
-    transition: none;
-  }
-  html[data-theme="light"] .ideal-section,
-  html[data-theme="light"] .scene-section,
-  html[data-theme="light"] .featured-work-card,
-  html[data-theme="light"] .featured-work-media,
-  html[data-theme="light"] .scene {
     transition: none;
   }
 }
@@ -655,7 +693,7 @@ nav.navbar.is-scrolled .nav-links {
   gap: var(--space-6);
 }
 .nav-links a {
-  text-transform: uppercase;
+  text-transform: lowercase;
   color: var(--silver);
   text-decoration: none;
   transition:
@@ -684,7 +722,53 @@ nav.navbar.is-scrolled .navbar-item3 {
   display: flex;
   align-items: center;
   flex-shrink: 0;
+  gap: var(--space-3);
 }
+
+/* Theme toggle butonu — navbar içinde kompakt ikon düğmesi */
+.nav-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--gray-100);
+  background: transparent;
+  color: var(--silver);
+  cursor: pointer;
+  transition:
+    color var(--dur-fast) var(--ease-standard),
+    border-color var(--dur-fast) var(--ease-standard),
+    background var(--dur-fast) var(--ease-standard);
+}
+.nav-theme-toggle:hover {
+  color: var(--frost);
+  border-color: var(--gray-250);
+}
+.nav-theme-toggle:focus-visible {
+  outline: 2px solid var(--purple);
+  outline-offset: 2px;
+}
+.nav-theme-toggle svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+.nav-theme-toggle .icon-sun { display: none; }
+.nav-theme-toggle .icon-moon { display: block; }
+[data-theme="light"] .nav-theme-toggle .icon-sun { display: block; }
+[data-theme="light"] .nav-theme-toggle .icon-moon { display: none; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .nav-theme-toggle .icon-sun { display: block; }
+  :root:not([data-theme="dark"]) .nav-theme-toggle .icon-moon { display: none; }
+}
+nav.navbar.is-scrolled .nav-theme-toggle {
+  width: 28px;
+  height: 28px;
+}
+
 .nav-cta {
   font-family: var(--b3-font-family);
   font-size: var(--b3-font-size);
@@ -702,7 +786,7 @@ nav.navbar.is-scrolled .navbar-item3 {
     letter-spacing var(--nav-compact-dur) var(--nav-compact-ease),
     font-size var(--nav-compact-dur) var(--nav-compact-ease);
 }
-.nav-cta:hover { background: var(--purple); color: var(--frost); }
+.nav-cta:hover { background: var(--purple); color: var(--white-fixed); }
 
 /* HERO */
 .hero {
@@ -813,6 +897,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
   padding: var(--space-4);
   position: relative;
   isolation: isolate;
+  /* Görsel tam kartı doldurur (cover); önemli detay ortada — kenarlar kırpılabilir */
+  background-color: var(--color-surface);
 }
 /* Mobildeki ön kart mor parlama hissi: alttan mor radial (görselin alt katmanı) */
 .card-bg::before {
@@ -860,7 +946,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
   line-height: var(--lh-tightest);
   letter-spacing: var(--h4-letter-spacing);
   text-transform: var(--h4-text-transform);
-  color: var(--frost); margin-bottom: var(--space-0);
+  /* Fotoğraf üzerinde sabit beyaz — light mode'da da kontrast korunsun. */
+  color: var(--white-fixed); margin-bottom: var(--space-0);
 }
 .card-label-type {
   font-family: var(--b3-font-family);
@@ -869,27 +956,40 @@ body:has(.featured-work-card:hover) .hero-bottom {
   line-height: var(--b3-line-height);
   letter-spacing: var(--b3-letter-spacing);
   text-transform: var(--b3-text-transform);
-  color: var(--gray-500);
+  color: var(--on-photo-ink-muted);
 }
 
-/* card color themes */
-.card-1 .card-bg { background: url("assets/hero-card-1.jpg") center/cover no-repeat; }
-.card-2 .card-bg { background: url("assets/hero-card-2.jpg") center/cover no-repeat; }
-.card-3 .card-bg { background: url("assets/hero-card-4.jpg") center/cover no-repeat; }
-.card-4 .card-bg { background: url("assets/hero-card-3.jpg") center/cover no-repeat; }
-.card-5 .card-bg { background: url("assets/hero-card-5.png") center/cover no-repeat; }
-
-/* card dot accent — metin üstte; nokta sağ altta */
-.card-dot {
-  position: absolute;
-  top: auto;
-  bottom: var(--space-4);
-  right: var(--space-4);
-  width: var(--size-dot-lg); height: var(--size-dot-lg); border-radius: 50%;
-  background: var(--purple); opacity: 0.7;
-  box-shadow: 0 0 8px rgba(93,93,255,0.6);
+/* card color themes — görsel kartı doldurur (cover) */
+.card-1 .card-bg {
+  background-image: url("assets/hero-card-1.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
-.card-3 .card-dot { opacity: 1; }
+.card-2 .card-bg {
+  background-image: url("assets/hero-card-2.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.card-3 .card-bg {
+  background-image: url("assets/hero-card-4.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.card-4 .card-bg {
+  background-image: url("assets/hero-card-3.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.card-5 .card-bg {
+  background-image: url("assets/hero-card-5.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 
 /* Hero kart hover: Projects satırı ile aynı tipografi (başlık + kategori + CTA) */
 .hero-card-hover-reveal {
@@ -931,7 +1031,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
   line-height: var(--h4-line-height);
   letter-spacing: var(--h4-letter-spacing);
   text-transform: var(--h4-text-transform);
-  color: var(--frost);
+  /* Fotoğraf üzerinde sabit beyaz. */
+  color: var(--white-fixed);
   margin: 0;
   flex: 1;
   min-width: 0;
@@ -944,12 +1045,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
   line-height: var(--b3-line-height);
   letter-spacing: var(--b3-letter-spacing);
   text-transform: var(--b3-text-transform);
-  color: var(--silver);
+  color: var(--on-photo-ink-muted);
   text-align: right;
   margin: 0;
   flex-shrink: 0;
   max-width: 46%;
-  text-shadow: 0 1px 10px var(--gray-scrim-700);
+  text-shadow: 0 1px 10px var(--on-photo-shadow);
 }
 .hero-card-hover-cta {
   position: relative;
@@ -964,10 +1065,10 @@ body:has(.featured-work-card:hover) .hero-bottom {
   color: var(--purple);
   text-decoration: none;
   align-self: flex-start;
-  text-shadow: 0 1px 8px var(--gray-scrim-700);
+  text-shadow: 0 1px 8px var(--on-photo-shadow);
   transition: color var(--dur-fast) var(--ease-standard);
 }
-.hero-card-hover-cta:hover { color: var(--frost); }
+.hero-card-hover-cta:hover { color: var(--white-fixed); }
 
 /* Fan (masaüstü): kart üstünde ekstra hover paneli yok — içerik imleç ipucunda */
 .fan-wrap .hero-card-hover-reveal {
@@ -1013,7 +1114,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: var(--space-2);
+  padding: var(--space-2) var(--space-3);
   box-sizing: border-box;
   background: color-mix(in srgb, var(--gray-solid-elevated) 72%, transparent);
   border: 0.5px solid var(--gray-120);
@@ -1033,18 +1134,33 @@ body:has(.featured-work-card:hover) .hero-bottom {
   opacity: 1;
 }
 .hero-portfolio-cursor__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-0);
+  max-width: 100%;
+  text-align: center;
+}
+.hero-portfolio-cursor__explore,
+.hero-portfolio-cursor__name {
   font-family: var(--b3-font-family);
-  font-size: var(--b3-font-size);
   font-weight: var(--b3-font-weight);
-  line-height: var(--lh-tightest);
   letter-spacing: var(--b3-letter-spacing);
   text-transform: var(--b3-text-transform);
   color: var(--frost);
-  display: block;
   max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+}
+.hero-portfolio-cursor__explore {
+  font-size: var(--b3-font-size);
+  line-height: var(--lh-tightest);
+}
+.hero-portfolio-cursor__name {
+  font-size: calc(var(--b3-font-size) * 0.92);
+  line-height: var(--lh-snug);
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 @media (prefers-reduced-motion: reduce) {
   .fan-wrap .card {
@@ -1068,25 +1184,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
   transition: filter var(--dur-slow) var(--ease-standard), opacity var(--dur-slow) var(--ease-standard);
 }
 
-.eyebrow {
-  display: flex; align-items: center; justify-content: center;
-  gap: var(--space-2); margin-bottom: var(--space-4);
-  opacity: 0; animation: fadeUp .5s .2s ease forwards;
-}
-.eyebrow-dot {
-  width: var(--size-dot-sm); height: var(--size-dot-sm); border-radius: 50%;
-  background: var(--purple);
-  box-shadow: 0 0 8px rgba(93,93,255,0.7);
-}
-.eyebrow-text {
-  font-family: var(--b3-font-family);
-  font-size: var(--b3-font-size);
-  font-weight: var(--b3-font-weight);
-  line-height: var(--b3-line-height);
-  letter-spacing: var(--b3-letter-spacing);
-  text-transform: var(--b3-text-transform);
-  color: var(--purple);
-}
 
 .headline {
   margin-bottom: var(--space-5);
@@ -1160,7 +1257,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   line-height: var(--h4-line-height);
   letter-spacing: var(--h4-letter-spacing);
   text-transform: var(--h4-text-transform);
-  padding: var(--btn-pad-y) var(--btn-pad-x); background: var(--purple); color: var(--frost);
+  padding: var(--btn-pad-y) var(--btn-pad-x); background: var(--purple); color: var(--white-fixed);
   border-radius: var(--btn-radius); text-decoration: none;
   transition: opacity .15s, transform .1s;
 }
@@ -1183,8 +1280,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   display: flex; align-items: center; gap: var(--space-xxs);
 }
 .loc::before {
-  content: ''; width: var(--size-dot-xs); height: var(--size-dot-xs); border-radius: 50%;
-  background: var(--purple); opacity: .5;
+  display: none;
 }
 .loc-sep { color: var(--shadow); }
 
@@ -1236,6 +1332,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   opacity: 0.9;
   transform: scale(var(--ticker-hand-art-zoom));
   transform-origin: center center;
+  /* İllüstrasyon renkleri tema-bağımsız: light/dark'ta orijinal halinde kalır. */
 }
 
 /* ANIMATIONS */
@@ -1458,12 +1555,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
   .hero-mobile-carousel .card.active .card-bg::before {
     opacity: 1;
   }
-  .hero-mobile-carousel .card-dot {
-    top: auto;
-    bottom: var(--size-card-mobile-pad);
-    right: var(--size-card-mobile-pad);
-    width: var(--size-dot-md); height: var(--size-dot-md);
-  }
 
   .hero-mobile-carousel .card .card-label {
     transition: opacity var(--dur-base) var(--ease-standard);
@@ -1491,7 +1582,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
     font-size: var(--type-b3);
   }
   .hero-mobile-carousel .card.active .hero-card-hover-cta {
-    color: var(--frost);
+    color: var(--white-fixed);
   }
 
   .hero-mobile-carousel .swipe-hint {
@@ -1526,7 +1617,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
     cursor: pointer;
   }
   .hero-mobile-carousel .deck-dots .dot.active {
-    background: var(--purple);
+    background: var(--gray-500);
     transform: scale(1.4);
   }
 
@@ -1553,7 +1644,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
 
 <div id="nav-sentinel" aria-hidden="true"></div>
 
-<nav id="site-nav" class="navbar" aria-label="Primary">
+<nav id="site-nav" class="navbar" lang="en" aria-label="Primary">
   <div class="nav-inner">
     <div class="nav-cols">
       <div class="nav-col nav-col--brand">
@@ -1572,6 +1663,29 @@ body:has(.featured-work-card:hover) .hero-bottom {
       </div>
       <div class="nav-col nav-col--cta">
         <div class="nav-actions">
+          <button
+            type="button"
+            id="theme-toggle"
+            class="nav-theme-toggle"
+            aria-label="Aydınlık moda geç"
+            aria-pressed="false"
+            title="Tema değiştir"
+          >
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+          </button>
           <a class="nav-cta" href="#">Start a project</a>
         </div>
       </div>
@@ -1590,14 +1704,35 @@ body:has(.featured-work-card:hover) .hero-bottom {
   </div>
 </div>
 
-<section class="hero">
+<!-- ===== HERO V2 (aktif) — animated rotating word, minimal ortalanmış kompozisyon ===== -->
+<section class="hero-v2" aria-labelledby="hero-v2-headline">
+  <div class="hero-v2-inner">
+    <div class="hero-v2-headline" id="hero-v2-headline">
+      <span class="hero-v2-static">We build</span>
+      <div class="hero-v2-row">
+        <div class="hero-v2-word-box" id="hero-v2-wb">
+          <span class="hero-v2-word" id="hero-v2-wa">brands</span>
+        </div>
+        <span class="hero-v2-suffix">worth sharing.</span>
+      </div>
+    </div>
+    <p class="hero-v2-sub">
+      Share or it didn't happen.<br>
+      <strong>We make sure it happens.</strong>
+    </p>
+    <a href="#projects" class="hero-v2-cta">See the work</a>
+  </div>
+</section>
+
+<!-- ===== HERO ARŞİV — eski fan kart + mobile carousel kompozisyonu.
+     display:none ile gizli, ileride class'ı `.hero` yapılarak geri çağrılabilir. ===== -->
+<section class="hero hero-archive" aria-hidden="true">
 
   <!-- FAN CARDS -->
-  <div class="fan-wrap">
+  <div class="fan-wrap" lang="en">
 
     <div class="card card-1">
       <div class="card-bg">
-        <div class="card-dot"></div>
         <div class="card-label">
           <p class="card-label-name">LABRAUNDA</p>
           <p class="card-label-type">Editorial Design</p>
@@ -1614,7 +1749,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
 
     <div class="card card-2">
       <div class="card-bg">
-        <div class="card-dot"></div>
         <div class="card-label">
           <p class="card-label-name">CLOUD VAULT</p>
           <p class="card-label-type">Brand Identity</p>
@@ -1631,7 +1765,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
 
     <div class="card card-3">
       <div class="card-bg">
-        <div class="card-dot"></div>
         <div class="card-label">
           <p class="card-label-name">LEVANTENLER</p>
           <p class="card-label-type">Editorial · Print</p>
@@ -1648,7 +1781,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
 
     <div class="card card-4">
       <div class="card-bg">
-        <div class="card-dot"></div>
         <div class="card-label">
           <p class="card-label-name">MARKER</p>
           <p class="card-label-type">Packaging Design</p>
@@ -1665,7 +1797,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
 
     <div class="card card-5">
       <div class="card-bg">
-        <div class="card-dot"></div>
         <div class="card-label">
           <p class="card-label-name">ROOTS</p>
           <p class="card-label-type">Identity · Travel</p>
@@ -1682,20 +1813,22 @@ body:has(.featured-work-card:hover) .hero-bottom {
 
   </div>
 
-  <div id="heroPortfolioCursor" class="hero-portfolio-cursor" aria-hidden="true" role="presentation">
+  <div id="heroPortfolioCursor" class="hero-portfolio-cursor" lang="en" aria-hidden="true" role="presentation">
     <div class="hero-portfolio-cursor__ring">
-      <span class="hero-portfolio-cursor__text"></span>
+      <span class="hero-portfolio-cursor__text">
+        <span class="hero-portfolio-cursor__explore">Explore</span>
+        <span class="hero-portfolio-cursor__name"></span>
+      </span>
     </div>
   </div>
 
   <!-- MOBILE: 3D silindir carousel (≤600px) -->
-  <div class="hero-mobile-carousel">
+  <div class="hero-mobile-carousel" lang="en">
     <div class="carousel-scene" id="carouselScene">
       <div class="cylinder" id="heroCylinder">
 
         <div class="card card-1" data-index="0">
           <div class="card-bg">
-            <div class="card-dot"></div>
             <div class="card-label">
               <p class="card-label-name">LABRAUNDA</p>
               <p class="card-label-type">Editorial Design</p>
@@ -1712,7 +1845,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
 
         <div class="card card-2" data-index="1">
           <div class="card-bg">
-            <div class="card-dot"></div>
             <div class="card-label">
               <p class="card-label-name">CLOUD VAULT</p>
               <p class="card-label-type">Brand Identity</p>
@@ -1729,7 +1861,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
 
         <div class="card card-3" data-index="2">
           <div class="card-bg">
-            <div class="card-dot"></div>
             <div class="card-label">
               <p class="card-label-name">LEVANTENLER</p>
               <p class="card-label-type">Editorial · Print</p>
@@ -1746,7 +1877,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
 
         <div class="card card-4" data-index="3">
           <div class="card-bg">
-            <div class="card-dot"></div>
             <div class="card-label">
               <p class="card-label-name">MARKER</p>
               <p class="card-label-type">Packaging Design</p>
@@ -1763,7 +1893,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
 
         <div class="card card-5" data-index="4">
           <div class="card-bg">
-            <div class="card-dot"></div>
             <div class="card-label">
               <p class="card-label-name">ROOTS</p>
               <p class="card-label-type">Identity · Travel</p>
@@ -1792,10 +1921,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   </div>
 
   <!-- BOTTOM TEXT -->
-  <div class="hero-bottom">
-    <div class="eyebrow">
-      <div class="eyebrow-dot"></div>
-    </div>
+  <div class="hero-bottom" lang="en">
     <div class="headline">
       <h1 id="heroHeadline" class="hero-headline">WE BUILD BRANDS <span class="accent">WORTH SHARING</span>.</h1>
     </div>
@@ -1843,8 +1969,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
 })();
     </script>
     <p class="sub b1">
-      Most brands are designed for walls.<br>
-      <strong>We design for feeds.</strong>
+      <strong>Share or it didn't happen.</strong>
     </p>
     <div class="cta-row">
       <a href="#" class="cta-main">See projects</a>
@@ -1856,22 +1981,24 @@ body:has(.featured-work-card:hover) .hero-bottom {
 
 </section>
 
+<p id="about" class="site-footer-sr-only" tabindex="-1" lang="en">About — Kruv. Brand identity for the social-first era.</p>
+
 <div class="ticker">
-  <div class="ticker-track">
+  <div class="ticker-track" lang="en">
     <span class="ticker-item">Brand Identity</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-1.svg" width="96" height="51" alt=""></span>
     <span class="ticker-item">Social Media Design</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-2.svg" width="96" height="51" alt=""></span>
     <span class="ticker-item">Motion Design</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-3.svg" width="96" height="51" alt=""></span>
     <span class="ticker-item">Feed-First Strategy</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-4.svg" width="96" height="51" alt=""></span>
     <span class="ticker-item">Social Native</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-5.svg" width="96" height="51" alt=""></span>
     <span class="ticker-item">D2C Brands</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-6.svg" width="96" height="51" alt=""></span>
-    <span class="ticker-item">İstanbul</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-7.svg" width="96" height="51" alt=""></span>
+    <span class="ticker-item" lang="tr">İstanbul</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-7.svg" width="96" height="51" alt=""></span>
     <span class="ticker-item">Brand Identity</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-1.svg" width="96" height="51" alt=""></span>
     <span class="ticker-item">Social Media Design</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-2.svg" width="96" height="51" alt=""></span>
     <span class="ticker-item">Motion Design</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-3.svg" width="96" height="51" alt=""></span>
     <span class="ticker-item">Feed-First Strategy</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-4.svg" width="96" height="51" alt=""></span>
     <span class="ticker-item">Social Native</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-5.svg" width="96" height="51" alt=""></span>
     <span class="ticker-item">D2C Brands</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-6.svg" width="96" height="51" alt=""></span>
-    <span class="ticker-item">İstanbul</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-7.svg" width="96" height="51" alt=""></span>
+    <span class="ticker-item" lang="tr">İstanbul</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-7.svg" width="96" height="51" alt=""></span>
   </div>
 </div>
 
@@ -1957,11 +2084,11 @@ body:has(.featured-work-card:hover) .hero-bottom {
 .ideal-section {
   position: relative;
   z-index: 1;
-  padding: var(--section-pad-y) var(--section-pad-x) calc(var(--section-pad-y) + var(--space-4));
+  box-sizing: border-box;
+  padding: var(--section-pad-y) var(--section-pad-x);
   background-color: var(--midnight);
   border-top: var(--border-soft);
   border-bottom: var(--border-soft);
-  transition: background-color 0.8s ease, border-color 0.8s ease;
 }
 .ideal-inner {
   width: var(--grid-shell-width);
@@ -2017,7 +2144,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   width: 48%;
   height: 25%;
   display: block;
-  background-color: var(--gray-100);
+  background-color: var(--gray-800);
   -webkit-mask-position: center;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-size: contain;
@@ -2035,7 +2162,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
   .ideal-clients-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 600px) {
-  .ideal-section { padding: calc(var(--section-pad-y) - var(--space-2)) var(--section-pad-x) calc(var(--section-pad-y) - var(--space-4)); }
   .ideal-clients-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
@@ -2556,7 +2682,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
 </style>
 
 <!-- Journey’i geri açmak: section’dan focus-list-section--recognition-off kaldır; aria-labelledby="focus-heading-recognition focus-heading-direction" -->
-<section class="focus-list-section focus-list-section--recognition-off" id="journey-focus" aria-labelledby="focus-heading-direction">
+<section class="focus-list-section focus-list-section--recognition-off" id="journey-focus" lang="en" aria-labelledby="focus-heading-direction">
   <div class="focus-list-inner">
     <div class="focus-list-panel">
       <div class="focus-list-grid">
@@ -2642,20 +2768,22 @@ body:has(.featured-work-card:hover) .hero-bottom {
   </div>
 </section>
 
+<div class="scroll-theme-bridge" id="scroll-theme-bridge" aria-hidden="true"></div>
+
 <!-- SCENE SECTION -->
 <section class="scene-section">
-  <div class="scene-label">
+  <div class="scene-label" lang="en">
     <span class="scene-section-tag">Selected Work</span>
     <h3 class="scene-section-title">Projects</h3>
   </div>
 
-  <div class="scene" id="scene" hidden>
+  <div class="scene" id="scene" hidden lang="en">
     <!-- Karartılmış arka plan görseli -->
     <div class="scene-bg-dim"></div>
     <!-- Aynı görsel, kadraj clip-path ile -->
     <div class="scene-bg-bright" id="sceneBright"></div>
 
-    <div class="hint">Formatı seç · Fareyi gezdir</div>
+    <div class="hint" lang="tr">Formatı seç · Fareyi gezdir</div>
 
     <!-- Kadraj çerçevesi -->
     <div class="kadraj-cursor" id="kadrajCursor">
@@ -2706,9 +2834,9 @@ body:has(.featured-work-card:hover) .hero-bottom {
     </div>
   </div>
 
-  <div class="featured-works" aria-label="Featured works list">
+  <div class="featured-works" lang="en" aria-label="Featured works list">
     <article class="featured-work-card">
-      <a class="featured-work-hit" href="#" aria-label="Projeyi aç — Marker Packaging System"></a>
+      <a class="featured-work-hit" href="#" aria-label="See project — Marker Packaging System"></a>
       <div class="featured-work-media featured-work-media-1" aria-hidden="true"></div>
       <div class="featured-work-meta">
         <h4 class="featured-work-title">Marker Packaging System</h4>
@@ -2718,7 +2846,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
     </article>
 
     <article class="featured-work-card">
-      <a class="featured-work-hit" href="#" aria-label="Projeyi aç — Labraunda Journal"></a>
+      <a class="featured-work-hit" href="#" aria-label="See project — Labraunda Journal"></a>
       <div class="featured-work-media featured-work-media-2" aria-hidden="true"></div>
       <div class="featured-work-meta">
         <h4 class="featured-work-title">Labraunda Journal</h4>
@@ -2728,7 +2856,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
     </article>
 
     <article class="featured-work-card">
-      <a class="featured-work-hit" href="#" aria-label="Projeyi aç — Roots Travel Brand"></a>
+      <a class="featured-work-hit" href="#" aria-label="See project — Roots Travel Brand"></a>
       <div class="featured-work-media featured-work-media-3" aria-hidden="true"></div>
       <div class="featured-work-meta">
         <h4 class="featured-work-title">Roots Travel Brand</h4>
@@ -2738,7 +2866,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
     </article>
 
     <article class="featured-work-card">
-      <a class="featured-work-hit" href="#" aria-label="Projeyi aç — Cloud Vault Product Line"></a>
+      <a class="featured-work-hit" href="#" aria-label="See project — Cloud Vault Product Line"></a>
       <div class="featured-work-media featured-work-media-4" aria-hidden="true"></div>
       <div class="featured-work-meta">
         <h4 class="featured-work-title">Cloud Vault Product Line</h4>
@@ -2748,7 +2876,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
     </article>
 
     <article class="featured-work-card">
-      <a class="featured-work-hit" href="#" aria-label="Projeyi aç — Levantenler Launch Sprint"></a>
+      <a class="featured-work-hit" href="#" aria-label="See project — Levantenler Launch Sprint"></a>
       <div class="featured-work-media featured-work-media-5" aria-hidden="true"></div>
       <div class="featured-work-meta">
         <h4 class="featured-work-title">Levantenler Launch Sprint</h4>
@@ -2757,23 +2885,126 @@ body:has(.featured-work-card:hover) .hero-bottom {
       </div>
     </article>
   </div>
-  <p class="featured-work-cursor-hint" id="featuredWorkCursorHint" aria-hidden="true">Projeyi aç</p>
+  <p class="featured-work-cursor-hint" id="featuredWorkCursorHint" aria-hidden="true">See project</p>
 </section>
 
+<section class="lets-talk" lang="en" aria-labelledby="lets-talk-heading">
+  <p class="lets-talk-eyebrow b3">Let's talk</p>
+  <h2 id="lets-talk-heading" class="lets-talk-heading h1">
+    Got a brand <em>worth building?</em>
+  </h2>
+  <ul class="lets-talk-contacts">
+    <li>
+      <a class="lets-talk-contact" href="mailto:hello@kruv.studio">hello@kruv.studio</a>
+    </li>
+    <li aria-hidden="true"><span class="lets-talk-divider"></span></li>
+    <li>
+      <a class="lets-talk-contact" href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+    </li>
+    <li aria-hidden="true"><span class="lets-talk-divider"></span></li>
+    <li>
+      <a class="lets-talk-contact" href="#" target="_blank" rel="noopener noreferrer">Behance</a>
+    </li>
+    <li aria-hidden="true"><span class="lets-talk-divider"></span></li>
+    <li>
+      <a class="lets-talk-contact" href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </li>
+  </ul>
+  <a class="cta-ghost" href="mailto:hello@kruv.studio">Start a project</a>
+</section>
+
+<footer class="site-footer" id="contact" lang="en">
+  <div class="site-footer-inner">
+    <div class="site-footer-grid">
+      <div class="site-footer-col">
+        <h2 class="site-footer-heading">Services</h2>
+        <ul class="site-footer-list">
+          <li>Brand identity</li>
+          <li>Packaging</li>
+          <li>Editorial</li>
+          <li>UI/UX</li>
+          <li>Illustration</li>
+        </ul>
+      </div>
+      <nav class="site-footer-col" aria-label="Sitemap">
+        <h2 class="site-footer-heading">Sitemap</h2>
+        <ul class="site-footer-list site-footer-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="#about">About us</a></li>
+          <li><a href="#contact">Contact us</a></li>
+        </ul>
+      </nav>
+      <div class="site-footer-col site-footer-col--follow">
+        <h2 class="site-footer-heading">Follow</h2>
+        <p class="site-footer-follow-sr" lang="tr">Sosyal bağlantılar — her ikon yeni sekmede açılır.</p>
+        <ul class="site-footer-social site-footer-social--grid">
+          <li>
+            <a class="site-footer-social-btn" href="#" target="_blank" rel="noopener noreferrer" data-footer-social="linkedin" aria-label="LinkedIn — yeni sekmede aç">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 9h4v12H2z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><circle cx="4" cy="4" r="2" stroke="currentColor" stroke-width="1.75"/></svg>
+            </a>
+          </li>
+          <li>
+            <a class="site-footer-social-btn" href="#" target="_blank" rel="noopener noreferrer" data-footer-social="behance" aria-label="Behance — yeni sekmede aç">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 11h5a3 3 0 010 6H8V5h4a2.5 2.5 0 010 5M16 8h5M16 12h3" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </li>
+          <li>
+            <a class="site-footer-social-btn" href="#" target="_blank" rel="noopener noreferrer" data-footer-social="instagram" aria-label="Instagram — yeni sekmede aç">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.75"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.75"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            </a>
+          </li>
+          <li>
+            <a class="site-footer-social-btn" href="#" target="_blank" rel="noopener noreferrer" data-footer-social="dribbble" aria-label="Dribbble — yeni sekmede aç">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.75"/><path d="M3 12h18M5 5c4 6 6 10 7 14M19 5c-3 5-7 9-11 11" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
+            </a>
+          </li>
+          <li>
+            <a class="site-footer-social-btn" href="#" target="_blank" rel="noopener noreferrer" data-footer-social="pinterest" aria-label="Pinterest — yeni sekmede aç">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.84 3.44 8.87 8 9.8-.11-.78-.2-2.05.05-2.94.21-.9 1.38-5.72 1.38-5.72s-.35-.7-.35-1.75c0-1.64.95-2.87 2.14-2.87 1 0 1.49.75 1.49 1.65 0 1-.64 2.5-.97 3.89-.28 1.16.6 2.11 1.78 2.11 2.14 0 3.78-2.26 3.78-5.52 0-2.89-2.08-4.91-5.04-4.91-3.43 0-5.44 2.58-5.44 5.24 0 1.04.4 2.16.9 2.76.1.12.11.22.08.34l-.33 1.36c-.05.22-.18.27-.41.16-1.54-.72-2.5-2.97-2.5-4.78 0-3.9 2.83-7.48 8.16-7.48 4.28 0 7.6 3.05 7.6 7.13 0 4.25-2.68 7.67-6.4 7.67-1.25 0-2.43-.65-2.83-1.42l-.77 2.95c-.28 1.08-1.04 2.43-1.55 3.26 1.17.36 2.41.55 3.69.55 5.52 0 10-4.48 10-10S17.52 2 12 2z" fill="currentColor"/></svg>
+            </a>
+          </li>
+          <li>
+            <a class="site-footer-social-btn" href="#" target="_blank" rel="noopener noreferrer" data-footer-social="youtube" aria-label="YouTube — yeni sekmede aç">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="3" stroke="currentColor" stroke-width="1.75"/><path d="M10 10l5 2-5 2v-4z" fill="currentColor" stroke="none"/></svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer-bottom">
+      <span class="site-footer-mark">kruv.</span>
+    </div>
+  </div>
+</footer>
+
 <style>
+/* Scroll köprüsü: tema t’si bu yükseklik boyunca 0→1 ilerler */
+.scroll-theme-bridge {
+  height: var(--section-bridge-height);
+  pointer-events: none;
+}
+
 /* ── SCENE SECTION ── */
 .scene-section {
-  min-height: 100vh;
-  background-color: var(--midnight);
-  transition: background-color 0.8s ease;
+  box-sizing: border-box;
+  min-height: 0;
+  background-color: color-mix(
+    in oklab,
+    var(--midnight) calc((1 - var(--kruv-scene-theme-t)) * 100%),
+    var(--scene-surface-light) calc(var(--kruv-scene-theme-t) * 100%)
+  );
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   padding: var(--section-pad-y) var(--section-pad-x);
-  gap: calc(var(--space-10) + var(--space-2));
+  gap: var(--space-10);
   position: relative;
   z-index: 1;
+}
+/* Köprü hemen üstünde olduğunda üst padding birikmez */
+.scroll-theme-bridge + .scene-section {
+  padding-top: max(var(--space-7), calc(var(--section-pad-y) - var(--section-bridge-height)));
 }
 .scene-label {
   width: var(--grid-shell-width);
@@ -2788,7 +3019,11 @@ body:has(.featured-work-card:hover) .hero-bottom {
   line-height: var(--b3-line-height);
   letter-spacing: var(--b3-letter-spacing);
   text-transform: var(--b3-text-transform);
-  color: var(--silver);
+  color: color-mix(
+    in oklab,
+    var(--silver) calc((1 - var(--kruv-scene-theme-t)) * 100%),
+    var(--scene-ink-muted-on-light) calc(var(--kruv-scene-theme-t) * 100%)
+  );
 }
 .scene-section-title {
   font-family: var(--h2-font-family);
@@ -2797,7 +3032,11 @@ body:has(.featured-work-card:hover) .hero-bottom {
   line-height: var(--h2-line-height);
   letter-spacing: var(--h2-letter-spacing);
   text-transform: var(--h2-text-transform);
-  color: var(--frost);
+  color: color-mix(
+    in oklab,
+    var(--frost) calc((1 - var(--kruv-scene-theme-t)) * 100%),
+    var(--scene-ink-primary-on-light) calc(var(--kruv-scene-theme-t) * 100%)
+  );
   margin-top: var(--space-2);
 }
 
@@ -3073,11 +3312,11 @@ body:has(.featured-work-card:hover) .hero-bottom {
   box-shadow: none;
   position: relative;
   overflow: hidden;
-  /* Kart dolgusu ile aynı köşe yarıçapı; arka plan sayfa zeminiyle birleşir */
-  background-color: transparent;
+  background-color: var(--color-surface);
   transition: background-color 0.8s ease;
   background-size: cover;
-  background-position: center;
+  background-position: center center;
+  background-repeat: no-repeat;
   background-clip: padding-box;
 }
 .featured-work-media-1 { background-image: url("assets/featured-1.png"); }
@@ -3092,7 +3331,11 @@ body:has(.featured-work-card:hover) .hero-bottom {
   line-height: var(--h4-line-height);
   letter-spacing: var(--h4-letter-spacing);
   text-transform: var(--h4-text-transform);
-  color: var(--frost);
+  color: color-mix(
+    in oklab,
+    var(--frost) calc((1 - var(--kruv-scene-theme-t)) * 100%),
+    var(--scene-ink-primary-on-light) calc(var(--kruv-scene-theme-t) * 100%)
+  );
   margin: 0;
   min-width: 0;
 }
@@ -3102,8 +3345,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
   font-weight: var(--b1-font-weight);
   line-height: var(--b1-line-height);
   letter-spacing: var(--b1-letter-spacing);
-  text-transform: none;
-  color: var(--silver);
+  text-transform: lowercase;
+  color: color-mix(
+    in oklab,
+    var(--silver) calc((1 - var(--kruv-scene-theme-t)) * 100%),
+    var(--scene-ink-muted-on-light) calc(var(--kruv-scene-theme-t) * 100%)
+  );
   margin: 0;
   max-width: min(100%, calc(42 * var(--space-4)));
 }
@@ -3114,7 +3361,11 @@ body:has(.featured-work-card:hover) .hero-bottom {
   line-height: var(--b3-line-height);
   letter-spacing: var(--b3-letter-spacing);
   text-transform: var(--b3-text-transform);
-  color: var(--gray-400);
+  color: color-mix(
+    in oklab,
+    var(--scene-category-on-dark) calc((1 - var(--kruv-scene-theme-t)) * 100%),
+    var(--scene-ink-caption-on-light) calc(var(--kruv-scene-theme-t) * 100%)
+  );
   text-align: left;
   margin: 0;
   max-width: min(100%, calc(5 * var(--space-10)));
@@ -3189,6 +3440,362 @@ body:has(.featured-work-card:hover) .hero-bottom {
     opacity: 1;
   }
 }
+
+/* ── SITE FOOTER ── */
+.site-footer-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.site-footer {
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
+  border-top: var(--border-soft);
+  background-color: var(--midnight);
+  padding: var(--section-pad-y) var(--section-pad-x);
+}
+.site-footer-inner {
+  width: var(--grid-shell-width);
+  max-width: var(--grid-shell-width);
+  margin: 0 auto;
+}
+.site-footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-10);
+}
+@media (min-width: 700px) {
+  .site-footer-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-10) var(--space-12);
+    align-items: start;
+  }
+}
+.site-footer-heading {
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
+  color: var(--silver);
+  margin: 0 0 var(--space-4);
+}
+.site-footer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  font-family: var(--b2-font-family);
+  font-size: var(--b2-font-size);
+  font-weight: var(--b2-font-weight);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--b2-letter-spacing);
+  text-transform: lowercase;
+  color: var(--gray-500);
+}
+.site-footer-links a {
+  color: var(--gray-500);
+  text-decoration: none;
+  transition: color 0.2s var(--ease-standard);
+}
+.site-footer-links a:hover {
+  color: var(--frost);
+}
+.site-footer-follow-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.site-footer-social--grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 3.25rem));
+  gap: var(--space-3);
+  max-width: calc(3 * 3.25rem + 2 * var(--space-3));
+}
+.site-footer-social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: var(--radius-lg);
+  box-sizing: border-box;
+  background: var(--gray-200);
+  color: var(--ink);
+  text-decoration: none;
+  transition:
+    background-color 0.2s var(--ease-standard),
+    color 0.2s var(--ease-standard),
+    transform 0.2s var(--ease-standard);
+}
+.site-footer-social-btn:hover {
+  background: var(--gray-300);
+  color: var(--frost);
+  transform: translateY(-1px);
+}
+.site-footer-social-btn:focus-visible {
+  outline: 2px solid var(--purple);
+  outline-offset: 2px;
+}
+.site-footer-social-btn svg {
+  flex-shrink: 0;
+}
+.site-footer-bottom {
+  margin-top: var(--space-12);
+  padding-top: var(--space-8);
+  border-top: var(--border-soft);
+}
+.site-footer-mark {
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
+  color: var(--gray-450);
+}
+
+/* ── Hero arşivi: eski hero (fan + mobile carousel) görünmez tutuluyor.
+   .hero-archive sınıfı kaldırılırsa ve sadece .hero kalırsa eski kompozisyon geri döner. ── */
+.hero-archive { display: none !important; }
+
+/* ── Hero V2: animated rotating word ile ortalanmış kompakt hero ── */
+.hero-v2 {
+  background: var(--midnight);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: calc(var(--section-pad-y) + var(--space-2)) var(--container-gutter) var(--section-pad-y);
+  position: relative;
+  z-index: 1;
+}
+.hero-v2-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-8);
+  max-width: 56ch;
+  width: 100%;
+}
+.hero-v2-headline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  animation: fadeUp 0.5s 0.12s ease forwards;
+}
+.hero-v2-static {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 7vw, 56px);
+  font-weight: 800;
+  color: var(--frost);
+  letter-spacing: -0.035em;
+  line-height: 1.04;
+}
+.hero-v2-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-top: 2px;
+}
+.hero-v2-word-box {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  padding-bottom: 14px;
+  margin-bottom: -14px;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hero-v2-word {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 7vw, 56px);
+  font-weight: 800;
+  color: var(--frost);
+  letter-spacing: -0.035em;
+  line-height: 1.04;
+  white-space: nowrap;
+  display: block;
+}
+.hero-v2-suffix {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 7vw, 56px);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--purple);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+.hero-v2-sub {
+  font-family: var(--font-body);
+  font-size: var(--type-b1);
+  color: var(--silver);
+  line-height: 1.85;
+  margin: 0;
+  letter-spacing: var(--ls-2xs);
+  max-width: 48ch;
+  opacity: 0;
+  animation: fadeUp 0.5s 0.32s ease forwards;
+}
+.hero-v2-sub strong {
+  color: var(--frost);
+  font-weight: 700;
+}
+.hero-v2-cta {
+  display: inline-block;
+  background: var(--frost);
+  color: var(--midnight);
+  font-family: var(--font-display);
+  font-size: var(--type-b3);
+  font-weight: 700;
+  letter-spacing: var(--ls-2xl);
+  text-transform: lowercase;
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  border-radius: var(--btn-radius);
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  animation: fadeUp 0.5s 0.52s ease forwards;
+  transition:
+    transform var(--dur-fast) var(--ease-standard),
+    opacity var(--dur-fast) var(--ease-standard);
+}
+.hero-v2-cta:hover {
+  transform: translateY(-1px);
+  opacity: 0.9;
+}
+
+@keyframes hero-v2-slide-in {
+  from { transform: translateY(110%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+@keyframes hero-v2-slide-out {
+  from { transform: translateY(0);    opacity: 1; }
+  to   { transform: translateY(-110%); opacity: 0; }
+}
+.hero-v2-anim-in  { animation: hero-v2-slide-in  0.38s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.hero-v2-anim-out { animation: hero-v2-slide-out 0.32s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+
+@media (max-width: 700px) {
+  .hero-v2 { min-height: 100vh; padding: var(--section-pad-y) var(--space-4); }
+  .hero-v2-inner { gap: var(--space-6); }
+  .hero-v2-row { flex-direction: column; gap: 0; align-items: center; }
+}
+
+/* ── Lets Talk: footer öncesi büyük CTA bloğu ── */
+.lets-talk {
+  width: var(--grid-shell-width);
+  max-width: var(--grid-shell-width);
+  margin-inline: auto;
+  padding-block: var(--section-pad-y);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-9);
+  position: relative;
+  z-index: 2;
+}
+.lets-talk-eyebrow {
+  color: var(--silver);
+  margin: 0;
+}
+.lets-talk-heading {
+  margin: 0;
+  max-width: 18ch;
+  color: var(--frost);
+}
+.lets-talk-heading em {
+  font-style: italic;
+  color: var(--purple);
+  font-weight: inherit;
+}
+.lets-talk-contacts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-5);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+.lets-talk-contact {
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
+  color: var(--silver);
+  text-decoration: none;
+  padding-bottom: var(--space-1);
+  border-bottom: 1px solid var(--gray-150);
+  transition:
+    color var(--dur-fast) var(--ease-standard),
+    border-color var(--dur-fast) var(--ease-standard);
+}
+.lets-talk-contact:hover {
+  color: var(--frost);
+  border-color: var(--frost);
+}
+.lets-talk-divider {
+  display: inline-block;
+  width: 1px;
+  height: 14px;
+  background: var(--gray-180);
+  flex-shrink: 0;
+}
+.cta-ghost {
+  font-family: var(--h4-font-family);
+  font-size: var(--h4-font-size);
+  font-weight: var(--h4-font-weight);
+  line-height: var(--h4-line-height);
+  letter-spacing: var(--h4-letter-spacing);
+  text-transform: var(--h4-text-transform);
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  background: transparent;
+  color: var(--silver);
+  border: 1px solid var(--gray-150);
+  border-radius: var(--btn-radius);
+  text-decoration: none;
+  transition:
+    background var(--dur-fast) var(--ease-standard),
+    color var(--dur-fast) var(--ease-standard),
+    border-color var(--dur-fast) var(--ease-standard);
+}
+.cta-ghost:hover {
+  background: var(--purple);
+  color: var(--white-fixed);
+  border-color: var(--purple);
+}
+
+@media (max-width: 700px) {
+  .lets-talk { gap: var(--space-7); }
+  .lets-talk-contacts { gap: var(--space-3); }
+  .lets-talk-divider { display: none; }
+}
 </style>
 
 <script>
@@ -3243,8 +3850,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
 (function () {
   var wrap = document.querySelector('.fan-wrap');
   var el = document.getElementById('heroPortfolioCursor');
-  var textEl = el && el.querySelector('.hero-portfolio-cursor__text');
-  if (!wrap || !el || !textEl) return;
+  var nameElCursor = el && el.querySelector('.hero-portfolio-cursor__name');
+  if (!wrap || !el || !nameElCursor) return;
 
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
@@ -3313,8 +3920,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
       return;
     }
 
-    var label = 'Explore ' + raw;
-    if (label !== textEl.textContent) textEl.textContent = label;
+    if (raw !== nameElCursor.textContent) nameElCursor.textContent = raw;
 
     if (card !== lastCard) {
       lastCard = card;
@@ -3842,6 +4448,75 @@ body:has(.featured-work-card:hover) .hero-bottom {
 })();
 </script>
 
+<script>
+(function () {
+  var bridge = document.getElementById('scroll-theme-bridge');
+  var root = document.documentElement;
+  if (!bridge) return;
+
+  var reduceMotion = false;
+  function refreshReduceMotion() {
+    try {
+      reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    } catch (e) {
+      reduceMotion = false;
+    }
+  }
+  refreshReduceMotion();
+
+  var scheduled = false;
+
+  function computeT() {
+    var r = bridge.getBoundingClientRect();
+    var vh = window.innerHeight || document.documentElement.clientHeight || 0;
+    var h = r.height || 1;
+    var raw = (vh - r.top) / (vh + h);
+    if (raw < 0) raw = 0;
+    else if (raw > 1) raw = 1;
+    if (reduceMotion) return raw >= 0.5 ? 1 : 0;
+    return raw;
+  }
+
+  function apply() {
+    scheduled = false;
+    root.style.setProperty('--kruv-scene-theme-t', String(computeT()));
+  }
+
+  function onScrollOrResize() {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(apply);
+  }
+
+  function init() {
+    refreshReduceMotion();
+    apply();
+    window.addEventListener('scroll', onScrollOrResize, { passive: true });
+    window.addEventListener('resize', onScrollOrResize, { passive: true });
+    var mq = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (mq && mq.addEventListener) {
+      mq.addEventListener('change', function () {
+        refreshReduceMotion();
+        apply();
+      });
+    } else if (mq && mq.addListener) {
+      mq.addListener(function () {
+        refreshReduceMotion();
+        apply();
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () {
+      requestAnimationFrame(init);
+    });
+  } else {
+    requestAnimationFrame(init);
+  }
+})();
+</script>
+
 <!-- ───────────────────── CMS BIND (Supabase via Next.js API) ─────────────────────
      Hero fan kartlarını ve Featured Works grid'ini /api/projects'ten doldurur.
      Featured işaretli proje hero'nun ortasındaki karta (card-3) yerleşir.
@@ -3864,7 +4539,11 @@ body:has(.featured-work-card:hover) .hero-bottom {
     if (!card || !p) return;
     var bg = card.querySelector('.card-bg');
     if (bg && p.gorsel) {
-      bg.style.background = 'url("' + p.gorsel + '") center/cover no-repeat';
+      bg.style.backgroundImage = 'url("' + p.gorsel + '")';
+      bg.style.backgroundPosition = 'center';
+      bg.style.backgroundSize = 'cover';
+      bg.style.backgroundRepeat = 'no-repeat';
+      bg.style.backgroundColor = 'var(--color-surface)';
     }
     var labelName = card.querySelector('.card-label-name');
     var labelType = card.querySelector('.card-label-type');
@@ -3882,7 +4561,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
     card.style.cursor = 'pointer';
     card.setAttribute('role', 'link');
     card.setAttribute('tabindex', '0');
-    card.setAttribute('aria-label', 'Projeyi aç — ' + (p.baslik || ''));
+    card.setAttribute('aria-label', 'See project — ' + (p.baslik || ''));
     card.dataset.cmsHref = url;
     if (!card.dataset.cmsBound) {
       card.dataset.cmsBound = '1';
@@ -3905,6 +4584,10 @@ body:has(.featured-work-card:hover) .hero-bottom {
     var media = card.querySelector('.featured-work-media');
     if (media && p.gorsel) {
       media.style.backgroundImage = 'url("' + p.gorsel + '")';
+      media.style.backgroundSize = 'cover';
+      media.style.backgroundPosition = 'center center';
+      media.style.backgroundRepeat = 'no-repeat';
+      media.style.backgroundColor = 'var(--color-surface)';
     }
     var title = card.querySelector('.featured-work-title');
     var desc = card.querySelector('.featured-work-desc');
@@ -3919,7 +4602,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
     if (cat) cat.textContent = p.kategori || '';
     if (hit) {
       hit.setAttribute('href', projectURL(p.slug));
-      hit.setAttribute('aria-label', 'Projeyi aç — ' + (p.baslik || ''));
+      hit.setAttribute('aria-label', 'See project — ' + (p.baslik || ''));
     }
   }
 
@@ -3960,59 +4643,171 @@ body:has(.featured-work-card:hover) .hero-bottom {
       });
   });
 })();
+
+(function hydrateFooterSocial() {
+  var API_URL = '/api/settings';
+  function ready(fn) {
+    if (document.readyState !== 'loading') fn();
+    else document.addEventListener('DOMContentLoaded', fn);
+  }
+  var keyMap = {
+    instagram: 'instagramUrl',
+    behance: 'behanceUrl',
+    linkedin: 'linkedinUrl',
+    dribbble: 'dribbbleUrl',
+    pinterest: 'pinterestUrl',
+    youtube: 'youtubeUrl',
+  };
+  ready(function () {
+    fetch(API_URL)
+      .then(function (res) {
+        return res.ok ? res.json() : null;
+      })
+      .then(function (json) {
+        var d = json && json.data ? json.data : null;
+        if (!d) return;
+        document.querySelectorAll('a[data-footer-social]').forEach(function (a) {
+          var k = a.getAttribute('data-footer-social');
+          var field = keyMap[k];
+          var url = field && d[field] ? String(d[field]).trim() : '';
+          if (url) {
+            a.setAttribute('href', url);
+            a.setAttribute('target', '_blank');
+            a.setAttribute('rel', 'noopener noreferrer');
+          }
+        });
+      })
+      .catch(function () {});
+  });
+})();
 </script>
 
 <script>
-(function () {
-  var ideal = document.getElementById('ideal-client');
-  if (!ideal) return;
-  var root = document.documentElement;
-  /* Client bloğunun alt kenarı bu çizginin üstüne çıkınca açık tema (görünen border = .ideal-section alt sınırı) */
-  var thresholdFrac = 0.48;
-  var ticking = false;
+  // Hero V2 — animated rotating word
+  (function () {
+    var WORDS = ['brands', 'identities', 'campaigns', 'stories', 'feeds', 'moments'];
+    var INTERVAL = 2400;
 
-  function syncThemeFromIdeal() {
-    var r = ideal.getBoundingClientRect();
-    var vh = window.innerHeight || document.documentElement.clientHeight || 0;
-    if (vh <= 0) return;
-    var light = r.bottom < vh * thresholdFrac;
-    root.setAttribute('data-theme', light ? 'light' : 'dark');
-  }
+    var wb = document.getElementById('hero-v2-wb');
+    if (!wb) return;
+    var current = document.getElementById('hero-v2-wa');
+    var idx = 0;
+    var busy = false;
 
-  function scheduleSync() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(function () {
-      ticking = false;
-      syncThemeFromIdeal();
+    // Word genişliği: gerçek bir DOM ölçümü (font/letterspacing eşleşmesi için
+    // .hero-v2-word stilinde gizli bir span oluşturup ölçer; clamp() ile gelen
+    // font-size aktif viewport'a göre doğru ölçülür).
+    function measureWidth(text) {
+      var el = document.createElement('span');
+      el.className = 'hero-v2-word';
+      el.style.position = 'absolute';
+      el.style.visibility = 'hidden';
+      el.style.top = '-9999px';
+      el.style.left = '-9999px';
+      el.textContent = text;
+      document.body.appendChild(el);
+      var w = el.offsetWidth;
+      document.body.removeChild(el);
+      return w;
+    }
+
+    function start() {
+      wb.style.width = measureWidth(WORDS[0]) + 'px';
+      // Reduced motion: kelime sabit kalsın, animasyon yapma.
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) return;
+      setInterval(rotate, INTERVAL);
+    }
+
+    function rotate() {
+      if (busy) return;
+      busy = true;
+      var next = (idx + 1) % WORDS.length;
+
+      var incoming = document.createElement('span');
+      incoming.className = 'hero-v2-word';
+      incoming.textContent = WORDS[next];
+      incoming.style.cssText = 'position:absolute;top:0;left:0;white-space:nowrap;transform:translateY(110%);opacity:0';
+      wb.appendChild(incoming);
+
+      current.classList.add('hero-v2-anim-out');
+      current.style.position = 'absolute';
+      current.style.top = '0';
+      current.style.left = '0';
+
+      wb.style.width = measureWidth(WORDS[next]) + 'px';
+
+      setTimeout(function () {
+        incoming.style.cssText = '';
+        incoming.classList.add('hero-v2-anim-in');
+        setTimeout(function () {
+          if (current && current.parentNode) current.remove();
+          incoming.classList.remove('hero-v2-anim-in');
+          current = incoming;
+          idx = next;
+          busy = false;
+        }, 400);
+      }, 60);
+    }
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(start);
+    } else {
+      window.addEventListener('load', start, { once: true });
+    }
+  })();
+</script>
+
+<script>
+  // Theme toggle — kullanıcı tercihini localStorage'a yazar (kruv-theme),
+  // Next.js sayfalarıyla (works/projects) aynı anahtarı paylaşır.
+  (function () {
+    var STORAGE_KEY = 'kruv-theme';
+    var btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+
+    function currentTheme() {
+      var explicit = document.documentElement.getAttribute('data-theme');
+      if (explicit === 'light' || explicit === 'dark') return explicit;
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches
+        ? 'light'
+        : 'dark';
+    }
+
+    function syncButton() {
+      var t = currentTheme();
+      var isLight = t === 'light';
+      btn.setAttribute('aria-pressed', isLight ? 'true' : 'false');
+      btn.setAttribute(
+        'aria-label',
+        isLight ? 'Karanlık moda geç' : 'Aydınlık moda geç'
+      );
+    }
+
+    function apply(next) {
+      document.documentElement.setAttribute('data-theme', next);
+      try { localStorage.setItem(STORAGE_KEY, next); } catch (e) {}
+      syncButton();
+    }
+
+    btn.addEventListener('click', function () {
+      var next = currentTheme() === 'light' ? 'dark' : 'light';
+      apply(next);
     });
-  }
 
-  function bindScroll(el) {
-    if (!el) return;
-    el.addEventListener('scroll', scheduleSync, { passive: true });
-  }
+    // İlk render: bootstrap zaten attribute koymuş olabilir, butonu eşitle.
+    syncButton();
 
-  syncThemeFromIdeal();
-  bindScroll(window);
-  bindScroll(document);
-  bindScroll(document.documentElement);
-  bindScroll(document.body);
-  window.addEventListener('resize', scheduleSync);
-  window.addEventListener('load', syncThemeFromIdeal);
-  if (window.visualViewport) {
-    window.visualViewport.addEventListener('scroll', scheduleSync, { passive: true });
-    window.visualViewport.addEventListener('resize', scheduleSync);
-  }
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(function () {
-      syncThemeFromIdeal();
-    });
-  }
-  requestAnimationFrame(function () {
-    syncThemeFromIdeal();
-  });
-})();
+    // Sistem teması değişirse ve kullanıcının açık seçimi yoksa, butonu güncelle.
+    var mq = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)');
+    if (mq) {
+      var onChange = function () {
+        if (!document.documentElement.getAttribute('data-theme')) syncButton();
+      };
+      if (mq.addEventListener) mq.addEventListener('change', onChange);
+      else if (mq.addListener) mq.addListener(onChange);
+    }
+  })();
 </script>
 
 </body></html>

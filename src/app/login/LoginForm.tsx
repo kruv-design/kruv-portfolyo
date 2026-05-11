@@ -17,7 +17,7 @@ export function LoginForm({ next }: { next: string }) {
         kruv
         <em style={{ color: "var(--accent)", fontStyle: "italic" }}>.</em>
       </div>
-      <div className="b3 mb-8 mt-1 normal-case" style={{ color: "var(--ink-faint)" }}>
+      <div className="b3 mb-8 mt-1 lowercase" style={{ color: "var(--ink-faint)" }}>
         Admin Paneli
       </div>
 

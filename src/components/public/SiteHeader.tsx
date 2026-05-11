@@ -30,7 +30,7 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
           href="/admin"
           title="Admin"
           aria-label="Admin"
-          className="b3 rounded px-2 py-1 normal-case transition-colors hover:text-[color:var(--ink-soft)]"
+          className="b3 rounded px-2 py-1 lowercase transition-colors hover:text-[color:var(--ink-soft)]"
           style={{ color: "var(--ink-faint)", letterSpacing: "var(--ls-2xs)" }}
         >
           ⚙

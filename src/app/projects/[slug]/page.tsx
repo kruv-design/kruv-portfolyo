@@ -7,6 +7,7 @@ import {
   getSettings,
 } from "@/lib/queries";
 import { ProjectDetail } from "@/components/public/ProjectDetail";
+import { SiteFooter } from "@/components/public/SiteFooter";
 import { SiteHeader } from "@/components/public/SiteHeader";
 import { env } from "@/lib/env";
 
@@ -101,15 +102,15 @@ export default async function ProjectPage({
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      {/* Detay sayfaları her zaman light tema; kullanıcının global tercihi
-          (localStorage'daki kruv-theme) dokunulmadan kalır.
-          background: var(--bg) wrapper'ın altında body'nin dark zeminini örter. */}
       <div
-        data-theme="light"
+        className="flex min-h-screen flex-col"
         style={{ background: "var(--bg)", color: "var(--ink)", minHeight: "100vh" }}
       >
         <SiteHeader settings={settings} />
-        <ProjectDetail project={project} prevSlug={prev} nextSlug={next} />
+        <div className="flex-1">
+          <ProjectDetail project={project} prevSlug={prev} nextSlug={next} />
+        </div>
+        <SiteFooter settings={settings} />
       </div>
     </>
   );

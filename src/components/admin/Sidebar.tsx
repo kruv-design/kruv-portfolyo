@@ -30,7 +30,7 @@ export function Sidebar() {
           kruv<em style={{ color: "var(--accent)", fontStyle: "italic" }}>.</em>
         </Link>
         <div
-          className="b3 mt-2 normal-case"
+          className="b3 mt-2 lowercase"
           style={{ color: "var(--gray-400)", letterSpacing: "0.18em" }}
         >
           Admin
@@ -47,7 +47,7 @@ export function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className="flex items-center gap-2.5 px-6 py-2.5 b2 normal-case transition-colors"
+              className="flex items-center gap-2.5 px-6 py-2.5 b2 lowercase transition-colors"
               style={{
                 color: isActive ? "var(--gray-1000)" : "var(--adm-sidebar-text)",
                 borderLeft: "2px solid transparent",
@@ -69,7 +69,7 @@ export function Sidebar() {
       >
         <button
           type="submit"
-          className="b2 w-full px-0 py-2 text-left normal-case transition-colors"
+          className="b2 w-full px-0 py-2 text-left lowercase transition-colors"
           style={{ color: "var(--gray-400)" }}
         >
           ← Çıkış

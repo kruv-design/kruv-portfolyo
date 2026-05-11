@@ -93,8 +93,8 @@
   --success:       #4ADE80;
 
   /* ===== Typography ===== */
-  --font-display: "Bebas Neue", "Impact", sans-serif;
-  --font-body:    "Outfit", system-ui, sans-serif;
+  --font-display: "Manrope", system-ui, sans-serif;
+  --font-body:    "Fraunces", Georgia, serif;
   --font-mono:    "DM Mono", ui-monospace, monospace;
   --font-sans:    var(--font-body);
 
@@ -112,45 +112,45 @@
   --lh-body: 1.55;
   --lh-note: 1.45;
   --ls-2xs: 0.01em;
-  --ls-display: 0.06em;
-  --ls-lg: 0.08em;
-  --ls-xl: 0.12em;
+  --ls-display: -0.02em;
+  --ls-lg: -0.015em;
+  --ls-xl: -0.01em;
   --ls-2xl: 0.14em;
 
   --h1-font-family: var(--font-display);
   --h1-font-size: var(--type-h1);
-  --h1-font-weight: 400;
+  --h1-font-weight: 700;
   --h1-line-height: var(--lh-tight);
   --h1-letter-spacing: var(--ls-display);
-  --h1-text-transform: uppercase;
+  --h1-text-transform: lowercase;
 
   --h2-font-family: var(--font-display);
   --h2-font-size: var(--type-h2);
-  --h2-font-weight: 400;
+  --h2-font-weight: 700;
   --h2-line-height: var(--lh-tight);
   --h2-letter-spacing: var(--ls-display);
-  --h2-text-transform: uppercase;
+  --h2-text-transform: lowercase;
 
   --h3-font-family: var(--font-display);
   --h3-font-size: var(--type-h3);
-  --h3-font-weight: 400;
+  --h3-font-weight: 700;
   --h3-line-height: var(--lh-tight);
   --h3-letter-spacing: var(--ls-lg);
-  --h3-text-transform: uppercase;
+  --h3-text-transform: lowercase;
 
   --h4-font-family: var(--font-display);
   --h4-font-size: var(--type-h4);
-  --h4-font-weight: 400;
+  --h4-font-weight: 600;
   --h4-line-height: var(--lh-tight);
   --h4-letter-spacing: var(--ls-xl);
-  --h4-text-transform: uppercase;
+  --h4-text-transform: lowercase;
 
   --b1-font-family: var(--font-body);
   --b1-font-size: var(--type-b1);
   --b1-font-weight: 400;
   --b1-line-height: 1.66;
   --b1-letter-spacing: var(--ls-2xs);
-  --b1-text-transform: none;
+  --b1-text-transform: lowercase;
   --b1-color: var(--ink-soft);
 
   --b2-font-family: var(--font-body);
@@ -158,7 +158,7 @@
   --b2-font-weight: 300;
   --b2-line-height: var(--lh-body);
   --b2-letter-spacing: 0;
-  --b2-text-transform: none;
+  --b2-text-transform: lowercase;
   --b2-color: var(--ink-faint);
 
   --b3-font-family: var(--font-mono);
@@ -166,7 +166,7 @@
   --b3-font-weight: 400;
   --b3-line-height: var(--lh-tight);
   --b3-letter-spacing: var(--ls-2xl);
-  --b3-text-transform: uppercase;
+  --b3-text-transform: lowercase;
 
   /* ===== Space scale (kruv.html) ===== */
   --space-0:  2px;
@@ -193,6 +193,14 @@
   /* Section / gutter scale */
   --container-gutter: clamp(16px, 5vw, 52px);
   --section-pad-y:    clamp(72px, 10vw, 100px);
+  --grid-shell-width: calc(100vw - (2 * var(--container-gutter)));
+  --panel-gap:        var(--space-3);
+  --nav-logo-slot-w:  160px;
+  --nav-logo-slot-h:  49px;
+  --nav-compact-dur:  570ms;
+  --nav-compact-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --nav-col-gap-scrolled: 16px;
+  --works-body-pad-top: calc(var(--space-6) + var(--nav-logo-slot-h) + var(--space-6));
 
   /* Radius / border */
   --radius-xs:   2px;
@@ -440,13 +448,351 @@ body {
   color: var(--ink-faint);
 }
 
-/* Reusable portfolio grid (public) */
+/* Reusable portfolio grid (public) — homepage featured 2 sütun */
 .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 2px;
-  padding: 2px;
-  background: var(--gray-50);
+  grid-template-columns: 1fr;
+  gap: var(--panel-gap);
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+}
+
+@media (min-width: 700px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ── Marketing navbar (kruv.html nav.navbar) ── */
+.marketing-nav-sentinel {
+  height: 1px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.marketing-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: var(--space-6) var(--container-gutter);
+  isolation: isolate;
+  transition:
+    filter var(--dur-slow) var(--ease),
+    opacity var(--dur-slow) var(--ease),
+    padding var(--nav-compact-dur) var(--nav-compact-ease);
+}
+
+.marketing-navbar-inner {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+.marketing-navbar-inner > * {
+  position: relative;
+  z-index: 1;
+}
+
+.marketing-navbar-inner::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--space-3) * -1);
+  right: calc(var(--space-3) * -1);
+  top: calc(var(--space-2) * -1);
+  bottom: calc(var(--space-2) * -1);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.92;
+  transform: translateY(0) scale(1);
+  transition:
+    opacity var(--nav-compact-dur) var(--nav-compact-ease),
+    transform var(--nav-compact-dur) var(--nav-compact-ease);
+  background: transparent;
+  backdrop-filter: blur(22px) saturate(1.2);
+  -webkit-backdrop-filter: blur(22px) saturate(1.2);
+  border: none;
+  border-radius: 999px;
+  box-shadow: none;
+}
+
+.marketing-navbar.is-scrolled .marketing-navbar-inner {
+  width: fit-content;
+  max-width: 100%;
+}
+
+.marketing-navbar.is-scrolled .marketing-navbar-inner::before {
+  opacity: 1;
+}
+
+.marketing-navbar.is-scrolled {
+  padding: var(--space-3) var(--container-gutter);
+}
+
+.marketing-navbar-cols {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0;
+  width: 100%;
+  max-width: 100%;
+  row-gap: var(--space-3);
+  transition: gap var(--nav-compact-dur) var(--nav-compact-ease);
+}
+
+.marketing-navbar.is-scrolled .marketing-navbar-cols {
+  justify-content: center;
+  gap: var(--nav-col-gap-scrolled);
+  width: max-content;
+  max-width: 100%;
+}
+
+.marketing-navbar-col {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+.marketing-navbar-col--brand {
+  justify-content: flex-start;
+}
+
+.marketing-navbar-col--links {
+  justify-content: center;
+  min-width: 0;
+}
+
+.marketing-navbar-col--cta {
+  justify-content: flex-end;
+}
+
+.marketing-navbar-logo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  position: relative;
+  flex: 0 0 auto;
+  width: var(--nav-logo-slot-w);
+  height: var(--nav-logo-slot-h);
+}
+
+.marketing-navbar-logo-stack {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: var(--nav-logo-slot-w);
+  height: var(--nav-logo-slot-h);
+  transform: scale3d(1, 1, 1);
+  transform-origin: left center;
+  transition: transform var(--nav-compact-dur) var(--nav-compact-ease);
+}
+
+.marketing-navbar.is-scrolled .marketing-navbar-logo-stack {
+  transform: scale3d(0.92, 0.92, 1);
+}
+
+.marketing-navbar-wordmark {
+  font-family: var(--h3-font-family);
+  font-size: var(--type-h3);
+  font-weight: var(--h3-font-weight);
+  line-height: 1;
+  letter-spacing: var(--h3-letter-spacing);
+  text-transform: var(--h3-text-transform);
+  color: var(--ink);
+  display: block;
+  white-space: nowrap;
+  transition: color var(--nav-compact-dur) var(--nav-compact-ease);
+}
+
+.marketing-navbar.is-scrolled .marketing-navbar-wordmark {
+  color: var(--accent);
+}
+
+.marketing-navbar-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: var(--space-9);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  max-width: 100%;
+  transition: gap var(--nav-compact-dur) var(--nav-compact-ease);
+}
+
+.marketing-navbar.is-scrolled .marketing-navbar-links {
+  gap: var(--space-6);
+}
+
+.marketing-navbar-item {
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition:
+    color var(--dur-fast) var(--ease),
+    letter-spacing var(--nav-compact-dur) var(--nav-compact-ease),
+    font-size var(--nav-compact-dur) var(--nav-compact-ease);
+}
+
+.marketing-navbar.is-scrolled .marketing-navbar-item {
+  letter-spacing: calc(var(--b3-letter-spacing) - 0.02em);
+  font-size: calc(var(--b3-font-size) - 1px);
+}
+
+.marketing-navbar-item:hover {
+  color: var(--ink);
+}
+
+.marketing-navbar-actions {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: var(--space-3);
+}
+
+.marketing-navbar-cta {
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
+  padding: var(--space-sm) var(--space-xl);
+  border: 1px solid var(--accent-soft);
+  color: var(--accent);
+  text-decoration: none;
+  border-radius: var(--radius-xs);
+  transition:
+    background var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    padding var(--nav-compact-dur) var(--nav-compact-ease),
+    letter-spacing var(--nav-compact-dur) var(--nav-compact-ease),
+    font-size var(--nav-compact-dur) var(--nav-compact-ease);
+}
+
+.marketing-navbar.is-scrolled .marketing-navbar-cta {
+  padding: var(--space-xxs) var(--space-lg);
+  letter-spacing: calc(var(--b3-letter-spacing) - 0.02em);
+  font-size: calc(var(--b3-font-size) - 1px);
+}
+
+.marketing-navbar-cta:hover {
+  background: var(--accent);
+  color: var(--white-fixed);
+  border-color: var(--accent);
+}
+
+/* Works içi shell — grid-shell genişliği */
+.works-shell-inner {
+  width: var(--grid-shell-width);
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: var(--works-body-pad-top);
+}
+
+/* Homepage featured-work kart tipografisi (kruv.html) */
+.pw-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  text-decoration: none;
+  color: inherit;
+  transition:
+    filter 0.2s var(--ease),
+    opacity 0.2s var(--ease);
+}
+
+.pw-card-media {
+  position: relative;
+  width: 100%;
+  /* kruv featured-work ile aynı: 16/12 = 4:3; cover — gömülü letterbox kullanmayın */
+  aspect-ratio: 16 / 12;
+  overflow: hidden;
+  border-radius: var(--space-sm);
+  background: var(--surface);
+}
+
+.pw-card-media img {
+  object-fit: cover;
+  object-position: center;
+}
+
+.pw-card-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.pw-card-title {
+  font-family: var(--h4-font-family);
+  font-size: var(--h4-font-size);
+  font-weight: var(--h4-font-weight);
+  line-height: var(--h4-line-height);
+  letter-spacing: var(--h4-letter-spacing);
+  text-transform: var(--h4-text-transform);
+  color: var(--ink);
+  margin: 0;
+  min-width: 0;
+}
+
+.pw-card-desc {
+  font-family: var(--b1-font-family);
+  font-size: var(--b1-font-size);
+  font-weight: var(--b1-font-weight);
+  line-height: var(--b1-line-height);
+  letter-spacing: var(--b1-letter-spacing);
+  text-transform: none;
+  color: var(--b1-color);
+  margin: 0;
+  max-width: min(100%, calc(42 * var(--space-4)));
+}
+
+.pw-card-desc:empty {
+  display: none;
+}
+
+.pw-card-category {
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
+  color: var(--gray-400);
+  text-align: left;
+  margin: 0;
+  max-width: min(100%, calc(5 * var(--space-10)));
+}
+
+.pw-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: var(--space-sm);
 }
 
 /* Respect reduced motion */
