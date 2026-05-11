@@ -391,7 +391,8 @@
   --size-card-mobile-pad: 14px;
   --offset-mobile-swipe-bottom: -28px;
 
-  --size-scene-h: 520px;
+  /* Projects 3D sahne yüksekliği (−%25 vs önceki 520px) */
+  --size-scene-h: 390px;
   --size-kadraj: 160px;
   --size-corner: 16px;
   --size-kadraj-label-bottom: -26px;
@@ -716,6 +717,16 @@ nav.navbar.is-scrolled .nav-logo-emblem {
   overflow: hidden;
   opacity: 0;
 }
+.nav-menu-drawer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+}
+.nav-menu-backdrop {
+  display: none;
+}
 .nav-links {
   display: flex;
   align-items: center;
@@ -725,6 +736,8 @@ nav.navbar.is-scrolled .nav-logo-emblem {
   list-style: none;
   width: auto;
   max-width: 100%;
+  margin: 0;
+  padding: 0;
   transition: gap var(--nav-compact-dur) var(--nav-compact-ease);
 }
 nav.navbar.is-scrolled .nav-links {
@@ -761,6 +774,59 @@ nav.navbar.is-scrolled .navbar-item3 {
   align-items: center;
   flex-shrink: 0;
   gap: var(--space-3);
+}
+
+/* Mobil menü (≤768px): hamburger — masaüstünde gizli */
+.nav-menu-toggle {
+  display: none;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--nav-bar-ctrl-h);
+  height: var(--nav-bar-ctrl-h);
+  padding: 0;
+  border-radius: var(--btn-radius);
+  border: 1px solid var(--gray-100);
+  background: transparent;
+  color: var(--silver);
+  cursor: pointer;
+  transition:
+    color var(--dur-fast) var(--ease-standard),
+    border-color var(--dur-fast) var(--ease-standard),
+    background var(--dur-fast) var(--ease-standard);
+}
+.nav-menu-toggle:hover {
+  color: var(--frost);
+  border-color: var(--gray-250);
+}
+.nav-menu-toggle:focus-visible {
+  outline: 2px solid var(--purple);
+  outline-offset: 2px;
+}
+.nav-menu-toggle__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.nav-menu-toggle__bar {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 1px;
+  background: currentColor;
+  transition: transform var(--dur-fast) var(--ease-standard), opacity var(--dur-fast) var(--ease-standard);
+}
+.navbar.is-menu-open .nav-menu-toggle__inner .nav-menu-toggle__bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.navbar.is-menu-open .nav-menu-toggle__inner .nav-menu-toggle__bar:nth-child(2) {
+  opacity: 0;
+}
+.navbar.is-menu-open .nav-menu-toggle__inner .nav-menu-toggle__bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 /* Theme toggle butonu — navbar içinde kompakt ikon düğmesi */
@@ -1550,12 +1616,21 @@ body:has(.featured-work-card:hover) .hero-bottom {
   .card-2 { transform: rotate(-9deg) translateX(-110px) translateY(10px); }
   .card-4 { transform: rotate(9deg) translateX(110px) translateY(10px); }
   .card-5 { transform: rotate(18deg) translateX(210px) translateY(30px); }
-  nav.navbar { padding: var(--space-5) var(--space-6); }
+  nav.navbar { padding: var(--space-5) var(--container-gutter); }
   .nav-inner::before {
     left: calc(var(--space-2) * -1);
     right: calc(var(--space-2) * -1);
   }
-  nav.navbar.is-scrolled { padding: var(--space-2) var(--space-6); }
+  nav.navbar.is-scrolled { padding: var(--space-2) var(--container-gutter); }
+  nav.navbar.is-scrolled .nav-inner {
+    width: 100%;
+    max-width: 100%;
+  }
+  nav.navbar.is-scrolled .nav-cols {
+    justify-content: space-between;
+    width: 100%;
+    max-width: 100%;
+  }
   nav.navbar .nav-inner {
     width: 100%;
     max-width: 100%;
@@ -1567,8 +1642,62 @@ body:has(.featured-work-card:hover) .hero-bottom {
     width: 100%;
     max-width: 100%;
   }
-  .nav-col--links {
-    display: none;
+  .nav-menu-toggle {
+    display: inline-flex;
+  }
+  .nav-menu-drawer {
+    position: fixed;
+    inset: 0;
+    z-index: 99;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: none;
+    padding: calc(env(safe-area-inset-top, 0px) + var(--space-10) + var(--nav-bar-ctrl-h) + var(--space-5))
+      var(--container-gutter)
+      calc(env(safe-area-inset-bottom, 0px) + var(--space-8));
+    box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      opacity var(--dur-fast) var(--ease-standard),
+      visibility var(--dur-fast) var(--ease-standard);
+  }
+  .navbar.is-menu-open .nav-menu-drawer {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  .nav-menu-backdrop {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    font: inherit;
+    background: color-mix(in oklab, var(--color-bg) 88%, transparent);
+    cursor: pointer;
+  }
+  .nav-menu-drawer .nav-links {
+    position: relative;
+    z-index: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: var(--space-6);
+    width: 100%;
+    max-width: var(--grid-shell-width);
+    margin-inline: auto;
+  }
+  .nav-menu-drawer .nav-links a {
+    font-size: calc(var(--b3-font-size) + 4px);
+    padding-block: var(--space-2);
   }
 }
 
@@ -1744,14 +1873,31 @@ body:has(.featured-work-card:hover) .hero-bottom {
         </a>
       </div>
       <div class="nav-col nav-col--links">
-        <ul class="nav-links">
-          <li><a class="navbar-item1" href="/works">Work</a></li>
-          <li><a class="navbar-item2" href="#">About</a></li>
-          <li><a class="navbar-item3" href="#">Process</a></li>
-        </ul>
+        <div class="nav-menu-drawer" id="nav-menu-drawer">
+          <button type="button" class="nav-menu-backdrop" id="nav-menu-backdrop" aria-label="Menüyü kapat" tabindex="-1"></button>
+          <ul class="nav-links">
+            <li><a class="navbar-item1" href="/works">Work</a></li>
+            <li><a class="navbar-item2" href="#">About</a></li>
+            <li><a class="navbar-item3" href="#">Process</a></li>
+          </ul>
+        </div>
       </div>
       <div class="nav-col nav-col--cta">
         <div class="nav-actions">
+          <button
+            type="button"
+            id="nav-menu-toggle"
+            class="nav-menu-toggle"
+            aria-expanded="false"
+            aria-controls="nav-menu-drawer"
+            aria-label="Menüyü aç"
+          >
+            <span class="nav-menu-toggle__inner" aria-hidden="true">
+              <span class="nav-menu-toggle__bar"></span>
+              <span class="nav-menu-toggle__bar"></span>
+              <span class="nav-menu-toggle__bar"></span>
+            </span>
+          </button>
           <button
             type="button"
             id="theme-toggle"
@@ -2958,13 +3104,13 @@ body:has(.featured-work-card:hover) .hero-bottom {
   </div>
 
   <div class="featured-works" id="works" lang="en" aria-label="Featured works list">
-    <article class="featured-work-card" data-work-tags="brand-identity packaging social illustration">
-      <a class="featured-work-hit" href="#" aria-label="See project — Marker"></a>
+    <article class="featured-work-card" data-work-tags="packaging brand-identity">
+      <a class="featured-work-hit" href="#" aria-label="See project — marker"></a>
       <div class="featured-work-media featured-work-media-1" aria-hidden="true"></div>
       <div class="featured-work-meta">
         <h4 class="featured-work-title">marker</h4>
-        <p class="featured-work-desc">10% peptide serum stick için baştan kurgulanan marka kimliği: stick paketleme sistemi, retail launch görselleri ve feed-first sosyal içerikleri tek bir görsel dilde topladık.</p>
-        <p class="featured-work-category">brand identity · packaging · social</p>
+        <p class="featured-work-desc">MARKER is a modern skincare brand built around high-performance treatment sticks for active lifestyles, with bold aesthetics and photogenic packaging designed for portability, clarity, and color.</p>
+        <p class="featured-work-category">Ambalaj tasarımı</p>
       </div>
     </article>
 
@@ -3014,8 +3160,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
 <section class="projects-belief" lang="tr" aria-labelledby="projects-belief-heading">
   <div class="projects-belief-inner">
     <h3 id="projects-belief-heading" class="h3 projects-belief-line">Bazı markalar görülür. Bazıları paylaşılır.</h3>
-    <h3 class="h3 projects-belief-line">Her projede tek bir sorudan vazgeçmiyoruz; bu içerik paylaşmaya değer mi?</h3>
-    <h3 class="h3 projects-belief-line">Amacımız insanların aklında kalan işler üretmek. Vizyonumuz, tasarımın sadece güzel değil, yayılmak için var olduğunu kanıtlamak.</h3>
+    <h3 class="h3 projects-belief-line">Her projede tek bir sorudan vazgeçmiyoruz;<br>bu içerik paylaşmaya değer mi?</h3>
+    <h3 class="h3 projects-belief-line">Amacımız insanların aklında kalan işler üretmek.<br>Vizyonumuz, tasarımın sadece güzel değil, yayılmak için var olduğunu kanıtlamak.</h3>
   </div>
 </section>
 
@@ -3136,7 +3282,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: var(--section-pad-y) max(var(--section-pad-x), 100px);
+  padding: var(--section-pad-y) var(--section-pad-x);
   gap: var(--space-10);
   position: relative;
   z-index: 1;
@@ -3146,8 +3292,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
   padding-top: max(var(--space-7), calc(var(--section-pad-y) - var(--section-bridge-height)));
 }
 .scene-label {
-  width: 100%;
-  max-width: var(--grid-shell-max);
+  width: var(--grid-shell-width);
+  max-width: var(--grid-shell-width);
   margin-inline: auto;
   text-align: left;
   transition: filter .2s cubic-bezier(0.4,0,0.2,1), opacity .2s cubic-bezier(0.4,0,0.2,1);
@@ -3400,12 +3546,13 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 
 .featured-works {
-  width: 100%;
-  max-width: var(--grid-shell-max);
+  width: var(--grid-shell-width);
+  max-width: var(--grid-shell-width);
   margin-inline: auto;
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--panel-gap);
+  overflow: visible;
 }
 .featured-work-card {
   position: relative;
@@ -3416,6 +3563,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
+  overflow: visible;
   transition:
     background-color 0.8s ease,
     border-color 0.8s ease;
@@ -3444,7 +3592,11 @@ body:has(.featured-work-card:hover) .hero-bottom {
   z-index: 2;
 }
 .featured-work-media {
-  width: 100%;
+  /* Masaüstü: sütun içinde %20 yatay taşma; mobilde kabuk ile aynı kenar hizası */
+  width: 120%;
+  max-width: none;
+  margin-inline: -10%;
+  box-sizing: border-box;
   aspect-ratio: 16 / 12;
   border-radius: var(--space-sm);
   border: none;
@@ -3454,6 +3606,13 @@ body:has(.featured-work-card:hover) .hero-bottom {
   overflow: hidden;
   background-color: var(--color-surface);
   transition: background-color 0.8s ease;
+}
+@media (max-width: 699px) {
+  .featured-work-media {
+    width: 100%;
+    max-width: 100%;
+    margin-inline: 0;
+  }
 }
 /* Görsel pseudo elementte tutulur ki sadece o yavaşça zoom yapsın */
 .featured-work-media::before {
@@ -3912,7 +4071,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
 .hero-v2-anim-out { animation: hero-v2-slide-out 0.32s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
 
 @media (max-width: 700px) {
-  .hero-v2 { min-height: 100vh; padding: var(--section-pad-y) var(--space-4); }
+  .hero-v2 { min-height: 100vh; padding: var(--section-pad-y) var(--section-pad-x); }
   .hero-v2-inner { gap: var(--space-6); }
   /* Tam 2 satır: satır1 = We build + kelime (nowrap), satır2 = worth sharing. */
   .hero-v2-line1 { gap: var(--space-2); max-width: 100%; }
@@ -3928,13 +4087,14 @@ body:has(.featured-work-card:hover) .hero-bottom {
 /* ── Projects sonrası manifesto (TR) ── */
 .projects-belief {
   box-sizing: border-box;
-  padding: var(--space-12) max(var(--section-pad-x), 100px) var(--space-11);
+  /* Dikey/yatay: scene + footer ile aynı section ritmi */
+  padding: var(--section-pad-y) var(--section-pad-x);
   position: relative;
   z-index: 1;
 }
 .projects-belief-inner {
-  width: 100%;
-  max-width: var(--grid-shell-max);
+  width: var(--grid-shell-width);
+  max-width: var(--grid-shell-width);
   margin-inline: auto;
   display: flex;
   flex-direction: column;
@@ -3946,20 +4106,20 @@ body:has(.featured-work-card:hover) .hero-bottom {
   color: var(--frost);
   text-transform: none;
   font-weight: 400;
-  /* Satır aralığı: h3 tabanı ×1.21 ×1.15 ×1.25 (önceki değere göre %25 daha açık) */
-  line-height: calc(var(--h3-line-height) * 1.21 * 1.15 * 1.25);
+  /* Satır aralığı: h3 ×1.21 ×1.15 ×1.25 sonrası %15 sıkılaştırma (×0.85) */
+  line-height: calc(var(--h3-line-height) * 1.21 * 1.15 * 1.25 * 0.85);
   /* h3 harf aralığına göre %5 sıkı (negatif ls → biraz daha negatif) */
   letter-spacing: calc(var(--h3-letter-spacing) * 1.05);
 }
 
-/* ── Lets Talk: sarı band, beyaz tipografi, başlık + CTA kaydırmalı ── */
+/* ── Lets Talk: accent band, beyaz tipografi, başlık + CTA kaydırmalı ── */
 .lets-talk {
   box-sizing: border-box;
   width: 100%;
   max-width: none;
   margin-inline: 0;
-  /* Dar sarı şerit: section-pad-y kullanılmaz; içerik + makul dikey nefes */
-  padding: var(--space-6) 0 var(--space-8);
+  /* Üst/alt: kompakt band (section-pad-y bu blok için fazla genişti) */
+  padding: var(--space-8) 0 var(--space-9);
   background: var(--lets-talk-band-bg);
   display: flex;
   flex-direction: column;
@@ -3970,10 +4130,10 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 .lets-talk-shell {
   box-sizing: border-box;
-  width: 100%;
-  max-width: var(--grid-shell-max);
+  width: var(--grid-shell-width);
+  max-width: var(--grid-shell-width);
   margin-inline: auto;
-  padding-inline: max(var(--section-pad-x), 100px);
+  padding-inline: 0;
 }
 .lets-talk-eyebrow {
   margin: 0;
@@ -3983,8 +4143,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
   width: 100vw;
   margin-left: calc(50% - 50vw);
   overflow: hidden;
-  /* Descender alanı (g, y…) + yatay marquee kırpması */
-  padding-block: var(--space-5) var(--space-8);
+  /* Marquee satırı: descender + hafif nefes */
+  padding-block: var(--space-3) var(--space-4);
 }
 .lets-talk-marquee {
   overflow: hidden;
@@ -4032,9 +4192,9 @@ body:has(.featured-work-card:hover) .hero-bottom {
     justify-content: center;
     row-gap: var(--space-5);
     width: 100%;
-    max-width: var(--grid-shell-max);
+    max-width: var(--grid-shell-width);
     margin-inline: auto;
-    padding-inline: max(var(--section-pad-x), 100px);
+    padding-inline: var(--section-pad-x);
     box-sizing: border-box;
   }
   .lets-talk-marquee-group {
@@ -4756,6 +4916,72 @@ body:has(.featured-work-card:hover) .hero-bottom {
 
 <script>
 (function () {
+  var nav = document.getElementById('site-nav');
+  var toggle = document.getElementById('nav-menu-toggle');
+  var drawer = document.getElementById('nav-menu-drawer');
+  var backdrop = document.getElementById('nav-menu-backdrop');
+  if (!nav || !toggle || !drawer) return;
+
+  var mq = window.matchMedia('(max-width: 768px)');
+
+  function applyInert() {
+    if (mq.matches) {
+      if (nav.classList.contains('is-menu-open')) drawer.removeAttribute('inert');
+      else drawer.setAttribute('inert', '');
+    } else {
+      drawer.removeAttribute('inert');
+    }
+  }
+
+  function setOpen(open) {
+    if (!mq.matches) open = false;
+    nav.classList.toggle('is-menu-open', !!open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.setAttribute('aria-label', open ? 'Menüyü kapat' : 'Menüyü aç');
+    applyInert();
+    document.body.style.overflow = open && mq.matches ? 'hidden' : '';
+  }
+
+  function closeMenu() {
+    setOpen(false);
+  }
+
+  function toggleMenu() {
+    if (!mq.matches) return;
+    setOpen(!nav.classList.contains('is-menu-open'));
+  }
+
+  toggle.addEventListener('click', toggleMenu);
+
+  if (backdrop) {
+    backdrop.addEventListener('click', function () {
+      if (mq.matches) closeMenu();
+    });
+  }
+
+  drawer.querySelectorAll('.nav-links a').forEach(function (a) {
+    a.addEventListener('click', function () {
+      if (mq.matches) closeMenu();
+    });
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && mq.matches && nav.classList.contains('is-menu-open')) closeMenu();
+  });
+
+  function onMqChange() {
+    if (!mq.matches) closeMenu();
+    applyInert();
+  }
+  if (mq.addEventListener) mq.addEventListener('change', onMqChange);
+  else if (mq.addListener) mq.addListener(onMqChange);
+
+  applyInert();
+})();
+</script>
+
+<script>
+(function () {
   var bridge = document.getElementById('scroll-theme-bridge');
   var root = document.documentElement;
   if (!bridge) return;
@@ -4855,6 +5081,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
     if (!s) return '';
     if (/ui\s*\/?\s*ux/.test(s)) return 'ui-ux';
     if (/illustrat/.test(s)) return 'illustration';
+    if (/ambalaj/.test(s)) return 'packaging';
     if (/packag/.test(s)) return 'packaging';
     if (/editorial/.test(s)) return 'editorial';
     if (/\bidentity\b/.test(s) || /^brand\s+identity/.test(s)) return 'brand-identity';
