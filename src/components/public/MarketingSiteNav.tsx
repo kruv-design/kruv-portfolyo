@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useId, useState } from "react";
 import type { SiteSettings } from "@/types";
 import { ThemeToggle } from "./ThemeToggle";
 
@@ -11,7 +11,10 @@ import { ThemeToggle } from "./ThemeToggle";
  */
 export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const menuTitleId = useId();
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const sentinel = document.getElementById("marketing-nav-sentinel");
@@ -32,7 +35,38 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
     return () => obs.disconnect();
   }, []);
 
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (ev: KeyboardEvent) => {
+      if (ev.key === "Escape") setMobileMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [mobileMenuOpen]);
+
   const brandLabel = (settings.siteAdi || "kruv.").replace(/\.$/, "").toLowerCase() || "kruv";
+
+  function closeMobileMenu() {
+    setMobileMenuOpen(false);
+  }
+
+  function onMobileSearch(ev: React.FormEvent<HTMLFormElement>) {
+    ev.preventDefault();
+    const fd = new FormData(ev.currentTarget);
+    const q = String(fd.get("q") ?? "").trim();
+    closeMobileMenu();
+    if (q) router.push(`/works?q=${encodeURIComponent(q)}`);
+    else router.push("/works");
+  }
 
   return (
     <>
@@ -80,11 +114,98 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
                 <Link href="/works#contact" className="marketing-navbar-cta">
                   Start a project
                 </Link>
+                <button
+                  type="button"
+                  className="marketing-navbar-menu-btn"
+                  aria-expanded={mobileMenuOpen}
+                  aria-controls="marketing-mobile-menu"
+                  aria-haspopup="dialog"
+                  onClick={() => setMobileMenuOpen(true)}
+                >
+                  <span className="sr-only">Open menu</span>
+                  <span className="marketing-navbar-menu-btn__bars" aria-hidden="true">
+                    <span />
+                    <span />
+                    <span />
+                  </span>
+                </button>
               </div>
             </div>
           </div>
         </div>
       </nav>
+
+      {mobileMenuOpen ? (
+        <div
+          id="marketing-mobile-menu"
+          className="marketing-nav-mobile-overlay"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={menuTitleId}
+        >
+          <div className="marketing-nav-mobile-overlay__top">
+            <button
+              type="button"
+              className="marketing-nav-mobile-close"
+              aria-label="Close menu"
+              onClick={closeMobileMenu}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                aria-hidden="true"
+              >
+                <path d="M18 6 6 18" />
+                <path d="m6 6 12 12" />
+              </svg>
+            </button>
+          </div>
+
+          <h2 id={menuTitleId} className="sr-only">
+            Menu
+          </h2>
+
+          <form className="marketing-nav-mobile-search" role="search" onSubmit={onMobileSearch}>
+            <label htmlFor="marketing-nav-mobile-q" className="sr-only">
+              Search
+            </label>
+            <input
+              id="marketing-nav-mobile-q"
+              name="q"
+              type="search"
+              placeholder="Search"
+              autoComplete="off"
+              enterKeyHint="search"
+            />
+          </form>
+
+          <nav aria-label="Mobile">
+            <ul className="marketing-nav-mobile-links">
+              <li>
+                <Link href="/works" onClick={closeMobileMenu}>
+                  Projects
+                </Link>
+              </li>
+              <li>
+                <Link href="/works#about" onClick={closeMobileMenu}>
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link href="/works#contact" onClick={closeMobileMenu}>
+                  Contact
+                </Link>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      ) : null}
     </>
   );
 }

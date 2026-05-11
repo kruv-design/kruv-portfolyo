@@ -201,7 +201,8 @@
     var(--grid-shell-max),
     130vh
   );
-  --panel-gap:        var(--space-3);
+  /* Works / portfolio kart ızgarası — kartlar arası nefes */
+  --panel-gap:        var(--space-9);
   --nav-compact-dur:  570ms;
   --nav-compact-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --nav-col-gap-scrolled: 16px;
@@ -236,6 +237,8 @@
     2 * var(--btn-pad-y) + var(--btn-font-size) + 2 * var(--btn-border-width)
   );
   --nav-logo-slot-w: 80px;
+  /* Mobil: daha küçük wordmark (satır yüksekliği --nav-bar-ctrl-h ile hâlâ hizalı) */
+  --nav-logo-slot-w-mobile: 48px;
   --nav-logo-slot-h: var(--nav-bar-ctrl-h);
   --works-body-pad-top: calc(var(--space-6) + var(--nav-logo-slot-h) + var(--space-6));
 }
@@ -710,6 +713,7 @@ body {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  box-sizing: border-box;
   width: var(--nav-bar-ctrl-h);
   height: var(--nav-bar-ctrl-h);
   padding: 0;
@@ -726,15 +730,18 @@ body {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  box-sizing: border-box;
+  height: var(--nav-bar-ctrl-h);
   min-height: var(--nav-bar-ctrl-h);
+  max-height: var(--nav-bar-ctrl-h);
   gap: var(--btn-gap);
   font-family: var(--btn-font-family);
   font-size: var(--btn-font-size);
   font-weight: var(--btn-font-weight);
-  line-height: var(--btn-line-height);
+  line-height: 1;
   letter-spacing: var(--btn-letter-spacing);
   text-transform: var(--btn-text-transform);
-  padding: var(--btn-pad-y) var(--btn-pad-x);
+  padding: 0 var(--btn-pad-x);
   background: transparent;
   border: var(--btn-border-width) solid var(--accent);
   color: var(--accent);
@@ -750,6 +757,211 @@ body {
   background: var(--accent);
   color: var(--white-fixed);
   border-color: var(--accent);
+}
+
+/* Mobil hamburger — masaüstünde gizli */
+.marketing-navbar-menu-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: var(--nav-bar-ctrl-h);
+  height: var(--nav-bar-ctrl-h);
+  padding: 0;
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition:
+    color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    background var(--dur-fast) var(--ease);
+}
+
+.marketing-navbar-menu-btn:hover {
+  color: var(--ink);
+  border-color: var(--border-md);
+}
+
+.marketing-navbar-menu-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.marketing-navbar-menu-btn__bars {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 18px;
+}
+
+.marketing-navbar-menu-btn__bars span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  border-radius: 1px;
+  background: currentColor;
+}
+
+/* Tam ekran mobil menü — istenen beyaz panel */
+.marketing-nav-mobile-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-6) var(--container-gutter);
+  padding-top: calc(var(--space-6) + env(safe-area-inset-top, 0px));
+  background: var(--white-fixed);
+  color: var(--black-fixed);
+  overflow: auto;
+  animation: marketing-nav-overlay-in 0.22s var(--ease) both;
+}
+
+@keyframes marketing-nav-overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.marketing-nav-mobile-overlay__top {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: var(--space-8);
+}
+
+.marketing-nav-mobile-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-10);
+  height: var(--space-10);
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-xs);
+  background: transparent;
+  color: var(--black-fixed);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease);
+}
+
+.marketing-nav-mobile-close:hover {
+  background: color-mix(in srgb, var(--black-fixed) 6%, transparent);
+}
+
+.marketing-nav-mobile-close:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.marketing-nav-mobile-search {
+  margin-bottom: var(--space-10);
+}
+
+.marketing-nav-mobile-search input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--space-3) 0;
+  border: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--black-fixed) 18%, transparent);
+  border-radius: 0;
+  background: transparent;
+  color: var(--black-fixed);
+  font-family: var(--font-display);
+  font-size: var(--type-b1);
+  font-weight: 500;
+}
+
+.marketing-nav-mobile-search input::placeholder {
+  color: color-mix(in srgb, var(--black-fixed) 45%, transparent);
+}
+
+.marketing-nav-mobile-search input:focus {
+  outline: none;
+  border-bottom-color: var(--accent);
+}
+
+.marketing-nav-mobile-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.marketing-nav-mobile-links a {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 6vw, 2rem);
+  font-weight: 600;
+  letter-spacing: var(--ls-xl);
+  text-transform: lowercase;
+  color: var(--black-fixed);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.marketing-nav-mobile-links a:hover,
+.marketing-nav-mobile-links a:focus-visible {
+  color: var(--accent);
+}
+
+@media (max-width: 699px) {
+  .marketing-navbar-actions {
+    gap: var(--space-2);
+  }
+
+  .marketing-navbar-col--links {
+    display: none;
+  }
+
+  .marketing-navbar-menu-btn {
+    display: inline-flex;
+  }
+
+  .marketing-navbar-logo,
+  .marketing-navbar-logo-stack {
+    width: var(--nav-logo-slot-w-mobile);
+  }
+
+  .marketing-navbar-logo {
+    overflow: hidden;
+  }
+
+  /* Scroll’da “pill” masaüstü daraltmasını mobilde kapat — logo + aksiyonlar tek satır */
+  .marketing-navbar.is-scrolled .marketing-navbar-inner {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .marketing-navbar.is-scrolled .marketing-navbar-cols {
+    justify-content: space-between;
+    width: 100%;
+    max-width: 100%;
+    gap: var(--space-2);
+  }
+
+  /* Çift hatlı CTA taşmasını önle; kutu yüksekliği sabit kalır */
+  .marketing-navbar-cta {
+    padding-inline: var(--space-4);
+    white-space: nowrap;
+    font-size: calc(var(--type-b2) - 1px);
+  }
+
+  /* Frosted pill bazen köşede artefakt — mobilde sade yüzey */
+  .marketing-navbar-inner::before {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: color-mix(in srgb, var(--surface) 92%, transparent);
+  }
 }
 
 /* Works içi shell — grid-shell genişliği */

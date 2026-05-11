@@ -2172,7 +2172,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
 
 .ideal-clients-wrap {
   border: 1px solid var(--ideal-clients-border);
-  overflow: hidden;
+  /* Kenarlıkların alt uçta kırpılmaması için */
+  overflow: visible;
 }
 .ideal-clients-grid {
   display: grid;
@@ -2221,10 +2222,30 @@ body:has(.featured-work-card:hover) .hero-bottom {
   .ideal-logo-cell:nth-child(n+4) { border-top: 1px solid var(--ideal-clients-divider); }
 }
 @media (max-width: 600px) {
-  .ideal-clients-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .ideal-logo-cell { border-left: 1px solid var(--ideal-clients-divider); border-top: none; }
-  .ideal-logo-cell:nth-child(2n+1) { border-left: none; }
-  .ideal-logo-cell:nth-child(n+3) { border-top: 1px solid var(--ideal-clients-divider); }
+  .ideal-clients-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    position: relative;
+  }
+  /* Ortadaki dikey ayırıcı — iki satırda kesintisiz tam yükseklik */
+  .ideal-clients-grid::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    transform: translateX(-50%);
+    background: var(--ideal-clients-divider);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .ideal-logo-cell {
+    border-left: none;
+    border-top: none;
+  }
+  .ideal-logo-cell:nth-child(n + 3) {
+    border-top: 1px solid var(--ideal-clients-divider);
+  }
 }
 
 /* ── TESTIMONIALS ── */
@@ -2954,7 +2975,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   <p class="lets-talk-eyebrow b3">Let's talk</p>
   <div class="lets-talk-head-row">
     <h2 id="lets-talk-heading" class="lets-talk-heading h2">
-      Got a brand <em>worth building?</em>
+      <span class="lets-talk-heading-line1">Got a brand</span><span class="lets-talk-heading-line2"><em>worth building?</em></span>
     </h2>
     <a class="cta-ghost lets-talk-cta" href="mailto:hello@kruv.studio">Start a project</a>
   </div>
@@ -3875,6 +3896,9 @@ body:has(.featured-work-card:hover) .hero-bottom {
 .lets-talk-cta {
   flex-shrink: 0;
 }
+.lets-talk-heading-line1::after {
+  content: "\00a0";
+}
 .lets-talk-heading em {
   font-style: italic;
   color: var(--purple);
@@ -3889,6 +3913,9 @@ body:has(.featured-work-card:hover) .hero-bottom {
   padding: 0;
   margin: 0;
   width: 100%;
+}
+.lets-talk-contacts > li {
+  min-width: 0;
 }
 .lets-talk-contact {
   font-family: var(--b2-font-family);
@@ -3954,11 +3981,32 @@ body:has(.featured-work-card:hover) .hero-bottom {
     gap: var(--space-5);
   }
   .lets-talk-heading {
+    white-space: normal;
     font-size: clamp(17px, 4.9vw, 36px);
   }
+  .lets-talk-heading-line1::after {
+    content: none;
+  }
+  .lets-talk-heading-line2 {
+    display: block;
+    margin-top: var(--space-1);
+  }
   .lets-talk-cta { align-self: flex-end; }
-  .lets-talk-contacts { gap: var(--space-6); }
+  .lets-talk-contacts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-8);
+    row-gap: var(--space-6);
+    align-items: start;
+    justify-items: start;
+  }
+  .lets-talk-contacts li[aria-hidden="true"] {
+    display: none;
+  }
   .lets-talk-divider { display: none; }
+  .lets-talk-contact {
+    overflow-wrap: anywhere;
+  }
 }
 </style>
 
