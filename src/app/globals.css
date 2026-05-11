@@ -133,7 +133,7 @@
   --h2-font-family: var(--font-display);
   --h2-font-size: var(--type-h2);
   --h2-font-weight: 700;
-  --h2-line-height: var(--lh-tight);
+  --h2-line-height: calc(var(--lh-tight) * 1.5);
   --h2-letter-spacing: var(--ls-display);
   --h2-text-transform: lowercase;
 
@@ -198,7 +198,7 @@
 
   /* Section / gutter scale */
   --container-gutter: clamp(16px, 5vw, 52px);
-  --section-pad-y:    clamp(72px, 10vw, 100px);
+  --section-pad-y:    clamp(36px, 5vw, 50px);
   /* Üst sınır: geniş ekranlarda içerik ve kartlar viewport'u aşmasın.
      130vh cap → yatay kısa ekranlarda da büyük kartlar viewport yüksekliğini geçmez. */
   --grid-shell-max:   1440px;

@@ -160,7 +160,7 @@
   --h2-font-family: var(--font-display);
   --h2-font-size: var(--type-h2);
   --h2-font-weight: 700;
-  --h2-line-height: var(--lh-tight);
+  --h2-line-height: calc(var(--lh-tight) * 1.5);
   --h2-letter-spacing: var(--ls-display);
   --h2-text-transform: lowercase;
 
@@ -263,10 +263,10 @@
     var(--grid-shell-max),
     130vh
   );
-  --section-pad-y: clamp(120px, 16vw, 176px);
+  --section-pad-y: clamp(60px, 8vw, 88px);
   --section-pad-x: var(--container-gutter);
   /* Tema geçişi (scroll-t); görsel boşluk ideal → Projects arasında birikmesin */
-  --section-bridge-height: clamp(64px, 9vh, 140px);
+  --section-bridge-height: clamp(32px, 4.5vh, 70px);
   /* Journey: dış blok yüksekliği (yalnızca space token’ları; içerik taşarsa liste içinde kayar) */
   --focus-journey-viewport-h: calc(var(--space-12) * 14 + var(--space-9) * 5);
   --focus-journey-viewport-h-mobile: calc(var(--space-12) * 10 + var(--space-9) * 4);
@@ -830,14 +830,14 @@ nav.navbar.is-scrolled .navbar-item3 {
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* Mobil menü açıkken: kontrol butonları + CTA gri skalada ~2 basamak daha belirgin */
+/* Mobil menü açıkken: kontrol butonları + CTA gri skalada ~2 basamak daha belirgin; çarpı bir ton daha belirgin */
 @media (max-width: 768px) {
   .navbar.is-menu-open .nav-menu-toggle {
-    border-color: var(--gray-300);
-    color: var(--gray-900);
+    border-color: var(--gray-400);
+    color: var(--gray-1000);
   }
   .navbar.is-menu-open .nav-menu-toggle:hover {
-    border-color: var(--gray-400);
+    border-color: var(--gray-500);
     color: var(--gray-1000);
   }
   .navbar.is-menu-open .nav-theme-toggle--drawer {
@@ -1466,22 +1466,35 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 .loc-sep { color: var(--shadow); }
 
-/* TICKER */
+/* TICKER — tam viewport genişliği; taşan track kırpılır (iç scroll / garip kayma yok).
+   overflow-y: visible + hidden x bazı motorlarda scrollport üretir; touch-action ile sayfa dikey kayar. */
 .ticker {
   border-top: var(--border-soft);
-  overflow-x: hidden;
-  overflow-y: visible;
   box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: hidden;
+  overflow-x: clip;
+  overflow-y: hidden;
   height: var(--ticker-height);
   padding-block: var(--ticker-pad-y);
   display: flex;
   align-items: center;
   background: transparent;
-  position: relative; z-index: 2;
+  position: relative;
+  z-index: 2;
+  touch-action: pan-y pinch-zoom;
+  overscroll-behavior-x: none;
   transition: filter var(--dur-slow) var(--ease-standard), opacity var(--dur-slow) var(--ease-standard);
 }
 .ticker-track {
-  display: flex; white-space: nowrap;
+  display: flex;
+  flex: 0 0 auto;
+  width: max-content;
+  max-width: none;
+  white-space: nowrap;
+  touch-action: pan-y pinch-zoom;
   animation: tickerRoll 32s linear infinite;
 }
 .ticker-item {
@@ -1743,6 +1756,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
+    /* Tam opak katman: arkadaki sayfa hiç görünmesin */
+    background: var(--color-bg);
   }
   .nav-menu-backdrop {
     display: block;
@@ -1755,7 +1770,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
     appearance: none;
     -webkit-appearance: none;
     font: inherit;
-    background: color-mix(in oklab, var(--color-bg) 88%, transparent);
+    background: var(--color-bg);
     cursor: pointer;
   }
   .nav-menu-drawer .nav-links {
@@ -1774,8 +1789,10 @@ body:has(.featured-work-card:hover) .hero-bottom {
     max-width: none;
     margin-inline: 0;
   }
-  /* Çekmece linkleri: b1 (b2’den bir kademe büyük); is-scrolled b2 küçültmesini ezmek için nav öne alınır */
-  nav.navbar .nav-menu-drawer .nav-links a {
+  /* Çekmece linkleri: tam b1; navbar-item + is-scrolled b2 kurallarını ezmek için sınıf dahil */
+  nav.navbar .nav-menu-drawer .nav-links a.navbar-item1,
+  nav.navbar .nav-menu-drawer .nav-links a.navbar-item2,
+  nav.navbar .nav-menu-drawer .nav-links a.navbar-item3 {
     font-family: var(--b1-font-family);
     font-size: var(--b1-font-size);
     font-weight: var(--b1-font-weight);
@@ -1793,16 +1810,21 @@ body:has(.featured-work-card:hover) .hero-bottom {
   .nav-theme-toggle--dock {
     display: none !important;
   }
+  /* Çekmecedeki tema: üst şeritte, X (menü kapat) ile aynı hizada — navbar (z100) altında kalmaması için 101 */
   .nav-theme-toggle--drawer {
     display: inline-flex;
-    position: relative;
-    z-index: 1;
-    grid-column: 3 / 11;
-    grid-row: 11 / 14;
-    align-self: start;
-    justify-self: start;
-    margin-top: 0;
-    margin-inline: 0;
+    position: fixed;
+    z-index: 101;
+    top: calc(env(safe-area-inset-top, 0px) + var(--space-5));
+    right: calc(var(--section-pad-x) + var(--nav-bar-ctrl-h) + var(--space-2));
+    margin: 0;
+    align-self: auto;
+    justify-self: auto;
+    bottom: auto;
+    left: auto;
+  }
+  nav.navbar.is-scrolled.is-menu-open .nav-theme-toggle--drawer {
+    top: calc(env(safe-area-inset-top, 0px) + var(--space-2));
   }
 }
 
@@ -3432,6 +3454,10 @@ body:has(.featured-work-card:hover) .hero-bottom {
   .ideal-section {
     border-bottom: none;
   }
+  .ideal-section .ideal-logo {
+    width: calc(48% * 1.1);
+    height: calc(25% * 1.1);
+  }
   .scroll-theme-bridge {
     height: 0;
   }
@@ -3700,7 +3726,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   margin-inline: auto;
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--panel-gap);
+  gap: calc(var(--panel-gap) * 2);
   overflow: visible;
 }
 .featured-work-card {
@@ -3786,6 +3812,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
 .featured-work-media-3::before { background-image: url("assets/featured-3.png"); }
 .featured-work-media-4::before { background-image: url("assets/featured-4.png"); }
 .featured-work-media-5::before { background-image: url("assets/featured-5.png"); }
+
+@media (max-width: 768px) {
+  .featured-work-media {
+    aspect-ratio: 2 / 1.1;
+  }
+}
 
 /* Hover edilen kart → görseli yavaş büyür */
 .featured-work-card:hover .featured-work-media::before {
@@ -3879,7 +3911,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
 @media (min-width: 900px) {
   .featured-works {
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: var(--panel-gap);
+    gap: calc(var(--panel-gap) * 2);
     align-items: start;
   }
   .featured-work-card:nth-child(1) {
@@ -4207,33 +4239,23 @@ body:has(.featured-work-card:hover) .hero-bottom {
 @media (max-width: 700px) {
   .hero-v2 { min-height: 100vh; padding: var(--section-pad-y) var(--section-pad-x); }
   .hero-v2-inner { gap: var(--space-6); }
-  /* Mobil: üç satır — We build / dönen kelime / worth sharing. */
-  .hero-v2-headline {
-    gap: var(--space-2);
-  }
-  .hero-v2-line1 {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
-    max-width: 100%;
-  }
+  /* Mobil: iki satır — (We build + kelime) / worth sharing.; tipografi h2 token */
   .hero-v2-static,
   .hero-v2-word {
-    font-family: var(--h1-font-family);
-    font-size: var(--h1-font-size);
-    font-weight: var(--h1-font-weight);
-    line-height: var(--h1-line-height);
-    letter-spacing: var(--h1-letter-spacing);
+    font-family: var(--h2-font-family);
+    font-size: var(--h2-font-size);
+    font-weight: var(--h2-font-weight);
+    line-height: var(--h2-line-height);
+    letter-spacing: var(--h2-letter-spacing);
     text-transform: none;
   }
   .hero-v2-suffix {
-    font-family: var(--h1-font-family);
-    font-size: var(--h1-font-size);
-    font-weight: var(--h1-font-weight);
+    font-family: var(--h2-font-family);
+    font-size: var(--h2-font-size);
+    font-weight: 400;
     font-style: italic;
-    line-height: var(--h1-line-height);
-    letter-spacing: var(--h1-letter-spacing);
+    line-height: var(--h2-line-height);
+    letter-spacing: var(--h2-letter-spacing);
     text-transform: none;
   }
 }
@@ -4318,7 +4340,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   width: max-content;
   align-items: center;
   gap: 0;
-  animation: lets-talk-marquee-x calc(32s / 1.25 / 1.1) linear infinite;
+  animation: lets-talk-marquee-x calc(32s / 1.25 / 1.1 / 1.25) linear infinite;
 }
 .lets-talk-marquee-group {
   display: inline-flex;
