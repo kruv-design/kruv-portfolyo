@@ -324,7 +324,7 @@
   --card-radius: var(--radius-lg);
 
   --panel-radius: var(--radius-md);
-  --panel-gap: var(--space-3);
+  --panel-gap: var(--space-6);
   --panel-pad: var(--space-3);
   --panel-pad-lg: calc(var(--panel-pad) + var(--space-0));
 
@@ -1353,7 +1353,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   padding-block: var(--ticker-pad-y);
   display: flex;
   align-items: center;
-  background: rgba(93,93,255,0.02);
+  background: transparent;
   position: relative; z-index: 2;
   transition: filter var(--dur-slow) var(--ease-standard), opacity var(--dur-slow) var(--ease-standard);
 }
@@ -2225,9 +2225,16 @@ body:has(.featured-work-card:hover) .hero-bottom {
 
 @media (max-width: 980px) {
   .ideal-clients-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  /* Her satırın ilk hücresinin sol border'ı sıfır, 2. satır+ üst border alır */
+  .ideal-logo-cell { border-left: 1px solid var(--ideal-clients-divider); }
+  .ideal-logo-cell:nth-child(3n+1) { border-left: none; }
+  .ideal-logo-cell:nth-child(n+4) { border-top: 1px solid var(--ideal-clients-divider); }
 }
 @media (max-width: 600px) {
   .ideal-clients-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ideal-logo-cell { border-left: 1px solid var(--ideal-clients-divider); border-top: none; }
+  .ideal-logo-cell:nth-child(2n+1) { border-left: none; }
+  .ideal-logo-cell:nth-child(n+3) { border-top: 1px solid var(--ideal-clients-divider); }
 }
 
 /* ── TESTIMONIALS ── */
@@ -2901,12 +2908,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
 
   <div class="featured-works" lang="en" aria-label="Featured works list">
     <article class="featured-work-card">
-      <a class="featured-work-hit" href="#" aria-label="See project — Marker Packaging System"></a>
+      <a class="featured-work-hit" href="#" aria-label="See project — Marker"></a>
       <div class="featured-work-media featured-work-media-1" aria-hidden="true"></div>
       <div class="featured-work-meta">
-        <h4 class="featured-work-title">Marker Packaging System</h4>
-        <p class="featured-work-desc">Packaging and feed-first social visuals as one coherent system.</p>
-        <p class="featured-work-category">Brand Identity · Social</p>
+        <h4 class="featured-work-title">marker</h4>
+        <p class="featured-work-desc">10% peptide serum stick için baştan kurgulanan marka kimliği: stick paketleme sistemi, retail launch görselleri ve feed-first sosyal içerikleri tek bir görsel dilde topladık.</p>
+        <p class="featured-work-category">brand identity · packaging · social</p>
       </div>
     </article>
 
@@ -3500,7 +3507,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
 @media (min-width: 700px) {
   .featured-works {
     grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: var(--space-md);
+    gap: var(--space-7);
     align-items: start;
   }
   .featured-work-card:nth-child(1) { grid-column: 1 / span 4; }
@@ -3810,7 +3817,14 @@ body:has(.featured-work-card:hover) .hero-bottom {
 @media (max-width: 700px) {
   .hero-v2 { min-height: 100vh; padding: var(--section-pad-y) var(--space-4); }
   .hero-v2-inner { gap: var(--space-6); }
-  .hero-v2-row { flex-direction: column; gap: 0; align-items: center; }
+  /* 2 satır: "We build" + "[brands] worth sharing." — row layout korunur, dar
+     ekranlarda font biraz küçülerek tek satıra sığar */
+  .hero-v2-row { flex-direction: row; flex-wrap: wrap; gap: var(--space-2); justify-content: center; }
+  .hero-v2-static,
+  .hero-v2-word,
+  .hero-v2-suffix {
+    font-size: clamp(28px, 9vw, 44px);
+  }
 }
 
 /* ── Lets Talk: footer öncesi büyük CTA bloğu ── */
@@ -3818,7 +3832,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
   width: var(--grid-shell-width);
   max-width: var(--grid-shell-width);
   margin-inline: auto;
-  padding-block: var(--section-pad-y);
+  padding-top: var(--space-12);
+  padding-bottom: var(--section-pad-y);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
