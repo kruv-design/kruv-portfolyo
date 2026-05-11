@@ -32,7 +32,7 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
     return () => obs.disconnect();
   }, []);
 
-  const wordmark = (settings.siteAdi || "kruv.").split(".")[0]?.toUpperCase() || "KRUV";
+  const brandLabel = (settings.siteAdi || "kruv.").replace(/\.$/, "").toLowerCase() || "kruv";
 
   return (
     <>
@@ -45,11 +45,9 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
         <div className="marketing-navbar-inner">
           <div className="marketing-navbar-cols">
             <div className="marketing-navbar-col marketing-navbar-col--brand">
-              <Link href="/" className="marketing-navbar-logo brand" aria-label={`Home — ${wordmark}`}>
+              <Link href="/" className="marketing-navbar-logo brand" aria-label={`Home — ${brandLabel}`}>
                 <span className="marketing-navbar-logo-stack">
-                  <span className="marketing-navbar-wordmark" aria-hidden="true">
-                    {wordmark}
-                  </span>
+                  <span className="marketing-navbar-logo-mark" aria-hidden="true" />
                 </span>
               </Link>
             </div>
