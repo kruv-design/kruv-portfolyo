@@ -81,7 +81,15 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
             <div className="marketing-navbar-col marketing-navbar-col--brand">
               <Link href="/" className="marketing-navbar-logo brand" aria-label={`Home — ${brandLabel}`}>
                 <span className="marketing-navbar-logo-stack">
-                  <span className="marketing-navbar-logo-mark" aria-hidden="true" />
+                  <span className="marketing-navbar-logo-wordmark" aria-hidden="true" />
+                  <img
+                    className="marketing-navbar-logo-emblem"
+                    src="/assets/kruv-nav-emblem.svg"
+                    width={80}
+                    height={97}
+                    alt=""
+                    decoding="async"
+                  />
                 </span>
               </Link>
             </div>

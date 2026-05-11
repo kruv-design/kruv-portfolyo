@@ -7,7 +7,7 @@ type Entry = {
   Icon: () => ReactElement;
 };
 
-/** Mor (#5D5DFF) squircle + siyah önplan — statik footer ile aynı dil */
+/** Aksan (#E87A00) squircle + siyah önplan — statik footer ile aynı dil */
 function IconLinkedIn() {
   return (
     <svg

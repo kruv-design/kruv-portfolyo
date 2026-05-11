@@ -31,8 +31,13 @@
   color-scheme: light dark;
 
   /* ===== Foundation: colors (gri ekseni: --gray-pure-dark ↔ --gray-1000) ===== */
-  --color-accent: #5D5DFF;
-  --color-accent-soft: rgba(93,93,255,0.22);
+  --color-accent: #e87a00;
+  --color-accent-hover: #c96900;
+  /* Aksanın tüm yoğunlukları tek kaynaktan — hex/rgba tekrarı yok */
+  --color-accent-soft: color-mix(in srgb, var(--color-accent) 22%, transparent);
+  --color-accent-overlay-15: color-mix(in srgb, var(--color-accent) 15%, transparent);
+  --color-accent-overlay-28: color-mix(in srgb, var(--color-accent) 28%, transparent);
+  --hero-cylinder-accent-glow: 0 0 80px color-mix(in srgb, var(--color-accent) 50%, transparent);
 
   /* Theme-invariant anchors (sahne geçişi ve sabit beyaz/siyah ihtiyaçları için). */
   --white-fixed: #ffffff;
@@ -41,8 +46,14 @@
   /* Theme-invariant translucent beyaz/siyah — fotoğraf üstü yazılar ve photo-scrim'ler.
      Hem dark hem light modda aynı kalır (fotoğraf zemini tema bağımsız). */
   --on-photo-ink:        var(--white-fixed);
-  --on-photo-ink-muted:  rgba(255, 255, 255, 0.55);
-  --on-photo-shadow:     rgba(0, 0, 0, 0.70);
+  --on-photo-ink-muted:  color-mix(in srgb, var(--white-fixed) 55%, transparent);
+  --on-photo-shadow:     color-mix(in srgb, var(--black-fixed) 70%, transparent);
+  /* Featured kart — hover’da diğer kartlarda %15 kararma (siyah, foto zemini tema-bağımsız) */
+  --photo-card-overlay-dim: color-mix(in srgb, var(--black-fixed) 15%, transparent);
+
+  /* Let's talk band — aksan turuncu (--color-accent) ile tek kromatik kaynak */
+  --lets-talk-band-bg: var(--color-accent);
+  --lets-talk-band-ink: var(--white-fixed);
 
   /* Theme-aware foundations.
      Dark default: base = siyah, anti = beyaz, tint = 255,255,255 (saydam grilerde beyaz alfa).
@@ -266,6 +277,8 @@
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-pill: 20px;
+  /* Butonlar — tam oval uçlar (kapsül); yükseklik ne olursa olsun yuvarlak kalır */
+  --radius-btn-pill: 9999px;
   --border-soft: 1px solid var(--color-border-soft);
   --border-w-1: 1px;
   --size-line-fine: 0.5px;
@@ -290,7 +303,7 @@
   --btn-text-transform: lowercase;
   --btn-pad-y: 14px;
   --btn-pad-x: 28px;
-  --btn-radius: var(--radius-xs);
+  --btn-radius: var(--radius-btn-pill);
   --btn-border-width: 1px;
   --btn-gap: var(--space-2);
   /* Navbar kontrolleri (logo yuvası yüksekliği, tema kutusu, CTA) — scroll’da küçülmez */
@@ -301,8 +314,8 @@
   /* ===== Component: ticker ===== */
 
   /*
-    Ticker el SVG’leri geniş viewBox içinde küçük çizili; sadece height büyütünce “büyümedi” hissi oluşuyor.
-    Orijinal piksel oranı 64×34; %50 büyütme = scale 1.5 + slot’ta overflow ile merkez kırpma.
+    Ticker el SVG’leri farklı viewBox genişliklerinde (ör. asset-1 çok yatay).
+    Sabit height + scale bazılarını taşırıyordu; hepsi aynı slotta object-fit: contain ile eşitlenir.
   */
   --ticker-hand-art-h: 68px;
   --ticker-hand-art-zoom: 1.5;
@@ -401,15 +414,16 @@
   --silver:   var(--color-text-muted);
   --frost:    var(--color-text);
   --purple:   var(--color-accent);
+  --accent-hover: var(--color-accent-hover);
   --pb:       var(--color-accent-soft);
   --bd:       var(--color-border-soft);
   --fd:       var(--font-display);
   --fb:       var(--font-body);
   --fm:       var(--font-mono);
 
-  /* Projects: scroll ile koyu → açık (JS --kruv-scene-theme-t, 0–1)
+  /* Projects: scroll ile koyu → açık (JS --kruv-scene-theme-t, 0–1); karanlık modda CSS ile t=0 kilitlenir.
      Ara tonlarda mor/magenta sapmasını önlemek için oklab (sRGB lineer karışım değil).
-     NOT: Tema geçişi (dark↔light) bu tokenları etkilememeli; bu yüzden --black-fixed/--white-fixed sabit çapaları kullanılır. */
+     Karışım çapaları --black-fixed/--white-fixed (tema bağımsız tonlar). */
   --kruv-scene-theme-t: 0;
   --scene-surface-light: color-mix(in oklab, var(--black-fixed) 3.5%, var(--white-fixed) 96.5%);
   --scene-ink-primary-on-light: color-mix(in oklab, var(--black-fixed) 8%, var(--white-fixed) 92%);
@@ -426,8 +440,6 @@
    LIGHT THEME — açık tema override.
    Sadece foundation tokenları (base/anti/tint) flip edilir;
    semantic tokenlar color-mix ile otomatik yeniden hesaplanır.
-   Scene-theme-t sahne geçişi --black-fixed/--white-fixed üzerinden
-   çalıştığı için tema değişiminden etkilenmez.
    ───────────────────────────────────────────────────────── */
 [data-theme="light"] {
   color-scheme: light;
@@ -435,7 +447,7 @@
   --gray-anti: var(--black-fixed);
   --gray-tint-rgb: 0, 0, 0;
   /* Açık zeminde aksan tonu daha hafif olsun (kontrast). */
-  --color-accent-soft: rgba(93, 93, 255, 0.14);
+  --color-accent-soft: color-mix(in srgb, var(--color-accent) 14%, transparent);
 }
 
 @media (prefers-color-scheme: light) {
@@ -444,7 +456,17 @@
     --gray-base: var(--white-fixed);
     --gray-anti: var(--black-fixed);
     --gray-tint-rgb: 0, 0, 0;
-    --color-accent-soft: rgba(93, 93, 255, 0.14);
+    --color-accent-soft: color-mix(in srgb, var(--color-accent) 14%, transparent);
+  }
+}
+
+/* Karanlık modda Projects zemini scroll ile açık tona çıkmasın (köprü JS’inin inline t’sini bastırır). */
+[data-theme="dark"] {
+  --kruv-scene-theme-t: 0 !important;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --kruv-scene-theme-t: 0 !important;
   }
 }
 
@@ -649,13 +671,14 @@ nav.navbar.is-scrolled {
   width: var(--nav-logo-slot-w);
   height: var(--nav-logo-slot-h);
 }
-/* Logo: kurumsal wordmark SVG (Asset 3) — renk token ile tema uyumu */
-.nav-logo-mark {
+/* State 1 (üst): wordmark · State 2 (scroll): bayrak amblem */
+.nav-logo-wordmark {
+  position: absolute;
+  inset: 0;
   display: block;
-  width: 100%;
-  height: 100%;
-  flex-shrink: 0;
-  background-color: var(--frost);
+  opacity: 1;
+  transition: opacity var(--nav-compact-dur) var(--nav-compact-ease);
+  background-color: var(--color-accent);
   -webkit-mask-image: url("assets/kruv-wordmark.svg");
   mask-image: url("assets/kruv-wordmark.svg");
   -webkit-mask-repeat: no-repeat;
@@ -664,10 +687,23 @@ nav.navbar.is-scrolled {
   mask-position: left center;
   -webkit-mask-size: contain;
   mask-size: contain;
-  transition: background-color var(--nav-compact-dur) var(--nav-compact-ease);
 }
-nav.navbar.is-scrolled .nav-logo-mark {
-  background-color: var(--purple);
+.nav-logo-emblem {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: left center;
+  opacity: 0;
+  transition: opacity var(--nav-compact-dur) var(--nav-compact-ease);
+  pointer-events: none;
+}
+nav.navbar.is-scrolled .nav-logo-wordmark {
+  opacity: 0;
+}
+nav.navbar.is-scrolled .nav-logo-emblem {
+  opacity: 1;
 }
 
 #nav-sentinel {
@@ -736,7 +772,7 @@ nav.navbar.is-scrolled .navbar-item3 {
   width: var(--nav-bar-ctrl-h);
   height: var(--nav-bar-ctrl-h);
   padding: 0;
-  border-radius: var(--radius-xs);
+  border-radius: var(--btn-radius);
   border: 1px solid var(--gray-100);
   background: transparent;
   color: var(--silver);
@@ -1375,13 +1411,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
   overflow: hidden;
 }
 .ticker-hand img {
-  height: var(--ticker-hand-art-h);
-  width: auto;
   display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
   opacity: 0.9;
-  transform: scale(var(--ticker-hand-art-zoom));
-  transform-origin: center center;
-  /* İllüstrasyon renkleri tema-bağımsız: light/dark'ta orijinal halinde kalır. */
 }
 
 /* ANIMATIONS */
@@ -1459,13 +1494,13 @@ body:has(.featured-work-card:hover) .hero-bottom {
   letter-spacing: var(--b3-letter-spacing);
   text-transform: var(--b3-text-transform);
   padding: var(--space-xs) var(--space-3);
-  border-radius: var(--radius-xs);
-  border: 1px solid var(--pb);
-  background: rgba(93,93,255,0.15);
+  border-radius: var(--btn-radius);
+  border: var(--btn-border-width) solid var(--pb);
+  background: var(--color-accent-overlay-15);
   color: var(--purple);
   cursor: pointer;
 }
-.lan-share-hint button:hover { background: rgba(93,93,255,0.28); }
+.lan-share-hint button:hover { background: var(--color-accent-overlay-28); }
 .lan-share-hint__close {
   width: var(--size-avatar-xs);
   height: var(--size-avatar-xs);
@@ -1478,6 +1513,10 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 @media (min-width: 769px) {
   .lan-share-hint { padding-right: var(--space-12); }
+}
+
+.code-accent {
+  color: var(--color-accent);
 }
 
 /* fan cards entrance (sadece masaüstü fan) */
@@ -1699,7 +1738,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
       <div class="nav-col nav-col--brand">
         <a class="nav-logo brand" href="/" aria-label="Ana sayfa — kruv">
           <span class="nav-logo-stack">
-            <span class="nav-logo-mark" aria-hidden="true"></span>
+            <span class="nav-logo-wordmark" aria-hidden="true"></span>
+            <img class="nav-logo-emblem" src="assets/kruv-nav-emblem.svg" width="80" height="97" alt="" decoding="async" />
           </span>
         </a>
       </div>
@@ -1756,15 +1796,15 @@ body:has(.featured-work-card:hover) .hero-bottom {
 <!-- ===== HERO V2 (aktif) — animated rotating word, minimal ortalanmış kompozisyon ===== -->
 <section class="hero-v2" aria-labelledby="hero-v2-headline">
   <div class="hero-v2-inner">
-    <div class="hero-v2-headline" id="hero-v2-headline">
-      <div class="hero-v2-line1">
+    <h1 class="hero-v2-headline" id="hero-v2-headline">
+      <span class="hero-v2-line1">
         <span class="hero-v2-static">We build</span>
-        <div class="hero-v2-word-box" id="hero-v2-wb">
+        <span class="hero-v2-word-box" id="hero-v2-wb">
           <span class="hero-v2-word" id="hero-v2-wa">brands</span>
-        </div>
-      </div>
+        </span>
+      </span>
       <span class="hero-v2-suffix">worth sharing.</span>
-    </div>
+    </h1>
     <p class="hero-v2-sub">
       Share or it didn't happen.<br>
       <strong>We make sure it happens.</strong>
@@ -1972,7 +2012,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   <!-- BOTTOM TEXT -->
   <div class="hero-bottom" lang="en">
     <div class="headline">
-      <h1 id="heroHeadline" class="hero-headline">WE BUILD BRANDS <span class="accent">WORTH SHARING</span>.</h1>
+      <div id="heroHeadline" class="hero-headline">WE BUILD BRANDS <span class="accent">WORTH SHARING</span>.</div>
     </div>
     <script>
 (function () {
@@ -2917,8 +2957,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
     </div>
   </div>
 
-  <div class="featured-works" lang="en" aria-label="Featured works list">
-    <article class="featured-work-card">
+  <div class="featured-works" id="works" lang="en" aria-label="Featured works list">
+    <article class="featured-work-card" data-work-tags="brand-identity packaging social illustration">
       <a class="featured-work-hit" href="#" aria-label="See project — Marker"></a>
       <div class="featured-work-media featured-work-media-1" aria-hidden="true"></div>
       <div class="featured-work-meta">
@@ -2928,7 +2968,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
       </div>
     </article>
 
-    <article class="featured-work-card">
+    <article class="featured-work-card" data-work-tags="editorial">
       <a class="featured-work-hit" href="#" aria-label="See project — Labraunda Journal"></a>
       <div class="featured-work-media featured-work-media-2" aria-hidden="true"></div>
       <div class="featured-work-meta">
@@ -2938,7 +2978,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
       </div>
     </article>
 
-    <article class="featured-work-card">
+    <article class="featured-work-card" data-work-tags="brand-identity ui-ux">
       <a class="featured-work-hit" href="#" aria-label="See project — Roots Travel Brand"></a>
       <div class="featured-work-media featured-work-media-3" aria-hidden="true"></div>
       <div class="featured-work-meta">
@@ -2948,7 +2988,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
       </div>
     </article>
 
-    <article class="featured-work-card">
+    <article class="featured-work-card" data-work-tags="packaging">
       <a class="featured-work-hit" href="#" aria-label="See project — Cloud Vault Product Line"></a>
       <div class="featured-work-media featured-work-media-4" aria-hidden="true"></div>
       <div class="featured-work-meta">
@@ -2958,7 +2998,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
       </div>
     </article>
 
-    <article class="featured-work-card">
+    <article class="featured-work-card" data-work-tags="editorial brand-identity">
       <a class="featured-work-hit" href="#" aria-label="See project — Levantenler Launch Sprint"></a>
       <div class="featured-work-media featured-work-media-5" aria-hidden="true"></div>
       <div class="featured-work-meta">
@@ -2971,48 +3011,65 @@ body:has(.featured-work-card:hover) .hero-bottom {
   <p class="featured-work-cursor-hint" id="featuredWorkCursorHint" aria-hidden="true">See project</p>
 </section>
 
-<section class="lets-talk" lang="en" aria-labelledby="lets-talk-heading">
-  <p class="lets-talk-eyebrow b3">Let's talk</p>
-  <div class="lets-talk-head-row">
-    <h2 id="lets-talk-heading" class="lets-talk-heading h2">
-      <span class="lets-talk-heading-line1">Got a brand</span><span class="lets-talk-heading-line2"><em>worth building?</em></span>
-    </h2>
-    <a class="cta-ghost lets-talk-cta" href="mailto:hello@kruv.studio">Start a project</a>
+<section class="projects-belief" lang="tr" aria-labelledby="projects-belief-heading">
+  <div class="projects-belief-inner">
+    <h3 id="projects-belief-heading" class="h3 projects-belief-line">Bazı markalar görülür. Bazıları paylaşılır.</h3>
+    <h3 class="h3 projects-belief-line">Her projede tek bir sorudan vazgeçmiyoruz; bu içerik paylaşmaya değer mi?</h3>
+    <h3 class="h3 projects-belief-line">Amacımız insanların aklında kalan işler üretmek. Vizyonumuz, tasarımın sadece güzel değil, yayılmak için var olduğunu kanıtlamak.</h3>
   </div>
-  <ul class="lets-talk-contacts">
-    <li>
-      <a class="lets-talk-contact" href="mailto:hello@kruv.studio">hello@kruv.studio</a>
-    </li>
-    <li aria-hidden="true"><span class="lets-talk-divider"></span></li>
-    <li>
-      <a class="lets-talk-contact" href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
-    </li>
-    <li aria-hidden="true"><span class="lets-talk-divider"></span></li>
-    <li>
-      <a class="lets-talk-contact" href="#" target="_blank" rel="noopener noreferrer">Behance</a>
-    </li>
-    <li aria-hidden="true"><span class="lets-talk-divider"></span></li>
-    <li>
-      <a class="lets-talk-contact" href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-    </li>
-  </ul>
+</section>
+
+<section class="lets-talk" lang="en" aria-labelledby="lets-talk-heading">
+  <div class="lets-talk-shell">
+    <p class="lets-talk-eyebrow b3">Let's talk</p>
+  </div>
+  <div class="lets-talk-marquee-bleed">
+    <div class="lets-talk-marquee">
+      <div class="lets-talk-marquee-track">
+        <div class="lets-talk-marquee-group">
+          <h2 id="lets-talk-heading" class="lets-talk-heading h2">
+            <span class="lets-talk-heading-line1">Got a brand</span><span class="lets-talk-heading-line2"><em>worth building?</em></span>
+          </h2>
+          <a class="cta-ghost lets-talk-cta" href="mailto:hello@kruv.studio">Start a project</a>
+        </div>
+        <div class="lets-talk-marquee-group" aria-hidden="true">
+          <span class="lets-talk-heading h2">
+            <span class="lets-talk-heading-line1">Got a brand</span><span class="lets-talk-heading-line2"><em>worth building?</em></span>
+          </span>
+          <a class="cta-ghost lets-talk-cta" tabindex="-1" href="mailto:hello@kruv.studio">Start a project</a>
+        </div>
+        <div class="lets-talk-marquee-group" aria-hidden="true">
+          <span class="lets-talk-heading h2">
+            <span class="lets-talk-heading-line1">Got a brand</span><span class="lets-talk-heading-line2"><em>worth building?</em></span>
+          </span>
+          <a class="cta-ghost lets-talk-cta" tabindex="-1" href="mailto:hello@kruv.studio">Start a project</a>
+        </div>
+        <div class="lets-talk-marquee-group" aria-hidden="true">
+          <span class="lets-talk-heading h2">
+            <span class="lets-talk-heading-line1">Got a brand</span><span class="lets-talk-heading-line2"><em>worth building?</em></span>
+          </span>
+          <a class="cta-ghost lets-talk-cta" tabindex="-1" href="mailto:hello@kruv.studio">Start a project</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <footer class="site-footer" id="contact" lang="en">
   <div class="site-footer-inner">
     <div class="site-footer-grid">
       <div class="site-footer-col">
-        <h2 class="site-footer-heading">Services</h2>
-        <ul class="site-footer-list">
-          <li>Brand identity</li>
-          <li>Packaging</li>
-          <li>Editorial</li>
-          <li>UI/UX</li>
-          <li>Illustration</li>
+        <h4 class="h4 site-footer-heading">Services</h4>
+        <ul class="site-footer-list site-footer-services">
+          <li><a class="site-footer-service-link" href="#works" data-work-filter="brand-identity">Brand identity</a></li>
+          <li><a class="site-footer-service-link" href="#works" data-work-filter="packaging">Packaging</a></li>
+          <li><a class="site-footer-service-link" href="#works" data-work-filter="editorial">Editorial</a></li>
+          <li><a class="site-footer-service-link" href="#works" data-work-filter="ui-ux">UI/UX</a></li>
+          <li><a class="site-footer-service-link" href="#works" data-work-filter="illustration">Illustration</a></li>
         </ul>
       </div>
       <nav class="site-footer-col" aria-label="Sitemap">
-        <h2 class="site-footer-heading">Sitemap</h2>
+        <h4 class="h4 site-footer-heading">Sitemap</h4>
         <ul class="site-footer-list site-footer-links">
           <li><a href="/">Home</a></li>
           <li><a href="#about">About us</a></li>
@@ -3020,7 +3077,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
         </ul>
       </nav>
       <div class="site-footer-col site-footer-col--follow">
-        <h2 class="site-footer-heading">Follow</h2>
+        <h4 class="h4 site-footer-heading">Follow</h4>
         <p class="site-footer-follow-sr" lang="tr">Sosyal bağlantılar — her ikon yeni sekmede açılır.</p>
         <ul class="site-footer-social site-footer-social--grid">
           <li>
@@ -3056,9 +3113,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
         </ul>
       </div>
     </div>
-    <div class="site-footer-bottom">
-      <span class="site-footer-mark">kruv.</span>
-    </div>
   </div>
 </footer>
 
@@ -3082,7 +3136,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: var(--section-pad-y) var(--section-pad-x);
+  padding: var(--section-pad-y) max(var(--section-pad-x), 100px);
   gap: var(--space-10);
   position: relative;
   z-index: 1;
@@ -3092,8 +3146,9 @@ body:has(.featured-work-card:hover) .hero-bottom {
   padding-top: max(var(--space-7), calc(var(--section-pad-y) - var(--section-bridge-height)));
 }
 .scene-label {
-  width: var(--grid-shell-width);
-  max-width: var(--grid-shell-width);
+  width: 100%;
+  max-width: var(--grid-shell-max);
+  margin-inline: auto;
   text-align: left;
   transition: filter .2s cubic-bezier(0.4,0,0.2,1), opacity .2s cubic-bezier(0.4,0,0.2,1);
 }
@@ -3301,7 +3356,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
 .post-footer { padding: var(--space-2) var(--space-3) var(--space-3); }
 .post-actions { display: flex; gap: var(--space-3); margin-bottom: var(--space-2); }
 .post-action-icon {
-  width: var(--size-action-icon); height: var(--size-action-icon); border-radius: var(--radius-xs);
+  width: var(--size-action-icon); height: var(--size-action-icon); border-radius: var(--btn-radius);
   background: var(--gray-200);
 }
 .post-caption {
@@ -3345,8 +3400,9 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 
 .featured-works {
-  width: var(--grid-shell-width);
-  max-width: var(--grid-shell-width);
+  width: 100%;
+  max-width: var(--grid-shell-max);
+  margin-inline: auto;
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--panel-gap);
@@ -3418,7 +3474,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.15);
+  background: var(--photo-card-overlay-dim);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1);
@@ -3495,18 +3551,20 @@ body:has(.featured-work-card:hover) .hero-bottom {
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.12s ease;
-  padding: var(--space-2) var(--space-4);
-  border: 1px solid var(--purple);
-  border-radius: var(--radius-xs);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--btn-gap);
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  border: var(--btn-border-width) solid var(--purple);
+  border-radius: var(--btn-radius);
   background: var(--purple);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  font-family: var(--h4-font-family);
-  font-size: var(--h4-font-size);
-  font-weight: var(--h4-font-weight);
-  line-height: var(--h4-line-height);
-  letter-spacing: var(--h4-letter-spacing);
-  text-transform: var(--h4-text-transform);
+  font-family: var(--btn-font-family);
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
+  line-height: var(--btn-line-height);
+  letter-spacing: var(--btn-letter-spacing);
+  text-transform: var(--btn-text-transform);
   color: var(--white-fixed);
   white-space: nowrap;
   box-shadow: 0 8px 24px var(--gray-scrim-600);
@@ -3516,30 +3574,42 @@ body:has(.featured-work-card:hover) .hero-bottom {
   opacity: 1;
 }
 
-/* Featured grid: üstte ⅔ + ⅓, altta üç eşit (12 sütun / shell ile hizalı) */
+/* Featured grid: üst sol dikey görsel (1:2) + geniş sağ (7/12); ortada 7+5; altta tam genişlik */
 @media (min-width: 700px) {
-  .featured-works {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: var(--space-7);
-    align-items: start;
-  }
-  .featured-work-card:nth-child(1) { grid-column: 1 / span 4; }
-  .featured-work-card:nth-child(2) { grid-column: 5 / span 2; }
-  .featured-work-card:nth-child(3) { grid-column: 1 / span 2; }
-  .featured-work-card:nth-child(4) { grid-column: 3 / span 2; }
-  .featured-work-card:nth-child(5) { grid-column: 5 / span 2; }
-}
-
-@media (min-width: 1024px) {
   .featured-works {
     grid-template-columns: repeat(12, minmax(0, 1fr));
     gap: var(--panel-gap);
+    align-items: start;
   }
-  .featured-work-card:nth-child(1) { grid-column: 1 / span 8; }
-  .featured-work-card:nth-child(2) { grid-column: 9 / span 4; }
-  .featured-work-card:nth-child(3) { grid-column: 1 / span 4; }
-  .featured-work-card:nth-child(4) { grid-column: 5 / span 4; }
-  .featured-work-card:nth-child(5) { grid-column: 9 / span 4; }
+  .featured-work-card:nth-child(1) {
+    grid-column: 1 / span 5;
+    grid-row: 1;
+  }
+  /* Üst sol: dikey önizleme — genişlik / yükseklik = 1 / 2 */
+  .featured-work-card:nth-child(1) .featured-work-media {
+    aspect-ratio: 1 / 2;
+  }
+  .featured-work-card:nth-child(2) {
+    grid-column: 6 / span 7;
+    grid-row: 1;
+  }
+  .featured-work-card:nth-child(3) {
+    /* ~%15 daha geniş sol hücre (6+6 yerine 7+5 ≈ 1.17× genişlik) */
+    grid-column: 1 / span 7;
+    grid-row: 2;
+  }
+  .featured-work-card:nth-child(4) {
+    grid-column: 8 / span 5;
+    grid-row: 2;
+  }
+  /* Sağ görsel: yükseklik %15 fazla → en/boy = 16 / (12×1.15) = 80/69 */
+  .featured-work-card:nth-child(4) .featured-work-media {
+    aspect-ratio: 80 / 69;
+  }
+  .featured-work-card:nth-child(5) {
+    grid-column: 1 / -1;
+    grid-row: 3;
+  }
 }
 
 /* Mobil / dokunmatik: Selected Work hover efektleri kapalı (blur, overlay, zoom, dim) */
@@ -3601,14 +3671,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
   }
 }
 .site-footer-heading {
-  font-family: var(--b3-font-family);
-  font-size: var(--b3-font-size);
-  font-weight: var(--b3-font-weight);
-  line-height: var(--b3-line-height);
-  letter-spacing: var(--b3-letter-spacing);
-  text-transform: var(--b3-text-transform);
-  color: var(--silver);
   margin: 0 0 var(--space-4);
+  color: var(--silver);
 }
 .site-footer-list {
   list-style: none;
@@ -3632,6 +3696,19 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 .site-footer-links a:hover {
   color: var(--frost);
+}
+.site-footer-services .site-footer-service-link {
+  color: var(--gray-500);
+  text-decoration: none;
+  transition: color 0.2s var(--ease-standard);
+}
+.site-footer-services .site-footer-service-link:hover {
+  color: var(--frost);
+}
+.site-footer-services .site-footer-service-link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 .site-footer-follow-sr {
   position: absolute;
@@ -3689,20 +3766,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
   display: block;
   border-radius: inherit;
 }
-.site-footer-bottom {
-  margin-top: var(--space-12);
-  padding-top: var(--space-8);
-  border-top: var(--border-soft);
-}
-.site-footer-mark {
-  font-family: var(--b3-font-family);
-  font-size: var(--b3-font-size);
-  font-weight: var(--b3-font-weight);
-  letter-spacing: var(--b3-letter-spacing);
-  text-transform: var(--b3-text-transform);
-  color: var(--gray-450);
-}
-
 /* ── Hero arşivi: eski hero (fan + mobile carousel) görünmez tutuluyor.
    .hero-archive sınıfı kaldırılırsa ve sadece .hero kalırsa eski kompozisyon geri döner. ── */
 .hero-archive { display: none !important; }
@@ -3729,6 +3792,10 @@ body:has(.featured-work-card:hover) .hero-bottom {
   width: 100%;
 }
 .hero-v2-headline {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -3858,90 +3925,135 @@ body:has(.featured-work-card:hover) .hero-bottom {
   }
 }
 
-/* ── Lets Talk: footer öncesi büyük CTA bloğu ── */
-.lets-talk {
-  width: var(--grid-shell-width);
-  max-width: var(--grid-shell-width);
+/* ── Projects sonrası manifesto (TR) ── */
+.projects-belief {
+  box-sizing: border-box;
+  padding: var(--space-12) max(var(--section-pad-x), 100px) var(--space-11);
+  position: relative;
+  z-index: 1;
+}
+.projects-belief-inner {
+  width: 100%;
+  max-width: var(--grid-shell-max);
   margin-inline: auto;
-  padding-top: var(--space-12);
-  padding-bottom: var(--section-pad-y);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-9);
+  gap: var(--space-6);
+}
+.projects-belief-line {
+  margin: 0;
+  max-width: min(52ch, 100%);
+  color: var(--frost);
+  text-transform: none;
+  font-weight: 400;
+  /* Satır aralığı: h3 tabanı ×1.21 ×1.15 ×1.25 (önceki değere göre %25 daha açık) */
+  line-height: calc(var(--h3-line-height) * 1.21 * 1.15 * 1.25);
+  /* h3 harf aralığına göre %5 sıkı (negatif ls → biraz daha negatif) */
+  letter-spacing: calc(var(--h3-letter-spacing) * 1.05);
+}
+
+/* ── Lets Talk: sarı band, beyaz tipografi, başlık + CTA kaydırmalı ── */
+.lets-talk {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  /* Dar sarı şerit: section-pad-y kullanılmaz; içerik + makul dikey nefes */
+  padding: var(--space-6) 0 var(--space-8);
+  background: var(--lets-talk-band-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-6);
   position: relative;
   z-index: 2;
 }
-.lets-talk-eyebrow {
-  color: var(--silver);
-  margin: 0;
-}
-.lets-talk-head-row {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: var(--space-6);
+.lets-talk-shell {
+  box-sizing: border-box;
   width: 100%;
+  max-width: var(--grid-shell-max);
+  margin-inline: auto;
+  padding-inline: max(var(--section-pad-x), 100px);
 }
-.lets-talk-heading {
+.lets-talk-eyebrow {
   margin: 0;
-  flex: 1 1 auto;
-  min-width: 0;
-  color: var(--frost);
+  color: var(--lets-talk-band-ink);
+}
+.lets-talk-marquee-bleed {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  overflow: hidden;
+  /* Descender alanı (g, y…) + yatay marquee kırpması */
+  padding-block: var(--space-5) var(--space-8);
+}
+.lets-talk-marquee {
+  overflow: hidden;
+}
+.lets-talk-marquee-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  gap: 0;
+  animation: lets-talk-marquee-x 32s linear infinite;
+}
+.lets-talk-marquee-group {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: var(--space-8);
+  padding-inline-end: var(--space-12);
+}
+.lets-talk-marquee-group .lets-talk-heading {
+  margin: 0;
+  color: var(--lets-talk-band-ink);
   white-space: nowrap;
   font-size: clamp(22px, 4.2vw, 44px);
+  line-height: calc(var(--lh-tight) + 0.14);
+  padding-block: 0.06em 0.14em;
 }
-.lets-talk-cta {
-  flex-shrink: 0;
+.lets-talk-marquee-group .lets-talk-heading em {
+  font-style: italic;
+  color: var(--lets-talk-band-ink);
+  font-weight: inherit;
 }
 .lets-talk-heading-line1::after {
   content: "\00a0";
 }
-.lets-talk-heading em {
-  font-style: italic;
-  color: var(--purple);
-  font-weight: inherit;
+@keyframes lets-talk-marquee-x {
+  from { transform: translateX(0); }
+  /* Dört eş kopya: bir segment genişliği kadar kaydır = kesintisiz döngü */
+  to { transform: translateX(-25%); }
 }
-.lets-talk-contacts {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-10);
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-}
-.lets-talk-contacts > li {
-  min-width: 0;
-}
-.lets-talk-contact {
-  font-family: var(--b2-font-family);
-  font-size: var(--b2-font-size);
-  font-weight: 500;
-  line-height: var(--b2-line-height);
-  letter-spacing: 0.01em;
-  text-transform: var(--b2-text-transform);
-  color: var(--silver);
-  text-decoration: none;
-  padding-bottom: var(--space-1);
-  border-bottom: 1px solid var(--gray-150);
-  transition:
-    color var(--dur-fast) var(--ease-standard),
-    border-color var(--dur-fast) var(--ease-standard);
-}
-.lets-talk-contact:hover {
-  color: var(--frost);
-  border-color: var(--frost);
-}
-.lets-talk-divider {
-  display: inline-block;
-  width: 1px;
-  height: 18px;
-  background: var(--gray-180);
-  flex-shrink: 0;
+@media (prefers-reduced-motion: reduce) {
+  .lets-talk-marquee-track {
+    animation: none;
+    transform: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: var(--space-5);
+    width: 100%;
+    max-width: var(--grid-shell-max);
+    margin-inline: auto;
+    padding-inline: max(var(--section-pad-x), 100px);
+    box-sizing: border-box;
+  }
+  .lets-talk-marquee-group {
+    padding-inline-end: 0;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .lets-talk-marquee-bleed {
+    width: 100%;
+    margin-left: 0;
+    padding-block: var(--space-3);
+  }
+  .lets-talk-marquee-group[aria-hidden="true"] {
+    display: none;
+  }
+  .lets-talk-marquee-group .lets-talk-heading {
+    white-space: normal;
+    text-align: center;
+  }
 }
 .cta-ghost {
   display: inline-flex;
@@ -3972,40 +4084,32 @@ body:has(.featured-work-card:hover) .hero-bottom {
   border-color: var(--purple);
   transform: translateY(-1px);
 }
+.lets-talk .lets-talk-cta {
+  flex-shrink: 0;
+  border-color: color-mix(in srgb, var(--lets-talk-band-ink) 55%, transparent);
+  color: var(--lets-talk-band-ink);
+}
+.lets-talk .lets-talk-cta:hover {
+  background: color-mix(in srgb, var(--black-fixed) 14%, transparent);
+  border-color: var(--lets-talk-band-ink);
+  color: var(--lets-talk-band-ink);
+  transform: translateY(-1px);
+}
 
 @media (max-width: 700px) {
-  .lets-talk { gap: var(--space-7); }
-  .lets-talk-head-row {
-    flex-direction: column;
-    align-items: stretch;
+  .lets-talk { gap: var(--space-5); }
+  .lets-talk-marquee-group {
     gap: var(--space-5);
+    padding-inline-end: var(--space-8);
   }
-  .lets-talk-heading {
-    white-space: normal;
-    font-size: clamp(17px, 4.9vw, 36px);
+  .lets-talk-marquee-group .lets-talk-heading {
+    font-size: clamp(17px, 4.9vw, 32px);
   }
   .lets-talk-heading-line1::after {
     content: none;
   }
   .lets-talk-heading-line2 {
-    display: block;
-    margin-top: var(--space-1);
-  }
-  .lets-talk-cta { align-self: flex-end; }
-  .lets-talk-contacts {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: var(--space-8);
-    row-gap: var(--space-6);
-    align-items: start;
-    justify-items: start;
-  }
-  .lets-talk-contacts li[aria-hidden="true"] {
-    display: none;
-  }
-  .lets-talk-divider { display: none; }
-  .lets-talk-contact {
-    overflow-wrap: anywhere;
+    display: inline;
   }
 }
 </style>
@@ -4334,7 +4438,9 @@ body:has(.featured-work-card:hover) .hero-bottom {
   if (!total) return;
 
   var rootStyle = getComputedStyle(document.documentElement);
-  var shadowCylinder = rootStyle.getPropertyValue('--shadow-cylinder-card').trim() || '0 24px 60px rgba(0,0,0,0.85)';
+  var shadowCylinder = rootStyle.getPropertyValue('--shadow-cylinder-card').trim()
+    || '0 24px 60px var(--gray-scrim-850)';
+  var accentGlowLayer = rootStyle.getPropertyValue('--hero-cylinder-accent-glow').trim();
 
   var ANGLE  = 360 / total;
   var RADIUS = 130;
@@ -4508,8 +4614,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
     card.style.transform  = 'rotateY(' + (i * ANGLE) + 'deg) translateZ(' + RADIUS + 'px) rotateX(0deg)';
     card.style.opacity    = Math.max(0.05, opacity).toFixed(3);
     card.style.filter     = blur > 0.05 ? 'blur(' + blur.toFixed(2) + 'px)' : '';
-    card.style.boxShadow  = i === 0
-      ? shadowCylinder + ', 0 0 80px rgba(93,93,255,0.5)'
+    card.style.boxShadow  = i === 0 && accentGlowLayer
+      ? shadowCylinder + ', ' + accentGlowLayer
       : shadowCylinder;
   });
   updateActive();
@@ -4548,8 +4654,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
   if (proto === 'file:') {
     body.innerHTML =
       '<strong>file://</strong> ile açıksın; linkler ancak küçük sunucu çalışınca çalışır.<br><br>' +
-      '1) Terminal: <code style="color:#5D5DFF">cd kruv-website && ./serve.sh</code><br>' +
-      '2) Terminal’deki <strong>tek link</strong> <code style="color:#5D5DFF">http://192.168…:8080/kruv.html</code> hem Mac’te hem telefonda aynen çalışır (aynı Wi‑Fi).<br>' +
+      '1) Terminal: <code class="code-accent">cd kruv-website && ./serve.sh</code><br>' +
+      '2) Terminal’deki <strong>tek link</strong> <code class="code-accent">http://192.168…:8080/kruv.html</code> hem Mac’te hem telefonda aynen çalışır (aynı Wi‑Fi).<br>' +
       '<p class="lan-share-hint__tip"><code>localhost</code> telefonda Mac değildir. Tıklanmıyorsa <code>chmod +x serve.sh</code>. “Ulaşılamıyor” = sunucu kapalı veya farklı ağ.</p>';
     box.classList.add('is-visible');
   } else if (proto === 'http:' || proto === 'https:') {
@@ -4558,7 +4664,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
     if (host === 'localhost' || host === '127.0.0.1') {
       var localTest = proto + '//127.0.0.1:' + p + shortPath;
       body.innerHTML =
-        '<strong>Tek link ister misin?</strong> Terminal’de <code style="color:#5D5DFF">./serve.sh</code> yazınca çıkan <code style="color:#5D5DFF">http://192.168…:' + p + '/kruv.html</code> adresini <em>hem Mac’te hem telefonda</em> aynen kullan (dosya adı sadece harf; uzun başlıklı isimler bazen telefonda takılır).<br><br>' +
+        '<strong>Tek link ister misin?</strong> Terminal’de <code class="code-accent">./serve.sh</code> yazınca çıkan <code class="code-accent">http://192.168…:' + p + '/kruv.html</code> adresini <em>hem Mac’te hem telefonda</em> aynen kullan (dosya adı sadece harf; uzun başlıklı isimler bazen telefonda takılır).<br><br>' +
         '<code>localhost</code> / <code>127.0.0.1</code> = “sadece bu Mac”; telefonda aynı yazı telefonun kendisini gösterir, bu yüzden iki cihaz için ortak adres <strong>192.168…</strong> olur.<br><br>' +
         'Sadece bu Mac’te kısayol: <span class="lan-share-hint__url">' + linkHtml(localTest, localTest) + '</span>' +
         '<p class="lan-share-hint__tip">Sunucu kapalıysa veya misafir Wi‑Fi kullanıyorsan bağlanamazsın.</p>';
@@ -4735,6 +4841,51 @@ body:has(.featured-work-card:hover) .hero-bottom {
     return '/projects/' + encodeURIComponent(slug || '');
   }
 
+  /* Footer “Services” filtreleri ile hizalı slug’lar (data-work-tags). */
+  var SERVICE_SLUGS = {
+    'brand-identity': true,
+    packaging: true,
+    editorial: true,
+    'ui-ux': true,
+    illustration: true,
+  };
+
+  function mapFragmentToServiceSlug(frag) {
+    var s = String(frag || '').trim().toLowerCase();
+    if (!s) return '';
+    if (/ui\s*\/?\s*ux/.test(s)) return 'ui-ux';
+    if (/illustrat/.test(s)) return 'illustration';
+    if (/packag/.test(s)) return 'packaging';
+    if (/editorial/.test(s)) return 'editorial';
+    if (/\bidentity\b/.test(s) || /^brand\s+identity/.test(s)) return 'brand-identity';
+    return '';
+  }
+
+  function tagsFromProject(p) {
+    var out = [];
+    function add(slug) {
+      if (slug && SERVICE_SLUGS[slug] && out.indexOf(slug) === -1) out.push(slug);
+    }
+    if (p.etiketler && Array.isArray(p.etiketler)) {
+      p.etiketler.forEach(function (t) {
+        var raw = String(t || '')
+          .trim()
+          .toLowerCase()
+          .replace(/\s*\/\s*/g, '-')
+          .replace(/\s+/g, '-')
+          .replace(/[^a-z0-9-]/g, '');
+        if (raw === 'uiux') raw = 'ui-ux';
+        add(raw);
+      });
+    }
+    String(p.kategori || '')
+      .split(/[·,|]/)
+      .forEach(function (frag) {
+        add(mapFragmentToServiceSlug(frag.trim()));
+      });
+    return out;
+  }
+
   function paintHeroCard(card, p) {
     if (!card || !p) return;
     var bg = card.querySelector('.card-bg');
@@ -4804,6 +4955,9 @@ body:has(.featured-work-card:hover) .hero-bottom {
       hit.setAttribute('href', projectURL(p.slug));
       hit.setAttribute('aria-label', 'See project — ' + (p.baslik || ''));
     }
+    var wfTags = tagsFromProject(p);
+    if (wfTags.length) card.setAttribute('data-work-tags', wfTags.join(' '));
+    else card.removeAttribute('data-work-tags');
   }
 
   ready(function () {
@@ -5007,6 +5161,66 @@ body:has(.featured-work-card:hover) .hero-bottom {
       if (mq.addEventListener) mq.addEventListener('change', onChange);
       else if (mq.addListener) mq.addListener(onChange);
     }
+  })();
+</script>
+
+<script>
+  (function () {
+    var HASH_PREFIX = 'works-filter-';
+    var grid = document.querySelector('.featured-works');
+    if (!grid) return;
+
+    function tagSet(card) {
+      if (!card.hasAttribute('data-work-tags')) return null;
+      var raw = card.getAttribute('data-work-tags') || '';
+      var parts = raw.split(/\s+/).filter(Boolean);
+      return parts.length ? parts : null;
+    }
+
+    function applyWorkFilter(slug) {
+      var cards = grid.querySelectorAll('.featured-work-card');
+      var showAll = !slug;
+      cards.forEach(function (card) {
+        var tags = tagSet(card);
+        var match = showAll || tags === null || tags.indexOf(slug) !== -1;
+        card.hidden = !match;
+      });
+      grid.classList.toggle('featured-works--filtered', !showAll);
+    }
+
+    function scrollToWorks() {
+      var el = document.getElementById('works');
+      if (!el) return;
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function slugFromHash() {
+      var h = window.location.hash.slice(1);
+      if (h.indexOf(HASH_PREFIX) !== 0) return '';
+      return h.slice(HASH_PREFIX.length);
+    }
+
+    function activateFromHash() {
+      var slug = slugFromHash();
+      if (slug) applyWorkFilter(slug);
+      else applyWorkFilter('');
+    }
+
+    document.querySelectorAll('.site-footer-service-link[data-work-filter]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        var slug = a.getAttribute('data-work-filter');
+        if (!slug) return;
+        e.preventDefault();
+        applyWorkFilter(slug);
+        try {
+          history.replaceState(null, '', '#' + HASH_PREFIX + slug);
+        } catch (err) {}
+        scrollToWorks();
+      });
+    });
+
+    window.addEventListener('hashchange', activateFromHash);
+    activateFromHash();
   })();
 </script>
 

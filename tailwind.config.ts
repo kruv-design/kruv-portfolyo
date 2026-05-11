@@ -47,6 +47,7 @@ const config: Config = {
         md: "var(--radius-md)",
         lg: "var(--radius-lg)",
         pill: "var(--radius-pill)",
+        btn: "var(--btn-radius)",
       },
       transitionTimingFunction: {
         ease: "cubic-bezier(.4,0,.2,1)",

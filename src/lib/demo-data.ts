@@ -100,7 +100,7 @@ const branding: Project[] = [
     sure: "5 hafta",
     link: "",
     featured: false,
-    renk: "#5D5DFF",
+    renk: "#E87A00",
     sira: 20,
   }),
   make({
@@ -592,7 +592,7 @@ const motion: Project[] = [
     sure: "3 hafta",
     link: "",
     featured: true,
-    renk: "#5D5DFF",
+    renk: "#E87A00",
     sira: 190,
   }),
   make({
