@@ -830,6 +830,32 @@ nav.navbar.is-scrolled .navbar-item3 {
   transform: translateY(-7px) rotate(-45deg);
 }
 
+/* Mobil menü açıkken: kontrol butonları + CTA gri skalada ~2 basamak daha belirgin */
+@media (max-width: 768px) {
+  .navbar.is-menu-open .nav-menu-toggle {
+    border-color: var(--gray-300);
+    color: var(--gray-900);
+  }
+  .navbar.is-menu-open .nav-menu-toggle:hover {
+    border-color: var(--gray-400);
+    color: var(--gray-1000);
+  }
+  .navbar.is-menu-open .nav-theme-toggle--drawer {
+    border-color: var(--gray-300);
+    color: var(--gray-900);
+  }
+  .navbar.is-menu-open .nav-theme-toggle--drawer:hover {
+    border-color: var(--gray-400);
+    color: var(--gray-1000);
+  }
+  .navbar.is-menu-open .nav-cta {
+    box-shadow: 0 0 0 1px var(--gray-300);
+  }
+  .navbar.is-menu-open .nav-cta:hover {
+    box-shadow: 0 0 0 1px var(--gray-400);
+  }
+}
+
 /* Theme toggle butonu — navbar içinde kompakt ikon düğmesi */
 .nav-theme-toggle {
   display: inline-flex;
@@ -1621,48 +1647,91 @@ body:has(.featured-work-card:hover) .hero-bottom {
   .card-2 { transform: rotate(-9deg) translateX(-110px) translateY(10px); }
   .card-4 { transform: rotate(9deg) translateX(110px) translateY(10px); }
   .card-5 { transform: rotate(18deg) translateX(210px) translateY(30px); }
-  nav.navbar { padding: var(--space-5) var(--container-gutter); }
-  .nav-inner::before {
-    left: calc(var(--space-2) * -1);
-    right: calc(var(--space-2) * -1);
+  nav.navbar {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: clip;
+    padding: var(--space-5) var(--section-pad-x);
   }
-  nav.navbar.is-scrolled { padding: var(--space-2) var(--container-gutter); }
+  .nav-inner::before {
+    left: 0;
+    right: 0;
+  }
+  nav.navbar.is-scrolled { padding: var(--space-2) var(--section-pad-x); }
   nav.navbar.is-scrolled .nav-inner {
     width: 100%;
     max-width: 100%;
+    min-width: 0;
   }
   nav.navbar.is-scrolled .nav-cols {
     justify-content: space-between;
     width: 100%;
     max-width: 100%;
+    min-width: 0;
   }
   nav.navbar .nav-inner {
     width: 100%;
     max-width: 100%;
+    min-width: 0;
   }
   .nav-cols {
     flex-wrap: nowrap;
     justify-content: space-between;
-    gap: 0;
+    gap: var(--space-2);
     width: 100%;
     max-width: 100%;
+    min-width: 0;
+  }
+  /* Orta sütun: tam ekran drawer fixed; yatay yer kaplamasın */
+  .nav-col--links {
+    flex: 0 0 0;
+    width: 0;
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+  }
+  .nav-col--cta {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .nav-actions {
+    max-width: 100%;
+    min-width: 0;
+    gap: var(--space-2);
   }
   .nav-menu-toggle {
     display: inline-flex;
+    flex-shrink: 0;
+  }
+  .nav-cta {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-inline: var(--space-4);
   }
   .nav-menu-drawer {
     position: fixed;
     inset: 0;
     z-index: 99;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: repeat(12, minmax(0, 1fr));
+    min-height: 100svh;
     width: 100%;
     max-width: none;
-    padding: calc(env(safe-area-inset-top, 0px) + var(--space-10) + var(--nav-bar-ctrl-h) + var(--space-5))
-      var(--container-gutter)
-      calc(env(safe-area-inset-bottom, 0px) + var(--space-8));
+    padding-inline: var(--container-gutter);
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
     box-sizing: border-box;
+    align-items: stretch;
+    justify-items: stretch;
+    column-gap: 0;
+    row-gap: 0;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
@@ -1692,16 +1761,28 @@ body:has(.featured-work-card:hover) .hero-bottom {
   .nav-menu-drawer .nav-links {
     position: relative;
     z-index: 1;
+    grid-column: 3 / 11;
+    grid-row: 5 / 11;
+    align-self: start;
+    justify-self: stretch;
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
     gap: var(--space-6);
     width: 100%;
-    max-width: var(--grid-shell-width);
-    margin-inline: auto;
+    max-width: none;
+    margin-inline: 0;
   }
-  .nav-menu-drawer .nav-links a {
-    font-size: calc(var(--b2-font-size) + 4px);
+  /* Çekmece linkleri: b1 (b2’den bir kademe büyük); is-scrolled b2 küçültmesini ezmek için nav öne alınır */
+  nav.navbar .nav-menu-drawer .nav-links a {
+    font-family: var(--b1-font-family);
+    font-size: var(--b1-font-size);
+    font-weight: var(--b1-font-weight);
+    line-height: var(--b1-line-height);
+    letter-spacing: var(--b1-letter-spacing);
+    text-transform: var(--b1-text-transform);
+    color: var(--b1-color);
     padding-block: var(--space-2);
   }
   .nav-logo,
@@ -1716,8 +1797,11 @@ body:has(.featured-work-card:hover) .hero-bottom {
     display: inline-flex;
     position: relative;
     z-index: 1;
-    align-self: flex-start;
-    margin-top: var(--space-8);
+    grid-column: 3 / 11;
+    grid-row: 11 / 14;
+    align-self: start;
+    justify-self: start;
+    margin-top: 0;
     margin-inline: 0;
   }
 }
@@ -4173,6 +4257,16 @@ body:has(.featured-work-card:hover) .hero-bottom {
   letter-spacing: calc(var(--h3-letter-spacing) * 1.05);
 }
 
+@media (max-width: 768px) {
+  .projects-belief-line {
+    font-family: var(--h4-font-family);
+    font-size: var(--h4-font-size);
+    line-height: var(--h4-line-height);
+    letter-spacing: var(--h4-letter-spacing);
+    font-weight: 400;
+  }
+}
+
 /* ── Lets Talk: accent band, beyaz tipografi, başlık + CTA kaydırmalı ── */
 .lets-talk {
   box-sizing: border-box;
@@ -4215,7 +4309,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   width: max-content;
   align-items: center;
   gap: 0;
-  animation: lets-talk-marquee-x calc(32s / 1.25) linear infinite;
+  animation: lets-talk-marquee-x calc(32s / 1.25 / 1.1) linear infinite;
 }
 .lets-talk-marquee-group {
   display: inline-flex;
@@ -4228,7 +4322,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   margin: 0;
   color: var(--lets-talk-band-ink);
   white-space: nowrap;
-  font-size: clamp(22px, 4.2vw, 44px);
+  font-size: clamp(24px, 4.6vw, 48px);
   line-height: calc(var(--lh-tight) + 0.14);
   padding-block: 0.06em 0.14em;
 }
@@ -4325,7 +4419,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
     padding-inline-end: var(--space-8);
   }
   .lets-talk-marquee-group .lets-talk-heading {
-    font-size: clamp(17px, 4.9vw, 32px);
+    font-size: clamp(19px, 5.4vw, 35px);
   }
   .lets-talk-heading-line1::after {
     content: none;
