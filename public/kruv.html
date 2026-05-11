@@ -341,7 +341,7 @@
   --card-radius: var(--radius-lg);
 
   --panel-radius: var(--radius-md);
-  --panel-gap: var(--space-6);
+  --panel-gap: var(--space-8);
   --panel-pad: var(--space-3);
   --panel-pad-lg: calc(var(--panel-pad) + var(--space-0));
 
@@ -664,6 +664,7 @@ nav.navbar.is-scrolled {
   flex: 0 0 auto;
   width: var(--nav-logo-slot-w);
   height: var(--nav-logo-slot-h);
+  margin-inline-start: var(--space-2);
 }
 .nav-logo-stack {
   position: relative;
@@ -755,18 +756,18 @@ nav.navbar.is-scrolled .nav-links {
 .navbar-item1,
 .navbar-item2,
 .navbar-item3 {
-  font-family: var(--b3-font-family);
-  font-size: var(--b3-font-size);
-  font-weight: var(--b3-font-weight);
-  line-height: var(--b3-line-height);
-  letter-spacing: var(--b3-letter-spacing);
-  text-transform: var(--b3-text-transform);
+  font-family: var(--b2-font-family);
+  font-size: var(--b2-font-size);
+  font-weight: var(--b2-font-weight);
+  line-height: var(--b2-line-height);
+  letter-spacing: var(--b2-letter-spacing);
+  text-transform: var(--b2-text-transform);
 }
 nav.navbar.is-scrolled .navbar-item1,
 nav.navbar.is-scrolled .navbar-item2,
 nav.navbar.is-scrolled .navbar-item3 {
-  letter-spacing: calc(var(--b3-letter-spacing) - 0.02em);
-  font-size: calc(var(--b3-font-size) - 1px);
+  letter-spacing: calc(var(--b2-letter-spacing) - 0.02em);
+  font-size: calc(var(--b2-font-size) - 1px);
 }
 .nav-links a:hover { color: var(--frost); }
 .nav-actions {
@@ -883,9 +884,9 @@ nav.navbar.is-scrolled .navbar-item3 {
   letter-spacing: var(--btn-letter-spacing);
   text-transform: var(--btn-text-transform);
   padding: var(--btn-pad-y) var(--btn-pad-x);
-  background: transparent;
-  color: var(--purple);
-  border: var(--btn-border-width) solid var(--purple);
+  background: var(--white-fixed);
+  color: var(--color-accent);
+  border: var(--btn-border-width) solid var(--color-accent);
   border-radius: var(--btn-radius);
   text-decoration: none;
   transition:
@@ -893,7 +894,11 @@ nav.navbar.is-scrolled .navbar-item3 {
     color var(--dur-fast) var(--ease-standard),
     border-color var(--dur-fast) var(--ease-standard);
 }
-.nav-cta:hover { background: var(--purple); color: var(--white-fixed); border-color: var(--purple); }
+.nav-cta:hover {
+  background: var(--color-accent-hover);
+  color: var(--white-fixed);
+  border-color: var(--color-accent-hover);
+}
 
 /* HERO */
 .hero {
@@ -1696,7 +1701,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
     margin-inline: auto;
   }
   .nav-menu-drawer .nav-links a {
-    font-size: calc(var(--b3-font-size) + 4px);
+    font-size: calc(var(--b2-font-size) + 4px);
     padding-block: var(--space-2);
   }
 }
@@ -3065,7 +3070,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
         <div class="kadraj-grid-line-v" style="left:66.6%"></div>
         <div class="kadraj-grid-line-h" style="top:33.3%"></div>
         <div class="kadraj-grid-line-h" style="top:66.6%"></div>
-        <div class="kadraj-label" id="kadrajLabel">1:1 Post</div>
+        <div class="kadraj-label" id="kadrajLabel">2:1 Post</div>
       </div>
     </div>
 
@@ -3089,14 +3094,14 @@ body:has(.featured-work-card:hover) .hero-bottom {
             <div class="post-action-icon"></div>
           </div>
           <div class="post-caption" id="previewCaption">
-            <strong>Feed post</strong> — kare formatta net ve tutarlı bir marka kimliği.
+            <strong>Feed post</strong> — 2:1 geniş formatta net ve tutarlı bir marka kimliği.
           </div>
         </div>
       </div>
     </div>
 
     <div class="format-pills">
-      <div class="format-pill active" data-format="square">1:1 Post</div>
+      <div class="format-pill active" data-format="square">2:1 Post</div>
       <div class="format-pill" data-format="story">9:16 Story</div>
       <div class="format-pill" data-format="landscape">16:9 Banner</div>
       <div class="format-pill" data-format="portrait">4:5 Portrait</div>
@@ -3161,7 +3166,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   <div class="projects-belief-inner">
     <h3 id="projects-belief-heading" class="h3 projects-belief-line">Bazı markalar görülür. Bazıları paylaşılır.</h3>
     <h3 class="h3 projects-belief-line">Her projede tek bir sorudan vazgeçmiyoruz;<br>bu içerik paylaşmaya değer mi?</h3>
-    <h3 class="h3 projects-belief-line">Amacımız insanların aklında kalan işler üretmek.<br>Vizyonumuz, tasarımın sadece güzel değil, yayılmak için var olduğunu kanıtlamak.</h3>
+    <h3 class="h3 projects-belief-line">Amacımız insanların aklında kalan işler üretmek.<br>Vizyonumuz, tasarımın sadece güzel değil,<br>yayılmak için var olduğunu kanıtlamak.</h3>
   </div>
 </section>
 
@@ -3489,7 +3494,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 
 .post-image-area {
-  width: 100%; aspect-ratio: 1;
+  width: 100%;
+  aspect-ratio: 2 / 1;
   position: relative; overflow: hidden;
   transition: aspect-ratio 0.25s ease;
 }
@@ -3564,6 +3570,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   flex-direction: column;
   gap: var(--space-4);
   overflow: visible;
+  min-width: 0;
   transition:
     background-color 0.8s ease,
     border-color 0.8s ease;
@@ -3592,12 +3599,11 @@ body:has(.featured-work-card:hover) .hero-bottom {
   z-index: 2;
 }
 .featured-work-media {
-  /* Masaüstü: sütun içinde %20 yatay taşma; mobilde kabuk ile aynı kenar hizası */
-  width: 120%;
-  max-width: none;
-  margin-inline: -10%;
+  width: 100%;
+  max-width: 100%;
+  margin-inline: 0;
   box-sizing: border-box;
-  aspect-ratio: 16 / 12;
+  aspect-ratio: 2 / 1;
   border-radius: var(--space-sm);
   border: none;
   outline: none;
@@ -3606,13 +3612,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
   overflow: hidden;
   background-color: var(--color-surface);
   transition: background-color 0.8s ease;
-}
-@media (max-width: 699px) {
-  .featured-work-media {
-    width: 100%;
-    max-width: 100%;
-    margin-inline: 0;
-  }
 }
 /* Görsel pseudo elementte tutulur ki sadece o yavaşça zoom yapsın */
 .featured-work-media::before {
@@ -3733,8 +3732,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
   opacity: 1;
 }
 
-/* Featured grid: üst sol dikey görsel (1:2) + geniş sağ (7/12); ortada 7+5; altta tam genişlik */
-@media (min-width: 700px) {
+/* Featured grid: geniş ekranda asimetrik 12 kolon; dar–orta genişlikte tek sütun (çakışma yok) */
+@media (min-width: 900px) {
   .featured-works {
     grid-template-columns: repeat(12, minmax(0, 1fr));
     gap: var(--panel-gap);
@@ -3743,10 +3742,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
   .featured-work-card:nth-child(1) {
     grid-column: 1 / span 5;
     grid-row: 1;
-  }
-  /* Üst sol: dikey önizleme — genişlik / yükseklik = 1 / 2 */
-  .featured-work-card:nth-child(1) .featured-work-media {
-    aspect-ratio: 1 / 2;
   }
   .featured-work-card:nth-child(2) {
     grid-column: 6 / span 7;
@@ -3761,18 +3756,14 @@ body:has(.featured-work-card:hover) .hero-bottom {
     grid-column: 8 / span 5;
     grid-row: 2;
   }
-  /* Sağ görsel: yükseklik %15 fazla → en/boy = 16 / (12×1.15) = 80/69 */
-  .featured-work-card:nth-child(4) .featured-work-media {
-    aspect-ratio: 80 / 69;
-  }
   .featured-work-card:nth-child(5) {
     grid-column: 1 / -1;
     grid-row: 3;
   }
 }
 
-/* Mobil / dokunmatik: Selected Work hover efektleri kapalı (blur, overlay, zoom, dim) */
-@media (max-width: 699px), (hover: none) {
+/* Mobil / dar layout / dokunmatik: Selected Work hover efektleri kapalı */
+@media (max-width: 899px), (hover: none) {
   body:has(.featured-work-card:hover) nav,
   body:has(.featured-work-card:hover) .ticker,
   body:has(.featured-work-card:hover) .hero-bottom,
@@ -4154,7 +4145,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   width: max-content;
   align-items: center;
   gap: 0;
-  animation: lets-talk-marquee-x 32s linear infinite;
+  animation: lets-talk-marquee-x calc(32s / 1.25) linear infinite;
 }
 .lets-talk-marquee-group {
   display: inline-flex;
@@ -4246,13 +4237,14 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 .lets-talk .lets-talk-cta {
   flex-shrink: 0;
-  border-color: color-mix(in srgb, var(--lets-talk-band-ink) 55%, transparent);
-  color: var(--lets-talk-band-ink);
+  background: var(--white-fixed);
+  color: var(--color-accent);
+  border-color: var(--color-accent);
 }
 .lets-talk .lets-talk-cta:hover {
-  background: color-mix(in srgb, var(--black-fixed) 14%, transparent);
-  border-color: var(--lets-talk-band-ink);
-  color: var(--lets-talk-band-ink);
+  background: color-mix(in oklab, var(--white-fixed) 90%, var(--color-accent) 10%);
+  border-color: var(--color-accent-hover);
+  color: var(--color-accent-hover);
   transform: translateY(-1px);
 }
 
@@ -4471,7 +4463,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   if (!scene) return;
 
   var formats = {
-    square:    { fw: 160, fh: 160, label: '1:1 Post',    ar: '1 / 1',   caption: '<strong>Feed post</strong> — kare formatta net ve tutarlı bir marka kimliği.' },
+    square:    { fw: 200, fh: 100, label: '2:1 Post',    ar: '2 / 1',   caption: '<strong>Feed post</strong> — 2:1 geniş formatta net ve tutarlı bir marka kimliği.' },
     story:     { fw: 90,  fh: 160, label: '9:16 Story',  ar: '9 / 16',  caption: '<strong>Story</strong> — tam ekran deneyim, 24 saatte iz bırak.' },
     landscape: { fw: 200, fh: 113, label: '16:9 Banner', ar: '16 / 9',  caption: '<strong>Banner</strong> — LinkedIn cover ve YouTube thumbnail için tasarlandı.' },
     portrait:  { fw: 130, fh: 163, label: '4:5 Portrait',ar: '4 / 5',   caption: '<strong>Portrait</strong> — feed\'de en fazla alan kaplayan, dikkat çeken format.' }
