@@ -2099,7 +2099,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
 <!-- ===== HERO V2 (aktif) — animated rotating word, minimal ortalanmış kompozisyon ===== -->
 <section class="hero-v2" aria-labelledby="hero-v2-headline">
   <div class="hero-v2-inner">
-    <h1 class="hero-v2-headline" id="hero-v2-headline">
+    <div
+      class="hero-v2-headline"
+      id="hero-v2-headline"
+      role="heading"
+      aria-level="1"
+    >
       <span class="hero-v2-line1">
         <span class="hero-v2-static">We build</span>
         <span class="hero-v2-word-box" id="hero-v2-wb">
@@ -2107,7 +2112,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
         </span>
       </span>
       <span class="hero-v2-suffix">worth sharing.</span>
-    </h1>
+    </div>
     <p class="hero-v2-sub">
       Share or it didn't happen.<br>
       <strong>We make sure it happens.</strong>
@@ -4143,7 +4148,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 .hero-v2-static {
   font-family: var(--font-display);
-  font-size: clamp(36px, 7vw, 56px);
+  /* Web: önceki clamp tabanına göre %50 daha büyük punto */
+  font-size: calc(1.5 * clamp(36px, 7vw, 56px));
   font-weight: 800;
   color: var(--frost);
   letter-spacing: -0.035em;
@@ -4154,15 +4160,15 @@ body:has(.featured-work-card:hover) .hero-bottom {
   position: relative;
   display: inline-block;
   overflow: hidden;
-  padding-bottom: 14px;
-  margin-bottom: -14px;
+  padding-bottom: 21px;
+  margin-bottom: -21px;
   transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   flex-shrink: 0;
   min-width: 0;
 }
 .hero-v2-word {
   font-family: var(--font-display);
-  font-size: clamp(36px, 7vw, 56px);
+  font-size: calc(1.5 * clamp(36px, 7vw, 56px));
   font-weight: 800;
   color: var(--frost);
   letter-spacing: -0.035em;
@@ -4172,7 +4178,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 .hero-v2-suffix {
   font-family: var(--font-display);
-  font-size: clamp(36px, 7vw, 56px);
+  font-size: calc(1.5 * clamp(36px, 7vw, 56px));
   font-weight: 400;
   font-style: italic;
   color: var(--purple);
@@ -4243,6 +4249,10 @@ body:has(.featured-work-card:hover) .hero-bottom {
 @media (max-width: 700px) {
   .hero-v2 { min-height: 100vh; padding: var(--section-pad-y) var(--section-pad-x); }
   .hero-v2-inner { gap: var(--space-6); }
+  .hero-v2-word-box {
+    padding-bottom: 14px;
+    margin-bottom: -14px;
+  }
   /* Mobil: iki satır — (We build + kelime) / worth sharing.; tipografi h2 token */
   .hero-v2-static,
   .hero-v2-word {
