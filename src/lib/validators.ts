@@ -75,3 +75,41 @@ export const settingsSchema = z.object({
   pinterestUrl: optHttpUrl,
   githubUrl: optHttpUrl,
 });
+
+const emptyOrEmail = z
+  .string()
+  .trim()
+  .max(320)
+  .refine((s) => s === "" || z.string().email().safeParse(s).success, {
+    message: "Geçerli bir e-posta girin veya boş bırakın.",
+  });
+
+export const contactPayloadSchema = z.object({
+  name: z.string().trim().max(200).optional().default(""),
+  email: emptyOrEmail.optional().default(""),
+  company: z.string().trim().max(200).optional().default(""),
+  phone: z.string().trim().max(40).optional().default(""),
+  projectType: z.string().trim().max(80).optional().default(""),
+  budget: z.string().trim().max(80).optional().default(""),
+  timeline: z.string().trim().max(80).optional().default(""),
+  message: z.string().trim().max(5000).optional().default(""),
+  referrer: z.string().trim().max(80).optional().default(""),
+});
+
+export type ContactPayloadInput = z.infer<typeof contactPayloadSchema>;
+
+export const contactPartialBodySchema = z.object({
+  sessionId: z.string().uuid("Oturum geçersiz."),
+  step: z.number().int().min(0).max(3).optional(),
+  payload: contactPayloadSchema,
+});
+
+export const contactSubmitBodySchema = z.object({
+  sessionId: z.string().uuid("Oturum geçersiz."),
+  /** Honeypot — boş kalmalı */
+  hp: z.string().optional().default(""),
+  payload: contactPayloadSchema,
+});
+
+export type ContactPartialBody = z.infer<typeof contactPartialBodySchema>;
+export type ContactSubmitBody = z.infer<typeof contactSubmitBodySchema>;

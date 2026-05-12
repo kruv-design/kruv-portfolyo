@@ -7,7 +7,7 @@ type Entry = {
   Icon: () => ReactElement;
 };
 
-/** Aksan (#E87A00) squircle + siyah önplan — statik footer ile aynı dil */
+/** Aksan (indigo) squircle + siyah önplan — statik footer ile aynı dil */
 function IconLinkedIn() {
   return (
     <svg

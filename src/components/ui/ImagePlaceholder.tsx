@@ -9,7 +9,7 @@ export function ImagePlaceholder({
   className?: string;
   fontSize?: string;
 }) {
-  const base = color || "#E87A00";
+  const base = color || "#6366F1";
   return (
     <div
       className={`img-ph ${className ?? ""}`}

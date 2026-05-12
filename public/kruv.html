@@ -31,8 +31,8 @@
   color-scheme: light dark;
 
   /* ===== Foundation: colors (gri ekseni: --gray-pure-dark ↔ --gray-1000) ===== */
-  --color-accent: #e87a00;
-  --color-accent-hover: #c96900;
+  --color-accent: #6366f1;
+  --color-accent-hover: #4f46e5;
   /* Aksanın tüm yoğunlukları tek kaynaktan — hex/rgba tekrarı yok */
   --color-accent-soft: color-mix(in srgb, var(--color-accent) 22%, transparent);
   --color-accent-overlay-15: color-mix(in srgb, var(--color-accent) 15%, transparent);
@@ -51,7 +51,7 @@
   /* Featured kart — hover’da diğer kartlarda %15 kararma (siyah, foto zemini tema-bağımsız) */
   --photo-card-overlay-dim: color-mix(in srgb, var(--black-fixed) 15%, transparent);
 
-  /* Let's talk band — aksan turuncu (--color-accent) ile tek kromatik kaynak */
+  /* Let's talk band — aksan mor (--color-accent) ile tek kromatik kaynak */
   --lets-talk-band-bg: var(--color-accent);
   --lets-talk-band-ink: var(--white-fixed);
 
@@ -3740,6 +3740,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   gap: var(--space-4);
   overflow: visible;
   min-width: 0;
+  isolation: isolate;
   transition:
     background-color 0.8s ease,
     border-color 0.8s ease;
@@ -3750,6 +3751,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   align-items: stretch;
   gap: var(--space-3);
   width: 100%;
+  box-shadow: none;
   transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .featured-work-hit {
@@ -3795,6 +3797,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
   transition: transform 1.8s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform;
   z-index: 0;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 /* %15 siyah overlay — diğer kartlar dim edildiğinde aktifleşir */
 .featured-work-media::after {
@@ -3900,7 +3904,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   text-transform: var(--btn-text-transform);
   color: var(--white-fixed);
   white-space: nowrap;
-  box-shadow: 0 8px 24px var(--gray-scrim-600);
+  box-shadow: none;
 }
 .featured-work-cursor-hint.is-visible {
   visibility: visible;
@@ -4292,7 +4296,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   .projects-belief-line {
     font-family: var(--h4-font-family);
     font-size: var(--h4-font-size);
-    line-height: var(--h4-line-height);
+    line-height: calc(var(--h4-line-height) * 1.5);
     letter-spacing: var(--h4-letter-spacing);
     font-weight: 400;
   }

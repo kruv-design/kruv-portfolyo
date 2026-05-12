@@ -22,39 +22,23 @@ export function ProjectDetail({
 
   return (
     <>
-      <header
-        className="flex items-center justify-between gap-4 px-[4vw] py-7"
-        style={{ borderBottom: "1px solid var(--border)" }}
-      >
-        <Link
-          href="/works"
-          className="b2 inline-flex items-center gap-2 rounded-full px-4 py-1.5 transition-colors"
-          style={{
-            border: "1px solid var(--border)",
-            color: "var(--b2-color)",
-          }}
-        >
+      <div className="project-detail-toolbar">
+        <Link href="/works" className="project-detail-back">
           ← Tüm projeler
         </Link>
-        <div className="flex items-center gap-2">
+        <div className="project-detail-nav-arrows">
           <NavArrow slug={prevSlug} label="←" />
           <NavArrow slug={nextSlug} label="→" />
         </div>
-      </header>
+      </div>
 
-      <div
-        className="w-full overflow-hidden"
-        style={{
-          aspectRatio: "16 / 7",
-          background: "var(--surface)",
-        }}
-      >
+      <div className="project-detail-hero">
         {project.gorsel ? (
           <Image
             src={project.gorsel}
             alt={project.baslik}
             width={1920}
-            height={840}
+            height={960}
             className="h-full w-full object-cover"
             priority
           />
@@ -63,10 +47,8 @@ export function ProjectDetail({
         )}
       </div>
 
-      <div
-        className="mx-auto grid max-w-[1200px] gap-20 px-[4vw] pb-20 pt-16 md:grid-cols-[1fr_340px]"
-      >
-        <div className="animate-fadeUp">
+      <div className="project-detail-layout">
+        <div className="project-detail-main animate-fadeUp">
           <div className="b3 mb-4" style={{ color: "var(--accent)" }}>
             {project.kategori}
           </div>
@@ -86,9 +68,7 @@ export function ProjectDetail({
           <div className="flex flex-col gap-8">
             {project.bolumler?.map((b, i) => (
               <section key={i}>
-                {b.baslik && (
-                  <h2 className="h4 mb-2 lowercase">{b.baslik}</h2>
-                )}
+                {b.baslik && <h2 className="h4 mb-2 lowercase">{b.baslik}</h2>}
                 {b.metin && (
                   <p className="b1 whitespace-pre-wrap" style={{ color: "var(--b1-color)" }}>
                     {b.metin}
@@ -99,19 +79,11 @@ export function ProjectDetail({
           </div>
 
           {gallery.length > 0 && (
-            <div
-              className="mt-12 grid gap-[3px]"
-              style={{
-                gridTemplateColumns:
-                  "repeat(auto-fill, minmax(240px, 1fr))",
-              }}
-            >
+            <div className="project-detail-gallery">
               {gallery.map((src, i) => (
                 <button
                   key={src + i}
                   type="button"
-                  className="overflow-hidden"
-                  style={{ aspectRatio: "4 / 3", cursor: "zoom-in" }}
                   onClick={() => setLightbox(src)}
                 >
                   <Image
@@ -127,14 +99,8 @@ export function ProjectDetail({
           )}
         </div>
 
-        <aside className="animate-fadeUp">
-          <div
-            className="sticky top-8 rounded-lg p-8"
-            style={{
-              background: "var(--surface)",
-              border: "1px solid var(--border)",
-            }}
-          >
+        <aside className="project-detail-aside animate-fadeUp">
+          <div className="project-detail-aside-card">
             <MetaRow label="Kategori" value={project.kategori} />
             <MetaRow label="Müşteri" value={project.musteri || "—"} />
             <MetaRow label="Yıl" value={project.yil || "—"} />
@@ -149,7 +115,7 @@ export function ProjectDetail({
                   {project.etiketler.map((t) => (
                     <span
                       key={t}
-                      className="rounded-full px-2.5 py-0.5 b3 lowercase font-medium"
+                      className="b3 rounded-full px-2.5 py-0.5 lowercase font-medium"
                       style={{
                         background: "var(--accent-soft)",
                         color: "var(--accent)",
@@ -187,19 +153,11 @@ function MetaRow({ label, value }: { label: string; value: string }) {
 }
 
 function NavArrow({ slug, label }: { slug: string | null; label: string }) {
-  const base =
-    "flex h-9 w-9 items-center justify-center rounded-full text-base transition-colors";
   if (!slug) {
     return (
       <span
         aria-hidden="true"
-        className={base}
-        style={{
-          border: "1px solid var(--border)",
-          color: "var(--ink-soft)",
-          opacity: 0.3,
-          pointerEvents: "none",
-        }}
+        className="project-detail-nav-arrow is-disabled"
       >
         {label}
       </span>
@@ -208,11 +166,7 @@ function NavArrow({ slug, label }: { slug: string | null; label: string }) {
   return (
     <Link
       href={`/projects/${slug}`}
-      className={base}
-      style={{
-        border: "1px solid var(--border)",
-        color: "var(--ink-soft)",
-      }}
+      className="project-detail-nav-arrow"
       aria-label={label === "←" ? "Önceki proje" : "Sonraki proje"}
     >
       {label}

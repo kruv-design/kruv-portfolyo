@@ -99,7 +99,11 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
                   <Link
                     href="/works"
                     className="marketing-navbar-item"
-                    aria-current={pathname === "/works" ? "page" : undefined}
+                    aria-current={
+                      pathname === "/works" || pathname?.startsWith("/projects/")
+                        ? "page"
+                        : undefined
+                    }
                   >
                     Work
                   </Link>
@@ -114,12 +118,21 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
                     Process
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    href="/contact"
+                    className="marketing-navbar-item"
+                    aria-current={pathname === "/contact" ? "page" : undefined}
+                  >
+                    Contact
+                  </Link>
+                </li>
               </ul>
             </div>
             <div className="marketing-navbar-col marketing-navbar-col--cta">
               <div className="marketing-navbar-actions">
                 <ThemeToggle className="marketing-navbar-theme-toggle" />
-                <Link href="/works#contact" className="marketing-navbar-cta">
+                <Link href="/contact" className="marketing-navbar-cta">
                   Start a project
                 </Link>
                 <button
@@ -206,7 +219,7 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
                 </Link>
               </li>
               <li>
-                <Link href="/works#contact" onClick={closeMobileMenu}>
+                <Link href="/contact" onClick={closeMobileMenu}>
                   Contact
                 </Link>
               </li>

@@ -8,7 +8,7 @@ import {
 } from "@/lib/queries";
 import { ProjectDetail } from "@/components/public/ProjectDetail";
 import { SiteFooter } from "@/components/public/SiteFooter";
-import { SiteHeader } from "@/components/public/SiteHeader";
+import { MarketingSiteNav } from "@/components/public/MarketingSiteNav";
 import { env } from "@/lib/env";
 
 export const revalidate = 60;
@@ -106,11 +106,13 @@ export default async function ProjectPage({
         className="flex min-h-screen flex-col"
         style={{ background: "var(--bg)", color: "var(--ink)", minHeight: "100vh" }}
       >
-        <SiteHeader settings={settings} />
-        <div className="flex-1">
-          <ProjectDetail project={project} prevSlug={prev} nextSlug={next} />
+        <MarketingSiteNav settings={settings} />
+        <div className="flex flex-1 flex-col">
+          <div className="works-shell-inner">
+            <ProjectDetail project={project} prevSlug={prev} nextSlug={next} />
+          </div>
+          <SiteFooter settings={settings} />
         </div>
-        <SiteFooter settings={settings} />
       </div>
     </>
   );

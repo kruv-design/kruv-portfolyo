@@ -76,7 +76,7 @@ export function SiteFooter({
             </li>
             <li>
               <Link
-                href="/works#contact"
+                href="/contact"
                 className={footerLinkClass}
                 style={{ color: "var(--ink-soft)" }}
               >

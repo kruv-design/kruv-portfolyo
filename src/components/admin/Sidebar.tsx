@@ -7,6 +7,7 @@ import { logoutAction } from "@/app/login/actions";
 const NAV = [
   { href: "/admin", label: "Projeler", icon: "▦" },
   { href: "/admin/projects/new", label: "Yeni Proje", icon: "＋" },
+  { href: "/admin/contact-inquiries", label: "İletişim", icon: "✉" },
   { href: "/admin/settings", label: "Ayarlar", icon: "⚙" },
   { href: "/", label: "Siteye Git", icon: "◉", external: true },
 ];

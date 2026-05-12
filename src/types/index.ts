@@ -58,3 +58,15 @@ export type ApiError = {
 };
 
 export type ApiResult<T> = { data: T } | ApiError;
+
+/** `contact_inquiries` tablosu — Supabase */
+export type ContactInquiryRow = {
+  id: string;
+  session_id: string;
+  status: "partial" | "submitted";
+  payload: Record<string, unknown>;
+  email: string | null;
+  hubspot_synced: boolean;
+  created_at: string;
+  updated_at: string;
+};
