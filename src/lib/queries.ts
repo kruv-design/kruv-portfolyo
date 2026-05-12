@@ -3,6 +3,20 @@ import { supabasePublic } from "@/lib/supabase/server";
 import { DEMO_PROJECTS, isPlaceholderEnv } from "@/lib/demo-data";
 import type { Project, ProjectSection, SiteSettings } from "@/types";
 
+const DEFAULT_SITE_SETTINGS: SiteSettings = {
+  siteAdi: "kruv.",
+  tagline: "Seçilmiş projeler & çalışmalar",
+  footerYazi: "kruv. — portfolyo",
+  instagramUrl: "",
+  xUrl: "",
+  linkedinUrl: "",
+  behanceUrl: "",
+  dribbbleUrl: "",
+  youtubeUrl: "",
+  pinterestUrl: "",
+  githubUrl: "",
+};
+
 /**
  * Map a Supabase row (snake/flat) to our Project type. Keeps JSONB shapes tidy.
  */
@@ -76,26 +90,35 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
 }
 
 export async function getSettings(): Promise<SiteSettings> {
-  const sb = supabasePublic();
-  const { data } = await sb
-    .from("site_settings")
-    .select("*")
-    .eq("id", 1)
-    .maybeSingle();
-  const row = data as Partial<SiteSettings> | null | undefined;
-  return {
-    siteAdi: row?.siteAdi ?? "kruv.",
-    tagline: row?.tagline ?? "Seçilmiş projeler & çalışmalar",
-    footerYazi: row?.footerYazi ?? "kruv. — portfolyo",
-    instagramUrl: row?.instagramUrl ?? "",
-    xUrl: row?.xUrl ?? "",
-    linkedinUrl: row?.linkedinUrl ?? "",
-    behanceUrl: row?.behanceUrl ?? "",
-    dribbbleUrl: row?.dribbbleUrl ?? "",
-    youtubeUrl: row?.youtubeUrl ?? "",
-    pinterestUrl: row?.pinterestUrl ?? "",
-    githubUrl: row?.githubUrl ?? "",
-  };
+  if (isPlaceholderEnv()) {
+    return DEFAULT_SITE_SETTINGS;
+  }
+
+  try {
+    const sb = supabasePublic();
+    const { data, error } = await sb
+      .from("site_settings")
+      .select("*")
+      .eq("id", 1)
+      .maybeSingle();
+    if (error) throw error;
+    const row = data as Partial<SiteSettings> | null | undefined;
+    return {
+      siteAdi: row?.siteAdi ?? DEFAULT_SITE_SETTINGS.siteAdi,
+      tagline: row?.tagline ?? DEFAULT_SITE_SETTINGS.tagline,
+      footerYazi: row?.footerYazi ?? DEFAULT_SITE_SETTINGS.footerYazi,
+      instagramUrl: row?.instagramUrl ?? "",
+      xUrl: row?.xUrl ?? "",
+      linkedinUrl: row?.linkedinUrl ?? "",
+      behanceUrl: row?.behanceUrl ?? "",
+      dribbbleUrl: row?.dribbbleUrl ?? "",
+      youtubeUrl: row?.youtubeUrl ?? "",
+      pinterestUrl: row?.pinterestUrl ?? "",
+      githubUrl: row?.githubUrl ?? "",
+    };
+  } catch {
+    return DEFAULT_SITE_SETTINGS;
+  }
 }
 
 export async function getAdjacentSlugs(
