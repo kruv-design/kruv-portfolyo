@@ -33,7 +33,7 @@ export function SiteFooter({
         color: "var(--ink-soft)",
       }}
     >
-      <div className="mx-auto grid max-w-6xl gap-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-14">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 md:grid-cols-2 md:gap-10 lg:grid-cols-3 lg:gap-14">
         <div>
           <h2
             className="b3 mb-4"
@@ -86,7 +86,7 @@ export function SiteFooter({
           </ul>
         </nav>
 
-        <div className="sm:col-span-2 lg:col-span-1">
+        <div className="md:col-span-2 lg:col-span-1">
           <h2
             className="b3 mb-4"
             style={{ color: "var(--ink-faint)", letterSpacing: "var(--ls-2xl)" }}

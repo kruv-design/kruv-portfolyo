@@ -2,6 +2,8 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { NextResponse } from "next/server";
 
+export const runtime = "nodejs";
+
 /** Kök `/` — React sayfası yok; statik `public/kruv.html` doğrudan gövde olarak döner (Vercel’de eski `page.tsx` önbelleğiyle çakışmaz). */
 async function kruvHtmlResponse(): Promise<NextResponse> {
   const filePath = path.join(process.cwd(), "public", "kruv.html");
@@ -16,13 +18,23 @@ async function kruvHtmlResponse(): Promise<NextResponse> {
 }
 
 export async function GET() {
-  return kruvHtmlResponse();
+  try {
+    return await kruvHtmlResponse();
+  } catch (err) {
+    console.error("[GET /] kruv.html", err);
+    return new NextResponse("Internal Server Error", { status: 500 });
+  }
 }
 
 export async function HEAD() {
-  const res = await kruvHtmlResponse();
-  return new NextResponse(null, {
-    status: res.status,
-    headers: res.headers,
-  });
+  try {
+    const res = await kruvHtmlResponse();
+    return new NextResponse(null, {
+      status: res.status,
+      headers: res.headers,
+    });
+  } catch (err) {
+    console.error("[HEAD /] kruv.html", err);
+    return new NextResponse(null, { status: 500 });
+  }
 }

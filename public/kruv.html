@@ -263,6 +263,8 @@
     var(--grid-shell-max),
     130vh
   );
+  /* Selected Work / Projects: viewport’un %90’ı (toplam ~%10 yan boşluk), üst sınır shell; dar alanda taşmayı önlemek için %100 tavan */
+  --featured-works-width: min(90vw, var(--grid-shell-max), 100%);
   --section-pad-y: clamp(60px, 8vw, 88px);
   --section-pad-x: var(--container-gutter);
   /* Tema geçişi (scroll-t); görsel boşluk ideal → Projects arasında birikmesin */
@@ -760,18 +762,22 @@ nav.navbar.is-scrolled .nav-links {
 .navbar-item1,
 .navbar-item2,
 .navbar-item3 {
+  font-family: var(--b1-font-family);
+  font-size: var(--b1-font-size);
+  font-weight: var(--b1-font-weight);
+  line-height: var(--b1-line-height);
+  letter-spacing: var(--b1-letter-spacing);
+  text-transform: var(--b1-text-transform);
+}
+nav.navbar.is-scrolled .navbar-item1,
+nav.navbar.is-scrolled .navbar-item2,
+nav.navbar.is-scrolled .navbar-item3 {
   font-family: var(--b2-font-family);
   font-size: var(--b2-font-size);
   font-weight: var(--b2-font-weight);
   line-height: var(--b2-line-height);
   letter-spacing: var(--b2-letter-spacing);
   text-transform: var(--b2-text-transform);
-}
-nav.navbar.is-scrolled .navbar-item1,
-nav.navbar.is-scrolled .navbar-item2,
-nav.navbar.is-scrolled .navbar-item3 {
-  letter-spacing: calc(var(--b2-letter-spacing) - 0.02em);
-  font-size: calc(var(--b2-font-size) - 1px);
 }
 .nav-links a:hover { color: var(--frost); }
 .nav-actions {
@@ -1671,9 +1677,18 @@ body:has(.featured-work-card:hover) .hero-bottom {
     overflow-x: clip;
     padding: var(--space-5) var(--section-pad-x);
   }
+  /* Mobil: font-size animasyonu + ağır blur her karede reflow/GPU — geçiş titrer */
+  .nav-links a {
+    transition: color var(--dur-fast) var(--ease-standard);
+  }
   .nav-inner::before {
-    left: 0;
-    right: 0;
+    /* Yuvarlak zemin: kenarlardan nefes — öğeler çerçeveye yapışmasın */
+    inset: var(--space-3);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  nav.navbar.is-scrolled .nav-inner::before {
+    background: color-mix(in srgb, var(--midnight) 82%, transparent);
   }
   nav.navbar.is-scrolled { padding: var(--space-2) var(--section-pad-x); }
   nav.navbar.is-scrolled .nav-inner {
@@ -1695,10 +1710,13 @@ body:has(.featured-work-card:hover) .hero-bottom {
   .nav-cols {
     flex-wrap: nowrap;
     justify-content: space-between;
-    gap: var(--space-2);
+    gap: var(--space-3);
     width: 100%;
     max-width: 100%;
     min-width: 0;
+    box-sizing: border-box;
+    padding-inline: var(--space-3);
+    padding-block: var(--space-2);
   }
   /* Orta sütun: tam ekran drawer fixed; yatay yer kaplamasın */
   .nav-col--links {
@@ -1717,7 +1735,10 @@ body:has(.featured-work-card:hover) .hero-bottom {
   .nav-actions {
     max-width: 100%;
     min-width: 0;
-    gap: var(--space-2);
+    gap: var(--space-3);
+  }
+  .nav-logo {
+    margin-inline-start: 0;
   }
   .nav-menu-toggle {
     display: inline-flex;
@@ -1793,7 +1814,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
     max-width: none;
     margin-inline: 0;
   }
-  /* Çekmece linkleri: tam b1; navbar-item + is-scrolled b2 kurallarını ezmek için sınıf dahil */
+  /* Çekmece linkleri: tam b1; masaüstü is-scrolled (b2) kurallarını ezmek için sınıf dahil */
   nav.navbar .nav-menu-drawer .nav-links a.navbar-item1,
   nav.navbar .nav-menu-drawer .nav-links a.navbar-item2,
   nav.navbar .nav-menu-drawer .nav-links a.navbar-item3 {
@@ -2014,8 +2035,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
           <button type="button" class="nav-menu-backdrop" id="nav-menu-backdrop" aria-label="Menüyü kapat" tabindex="-1"></button>
           <ul class="nav-links">
             <li><a class="navbar-item1" href="/works">Work</a></li>
-            <li><a class="navbar-item2" href="#">About</a></li>
-            <li><a class="navbar-item3" href="#">Process</a></li>
+            <li><a class="navbar-item2" href="/works#about">About</a></li>
+            <li><a class="navbar-item3" href="/contact">Contact</a></li>
           </ul>
           <button
             type="button"
@@ -2044,7 +2065,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
       </div>
       <div class="nav-col nav-col--cta">
         <div class="nav-actions">
-          <a class="nav-cta" href="#">Start a project</a>
+          <a class="nav-cta" href="/contact">Start a project</a>
           <button
             type="button"
             id="theme-toggle"
@@ -2117,7 +2138,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
       </span>
       <span class="hero-v2-suffix">worth sharing.</span>
     </div>
-    <a href="#works" class="hero-v2-a11y-link site-footer-sr-only">
+    <a href="#works" class="hero-v2-mobile-cta btn btn--fill" lang="en">See projects</a>
+    <a href="#works" class="hero-v2-a11y-link site-footer-sr-only hero-v2-skip-when-mobile">
       See projects — jump to featured work
     </a>
   </div>
@@ -2425,6 +2447,43 @@ body:has(.featured-work-card:hover) .hero-bottom {
   </div>
 </section>
 
+<section
+  class="ideal-share-marquee-band"
+  lang="en"
+  aria-label="Share or it did not happen. We make sure it happens."
+>
+  <div class="ideal-share-marquee-bleed">
+    <div class="ideal-share-marquee">
+      <div class="ideal-share-marquee-track">
+        <div class="ideal-share-marquee-group">
+          <p class="ideal-share-marquee-text">
+            <span class="ideal-share-marquee-dot" aria-hidden="true">.</span> share or it didn't happen.
+            <em>we make sure it happens</em>
+          </p>
+        </div>
+        <div class="ideal-share-marquee-group" aria-hidden="true">
+          <p class="ideal-share-marquee-text">
+            <span class="ideal-share-marquee-dot">.</span> share or it didn't happen.
+            <em>we make sure it happens</em>
+          </p>
+        </div>
+        <div class="ideal-share-marquee-group" aria-hidden="true">
+          <p class="ideal-share-marquee-text">
+            <span class="ideal-share-marquee-dot">.</span> share or it didn't happen.
+            <em>we make sure it happens</em>
+          </p>
+        </div>
+        <div class="ideal-share-marquee-group" aria-hidden="true">
+          <p class="ideal-share-marquee-text">
+            <span class="ideal-share-marquee-dot">.</span> share or it didn't happen.
+            <em>we make sure it happens</em>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- TESTIMONIALS -->
 <section class="testimonials-section" id="testimonials" aria-labelledby="testimonials-heading" hidden>
   <div class="testimonials-inner">
@@ -2569,19 +2628,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
 .ideal-logo-3 { -webkit-mask-image: url("assets/clients/group-297.svg"); mask-image: url("assets/clients/group-297.svg"); }
 .ideal-logo-4 { -webkit-mask-image: url("assets/clients/asset-18.svg"); mask-image: url("assets/clients/asset-18.svg"); }
 
+/* 4 logo: 3 sütun 3+1 kırılımı çizgileri bozuyordu — ≤980px doğrudan 2×2 */
 @media (max-width: 980px) {
-  .ideal-clients-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  /* Her satırın ilk hücresinin sol border'ı sıfır, 2. satır+ üst border alır */
-  .ideal-logo-cell { border-left: 1px solid var(--ideal-clients-divider); }
-  .ideal-logo-cell:nth-child(3n+1) { border-left: none; }
-  .ideal-logo-cell:nth-child(n+4) { border-top: 1px solid var(--ideal-clients-divider); }
-}
-@media (max-width: 600px) {
   .ideal-clients-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     position: relative;
   }
-  /* Ortadaki dikey ayırıcı — iki satırda kesintisiz tam yükseklik */
   .ideal-clients-grid::after {
     content: "";
     position: absolute;
@@ -2600,6 +2652,99 @@ body:has(.featured-work-card:hover) .hero-bottom {
   }
   .ideal-logo-cell:nth-child(n + 3) {
     border-top: 1px solid var(--ideal-clients-divider);
+  }
+}
+
+/* ── IDEAL SONRASI — share bandı (kayan slogan) ── */
+.ideal-share-marquee-band {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  background-color: var(--midnight);
+}
+.ideal-share-marquee-bleed {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  overflow: hidden;
+  padding-block: var(--space-4) var(--space-5);
+  touch-action: pan-y pinch-zoom;
+  overscroll-behavior-x: none;
+}
+.ideal-share-marquee {
+  overflow: hidden;
+}
+.ideal-share-marquee-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  gap: 0;
+  animation: ideal-share-marquee-x 48s linear infinite;
+}
+.ideal-share-marquee-group {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  /* Döngü kopyaları arası — space-12 fazla geniştiriyordu */
+  padding-inline-end: clamp(var(--space-3), 2.5vw, var(--space-5));
+}
+.ideal-share-marquee-text {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 3.2vw, 1.75rem);
+  font-weight: 600;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-xl);
+  text-transform: lowercase;
+  color: var(--silver);
+  white-space: nowrap;
+  padding-block: 0.12em;
+}
+.ideal-share-marquee-dot {
+  color: var(--purple);
+  font-weight: 700;
+}
+.ideal-share-marquee-text em {
+  font-style: italic;
+  color: var(--frost);
+  font-weight: 500;
+}
+@keyframes ideal-share-marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-25%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ideal-share-marquee-track {
+    animation: none;
+    transform: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: var(--space-3);
+    width: 100%;
+    max-width: var(--grid-shell-width);
+    margin-inline: auto;
+    padding-inline: var(--section-pad-x);
+    box-sizing: border-box;
+  }
+  .ideal-share-marquee-group {
+    padding-inline-end: 0;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .ideal-share-marquee-bleed {
+    width: 100%;
+    margin-left: 0;
+    padding-block: var(--space-4);
+  }
+  .ideal-share-marquee-group[aria-hidden="true"] {
+    display: none;
+  }
+  .ideal-share-marquee-text {
+    white-space: normal;
+    text-align: center;
   }
 }
 
@@ -3144,11 +3289,11 @@ body:has(.featured-work-card:hover) .hero-bottom {
                     <p>You have an idea, but everything still feels scattered. No identity, no system, nothing solid to build on.</p>
                     <p>A clear brand identity, a consistent visual language, and a system that works across every place you show up.</p>
                   </div>
-                  <a class="focus-cta" href="#contact">Start here →</a>
+                  <a class="focus-cta" href="/contact">Start here →</a>
                 </div>
               </div>
             </div>
-            <a class="focus-cta focus-cta-desktop" href="#contact">Start here →</a>
+            <a class="focus-cta focus-cta-desktop" href="/contact">Start here →</a>
           </li>
           <li class="focus-item" data-focus-item>
             <span class="focus-number">02</span>
@@ -3160,11 +3305,11 @@ body:has(.featured-work-card:hover) .hero-bottom {
                     <p>Your product is working, but your brand is holding you back. You're growing, but it doesn't feel controlled.</p>
                     <p>A brand that matches the business you've become. Consistent, intentional, and ready for the next stage.</p>
                   </div>
-                  <a class="focus-cta" href="#contact">Get in control →</a>
+                  <a class="focus-cta" href="/contact">Get in control →</a>
                 </div>
               </div>
             </div>
-            <a class="focus-cta focus-cta-desktop" href="#contact">Get in control →</a>
+            <a class="focus-cta focus-cta-desktop" href="/contact">Get in control →</a>
           </li>
           <li class="focus-item" data-focus-item>
             <span class="focus-number">03</span>
@@ -3176,11 +3321,11 @@ body:has(.featured-work-card:hover) .hero-bottom {
                     <p>You're doing serious work, but it's not seen that way. The perception doesn't match the level you operate at.</p>
                     <p>A presence that speaks before you do. So when the right people find you, they immediately understand the level you're at.</p>
                   </div>
-                  <a class="focus-cta" href="#contact">Change perception →</a>
+                  <a class="focus-cta" href="/contact">Change perception →</a>
                 </div>
               </div>
             </div>
-            <a class="focus-cta focus-cta-desktop" href="#contact">Change perception →</a>
+            <a class="focus-cta focus-cta-desktop" href="/contact">Change perception →</a>
           </li>
           <li class="focus-item" data-focus-item>
             <span class="focus-number">04</span>
@@ -3192,11 +3337,11 @@ body:has(.featured-work-card:hover) .hero-bottom {
                     <p>Your brand got you here, but it won't take you further. It feels dated, inconsistent, and out of sync.</p>
                     <p>A brand rebuilt for where you're going. Keeping what still works, replacing what holds you back.</p>
                   </div>
-                  <a class="focus-cta" href="#contact">Evolve the brand →</a>
+                  <a class="focus-cta" href="/contact">Evolve the brand →</a>
                 </div>
               </div>
             </div>
-            <a class="focus-cta focus-cta-desktop" href="#contact">Evolve the brand →</a>
+            <a class="focus-cta focus-cta-desktop" href="/contact">Evolve the brand →</a>
           </li>
         </ul>
       </div>
@@ -3335,9 +3480,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
 </section>
 
 <section class="lets-talk" lang="en" aria-labelledby="lets-talk-heading">
-  <div class="lets-talk-shell">
-    <p class="lets-talk-eyebrow b3">Let's talk</p>
-  </div>
   <div class="lets-talk-marquee-bleed">
     <div class="lets-talk-marquee">
       <div class="lets-talk-marquee-track">
@@ -3345,25 +3487,25 @@ body:has(.featured-work-card:hover) .hero-bottom {
           <h2 id="lets-talk-heading" class="lets-talk-heading h2">
             <span class="lets-talk-heading-line1">Got a brand</span><span class="lets-talk-heading-line2"><em>worth building?</em></span>
           </h2>
-          <a class="cta-ghost lets-talk-cta" href="mailto:hello@kruv.studio">Start a project</a>
+          <a class="cta-ghost lets-talk-cta" href="/contact">Start a project</a>
         </div>
         <div class="lets-talk-marquee-group" aria-hidden="true">
           <span class="lets-talk-heading h2">
             <span class="lets-talk-heading-line1">Got a brand</span><span class="lets-talk-heading-line2"><em>worth building?</em></span>
           </span>
-          <a class="cta-ghost lets-talk-cta" tabindex="-1" href="mailto:hello@kruv.studio">Start a project</a>
+          <a class="cta-ghost lets-talk-cta" tabindex="-1" href="/contact">Start a project</a>
         </div>
         <div class="lets-talk-marquee-group" aria-hidden="true">
           <span class="lets-talk-heading h2">
             <span class="lets-talk-heading-line1">Got a brand</span><span class="lets-talk-heading-line2"><em>worth building?</em></span>
           </span>
-          <a class="cta-ghost lets-talk-cta" tabindex="-1" href="mailto:hello@kruv.studio">Start a project</a>
+          <a class="cta-ghost lets-talk-cta" tabindex="-1" href="/contact">Start a project</a>
         </div>
         <div class="lets-talk-marquee-group" aria-hidden="true">
           <span class="lets-talk-heading h2">
             <span class="lets-talk-heading-line1">Got a brand</span><span class="lets-talk-heading-line2"><em>worth building?</em></span>
           </span>
-          <a class="cta-ghost lets-talk-cta" tabindex="-1" href="mailto:hello@kruv.studio">Start a project</a>
+          <a class="cta-ghost lets-talk-cta" tabindex="-1" href="/contact">Start a project</a>
         </div>
       </div>
     </div>
@@ -3388,7 +3530,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
         <ul class="site-footer-list site-footer-links">
           <li><a href="/">Home</a></li>
           <li><a href="#about">About us</a></li>
-          <li><a href="#contact">Contact us</a></li>
+          <li><a href="/contact">Contact us</a></li>
         </ul>
       </nav>
       <div class="site-footer-col site-footer-col--follow">
@@ -3478,8 +3620,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
   }
 }
 .scene-label {
-  width: var(--grid-shell-width);
-  max-width: var(--grid-shell-width);
+  width: var(--featured-works-width);
+  max-width: var(--featured-works-width);
   margin-inline: auto;
   text-align: left;
   transition: filter .2s cubic-bezier(0.4,0,0.2,1), opacity .2s cubic-bezier(0.4,0,0.2,1);
@@ -3677,16 +3819,34 @@ body:has(.featured-work-card:hover) .hero-bottom {
 .post-image-area {
   width: 100%;
   aspect-ratio: 2 / 1;
-  position: relative; overflow: hidden;
+  position: relative;
+  overflow: hidden;
+  /* Görsel–alt blok arası subpixel boşlukta açılan “beyaz çizgi”yi bastırır */
+  background-color: var(--gray-solid-elevated);
+  isolation: isolate;
   transition: aspect-ratio 0.25s ease;
 }
 .post-image-crop {
-  position: absolute; inset: 0;
+  position: absolute;
+  inset: 0;
+  /* cover + keskin alt sınır: 1px açılma olmasın diye hafif büyütülür */
+  transform: scale(1.02);
+  transform-origin: center center;
   background-image: url('link/11-Post-Pro-V2.jpg');
   background-size: cover;
   background-position: center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
-.post-footer { padding: var(--space-2) var(--space-3) var(--space-3); }
+.post-footer {
+  position: relative;
+  z-index: 1;
+  margin-top: -1px;
+  padding-top: calc(var(--space-2) + 1px);
+  padding-inline: var(--space-3);
+  padding-bottom: var(--space-3);
+  background-color: var(--gray-solid-elevated);
+}
 .post-actions { display: flex; gap: var(--space-3); margin-bottom: var(--space-2); }
 .post-action-icon {
   width: var(--size-action-icon); height: var(--size-action-icon); border-radius: var(--btn-radius);
@@ -3733,12 +3893,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 
 .featured-works {
-  width: var(--grid-shell-width);
-  max-width: var(--grid-shell-width);
+  width: var(--featured-works-width);
+  max-width: var(--featured-works-width);
   margin-inline: auto;
   display: grid;
   grid-template-columns: 1fr;
-  gap: calc(var(--panel-gap) * 2);
+  gap: clamp(var(--space-6), 3vw, var(--space-10));
   overflow: visible;
 }
 .featured-work-card {
@@ -3786,7 +3946,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
   max-width: 100%;
   margin-inline: 0;
   box-sizing: border-box;
-  aspect-ratio: 2 / 1;
+  /* 2:1’den biraz daha yüksek (16:9) — aynı genişlikte görsel alanı orantılı büyür */
+  aspect-ratio: 16 / 9;
   border-radius: var(--space-sm);
   border: none;
   outline: none;
@@ -3831,7 +3992,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
 
 @media (max-width: 768px) {
   .featured-work-media {
-    aspect-ratio: 2 / 1.1;
+    aspect-ratio: 4 / 3;
   }
 }
 
@@ -3927,7 +4088,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
 @media (min-width: 900px) {
   .featured-works {
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: calc(var(--panel-gap) * 2);
+    gap: clamp(var(--space-5), 2.5vw, var(--space-10));
     align-items: start;
   }
   .featured-work-card:nth-child(1) {
@@ -4004,11 +4165,25 @@ body:has(.featured-work-card:hover) .hero-bottom {
   grid-template-columns: 1fr;
   gap: var(--space-10);
 }
-@media (min-width: 700px) {
+/* Tablet: Services + Sitemap yan yana; Follow altta tam genişlik */
+@media (min-width: 768px) {
+  .site-footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-10) var(--space-12);
+    align-items: start;
+  }
+  .site-footer-col--follow {
+    grid-column: 1 / -1;
+  }
+}
+@media (min-width: 1024px) {
   .site-footer-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--space-10) var(--space-12);
     align-items: start;
+  }
+  .site-footer-col--follow {
+    grid-column: auto;
   }
 }
 .site-footer-heading {
@@ -4136,6 +4311,14 @@ body:has(.featured-work-card:hover) .hero-bottom {
   position: relative;
   z-index: 1;
 }
+/* Masaüstü: mor imleç yeterli; birincil CTA yalnız ≤700px */
+.hero-v2-mobile-cta {
+  display: none;
+}
+.hero-v2-mobile-cta:focus-visible {
+  outline: 2px solid var(--purple);
+  outline-offset: 3px;
+}
 .hero-v2-headline {
   margin: 0;
   padding: 0;
@@ -4162,25 +4345,29 @@ body:has(.featured-work-card:hover) .hero-bottom {
   font-weight: 800;
   color: var(--frost);
   letter-spacing: -0.035em;
-  line-height: 1.04;
+  line-height: 1.1;
   flex-shrink: 0;
 }
 .hero-v2-word-box {
   position: relative;
   display: inline-block;
   overflow: hidden;
+  /* overflow + sıkı line-height: g, p, y descender’ları kesiyordu; em bu kutuda yanlış fonttan çözülüyordu */
   padding-bottom: calc(21px * 1.5);
   margin-bottom: calc(-21px * 1.5);
   transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   flex-shrink: 0;
   min-width: 0;
+  /* Animasyonda iki kelime position:absolute olunca yüksekip çöküyordu; 1lh ile satır yüksekliği korunur */
+  min-height: 1lh;
+  line-height: 1.1;
 }
 .hero-v2-word {
   font-family: var(--font-display);
   font-weight: 800;
   color: var(--frost);
   letter-spacing: -0.035em;
-  line-height: 1.04;
+  line-height: 1.1;
   white-space: nowrap;
   display: block;
 }
@@ -4193,7 +4380,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   white-space: nowrap;
   display: block;
   text-align: center;
-  line-height: 1.04;
+  line-height: 1.1;
 }
 
 /* Masaüstü (≥701px): punto, konteyner genişliği (≈70vw) ile orantılı ölçeklenir */
@@ -4202,35 +4389,41 @@ body:has(.featured-work-card:hover) .hero-bottom {
     .hero-v2-inner {
       container-type: inline-size;
       container-name: hero-v2;
+      --hero-v2-rotator-fs: clamp(1.625rem, 11cqw, 5.5rem);
     }
     .hero-v2-line1 {
       gap: clamp(var(--space-2), 1.5cqw, var(--space-5));
     }
     .hero-v2-static,
+    .hero-v2-word-box,
     .hero-v2-word,
     .hero-v2-suffix {
-      font-size: clamp(1.625rem, 11cqw, 5.5rem);
+      font-size: var(--hero-v2-rotator-fs);
     }
     .hero-v2-word-box {
-      padding-bottom: 0.21em;
-      margin-bottom: -0.21em;
+      padding-bottom: 0.38em;
+      margin-bottom: -0.38em;
     }
   }
 }
 
 @supports not (font-size: 1cqw) {
   @media (min-width: 701px) {
+    .hero-v2-inner {
+      --hero-v2-rotator-fs: clamp(1.625rem, 7.7vw, 5.5rem);
+    }
     .hero-v2-line1 {
       gap: clamp(var(--space-2), 1.1vw, var(--space-5));
     }
     .hero-v2-static,
+    .hero-v2-word-box,
     .hero-v2-word,
     .hero-v2-suffix {
-      font-size: clamp(1.625rem, 7.7vw, 5.5rem);
+      font-size: var(--hero-v2-rotator-fs);
     }
     .hero-v2-word-box {
-      padding-bottom: 0.21em;
-      margin-bottom: -0.21em;
+      padding-bottom: 0.38em;
+      margin-bottom: -0.38em;
     }
   }
 }
@@ -4327,6 +4520,10 @@ body:has(.featured-work-card:hover) .hero-bottom {
   .hero-v2-cursor.is-active .hero-v2-cursor__btn {
     transform: none;
   }
+  .hero-v2-mobile-cta {
+    animation: none !important;
+    opacity: 1;
+  }
 }
 
 @keyframes hero-v2-slide-in {
@@ -4343,9 +4540,23 @@ body:has(.featured-work-card:hover) .hero-bottom {
 @media (max-width: 700px) {
   .hero-v2 { min-height: 100vh; padding: var(--section-pad-y) var(--section-pad-x); }
   .hero-v2-inner { gap: var(--space-6); }
+  .hero-v2-mobile-cta {
+    display: inline-flex;
+    margin-top: var(--space-1);
+    opacity: 0;
+    animation: fadeUp 0.5s 0.36s ease forwards;
+  }
+  .hero-v2-skip-when-mobile {
+    display: none !important;
+  }
   .hero-v2-word-box {
-    padding-bottom: 14px;
-    margin-bottom: -14px;
+    font-family: var(--h2-font-family);
+    font-size: var(--h2-font-size);
+    font-weight: var(--h2-font-weight);
+    line-height: var(--h2-line-height);
+    letter-spacing: var(--h2-letter-spacing);
+    padding-bottom: clamp(12px, 0.55em, 22px);
+    margin-bottom: calc(-1 * clamp(12px, 0.55em, 22px));
   }
   /* Mobil: iki satır — (We build + kelime) / worth sharing.; tipografi h2 token */
   .hero-v2-static,
@@ -4406,6 +4617,18 @@ body:has(.featured-work-card:hover) .hero-bottom {
   }
 }
 
+/* Tablet: satır aralığını %25 aç (mevcut lh × 1.25) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .projects-belief-line {
+    line-height: calc(var(--h3-line-height) * 1.21 * 1.15 * 1.25 * 0.85 * 1.25);
+  }
+}
+@media (min-width: 600px) and (max-width: 768px) {
+  .projects-belief-line {
+    line-height: calc(var(--h4-line-height) * 1.5 * 1.25);
+  }
+}
+
 /* ── Lets Talk: accent band, beyaz tipografi, başlık + CTA kaydırmalı ── */
 .lets-talk {
   box-sizing: border-box;
@@ -4421,17 +4644,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
   gap: var(--space-6);
   position: relative;
   z-index: 2;
-}
-.lets-talk-shell {
-  box-sizing: border-box;
-  width: var(--grid-shell-width);
-  max-width: var(--grid-shell-width);
-  margin-inline: auto;
-  padding-inline: 0;
-}
-.lets-talk-eyebrow {
-  margin: 0;
-  color: var(--lets-talk-band-ink);
 }
 .lets-talk-marquee-bleed {
   width: 100vw;
@@ -4478,6 +4690,51 @@ body:has(.featured-work-card:hover) .hero-bottom {
   /* Dört eş kopya: bir segment genişliği kadar kaydır = kesintisiz döngü */
   to { transform: translateX(-25%); }
 }
+
+/* Dar / tablet: kayan şerit yerine tek satır, metin + CTA ortada */
+@media (max-width: 1024px) {
+  .lets-talk {
+    align-items: center;
+    gap: 0;
+  }
+  .lets-talk-marquee-track {
+    animation: none;
+    transform: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: var(--space-5);
+    width: 100%;
+    max-width: min(100%, var(--grid-shell-width));
+    margin-inline: auto;
+    padding-inline: var(--section-pad-x);
+    box-sizing: border-box;
+  }
+  .lets-talk-marquee-group {
+    padding-inline-end: 0;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-5);
+    max-width: 100%;
+  }
+  .lets-talk-marquee-bleed {
+    width: 100%;
+    margin-left: 0;
+    padding-block: var(--space-4);
+  }
+  .lets-talk-marquee-group[aria-hidden="true"] {
+    display: none;
+  }
+  .lets-talk-marquee-group .lets-talk-heading {
+    white-space: normal;
+    text-align: center;
+  }
+  .lets-talk-marquee {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .lets-talk-marquee-track {
     animation: none;
@@ -4552,10 +4809,9 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 
 @media (max-width: 700px) {
-  .lets-talk { gap: var(--space-5); }
+  .lets-talk { gap: 0; }
   .lets-talk-marquee-group {
     gap: var(--space-5);
-    padding-inline-end: var(--space-8);
   }
   .lets-talk-marquee-group .lets-talk-heading {
     font-size: clamp(19px, 5.4vw, 35px);
@@ -5258,39 +5514,36 @@ body:has(.featured-work-card:hover) .hero-bottom {
   var sentinel = document.getElementById('nav-sentinel');
   if (!nav || !sentinel) return;
 
-  function applySentinelEntry(entry) {
-    if (!entry || entry.target !== sentinel) return;
-    /* threshold:0 — viewport ile en az 1px kesişme yoksa sayfa kaymış sayılır */
-    nav.classList.toggle('is-scrolled', !entry.isIntersecting);
-  }
+  /* IntersectionObserver + 1px sentinel: mobilde elastik scroll / alt-piksel titreme.
+     rAF + histerezis tek yol — sınırda class flip flop olmaz. */
+  var sticky = false;
+  var raf = 0;
+  var ENTER = -4;
+  var EXIT = 10;
 
-  function syncScrolledFromSentinelRect() {
-    var r = sentinel.getBoundingClientRect();
-    var vh = window.innerHeight || document.documentElement.clientHeight;
-    var inView = r.bottom > 0 && r.top < vh;
-    nav.classList.toggle('is-scrolled', !inView);
-  }
-
-  if ('IntersectionObserver' in window) {
-    var observer = new IntersectionObserver(function (entries) {
-      for (var i = 0; i < entries.length; i++) {
-        applySentinelEntry(entries[i]);
-      }
-    }, { threshold: 0, root: null, rootMargin: '0px' });
-    observer.observe(sentinel);
-    var pending = observer.takeRecords();
-    for (var j = 0; j < pending.length; j++) {
-      applySentinelEntry(pending[j]);
+  function apply() {
+    raf = 0;
+    var b = sentinel.getBoundingClientRect().bottom;
+    if (!sticky) {
+      if (b < ENTER) sticky = true;
+    } else {
+      if (b > EXIT) sticky = false;
     }
-    requestAnimationFrame(syncScrolledFromSentinelRect);
-    return;
+    nav.classList.toggle('is-scrolled', sticky);
   }
 
-  function syncScrolledFromScroll() {
-    nav.classList.toggle('is-scrolled', (window.scrollY || 0) > 0);
+  function schedule() {
+    if (raf) return;
+    raf = requestAnimationFrame(apply);
   }
-  syncScrolledFromScroll();
-  window.addEventListener('scroll', syncScrolledFromScroll, { passive: true });
+
+  apply();
+  window.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', schedule);
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', schedule);
+    window.visualViewport.addEventListener('scroll', schedule);
+  }
 })();
 </script>
 
@@ -5652,24 +5905,33 @@ body:has(.featured-work-card:hover) .hero-bottom {
     var wb = document.getElementById('hero-v2-wb');
     if (!wb) return;
     var current = document.getElementById('hero-v2-wa');
+    if (!current) return;
     var idx = 0;
     var busy = false;
 
-    // Word genişliği: gerçek bir DOM ölçümü (font/letterspacing eşleşmesi için
-    // .hero-v2-word stilinde gizli bir span oluşturup ölçer; clamp() ile gelen
-    // font-size aktif viewport'a göre doğru ölçülür).
+    // Word genişliği: DOM ölçümü. Span, .hero-v2-inner içinde olmalı — font-size …cqw
+    // kuralları yalnızca container altında doğru çözülür; body’de ölçüm Windows/Edge’de
+    // 0 px veya yanlış genişlik üretip kelime döngüsünü kırıyordu.
     function measureWidth(text) {
+      var inner = wb.closest('.hero-v2-inner');
+      var host = inner || wb;
       var el = document.createElement('span');
       el.className = 'hero-v2-word';
-      el.style.position = 'absolute';
-      el.style.visibility = 'hidden';
-      el.style.top = '-9999px';
-      el.style.left = '-9999px';
+      el.setAttribute('aria-hidden', 'true');
+      el.style.cssText =
+        'position:absolute;left:0;top:0;visibility:hidden;pointer-events:none;white-space:nowrap;';
       el.textContent = text;
-      document.body.appendChild(el);
+      host.appendChild(el);
       var w = el.offsetWidth;
-      document.body.removeChild(el);
-      return w;
+      host.removeChild(el);
+      return Math.max(1, w);
+    }
+
+    var started = false;
+    function startOnce() {
+      if (started) return;
+      started = true;
+      start();
     }
 
     function start() {
@@ -5712,9 +5974,14 @@ body:has(.featured-work-card:hover) .hero-bottom {
     }
 
     if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(start);
+      document.fonts.ready.then(startOnce, startOnce);
+      setTimeout(startOnce, 2800);
+    } else if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', startOnce, { once: true });
+      setTimeout(startOnce, 2800);
     } else {
-      window.addEventListener('load', start, { once: true });
+      startOnce();
+      setTimeout(startOnce, 2800);
     }
   })();
 </script>

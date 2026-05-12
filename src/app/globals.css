@@ -701,12 +701,12 @@ body {
 }
 
 .marketing-navbar-item {
-  font-family: var(--b3-font-family);
-  font-size: var(--b3-font-size);
-  font-weight: var(--b3-font-weight);
-  line-height: var(--b3-line-height);
-  letter-spacing: var(--b3-letter-spacing);
-  text-transform: var(--b3-text-transform);
+  font-family: var(--b1-font-family);
+  font-size: var(--b1-font-size);
+  font-weight: var(--b1-font-weight);
+  line-height: var(--b1-line-height);
+  letter-spacing: var(--b1-letter-spacing);
+  text-transform: var(--b1-text-transform);
   color: var(--ink-soft);
   text-decoration: none;
   transition:
@@ -716,8 +716,12 @@ body {
 }
 
 .marketing-navbar.is-scrolled .marketing-navbar-item {
-  letter-spacing: calc(var(--b3-letter-spacing) - 0.02em);
-  font-size: calc(var(--b3-font-size) - 1px);
+  font-family: var(--b2-font-family);
+  font-size: var(--b2-font-size);
+  font-weight: var(--b2-font-weight);
+  line-height: var(--b2-line-height);
+  letter-spacing: var(--b2-letter-spacing);
+  text-transform: var(--b2-text-transform);
 }
 
 .marketing-navbar-item:hover {
@@ -940,7 +944,7 @@ body {
 
 @media (max-width: 699px) {
   .marketing-navbar-actions {
-    gap: var(--space-2);
+    gap: var(--space-3);
   }
 
   .marketing-navbar-col--links {
@@ -960,6 +964,13 @@ body {
     overflow: hidden;
   }
 
+  /* Pill içi nefes: logo / CTA / menü çerçeveye yapışmasın */
+  .marketing-navbar-inner {
+    padding-inline: var(--space-4);
+    padding-block: var(--space-3);
+    box-sizing: border-box;
+  }
+
   /* Scroll’da “pill” masaüstü daraltmasını mobilde kapat — logo + aksiyonlar tek satır */
   .marketing-navbar.is-scrolled .marketing-navbar-inner {
     width: 100%;
@@ -970,7 +981,7 @@ body {
     justify-content: space-between;
     width: 100%;
     max-width: 100%;
-    gap: var(--space-2);
+    gap: var(--space-3);
   }
 
   /* Çift hatlı CTA taşmasını önle; kutu yüksekliği sabit kalır */
@@ -980,11 +991,17 @@ body {
     font-size: calc(var(--type-b2) - 1px);
   }
 
-  /* Frosted pill bazen köşede artefakt — mobilde sade yüzey */
+  /* Mobil pill: kenarlardan inset + düz yüzey */
   .marketing-navbar-inner::before {
+    inset: var(--space-2);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
     background: color-mix(in srgb, var(--surface) 92%, transparent);
+  }
+
+  /* Touch: font-size tween her karede layout — scroll header geçişinde titreme */
+  .marketing-navbar-item {
+    transition: color var(--dur-fast) var(--ease);
   }
 }
 
@@ -1144,6 +1161,27 @@ body {
   object-position: center;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+}
+
+/* Works (/works) tek sütun: görsel viewport’ta ~%10 yan boşluk (90vw) */
+@media (max-width: 699px) {
+  .works-shell-inner {
+    overflow-x: visible;
+  }
+  .portfolio-grid {
+    overflow-x: visible;
+  }
+  .pw-card {
+    overflow-x: visible;
+  }
+  .pw-card-media {
+    width: 90vw;
+    max-width: 90vw;
+    align-self: center;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 /* %15 siyah overlay — hover'lanmayan kartlar üzerinde belirir */

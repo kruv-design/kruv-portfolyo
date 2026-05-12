@@ -25,8 +25,16 @@ const mono = DM_Mono({
   weight: ["300", "400", "500"],
 });
 
+function metadataBaseUrl(): URL {
+  try {
+    return new URL(env.SITE_URL);
+  } catch {
+    return new URL("http://localhost:3000");
+  }
+}
+
 export const metadata: Metadata = {
-  metadataBase: new URL(env.SITE_URL),
+  metadataBase: metadataBaseUrl(),
   title: {
     default: "kruv. — portfolyo",
     template: "%s · kruv.",

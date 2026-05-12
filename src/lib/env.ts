@@ -12,6 +12,25 @@ function required(name: string, value: string | undefined): string {
   return value;
 }
 
+/**
+ * Site kök URL — `metadataBase` ve canonical için kullanılır.
+ * Şemasız (`127.0.0.1:3000`) değerler `new URL()` ile patlar; otomatik `http://` eklenir.
+ */
+function safePublicSiteUrl(): string {
+  const fallback = "http://localhost:3000";
+  let raw = String(process.env.NEXT_PUBLIC_SITE_URL ?? fallback).trim();
+  if (!raw) return fallback;
+  if (!/^https?:\/\//i.test(raw)) {
+    raw = "http://" + raw.replace(/^\/+/, "");
+  }
+  try {
+    const u = new URL(raw);
+    return u.href.replace(/\/+$/, "");
+  } catch {
+    return fallback;
+  }
+}
+
 export const env = {
   get SUPABASE_URL() {
     return required(
@@ -53,8 +72,6 @@ export const env = {
     );
   },
   get SITE_URL() {
-    return (
-      process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
-    ).replace(/\/$/, "");
+    return safePublicSiteUrl();
   },
 };
