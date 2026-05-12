@@ -4129,8 +4129,10 @@ body:has(.featured-work-card:hover) .hero-bottom {
   flex-direction: column;
   align-items: center;
   gap: var(--space-8);
-  max-width: 56ch;
-  width: 100%;
+  /* Yatayda viewport’un ~%70’i; büyüyüp küçülürken orantı korunur */
+  width: min(70vw, 100%);
+  max-width: min(70vw, 100%);
+  box-sizing: border-box;
   position: relative;
   z-index: 1;
 }
@@ -4157,8 +4159,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 .hero-v2-static {
   font-family: var(--font-display);
-  /* Web: clamp tabanı × 2.25 (önce ×1.5, bir ×1.5 daha) */
-  font-size: calc(2.25 * clamp(36px, 7vw, 56px));
   font-weight: 800;
   color: var(--frost);
   letter-spacing: -0.035em;
@@ -4177,7 +4177,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 .hero-v2-word {
   font-family: var(--font-display);
-  font-size: calc(2.25 * clamp(36px, 7vw, 56px));
   font-weight: 800;
   color: var(--frost);
   letter-spacing: -0.035em;
@@ -4187,7 +4186,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 .hero-v2-suffix {
   font-family: var(--font-display);
-  font-size: calc(2.25 * clamp(36px, 7vw, 56px));
   font-weight: 400;
   font-style: italic;
   color: var(--purple);
@@ -4196,6 +4194,45 @@ body:has(.featured-work-card:hover) .hero-bottom {
   display: block;
   text-align: center;
   line-height: 1.04;
+}
+
+/* Masaüstü (≥701px): punto, konteyner genişliği (≈70vw) ile orantılı ölçeklenir */
+@supports (font-size: 1cqw) {
+  @media (min-width: 701px) {
+    .hero-v2-inner {
+      container-type: inline-size;
+      container-name: hero-v2;
+    }
+    .hero-v2-line1 {
+      gap: clamp(var(--space-2), 1.5cqw, var(--space-5));
+    }
+    .hero-v2-static,
+    .hero-v2-word,
+    .hero-v2-suffix {
+      font-size: clamp(1.625rem, 11cqw, 5.5rem);
+    }
+    .hero-v2-word-box {
+      padding-bottom: 0.21em;
+      margin-bottom: -0.21em;
+    }
+  }
+}
+
+@supports not (font-size: 1cqw) {
+  @media (min-width: 701px) {
+    .hero-v2-line1 {
+      gap: clamp(var(--space-2), 1.1vw, var(--space-5));
+    }
+    .hero-v2-static,
+    .hero-v2-word,
+    .hero-v2-suffix {
+      font-size: clamp(1.625rem, 7.7vw, 5.5rem);
+    }
+    .hero-v2-word-box {
+      padding-bottom: 0.21em;
+      margin-bottom: -0.21em;
+    }
+  }
 }
 
 /* V2 hero: mor yuvarlak imleç (masaüstü ince işaretçi) */
