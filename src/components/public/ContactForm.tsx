@@ -16,39 +16,26 @@ const INITIAL: ContactPayloadInput = {
   referrer: "",
 };
 
-const PROJECT_TYPES = [
+/** Markasını büyütmek isteyen bir ekip için: önce marka kimliği, sonra nerede takıldıkları */
+const PRIMARY_FOCUS = [
   { value: "", label: "Seçin…" },
-  { value: "marka-kimlik", label: "Marka & kimlik" },
-  { value: "web-ui", label: "Web / ürün arayüzü" },
-  { value: "paket", label: "Paket & baskı" },
-  { value: "kampanya", label: "Kampanya & sosyal" },
-  { value: "diger", label: "Diğer / henüz net değil" },
+  { value: "kimlik-ambalaj", label: "Marka kimliği, ambalaj veya ürün yüzü" },
+  { value: "sosyal-icerik", label: "Sosyal medya ve içerik düzeni" },
+  { value: "lansman-tanitim", label: "Lansman, kampanya veya yeniden tanıtım" },
+  { value: "web-deneyim", label: "Web sitesi veya dijital deneyim" },
+  { value: "strateji-konum", label: "Strateji, konumlandırma veya isimlendirme" },
+  { value: "diger", label: "Henüz net değil — birlikte netleştirelim" },
 ] as const;
 
-const BUDGETS = [
-  { value: "", label: "Seçin…" },
-  { value: "belirsiz", label: "Henüz net değil" },
-  { value: "50k-alt", label: "50.000 TL altı" },
-  { value: "50-150k", label: "50.000 – 150.000 TL" },
-  { value: "150k-ustu", label: "150.000 TL üstü" },
-  { value: "paylasmak-istemiyorum", label: "Paylaşmak istemiyorum" },
-] as const;
+const TOTAL_STEPS = 5;
 
-const TIMELINES = [
-  { value: "", label: "Seçin…" },
-  { value: "acil", label: "4 hafta içinde" },
-  { value: "1-3ay", label: "1–3 ay" },
-  { value: "esnek", label: "Takvim esnek" },
-] as const;
-
-const REFERRERS = [
-  { value: "", label: "Seçin…" },
-  { value: "instagram", label: "Instagram" },
-  { value: "linkedin", label: "LinkedIn" },
-  { value: "referans", label: "Tanıdık / referans" },
-  { value: "google", label: "Arama (Google vb.)" },
-  { value: "diger", label: "Diğer" },
-] as const;
+const STEP_TITLES = [
+  "Adınız",
+  "E-postanız",
+  "Markanız",
+  "Öncelik",
+  "Mesajınız",
+];
 
 function isValidEmail(s: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s.trim());
@@ -127,6 +114,10 @@ export function ContactForm() {
       setStepError("İsminizi en az 2 karakter olarak girin.");
       return false;
     }
+    return true;
+  }
+
+  function validateStep1() {
     if (!isValidEmail(values.email)) {
       setStepError("Geçerli bir e-posta adresi girin.");
       return false;
@@ -134,9 +125,36 @@ export function ContactForm() {
     return true;
   }
 
+  function validateStep2() {
+    if (values.company.trim().length < 2) {
+      setStepError("Hangi marka veya şirket için yazdığınızı belirtin (en az 2 karakter).");
+      return false;
+    }
+    return true;
+  }
+
+  function validateStep3() {
+    if (!values.projectType.trim()) {
+      setStepError("Şu an en çok hangi alanda destek aradığınızı seçin.");
+      return false;
+    }
+    return true;
+  }
+
+  function validateStep4() {
+    if (values.message.trim().length < 15) {
+      setStepError("Mesajınız en az 15 karakter olsun ki doğru yanıt verebilelim.");
+      return false;
+    }
+    return true;
+  }
+
   function goNext() {
     if (step === 0 && !validateStep0()) return;
-    setStep((s) => Math.min(2, s + 1));
+    if (step === 1 && !validateStep1()) return;
+    if (step === 2 && !validateStep2()) return;
+    if (step === 3 && !validateStep3()) return;
+    setStep((s) => Math.min(TOTAL_STEPS - 1, s + 1));
     setStepError(null);
   }
 
@@ -149,6 +167,22 @@ export function ContactForm() {
     ev.preventDefault();
     if (!validateStep0()) {
       setStep(0);
+      return;
+    }
+    if (!validateStep1()) {
+      setStep(1);
+      return;
+    }
+    if (!validateStep2()) {
+      setStep(2);
+      return;
+    }
+    if (!validateStep3()) {
+      setStep(3);
+      return;
+    }
+    if (!validateStep4()) {
+      setStep(4);
       return;
     }
     if (!sessionId) return;
@@ -174,8 +208,7 @@ export function ContactForm() {
     }
   }
 
-  const progress = ((step + 1) / 3) * 100;
-  const stepTitles = ["Tanışalım", "Proje özeti", "Son dokunuş"];
+  const progress = ((step + 1) / TOTAL_STEPS) * 100;
 
   if (done) {
     return (
@@ -206,8 +239,8 @@ export function ContactForm() {
           Birlikte üretelim
         </h1>
         <p className="contact-form-lead b1" style={{ color: "var(--b1-color)" }}>
-          Kısa adımlarla ilerleyin; yanıtlarınız otomatik taslak olarak kaydedilir — sayfayı kapatsanız bile
-          nerede kaldığınızı ekibimiz görebilir.
+          Beş kısa adım: kim olduğunuz, iletişim, hangi marka için yazdığınız, şu anki önceliğiniz ve
+          kısa mesajınız. Yanıtlarınız otomatik taslak olarak kaydedilir.
         </p>
       </header>
 
@@ -216,7 +249,7 @@ export function ContactForm() {
           <div className="contact-form-progress-fill" style={{ width: `${progress}%` }} />
         </div>
         <p className="contact-form-progress-label b2" style={{ color: "var(--ink-faint)" }}>
-          Adım {step + 1} / 3 — {stepTitles[step]}
+          Adım {step + 1} / {TOTAL_STEPS} — {STEP_TITLES[step]}
         </p>
       </div>
 
@@ -254,7 +287,7 @@ export function ContactForm() {
           <div className="contact-form-step">
             <div className="contact-form-field">
               <label htmlFor={`${formId}-name`} className="contact-form-label b2">
-                Ad soyad <span className="contact-form-req">*</span>
+                Adınız soyadınız <span className="contact-form-req">*</span>
               </label>
               <input
                 id={`${formId}-name`}
@@ -267,6 +300,11 @@ export function ContactForm() {
                 required
               />
             </div>
+          </div>
+        ) : null}
+
+        {step === 1 ? (
+          <div className="contact-form-step">
             <div className="contact-form-field">
               <label htmlFor={`${formId}-email`} className="contact-form-label b2">
                 E-posta <span className="contact-form-req">*</span>
@@ -283,10 +321,18 @@ export function ContactForm() {
                 required
               />
             </div>
+          </div>
+        ) : null}
+
+        {step === 2 ? (
+          <div className="contact-form-step">
             <div className="contact-form-field">
               <label htmlFor={`${formId}-company`} className="contact-form-label b2">
-                Marka / şirket <span className="contact-form-opt">(isteğe bağlı)</span>
+                Marka veya şirket adı <span className="contact-form-req">*</span>
               </label>
+              <p className="b2" style={{ color: "var(--ink-faint)", margin: 0 }}>
+                Hangi marka için büyüme veya yenileme düşünüyorsunuz? (En kritik ilk bilgi.)
+              </p>
               <input
                 id={`${formId}-company`}
                 className="contact-form-input"
@@ -294,71 +340,28 @@ export function ContactForm() {
                 autoComplete="organization"
                 value={values.company}
                 onChange={(e) => patch("company", e.target.value)}
-              />
-            </div>
-            <div className="contact-form-field">
-              <label htmlFor={`${formId}-phone`} className="contact-form-label b2">
-                Telefon <span className="contact-form-opt">(isteğe bağlı)</span>
-              </label>
-              <input
-                id={`${formId}-phone`}
-                className="contact-form-input"
-                type="tel"
-                autoComplete="tel"
-                value={values.phone}
-                onChange={(e) => patch("phone", e.target.value)}
+                placeholder="ör. marker, acme co."
               />
             </div>
           </div>
         ) : null}
 
-        {step === 1 ? (
+        {step === 3 ? (
           <div className="contact-form-step">
             <div className="contact-form-field">
               <label htmlFor={`${formId}-type`} className="contact-form-label b2">
-                Ne üzerinde çalışıyorsunuz?
+                Şu an en çok nerede destek arıyorsunuz? <span className="contact-form-req">*</span>
               </label>
+              <p className="b2" style={{ color: "var(--ink-faint)", margin: 0 }}>
+                Tek seçim yeterli — doğru ekibi yanıtınıza yönlendirmek için.
+              </p>
               <select
                 id={`${formId}-type`}
                 className="contact-form-input contact-form-select"
                 value={values.projectType}
                 onChange={(e) => patch("projectType", e.target.value)}
               >
-                {PROJECT_TYPES.map((o) => (
-                  <option key={o.label + o.value} value={o.value}>
-                    {o.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="contact-form-field">
-              <label htmlFor={`${formId}-budget`} className="contact-form-label b2">
-                Yaklaşık bütçe
-              </label>
-              <select
-                id={`${formId}-budget`}
-                className="contact-form-input contact-form-select"
-                value={values.budget}
-                onChange={(e) => patch("budget", e.target.value)}
-              >
-                {BUDGETS.map((o) => (
-                  <option key={o.label + o.value} value={o.value}>
-                    {o.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="contact-form-field">
-              <label htmlFor={`${formId}-timeline`} className="contact-form-label b2">
-                Zaman çizelgesi
-              </label>
-              <select
-                id={`${formId}-timeline`}
-                className="contact-form-input contact-form-select"
-                value={values.timeline}
-                onChange={(e) => patch("timeline", e.target.value)}
-              >
-                {TIMELINES.map((o) => (
+                {PRIMARY_FOCUS.map((o) => (
                   <option key={o.label + o.value} value={o.value}>
                     {o.label}
                   </option>
@@ -368,37 +371,23 @@ export function ContactForm() {
           </div>
         ) : null}
 
-        {step === 2 ? (
+        {step === 4 ? (
           <div className="contact-form-step">
             <div className="contact-form-field">
               <label htmlFor={`${formId}-message`} className="contact-form-label b2">
-                Kısaca anlatın
+                Mesajınız <span className="contact-form-req">*</span>
               </label>
+              <p className="b2" style={{ color: "var(--ink-faint)", margin: 0 }}>
+                Hedefiniz, referans verdiğiniz işler, teslim beklentiniz… En az 15 karakter.
+              </p>
               <textarea
                 id={`${formId}-message`}
                 className="contact-form-input contact-form-textarea"
-                rows={5}
+                rows={6}
                 value={values.message}
                 onChange={(e) => patch("message", e.target.value)}
-                placeholder="Hedefiniz, referans gördüğünüz işler, teslim tarihi…"
+                placeholder="Kısaca projenizi veya sorunuzu yazın."
               />
-            </div>
-            <div className="contact-form-field">
-              <label htmlFor={`${formId}-ref`} className="contact-form-label b2">
-                Bizi nereden duydunuz?
-              </label>
-              <select
-                id={`${formId}-ref`}
-                className="contact-form-input contact-form-select"
-                value={values.referrer}
-                onChange={(e) => patch("referrer", e.target.value)}
-              >
-                {REFERRERS.map((o) => (
-                  <option key={o.label + o.value} value={o.value}>
-                    {o.label}
-                  </option>
-                ))}
-              </select>
             </div>
           </div>
         ) : null}
@@ -422,7 +411,7 @@ export function ContactForm() {
           ) : (
             <span />
           )}
-          {step < 2 ? (
+          {step < TOTAL_STEPS - 1 ? (
             <button type="button" className="contact-form-btn contact-form-btn--primary" onClick={goNext}>
               Devam
             </button>

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { slugify } from "@/lib/slugify";
 
 const nonEmpty = z.string().trim().min(1, "Bu alan zorunlu.");
 const optStr = z.string().trim().max(500).optional().default("");
@@ -9,38 +10,155 @@ export const sectionSchema = z.object({
   metin: z.string().trim().max(5000).optional().default(""),
 });
 
+/** Yapıştırma hatası: URL içindeki tüm boşluklar (Cloudinary cloud_name vb.) — z.url() kaydı düşürüyordu */
+function compactUrlWhitespace(s: string): string {
+  return s.trim().replace(/\s+/g, "");
+}
+
+const imageUrlOrEmpty = z
+  .string()
+  .max(2048)
+  .transform((s) => compactUrlWhitespace(s))
+  .refine(
+    (s) => !s || /^https?:\/\//i.test(s),
+    "Görsel adresi http(s) ile başlamalı veya boş bırakın.",
+  )
+  .refine((s) => {
+    if (!s) return true;
+    try {
+      const u = new URL(s);
+      return Boolean(u.hostname);
+    } catch {
+      return false;
+    }
+  }, "Adres geçerli görünmüyor; kopyaladığınız linki kontrol edin.");
+
+/** Proje linki — `z.url()` bazı geçerli adresleri (boşluk, tarayıcı farkı) düşürüyordu */
+const linkUrlOrEmpty = z
+  .string()
+  .max(2048)
+  .transform((s) => compactUrlWhitespace(s))
+  .refine(
+    (s) => !s || /^https?:\/\//i.test(s),
+    "Link http(s) ile başlamalı veya boş bırakın.",
+  )
+  .refine(
+    (s) => {
+      if (!s) return true;
+      try {
+        return Boolean(new URL(s).hostname);
+      } catch {
+        return false;
+      }
+    },
+    "Geçerli bir adres girin veya boş bırakın.",
+  )
+  .optional()
+  .default("");
+
+const galleryUrlItem = z
+  .string()
+  .max(2048)
+  .transform((s) => compactUrlWhitespace(s))
+  .refine(
+    (s) => !s || /^https?:\/\//i.test(s),
+    "Galeri adresi http(s) ile başlamalı.",
+  )
+  .refine((s) => {
+    if (!s) return true;
+    try {
+      return Boolean(new URL(s).hostname);
+    } catch {
+      return false;
+    }
+  }, "Galeri adresi geçersiz.");
+
+/** #RGB → #RRGGBB; geçersiz / boş → varsayılan (kayıt 400 düşmesin) */
+function normalizeRenkHex(raw: string): string {
+  const t = raw.trim();
+  if (/^#[0-9A-Fa-f]{6}$/i.test(t)) {
+    return `#${t.slice(1).toUpperCase()}`;
+  }
+  if (/^#[0-9A-Fa-f]{3}$/i.test(t)) {
+    const r = t[1]!.toUpperCase();
+    const g = t[2]!.toUpperCase();
+    const b = t[3]!.toUpperCase();
+    return `#${r}${r}${g}${g}${b}${b}`;
+  }
+  return "#C8B8A8";
+}
+
 export const projectSchema = z.object({
+  /**
+   * Slug: küçük harf, `_` → `-`, geçersiz karakter kalırsa `slugify` ile düzelt.
+   * Aksi halde PATCH 400 oluyor; kullanıcı “hiç kaydetmiyor” sanıyordu.
+   */
   slug: z
-    .string()
-    .trim()
-    .max(96)
-    .refine((s) => s === "" || /^[a-z0-9-]+$/.test(s), {
-      message: "Slug sadece küçük harf, rakam ve tire içerebilir.",
+    .union([z.string(), z.undefined(), z.null()])
+    .transform((v) => {
+      const raw =
+        typeof v === "string"
+          ? v.trim().toLowerCase().replace(/_/g, "-")
+          : "";
+      if (raw === "") return "";
+      if (/^[a-z0-9-]+$/.test(raw)) return raw.slice(0, 96);
+      const fixed = slugify(raw).slice(0, 96);
+      return fixed;
     })
-    .optional()
-    .default(""),
+    .pipe(
+      z
+        .string()
+        .max(96)
+        .refine((s) => s === "" || /^[a-z0-9-]+$/.test(s), {
+          message: "Slug üretilemedi; başlıktan otomatik slug kullanılacak.",
+        }),
+    ),
   baslik: nonEmpty.max(200, "Başlık çok uzun."),
   kategori: nonEmpty.max(80),
   aciklama: longStr,
-  gorsel: z.string().trim().url("Geçerli bir URL olmalı.").or(z.literal("")).optional().default(""),
-  gorseller: z.array(z.string().url().or(z.literal(""))).max(30).default([]),
+  gorsel: imageUrlOrEmpty.optional().default(""),
+  gorseller: z
+    .array(galleryUrlItem)
+    .max(30)
+    .default([])
+    .transform((arr) => arr.filter((u) => u.length > 0)),
   bolumler: z.array(sectionSchema).max(20).default([]),
   etiketler: z.array(z.string().trim().min(1).max(40)).max(20).default([]),
   yil: optStr,
   musteri: optStr,
   rol: optStr,
   sure: optStr,
-  link: z.string().trim().url().or(z.literal("")).optional().default(""),
+  link: linkUrlOrEmpty,
   featured: z.boolean().default(false),
   renk: z
-    .string()
-    .trim()
-    .regex(/^#[0-9A-Fa-f]{6}$/, "HEX renk olmalı (#RRGGBB).")
-    .optional()
-    .default("#C8B8A8"),
+    .union([z.string(), z.undefined(), z.null()])
+    .transform((v) =>
+      normalizeRenkHex(typeof v === "string" ? v : "#C8B8A8"),
+    ),
 });
 
 export type ProjectFormInput = z.infer<typeof projectSchema>;
+
+/** PostgREST’e yalnızca tablo sütunları — spread ile fazla anahtar riski kalkar */
+export function projectPayloadToDbRow(input: ProjectFormInput, slug: string) {
+  return {
+    slug,
+    baslik: input.baslik,
+    kategori: input.kategori,
+    aciklama: input.aciklama,
+    gorsel: input.gorsel,
+    gorseller: input.gorseller,
+    bolumler: input.bolumler,
+    etiketler: input.etiketler,
+    yil: input.yil,
+    musteri: input.musteri,
+    rol: input.rol,
+    sure: input.sure,
+    link: input.link,
+    featured: input.featured,
+    renk: input.renk,
+  };
+}
 
 export const reorderSchema = z.object({
   order: z.array(z.string().uuid()).max(200),
@@ -100,7 +218,7 @@ export type ContactPayloadInput = z.infer<typeof contactPayloadSchema>;
 
 export const contactPartialBodySchema = z.object({
   sessionId: z.string().uuid("Oturum geçersiz."),
-  step: z.number().int().min(0).max(3).optional(),
+  step: z.number().int().min(0).max(9).optional(),
   payload: contactPayloadSchema,
 });
 

@@ -17,11 +17,13 @@ function buildMessageBody(p: ContactPayloadInput): string {
   const lines = [
     p.message.trim(),
     "",
-    `Proje türü: ${p.projectType || "—"}`,
-    `Bütçe aralığı: ${p.budget || "—"}`,
-    `Zaman: ${p.timeline || "—"}`,
-    `Nereden duydunuz: ${p.referrer || "—"}`,
-  ];
+    `Marka / şirket: ${p.company.trim() || "—"}`,
+    `Öncelikli ihtiyaç: ${p.projectType.trim() || "—"}`,
+    p.phone.trim() ? `Telefon: ${p.phone.trim()}` : null,
+    p.budget.trim() ? `Bütçe (varsa): ${p.budget.trim()}` : null,
+    p.timeline.trim() ? `Zaman (varsa): ${p.timeline.trim()}` : null,
+    p.referrer.trim() ? `Kaynak: ${p.referrer.trim()}` : null,
+  ].filter(Boolean) as string[];
   return lines.join("\n").trim().slice(0, 65000);
 }
 

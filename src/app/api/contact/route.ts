@@ -30,9 +30,15 @@ export async function POST(req: Request) {
   const { sessionId, payload } = parsed.data;
   const nameOk = payload.name.trim().length >= 2;
   const emailOk = z.string().email().safeParse(payload.email.trim()).success;
-  if (!nameOk || !emailOk) {
+  const companyOk = payload.company.trim().length >= 2;
+  const focusOk = payload.projectType.trim().length >= 1;
+  const messageOk = payload.message.trim().length >= 15;
+  if (!nameOk || !emailOk || !companyOk || !focusOk || !messageOk) {
     return NextResponse.json(
-      { error: "Ad ve geçerli e-posta zorunludur." },
+      {
+        error:
+          "Ad, geçerli e-posta, marka adı (en az 2 karakter), ihtiyaç seçimi ve mesaj (en az 15 karakter) zorunludur.",
+      },
       { status: 422 },
     );
   }

@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { getProjects } from "@/lib/queries";
+import { getProjectsAdmin } from "@/lib/queries";
 import { ProjectList } from "@/components/admin/ProjectList";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminDashboardPage() {
-  const projects = await getProjects();
+  const projects = await getProjectsAdmin();
 
   return (
     <>

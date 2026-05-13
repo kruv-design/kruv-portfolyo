@@ -16,6 +16,7 @@ export function CoverUpload({
     try {
       const url = await upload(file);
       onChange(url);
+      toast("Görsel yüklendi.");
     } catch (err) {
       toast((err as Error).message, "error");
     }
@@ -30,39 +31,40 @@ export function CoverUpload({
           background: "var(--gray-50)",
         }}
       >
-        <input
-          type="file"
-          accept="image/*"
-          disabled={busy}
-          onChange={(e) => {
-            const f = e.target.files?.[0];
-            if (f) void handleFile(f);
-            e.target.value = "";
-          }}
-          className="absolute inset-0 cursor-pointer opacity-0"
-        />
         {value ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={value}
             alt="Kapak"
-            className="mx-auto block max-h-[200px] w-full rounded object-contain"
+            className="pointer-events-none relative z-0 mx-auto block max-h-[200px] w-full rounded object-contain"
           />
         ) : (
-          <>
+          <div className="pointer-events-none relative z-0">
             <div className="mb-2 text-[2rem]">🖼</div>
             <div className="b2" style={{ color: "var(--ink-faint)" }}>
               Sürükle veya{" "}
               <strong style={{ color: "var(--accent)" }}>tıkla</strong>
             </div>
             <div className="form-hint mt-1">
-              JPG, PNG, WEBP — maks 8 MB
+              JPG, PNG, WEBP, HEIC — maks 8 MB
             </div>
-          </>
+          </div>
         )}
+        <input
+          type="file"
+          accept="image/*,.heic,.heif"
+          disabled={busy}
+          onChange={(e) => {
+            const f = e.target.files?.[0];
+            if (f) void handleFile(f);
+            e.target.value = "";
+          }}
+          className="absolute inset-0 z-10 h-full min-h-[120px] w-full cursor-pointer opacity-0"
+          aria-label="Kapak görseli seç"
+        />
         {busy && (
           <div
-            className="absolute inset-0 flex items-center justify-center rounded-lg b2 font-medium"
+            className="absolute inset-0 z-20 flex items-center justify-center rounded-lg b2 font-medium"
             style={{ background: "var(--gray-scrim-800)", color: "var(--gray-1000)" }}
           >
             Yükleniyor…
@@ -73,10 +75,16 @@ export function CoverUpload({
       <input
         type="text"
         value={value}
-        onChange={(e) => onChange(e.target.value.trim())}
+        onChange={(e) => onChange(e.target.value)}
+        onBlur={(e) => onChange(e.target.value.trim())}
         placeholder="ya da görsel URL'si girin"
         className="form-input mt-1.5"
       />
+      <p className="form-hint mt-1.5">
+        URL içinde <strong>boşluk</strong> olmamalı (yapıştırınca kayıt reddedilebilir). Şüpheliyse alanı
+        silip yeniden yükleyin veya Cloudinary’den linki kopyalayın.
+      </p>
+      <p className="form-hint mt-1">Önizlemenin üzerine tıklayarak kapak görselini değiştirebilirsiniz.</p>
     </div>
   );
 }

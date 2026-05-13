@@ -28,7 +28,7 @@ export function PortfolioGrid({
 
   return (
     <div className="flex flex-1 flex-col">
-      <div className="works-shell-inner">
+      <div className="works-shell-inner portfolio-works-page">
         <FilterBar
           categories={[...WORK_PAGE_FILTER_LABELS]}
           active={active}

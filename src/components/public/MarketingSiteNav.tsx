@@ -18,44 +18,21 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
 
   useEffect(() => {
     const sentinel = document.getElementById("marketing-nav-sentinel");
-    if (!sentinel) return;
-
-    /** Mobil elastik scroll’da IO + 1px sentinel sınırda titreme yapıyor; rAF + histerezis. */
-    let latch = false;
-    let raf = 0;
-    const ENTER = -4;
-    const EXIT = 10;
-
-    const apply = () => {
-      raf = 0;
-      const b = sentinel.getBoundingClientRect().bottom;
-      const prev = latch;
-      if (!latch) {
-        if (b < ENTER) latch = true;
-      } else if (b > EXIT) {
-        latch = false;
-      }
-      if (prev !== latch) setScrolled(latch);
-    };
-
-    const schedule = () => {
-      if (raf) return;
-      raf = requestAnimationFrame(apply);
-    };
-
-    apply();
-    window.addEventListener("scroll", schedule, { passive: true });
-    window.addEventListener("resize", schedule);
-    const vv = window.visualViewport;
-    vv?.addEventListener("resize", schedule);
-    vv?.addEventListener("scroll", schedule);
-    return () => {
-      window.removeEventListener("scroll", schedule);
-      window.removeEventListener("resize", schedule);
-      vv?.removeEventListener("resize", schedule);
-      vv?.removeEventListener("scroll", schedule);
-      if (raf) cancelAnimationFrame(raf);
-    };
+    if (!sentinel || !("IntersectionObserver" in window)) {
+      setScrolled(window.scrollY > 0);
+      const onScroll = () => setScrolled(window.scrollY > 0);
+      window.addEventListener("scroll", onScroll, { passive: true });
+      return () => window.removeEventListener("scroll", onScroll);
+    }
+    const obs = new IntersectionObserver(
+      (entries) => {
+        const e = entries[0];
+        if (e) setScrolled(!e.isIntersecting);
+      },
+      { threshold: 0, rootMargin: "0px" },
+    );
+    obs.observe(sentinel);
+    return () => obs.disconnect();
   }, []);
 
   useEffect(() => {

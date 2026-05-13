@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import type { Project, ProjectSection } from "@/types";
 import { api } from "@/lib/api";
@@ -75,23 +74,26 @@ export function ProjectForm({
   mode: "create" | "edit";
   project?: Project;
 }) {
-  const router = useRouter();
   const [form, setForm] = useState<FormState>(
     project ? fromProject(project) : EMPTY,
   );
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [formError, setFormError] = useState<string | null>(null);
   const [pending, start] = useTransition();
 
   function patch<K extends keyof FormState>(key: K, val: FormState[K]) {
     setForm((f) => ({ ...f, [key]: val }));
+    setFormError(null);
   }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setFormError(null);
     const localErrors: Record<string, string> = {};
     if (!form.baslik.trim()) localErrors.baslik = "Başlık zorunlu.";
     if (!form.kategori.trim()) localErrors.kategori = "Kategori zorunlu.";
     setErrors(localErrors);
+    setFormError(null);
     if (Object.keys(localErrors).length) return;
 
     start(async () => {
@@ -107,19 +109,22 @@ export function ProjectForm({
           await api.createProject(payload);
           toast("Proje eklendi.");
         } else if (project) {
-          await api.updateProject(project.id, payload);
+          const updated = await api.updateProject(project.id, payload);
+          setForm(fromProject(updated));
           toast("Proje güncellendi.");
         }
-        router.push("/admin");
-        router.refresh();
+        /** Tam sayfa yüklemesi: RSC / istemci önbelleği yüzünden liste ve kök sayfa “eski” kalmasın */
+        window.location.assign("/admin");
       } catch (err) {
-        toast((err as Error).message, "error");
+        const msg = (err as Error).message || "Kayıt başarısız.";
+        setFormError(msg);
+        toast(msg, "error");
       }
     });
   }
 
   return (
-    <form onSubmit={handleSubmit} className="pb-20">
+    <form onSubmit={handleSubmit} className="pb-32" noValidate>
       <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
         <h1 className="h2">
           {mode === "create" ? "Yeni Proje" : "Projeyi Düzenle"}
@@ -137,6 +142,20 @@ export function ProjectForm({
           </button>
         </div>
       </div>
+
+      {formError ? (
+        <div
+          className="b2 mb-6 rounded-lg border px-4 py-3"
+          role="alert"
+          style={{
+            borderColor: "var(--danger)",
+            color: "var(--danger)",
+            background: "color-mix(in srgb, var(--danger) 10%, transparent)",
+          }}
+        >
+          {formError}
+        </div>
+      ) : null}
 
       <div className="flex flex-col gap-5">
         <Field label="Kapak Görseli">
@@ -215,9 +234,11 @@ export function ProjectForm({
           </Field>
         </div>
 
-        <Field label="Proje Linki" hint="https:// ile başlamalı.">
+        <Field label="Proje Linki" hint="https:// ile başlamalı (boş bırakılabilir).">
           <input
-            type="url"
+            type="text"
+            inputMode="url"
+            autoComplete="url"
             className="form-input"
             value={form.link}
             onChange={(e) => patch("link", e.target.value)}
@@ -267,6 +288,26 @@ export function ProjectForm({
             />
           </Field>
         )}
+      </div>
+
+      <div
+        className="sticky bottom-0 z-20 -mx-10 mt-10 flex flex-wrap items-center justify-end gap-2 border-t px-10 py-4"
+        style={{
+          background: "var(--adm-bg)",
+          borderColor: "var(--adm-border)",
+          boxShadow: "0 -12px 32px color-mix(in srgb, var(--gray-anti) 12%, transparent)",
+        }}
+      >
+        <Link href="/admin" className="btn btn-ghost">
+          İptal
+        </Link>
+        <button
+          type="submit"
+          disabled={pending}
+          className="btn btn-primary disabled:opacity-60"
+        >
+          {pending ? "Kaydediliyor…" : "Kaydet"}
+        </button>
       </div>
     </form>
   );

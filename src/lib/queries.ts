@@ -1,7 +1,8 @@
 import "server-only";
 import { supabasePublic } from "@/lib/supabase/server";
+import { mapProjectRow } from "@/lib/map-project-row";
 import { DEMO_PROJECTS, isPlaceholderEnv } from "@/lib/demo-data";
-import type { Project, ProjectSection, SiteSettings } from "@/types";
+import type { Project, SiteSettings } from "@/types";
 
 const DEFAULT_SITE_SETTINGS: SiteSettings = {
   siteAdi: "kruv.",
@@ -21,29 +22,7 @@ const DEFAULT_SITE_SETTINGS: SiteSettings = {
  * Map a Supabase row (snake/flat) to our Project type. Keeps JSONB shapes tidy.
  */
 function rowToProject(row: Record<string, unknown>): Project {
-  return {
-    id: String(row.id),
-    slug: String(row.slug),
-    baslik: String(row.baslik ?? ""),
-    kategori: String(row.kategori ?? ""),
-    aciklama: String(row.aciklama ?? ""),
-    gorsel: (row.gorsel as string) || null,
-    gorseller: Array.isArray(row.gorseller) ? (row.gorseller as string[]) : [],
-    bolumler: Array.isArray(row.bolumler)
-      ? (row.bolumler as ProjectSection[])
-      : [],
-    etiketler: Array.isArray(row.etiketler) ? (row.etiketler as string[]) : [],
-    yil: String(row.yil ?? ""),
-    musteri: String(row.musteri ?? ""),
-    rol: String(row.rol ?? ""),
-    sure: String(row.sure ?? ""),
-    link: String(row.link ?? ""),
-    featured: Boolean(row.featured),
-    renk: String(row.renk ?? "#C8B8A8"),
-    sira: Number(row.sira ?? 0),
-    created_at: String(row.created_at ?? ""),
-    updated_at: String(row.updated_at ?? ""),
-  };
+  return mapProjectRow(row);
 }
 
 export async function getProjects(): Promise<Project[]> {
@@ -64,6 +43,28 @@ export async function getProjects(): Promise<Project[]> {
     return rows.length > 0 ? rows : DEMO_PROJECTS;
   } catch {
     return DEMO_PROJECTS;
+  }
+}
+
+/**
+ * Yalnızca admin paneli — demo projeleri **asla** listelemez.
+ * Boş DB’de demo satırları göstermek, `demo-*` id’leri ile düzenleme (uuid) uyuşmazlığına
+ * ve “kayıt olmuyor / görsel eklenmiyor” izlenimine yol açıyordu.
+ */
+export async function getProjectsAdmin(): Promise<Project[]> {
+  if (isPlaceholderEnv()) return [];
+
+  try {
+    const sb = supabasePublic();
+    const { data, error } = await sb
+      .from("projects")
+      .select("*")
+      .order("sira", { ascending: true })
+      .order("created_at", { ascending: false });
+    if (error) throw error;
+    return (data ?? []).map(rowToProject);
+  } catch {
+    return [];
   }
 }
 

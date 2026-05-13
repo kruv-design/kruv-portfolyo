@@ -17,9 +17,12 @@ export const useToastStore = create<ToastStore>((set) => ({
   push: (msg, kind = "success") => {
     const id = Date.now() + Math.random();
     set((s) => ({ items: [...s.items, { id, msg, kind }] }));
-    setTimeout(() => {
-      set((s) => ({ items: s.items.filter((i) => i.id !== id) }));
-    }, 2800);
+    setTimeout(
+      () => {
+        set((s) => ({ items: s.items.filter((i) => i.id !== id) }));
+      },
+      kind === "error" ? 7200 : 2800,
+    );
   },
   remove: (id) => set((s) => ({ items: s.items.filter((i) => i.id !== id) })),
 }));

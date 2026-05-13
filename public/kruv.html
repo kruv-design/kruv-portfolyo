@@ -2467,18 +2467,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
             <em>we make sure it happens</em>
           </p>
         </div>
-        <div class="ideal-share-marquee-group" aria-hidden="true">
-          <p class="ideal-share-marquee-text">
-            <span class="ideal-share-marquee-dot">.</span> share or it didn't happen.
-            <em>we make sure it happens</em>
-          </p>
-        </div>
-        <div class="ideal-share-marquee-group" aria-hidden="true">
-          <p class="ideal-share-marquee-text">
-            <span class="ideal-share-marquee-dot">.</span> share or it didn't happen.
-            <em>we make sure it happens</em>
-          </p>
-        </div>
       </div>
     </div>
   </div>
@@ -2678,14 +2666,16 @@ body:has(.featured-work-card:hover) .hero-bottom {
   width: max-content;
   align-items: center;
   gap: 0;
+  /* İki özdeş blok: -50% = kesintisiz döngü (4×-25% yuvarlama hatasına duyarlıydı) */
   animation: ideal-share-marquee-x 48s linear infinite;
+  will-change: transform;
 }
 .ideal-share-marquee-group {
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
-  /* Döngü kopyaları arası — space-12 fazla geniştiriyordu */
-  padding-inline-end: clamp(var(--space-3), 2.5vw, var(--space-5));
+  /* Döngü tekrarı öncesi nefes: son cümle ile sonraki “.” arası */
+  padding-inline-end: clamp(var(--space-8), 5vw, calc(var(--space-12) + var(--space-6)));
 }
 .ideal-share-marquee-text {
   margin: 0;
@@ -2707,13 +2697,15 @@ body:has(.featured-work-card:hover) .hero-bottom {
   font-style: italic;
   color: var(--frost);
   font-weight: 500;
+  /* “share…” ile “we make…” arası — sıkışmayı önler */
+  padding-inline-start: clamp(var(--space-5), 4vw, var(--space-12));
 }
 @keyframes ideal-share-marquee-x {
   from {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translateX(-25%);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -5514,36 +5506,39 @@ body:has(.featured-work-card:hover) .hero-bottom {
   var sentinel = document.getElementById('nav-sentinel');
   if (!nav || !sentinel) return;
 
-  /* IntersectionObserver + 1px sentinel: mobilde elastik scroll / alt-piksel titreme.
-     rAF + histerezis tek yol — sınırda class flip flop olmaz. */
-  var sticky = false;
-  var raf = 0;
-  var ENTER = -4;
-  var EXIT = 10;
+  function applySentinelEntry(entry) {
+    if (!entry || entry.target !== sentinel) return;
+    /* threshold:0 — viewport ile en az 1px kesişme yoksa sayfa kaymış sayılır */
+    nav.classList.toggle('is-scrolled', !entry.isIntersecting);
+  }
 
-  function apply() {
-    raf = 0;
-    var b = sentinel.getBoundingClientRect().bottom;
-    if (!sticky) {
-      if (b < ENTER) sticky = true;
-    } else {
-      if (b > EXIT) sticky = false;
+  function syncScrolledFromSentinelRect() {
+    var r = sentinel.getBoundingClientRect();
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    var inView = r.bottom > 0 && r.top < vh;
+    nav.classList.toggle('is-scrolled', !inView);
+  }
+
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) {
+        applySentinelEntry(entries[i]);
+      }
+    }, { threshold: 0, root: null, rootMargin: '0px' });
+    observer.observe(sentinel);
+    var pending = observer.takeRecords();
+    for (var j = 0; j < pending.length; j++) {
+      applySentinelEntry(pending[j]);
     }
-    nav.classList.toggle('is-scrolled', sticky);
+    requestAnimationFrame(syncScrolledFromSentinelRect);
+    return;
   }
 
-  function schedule() {
-    if (raf) return;
-    raf = requestAnimationFrame(apply);
+  function syncScrolledFromScroll() {
+    nav.classList.toggle('is-scrolled', (window.scrollY || 0) > 0);
   }
-
-  apply();
-  window.addEventListener('scroll', schedule, { passive: true });
-  window.addEventListener('resize', schedule);
-  if (window.visualViewport) {
-    window.visualViewport.addEventListener('resize', schedule);
-    window.visualViewport.addEventListener('scroll', schedule);
-  }
+  syncScrolledFromScroll();
+  window.addEventListener('scroll', syncScrolledFromScroll, { passive: true });
 })();
 </script>
 
@@ -5821,7 +5816,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   }
 
   ready(function () {
-    fetch(API_URL, { cache: 'no-store', credentials: 'same-origin' })
+    fetch(API_URL + '?_=' + Date.now(), { cache: 'no-store', credentials: 'same-origin' })
       .then(function (res) { return res.ok ? res.json() : null; })
       .then(function (json) {
         var projects = json && Array.isArray(json.data) ? json.data : [];

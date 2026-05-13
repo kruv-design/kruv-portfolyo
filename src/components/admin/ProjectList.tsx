@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import type { Project } from "@/types";
 import { api } from "@/lib/api";
@@ -13,6 +13,10 @@ export function ProjectList({ initial }: { initial: Project[] }) {
   const [dragId, setDragId] = useState<string | null>(null);
   const [pending, start] = useTransition();
   const router = useRouter();
+
+  useEffect(() => {
+    setItems(initial);
+  }, [initial]);
 
   function onDragStart(id: string) {
     setDragId(id);
@@ -60,7 +64,13 @@ export function ProjectList({ initial }: { initial: Project[] }) {
         className="b2 py-16 text-center"
         style={{ color: "var(--b2-color)" }}
       >
-        Henüz proje yok. İlk projeyi ekle!
+        <p className="font-medium" style={{ color: "var(--ink)" }}>
+          Henüz Supabase’te proje yok.
+        </p>
+        <p className="mx-auto mt-3 max-w-lg" style={{ color: "var(--ink-faint)" }}>
+          Admin listesi artık yalnızca veritabanındaki gerçek kayıtları gösterir (demo kartları
+          burada yok). Yeni proje ekleyin; ana sayfa ve /works canlı veriyi çeker.
+        </p>
       </div>
     );
   }

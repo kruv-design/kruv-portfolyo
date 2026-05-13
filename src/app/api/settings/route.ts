@@ -3,7 +3,7 @@ import { revalidatePath } from "next/cache";
 import { supabaseServer } from "@/lib/supabase/server";
 import { getSettings } from "@/lib/queries";
 import { settingsSchema } from "@/lib/validators";
-import { requireUser } from "@/lib/auth-guard";
+import { requireUser, isAuthFailureResponse } from "@/lib/auth-guard";
 
 /** Public footer / kruv.html: yalnızca sosyal URL’ler (auth yok). */
 export async function GET() {
@@ -29,8 +29,9 @@ export async function GET() {
 export async function PATCH(req: Request) {
   try {
     await requireUser();
-  } catch (res) {
-    return res as Response;
+  } catch (e) {
+    if (isAuthFailureResponse(e)) return e;
+    throw e;
   }
 
   const body = await req.json().catch(() => ({}));

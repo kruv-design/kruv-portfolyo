@@ -1014,6 +1014,17 @@ body {
   padding-top: var(--works-body-pad-top);
 }
 
+/* /works proje ızgarası: shell viewport genişliği — kartlar vw ile büyüyüp küçülür
+   (grid-shell 1440 / 130vh tavanı kalktığı için ~%30 daha geniş sütunlar) */
+.portfolio-works-page.works-shell-inner {
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding-inline: var(--container-gutter);
+  box-sizing: border-box;
+}
+
 /* Project detail (/projects/[slug]) — Works shell + section / panel token */
 .project-detail-toolbar {
   display: flex;
@@ -1154,13 +1165,42 @@ body {
   overflow: hidden;
   border-radius: var(--space-sm);
   background: var(--surface);
+  isolation: isolate;
 }
 
+/* `fill` görsel + aspect-ratio: alt kenarda 1px açılma / baseline boşluğu */
+.pw-card-media-crop {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  line-height: 0;
+}
+
+.pw-card-media-crop > span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  line-height: 0;
+}
+
+.pw-card-media-img,
 .pw-card-media img {
   object-fit: cover;
   object-position: center;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+}
+
+.pw-card-media-img {
+  transform: scale(1.03);
+  transform-origin: center center;
+  transition: transform 1.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pw-card:hover .pw-card-media-img {
+  /* Önceki ~1.07 zoom × taban büyütme */
+  transform: scale(1.1021);
 }
 
 /* Works (/works) tek sütun: görsel viewport’ta ~%10 yan boşluk (90vw) */
@@ -1181,6 +1221,15 @@ body {
     position: relative;
     left: 50%;
     transform: translateX(-50%);
+  }
+
+  /* /works: shell zaten viewport — kart %100, ekstra breakout gerekmez */
+  .portfolio-works-page .pw-card-media {
+    width: 100%;
+    max-width: none;
+    align-self: stretch;
+    left: auto;
+    transform: none;
   }
 }
 
@@ -1271,7 +1320,10 @@ body {
 /* ── Contact page / form ───────────────────────────────── */
 .contact-page-main {
   flex: 1;
-  padding: var(--space-10) var(--container-gutter) var(--space-12);
+  /* Sabit navbar — başlık nav altında kalmaması için Works ile aynı üst boşluk */
+  padding-top: calc(var(--works-body-pad-top) + var(--space-4));
+  padding-inline: var(--container-gutter);
+  padding-bottom: var(--space-12);
 }
 
 .contact-form-shell {

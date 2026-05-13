@@ -21,7 +21,10 @@ export function GalleryUpload({
         toast((err as Error).message, "error");
       }
     }
-    if (urls.length) onChange([...value, ...urls]);
+    if (urls.length) {
+      onChange([...value, ...urls]);
+      toast(urls.length > 1 ? `${urls.length} görsel yüklendi.` : "Görsel yüklendi.");
+    }
   }
 
   return (
@@ -69,19 +72,22 @@ export function GalleryUpload({
             color: "var(--ink-faint)",
           }}
         >
+          <div className="pointer-events-none relative z-0 flex flex-col items-center">
+            <span>{busy ? "…" : "＋"}</span>
+            <span className="b3 mt-1 lowercase">Ekle</span>
+          </div>
           <input
             type="file"
-            accept="image/*"
+            accept="image/*,.heic,.heif"
             multiple
             disabled={busy}
             onChange={(e) => {
               if (e.target.files?.length) void handleFiles(e.target.files);
               e.target.value = "";
             }}
-            className="absolute inset-0 cursor-pointer opacity-0"
+            className="absolute inset-0 z-10 cursor-pointer opacity-0"
+            aria-label="Galeriye görsel ekle"
           />
-          <span>{busy ? "…" : "＋"}</span>
-          <span className="b3 mt-1 lowercase">Ekle</span>
         </label>
       </div>
     </div>
