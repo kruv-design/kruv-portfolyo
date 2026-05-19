@@ -10,17 +10,23 @@ alter table public.projects add column if not exists galeri_7 text default '';
 alter table public.projects add column if not exists galeri_8 text default '';
 
 -- Eski gorsel / gorseller → yeni sütunlar
+-- Tek URL gorseller[0] içindeyse → kapak; galeri_1..8 sıradaki dizin öğeleri
 update public.projects
 set
-  kapak = coalesce(nullif(trim(kapak), ''), nullif(trim(gorsel), ''), ''),
-  galeri_1 = coalesce(nullif(trim(galeri_1), ''), gorseller->>0, ''),
-  galeri_2 = coalesce(nullif(trim(galeri_2), ''), gorseller->>1, ''),
-  galeri_3 = coalesce(nullif(trim(galeri_3), ''), gorseller->>2, ''),
-  galeri_4 = coalesce(nullif(trim(galeri_4), ''), gorseller->>3, ''),
-  galeri_5 = coalesce(nullif(trim(galeri_5), ''), gorseller->>4, ''),
-  galeri_6 = coalesce(nullif(trim(galeri_6), ''), gorseller->>5, ''),
-  galeri_7 = coalesce(nullif(trim(galeri_7), ''), gorseller->>6, ''),
-  galeri_8 = coalesce(nullif(trim(galeri_8), ''), gorseller->>7, '');
+  kapak = coalesce(
+    nullif(trim(kapak), ''),
+    nullif(trim(gorsel), ''),
+    nullif(gorseller->>0, ''),
+    ''
+  ),
+  galeri_1 = coalesce(nullif(trim(galeri_1), ''), gorseller->>1, ''),
+  galeri_2 = coalesce(nullif(trim(galeri_2), ''), gorseller->>2, ''),
+  galeri_3 = coalesce(nullif(trim(galeri_3), ''), gorseller->>3, ''),
+  galeri_4 = coalesce(nullif(trim(galeri_4), ''), gorseller->>4, ''),
+  galeri_5 = coalesce(nullif(trim(galeri_5), ''), gorseller->>5, ''),
+  galeri_6 = coalesce(nullif(trim(galeri_6), ''), gorseller->>6, ''),
+  galeri_7 = coalesce(nullif(trim(galeri_7), ''), gorseller->>7, ''),
+  galeri_8 = coalesce(nullif(trim(galeri_8), ''), gorseller->>8, '');
 
 alter table public.projects drop column if exists gorsel;
 alter table public.projects drop column if exists gorseller;
