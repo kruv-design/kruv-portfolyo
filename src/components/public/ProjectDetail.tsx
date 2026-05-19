@@ -34,6 +34,28 @@ export function ProjectDetail({
         </div>
       </div>
 
+      <div className="project-detail-cover animate-fadeUp">
+        <div className="project-detail-hero">
+          {cover ? (
+            <Image
+              src={cover}
+              alt={project.baslik}
+              width={1920}
+              height={960}
+              className="h-full w-full object-cover"
+              priority
+              sizes="90vw"
+            />
+          ) : (
+            <ImagePlaceholder
+              label={project.baslik[0] ?? "•"}
+              color={project.renk}
+              fontSize="5rem"
+            />
+          )}
+        </div>
+      </div>
+
       <div className="project-detail-body">
         <header className="project-detail-intro animate-fadeUp">
           <div className="b3 mb-4" style={{ color: "var(--accent)" }}>
@@ -48,6 +70,9 @@ export function ProjectDetail({
             <MetaRow label="Müşteri" value={project.musteri || "—"} />
             <MetaRow label="Yıl" value={project.yil || "—"} />
             <MetaRow label="Süre" value={project.sure || "—"} />
+            {project.link?.trim() ? (
+              <MetaLinkRow href={project.link.trim()} />
+            ) : null}
             {project.etiketler?.length > 0 && (
               <div
                 className="flex flex-col gap-1 py-4"
@@ -75,28 +100,8 @@ export function ProjectDetail({
           </div>
         </aside>
 
-        <div className="project-detail-media animate-fadeUp">
-          <div className="project-detail-hero">
-            {cover ? (
-              <Image
-                src={cover}
-                alt={project.baslik}
-                width={1920}
-                height={960}
-                className="h-full w-full object-cover"
-                priority
-                sizes="90vw"
-              />
-            ) : (
-              <ImagePlaceholder
-                label={project.baslik[0] ?? "•"}
-                color={project.renk}
-                fontSize="5rem"
-              />
-            )}
-          </div>
-
-          {gallerySlots.length > 0 && (
+        {gallerySlots.length > 0 && (
+          <div className="project-detail-gallery-wrap animate-fadeUp">
             <div className="project-detail-gallery">
               {gallerySlots.map(({ key, src }) => (
                 <button
@@ -116,8 +121,8 @@ export function ProjectDetail({
                 </button>
               ))}
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
         {project.bolumler && project.bolumler.length > 0 && (
           <div className="project-detail-copy animate-fadeUp">
@@ -154,6 +159,44 @@ function MetaRow({ label, value }: { label: string; value: string }) {
       <span className="b1" style={{ color: "var(--ink)" }}>
         {value}
       </span>
+    </div>
+  );
+}
+
+function projectLinkHref(raw: string): string {
+  const t = raw.trim();
+  if (!t) return "";
+  return /^https?:\/\//i.test(t) ? t : `https://${t}`;
+}
+
+function projectLinkLabel(raw: string): string {
+  try {
+    const host = new URL(projectLinkHref(raw)).hostname.replace(/^www\./i, "");
+    return host || raw;
+  } catch {
+    return raw;
+  }
+}
+
+function MetaLinkRow({ href }: { href: string }) {
+  const url = projectLinkHref(href);
+  return (
+    <div
+      className="flex flex-col gap-1 py-4"
+      style={{ borderBottom: "1px solid var(--border)" }}
+    >
+      <span className="b3" style={{ color: "var(--ink-faint)" }}>
+        Link
+      </span>
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="b1 break-all underline-offset-2 hover:underline"
+        style={{ color: "var(--accent)" }}
+      >
+        {projectLinkLabel(href)}
+      </a>
     </div>
   );
 }

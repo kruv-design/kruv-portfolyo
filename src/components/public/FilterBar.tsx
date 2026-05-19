@@ -30,7 +30,7 @@ export function FilterBar({
             style={{
               borderColor: isActive ? "var(--ink)" : "var(--border)",
               background: isActive ? "var(--ink)" : "transparent",
-              color: isActive ? "var(--white-fixed)" : "var(--ink-soft)",
+              color: isActive ? "var(--bg)" : "var(--ink-soft)",
             }}
           >
             {cat}
