@@ -17,10 +17,8 @@ export function FilterBar({
       className="flex flex-wrap items-center gap-[7px] border-b py-5"
       style={{ borderColor: "var(--border)" }}
       lang="tr"
+      aria-label="Proje filtreleri"
     >
-      <span className="b3 mr-1.5" style={{ color: "var(--ink-faint)" }}>
-        Filtre
-      </span>
       {list.map((cat) => {
         const isActive = cat === active;
         return (

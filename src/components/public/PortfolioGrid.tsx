@@ -37,7 +37,7 @@ export function PortfolioGrid({
           }
         />
 
-        <main className="portfolio-grid pb-10 pt-2">
+        <main className="portfolio-grid pb-10">
           {filtered.length === 0 ? (
             <div
               className="b1 col-span-full py-20 text-center italic"

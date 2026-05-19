@@ -6,9 +6,12 @@ import { toast } from "@/components/ui/Toast";
 export function CoverUpload({
   value,
   onChange,
+  previewAlt = "Kapak",
 }: {
   value: string;
   onChange: (url: string) => void;
+  /** Önizleme ve file input erişilebilirlik metni */
+  previewAlt?: string;
 }) {
   const { upload, busy } = useCloudinaryUpload();
 
@@ -35,7 +38,7 @@ export function CoverUpload({
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={value}
-            alt="Kapak"
+            alt={previewAlt}
             className="pointer-events-none relative z-0 mx-auto block max-h-[200px] w-full rounded object-contain"
           />
         ) : (
@@ -60,7 +63,7 @@ export function CoverUpload({
             e.target.value = "";
           }}
           className="absolute inset-0 z-10 h-full min-h-[120px] w-full cursor-pointer opacity-0"
-          aria-label="Kapak görseli seç"
+          aria-label={previewAlt + " seç"}
         />
         {busy && (
           <div
@@ -84,7 +87,9 @@ export function CoverUpload({
         URL içinde <strong>boşluk</strong> olmamalı (yapıştırınca kayıt reddedilebilir). Şüpheliyse alanı
         silip yeniden yükleyin veya Cloudinary’den linki kopyalayın.
       </p>
-      <p className="form-hint mt-1">Önizlemenin üzerine tıklayarak kapak görselini değiştirebilirsiniz.</p>
+      <p className="form-hint mt-1">
+        Önizlemenin üzerine tıklayarak görseli değiştirebilirsiniz. Boş bırakırsanız bu slot sitede görünmez.
+      </p>
     </div>
   );
 }

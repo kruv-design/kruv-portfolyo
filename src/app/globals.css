@@ -1103,6 +1103,7 @@ body {
 .portfolio-works-page .portfolio-grid {
   width: 100%;
   min-width: 0;
+  padding-top: var(--space-6);
 }
 
 @media (min-width: 700px) {
@@ -1391,20 +1392,9 @@ body {
   min-width: 0;
 }
 
+/* Work grid: kart altında açıklama yok — yalnızca başlık + kategori */
 .pw-card-desc {
-  font-family: var(--b1-font-family);
-  font-size: var(--b1-font-size);
-  font-weight: var(--b1-font-weight);
-  line-height: var(--b1-line-height);
-  letter-spacing: var(--b1-letter-spacing);
-  text-transform: none;
-  color: var(--b1-color);
-  margin: 0;
-  max-width: min(100%, calc(42 * var(--space-4)));
-}
-
-.pw-card-desc:empty {
-  display: none;
+  display: none !important;
 }
 
 .pw-card-category {

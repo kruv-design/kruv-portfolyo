@@ -185,26 +185,6 @@ export function ProjectForm({
             Temel bilgiler
           </h2>
 
-          <Field label="Kapak" hint="İsteğe bağlı — Work kartı ve detay üstü.">
-            <CoverUpload value={form.kapak} onChange={(v) => patch("kapak", v)} />
-          </Field>
-
-          <div className="flex flex-col gap-4">
-            <p className="b3" style={{ color: "var(--ink-faint)" }}>
-              Galeri (isteğe bağlı) — detay sayfasında sırayla görünür. Boş slotları atlayabilirsiniz.
-            </p>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {GALERI_KEYS.map((key, i) => (
-                <Field key={key} label={`Galeri ${i + 1}`}>
-                  <CoverUpload
-                    value={form[key]}
-                    onChange={(v) => patch(key, v)}
-                  />
-                </Field>
-              ))}
-            </div>
-          </div>
-
           <Field label="Proje adı *" error={errors.baslik}>
             <input
               type="text"
@@ -231,13 +211,16 @@ export function ProjectForm({
             </select>
           </Field>
 
-          <Field label="Kısa açıklama">
+          <Field
+            label="Kısa açıklama"
+            hint="Proje detay sayfasında görünür; kartlarda gösterilmez."
+          >
             <textarea
               className="form-textarea"
               rows={3}
               value={form.aciklama}
               onChange={(e) => patch("aciklama", e.target.value)}
-              placeholder="Work sayfasındaki kartta görünen 1–2 cümle."
+              placeholder="Detay sayfası için 1–2 paragraf."
             />
           </Field>
 
@@ -254,6 +237,41 @@ export function ProjectForm({
             />
             Ana sayfada öne çıkar
           </label>
+        </section>
+
+        <section
+          className="flex flex-col gap-5 rounded-xl border p-5 sm:p-6"
+          style={{ borderColor: "var(--adm-border)", background: "var(--adm-surface)" }}
+        >
+          <div>
+            <h2 className="b1 font-semibold" style={{ color: "var(--ink)" }}>
+              Görseller
+            </h2>
+            <p className="b3 mt-2 max-w-2xl" style={{ color: "var(--ink-faint)" }}>
+              Kapak: anasayfa ve işler listesindeki kart. Galeri 1–8: proje detayında sırayla
+              (boş slotlar atlanır).
+            </p>
+          </div>
+
+          <Field label="Kapak görseli" hint="İsteğe bağlı — kart + detay üst banner.">
+            <CoverUpload
+              value={form.kapak}
+              onChange={(v) => patch("kapak", v)}
+              previewAlt="Kapak görseli"
+            />
+          </Field>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            {GALERI_KEYS.map((key, i) => (
+              <Field key={key} label={`Görsel ${i + 1}`}>
+                <CoverUpload
+                  value={form[key]}
+                  onChange={(v) => patch(key, v)}
+                  previewAlt={`Görsel ${i + 1}`}
+                />
+              </Field>
+            ))}
+          </div>
         </section>
 
         <section

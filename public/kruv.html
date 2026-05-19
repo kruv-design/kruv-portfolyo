@@ -4224,6 +4224,11 @@ body:has(.featured-work-card:hover) .hero-bottom {
 .featured-works:has(.featured-work-card:hover) .featured-work-card:not(:hover) .featured-work-media::after {
   opacity: 1;
 }
+/* Kart altında yalnızca başlık + kategori — açıklama gösterilmez */
+.featured-work-desc,
+.featured-work-meta > p:not(.featured-work-category) {
+  display: none !important;
+}
 .featured-work-title {
   font-family: var(--h4-font-family);
   font-size: var(--h4-font-size);
@@ -5920,6 +5925,11 @@ body:has(.featured-work-card:hover) .hero-bottom {
     return '/projects/' + encodeURIComponent(slug || '');
   }
 
+  function projectCoverUrl(p) {
+    if (!p) return '';
+    return String(p.kapak || p.gorsel || '').trim();
+  }
+
   /* Footer “Services” filtreleri ile hizalı slug’lar (data-work-tags). */
   var SERVICE_SLUGS = {
     'brand-identity': true,
@@ -5969,8 +5979,9 @@ body:has(.featured-work-card:hover) .hero-bottom {
   function paintHeroCard(card, p) {
     if (!card || !p) return;
     var bg = card.querySelector('.card-bg');
-    if (bg && p.gorsel) {
-      bg.style.backgroundImage = 'url("' + p.gorsel + '")';
+    var coverUrl = projectCoverUrl(p);
+    if (bg && coverUrl) {
+      bg.style.backgroundImage = 'url("' + coverUrl + '")';
       bg.style.backgroundPosition = 'center';
       bg.style.backgroundSize = 'cover';
       bg.style.backgroundRepeat = 'no-repeat';
@@ -6013,19 +6024,23 @@ body:has(.featured-work-card:hover) .hero-bottom {
   function paintFeaturedCard(card, p) {
     if (!card || !p) return;
     var media = card.querySelector('.featured-work-media');
-    if (media && p.gorsel) {
-      media.style.backgroundImage = 'url("' + p.gorsel + '")';
+    var coverUrl = projectCoverUrl(p);
+    if (media && coverUrl) {
+      media.style.backgroundImage = 'url("' + coverUrl + '")';
       media.style.backgroundSize = 'cover';
       media.style.backgroundPosition = 'center center';
       media.style.backgroundRepeat = 'no-repeat';
       media.style.backgroundColor = 'var(--color-surface)';
     }
+    var meta = card.querySelector('.featured-work-meta');
     var title = card.querySelector('.featured-work-title');
     var cat = card.querySelector('.featured-work-category');
     var hit = card.querySelector('.featured-work-hit');
-    card.querySelectorAll('.featured-work-desc').forEach(function (el) {
-      el.remove();
-    });
+    if (meta) {
+      meta.querySelectorAll('.featured-work-desc, p:not(.featured-work-category)').forEach(function (el) {
+        el.remove();
+      });
+    }
     if (title) title.textContent = p.baslik || '';
     if (cat) {
       var tags = p.etiketler && p.etiketler.length
