@@ -327,7 +327,7 @@
   --ticker-height: calc(var(--ticker-hand-slot-h) + (2 * var(--ticker-pad-y)));
   --ticker-item-pad-x: 48px;
   /* “share or it didn't happen” bandı — düşük = daha hızlı (orijinal 48s) */
-  --ideal-share-marquee-dur: 5s;
+  --ideal-share-marquee-dur: 6.25s;
 
   /* Hero fan — özel portfolio imleci (daire); önceki 104px + %30 */
   --hero-portfolio-cursor-size: calc(104px * 1.3);
@@ -2625,17 +2625,19 @@ body:has(.featured-work-card:hover) .hero-bottom {
   <div class="ideal-share-marquee-bleed">
     <div class="ideal-share-marquee">
       <div class="ideal-share-marquee-track">
-        <div class="ideal-share-marquee-group">
-          <p class="ideal-share-marquee-text">
-            <span class="ideal-share-marquee-dot" aria-hidden="true">.</span> share or it didn't happen.
+        <div class="ideal-share-marquee-sequence">
+          <span class="ideal-share-marquee-piece">
+            <span class="ideal-share-marquee-dot" aria-hidden="true">.</span>
+            share or it didn't happen.
             <em>we make sure it happens</em>
-          </p>
+          </span>
         </div>
-        <div class="ideal-share-marquee-group" aria-hidden="true">
-          <p class="ideal-share-marquee-text">
-            <span class="ideal-share-marquee-dot">.</span> share or it didn't happen.
+        <div class="ideal-share-marquee-sequence" aria-hidden="true">
+          <span class="ideal-share-marquee-piece">
+            <span class="ideal-share-marquee-dot" aria-hidden="true">.</span>
+            share or it didn't happen.
             <em>we make sure it happens</em>
-          </p>
+          </span>
         </div>
       </div>
     </div>
@@ -2898,15 +2900,18 @@ body:has(.featured-work-card:hover) .hero-bottom {
   animation: ideal-share-marquee-x var(--ideal-share-marquee-dur) linear infinite;
   will-change: transform;
 }
-.ideal-share-marquee-group {
+.ideal-share-marquee-sequence {
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
-  /* Döngü tekrarı öncesi nefes: son cümle ile sonraki “.” arası */
-  padding-inline-end: clamp(var(--space-8), 5vw, calc(var(--space-12) + var(--space-6)));
 }
-.ideal-share-marquee-text {
+.ideal-share-marquee-piece {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
   margin: 0;
+  padding-block: 0.12em;
+  padding-inline-end: clamp(var(--space-8), 5vw, calc(var(--space-12) + var(--space-6)));
   font-family: var(--font-display);
   font-size: clamp(1.125rem, 3.2vw, 1.75rem);
   font-weight: 600;
@@ -2915,17 +2920,15 @@ body:has(.featured-work-card:hover) .hero-bottom {
   text-transform: lowercase;
   color: var(--silver);
   white-space: nowrap;
-  padding-block: 0.12em;
 }
 .ideal-share-marquee-dot {
   color: var(--purple);
   font-weight: 700;
 }
-.ideal-share-marquee-text em {
+.ideal-share-marquee-piece em {
   font-style: italic;
   color: var(--frost);
   font-weight: 500;
-  /* “share…” ile “we make…” arası — sıkışmayı önler */
   padding-inline-start: clamp(var(--space-5), 4vw, var(--space-12));
 }
 @keyframes ideal-share-marquee-x {
@@ -2949,20 +2952,22 @@ body:has(.featured-work-card:hover) .hero-bottom {
     padding-inline: var(--section-pad-x);
     box-sizing: border-box;
   }
-  .ideal-share-marquee-group {
-    padding-inline-end: 0;
+  .ideal-share-marquee-sequence {
     justify-content: center;
     flex-wrap: wrap;
+  }
+  .ideal-share-marquee-piece {
+    padding-inline-end: 0;
   }
   .ideal-share-marquee-bleed {
     width: 100%;
     margin-left: 0;
     padding-block: var(--space-4);
   }
-  .ideal-share-marquee-group[aria-hidden="true"] {
+  .ideal-share-marquee-sequence[aria-hidden="true"] {
     display: none;
   }
-  .ideal-share-marquee-text {
+  .ideal-share-marquee-piece {
     white-space: normal;
     text-align: center;
   }
@@ -4233,21 +4238,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
   );
   margin: 0;
   min-width: 0;
-}
-.featured-work-desc {
-  font-family: var(--b1-font-family);
-  font-size: var(--b1-font-size);
-  font-weight: var(--b1-font-weight);
-  line-height: var(--b1-line-height);
-  letter-spacing: var(--b1-letter-spacing);
-  text-transform: lowercase;
-  color: color-mix(
-    in oklab,
-    var(--silver) calc((1 - var(--kruv-scene-theme-t)) * 100%),
-    var(--scene-ink-muted-on-light) calc(var(--kruv-scene-theme-t) * 100%)
-  );
-  margin: 0;
-  max-width: min(100%, calc(42 * var(--space-4)));
 }
 .featured-work-category {
   font-family: var(--b3-font-family);
@@ -6033,6 +6023,9 @@ body:has(.featured-work-card:hover) .hero-bottom {
     var title = card.querySelector('.featured-work-title');
     var cat = card.querySelector('.featured-work-category');
     var hit = card.querySelector('.featured-work-hit');
+    card.querySelectorAll('.featured-work-desc').forEach(function (el) {
+      el.remove();
+    });
     if (title) title.textContent = p.baslik || '';
     if (cat) {
       var tags = p.etiketler && p.etiketler.length
@@ -6328,6 +6321,61 @@ body:has(.featured-work-card:hover) .hero-bottom {
 
     window.addEventListener('hashchange', activateFromHash);
     activateFromHash();
+  })();
+
+  (function initIdealShareMarquee() {
+    var bleed = document.querySelector('.ideal-share-marquee-bleed');
+    var track = document.querySelector('.ideal-share-marquee-track');
+    if (!bleed || !track) return;
+
+    var sequences = track.querySelectorAll('.ideal-share-marquee-sequence');
+    if (!sequences.length) return;
+
+    var seqA = sequences[0];
+    var seqB = sequences[1];
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function firstPiece(seq) {
+      return seq.querySelector('.ideal-share-marquee-piece');
+    }
+
+    function trimExtras(seq) {
+      var pieces = seq.querySelectorAll('.ideal-share-marquee-piece');
+      for (var i = pieces.length - 1; i > 0; i--) {
+        pieces[i].remove();
+      }
+    }
+
+    function fillSequence(seq) {
+      var template = firstPiece(seq);
+      if (!template) return;
+      var minWidth = bleed.clientWidth + 80;
+      while (seq.scrollWidth < minWidth) {
+        seq.appendChild(template.cloneNode(true));
+      }
+    }
+
+    function syncMarquee() {
+      if (reducedMotion) return;
+      trimExtras(seqA);
+      if (seqB) trimExtras(seqB);
+      fillSequence(seqA);
+      if (!seqB) {
+        seqB = seqA.cloneNode(true);
+        seqB.setAttribute('aria-hidden', 'true');
+        track.appendChild(seqB);
+      } else {
+        seqB.innerHTML = seqA.innerHTML;
+      }
+    }
+
+    syncMarquee();
+
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(syncMarquee, 150);
+    });
   })();
 </script>
 
