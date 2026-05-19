@@ -28,12 +28,11 @@ export function FilterBar({
             key={cat}
             type="button"
             onClick={() => onChange(cat)}
-            className="b2 rounded-full px-[15px] py-1.5 transition-all duration-200 lowercase"
+            className="b2 rounded-full border border-solid px-[15px] py-1.5 transition-colors duration-200 lowercase"
             style={{
-              border: "1px solid var(--border)",
               borderColor: isActive ? "var(--ink)" : "var(--border)",
               background: isActive ? "var(--ink)" : "transparent",
-              color: isActive ? "var(--surface)" : "var(--ink-soft)",
+              color: isActive ? "var(--white-fixed)" : "var(--ink-soft)",
             }}
           >
             {cat}

@@ -6,6 +6,7 @@ import { useState } from "react";
 import type { Project } from "@/types";
 import { Lightbox } from "./Lightbox";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+import { projectCover, projectGallerySlots } from "@/lib/project-images";
 
 export function ProjectDetail({
   project,
@@ -18,7 +19,8 @@ export function ProjectDetail({
 }) {
   const [lightbox, setLightbox] = useState<string | null>(null);
 
-  const gallery = (project.gorseller || []).filter(Boolean);
+  const cover = projectCover(project);
+  const gallerySlots = projectGallerySlots(project);
 
   return (
     <>
@@ -33,14 +35,15 @@ export function ProjectDetail({
       </div>
 
       <div className="project-detail-hero">
-        {project.gorsel ? (
+        {cover ? (
           <Image
-            src={project.gorsel}
+            src={cover}
             alt={project.baslik}
             width={1920}
             height={960}
             className="h-full w-full object-cover"
             priority
+            sizes="90vw"
           />
         ) : (
           <ImagePlaceholder label={project.baslik[0] ?? "•"} color={project.renk} fontSize="5rem" />
@@ -53,17 +56,6 @@ export function ProjectDetail({
             {project.kategori}
           </div>
           <h1 className="h1 mb-7">{project.baslik}</h1>
-          {project.aciklama && (
-            <p
-              className="b1 mb-10 pl-5"
-              style={{
-                color: "var(--b1-color)",
-                borderLeft: "2px solid var(--accent)",
-              }}
-            >
-              {project.aciklama}
-            </p>
-          )}
 
           <div className="flex flex-col gap-8">
             {project.bolumler?.map((b, i) => (
@@ -78,20 +70,30 @@ export function ProjectDetail({
             ))}
           </div>
 
-          {gallery.length > 0 && (
+          {gallerySlots.length > 0 && (
             <div className="project-detail-gallery">
-              {gallery.map((src, i) => (
+              {gallerySlots.map(({ key, src }) => (
                 <button
-                  key={src + i}
+                  key={key}
                   type="button"
+                  className={
+                    key === "galeri_2"
+                      ? "project-detail-gallery__item project-detail-gallery__item--kunya-align"
+                      : "project-detail-gallery__item"
+                  }
                   onClick={() => setLightbox(src)}
                 >
                   <Image
                     src={src}
                     alt=""
-                    width={600}
-                    height={450}
-                    className="h-full w-full object-cover transition-transform duration-[400ms] hover:scale-[1.04]"
+                    width={1920}
+                    height={1080}
+                    sizes={
+                      key === "galeri_2"
+                        ? "(min-width: 900px) 28rem, 90vw"
+                        : "90vw"
+                    }
+                    className="h-full w-full object-cover transition-transform duration-[400ms] hover:scale-[1.02]"
                   />
                 </button>
               ))}

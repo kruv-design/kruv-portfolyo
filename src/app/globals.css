@@ -248,6 +248,8 @@
   --nav-logo-slot-w-mobile: 48px;
   --nav-logo-slot-h: var(--nav-bar-ctrl-h);
   --works-body-pad-top: calc(var(--space-6) + var(--nav-logo-slot-h) + var(--space-6));
+  /* Proje detay: kapak + galeri (galeri_2 hariç) — viewport genişliğinin %90'ı */
+  --project-media-width: 90vw;
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -278,6 +280,7 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -285,6 +288,7 @@ body {
   background: var(--bg);
   color: var(--ink);
   min-height: 100vh;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   letter-spacing: 0.01em;
 }
@@ -665,13 +669,19 @@ body {
 .marketing-navbar-logo-emblem {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: left center;
+  display: block;
   opacity: 0;
   transition: opacity var(--nav-compact-dur) var(--nav-compact-ease);
   pointer-events: none;
+  background-color: var(--color-accent);
+  -webkit-mask-image: url("/assets/kruv-nav-emblem.svg");
+  mask-image: url("/assets/kruv-nav-emblem.svg");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: left center;
+  mask-position: left center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
 }
 
 .marketing-navbar.is-scrolled .marketing-navbar-logo-wordmark {
@@ -1080,15 +1090,27 @@ body {
   padding-top: var(--works-body-pad-top);
 }
 
-/* /works proje ızgarası: shell viewport genişliği — kartlar vw ile büyüyüp küçülür
-   (grid-shell 1440 / 130vh tavanı kalktığı için ~%30 daha geniş sütunlar) */
+/* /works — tam genişlik; 100vw breakout yok (scrollbar ile yatay kayma önlenir) */
 .portfolio-works-page.works-shell-inner {
-  width: 100vw;
-  max-width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
+  width: 100%;
+  max-width: 100%;
+  margin-inline: auto;
   padding-inline: var(--container-gutter);
   box-sizing: border-box;
+  overflow-x: clip;
+}
+
+.portfolio-works-page .portfolio-grid {
+  width: 100%;
+  min-width: 0;
+}
+
+@media (min-width: 700px) {
+  .portfolio-works-page .portfolio-grid:has(> .pw-card:only-child) {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: min(52rem, 100%);
+    margin-inline: auto;
+  }
 }
 
 /* Project detail (/projects/[slug]) — Works shell + section / panel token */
@@ -1156,11 +1178,19 @@ body {
   opacity: 0.3;
   pointer-events: none;
 }
+.project-detail-shell {
+  overflow-x: clip;
+}
+
 .project-detail-hero {
-  width: 100%;
+  width: var(--project-media-width);
+  max-width: var(--project-media-width);
   margin-top: var(--space-6);
-  aspect-ratio: 2 / 1;
-  border-radius: var(--space-sm);
+  margin-left: calc(50% - (var(--project-media-width) / 2));
+  margin-right: calc(50% - (var(--project-media-width) / 2));
+  aspect-ratio: 16 / 9;
+  min-height: min(52vh, 720px);
+  border-radius: var(--radius-md);
   overflow: hidden;
   background: var(--surface);
   box-sizing: border-box;
@@ -1193,20 +1223,51 @@ body {
   box-sizing: border-box;
 }
 .project-detail-gallery {
-  display: grid;
-  gap: 3px;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-6);
   margin-top: var(--space-12);
 }
-.project-detail-gallery button {
+.project-detail-gallery__item {
+  display: block;
+  width: var(--project-media-width);
+  max-width: var(--project-media-width);
+  margin-left: calc(50% - (var(--project-media-width) / 2));
+  margin-right: calc(50% - (var(--project-media-width) / 2));
   overflow: hidden;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 9;
+  min-height: min(44vh, 640px);
   cursor: zoom-in;
   padding: 0;
-  margin: 0;
   border: none;
   background: transparent;
-  border-radius: var(--space-sm);
+  border-radius: var(--radius-md);
+  box-sizing: border-box;
+}
+.project-detail-gallery__item img {
+  display: block;
+}
+/* Galeri 2 — künye kartı hizası; %90 genişlikten dar */
+@media (min-width: 900px) {
+  .project-detail-gallery__item--kunya-align {
+    width: min(100%, 28rem);
+    max-width: 68%;
+    min-height: 0;
+    margin-left: 0;
+    margin-right: auto;
+    aspect-ratio: 4 / 3;
+  }
+}
+@media (max-width: 899px) {
+  .project-detail-gallery__item--kunya-align {
+    width: var(--project-media-width);
+    max-width: var(--project-media-width);
+    margin-left: calc(50% - (var(--project-media-width) / 2));
+    margin-right: calc(50% - (var(--project-media-width) / 2));
+    min-height: min(40vh, 520px);
+    aspect-ratio: 16 / 9;
+  }
 }
 
 /* Homepage featured-work kart tipografisi (kruv.html) */
@@ -1269,30 +1330,12 @@ body {
   transform: scale(1.1021);
 }
 
-/* Works (/works) tek sütun: görsel viewport’ta ~%10 yan boşluk (90vw) */
+/* Works (/works): kartlar shell içinde %100 — yatay breakout yok */
 @media (max-width: 699px) {
-  .works-shell-inner {
-    overflow-x: visible;
-  }
-  .portfolio-grid {
-    overflow-x: visible;
-  }
-  .pw-card {
-    overflow-x: visible;
-  }
-  .pw-card-media {
-    width: 90vw;
-    max-width: 90vw;
-    align-self: center;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  /* /works: shell zaten viewport — kart %100, ekstra breakout gerekmez */
+  .portfolio-works-page .pw-card,
   .portfolio-works-page .pw-card-media {
     width: 100%;
-    max-width: none;
+    max-width: 100%;
     align-self: stretch;
     left: auto;
     transform: none;
@@ -1463,6 +1506,32 @@ body {
   pointer-events: none;
 }
 
+.contact-form-step-viewport {
+  min-height: 11.5rem;
+  overflow: hidden;
+}
+
+.contact-form-step-panel {
+  animation: contactStepIn 0.32s var(--ease) both;
+}
+
+@keyframes contactStepIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-form-step-panel {
+    animation: none;
+  }
+}
+
 .contact-form-step {
   display: flex;
   flex-direction: column;
@@ -1577,7 +1646,7 @@ body {
 
 .contact-form-btn--primary {
   background: var(--accent);
-  color: var(--gray-anti);
+  color: var(--white-fixed);
   border-color: color-mix(in srgb, var(--accent) 88%, var(--gray-base));
 }
 

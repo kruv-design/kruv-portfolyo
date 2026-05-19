@@ -1,4 +1,5 @@
 import type { Project, ProjectSection } from "@/types";
+import { galeriFieldsFromRow, kapakFromRow } from "@/lib/project-images";
 
 /** Supabase `projects` satırı → uygulama `Project` tipi (admin + API yanıtı). */
 export function mapProjectRow(data: Record<string, unknown>): Project {
@@ -8,8 +9,8 @@ export function mapProjectRow(data: Record<string, unknown>): Project {
     baslik: String(data.baslik ?? ""),
     kategori: String(data.kategori ?? ""),
     aciklama: String(data.aciklama ?? ""),
-    gorsel: (data.gorsel as string) || null,
-    gorseller: Array.isArray(data.gorseller) ? (data.gorseller as string[]) : [],
+    kapak: kapakFromRow(data),
+    ...galeriFieldsFromRow(data),
     bolumler: Array.isArray(data.bolumler)
       ? (data.bolumler as ProjectSection[])
       : [],

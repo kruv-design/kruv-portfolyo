@@ -1,11 +1,34 @@
 import type { ReactElement } from "react";
 import type { SiteSettings } from "@/types";
 
+type PlatformKey =
+  | "linkedinUrl"
+  | "behanceUrl"
+  | "instagramUrl"
+  | "dribbbleUrl"
+  | "pinterestUrl"
+  | "youtubeUrl";
+
 type Entry = {
   href: string;
   label: string;
   Icon: () => ReactElement;
+  hasUrl: boolean;
 };
+
+/** Statik kruv.html footer ile aynı 6 platform — URL yokken de ikonlar görünür */
+const FOOTER_PLATFORMS: {
+  key: PlatformKey;
+  label: string;
+  Icon: () => ReactElement;
+}[] = [
+  { key: "linkedinUrl", label: "LinkedIn", Icon: IconLinkedIn },
+  { key: "behanceUrl", label: "Behance", Icon: IconBehance },
+  { key: "instagramUrl", label: "Instagram", Icon: IconInstagram },
+  { key: "dribbbleUrl", label: "Dribbble", Icon: IconDribbble },
+  { key: "pinterestUrl", label: "Pinterest", Icon: IconPinterest },
+  { key: "youtubeUrl", label: "YouTube", Icon: IconYoutube },
+];
 
 /** Aksan (indigo) squircle + siyah önplan — statik footer ile aynı dil */
 function IconLinkedIn() {
@@ -146,47 +169,6 @@ function IconYoutube() {
   );
 }
 
-function IconX() {
-  return (
-    <svg
-      viewBox="0 0 48 48"
-      width="100%"
-      height="100%"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-      className="overflow-hidden rounded-[length:var(--radius-lg)]"
-    >
-      <rect width="48" height="48" rx="12" fill="var(--color-accent)" />
-      <path
-        d="M14 14 L34 34 M34 14 L14 34"
-        stroke="var(--black-fixed)"
-        strokeWidth="3.5"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function IconGithub() {
-  return (
-    <svg
-      viewBox="0 0 48 48"
-      width="100%"
-      height="100%"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-      className="overflow-hidden rounded-[length:var(--radius-lg)]"
-    >
-      <rect width="48" height="48" rx="12" fill="var(--color-accent)" />
-      <g transform="translate(12 12) scale(2)" fill="var(--black-fixed)">
-        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.416-4.042-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.015 2.896-.015 3.286 0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-      </g>
-    </svg>
-  );
-}
-
 export function SocialFooterLinks({
   settings,
   className,
@@ -194,35 +176,40 @@ export function SocialFooterLinks({
   settings: SiteSettings;
   className?: string;
 }) {
-  const entries: Entry[] = [
-    { href: settings.linkedinUrl.trim(), label: "LinkedIn", Icon: IconLinkedIn },
-    { href: settings.behanceUrl.trim(), label: "Behance", Icon: IconBehance },
-    { href: settings.instagramUrl.trim(), label: "Instagram", Icon: IconInstagram },
-    { href: settings.dribbbleUrl.trim(), label: "Dribbble", Icon: IconDribbble },
-    { href: settings.pinterestUrl.trim(), label: "Pinterest", Icon: IconPinterest },
-    { href: settings.youtubeUrl.trim(), label: "YouTube", Icon: IconYoutube },
-    { href: settings.xUrl.trim(), label: "X", Icon: IconX },
-    { href: settings.githubUrl.trim(), label: "GitHub", Icon: IconGithub },
-  ].filter((e): e is Entry => Boolean(e.href));
-
-  if (entries.length === 0) return null;
+  const entries: Entry[] = FOOTER_PLATFORMS.map(({ key, label, Icon }) => {
+    const href = settings[key].trim();
+    return { href, label, Icon, hasUrl: Boolean(href) };
+  });
 
   const tileClass =
     "inline-flex h-[3.25rem] w-[3.25rem] flex-shrink-0 items-center justify-center overflow-hidden rounded-[length:var(--radius-lg)] bg-transparent p-0 text-ink transition-all duration-200 hover:-translate-y-px hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bg)]";
+
+  const tileMuted =
+    "pointer-events-none cursor-default opacity-70 hover:translate-y-0 hover:opacity-70";
 
   return (
     <nav
       className={`grid w-full max-w-[11.25rem] grid-cols-3 gap-3 ${className ?? ""}`}
       aria-label="Social links"
     >
-      {entries.map(({ href, label, Icon }) => (
+      {entries.map(({ href, label, Icon, hasUrl }) => (
         <a
           key={label}
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`${label} — yeni sekmede aç`}
-          className={tileClass}
+          href={hasUrl ? href : "#"}
+          {...(hasUrl
+            ? { target: "_blank", rel: "noopener noreferrer" }
+            : { "aria-disabled": true, tabIndex: -1 })}
+          aria-label={
+            hasUrl ? `${label} — yeni sekmede aç` : `${label} — bağlantı henüz eklenmedi`
+          }
+          className={`${tileClass}${hasUrl ? "" : ` ${tileMuted}`}`}
+          onClick={
+            hasUrl
+              ? undefined
+              : (e) => {
+                  e.preventDefault();
+                }
+          }
         >
           <Icon />
         </a>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import type { Project } from "@/types";
+import { projectCover } from "@/lib/project-images";
 import { api } from "@/lib/api";
 import { toast } from "@/components/ui/Toast";
 
@@ -105,8 +106,14 @@ export function ProjectList({ initial }: { initial: Project[] }) {
               color: "var(--ink-faint)",
             }}
           >
-            {p.gorsel ? (
-              <Image src={p.gorsel} alt="" width={64} height={48} className="h-full w-full object-cover" />
+            {projectCover(p) ? (
+              <Image
+                src={projectCover(p)!}
+                alt=""
+                width={64}
+                height={48}
+                className="h-full w-full object-cover"
+              />
             ) : (
               <span className="h4">{p.baslik.slice(0, 1)}</span>
             )}

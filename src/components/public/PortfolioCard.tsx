@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { Project } from "@/types";
+import { projectCover } from "@/lib/project-images";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 
 /**
@@ -13,20 +14,24 @@ export function PortfolioCard({
   project: Project;
   index: number;
 }) {
-  const desc = (project.aciklama || "").trim();
+  const cover = projectCover(project);
+  const categoryLabel =
+    project.etiketler?.length > 0
+      ? project.etiketler.join(", ")
+      : project.kategori;
 
   return (
     <Link
       href={`/projects/${project.slug}`}
-      className="pw-card group animate-fadeUp"
+      className="pw-card group"
       style={{ animationDelay: `${index * 0.055}s` }}
       aria-label={project.baslik}
     >
       <div className="pw-card-media">
-        {project.gorsel ? (
+        {cover ? (
           <div className="pw-card-media-crop">
             <Image
-              src={project.gorsel}
+              src={cover}
               alt={project.baslik}
               fill
               sizes="(max-width: 699px) 100vw, 50vw"
@@ -47,8 +52,7 @@ export function PortfolioCard({
       </div>
       <div className="pw-card-meta">
         <h2 className="pw-card-title">{project.baslik}</h2>
-        {desc ? <p className="pw-card-desc">{desc}</p> : null}
-        <p className="pw-card-category">{project.kategori}</p>
+        {categoryLabel ? <p className="pw-card-category">{categoryLabel}</p> : null}
       </div>
     </Link>
   );

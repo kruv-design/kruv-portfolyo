@@ -45,7 +45,7 @@ export async function generateMetadata({
     project.aciklama?.slice(0, 160) ||
     `${project.kategori} projesi · ${project.musteri || "Kruv"}`;
   const canonical = `${env.SITE_URL}/projects/${project.slug}`;
-  const img = project.gorsel || undefined;
+  const img = project.kapak || undefined;
 
   return {
     title,
@@ -88,7 +88,7 @@ export default async function ProjectPage({
     name: project.baslik,
     description: project.aciklama || undefined,
     url: `${env.SITE_URL}/projects/${project.slug}`,
-    image: project.gorsel || undefined,
+    image: project.kapak || undefined,
     keywords: project.etiketler?.join(", ") || undefined,
     dateCreated: project.yil || undefined,
     creator: { "@type": "Organization", name: settings.siteAdi },
@@ -108,7 +108,7 @@ export default async function ProjectPage({
       >
         <MarketingSiteNav settings={settings} />
         <div className="flex flex-1 flex-col">
-          <div className="works-shell-inner">
+          <div className="works-shell-inner project-detail-shell">
             <ProjectDetail project={project} prevSlug={prev} nextSlug={next} />
           </div>
           <SiteFooter settings={settings} />

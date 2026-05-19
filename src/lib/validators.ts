@@ -56,23 +56,6 @@ const linkUrlOrEmpty = z
   .optional()
   .default("");
 
-const galleryUrlItem = z
-  .string()
-  .max(2048)
-  .transform((s) => compactUrlWhitespace(s))
-  .refine(
-    (s) => !s || /^https?:\/\//i.test(s),
-    "Galeri adresi http(s) ile başlamalı.",
-  )
-  .refine((s) => {
-    if (!s) return true;
-    try {
-      return Boolean(new URL(s).hostname);
-    } catch {
-      return false;
-    }
-  }, "Galeri adresi geçersiz.");
-
 /** #RGB → #RRGGBB; geçersiz / boş → varsayılan (kayıt 400 düşmesin) */
 function normalizeRenkHex(raw: string): string {
   const t = raw.trim();
@@ -116,12 +99,15 @@ export const projectSchema = z.object({
   baslik: nonEmpty.max(200, "Başlık çok uzun."),
   kategori: nonEmpty.max(80),
   aciklama: longStr,
-  gorsel: imageUrlOrEmpty.optional().default(""),
-  gorseller: z
-    .array(galleryUrlItem)
-    .max(30)
-    .default([])
-    .transform((arr) => arr.filter((u) => u.length > 0)),
+  kapak: imageUrlOrEmpty.optional().default(""),
+  galeri_1: imageUrlOrEmpty.optional().default(""),
+  galeri_2: imageUrlOrEmpty.optional().default(""),
+  galeri_3: imageUrlOrEmpty.optional().default(""),
+  galeri_4: imageUrlOrEmpty.optional().default(""),
+  galeri_5: imageUrlOrEmpty.optional().default(""),
+  galeri_6: imageUrlOrEmpty.optional().default(""),
+  galeri_7: imageUrlOrEmpty.optional().default(""),
+  galeri_8: imageUrlOrEmpty.optional().default(""),
   bolumler: z.array(sectionSchema).max(20).default([]),
   etiketler: z.array(z.string().trim().min(1).max(40)).max(20).default([]),
   yil: optStr,
@@ -145,8 +131,15 @@ export function projectPayloadToDbRow(input: ProjectFormInput, slug: string) {
     baslik: input.baslik,
     kategori: input.kategori,
     aciklama: input.aciklama,
-    gorsel: input.gorsel,
-    gorseller: input.gorseller,
+    kapak: input.kapak,
+    galeri_1: input.galeri_1,
+    galeri_2: input.galeri_2,
+    galeri_3: input.galeri_3,
+    galeri_4: input.galeri_4,
+    galeri_5: input.galeri_5,
+    galeri_6: input.galeri_6,
+    galeri_7: input.galeri_7,
+    galeri_8: input.galeri_8,
     bolumler: input.bolumler,
     etiketler: input.etiketler,
     yil: input.yil,

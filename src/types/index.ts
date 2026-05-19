@@ -14,8 +14,15 @@ export type Project = {
   baslik: string;
   kategori: string;
   aciklama: string;
-  gorsel: string | null;
-  gorseller: string[];
+  kapak: string | null;
+  galeri_1: string;
+  galeri_2: string;
+  galeri_3: string;
+  galeri_4: string;
+  galeri_5: string;
+  galeri_6: string;
+  galeri_7: string;
+  galeri_8: string;
   bolumler: ProjectSection[];
   etiketler: string[];
   yil: string;

@@ -128,8 +128,15 @@ async function main() {
   const rows = SEED.map((p, i) => ({
     ...p,
     slug: slugify(p.baslik),
-    gorsel: "",
-    gorseller: [],
+    kapak: "",
+    galeri_1: "",
+    galeri_2: "",
+    galeri_3: "",
+    galeri_4: "",
+    galeri_5: "",
+    galeri_6: "",
+    galeri_7: "",
+    galeri_8: "",
     sira: (i + 1) * 10,
   }));
 

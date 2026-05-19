@@ -1,4 +1,6 @@
 import type { Project } from "@/types";
+import type { GaleriKey } from "@/lib/project-images";
+import { mapProjectRow } from "@/lib/map-project-row";
 
 /**
  * Demo projects used ONLY when:
@@ -22,10 +24,19 @@ function img(seed: string, w = 1600, h = 900): string {
   return `https://picsum.photos/seed/kruv-${seed}/${w}/${h}`;
 }
 
-type DemoInput = Omit<Project, "created_at" | "updated_at">;
+/** Demo dosyasında hâlâ gorsel/gorseller kullanılabilir — mapProjectRow dönüştürür. */
+type DemoInput = Omit<
+  Project,
+  "created_at" | "updated_at" | "kapak" | GaleriKey
+> & {
+  gorsel?: string;
+  gorseller?: string[];
+  kapak?: string | null;
+} & Partial<Record<GaleriKey, string>>;
 
 function make(p: DemoInput): Project {
-  return { ...p, created_at: now, updated_at: now };
+  const row = mapProjectRow(p as unknown as Record<string, unknown>);
+  return { ...row, created_at: now, updated_at: now };
 }
 
 /* ─────────────────────────────  BRANDING  ───────────────────────────── */

@@ -21,10 +21,6 @@ const INITIAL: ContactPayloadInput = {
   referrer: "",
 };
 
-function isValidEmail(s: string) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s.trim());
-}
-
 export function ContactForm() {
   const formId = useId();
   const hpId = `${formId}-hp`;
@@ -32,11 +28,9 @@ export function ContactForm() {
   const [step, setStep] = useState(0);
   const [values, setValues] = useState<ContactPayloadInput>(INITIAL);
   const [hp, setHp] = useState("");
-  const [draftStatus, setDraftStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
-  const [stepError, setStepError] = useState<string | null>(null);
 
   useEffect(() => {
     let s = sessionStorage.getItem("kruv-contact-session");
@@ -51,20 +45,15 @@ export function ContactForm() {
 
   useEffect(() => {
     if (!sessionId || done) return;
-    setDraftStatus("idle");
     const t = window.setTimeout(async () => {
-      setDraftStatus("saving");
       try {
-        const res = await fetch("/api/contact-partial", {
+        await fetch("/api/contact-partial", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ sessionId, step, payload: values }),
         });
-        if (!res.ok) throw new Error("save");
-        setDraftStatus("saved");
-        window.setTimeout(() => setDraftStatus("idle"), 1600);
       } catch {
-        setDraftStatus("error");
+        /* sessiz taslak — kullanıcıya gösterme */
       }
     }, 2200);
     return () => window.clearTimeout(t);
@@ -89,73 +78,45 @@ export function ContactForm() {
 
   function patch<K extends keyof ContactPayloadInput>(key: K, v: ContactPayloadInput[K]) {
     setValues((prev) => ({ ...prev, [key]: v }));
-    setStepError(null);
     setFormError(null);
   }
 
-  function validateStep0() {
-    if (values.name.trim().length < 2) {
-      setStepError("İsminizi en az 2 karakter olarak girin.");
-      return false;
-    }
-    if (!isValidEmail(values.email)) {
-      setStepError("Geçerli bir e-posta adresi girin.");
-      return false;
-    }
-    return true;
-  }
+  const stepViewportRef = useRef<HTMLDivElement>(null);
 
-  function validateStep1() {
-    if (values.company.trim().length < 2) {
-      setStepError("Hangi marka veya şirket için yazdığınızı belirtin (en az 2 karakter).");
-      return false;
-    }
-    if (!values.projectType.trim()) {
-      setStepError("Şu an en çok hangi alanda destek aradığınızı seçin.");
-      return false;
-    }
-    return true;
-  }
-
-  function validateStep2() {
-    if (values.message.trim().length < 15) {
-      setStepError("Mesajınız en az 15 karakter olsun ki doğru yanıt verebilelim.");
-      return false;
-    }
-    return true;
-  }
-
-  function validateAll() {
-    if (!validateStep0()) {
-      setStep(0);
-      return false;
-    }
-    if (!validateStep1()) {
-      setStep(1);
-      return false;
-    }
-    if (!validateStep2()) {
-      setStep(2);
-      return false;
+  function currentStepFieldsValid() {
+    const panel = stepViewportRef.current?.querySelector(".contact-form-step-panel");
+    if (!panel) return true;
+    const fields = panel.querySelectorAll<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >("input:not([type='hidden']), select, textarea");
+    for (const field of fields) {
+      if (!field.reportValidity()) return false;
     }
     return true;
   }
 
   function goNext() {
-    if (step === 0 && !validateStep0()) return;
-    if (step === 1 && !validateStep1()) return;
+    if (!currentStepFieldsValid()) return;
     setStep((s) => Math.min(CONTACT_TOTAL_STEPS - 1, s + 1));
-    setStepError(null);
   }
 
   function goBack() {
     setStep((s) => Math.max(0, s - 1));
-    setStepError(null);
   }
+
+  useEffect(() => {
+    const panel = stepViewportRef.current?.querySelector<HTMLElement>(
+      ".contact-form-step-panel",
+    );
+    const first = panel?.querySelector<HTMLElement>(
+      "input:not([type='hidden']), select, textarea",
+    );
+    first?.focus({ preventScroll: true });
+  }, [step]);
 
   async function onSubmit(ev: React.FormEvent) {
     ev.preventDefault();
-    if (!validateAll()) return;
+    if (!currentStepFieldsValid()) return;
     if (!sessionId) return;
     setSubmitting(true);
     setFormError(null);
@@ -210,33 +171,22 @@ export function ContactForm() {
           Birlikte üretelim
         </h1>
         <p className="contact-form-lead b1" style={{ color: "var(--b1-color)" }}>
-          Üç kısa adım: iletişim bilgileriniz, markanız ve mesajınız. Yanıtlarınız otomatik taslak
-          olarak kaydedilir.
+          Üç kısa adım: iletişim bilgileriniz, markanız ve mesajınız.
         </p>
       </header>
 
-      <div className="contact-form-progress-wrap" aria-hidden="true">
-        <div className="contact-form-progress-track">
+      <div className="contact-form-progress-wrap" aria-live="polite" aria-atomic="true">
+        <div className="contact-form-progress-track" aria-hidden="true">
           <div className="contact-form-progress-fill" style={{ width: `${progress}%` }} />
         </div>
-        <p className="contact-form-progress-label b2" style={{ color: "var(--ink-faint)" }}>
+        <p
+          id={`${formId}-step-label`}
+          className="contact-form-progress-label b2"
+          style={{ color: "var(--ink-faint)" }}
+        >
           Adım {step + 1} / {CONTACT_TOTAL_STEPS} — {CONTACT_STEP_TITLES[step]}
         </p>
       </div>
-
-      {draftStatus === "saving" ? (
-        <p className="contact-form-draft b2" style={{ color: "var(--ink-faint)" }}>
-          Taslak kaydediliyor…
-        </p>
-      ) : draftStatus === "saved" ? (
-        <p className="contact-form-draft b2" style={{ color: "var(--accent)" }}>
-          Taslak kaydedildi
-        </p>
-      ) : draftStatus === "error" ? (
-        <p className="contact-form-draft b2" style={{ color: "var(--danger)" }}>
-          Taslak kaydı şu an çalışmadı; gönderim yine de kaydedilir.
-        </p>
-      ) : null}
 
       <form className="contact-form" onSubmit={onSubmit} noValidate>
         <label htmlFor={hpId} className="sr-only">
@@ -254,107 +204,110 @@ export function ContactForm() {
           aria-hidden="true"
         />
 
-        {step === 0 ? (
-          <div className="contact-form-step">
-            <div className="contact-form-field">
-              <label htmlFor={`${formId}-name`} className="contact-form-label b2">
-                Adınız soyadınız <span className="contact-form-req">*</span>
-              </label>
-              <input
-                id={`${formId}-name`}
-                className="contact-form-input"
-                type="text"
-                autoComplete="name"
-                value={values.name}
-                onChange={(e) => patch("name", e.target.value)}
-                placeholder="ör. ayşe yılmaz"
-                required
-              />
-            </div>
-            <div className="contact-form-field">
-              <label htmlFor={`${formId}-email`} className="contact-form-label b2">
-                E-posta <span className="contact-form-req">*</span>
-              </label>
-              <input
-                id={`${formId}-email`}
-                className="contact-form-input"
-                type="email"
-                autoComplete="email"
-                inputMode="email"
-                value={values.email}
-                onChange={(e) => patch("email", e.target.value)}
-                placeholder="siz@ornek.com"
-                required
-              />
-            </div>
-          </div>
-        ) : null}
+        <div ref={stepViewportRef} className="contact-form-step-viewport">
+          <div
+            key={step}
+            className="contact-form-step contact-form-step-panel"
+            role="group"
+            aria-labelledby={`${formId}-step-label`}
+          >
+            {step === 0 ? (
+              <>
+                <div className="contact-form-field">
+                  <label htmlFor={`${formId}-name`} className="contact-form-label b2">
+                    Adınız soyadınız <span className="contact-form-req">*</span>
+                  </label>
+                  <input
+                    id={`${formId}-name`}
+                    className="contact-form-input"
+                    type="text"
+                    autoComplete="name"
+                    value={values.name}
+                    onChange={(e) => patch("name", e.target.value)}
+                    placeholder="ör. ayşe yılmaz"
+                    minLength={2}
+                    required
+                  />
+                </div>
+                <div className="contact-form-field">
+                  <label htmlFor={`${formId}-email`} className="contact-form-label b2">
+                    E-posta <span className="contact-form-req">*</span>
+                  </label>
+                  <input
+                    id={`${formId}-email`}
+                    className="contact-form-input"
+                    type="email"
+                    autoComplete="email"
+                    inputMode="email"
+                    value={values.email}
+                    onChange={(e) => patch("email", e.target.value)}
+                    placeholder="siz@ornek.com"
+                    required
+                  />
+                </div>
+              </>
+            ) : null}
 
-        {step === 1 ? (
-          <div className="contact-form-step">
-            <div className="contact-form-field">
-              <label htmlFor={`${formId}-company`} className="contact-form-label b2">
-                Marka veya şirket adı <span className="contact-form-req">*</span>
-              </label>
-              <input
-                id={`${formId}-company`}
-                className="contact-form-input"
-                type="text"
-                autoComplete="organization"
-                value={values.company}
-                onChange={(e) => patch("company", e.target.value)}
-                placeholder="ör. marker, acme co."
-              />
-            </div>
-            <div className="contact-form-field">
-              <label htmlFor={`${formId}-type`} className="contact-form-label b2">
-                Şu an en çok nerede destek arıyorsunuz? <span className="contact-form-req">*</span>
-              </label>
-              <p className="b2" style={{ color: "var(--ink-faint)", margin: 0 }}>
-                Tek seçim yeterli — doğru ekibi yanıtınıza yönlendirmek için.
-              </p>
-              <select
-                id={`${formId}-type`}
-                className="contact-form-input contact-form-select"
-                value={values.projectType}
-                onChange={(e) => patch("projectType", e.target.value)}
-              >
-                {CONTACT_FOCUS_OPTIONS.map((o) => (
-                  <option key={o.label + o.value} value={o.value}>
-                    {o.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        ) : null}
+            {step === 1 ? (
+              <>
+                <div className="contact-form-field">
+                  <label htmlFor={`${formId}-company`} className="contact-form-label b2">
+                    Marka veya şirket adı <span className="contact-form-req">*</span>
+                  </label>
+                  <input
+                    id={`${formId}-company`}
+                    className="contact-form-input"
+                    type="text"
+                    autoComplete="organization"
+                    value={values.company}
+                    onChange={(e) => patch("company", e.target.value)}
+                    placeholder="ör. marker, acme co."
+                    minLength={2}
+                    required
+                  />
+                </div>
+                <div className="contact-form-field">
+                  <label htmlFor={`${formId}-type`} className="contact-form-label b2">
+                    Şu an en çok nerede destek arıyorsunuz?{" "}
+                    <span className="contact-form-req">*</span>
+                  </label>
+                  <select
+                    id={`${formId}-type`}
+                    className="contact-form-input contact-form-select"
+                    value={values.projectType}
+                    onChange={(e) => patch("projectType", e.target.value)}
+                    required
+                  >
+                    {CONTACT_FOCUS_OPTIONS.map((o) => (
+                      <option key={o.label + o.value} value={o.value}>
+                        {o.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </>
+            ) : null}
 
-        {step === 2 ? (
-          <div className="contact-form-step">
-            <div className="contact-form-field">
-              <label htmlFor={`${formId}-message`} className="contact-form-label b2">
-                Mesajınız <span className="contact-form-req">*</span>
-              </label>
-              <p className="b2" style={{ color: "var(--ink-faint)", margin: 0 }}>
-                Hedefiniz, referans verdiğiniz işler, teslim beklentiniz… En az 15 karakter.
-              </p>
-              <textarea
-                id={`${formId}-message`}
-                className="contact-form-input contact-form-textarea"
-                rows={6}
-                value={values.message}
-                onChange={(e) => patch("message", e.target.value)}
-                placeholder="Kısaca projenizi veya sorunuzu yazın."
-              />
-            </div>
+            {step === 2 ? (
+              <div className="contact-form-field">
+                <label htmlFor={`${formId}-message`} className="contact-form-label b2">
+                  Mesajınız <span className="contact-form-req">*</span>
+                </label>
+                <textarea
+                  id={`${formId}-message`}
+                  className="contact-form-input contact-form-textarea"
+                  rows={6}
+                  value={values.message}
+                  onChange={(e) => patch("message", e.target.value)}
+                  placeholder="Kısaca projenizi veya sorunuzu yazın."
+                  minLength={15}
+                  required
+                />
+              </div>
+            ) : null}
           </div>
-        ) : null}
+        </div>
 
-        {stepError ? (
-          <p className="contact-form-error b2" role="alert">
-            {stepError}
-          </p>
-        ) : null}
         {formError ? (
           <p className="contact-form-error b2" role="alert">
             {formError}

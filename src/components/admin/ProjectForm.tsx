@@ -9,15 +9,14 @@ import { Field } from "@/components/ui/Field";
 import { TagInput } from "./TagInput";
 import { SectionEditor } from "./SectionEditor";
 import { CoverUpload } from "./CoverUpload";
-import { GalleryUpload } from "./GalleryUpload";
+import { GALERI_KEYS, emptyGaleriSlots, type GaleriKey } from "@/lib/project-images";
 import { WORK_PAGE_FILTER_LABELS } from "@/lib/work-filters";
 
 type FormState = {
   baslik: string;
   kategori: string;
   aciklama: string;
-  gorsel: string;
-  gorseller: string[];
+  kapak: string;
   bolumler: ProjectSection[];
   etiketler: string[];
   yil: string;
@@ -27,7 +26,7 @@ type FormState = {
   featured: boolean;
   renk: string;
   slug: string;
-};
+} & Record<GaleriKey, string>;
 
 const KATEGORI_EXTRA = ["Packaging", "Motion"] as const;
 
@@ -35,8 +34,8 @@ const EMPTY: FormState = {
   baslik: "",
   kategori: "",
   aciklama: "",
-  gorsel: "",
-  gorseller: [],
+  kapak: "",
+  ...emptyGaleriSlots(),
   bolumler: [],
   etiketler: [],
   yil: "",
@@ -53,8 +52,15 @@ function fromProject(p: Project): FormState {
     baslik: p.baslik,
     kategori: p.kategori,
     aciklama: p.aciklama,
-    gorsel: p.gorsel ?? "",
-    gorseller: [...p.gorseller],
+    kapak: p.kapak ?? "",
+    galeri_1: p.galeri_1,
+    galeri_2: p.galeri_2,
+    galeri_3: p.galeri_3,
+    galeri_4: p.galeri_4,
+    galeri_5: p.galeri_5,
+    galeri_6: p.galeri_6,
+    galeri_7: p.galeri_7,
+    galeri_8: p.galeri_8,
     bolumler: [...p.bolumler],
     etiketler: [...p.etiketler],
     yil: p.yil,
@@ -109,7 +115,6 @@ export function ProjectForm({
         const payload = {
           ...form,
           etiketler: form.etiketler ?? [],
-          gorseller: form.gorseller ?? [],
           bolumler: form.bolumler.filter(
             (b) => b.baslik.trim() || b.metin.trim(),
           ),
@@ -180,9 +185,25 @@ export function ProjectForm({
             Temel bilgiler
           </h2>
 
-          <Field label="Kapak görseli">
-            <CoverUpload value={form.gorsel} onChange={(v) => patch("gorsel", v)} />
+          <Field label="Kapak" hint="İsteğe bağlı — Work kartı ve detay üstü.">
+            <CoverUpload value={form.kapak} onChange={(v) => patch("kapak", v)} />
           </Field>
+
+          <div className="flex flex-col gap-4">
+            <p className="b3" style={{ color: "var(--ink-faint)" }}>
+              Galeri (isteğe bağlı) — detay sayfasında sırayla görünür. Boş slotları atlayabilirsiniz.
+            </p>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {GALERI_KEYS.map((key, i) => (
+                <Field key={key} label={`Galeri ${i + 1}`}>
+                  <CoverUpload
+                    value={form[key]}
+                    onChange={(v) => patch(key, v)}
+                  />
+                </Field>
+              ))}
+            </div>
+          </div>
 
           <Field label="Proje adı *" error={errors.baslik}>
             <input
@@ -217,13 +238,6 @@ export function ProjectForm({
               value={form.aciklama}
               onChange={(e) => patch("aciklama", e.target.value)}
               placeholder="Work sayfasındaki kartta görünen 1–2 cümle."
-            />
-          </Field>
-
-          <Field label="Ek görseller (isteğe bağlı)">
-            <GalleryUpload
-              value={form.gorseller}
-              onChange={(v) => patch("gorseller", v)}
             />
           </Field>
 
