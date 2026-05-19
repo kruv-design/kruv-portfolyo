@@ -4,8 +4,10 @@
   "private": true,
   "description": "Kruv — production-ready portfolyo CMS (Next.js 15 + Supabase + Cloudinary)",
   "scripts": {
-    "dev": "next dev -H 127.0.0.1 -p 3000",
-    "dev:lan": "next dev -H 0.0.0.0 -p 3000",
+    "clean": "rm -rf .next",
+    "dev": "WATCHPACK_POLLING=true next dev -H 127.0.0.1 -p 3000",
+    "dev:fresh": "npm run clean && npm run dev",
+    "dev:lan": "WATCHPACK_POLLING=true next dev -H 0.0.0.0 -p 3000",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -13,12 +15,18 @@
     "seed": "tsx scripts/seed.ts"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.45.4",
     "cloudinary": "^2.5.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.14.0",
     "next": "^15.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hook-form": "^7.75.0",
+    "resend": "^6.12.3",
+    "tailwind-merge": "^3.6.0",
     "zod": "^3.23.8",
     "zustand": "^5.0.1"
   },

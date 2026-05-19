@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useTransition } from "react";
+import { useMemo, useState, useTransition } from "react";
 import type { Project, ProjectSection } from "@/types";
 import { api } from "@/lib/api";
 import { toast } from "@/components/ui/Toast";
@@ -10,6 +10,7 @@ import { TagInput } from "./TagInput";
 import { SectionEditor } from "./SectionEditor";
 import { CoverUpload } from "./CoverUpload";
 import { GalleryUpload } from "./GalleryUpload";
+import { WORK_PAGE_FILTER_LABELS } from "@/lib/work-filters";
 
 type FormState = {
   baslik: string;
@@ -28,6 +29,8 @@ type FormState = {
   renk: string;
   slug: string;
 };
+
+const KATEGORI_EXTRA = ["Packaging", "Motion"] as const;
 
 const EMPTY: FormState = {
   baslik: "",
@@ -79,7 +82,16 @@ export function ProjectForm({
   );
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [formError, setFormError] = useState<string | null>(null);
+  const [showAdvanced, setShowAdvanced] = useState(false);
   const [pending, start] = useTransition();
+
+  const kategoriOptions = useMemo(() => {
+    const base = [...WORK_PAGE_FILTER_LABELS, ...KATEGORI_EXTRA];
+    if (form.kategori && !base.includes(form.kategori as (typeof base)[number])) {
+      return [form.kategori, ...base];
+    }
+    return base;
+  }, [form.kategori]);
 
   function patch<K extends keyof FormState>(key: K, val: FormState[K]) {
     setForm((f) => ({ ...f, [key]: val }));
@@ -91,16 +103,16 @@ export function ProjectForm({
     setFormError(null);
     const localErrors: Record<string, string> = {};
     if (!form.baslik.trim()) localErrors.baslik = "Başlık zorunlu.";
-    if (!form.kategori.trim()) localErrors.kategori = "Kategori zorunlu.";
+    if (!form.kategori.trim()) localErrors.kategori = "Kategori seçin.";
     setErrors(localErrors);
-    setFormError(null);
     if (Object.keys(localErrors).length) return;
 
     start(async () => {
       try {
         const payload = {
           ...form,
-          // Drop empty sections
+          etiketler: form.etiketler ?? [],
+          gorseller: form.gorseller ?? [],
           bolumler: form.bolumler.filter(
             (b) => b.baslik.trim() || b.metin.trim(),
           ),
@@ -113,7 +125,6 @@ export function ProjectForm({
           setForm(fromProject(updated));
           toast("Proje güncellendi.");
         }
-        /** Tam sayfa yüklemesi: RSC / istemci önbelleği yüzünden liste ve kök sayfa “eski” kalmasın */
         window.location.assign("/admin");
       } catch (err) {
         const msg = (err as Error).message || "Kayıt başarısız.";
@@ -126,9 +137,15 @@ export function ProjectForm({
   return (
     <form onSubmit={handleSubmit} className="pb-32" noValidate>
       <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
-        <h1 className="h2">
-          {mode === "create" ? "Yeni Proje" : "Projeyi Düzenle"}
-        </h1>
+        <div>
+          <h1 className="h2">
+            {mode === "create" ? "Yeni proje" : "Projeyi düzenle"}
+          </h1>
+          <p className="b2 mt-2 max-w-xl" style={{ color: "var(--ink-faint)" }}>
+            Projeleri buradan yönetin. Supabase tablosunu açmanıza gerek yok — liste
+            sırası admin ana sayfasında sürükle-bırak ile ayarlanır.
+          </p>
+        </div>
         <div className="flex gap-2">
           <Link href="/admin" className="btn btn-ghost">
             İptal
@@ -157,137 +174,171 @@ export function ProjectForm({
         </div>
       ) : null}
 
-      <div className="flex flex-col gap-5">
-        <Field label="Kapak Görseli">
-          <CoverUpload value={form.gorsel} onChange={(v) => patch("gorsel", v)} />
-        </Field>
+      <div className="flex flex-col gap-6">
+        <section
+          className="flex flex-col gap-5 rounded-xl border p-5 sm:p-6"
+          style={{ borderColor: "var(--adm-border)", background: "var(--adm-surface)" }}
+        >
+          <h2 className="b1 font-semibold" style={{ color: "var(--ink)" }}>
+            Temel bilgiler
+          </h2>
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Field label="Proje Başlığı *" error={errors.baslik}>
+          <Field label="Kapak görseli">
+            <CoverUpload value={form.gorsel} onChange={(v) => patch("gorsel", v)} />
+          </Field>
+
+          <Field label="Proje adı *" error={errors.baslik}>
             <input
               type="text"
               className="form-input"
               value={form.baslik}
               onChange={(e) => patch("baslik", e.target.value)}
-              placeholder="Marka Kimliği — Karamel"
+              placeholder="ör. Marker"
               maxLength={200}
             />
           </Field>
+
           <Field label="Kategori *" error={errors.kategori}>
-            <input
-              type="text"
-              className="form-input"
+            <select
+              className="form-input contact-form-select"
               value={form.kategori}
               onChange={(e) => patch("kategori", e.target.value)}
-              placeholder="Branding, UI/UX, Web…"
-              maxLength={80}
+            >
+              <option value="">Seçin…</option>
+              {kategoriOptions.map((k) => (
+                <option key={k} value={k}>
+                  {k}
+                </option>
+              ))}
+            </select>
+          </Field>
+
+          <Field label="Kısa açıklama">
+            <textarea
+              className="form-textarea"
+              rows={3}
+              value={form.aciklama}
+              onChange={(e) => patch("aciklama", e.target.value)}
+              placeholder="Work sayfasındaki kartta görünen 1–2 cümle."
             />
           </Field>
-        </div>
 
-        <Field label="Kısa Açıklama (kart metni)">
-          <textarea
-            className="form-textarea"
-            rows={2}
-            value={form.aciklama}
-            onChange={(e) => patch("aciklama", e.target.value)}
-            placeholder="Kartın üzerine gelince görünen 1-2 cümlelik özet."
-          />
-        </Field>
+          <Field label="Ek görseller (isteğe bağlı)">
+            <GalleryUpload
+              value={form.gorseller}
+              onChange={(v) => patch("gorseller", v)}
+            />
+          </Field>
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Field label="Müşteri">
+          <label
+            className="b2 flex cursor-pointer items-center gap-2"
+            style={{ color: "var(--ink-soft)" }}
+          >
             <input
-              type="text"
-              className="form-input"
-              value={form.musteri}
-              onChange={(e) => patch("musteri", e.target.value)}
-              placeholder="Karamel Coffee"
+              type="checkbox"
+              checked={form.featured}
+              onChange={(e) => patch("featured", e.target.checked)}
+              className="h-4 w-4"
+              style={{ accentColor: "var(--accent)" }}
             />
-          </Field>
-          <Field label="Yıl">
-            <input
-              type="text"
-              className="form-input"
-              value={form.yil}
-              onChange={(e) => patch("yil", e.target.value)}
-              placeholder="2024"
-            />
-          </Field>
-          <Field label="Rolün">
-            <input
-              type="text"
-              className="form-input"
-              value={form.rol}
-              onChange={(e) => patch("rol", e.target.value)}
-              placeholder="Marka Tasarımcısı"
-            />
-          </Field>
-          <Field label="Süre">
-            <input
-              type="text"
-              className="form-input"
-              value={form.sure}
-              onChange={(e) => patch("sure", e.target.value)}
-              placeholder="6 hafta"
-            />
-          </Field>
-        </div>
+            Ana sayfada öne çıkar
+          </label>
+        </section>
 
-        <Field label="Proje Linki" hint="https:// ile başlamalı (boş bırakılabilir).">
-          <input
-            type="text"
-            inputMode="url"
-            autoComplete="url"
-            className="form-input"
-            value={form.link}
-            onChange={(e) => patch("link", e.target.value)}
-            placeholder="https://…"
-          />
-        </Field>
+        <section
+          className="rounded-xl border"
+          style={{ borderColor: "var(--adm-border)", background: "var(--adm-surface)" }}
+        >
+          <button
+            type="button"
+            className="b2 flex w-full items-center justify-between px-5 py-4 text-left font-medium"
+            style={{ color: "var(--ink-soft)" }}
+            onClick={() => setShowAdvanced((v) => !v)}
+            aria-expanded={showAdvanced}
+          >
+            Gelişmiş ayarlar
+            <span aria-hidden="true">{showAdvanced ? "−" : "+"}</span>
+          </button>
 
-        <Field label="Etiketler">
-          <TagInput
-            value={form.etiketler}
-            onChange={(v) => patch("etiketler", v)}
-          />
-        </Field>
+          {showAdvanced ? (
+            <div
+              className="flex flex-col gap-5 border-t px-5 pb-5 pt-4 sm:px-6"
+              style={{ borderColor: "var(--adm-border)" }}
+            >
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Field label="Müşteri">
+                  <input
+                    type="text"
+                    className="form-input"
+                    value={form.musteri}
+                    onChange={(e) => patch("musteri", e.target.value)}
+                    placeholder="İsteğe bağlı"
+                  />
+                </Field>
+                <Field label="Yıl">
+                  <input
+                    type="text"
+                    className="form-input"
+                    value={form.yil}
+                    onChange={(e) => patch("yil", e.target.value)}
+                    placeholder="2024"
+                  />
+                </Field>
+                <Field label="Rol">
+                  <input
+                    type="text"
+                    className="form-input"
+                    value={form.rol}
+                    onChange={(e) => patch("rol", e.target.value)}
+                  />
+                </Field>
+                <Field label="Süre">
+                  <input
+                    type="text"
+                    className="form-input"
+                    value={form.sure}
+                    onChange={(e) => patch("sure", e.target.value)}
+                  />
+                </Field>
+              </div>
 
-        <label className="b2 flex cursor-pointer items-center gap-2" style={{ color: "var(--ink-soft)" }}>
-          <input
-            type="checkbox"
-            checked={form.featured}
-            onChange={(e) => patch("featured", e.target.checked)}
-            className="h-4 w-4"
-            style={{ accentColor: "var(--accent)" }}
-          />
-          Öne çıkar (büyük kart — iki sütun genişliği)
-        </label>
+              <Field label="Dış link" hint="Behance, web sitesi vb.">
+                <input
+                  type="url"
+                  className="form-input"
+                  value={form.link}
+                  onChange={(e) => patch("link", e.target.value)}
+                  placeholder="https://…"
+                />
+              </Field>
 
-        <Field label="Galeri Görselleri">
-          <GalleryUpload
-            value={form.gorseller}
-            onChange={(v) => patch("gorseller", v)}
-          />
-        </Field>
+              <Field label="Etiketler">
+                <TagInput
+                  value={form.etiketler}
+                  onChange={(v) => patch("etiketler", v)}
+                />
+              </Field>
 
-        <SectionEditor
-          value={form.bolumler}
-          onChange={(v) => patch("bolumler", v)}
-        />
+              <SectionEditor
+                value={form.bolumler}
+                onChange={(v) => patch("bolumler", v)}
+              />
 
-        {mode === "edit" && (
-          <Field label="URL Slug" hint="Değiştirirsen eski linkler kırılır.">
-            <input
-              type="text"
-              className="form-input"
-              value={form.slug}
-              onChange={(e) => patch("slug", e.target.value)}
-              placeholder="karamel-branding"
-              pattern="[a-z0-9-]+"
-            />
-          </Field>
-        )}
+              {mode === "edit" ? (
+                <Field label="URL slug" hint="Değiştirirsen eski link kırılır.">
+                  <input
+                    type="text"
+                    className="form-input"
+                    value={form.slug}
+                    onChange={(e) => patch("slug", e.target.value)}
+                    placeholder="marker-branding"
+                    pattern="[a-z0-9-]+"
+                  />
+                </Field>
+              ) : null}
+            </div>
+          ) : null}
+        </section>
       </div>
 
       <div

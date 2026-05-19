@@ -1,3 +1,26 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "overrides": [
+    {
+      "files": [
+        "src/components/olly/**/*.{ts,tsx}",
+        "src/app/olly/**/*.{ts,tsx}",
+        "src/app/api/waitlist/**/*.{ts,tsx}",
+        "src/lib/olly/**/*.{ts,tsx}"
+      ],
+      "rules": {
+        "no-restricted-syntax": [
+          "error",
+          {
+            "selector": "Literal[value=/text-\\[/]",
+            "message": "Avoid Tailwind arbitrary text-[…] on Olly; use Typography + CSS variables."
+          },
+          {
+            "selector": "Literal[value=/max-w-\\[/]",
+            "message": "Avoid arbitrary max-w-[…] on Olly; extend tailwind maxWidth with tokens."
+          }
+        ]
+      }
+    }
+  ]
 }

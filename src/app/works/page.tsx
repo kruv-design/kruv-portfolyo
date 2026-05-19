@@ -29,9 +29,6 @@ export default async function WorksPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <MarketingSiteNav settings={settings} />
-      <p id="about" className="sr-only" tabIndex={-1}>
-        About — {settings.siteAdi} {settings.tagline}
-      </p>
       <PortfolioGrid projects={projects} settings={settings} />
     </div>
   );

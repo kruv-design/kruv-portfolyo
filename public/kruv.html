@@ -326,6 +326,8 @@
   --ticker-pad-y: var(--space-5);
   --ticker-height: calc(var(--ticker-hand-slot-h) + (2 * var(--ticker-pad-y)));
   --ticker-item-pad-x: 48px;
+  /* “share or it didn't happen” bandı — düşük = daha hızlı (orijinal 48s) */
+  --ideal-share-marquee-dur: 10s;
 
   /* Hero fan — özel portfolio imleci (daire); önceki 104px + %30 */
   --hero-portfolio-cursor-size: calc(104px * 1.3);
@@ -338,6 +340,8 @@
   /* Navbar: logo yuvası (~%50 genişlik; yükseklik tema + CTA ile aynı) */
   --nav-logo-slot-w: 80px;
   --nav-logo-slot-h: var(--nav-bar-ctrl-h);
+  /* Pill içi yatay nefes — logo ve sağ kontroller aynı inset */
+  --nav-pill-pad-x: clamp(16px, 4vw, 22px);
   --nav-compact-dur: 570ms;
   --nav-compact-ease: cubic-bezier(0.22, 1, 0.36, 1);
   /* Kompakt pill: logo | linkler | CTA arası sabit gap (üstte boşluk flex space-between ile eşitlenir) */
@@ -670,7 +674,6 @@ nav.navbar.is-scrolled {
   flex: 0 0 auto;
   width: var(--nav-logo-slot-w);
   height: var(--nav-logo-slot-h);
-  margin-inline-start: var(--space-2);
 }
 .nav-logo-stack {
   position: relative;
@@ -1675,7 +1678,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
     width: 100%;
     max-width: 100vw;
     overflow-x: clip;
-    padding: var(--space-5) var(--section-pad-x);
+    padding-block: var(--space-5);
+    padding-inline: max(var(--section-pad-x), env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
   }
   /* Mobil: font-size animasyonu + ağır blur her karede reflow/GPU — geçiş titrer */
   .nav-links a {
@@ -1683,14 +1687,17 @@ body:has(.featured-work-card:hover) .hero-bottom {
   }
   .nav-inner::before {
     /* Yuvarlak zemin: kenarlardan nefes — öğeler çerçeveye yapışmasın */
-    inset: var(--space-3);
+    inset: 0;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }
   nav.navbar.is-scrolled .nav-inner::before {
     background: color-mix(in srgb, var(--midnight) 82%, transparent);
   }
-  nav.navbar.is-scrolled { padding: var(--space-2) var(--section-pad-x); }
+  nav.navbar.is-scrolled {
+    padding-block: var(--space-2);
+    padding-inline: max(var(--section-pad-x), env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+  }
   nav.navbar.is-scrolled .nav-inner {
     width: 100%;
     max-width: 100%;
@@ -1710,12 +1717,13 @@ body:has(.featured-work-card:hover) .hero-bottom {
   .nav-cols {
     flex-wrap: nowrap;
     justify-content: space-between;
+    align-items: center;
     gap: var(--space-3);
     width: 100%;
     max-width: 100%;
     min-width: 0;
     box-sizing: border-box;
-    padding-inline: var(--space-3);
+    padding-inline: var(--nav-pill-pad-x);
     padding-block: var(--space-2);
   }
   /* Orta sütun: tam ekran drawer fixed; yatay yer kaplamasın */
@@ -1727,18 +1735,19 @@ body:has(.featured-work-card:hover) .hero-bottom {
     margin: 0;
     overflow: visible;
   }
+  .nav-col--brand,
   .nav-col--cta {
-    flex: 1 1 auto;
+    flex: 0 0 auto;
     min-width: 0;
-    max-width: 100%;
+  }
+  .nav-col--cta {
+    margin-inline-start: auto;
   }
   .nav-actions {
     max-width: 100%;
     min-width: 0;
     gap: var(--space-3);
-  }
-  .nav-logo {
-    margin-inline-start: 0;
+    margin-inline-end: 0;
   }
   .nav-menu-toggle {
     display: inline-flex;
@@ -1752,59 +1761,109 @@ body:has(.featured-work-card:hover) .hero-bottom {
     white-space: nowrap;
     padding-inline: var(--space-4);
   }
+  /* Tam ekran mobil menü — MarketingSiteNav ile aynı panel (tema uyumlu) */
   .nav-menu-drawer {
     position: fixed;
     inset: 0;
-    z-index: 99;
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    grid-template-rows: repeat(12, minmax(0, 1fr));
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
     min-height: 100svh;
     width: 100%;
     max-width: none;
-    padding-inline: var(--container-gutter);
-    padding-top: env(safe-area-inset-top, 0px);
-    padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding: var(--space-6) var(--container-gutter);
+    padding-top: calc(var(--space-6) + env(safe-area-inset-top, 0px));
+    padding-bottom: calc(var(--space-6) + env(safe-area-inset-bottom, 0px));
     box-sizing: border-box;
-    align-items: stretch;
-    justify-items: stretch;
-    column-gap: 0;
-    row-gap: 0;
+    background: var(--color-bg);
+    color: var(--frost);
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
+    overflow: auto;
     transition:
-      opacity var(--dur-fast) var(--ease-standard),
-      visibility var(--dur-fast) var(--ease-standard);
+      opacity 0.22s var(--ease-standard),
+      visibility 0.22s var(--ease-standard);
   }
   .navbar.is-menu-open .nav-menu-drawer {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-    /* Tam opak katman: arkadaki sayfa hiç görünmesin */
-    background: var(--color-bg);
   }
-  .nav-menu-backdrop {
-    display: block;
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    margin: 0;
+  .nav-mobile-overlay__top {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: var(--space-8);
+    flex-shrink: 0;
+  }
+  .nav-mobile-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--space-10);
+    height: var(--space-10);
     padding: 0;
-    border: 0;
-    appearance: none;
-    -webkit-appearance: none;
-    font: inherit;
-    background: var(--color-bg);
+    border: none;
+    border-radius: var(--btn-radius);
+    background: transparent;
+    color: var(--frost);
     cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-standard);
   }
-  .nav-menu-drawer .nav-links {
+  .nav-mobile-close:hover {
+    background: color-mix(in srgb, var(--frost) 8%, transparent);
+  }
+  .nav-mobile-close:focus-visible {
+    outline: 2px solid var(--purple);
+    outline-offset: 2px;
+  }
+  .nav-menu-body {
     position: relative;
     z-index: 1;
-    grid-column: 3 / 11;
-    grid-row: 5 / 11;
-    align-self: start;
-    justify-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    min-height: 0;
+    gap: 0;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .nav-menu-drawer .nav-theme-toggle--drawer {
+    margin-bottom: var(--space-8);
+    color: var(--silver);
+    border-color: var(--gray-180);
+  }
+  .nav-mobile-search {
+    width: 100%;
+    margin-bottom: var(--space-10);
+  }
+  .nav-mobile-search input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: var(--space-3) 0;
+    border: none;
+    border-bottom: 1px solid var(--gray-180);
+    border-radius: 0;
+    background: transparent;
+    color: var(--frost);
+    font-family: var(--font-display);
+    font-size: var(--b1-font-size);
+    font-weight: 500;
+  }
+  .nav-mobile-search input::placeholder {
+    color: var(--silver);
+  }
+  .nav-mobile-search input:focus {
+    outline: none;
+    border-bottom-color: var(--purple);
+  }
+  .nav-menu-drawer .nav-links {
+    position: static;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -1812,20 +1871,34 @@ body:has(.featured-work-card:hover) .hero-bottom {
     gap: var(--space-6);
     width: 100%;
     max-width: none;
-    margin-inline: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
-  /* Çekmece linkleri: tam b1; masaüstü is-scrolled (b2) kurallarını ezmek için sınıf dahil */
+  .nav-menu-drawer .nav-links li {
+    width: 100%;
+    text-align: left;
+  }
   nav.navbar .nav-menu-drawer .nav-links a.navbar-item1,
   nav.navbar .nav-menu-drawer .nav-links a.navbar-item2,
   nav.navbar .nav-menu-drawer .nav-links a.navbar-item3 {
-    font-family: var(--b1-font-family);
-    font-size: var(--b1-font-size);
-    font-weight: var(--b1-font-weight);
-    line-height: var(--b1-line-height);
-    letter-spacing: var(--b1-letter-spacing);
-    text-transform: var(--b1-text-transform);
-    color: var(--b1-color);
-    padding-block: var(--space-2);
+    display: inline-block;
+    width: 100%;
+    text-align: left;
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 6vw, 2rem);
+    font-weight: 600;
+    line-height: var(--lh-tight);
+    letter-spacing: var(--ls-xl);
+    text-transform: lowercase;
+    color: var(--frost);
+    padding-block: 0;
+    transition: color var(--dur-fast) var(--ease-standard);
+  }
+  nav.navbar .nav-menu-drawer .nav-links a.navbar-item1:hover,
+  nav.navbar .nav-menu-drawer .nav-links a.navbar-item2:hover,
+  nav.navbar .nav-menu-drawer .nav-links a.navbar-item3:hover {
+    color: var(--purple);
   }
   .nav-logo,
   .nav-logo-stack {
@@ -1835,21 +1908,36 @@ body:has(.featured-work-card:hover) .hero-bottom {
   .nav-theme-toggle--dock {
     display: none !important;
   }
-  /* Çekmecedeki tema: üst şeritte, X (menü kapat) ile aynı hizada — navbar (z100) altında kalmaması için 101 */
+  /* Kapalı menü: tema üst şeritte (hamburgerın solunda) */
   .nav-theme-toggle--drawer {
     display: inline-flex;
     position: fixed;
     z-index: 101;
     top: calc(env(safe-area-inset-top, 0px) + var(--space-5));
-    right: calc(var(--section-pad-x) + var(--nav-bar-ctrl-h) + var(--space-2));
+    right: calc(max(var(--section-pad-x), env(safe-area-inset-right, 0px)) + var(--nav-pill-pad-x) + var(--nav-bar-ctrl-h) + var(--space-2));
     margin: 0;
-    align-self: auto;
-    justify-self: auto;
     bottom: auto;
     left: auto;
   }
-  nav.navbar.is-scrolled.is-menu-open .nav-theme-toggle--drawer {
+  nav.navbar.is-scrolled:not(.is-menu-open) .nav-theme-toggle--drawer {
     top: calc(env(safe-area-inset-top, 0px) + var(--space-2));
+  }
+  /* Açık menü: tema çekmece içinde, linklerle sola hizalı */
+  .navbar.is-menu-open .nav-theme-toggle--drawer {
+    position: static;
+    top: auto;
+    right: auto;
+    left: auto;
+    bottom: auto;
+    z-index: auto;
+    flex-shrink: 0;
+    align-self: flex-start;
+  }
+  /* Açık menü: çarpı aynı yuvada — hamburger konumunu değiştirme (kayma yok) */
+  .navbar.is-menu-open .nav-menu-toggle {
+    position: relative;
+    z-index: 101;
+    flex-shrink: 0;
   }
 }
 
@@ -2032,35 +2120,48 @@ body:has(.featured-work-card:hover) .hero-bottom {
       </div>
       <div class="nav-col nav-col--links">
         <div class="nav-menu-drawer" id="nav-menu-drawer">
-          <button type="button" class="nav-menu-backdrop" id="nav-menu-backdrop" aria-label="Menüyü kapat" tabindex="-1"></button>
-          <ul class="nav-links">
-            <li><a class="navbar-item1" href="/works">Work</a></li>
-            <li><a class="navbar-item2" href="/works#about">About</a></li>
-            <li><a class="navbar-item3" href="/contact">Contact</a></li>
-          </ul>
-          <button
-            type="button"
-            class="nav-theme-toggle nav-theme-toggle--drawer"
-            data-kruv-theme-toggle
-            aria-label="Aydınlık moda geç"
-            aria-pressed="false"
-            title="Tema değiştir"
-          >
-            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="4"></circle>
-              <path d="M12 2v2"></path>
-              <path d="M12 20v2"></path>
-              <path d="m4.93 4.93 1.41 1.41"></path>
-              <path d="m17.66 17.66 1.41 1.41"></path>
-              <path d="M2 12h2"></path>
-              <path d="M20 12h2"></path>
-              <path d="m6.34 17.66-1.41 1.41"></path>
-              <path d="m19.07 4.93-1.41 1.41"></path>
-            </svg>
-          </button>
+          <div class="nav-mobile-overlay__top">
+            <button type="button" class="nav-mobile-close" id="nav-menu-close" aria-label="Menüyü kapat">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                <path d="M18 6 6 18"></path>
+                <path d="m6 6 12 12"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="nav-menu-body">
+            <button
+              type="button"
+              class="nav-theme-toggle nav-theme-toggle--drawer"
+              data-kruv-theme-toggle
+              aria-label="Aydınlık moda geç"
+              aria-pressed="false"
+              title="Tema değiştir"
+            >
+              <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+              <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2v2"></path>
+                <path d="M12 20v2"></path>
+                <path d="m4.93 4.93 1.41 1.41"></path>
+                <path d="m17.66 17.66 1.41 1.41"></path>
+                <path d="M2 12h2"></path>
+                <path d="M20 12h2"></path>
+                <path d="m6.34 17.66-1.41 1.41"></path>
+                <path d="m19.07 4.93-1.41 1.41"></path>
+              </svg>
+            </button>
+            <form class="nav-mobile-search" id="nav-mobile-search-form" role="search">
+              <label for="nav-mobile-q" class="site-footer-sr-only">Search</label>
+              <input id="nav-mobile-q" name="q" type="search" placeholder="Search" autocomplete="off" enterkeyhint="search">
+            </form>
+            <ul class="nav-links">
+              <li><a class="navbar-item1" href="/works">Projects</a></li>
+              <li><a class="navbar-item2" href="#about">About</a></li>
+              <li><a class="navbar-item3" href="/contact">Contact</a></li>
+            </ul>
+          </div>
         </div>
       </div>
       <div class="nav-col nav-col--cta">
@@ -2407,7 +2508,16 @@ body:has(.featured-work-card:hover) .hero-bottom {
 
 </section>
 
-<p id="about" class="site-footer-sr-only" tabindex="-1" lang="en">About — Kruv. Brand identity for the social-first era.</p>
+<section class="about-section" id="about" aria-labelledby="about-heading">
+  <div class="about-inner">
+    <header class="about-intro">
+      <span class="about-tag">About us</span>
+      <h2 class="about-title" id="about-heading">Who we are</h2>
+    </header>
+    <p class="about-body" lang="en">We are a social-first design studio: we build brand identities that look as intentional in the feed as they do in the boardroom. Our vision is simple — work worth sharing should feel inevitable, not accidental. Our mission is to give ambitious teams a clear visual system, disciplined craft, and calm execution so every post, story, and reel reinforces the same story. Less noise, more signal — and a brand people recognize before they read a single word.</p>
+    <p class="about-body about-body--tr" lang="tr">Sosyal öncelikli bir tasarım stüdyosuyuz: marka kimliklerini feed'de de toplantı odasında da aynı kasıtlılıkla kurguluyoruz. Vizyonumuz net — paylaşılmaya değer iş kaçınılmaz hissettirmeli, tesadüf değil. Misyonumuz iddialı ekiplere net bir görsel sistem, disiplinli üretim ve sakin teslimat sunmak; her post, story ve reel aynı hikâyeyi güçlendirsin. Daha az gürültü, daha çok sinyal — tek kelime okumadan tanınan bir marka.</p>
+  </div>
+</section>
 
 <div class="ticker">
   <div class="ticker-track" lang="en">
@@ -2531,6 +2641,62 @@ body:has(.featured-work-card:hover) .hero-bottom {
 </section>
 
 <style>
+/* ── ABOUT US ── */
+.about-section {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  padding: var(--section-pad-y) var(--section-pad-x);
+  background-color: var(--midnight);
+  border-top: var(--border-soft);
+  border-bottom: var(--border-soft);
+}
+.about-inner {
+  width: var(--grid-shell-width);
+  max-width: var(--grid-shell-width);
+  margin: 0 auto;
+}
+.about-intro {
+  margin-bottom: var(--space-8);
+  text-align: left;
+}
+.about-tag {
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
+  color: var(--silver);
+  display: block;
+  margin-bottom: var(--space-2);
+}
+.about-title {
+  font-family: var(--h3-font-family);
+  font-size: var(--h3-font-size);
+  font-weight: var(--h3-font-weight);
+  line-height: var(--h3-line-height);
+  letter-spacing: var(--h3-letter-spacing);
+  text-transform: var(--h3-text-transform);
+  color: var(--frost);
+  margin: 0;
+}
+.about-body {
+  font-family: var(--b1-font-family);
+  font-size: var(--b1-font-size);
+  font-weight: var(--b1-font-weight);
+  line-height: var(--b1-line-height);
+  letter-spacing: var(--b1-letter-spacing);
+  text-transform: var(--b1-text-transform);
+  color: var(--silver);
+  margin: 0;
+  max-width: 62ch;
+}
+.about-body--tr {
+  margin-top: var(--space-6);
+  max-width: 62ch;
+}
+
 /* ── IDEAL CLIENT LOGO GRID ── */
 .ideal-section {
   position: relative;
@@ -2667,7 +2833,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   align-items: center;
   gap: 0;
   /* İki özdeş blok: -50% = kesintisiz döngü (4×-25% yuvarlama hatasına duyarlıydı) */
-  animation: ideal-share-marquee-x 48s linear infinite;
+  animation: ideal-share-marquee-x var(--ideal-share-marquee-dur) linear infinite;
   will-change: transform;
 }
 .ideal-share-marquee-group {
@@ -5547,7 +5713,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
   var nav = document.getElementById('site-nav');
   var toggle = document.getElementById('nav-menu-toggle');
   var drawer = document.getElementById('nav-menu-drawer');
-  var backdrop = document.getElementById('nav-menu-backdrop');
+  var closeBtn = document.getElementById('nav-menu-close');
+  var searchForm = document.getElementById('nav-mobile-search-form');
   if (!nav || !toggle || !drawer) return;
 
   var mq = window.matchMedia('(max-width: 768px)');
@@ -5581,9 +5748,20 @@ body:has(.featured-work-card:hover) .hero-bottom {
 
   toggle.addEventListener('click', toggleMenu);
 
-  if (backdrop) {
-    backdrop.addEventListener('click', function () {
+  if (closeBtn) {
+    closeBtn.addEventListener('click', function () {
       if (mq.matches) closeMenu();
+    });
+  }
+
+  if (searchForm) {
+    searchForm.addEventListener('submit', function (ev) {
+      if (!mq.matches) return;
+      ev.preventDefault();
+      var qInput = searchForm.querySelector('input[name="q"]');
+      var q = qInput && qInput.value ? String(qInput.value).trim() : '';
+      closeMenu();
+      window.location.href = q ? '/works?q=' + encodeURIComponent(q) : '/works';
     });
   }
 

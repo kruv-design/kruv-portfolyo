@@ -1,6 +1,10 @@
 node_modules/
 .next/
 out/
+
+# Next distDir (Google Drive workaround) — never commit build cache
+Users/
+**/.cache/next-dist/
 .env
 .env.local
 .env*.local

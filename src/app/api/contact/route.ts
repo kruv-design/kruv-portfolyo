@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { contactSubmitBodySchema } from "@/lib/validators";
+import { sendContactEmails } from "@/lib/contact-email";
 import { submitContactToHubSpot } from "@/lib/contact-hubspot";
 import { supabaseAdmin } from "@/lib/supabase/server";
 import { env } from "@/lib/env";
@@ -80,9 +81,12 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Kayıt başarısız." }, { status: 503 });
   }
 
+  const emailResult = await sendContactEmails(payload);
+
   return NextResponse.json({
     ok: true,
     hubspot: hubspotSynced,
     hubspotConfigured: Boolean(portalId && formGuid),
+    email: emailResult,
   });
 }

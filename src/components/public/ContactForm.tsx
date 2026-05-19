@@ -2,6 +2,11 @@
 
 import Link from "next/link";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
+import {
+  CONTACT_FOCUS_OPTIONS,
+  CONTACT_STEP_TITLES,
+  CONTACT_TOTAL_STEPS,
+} from "@/lib/contact-form-config";
 import type { ContactPayloadInput } from "@/lib/validators";
 
 const INITIAL: ContactPayloadInput = {
@@ -15,27 +20,6 @@ const INITIAL: ContactPayloadInput = {
   message: "",
   referrer: "",
 };
-
-/** Markasını büyütmek isteyen bir ekip için: önce marka kimliği, sonra nerede takıldıkları */
-const PRIMARY_FOCUS = [
-  { value: "", label: "Seçin…" },
-  { value: "kimlik-ambalaj", label: "Marka kimliği, ambalaj veya ürün yüzü" },
-  { value: "sosyal-icerik", label: "Sosyal medya ve içerik düzeni" },
-  { value: "lansman-tanitim", label: "Lansman, kampanya veya yeniden tanıtım" },
-  { value: "web-deneyim", label: "Web sitesi veya dijital deneyim" },
-  { value: "strateji-konum", label: "Strateji, konumlandırma veya isimlendirme" },
-  { value: "diger", label: "Henüz net değil — birlikte netleştirelim" },
-] as const;
-
-const TOTAL_STEPS = 5;
-
-const STEP_TITLES = [
-  "Adınız",
-  "E-postanız",
-  "Markanız",
-  "Öncelik",
-  "Mesajınız",
-];
 
 function isValidEmail(s: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s.trim());
@@ -114,10 +98,6 @@ export function ContactForm() {
       setStepError("İsminizi en az 2 karakter olarak girin.");
       return false;
     }
-    return true;
-  }
-
-  function validateStep1() {
     if (!isValidEmail(values.email)) {
       setStepError("Geçerli bir e-posta adresi girin.");
       return false;
@@ -125,15 +105,11 @@ export function ContactForm() {
     return true;
   }
 
-  function validateStep2() {
+  function validateStep1() {
     if (values.company.trim().length < 2) {
       setStepError("Hangi marka veya şirket için yazdığınızı belirtin (en az 2 karakter).");
       return false;
     }
-    return true;
-  }
-
-  function validateStep3() {
     if (!values.projectType.trim()) {
       setStepError("Şu an en çok hangi alanda destek aradığınızı seçin.");
       return false;
@@ -141,9 +117,25 @@ export function ContactForm() {
     return true;
   }
 
-  function validateStep4() {
+  function validateStep2() {
     if (values.message.trim().length < 15) {
       setStepError("Mesajınız en az 15 karakter olsun ki doğru yanıt verebilelim.");
+      return false;
+    }
+    return true;
+  }
+
+  function validateAll() {
+    if (!validateStep0()) {
+      setStep(0);
+      return false;
+    }
+    if (!validateStep1()) {
+      setStep(1);
+      return false;
+    }
+    if (!validateStep2()) {
+      setStep(2);
       return false;
     }
     return true;
@@ -152,9 +144,7 @@ export function ContactForm() {
   function goNext() {
     if (step === 0 && !validateStep0()) return;
     if (step === 1 && !validateStep1()) return;
-    if (step === 2 && !validateStep2()) return;
-    if (step === 3 && !validateStep3()) return;
-    setStep((s) => Math.min(TOTAL_STEPS - 1, s + 1));
+    setStep((s) => Math.min(CONTACT_TOTAL_STEPS - 1, s + 1));
     setStepError(null);
   }
 
@@ -165,26 +155,7 @@ export function ContactForm() {
 
   async function onSubmit(ev: React.FormEvent) {
     ev.preventDefault();
-    if (!validateStep0()) {
-      setStep(0);
-      return;
-    }
-    if (!validateStep1()) {
-      setStep(1);
-      return;
-    }
-    if (!validateStep2()) {
-      setStep(2);
-      return;
-    }
-    if (!validateStep3()) {
-      setStep(3);
-      return;
-    }
-    if (!validateStep4()) {
-      setStep(4);
-      return;
-    }
+    if (!validateAll()) return;
     if (!sessionId) return;
     setSubmitting(true);
     setFormError(null);
@@ -208,17 +179,17 @@ export function ContactForm() {
     }
   }
 
-  const progress = ((step + 1) / TOTAL_STEPS) * 100;
+  const progress = ((step + 1) / CONTACT_TOTAL_STEPS) * 100;
 
   if (done) {
     return (
       <div className="contact-form-shell" lang="tr">
         <div className="contact-form-success" role="status">
           <p className="contact-form-success-title h3" style={{ color: "var(--ink)" }}>
-            Teşekkürler — mesajınız ulaştı.
+            Mesajınız iletildi.
           </p>
           <p className="contact-form-success-body b1" style={{ color: "var(--b1-color)" }}>
-            En geç 1–2 iş günü içinde dönüş yapacağız. Bu arada projelerimize göz atmak isterseniz{" "}
+            Size en kısa zamanda ulaşacağız. Bu arada projelerimize göz atmak isterseniz{" "}
             <Link href="/works" className="contact-form-inline-link">
               Work
             </Link>{" "}
@@ -239,8 +210,8 @@ export function ContactForm() {
           Birlikte üretelim
         </h1>
         <p className="contact-form-lead b1" style={{ color: "var(--b1-color)" }}>
-          Beş kısa adım: kim olduğunuz, iletişim, hangi marka için yazdığınız, şu anki önceliğiniz ve
-          kısa mesajınız. Yanıtlarınız otomatik taslak olarak kaydedilir.
+          Üç kısa adım: iletişim bilgileriniz, markanız ve mesajınız. Yanıtlarınız otomatik taslak
+          olarak kaydedilir.
         </p>
       </header>
 
@@ -249,7 +220,7 @@ export function ContactForm() {
           <div className="contact-form-progress-fill" style={{ width: `${progress}%` }} />
         </div>
         <p className="contact-form-progress-label b2" style={{ color: "var(--ink-faint)" }}>
-          Adım {step + 1} / {TOTAL_STEPS} — {STEP_TITLES[step]}
+          Adım {step + 1} / {CONTACT_TOTAL_STEPS} — {CONTACT_STEP_TITLES[step]}
         </p>
       </div>
 
@@ -300,11 +271,6 @@ export function ContactForm() {
                 required
               />
             </div>
-          </div>
-        ) : null}
-
-        {step === 1 ? (
-          <div className="contact-form-step">
             <div className="contact-form-field">
               <label htmlFor={`${formId}-email`} className="contact-form-label b2">
                 E-posta <span className="contact-form-req">*</span>
@@ -324,15 +290,12 @@ export function ContactForm() {
           </div>
         ) : null}
 
-        {step === 2 ? (
+        {step === 1 ? (
           <div className="contact-form-step">
             <div className="contact-form-field">
               <label htmlFor={`${formId}-company`} className="contact-form-label b2">
                 Marka veya şirket adı <span className="contact-form-req">*</span>
               </label>
-              <p className="b2" style={{ color: "var(--ink-faint)", margin: 0 }}>
-                Hangi marka için büyüme veya yenileme düşünüyorsunuz? (En kritik ilk bilgi.)
-              </p>
               <input
                 id={`${formId}-company`}
                 className="contact-form-input"
@@ -343,11 +306,6 @@ export function ContactForm() {
                 placeholder="ör. marker, acme co."
               />
             </div>
-          </div>
-        ) : null}
-
-        {step === 3 ? (
-          <div className="contact-form-step">
             <div className="contact-form-field">
               <label htmlFor={`${formId}-type`} className="contact-form-label b2">
                 Şu an en çok nerede destek arıyorsunuz? <span className="contact-form-req">*</span>
@@ -361,7 +319,7 @@ export function ContactForm() {
                 value={values.projectType}
                 onChange={(e) => patch("projectType", e.target.value)}
               >
-                {PRIMARY_FOCUS.map((o) => (
+                {CONTACT_FOCUS_OPTIONS.map((o) => (
                   <option key={o.label + o.value} value={o.value}>
                     {o.label}
                   </option>
@@ -371,7 +329,7 @@ export function ContactForm() {
           </div>
         ) : null}
 
-        {step === 4 ? (
+        {step === 2 ? (
           <div className="contact-form-step">
             <div className="contact-form-field">
               <label htmlFor={`${formId}-message`} className="contact-form-label b2">
@@ -411,7 +369,7 @@ export function ContactForm() {
           ) : (
             <span />
           )}
-          {step < TOTAL_STEPS - 1 ? (
+          {step < CONTACT_TOTAL_STEPS - 1 ? (
             <button type="button" className="contact-form-btn contact-form-btn--primary" onClick={goNext}>
               Devam
             </button>

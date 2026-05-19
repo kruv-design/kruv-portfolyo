@@ -218,7 +218,7 @@ export type ContactPayloadInput = z.infer<typeof contactPayloadSchema>;
 
 export const contactPartialBodySchema = z.object({
   sessionId: z.string().uuid("Oturum geçersiz."),
-  step: z.number().int().min(0).max(9).optional(),
+  step: z.number().int().min(0).max(2).optional(),
   payload: contactPayloadSchema,
 });
 

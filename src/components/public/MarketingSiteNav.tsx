@@ -126,7 +126,7 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
             </div>
             <div className="marketing-navbar-col marketing-navbar-col--cta">
               <div className="marketing-navbar-actions">
-                <ThemeToggle className="marketing-navbar-theme-toggle" />
+                <ThemeToggle className="marketing-navbar-theme-toggle marketing-navbar-theme-toggle--dock" />
                 <Link href="/contact" className="marketing-navbar-cta">
                   Start a project
                 </Link>
@@ -187,7 +187,10 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
             Menu
           </h2>
 
-          <form className="marketing-nav-mobile-search" role="search" onSubmit={onMobileSearch}>
+          <div className="marketing-nav-mobile-body">
+            <ThemeToggle className="marketing-nav-mobile-theme-toggle" />
+
+            <form className="marketing-nav-mobile-search" role="search" onSubmit={onMobileSearch}>
             <label htmlFor="marketing-nav-mobile-q" className="sr-only">
               Search
             </label>
@@ -199,10 +202,10 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
               autoComplete="off"
               enterKeyHint="search"
             />
-          </form>
+            </form>
 
-          <nav aria-label="Mobile">
-            <ul className="marketing-nav-mobile-links">
+            <nav aria-label="Mobile">
+              <ul className="marketing-nav-mobile-links">
               <li>
                 <Link href="/works" onClick={closeMobileMenu}>
                   Projects
@@ -220,6 +223,7 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
               </li>
             </ul>
           </nav>
+          </div>
         </div>
       ) : null}
     </>
