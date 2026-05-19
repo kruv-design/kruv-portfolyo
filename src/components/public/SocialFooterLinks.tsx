@@ -40,7 +40,7 @@ function IconLinkedIn() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
-      className="overflow-hidden rounded-[length:var(--radius-lg)]"
+      className="overflow-hidden rounded-[var(--radius-lg)]"
     >
       <rect width="48" height="48" rx="12" fill="var(--color-accent)" />
       <text
@@ -70,7 +70,7 @@ function IconBehance() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
-      className="overflow-hidden rounded-[length:var(--radius-lg)]"
+      className="overflow-hidden rounded-[var(--radius-lg)]"
     >
       <rect width="48" height="48" rx="12" fill="var(--color-accent)" />
       <text
@@ -100,7 +100,7 @@ function IconInstagram() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
-      className="overflow-hidden rounded-[length:var(--radius-lg)]"
+      className="overflow-hidden rounded-[var(--radius-lg)]"
     >
       <rect width="48" height="48" rx="12" fill="var(--color-accent)" />
       <circle cx="24" cy="26" r="7.5" stroke="var(--black-fixed)" strokeWidth="3" fill="none" />
@@ -118,7 +118,7 @@ function IconDribbble() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
-      className="overflow-hidden rounded-[length:var(--radius-lg)]"
+      className="overflow-hidden rounded-[var(--radius-lg)]"
     >
       <rect width="48" height="48" rx="12" fill="var(--color-accent)" />
       <circle cx="24" cy="24" r="12.5" fill="var(--black-fixed)" />
@@ -141,7 +141,7 @@ function IconPinterest() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
-      className="overflow-hidden rounded-[length:var(--radius-lg)]"
+      className="overflow-hidden rounded-[var(--radius-lg)]"
     >
       <rect width="48" height="48" rx="12" fill="var(--color-accent)" />
       <g transform="translate(12 12) scale(2)" fill="var(--black-fixed)">
@@ -160,7 +160,7 @@ function IconYoutube() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
-      className="overflow-hidden rounded-[length:var(--radius-lg)]"
+      className="overflow-hidden rounded-[var(--radius-lg)]"
     >
       <rect width="48" height="48" rx="12" fill="var(--color-accent)" />
       <rect x="10" y="15.5" width="28" height="17" rx="7" fill="var(--black-fixed)" />
@@ -182,7 +182,7 @@ export function SocialFooterLinks({
   });
 
   const tileClass =
-    "inline-flex h-[3.25rem] w-[3.25rem] flex-shrink-0 items-center justify-center overflow-hidden rounded-[length:var(--radius-lg)] bg-transparent p-0 text-ink transition-all duration-200 hover:-translate-y-px hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bg)]";
+    "inline-flex h-[3.25rem] w-[3.25rem] flex-shrink-0 items-center justify-center overflow-hidden rounded-[var(--radius-lg)] bg-transparent p-0 text-ink transition-all duration-200 hover:-translate-y-px hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bg)]";
 
   const tileMuted =
     "pointer-events-none cursor-default opacity-70 hover:translate-y-0 hover:opacity-70";
@@ -192,28 +192,33 @@ export function SocialFooterLinks({
       className={`grid w-full max-w-[11.25rem] grid-cols-3 gap-3 ${className ?? ""}`}
       aria-label="Social links"
     >
-      {entries.map(({ href, label, Icon, hasUrl }) => (
-        <a
-          key={label}
-          href={hasUrl ? href : "#"}
-          {...(hasUrl
-            ? { target: "_blank", rel: "noopener noreferrer" }
-            : { "aria-disabled": true, tabIndex: -1 })}
-          aria-label={
-            hasUrl ? `${label} — yeni sekmede aç` : `${label} — bağlantı henüz eklenmedi`
-          }
-          className={`${tileClass}${hasUrl ? "" : ` ${tileMuted}`}`}
-          onClick={
-            hasUrl
-              ? undefined
-              : (e) => {
-                  e.preventDefault();
-                }
-          }
-        >
-          <Icon />
-        </a>
-      ))}
+      {entries.map(({ href, label, Icon, hasUrl }) => {
+        const ariaLabel = hasUrl
+          ? `${label} — yeni sekmede aç`
+          : `${label} — bağlantı henüz eklenmedi`;
+        const className = `${tileClass}${hasUrl ? "" : ` ${tileMuted}`}`;
+
+        if (hasUrl) {
+          return (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={ariaLabel}
+              className={className}
+            >
+              <Icon />
+            </a>
+          );
+        }
+
+        return (
+          <span key={label} aria-disabled="true" aria-label={ariaLabel} className={className}>
+            <Icon />
+          </span>
+        );
+      })}
     </nav>
   );
 }
