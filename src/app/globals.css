@@ -1183,12 +1183,55 @@ body {
   overflow-x: clip;
 }
 
-.project-detail-hero {
+.project-detail-body {
+  display: grid;
+  width: 100%;
+  box-sizing: border-box;
+  padding-top: var(--section-pad-y);
+  padding-bottom: var(--section-pad-y);
+  gap: var(--space-8);
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+@media (min-width: 900px) {
+  .project-detail-body {
+    grid-template-columns: minmax(0, 1fr) min(340px, 34vw);
+  }
+  .project-detail-intro {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .project-detail-aside {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  /* Görseller tam satır — künye ile yan yana değil, 90vw ortalanır */
+  .project-detail-media {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+  .project-detail-copy {
+    grid-column: 1;
+    grid-row: 3;
+  }
+}
+.project-detail-intro {
+  margin: 0;
+  min-width: 0;
+}
+.project-detail-media {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  width: 100%;
+  min-width: 0;
+}
+/* Kapak + galeri: viewport genişliğinin %90'ı, shell içinde ortalanır */
+.project-detail-hero,
+.project-detail-gallery__item {
   width: var(--project-media-width);
   max-width: var(--project-media-width);
-  margin-top: var(--space-6);
-  margin-left: calc(50% - (var(--project-media-width) / 2));
-  margin-right: calc(50% - (var(--project-media-width) / 2));
+  margin-inline: auto;
   aspect-ratio: 16 / 9;
   min-height: min(52vh, 720px);
   border-radius: var(--radius-md);
@@ -1196,22 +1239,13 @@ body {
   background: var(--surface);
   box-sizing: border-box;
 }
-.project-detail-layout {
-  display: grid;
-  width: 100%;
-  box-sizing: border-box;
-  padding-top: var(--section-pad-y);
-  padding-bottom: var(--section-pad-y);
-  gap: calc(var(--panel-gap) * 2);
-  grid-template-columns: 1fr;
-  align-items: start;
+.project-detail-hero {
+  min-height: min(52vh, 720px);
 }
-@media (min-width: 900px) {
-  .project-detail-layout {
-    grid-template-columns: 1fr min(340px, 34vw);
-  }
+.project-detail-aside {
+  min-width: 0;
 }
-.project-detail-main {
+.project-detail-copy {
   min-width: 0;
 }
 .project-detail-aside-card {
@@ -1226,49 +1260,19 @@ body {
 .project-detail-gallery {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: center;
   gap: var(--space-6);
-  margin-top: var(--space-12);
 }
 .project-detail-gallery__item {
   display: block;
-  width: var(--project-media-width);
-  max-width: var(--project-media-width);
-  margin-left: calc(50% - (var(--project-media-width) / 2));
-  margin-right: calc(50% - (var(--project-media-width) / 2));
-  overflow: hidden;
-  aspect-ratio: 16 / 9;
   min-height: min(44vh, 640px);
   cursor: zoom-in;
   padding: 0;
   border: none;
   background: transparent;
-  border-radius: var(--radius-md);
-  box-sizing: border-box;
 }
 .project-detail-gallery__item img {
   display: block;
-}
-/* Galeri 2 — künye kartı hizası; %90 genişlikten dar */
-@media (min-width: 900px) {
-  .project-detail-gallery__item--kunya-align {
-    width: min(100%, 28rem);
-    max-width: 68%;
-    min-height: 0;
-    margin-left: 0;
-    margin-right: auto;
-    aspect-ratio: 4 / 3;
-  }
-}
-@media (max-width: 899px) {
-  .project-detail-gallery__item--kunya-align {
-    width: var(--project-media-width);
-    max-width: var(--project-media-width);
-    margin-left: calc(50% - (var(--project-media-width) / 2));
-    margin-right: calc(50% - (var(--project-media-width) / 2));
-    min-height: min(40vh, 520px);
-    aspect-ratio: 16 / 9;
-  }
 }
 
 /* Homepage featured-work kart tipografisi (kruv.html) */
