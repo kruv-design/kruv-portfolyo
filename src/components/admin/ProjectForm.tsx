@@ -22,7 +22,6 @@ type FormState = {
   etiketler: string[];
   yil: string;
   musteri: string;
-  rol: string;
   sure: string;
   link: string;
   featured: boolean;
@@ -42,7 +41,6 @@ const EMPTY: FormState = {
   etiketler: [],
   yil: "",
   musteri: "",
-  rol: "",
   sure: "",
   link: "",
   featured: false,
@@ -61,7 +59,6 @@ function fromProject(p: Project): FormState {
     etiketler: [...p.etiketler],
     yil: p.yil,
     musteri: p.musteri,
-    rol: p.rol,
     sure: p.sure,
     link: p.link,
     featured: p.featured,
@@ -282,14 +279,6 @@ export function ProjectForm({
                     value={form.yil}
                     onChange={(e) => patch("yil", e.target.value)}
                     placeholder="2024"
-                  />
-                </Field>
-                <Field label="Rol">
-                  <input
-                    type="text"
-                    className="form-input"
-                    value={form.rol}
-                    onChange={(e) => patch("rol", e.target.value)}
                   />
                 </Field>
                 <Field label="Süre">

@@ -16,7 +16,6 @@ export function mapProjectRow(data: Record<string, unknown>): Project {
     etiketler: Array.isArray(data.etiketler) ? (data.etiketler as string[]) : [],
     yil: String(data.yil ?? ""),
     musteri: String(data.musteri ?? ""),
-    rol: String(data.rol ?? ""),
     sure: String(data.sure ?? ""),
     link: String(data.link ?? ""),
     featured: Boolean(data.featured),

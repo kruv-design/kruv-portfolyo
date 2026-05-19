@@ -20,7 +20,6 @@ export type Project = {
   etiketler: string[];
   yil: string;
   musteri: string;
-  rol: string;
   sure: string;
   link: string;
   featured: boolean;

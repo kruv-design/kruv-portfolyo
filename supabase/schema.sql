@@ -19,7 +19,6 @@ create table if not exists public.projects (
   etiketler   jsonb not null default '[]'::jsonb,
   yil         text default '',
   musteri     text default '',
-  rol         text default '',
   sure        text default '',
   link        text default '',
   featured    boolean not null default false,

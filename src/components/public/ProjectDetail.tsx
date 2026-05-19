@@ -104,7 +104,6 @@ export function ProjectDetail({
             <MetaRow label="Kategori" value={project.kategori} />
             <MetaRow label="Müşteri" value={project.musteri || "—"} />
             <MetaRow label="Yıl" value={project.yil || "—"} />
-            <MetaRow label="Rol" value={project.rol || "—"} />
             <MetaRow label="Süre" value={project.sure || "—"} />
             {project.etiketler?.length > 0 && (
               <div className="flex flex-col gap-1 py-4" style={{ borderTop: "1px solid var(--border)" }}>
