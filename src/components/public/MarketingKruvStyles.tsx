@@ -15,7 +15,7 @@ export function MarketingKruvStyles() {
   .hero-v2-headline { opacity: 1; margin: 0; }
   .hero-v2-line1 { display: inline-flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 0.28em; }
   .hero-v2-word-box { width: fit-content; max-width: 100%; }
-  .hero-v2-static, .hero-v2-word { font: 800 clamp(1.625rem, 7.7vw, 5.5rem)/1.1 Switzer, system-ui, sans-serif; color: #fafafa; }
+  .hero-v2-static, .hero-v2-word { font: 600 clamp(1.625rem, 7.7vw, 5.5rem)/1.1 Switzer, system-ui, sans-serif; color: #fafafa; }
   .hero-v2-suffix { font: italic 400 clamp(1.625rem, 7.7vw, 5.5rem)/1.1 Switzer, system-ui, sans-serif; color: #6366f1; }
 `}</style>
       <link rel="preload" href="/kruv.css" as="style" />

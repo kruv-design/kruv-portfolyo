@@ -119,6 +119,8 @@
   --lh-note: 1.45;
   --ls-2xs: 0.01em;
   --ls-display: -0.02em;
+  --card-meta-title-ls: 0.03em;
+  --card-meta-tag-ls: 0.02em;
   --ls-lg: -0.015em;
   --ls-xl: -0.01em;
   --ls-2xl: 0.14em;
@@ -1571,7 +1573,7 @@ body {
   font-size: var(--h4-font-size);
   font-weight: var(--h4-font-weight);
   line-height: var(--h4-line-height);
-  letter-spacing: var(--h4-letter-spacing);
+  letter-spacing: var(--card-meta-title-ls);
   text-transform: var(--h4-text-transform);
   color: var(--ink);
   margin: 0;
@@ -1584,13 +1586,13 @@ body {
 }
 
 .pw-card-category {
-  font-family: var(--b1-font-family);
-  font-size: var(--b1-font-size);
-  font-weight: var(--b1-font-weight);
-  line-height: var(--b1-line-height);
-  letter-spacing: var(--b1-letter-spacing);
-  text-transform: var(--b1-text-transform);
-  color: var(--b1-color);
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--card-meta-tag-ls);
+  text-transform: var(--b3-text-transform);
+  color: var(--ink-soft);
   text-align: left;
   margin: 0;
   max-width: min(100%, calc(5 * var(--space-10)));

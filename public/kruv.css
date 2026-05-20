@@ -224,6 +224,9 @@
   --ls-4xl: .2em;
   --ls-5xl: .22em;
   --ls-display: -0.02em;
+  /* Kart / proje meta: başlık biraz açık, kategori etiketi sıkı */
+  --card-meta-title-ls: 0.03em;
+  --card-meta-tag-ls: 0.02em;
   --ls-anim-start: .3em;
   --ls-anim-end: .16em;
 
@@ -1063,7 +1066,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   font-size: var(--h4-font-size);
   font-weight: var(--h4-font-weight);
   line-height: var(--lh-tightest);
-  letter-spacing: var(--h4-letter-spacing);
+  letter-spacing: var(--card-meta-title-ls);
   text-transform: var(--h4-text-transform);
   /* Fotoğraf üzerinde sabit beyaz — light mode'da da kontrast korunsun. */
   color: var(--white-fixed); margin-bottom: var(--space-0);
@@ -1073,7 +1076,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   font-size: var(--b3-font-size);
   font-weight: var(--b3-font-weight);
   line-height: var(--b3-line-height);
-  letter-spacing: var(--b3-letter-spacing);
+  letter-spacing: var(--card-meta-tag-ls);
   text-transform: var(--b3-text-transform);
   color: var(--on-photo-ink-muted);
 }
@@ -1148,7 +1151,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   font-size: var(--h4-font-size);
   font-weight: var(--h4-font-weight);
   line-height: var(--h4-line-height);
-  letter-spacing: var(--h4-letter-spacing);
+  letter-spacing: var(--card-meta-title-ls);
   text-transform: var(--h4-text-transform);
   /* Fotoğraf üzerinde sabit beyaz. */
   color: var(--white-fixed);
@@ -1161,7 +1164,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   font-size: var(--b3-font-size);
   font-weight: var(--b3-font-weight);
   line-height: var(--b3-line-height);
-  letter-spacing: var(--b3-letter-spacing);
+  letter-spacing: var(--card-meta-tag-ls);
   text-transform: var(--b3-text-transform);
   color: var(--on-photo-ink-muted);
   text-align: right;
@@ -3282,7 +3285,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   font-size: var(--h4-font-size);
   font-weight: var(--h4-font-weight);
   line-height: var(--h4-line-height);
-  letter-spacing: var(--h4-letter-spacing);
+  letter-spacing: var(--card-meta-title-ls);
   text-transform: var(--h4-text-transform);
   color: color-mix(
     in oklab,
@@ -3297,7 +3300,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   font-size: var(--b3-font-size);
   font-weight: var(--b3-font-weight);
   line-height: var(--b3-line-height);
-  letter-spacing: var(--b3-letter-spacing);
+  letter-spacing: var(--card-meta-tag-ls);
   text-transform: var(--b3-text-transform);
   color: color-mix(
     in oklab,
@@ -3607,7 +3610,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 .hero-v2-static {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 600;
   color: var(--frost);
   letter-spacing: -0.035em;
   line-height: 1.1;
@@ -3631,7 +3634,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 .hero-v2-word {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 600;
   color: var(--frost);
   letter-spacing: -0.035em;
   line-height: 1.1;
@@ -3819,7 +3822,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   .hero-v2-word-box {
     font-family: var(--h2-font-family);
     font-size: var(--h2-font-size);
-    font-weight: var(--h2-font-weight);
+    font-weight: 600;
     line-height: var(--h2-line-height);
     letter-spacing: var(--h2-letter-spacing);
     padding-bottom: clamp(12px, 0.55em, 22px);
@@ -3830,7 +3833,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   .hero-v2-word {
     font-family: var(--h2-font-family);
     font-size: var(--h2-font-size);
-    font-weight: var(--h2-font-weight);
+    font-weight: 600;
     line-height: var(--h2-line-height);
     letter-spacing: var(--h2-letter-spacing);
     text-transform: none;
