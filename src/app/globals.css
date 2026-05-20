@@ -742,27 +742,15 @@ body {
 }
 
 .marketing-navbar-item {
-  font-family: var(--h4-font-family);
-  font-size: var(--h4-font-size);
-  font-weight: var(--h4-font-weight);
-  line-height: var(--h4-line-height);
-  letter-spacing: var(--h4-letter-spacing);
-  text-transform: var(--h4-text-transform);
-  color: var(--ink-soft);
-  text-decoration: none;
-  transition:
-    color var(--dur-fast) var(--ease),
-    letter-spacing var(--nav-compact-dur) var(--nav-compact-ease),
-    font-size var(--nav-compact-dur) var(--nav-compact-ease);
-}
-
-.marketing-navbar.is-scrolled .marketing-navbar-item {
-  font-family: var(--b1-font-family);
+  font-family: "Manrope", var(--b1-font-family), system-ui, sans-serif;
   font-size: var(--b1-font-size);
   font-weight: var(--b1-font-weight);
   line-height: var(--b1-line-height);
   letter-spacing: var(--b1-letter-spacing);
   text-transform: var(--b1-text-transform);
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease);
 }
 
 .marketing-navbar-item:hover {
@@ -804,12 +792,12 @@ body {
   min-height: var(--nav-bar-ctrl-h);
   max-height: var(--nav-bar-ctrl-h);
   gap: var(--btn-gap);
-  font-family: var(--h4-font-family);
-  font-size: var(--h4-font-size);
-  font-weight: var(--h4-font-weight);
+  font-family: "Manrope", var(--btn-font-family), system-ui, sans-serif;
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
   line-height: 1;
-  letter-spacing: var(--h4-letter-spacing);
-  text-transform: var(--h4-text-transform);
+  letter-spacing: var(--ls-2xs);
+  text-transform: lowercase;
   padding: 0 var(--btn-pad-x);
   background: transparent;
   border: var(--btn-border-width) solid var(--accent);
@@ -969,7 +957,7 @@ body {
 }
 
 .marketing-nav-mobile-links a {
-  font-family: var(--font-display);
+  font-family: "Manrope", var(--font-display), system-ui, sans-serif;
   font-size: clamp(1.5rem, 6vw, 2rem);
   font-weight: 600;
   letter-spacing: var(--ls-xl);
