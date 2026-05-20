@@ -31,6 +31,8 @@
   .hero-v2-static, .hero-v2-word { font: 500 clamp(1.625rem, 7.7vw, 5.5rem)/1.1 Switzer, system-ui, sans-serif; color: #fafafa; }
   .hero-v2-suffix { font: italic 400 clamp(1.625rem, 7.7vw, 5.5rem)/1.1 Switzer, system-ui, sans-serif; color: #6366f1; }
 </style>
+<link rel="stylesheet" href="/site-nav.css">
+<link rel="stylesheet" href="/site-nav-shared.css">
 <link rel="preload" href="/kruv.css" as="style">
 <link rel="stylesheet" href="/kruv.css">
 
@@ -1516,10 +1518,17 @@
     nav.classList.toggle('is-menu-open', !!open);
     toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-    if (open) panel.removeAttribute('hidden');
-    else panel.setAttribute('hidden', '');
+    if (open) {
+      panel.removeAttribute('hidden');
+    } else {
+      panel.setAttribute('hidden', '');
+      panel.hidden = true;
+    }
     document.body.style.overflow = open && mq.matches ? 'hidden' : '';
   }
+
+  /* Sayfa yükünde panel kapalı kalsın */
+  setOpen(false);
 
   function closeMenu() {
     setOpen(false);

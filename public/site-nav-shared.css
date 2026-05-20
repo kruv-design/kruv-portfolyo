@@ -1,7 +1,17 @@
 /**
  * Site nav — mobil menü (tek kaynak).
- * .marketing-navbar (Next) + nav.navbar (kruv.html) aynı davranış.
+ * .marketing-navbar (Next) + kruv.html aynı davranış.
  */
+
+/* Kapalı panel asla görünmesin ([hidden] + display:flex çakışması) */
+.marketing-nav-mobile-overlay[hidden],
+.site-nav-mobile-overlay[hidden] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  animation: none !important;
+}
+
 @media (max-width: 768px) {
   /* ── Hamburger / X (navbar şeridinde) ── */
   .marketing-navbar-menu-btn,
@@ -136,9 +146,9 @@
     display: none !important;
   }
 
-  /* ── Tam ekran panel (nav kardeşi; içeride değil) ── */
-  .marketing-nav-mobile-overlay,
-  .site-nav-mobile-overlay {
+  /* ── Tam ekran panel (yalnızca açıkken; kapalı = [hidden]) ── */
+  .marketing-nav-mobile-overlay:not([hidden]),
+  .site-nav-mobile-overlay:not([hidden]) {
     position: fixed;
     inset: 0;
     z-index: 200;
