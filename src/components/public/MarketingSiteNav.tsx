@@ -72,7 +72,7 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
     <>
       <div id="marketing-nav-sentinel" className="marketing-nav-sentinel" aria-hidden="true" />
       <nav
-        className={`marketing-navbar${scrolled ? " is-scrolled" : ""}`}
+        className={`marketing-navbar${scrolled ? " is-scrolled" : ""}${mobileMenuOpen ? " is-menu-open" : ""}`}
         aria-label="Primary"
         lang="en"
       >
@@ -124,9 +124,10 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
                   aria-expanded={mobileMenuOpen}
                   aria-controls="marketing-mobile-menu"
                   aria-haspopup="dialog"
-                  onClick={() => setMobileMenuOpen(true)}
+                  aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+                  onClick={() => setMobileMenuOpen((open) => !open)}
                 >
-                  <span className="sr-only">Open menu</span>
+                  <span className="sr-only">{mobileMenuOpen ? "Close menu" : "Open menu"}</span>
                   <span className="marketing-navbar-menu-btn__bars" aria-hidden="true">
                     <span />
                     <span />
@@ -147,30 +148,6 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
           aria-modal="true"
           aria-labelledby={menuTitleId}
         >
-          <div className="marketing-nav-mobile-overlay__top">
-            <button
-              type="button"
-              className="marketing-nav-mobile-close"
-              aria-label="Close menu"
-              onClick={closeMobileMenu}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                aria-hidden="true"
-              >
-                <path d="M18 6 6 18" />
-                <path d="m6 6 12 12" />
-              </svg>
-            </button>
-          </div>
-
           <h2 id={menuTitleId} className="sr-only">
             Menu
           </h2>

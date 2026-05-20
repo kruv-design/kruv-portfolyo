@@ -128,28 +128,28 @@
 
   --h1-font-family: var(--font-display);
   --h1-font-size: var(--type-h1);
-  --h1-font-weight: 700;
+  --h1-font-weight: 600;
   --h1-line-height: var(--lh-tight);
   --h1-letter-spacing: var(--ls-display);
   --h1-text-transform: lowercase;
 
   --h2-font-family: var(--font-display);
   --h2-font-size: var(--type-h2);
-  --h2-font-weight: 700;
+  --h2-font-weight: 600;
   --h2-line-height: calc(var(--lh-tight) * 1.125);
   --h2-letter-spacing: var(--ls-display);
   --h2-text-transform: lowercase;
 
   --h3-font-family: var(--font-display);
   --h3-font-size: var(--type-h3);
-  --h3-font-weight: 700;
+  --h3-font-weight: 600;
   --h3-line-height: var(--lh-tight);
   --h3-letter-spacing: var(--ls-lg);
   --h3-text-transform: lowercase;
 
   --h4-font-family: var(--font-display);
   --h4-font-size: var(--type-h4);
-  --h4-font-weight: 600;
+  --h4-font-weight: 500;
   --h4-line-height: var(--lh-tight);
   --h4-letter-spacing: var(--ls-xl);
   --h4-text-transform: lowercase;
@@ -1781,13 +1781,13 @@ body:has(.featured-work-card:hover) .hero-bottom {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
+    padding-top: calc(
+      env(safe-area-inset-top, 0px) + var(--space-6) + var(--nav-logo-slot-h) + var(--space-8)
+    );
   }
+  /* Kapatma: üst şeritteki hamburger → X; çekmecede ayrı çarpı yok */
   .nav-mobile-overlay__top {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-bottom: var(--space-8);
-    flex-shrink: 0;
+    display: none;
   }
   .nav-mobile-close {
     display: inline-flex;
@@ -1879,7 +1879,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
     text-align: left;
     font-family: var(--font-display);
     font-size: clamp(1.5rem, 6vw, 2rem);
-    font-weight: 600;
+    font-weight: var(--h3-font-weight);
     line-height: var(--lh-tight);
     letter-spacing: var(--ls-xl);
     text-transform: lowercase;
@@ -1925,10 +1925,13 @@ body:has(.featured-work-card:hover) .hero-bottom {
     flex-shrink: 0;
     align-self: flex-start;
   }
-  /* Açık menü: çarpı aynı yuvada — hamburger konumunu değiştirme (kayma yok) */
+  /* Açık menü: nav şeridi overlay üstünde; çarpı hamburger yuvasında (kayma yok) */
+  nav.navbar.is-menu-open {
+    z-index: 201;
+  }
   .navbar.is-menu-open .nav-menu-toggle {
     position: relative;
-    z-index: 101;
+    z-index: 1;
     flex-shrink: 0;
   }
 }
@@ -2169,7 +2172,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 .ideal-tag {
   font-family: var(--b3-font-family);
-  font-size: var(--b3-font-size);
+  font-size: calc(var(--b3-font-size) + 2pt);
   font-weight: var(--b3-font-weight);
   line-height: var(--b3-line-height);
   letter-spacing: var(--b3-letter-spacing);
@@ -2301,7 +2304,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   padding-inline-end: clamp(var(--space-8), 5vw, calc(var(--space-12) + var(--space-6)));
   font-family: var(--font-display);
   font-size: clamp(1.125rem, 3.2vw, 1.75rem);
-  font-weight: 600;
+  font-weight: 500;
   line-height: var(--lh-tight);
   letter-spacing: var(--ls-xl);
   text-transform: lowercase;
@@ -2311,7 +2314,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
 .ideal-share-marquee-piece em {
   font-style: italic;
   color: var(--frost);
-  font-weight: 500;
+  font-weight: 400;
   padding-inline-start: clamp(var(--space-5), 4vw, var(--space-12));
 }
 @keyframes ideal-share-marquee-x {
@@ -3610,7 +3613,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 .hero-v2-static {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 500;
   color: var(--frost);
   letter-spacing: -0.035em;
   line-height: 1.1;
@@ -3634,7 +3637,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 .hero-v2-word {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 500;
   color: var(--frost);
   letter-spacing: -0.035em;
   line-height: 1.1;
@@ -3822,7 +3825,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   .hero-v2-word-box {
     font-family: var(--h2-font-family);
     font-size: var(--h2-font-size);
-    font-weight: 600;
+    font-weight: 500;
     line-height: var(--h2-line-height);
     letter-spacing: var(--h2-letter-spacing);
     padding-bottom: clamp(12px, 0.55em, 22px);
@@ -3833,7 +3836,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   .hero-v2-word {
     font-family: var(--h2-font-family);
     font-size: var(--h2-font-size);
-    font-weight: 600;
+    font-weight: 500;
     line-height: var(--h2-line-height);
     letter-spacing: var(--h2-letter-spacing);
     text-transform: none;
@@ -3876,6 +3879,9 @@ body:has(.featured-work-card:hover) .hero-bottom {
   /* h3 harf aralığına göre %5 sıkı (negatif ls → biraz daha negatif) */
   letter-spacing: calc(var(--h3-letter-spacing) * 1.05);
 }
+#projects-belief-heading.projects-belief-line {
+  letter-spacing: var(--card-meta-title-ls);
+}
 
 @media (max-width: 768px) {
   .projects-belief-line {
@@ -3884,6 +3890,9 @@ body:has(.featured-work-card:hover) .hero-bottom {
     line-height: calc(var(--h4-line-height) * 1.5);
     letter-spacing: var(--h4-letter-spacing);
     font-weight: 400;
+  }
+  #projects-belief-heading.projects-belief-line {
+    letter-spacing: var(--card-meta-title-ls);
   }
 }
 
@@ -3906,7 +3915,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   max-width: none;
   margin-inline: 0;
   /* Üst/alt: kompakt band (section-pad-y bu blok için fazla genişti) */
-  padding: var(--space-8) 0 var(--space-9);
+  padding: var(--space-9) 0 var(--space-10);
   background: var(--lets-talk-band-bg);
   display: flex;
   flex-direction: column;
@@ -3919,8 +3928,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
   width: 100vw;
   margin-left: calc(50% - 50vw);
   overflow: hidden;
-  /* Marquee satırı: descender + hafif nefes */
-  padding-block: var(--space-3) var(--space-4);
+  /* Marquee satırı: descender + dikey nefes */
+  padding-block: var(--space-5) var(--space-6);
 }
 .lets-talk-marquee {
   overflow: hidden;
@@ -3944,8 +3953,10 @@ body:has(.featured-work-card:hover) .hero-bottom {
   color: var(--lets-talk-band-ink);
   white-space: nowrap;
   font-size: clamp(24px, 4.6vw, 48px);
-  line-height: calc(var(--lh-tight) + 0.14);
-  padding-block: 0.06em 0.14em;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: calc(var(--lh-tight) + 0.22);
+  padding-block: 0.1em 0.18em;
 }
 .lets-talk-marquee-group .lets-talk-heading em {
   font-style: italic;
@@ -3989,7 +4000,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   .lets-talk-marquee-bleed {
     width: 100%;
     margin-left: 0;
-    padding-block: var(--space-4);
+    padding-block: var(--space-5) var(--space-6);
   }
   .lets-talk-marquee-group[aria-hidden="true"] {
     display: none;
@@ -4026,7 +4037,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   .lets-talk-marquee-bleed {
     width: 100%;
     margin-left: 0;
-    padding-block: var(--space-3);
+    padding-block: var(--space-4) var(--space-5);
   }
   .lets-talk-marquee-group[aria-hidden="true"] {
     display: none;
