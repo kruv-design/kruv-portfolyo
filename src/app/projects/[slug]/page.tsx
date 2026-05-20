@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import {
-  getAdjacentSlugs,
+  getAdjacentProjects,
   getProjectBySlug,
   getProjects,
   getSettings,
@@ -77,7 +77,7 @@ export default async function ProjectPage({
   if (!project) notFound();
 
   const [{ prev, next }, settings] = await Promise.all([
-    getAdjacentSlugs(project.slug),
+    getAdjacentProjects(project.slug),
     getSettings(),
   ]);
 
@@ -109,7 +109,12 @@ export default async function ProjectPage({
         <MarketingSiteNav settings={settings} />
         <div className="flex flex-1 flex-col">
           <div className="works-shell-inner project-detail-shell">
-            <ProjectDetail project={project} prevSlug={prev} nextSlug={next} />
+            <ProjectDetail
+              project={project}
+              prevSlug={prev?.slug ?? null}
+              nextSlug={next?.slug ?? null}
+              nextProject={next}
+            />
           </div>
           <SiteFooter settings={settings} />
         </div>

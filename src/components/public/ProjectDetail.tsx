@@ -7,15 +7,18 @@ import type { Project } from "@/types";
 import { Lightbox } from "./Lightbox";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { projectCover, projectGallerySlots } from "@/lib/project-images";
+import { ProjectNextTeaser } from "./ProjectNextTeaser";
 
 export function ProjectDetail({
   project,
   prevSlug,
   nextSlug,
+  nextProject,
 }: {
   project: Project;
   prevSlug: string | null;
   nextSlug: string | null;
+  nextProject: Project | null;
 }) {
   const [lightbox, setLightbox] = useState<string | null>(null);
 
@@ -24,16 +27,6 @@ export function ProjectDetail({
 
   return (
     <>
-      <div className="project-detail-toolbar">
-        <Link href="/works" className="project-detail-back">
-          ← Tüm projeler
-        </Link>
-        <div className="project-detail-nav-arrows">
-          <NavArrow slug={prevSlug} label="←" />
-          <NavArrow slug={nextSlug} label="→" />
-        </div>
-      </div>
-
       <div className="project-detail-cover animate-fadeUp">
         <div className="project-detail-hero">
           {cover ? (
@@ -41,27 +34,39 @@ export function ProjectDetail({
               src={cover}
               alt={project.baslik}
               width={1920}
-              height={960}
+              height={1080}
               className="h-full w-full object-cover"
               priority
-              sizes="90vw"
+              sizes="100vw"
             />
           ) : (
             <ImagePlaceholder
               label={project.baslik[0] ?? "•"}
               color={project.renk}
               fontSize="5rem"
+              className="h-full w-full"
             />
           )}
+        </div>
+        <div className="project-detail-toolbar">
+          <Link href="/works" className="project-detail-back">
+            ← Tüm projeler
+          </Link>
+          <div className="project-detail-nav-arrows">
+            <NavArrow slug={prevSlug} label="←" />
+            <NavArrow slug={nextSlug} label="→" />
+          </div>
         </div>
       </div>
 
       <div className="project-detail-body">
         <header className="project-detail-intro animate-fadeUp">
-          <div className="b3 mb-4" style={{ color: "var(--accent)" }}>
-            {project.kategori}
-          </div>
           <h1 className="h1">{project.baslik}</h1>
+          {project.aciklama?.trim() ? (
+            <p className="b1 mt-6" style={{ color: "var(--b1-color)" }}>
+              {project.aciklama.trim()}
+            </p>
+          ) : null}
         </header>
 
         <aside className="project-detail-aside animate-fadeUp">
@@ -141,6 +146,8 @@ export function ProjectDetail({
           </div>
         )}
       </div>
+
+      {nextProject ? <ProjectNextTeaser project={nextProject} /> : null}
 
       <Lightbox src={lightbox} onClose={() => setLightbox(null)} />
     </>

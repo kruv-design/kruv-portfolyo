@@ -102,11 +102,6 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/works#about" className="marketing-navbar-item">
-                    About
-                  </Link>
-                </li>
-                <li>
                   <Link
                     href="/contact"
                     className="marketing-navbar-item"
@@ -202,11 +197,6 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
               <li>
                 <Link href="/works" onClick={closeMobileMenu}>
                   Projects
-                </Link>
-              </li>
-              <li>
-                <Link href="/works#about" onClick={closeMobileMenu}>
-                  About
                 </Link>
               </li>
               <li>

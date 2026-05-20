@@ -711,12 +711,12 @@ body {
 }
 
 .marketing-navbar-item {
-  font-family: var(--b1-font-family);
-  font-size: var(--b1-font-size);
-  font-weight: var(--b1-font-weight);
-  line-height: var(--b1-line-height);
-  letter-spacing: var(--b1-letter-spacing);
-  text-transform: var(--b1-text-transform);
+  font-family: var(--h4-font-family);
+  font-size: var(--h4-font-size);
+  font-weight: var(--h4-font-weight);
+  line-height: var(--h4-line-height);
+  letter-spacing: var(--h4-letter-spacing);
+  text-transform: var(--h4-text-transform);
   color: var(--ink-soft);
   text-decoration: none;
   transition:
@@ -726,12 +726,12 @@ body {
 }
 
 .marketing-navbar.is-scrolled .marketing-navbar-item {
-  font-family: var(--b2-font-family);
-  font-size: var(--b2-font-size);
-  font-weight: var(--b2-font-weight);
-  line-height: var(--b2-line-height);
-  letter-spacing: var(--b2-letter-spacing);
-  text-transform: var(--b2-text-transform);
+  font-family: var(--b1-font-family);
+  font-size: var(--b1-font-size);
+  font-weight: var(--b1-font-weight);
+  line-height: var(--b1-line-height);
+  letter-spacing: var(--b1-letter-spacing);
+  text-transform: var(--b1-text-transform);
 }
 
 .marketing-navbar-item:hover {
@@ -773,12 +773,12 @@ body {
   min-height: var(--nav-bar-ctrl-h);
   max-height: var(--nav-bar-ctrl-h);
   gap: var(--btn-gap);
-  font-family: var(--btn-font-family);
-  font-size: var(--btn-font-size);
-  font-weight: var(--btn-font-weight);
+  font-family: var(--h4-font-family);
+  font-size: var(--h4-font-size);
+  font-weight: var(--h4-font-weight);
   line-height: 1;
-  letter-spacing: var(--btn-letter-spacing);
-  text-transform: var(--btn-text-transform);
+  letter-spacing: var(--h4-letter-spacing);
+  text-transform: var(--h4-text-transform);
   padding: 0 var(--btn-pad-x);
   background: transparent;
   border: var(--btn-border-width) solid var(--accent);
@@ -1032,7 +1032,7 @@ body {
   .marketing-navbar-cta {
     padding-inline: var(--space-4);
     white-space: nowrap;
-    font-size: calc(var(--type-b2) - 1px);
+    font-size: var(--b1-font-size);
   }
 
   /* Mobil pill: kenarlardan inset + düz yüzey */
@@ -1106,11 +1106,15 @@ body {
   padding-top: var(--space-6);
 }
 
-@media (min-width: 700px) {
-  .portfolio-works-page .portfolio-grid:has(> .pw-card:only-child) {
-    grid-template-columns: minmax(0, 1fr);
-    max-width: min(52rem, 100%);
-    margin-inline: auto;
+@media (min-width: 640px) {
+  .portfolio-works-page .portfolio-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .portfolio-works-page .portfolio-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
@@ -1216,10 +1220,17 @@ body {
   }
 }
 .project-detail-cover {
-  width: 100%;
-  margin-top: var(--space-6);
+  position: relative;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  margin-top: 0;
   margin-bottom: var(--space-8);
+  height: calc(100dvh - var(--works-body-pad-top));
+  min-height: calc(100dvh - var(--works-body-pad-top));
   box-sizing: border-box;
+  overflow: hidden;
 }
 .project-detail-intro {
   margin: 0;
@@ -1232,8 +1243,34 @@ body {
   width: 100%;
   min-width: 0;
 }
-/* Kapak + galeri: viewport genişliğinin %90'ı, shell içinde ortalanır */
-.project-detail-hero,
+/* Kapak: tam genişlik, nav altında kalan viewport yüksekliği */
+.project-detail-hero {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  border-radius: 0;
+  overflow: hidden;
+  background: var(--surface);
+  box-sizing: border-box;
+}
+.project-detail-cover .project-detail-toolbar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  margin: 0;
+  padding: var(--space-6) var(--container-gutter);
+  border-bottom: none;
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--bg) 88%, transparent) 0%,
+    transparent 100%
+  );
+}
+/* Galeri: viewport genişliğinin %90'ı, shell içinde ortalanır */
 .project-detail-gallery__item {
   width: var(--project-media-width);
   max-width: var(--project-media-width);
@@ -1244,9 +1281,6 @@ body {
   overflow: hidden;
   background: var(--surface);
   box-sizing: border-box;
-}
-.project-detail-hero {
-  min-height: min(52vh, 720px);
 }
 .project-detail-aside {
   min-width: 0;
@@ -1279,6 +1313,71 @@ body {
 }
 .project-detail-gallery__item img {
   display: block;
+}
+
+/* Proje detay — footer öncesi sonraki proje (sira sırası) */
+.project-detail-next {
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: var(--space-12);
+  padding-top: var(--space-12);
+  border-top: 1px solid var(--border);
+}
+.project-detail-next__eyebrow {
+  margin: 0 0 var(--space-6);
+  color: var(--ink-faint);
+  text-transform: lowercase;
+}
+.project-detail-next__link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+.project-detail-next__media {
+  width: var(--project-media-width);
+  max-width: var(--project-media-width);
+  margin-inline: auto;
+  aspect-ratio: 16 / 9;
+  min-height: min(36vh, 480px);
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  box-sizing: border-box;
+}
+.project-detail-next__meta {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-6);
+  width: var(--project-media-width);
+  max-width: var(--project-media-width);
+  margin: var(--space-6) auto 0;
+  box-sizing: border-box;
+}
+.project-detail-next__arrow {
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1;
+  color: var(--accent);
+  transition: transform var(--dur-fast) var(--ease);
+}
+.project-detail-next__link:hover .project-detail-next__arrow,
+.project-detail-next__link:focus-visible .project-detail-next__arrow {
+  transform: translateX(0.15em);
+}
+.project-detail-next__title {
+  margin: 0;
+  color: var(--ink);
+}
+.project-detail-next__category {
+  margin: var(--space-2) 0 0;
+  color: var(--ink-soft);
+  text-transform: lowercase;
+}
+.project-detail-next__link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: var(--space-2);
+  border-radius: var(--radius-md);
 }
 
 /* Homepage featured-work kart tipografisi (kruv.html) */

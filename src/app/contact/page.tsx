@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { getSettings } from "@/lib/queries";
+import { DEFAULT_SITE_SETTINGS, getSettings } from "@/lib/queries";
 import { MarketingSiteNav } from "@/components/public/MarketingSiteNav";
 import { ContactForm } from "@/components/public/ContactForm";
 import { SiteFooter } from "@/components/public/SiteFooter";
-import type { SiteSettings } from "@/types";
 
 export const metadata: Metadata = {
   title: "İletişim",
@@ -12,22 +11,8 @@ export const metadata: Metadata = {
 
 export const revalidate = 60;
 
-const FALLBACK_SETTINGS: SiteSettings = {
-  siteAdi: "kruv.",
-  tagline: "Seçilmiş projeler & çalışmalar",
-  footerYazi: "kruv. — portfolyo",
-  instagramUrl: "",
-  xUrl: "",
-  linkedinUrl: "",
-  behanceUrl: "",
-  dribbbleUrl: "",
-  youtubeUrl: "",
-  pinterestUrl: "",
-  githubUrl: "",
-};
-
 export default async function ContactPage() {
-  const settings = await getSettings().catch(() => FALLBACK_SETTINGS);
+  const settings = await getSettings().catch(() => DEFAULT_SITE_SETTINGS);
 
   return (
     <div className="flex min-h-screen flex-col" style={{ background: "var(--bg)" }}>

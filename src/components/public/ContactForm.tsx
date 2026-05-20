@@ -2,11 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
-import {
-  CONTACT_FOCUS_OPTIONS,
-  CONTACT_STEP_TITLES,
-  CONTACT_TOTAL_STEPS,
-} from "@/lib/contact-form-config";
+import { CONTACT_STEP_TITLES, CONTACT_TOTAL_STEPS } from "@/lib/contact-form-config";
 import type { ContactPayloadInput } from "@/lib/validators";
 
 const INITIAL: ContactPayloadInput = {
@@ -171,7 +167,7 @@ export function ContactForm() {
           Birlikte üretelim
         </h1>
         <p className="contact-form-lead b1" style={{ color: "var(--b1-color)" }}>
-          Üç kısa adım: iletişim bilgileriniz, markanız ve mesajınız.
+          Üç kısa adım: adınız, e-postanız ve mesajınız.
         </p>
       </header>
 
@@ -212,80 +208,41 @@ export function ContactForm() {
             aria-labelledby={`${formId}-step-label`}
           >
             {step === 0 ? (
-              <>
-                <div className="contact-form-field">
-                  <label htmlFor={`${formId}-name`} className="contact-form-label b2">
-                    Adınız soyadınız <span className="contact-form-req">*</span>
-                  </label>
-                  <input
-                    id={`${formId}-name`}
-                    className="contact-form-input"
-                    type="text"
-                    autoComplete="name"
-                    value={values.name}
-                    onChange={(e) => patch("name", e.target.value)}
-                    placeholder="ör. ayşe yılmaz"
-                    minLength={2}
-                    required
-                  />
-                </div>
-                <div className="contact-form-field">
-                  <label htmlFor={`${formId}-email`} className="contact-form-label b2">
-                    E-posta <span className="contact-form-req">*</span>
-                  </label>
-                  <input
-                    id={`${formId}-email`}
-                    className="contact-form-input"
-                    type="email"
-                    autoComplete="email"
-                    inputMode="email"
-                    value={values.email}
-                    onChange={(e) => patch("email", e.target.value)}
-                    placeholder="siz@ornek.com"
-                    required
-                  />
-                </div>
-              </>
+              <div className="contact-form-field">
+                <label htmlFor={`${formId}-name`} className="contact-form-label b2">
+                  Adınız <span className="contact-form-req">*</span>
+                </label>
+                <input
+                  id={`${formId}-name`}
+                  className="contact-form-input"
+                  type="text"
+                  autoComplete="name"
+                  value={values.name}
+                  onChange={(e) => patch("name", e.target.value)}
+                  placeholder="ör. ayşe yılmaz"
+                  minLength={2}
+                  required
+                />
+              </div>
             ) : null}
 
             {step === 1 ? (
-              <>
-                <div className="contact-form-field">
-                  <label htmlFor={`${formId}-company`} className="contact-form-label b2">
-                    Marka veya şirket adı <span className="contact-form-req">*</span>
-                  </label>
-                  <input
-                    id={`${formId}-company`}
-                    className="contact-form-input"
-                    type="text"
-                    autoComplete="organization"
-                    value={values.company}
-                    onChange={(e) => patch("company", e.target.value)}
-                    placeholder="ör. marker, acme co."
-                    minLength={2}
-                    required
-                  />
-                </div>
-                <div className="contact-form-field">
-                  <label htmlFor={`${formId}-type`} className="contact-form-label b2">
-                    Şu an en çok nerede destek arıyorsunuz?{" "}
-                    <span className="contact-form-req">*</span>
-                  </label>
-                  <select
-                    id={`${formId}-type`}
-                    className="contact-form-input contact-form-select"
-                    value={values.projectType}
-                    onChange={(e) => patch("projectType", e.target.value)}
-                    required
-                  >
-                    {CONTACT_FOCUS_OPTIONS.map((o) => (
-                      <option key={o.label + o.value} value={o.value}>
-                        {o.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </>
+              <div className="contact-form-field">
+                <label htmlFor={`${formId}-email`} className="contact-form-label b2">
+                  Mailiniz <span className="contact-form-req">*</span>
+                </label>
+                <input
+                  id={`${formId}-email`}
+                  className="contact-form-input"
+                  type="email"
+                  autoComplete="email"
+                  inputMode="email"
+                  value={values.email}
+                  onChange={(e) => patch("email", e.target.value)}
+                  placeholder="siz@ornek.com"
+                  required
+                />
+              </div>
             ) : null}
 
             {step === 2 ? (

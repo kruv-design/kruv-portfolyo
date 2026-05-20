@@ -253,7 +253,7 @@
 
   /* ===== Layout: grid shell ===== */
   --container-max: 920px;
-  --container-gutter: clamp(16px, 5vw, 52px);
+  --container-gutter: clamp(16px, 2.5vw, 32px);
   /* Üst sınır: geniş ekranlarda kartlar viewport'u aşmasın.
      130vh cap → yatay kısa ekranlarda da soldaki büyük kart (8/12 × shell × 12/16
      ≈ 0.5 × shell) viewport yüksekliğini geçmez. */
@@ -263,8 +263,8 @@
     var(--grid-shell-max),
     130vh
   );
-  /* Selected Work / Projects: viewport’un %90’ı (toplam ~%10 yan boşluk), üst sınır shell; dar alanda taşmayı önlemek için %100 tavan */
-  --featured-works-width: min(90vw, var(--grid-shell-max), 100%);
+  /* Selected Work / Projects: viewport − yan marjin (üst genişlik sınırı yok) */
+  --featured-works-width: min(calc(100vw - (2 * var(--container-gutter))), 100%);
   --section-pad-y: clamp(60px, 8vw, 88px);
   --section-pad-x: var(--container-gutter);
   /* Tema geçişi (scroll-t); görsel boşluk ideal → Projects arasında birikmesin */
@@ -771,22 +771,22 @@ nav.navbar.is-scrolled .nav-links {
 .navbar-item1,
 .navbar-item2,
 .navbar-item3 {
+  font-family: var(--h4-font-family);
+  font-size: var(--h4-font-size);
+  font-weight: var(--h4-font-weight);
+  line-height: var(--h4-line-height);
+  letter-spacing: var(--h4-letter-spacing);
+  text-transform: var(--h4-text-transform);
+}
+nav.navbar.is-scrolled .navbar-item1,
+nav.navbar.is-scrolled .navbar-item2,
+nav.navbar.is-scrolled .navbar-item3 {
   font-family: var(--b1-font-family);
   font-size: var(--b1-font-size);
   font-weight: var(--b1-font-weight);
   line-height: var(--b1-line-height);
   letter-spacing: var(--b1-letter-spacing);
   text-transform: var(--b1-text-transform);
-}
-nav.navbar.is-scrolled .navbar-item1,
-nav.navbar.is-scrolled .navbar-item2,
-nav.navbar.is-scrolled .navbar-item3 {
-  font-family: var(--b2-font-family);
-  font-size: var(--b2-font-size);
-  font-weight: var(--b2-font-weight);
-  line-height: var(--b2-line-height);
-  letter-spacing: var(--b2-letter-spacing);
-  text-transform: var(--b2-text-transform);
 }
 .nav-links a:hover { color: var(--frost); }
 .nav-actions {
@@ -922,12 +922,12 @@ nav.navbar.is-scrolled .navbar-item3 {
   flex-shrink: 0;
   min-height: var(--nav-bar-ctrl-h);
   gap: var(--btn-gap);
-  font-family: var(--btn-font-family);
-  font-size: var(--btn-font-size);
-  font-weight: var(--btn-font-weight);
-  line-height: var(--btn-line-height);
-  letter-spacing: var(--btn-letter-spacing);
-  text-transform: var(--btn-text-transform);
+  font-family: var(--h4-font-family);
+  font-size: var(--h4-font-size);
+  font-weight: var(--h4-font-weight);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--h4-letter-spacing);
+  text-transform: var(--h4-text-transform);
   padding: var(--btn-pad-y) var(--btn-pad-x);
   background: var(--white-fixed);
   color: var(--color-accent);
@@ -2218,7 +2218,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
             </form>
             <ul class="nav-links">
               <li><a class="navbar-item1" href="/works">Projects</a></li>
-              <li><a class="navbar-item2" href="#about">About</a></li>
               <li><a class="navbar-item3" href="/contact">Contact</a></li>
             </ul>
           </div>
@@ -2568,17 +2567,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
 
 </section>
 
-<section class="about-section" id="about" aria-labelledby="about-heading">
-  <div class="about-inner">
-    <header class="about-intro">
-      <span class="about-tag">About us</span>
-      <h2 class="about-title" id="about-heading">Who we are</h2>
-    </header>
-    <p class="about-body" lang="en">We are a social-first design studio: we build brand identities that look as intentional in the feed as they do in the boardroom. Our vision is simple — work worth sharing should feel inevitable, not accidental. Our mission is to give ambitious teams a clear visual system, disciplined craft, and calm execution so every post, story, and reel reinforces the same story. Less noise, more signal — and a brand people recognize before they read a single word.</p>
-    <p class="about-body about-body--tr" lang="tr">Sosyal öncelikli bir tasarım stüdyosuyuz: marka kimliklerini feed'de de toplantı odasında da aynı kasıtlılıkla kurguluyoruz. Vizyonumuz net — paylaşılmaya değer iş kaçınılmaz hissettirmeli, tesadüf değil. Misyonumuz iddialı ekiplere net bir görsel sistem, disiplinli üretim ve sakin teslimat sunmak; her post, story ve reel aynı hikâyeyi güçlendirsin. Daha az gürültü, daha çok sinyal — tek kelime okumadan tanınan bir marka.</p>
-  </div>
-</section>
-
 <div class="ticker">
   <div class="ticker-track" lang="en">
     <span class="ticker-item">Brand Identity</span><span class="ticker-hand" aria-hidden="true"><img src="assets/ticker-hands/asset-1.svg" width="96" height="51" alt=""></span>
@@ -2627,15 +2615,13 @@ body:has(.featured-work-card:hover) .hero-bottom {
       <div class="ideal-share-marquee-track">
         <div class="ideal-share-marquee-sequence">
           <span class="ideal-share-marquee-piece">
-            <span class="ideal-share-marquee-dot" aria-hidden="true">.</span>
-            share or it didn't happen.
+            share or it didn't happen
             <em>we make sure it happens</em>
           </span>
         </div>
         <div class="ideal-share-marquee-sequence" aria-hidden="true">
           <span class="ideal-share-marquee-piece">
-            <span class="ideal-share-marquee-dot" aria-hidden="true">.</span>
-            share or it didn't happen.
+            share or it didn't happen
             <em>we make sure it happens</em>
           </span>
         </div>
@@ -2703,62 +2689,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
 </section>
 
 <style>
-/* ── ABOUT US ── */
-.about-section {
-  position: relative;
-  z-index: 1;
-  box-sizing: border-box;
-  padding: var(--section-pad-y) var(--section-pad-x);
-  background-color: var(--midnight);
-  border-top: var(--border-soft);
-  border-bottom: var(--border-soft);
-}
-.about-inner {
-  width: var(--grid-shell-width);
-  max-width: var(--grid-shell-width);
-  margin: 0 auto;
-}
-.about-intro {
-  margin-bottom: var(--space-8);
-  text-align: left;
-}
-.about-tag {
-  font-family: var(--b3-font-family);
-  font-size: var(--b3-font-size);
-  font-weight: var(--b3-font-weight);
-  line-height: var(--b3-line-height);
-  letter-spacing: var(--b3-letter-spacing);
-  text-transform: var(--b3-text-transform);
-  color: var(--silver);
-  display: block;
-  margin-bottom: var(--space-2);
-}
-.about-title {
-  font-family: var(--h3-font-family);
-  font-size: var(--h3-font-size);
-  font-weight: var(--h3-font-weight);
-  line-height: var(--h3-line-height);
-  letter-spacing: var(--h3-letter-spacing);
-  text-transform: var(--h3-text-transform);
-  color: var(--frost);
-  margin: 0;
-}
-.about-body {
-  font-family: var(--b1-font-family);
-  font-size: var(--b1-font-size);
-  font-weight: var(--b1-font-weight);
-  line-height: var(--b1-line-height);
-  letter-spacing: var(--b1-letter-spacing);
-  text-transform: var(--b1-text-transform);
-  color: var(--silver);
-  margin: 0;
-  max-width: 62ch;
-}
-.about-body--tr {
-  margin-top: var(--space-6);
-  max-width: 62ch;
-}
-
 /* ── IDEAL CLIENT LOGO GRID ── */
 .ideal-section {
   position: relative;
@@ -2918,10 +2848,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
   text-transform: lowercase;
   color: var(--silver);
   white-space: nowrap;
-}
-.ideal-share-marquee-dot {
-  color: var(--purple);
-  font-weight: 700;
 }
 .ideal-share-marquee-piece em {
   font-style: italic;
@@ -3747,7 +3673,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
         <h4 class="h4 site-footer-heading">Sitemap</h4>
         <ul class="site-footer-list site-footer-links">
           <li><a href="/">Home</a></li>
-          <li><a href="#about">About us</a></li>
           <li><a href="/contact">Contact us</a></li>
         </ul>
       </nav>
@@ -3756,7 +3681,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
         <p class="site-footer-follow-sr" lang="tr">Sosyal bağlantılar — her ikon yeni sekmede açılır.</p>
         <ul class="site-footer-social site-footer-social--grid">
           <li>
-            <a class="site-footer-social-btn" href="#" target="_blank" rel="noopener noreferrer" data-footer-social="linkedin" aria-label="LinkedIn — yeni sekmede aç">
+            <a class="site-footer-social-btn" href="https://www.linkedin.com/company/kruv/?viewAsMember=true" target="_blank" rel="noopener noreferrer" data-footer-social="linkedin" aria-label="LinkedIn — yeni sekmede aç">
               <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="48" height="48" rx="12" fill="var(--purple)"/><text x="24" y="31" text-anchor="middle" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17" font-weight="900" fill="var(--black-fixed)">in</text></svg>
             </a>
           </li>
@@ -3766,12 +3691,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
             </a>
           </li>
           <li>
-            <a class="site-footer-social-btn" href="#" target="_blank" rel="noopener noreferrer" data-footer-social="instagram" aria-label="Instagram — yeni sekmede aç">
+            <a class="site-footer-social-btn" href="https://www.instagram.com/kruvsocial/" target="_blank" rel="noopener noreferrer" data-footer-social="instagram" aria-label="Instagram — yeni sekmede aç">
               <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="48" height="48" rx="12" fill="var(--purple)"/><circle cx="24" cy="26" r="7.5" stroke="var(--black-fixed)" stroke-width="3" fill="none"/><circle cx="34.5" cy="14.5" r="2.4" fill="var(--black-fixed)"/></svg>
             </a>
           </li>
           <li>
-            <a class="site-footer-social-btn" href="#" target="_blank" rel="noopener noreferrer" data-footer-social="dribbble" aria-label="Dribbble — yeni sekmede aç">
+            <a class="site-footer-social-btn" href="https://dribbble.com/Kruvcom" target="_blank" rel="noopener noreferrer" data-footer-social="dribbble" aria-label="Dribbble — yeni sekmede aç">
               <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="48" height="48" rx="12" fill="var(--purple)"/><circle cx="24" cy="24" r="12.5" fill="var(--black-fixed)"/><path d="M14 19c4 2 8 3 12 3M16 29c3-4 7-7 12-8M32 17c-2 5-6 9-11 11" stroke="var(--purple)" stroke-width="2.2" stroke-linecap="round"/></svg>
             </a>
           </li>
@@ -3781,7 +3706,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
             </a>
           </li>
           <li>
-            <a class="site-footer-social-btn" href="#" target="_blank" rel="noopener noreferrer" data-footer-social="youtube" aria-label="YouTube — yeni sekmede aç">
+            <a class="site-footer-social-btn" href="https://www.youtube.com/@KruvDesignAgency" target="_blank" rel="noopener noreferrer" data-footer-social="youtube" aria-label="YouTube — yeni sekmede aç">
               <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="48" height="48" rx="12" fill="var(--purple)"/><rect x="10" y="15.5" width="28" height="17" rx="7" fill="var(--black-fixed)"/><path d="M21 19.5v9l8-4.5-8-4.5z" fill="var(--purple)"/></svg>
             </a>
           </li>
@@ -4537,7 +4462,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   align-items: center;
   gap: 2px;
   opacity: 0;
-  animation: fadeUp 0.5s 0.12s ease forwards;
+  animation: fadeUp 0.4s 0.04s ease forwards;
 }
 .hero-v2-line1 {
   display: flex;
@@ -4742,8 +4667,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
   from { transform: translateY(0);    opacity: 1; }
   to   { transform: translateY(-110%); opacity: 0; }
 }
-.hero-v2-anim-in  { animation: hero-v2-slide-in  0.38s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-.hero-v2-anim-out { animation: hero-v2-slide-out 0.32s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.hero-v2-anim-in  { animation: hero-v2-slide-in  0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.hero-v2-anim-out { animation: hero-v2-slide-out 0.24s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
 
 @media (max-width: 700px) {
   .hero-v2 { min-height: 100vh; padding: var(--section-pad-y) var(--section-pad-x); }
@@ -4752,7 +4677,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
     display: inline-flex;
     margin-top: var(--space-1);
     opacity: 0;
-    animation: fadeUp 0.5s 0.36s ease forwards;
+    animation: fadeUp 0.4s 0.2s ease forwards;
   }
   .hero-v2-skip-when-mobile {
     display: none !important;
@@ -6134,8 +6059,9 @@ body:has(.featured-work-card:hover) .hero-bottom {
 <script>
   // Hero V2 — animated rotating word
   (function () {
-    var WORDS = ['brands', 'identities', 'campaigns', 'stories', 'feeds', 'moments'];
+    var WORDS = ['brands', 'campaigns', 'stories', 'feeds'];
     var INTERVAL = 2400;
+    var FIRST_ROTATE_DELAY = 1200;
 
     var wb = document.getElementById('hero-v2-wb');
     if (!wb) return;
@@ -6174,7 +6100,10 @@ body:has(.featured-work-card:hover) .hero-bottom {
       // Reduced motion: kelime sabit kalsın, animasyon yapma.
       var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (reduce) return;
-      setInterval(rotate, INTERVAL);
+      setTimeout(function () {
+        rotate();
+        setInterval(rotate, INTERVAL);
+      }, FIRST_ROTATE_DELAY);
     }
 
     function rotate() {
@@ -6204,19 +6133,19 @@ body:has(.featured-work-card:hover) .hero-bottom {
           current = incoming;
           idx = next;
           busy = false;
-        }, 400);
-      }, 60);
+        }, 300);
+      }, 50);
     }
 
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(startOnce, startOnce);
-      setTimeout(startOnce, 2800);
+      setTimeout(startOnce, 900);
     } else if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', startOnce, { once: true });
-      setTimeout(startOnce, 2800);
+      setTimeout(startOnce, 900);
     } else {
       startOnce();
-      setTimeout(startOnce, 2800);
+      setTimeout(startOnce, 900);
     }
   })();
 </script>

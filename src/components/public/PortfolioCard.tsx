@@ -34,7 +34,7 @@ export function PortfolioCard({
               src={cover}
               alt={project.baslik}
               fill
-              sizes="(max-width: 699px) 100vw, 50vw"
+              sizes="(max-width: 639px) 100vw, (max-width: 899px) 50vw, 33vw"
               className="pw-card-media-img object-cover object-center"
               placeholder="empty"
               priority={index < 2}

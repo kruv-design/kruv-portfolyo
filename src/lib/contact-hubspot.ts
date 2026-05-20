@@ -16,9 +16,6 @@ function splitName(full: string): { firstname: string; lastname: string } {
 function buildMessageBody(p: ContactPayloadInput): string {
   const lines = [
     p.message.trim(),
-    "",
-    `Marka / şirket: ${p.company.trim() || "—"}`,
-    `Öncelikli ihtiyaç: ${p.projectType.trim() || "—"}`,
     p.phone.trim() ? `Telefon: ${p.phone.trim()}` : null,
     p.budget.trim() ? `Bütçe (varsa): ${p.budget.trim()}` : null,
     p.timeline.trim() ? `Zaman (varsa): ${p.timeline.trim()}` : null,

@@ -1,5 +1,4 @@
 import { getResendClient } from "@/lib/olly/resend";
-import { contactFocusLabel } from "@/lib/contact-form-config";
 import type { ContactPayloadInput } from "@/lib/validators";
 
 function escapeHtml(s: string): string {
@@ -14,8 +13,6 @@ function buildNotifyHtml(payload: ContactPayloadInput): string {
   const rows = [
     ["Ad", payload.name.trim()],
     ["E-posta", payload.email.trim()],
-    ["Marka / şirket", payload.company.trim()],
-    ["Öncelik", contactFocusLabel(payload.projectType)],
     ["Mesaj", payload.message.trim()],
   ];
   if (payload.phone.trim()) rows.push(["Telefon", payload.phone.trim()]);
@@ -65,7 +62,7 @@ export async function sendContactEmails(
         from,
         to: notifyTo,
         replyTo: visitorEmail,
-        subject: `[kruv] İletişim: ${payload.company.trim() || payload.name.trim()}`,
+        subject: `[kruv] İletişim: ${payload.name.trim()}`,
         html: buildNotifyHtml(payload),
       });
       if (error) {

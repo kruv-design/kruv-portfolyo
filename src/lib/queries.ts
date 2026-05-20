@@ -4,19 +4,24 @@ import { mapProjectRow } from "@/lib/map-project-row";
 import { DEMO_PROJECTS, isPlaceholderEnv } from "@/lib/demo-data";
 import type { Project, SiteSettings } from "@/types";
 
-const DEFAULT_SITE_SETTINGS: SiteSettings = {
+export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   siteAdi: "kruv.",
   tagline: "Seçilmiş projeler & çalışmalar",
   footerYazi: "kruv. — portfolyo",
-  instagramUrl: "",
+  instagramUrl: "https://www.instagram.com/kruvsocial/",
   xUrl: "",
-  linkedinUrl: "",
+  linkedinUrl: "https://www.linkedin.com/company/kruv/?viewAsMember=true",
   behanceUrl: "",
-  dribbbleUrl: "",
-  youtubeUrl: "",
+  dribbbleUrl: "https://dribbble.com/Kruvcom",
+  youtubeUrl: "https://www.youtube.com/@KruvDesignAgency",
   pinterestUrl: "",
   githubUrl: "",
 };
+
+function pickSettingsUrl(value: unknown, fallback: string): string {
+  const v = typeof value === "string" ? value.trim() : "";
+  return v || fallback;
+}
 
 /**
  * Map a Supabase row (snake/flat) to our Project type. Keeps JSONB shapes tidy.
@@ -108,28 +113,39 @@ export async function getSettings(): Promise<SiteSettings> {
       siteAdi: row?.siteAdi ?? DEFAULT_SITE_SETTINGS.siteAdi,
       tagline: row?.tagline ?? DEFAULT_SITE_SETTINGS.tagline,
       footerYazi: row?.footerYazi ?? DEFAULT_SITE_SETTINGS.footerYazi,
-      instagramUrl: row?.instagramUrl ?? "",
-      xUrl: row?.xUrl ?? "",
-      linkedinUrl: row?.linkedinUrl ?? "",
-      behanceUrl: row?.behanceUrl ?? "",
-      dribbbleUrl: row?.dribbbleUrl ?? "",
-      youtubeUrl: row?.youtubeUrl ?? "",
-      pinterestUrl: row?.pinterestUrl ?? "",
-      githubUrl: row?.githubUrl ?? "",
+      instagramUrl: pickSettingsUrl(row?.instagramUrl, DEFAULT_SITE_SETTINGS.instagramUrl),
+      xUrl: pickSettingsUrl(row?.xUrl, DEFAULT_SITE_SETTINGS.xUrl),
+      linkedinUrl: pickSettingsUrl(row?.linkedinUrl, DEFAULT_SITE_SETTINGS.linkedinUrl),
+      behanceUrl: pickSettingsUrl(row?.behanceUrl, DEFAULT_SITE_SETTINGS.behanceUrl),
+      dribbbleUrl: pickSettingsUrl(row?.dribbbleUrl, DEFAULT_SITE_SETTINGS.dribbbleUrl),
+      youtubeUrl: pickSettingsUrl(row?.youtubeUrl, DEFAULT_SITE_SETTINGS.youtubeUrl),
+      pinterestUrl: pickSettingsUrl(row?.pinterestUrl, DEFAULT_SITE_SETTINGS.pinterestUrl),
+      githubUrl: pickSettingsUrl(row?.githubUrl, DEFAULT_SITE_SETTINGS.githubUrl),
     };
   } catch {
     return DEFAULT_SITE_SETTINGS;
   }
 }
 
-export async function getAdjacentSlugs(
+/** Supabase `sira` sırasına göre önceki / sonraki proje (getProjects ile aynı liste). */
+export async function getAdjacentProjects(
   currentSlug: string,
-): Promise<{ prev: string | null; next: string | null }> {
+): Promise<{ prev: Project | null; next: Project | null }> {
   const all = await getProjects();
   const idx = all.findIndex((p) => p.slug === currentSlug);
   if (idx === -1) return { prev: null, next: null };
   return {
-    prev: idx > 0 ? all[idx - 1].slug : null,
-    next: idx < all.length - 1 ? all[idx + 1].slug : null,
+    prev: idx > 0 ? (all[idx - 1] ?? null) : null,
+    next: idx < all.length - 1 ? (all[idx + 1] ?? null) : null,
+  };
+}
+
+export async function getAdjacentSlugs(
+  currentSlug: string,
+): Promise<{ prev: string | null; next: string | null }> {
+  const { prev, next } = await getAdjacentProjects(currentSlug);
+  return {
+    prev: prev?.slug ?? null,
+    next: next?.slug ?? null,
   };
 }
