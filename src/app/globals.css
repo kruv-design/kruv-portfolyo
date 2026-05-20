@@ -6,7 +6,7 @@
    DESIGN TOKENS — kruv.html visual language
    Theme-aware: dark default, light via [data-theme="light"]
    or system `prefers-color-scheme: light`.
-   Accent #6366F1 (indigo) · Bebas/Outfit/DM Mono.
+   Accent #6366F1 (indigo) · Manrope + DM Mono.
    ───────────────────────────────────────────────────────── */
 :root {
   color-scheme: light dark;
@@ -100,9 +100,9 @@
 
   /* ===== Typography ===== */
   --font-display: "Manrope", system-ui, sans-serif;
-  --font-body:    "Fraunces", Georgia, serif;
+  --font-body:    var(--font-display);
   --font-mono:    "DM Mono", ui-monospace, monospace;
-  --font-sans:    var(--font-body);
+  --font-sans:    var(--font-display);
 
   /* Type scale — yalnızca h1–h4 ve b1–b3 (kruv.html ile aynı isimler) */
   --type-h1: clamp(52px, 7vw, 96px);
@@ -151,7 +151,7 @@
   --h4-letter-spacing: var(--ls-xl);
   --h4-text-transform: lowercase;
 
-  --b1-font-family: var(--font-body);
+  --b1-font-family: var(--font-display);
   --b1-font-size: var(--type-b1);
   --b1-font-weight: 400;
   --b1-line-height: 1.66;
@@ -159,7 +159,7 @@
   --b1-text-transform: lowercase;
   --b1-color: var(--ink-soft);
 
-  --b2-font-family: var(--font-body);
+  --b2-font-family: var(--font-display);
   --b2-font-size: var(--type-b2);
   --b2-font-weight: 300;
   --b2-line-height: var(--lh-body);
@@ -167,7 +167,7 @@
   --b2-text-transform: lowercase;
   --b2-color: var(--ink-faint);
 
-  --b3-font-family: var(--font-body);
+  --b3-font-family: var(--font-display);
   --b3-font-size: var(--type-b3);
   --b3-font-weight: 500;
   --b3-line-height: var(--lh-tight);
@@ -264,6 +264,12 @@
   --gray-tint-rgb: 0, 0, 0;
   /* Slightly stronger accent tint for legibility on light bg */
   --color-accent-soft: color-mix(in srgb, var(--color-accent) 14%, transparent);
+  /* Açık zeminde başlık / gövde kontrastı */
+  --ink: color-mix(in srgb, var(--gray-base) 2%, var(--gray-anti) 98%);
+  --ink-soft: color-mix(in srgb, var(--gray-anti) 62%, var(--gray-base));
+  --ink-faint: color-mix(in srgb, var(--gray-anti) 44%, var(--gray-base));
+  --b1-color: var(--ink-soft);
+  --b2-color: var(--ink-faint);
 }
 
 /* Auto = follow system preference when no manual override.
@@ -275,6 +281,11 @@
     --gray-anti: var(--black-fixed);
     --gray-tint-rgb: 0, 0, 0;
     --color-accent-soft: color-mix(in srgb, var(--color-accent) 14%, transparent);
+    --ink: color-mix(in srgb, var(--gray-base) 2%, var(--gray-anti) 98%);
+    --ink-soft: color-mix(in srgb, var(--gray-anti) 62%, var(--gray-base));
+    --ink-faint: color-mix(in srgb, var(--gray-anti) 44%, var(--gray-base));
+    --b1-color: var(--ink-soft);
+    --b2-color: var(--ink-faint);
   }
 }
 
@@ -312,6 +323,7 @@ body {
     line-height: var(--h1-line-height);
     letter-spacing: var(--h1-letter-spacing);
     text-transform: var(--h1-text-transform);
+    color: var(--ink);
   }
   .h2 {
     font-family: var(--h2-font-family);
@@ -320,6 +332,7 @@ body {
     line-height: var(--h2-line-height);
     letter-spacing: var(--h2-letter-spacing);
     text-transform: var(--h2-text-transform);
+    color: var(--ink);
   }
   .h3 {
     font-family: var(--h3-font-family);
@@ -328,6 +341,7 @@ body {
     line-height: var(--h3-line-height);
     letter-spacing: var(--h3-letter-spacing);
     text-transform: var(--h3-text-transform);
+    color: var(--ink);
   }
   .h4 {
     font-family: var(--h4-font-family);
@@ -336,6 +350,7 @@ body {
     line-height: var(--h4-line-height);
     letter-spacing: var(--h4-letter-spacing);
     text-transform: var(--h4-text-transform);
+    color: var(--ink);
   }
   .b1 {
     font-family: var(--b1-font-family);
@@ -673,15 +688,31 @@ body {
   opacity: 0;
   transition: opacity var(--nav-compact-dur) var(--nav-compact-ease);
   pointer-events: none;
-  background-color: var(--color-accent);
-  -webkit-mask-image: url("/assets/kruv-nav-emblem.svg");
-  mask-image: url("/assets/kruv-nav-emblem.svg");
+}
+
+.marketing-navbar-logo-emblem::before,
+.marketing-navbar-logo-emblem::after {
+  content: "";
+  position: absolute;
+  inset: 0;
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-position: left center;
   mask-position: left center;
   -webkit-mask-size: contain;
   mask-size: contain;
+}
+
+.marketing-navbar-logo-emblem::before {
+  background-color: var(--color-accent);
+  -webkit-mask-image: url("/assets/kruv-nav-emblem-shape.svg");
+  mask-image: url("/assets/kruv-nav-emblem-shape.svg");
+}
+
+.marketing-navbar-logo-emblem::after {
+  background-color: var(--white-fixed);
+  -webkit-mask-image: url("/assets/kruv-nav-emblem-mark.svg");
+  mask-image: url("/assets/kruv-nav-emblem-mark.svg");
 }
 
 .marketing-navbar.is-scrolled .marketing-navbar-logo-wordmark {
@@ -1255,6 +1286,17 @@ body {
   background: var(--surface);
   box-sizing: border-box;
 }
+.project-detail-hero > span {
+  inset: -2px !important;
+  width: calc(100% + 4px) !important;
+  height: calc(100% + 4px) !important;
+  max-width: none !important;
+  max-height: none !important;
+}
+.project-detail-hero img {
+  transform: scale(1.02);
+  transform-origin: center center;
+}
 .project-detail-cover .project-detail-toolbar {
   position: absolute;
   left: 0;
@@ -1310,9 +1352,26 @@ body {
   padding: 0;
   border: none;
   background: transparent;
+  isolation: isolate;
 }
 .project-detail-gallery__item img {
   display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+  transform-origin: center center;
+}
+.project-detail-next__media > span {
+  inset: -2px !important;
+  width: calc(100% + 4px) !important;
+  height: calc(100% + 4px) !important;
+  max-width: none !important;
+  max-height: none !important;
+}
+.project-detail-next__media img {
+  transform: scale(1.02);
+  transform-origin: center center;
 }
 
 /* Proje detay — footer öncesi sonraki proje (sira sırası) */
@@ -1405,7 +1464,7 @@ body {
   isolation: isolate;
 }
 
-/* `fill` görsel + aspect-ratio: alt kenarda 1px açılma / baseline boşluğu */
+/* `fill` görsel + border-radius: kenarda subpixel çizgi — 2px taşma */
 .pw-card-media-crop {
   position: absolute;
   inset: 0;
@@ -1415,9 +1474,12 @@ body {
 }
 
 .pw-card-media-crop > span {
-  display: block;
-  width: 100%;
-  height: 100%;
+  display: block !important;
+  inset: -2px !important;
+  width: calc(100% + 4px) !important;
+  height: calc(100% + 4px) !important;
+  max-width: none !important;
+  max-height: none !important;
   line-height: 0;
 }
 
@@ -1430,14 +1492,13 @@ body {
 }
 
 .pw-card-media-img {
-  transform: scale(1.03);
+  transform: scale(1.04);
   transform-origin: center center;
   transition: transform 1.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .pw-card:hover .pw-card-media-img {
-  /* Önceki ~1.07 zoom × taban büyütme */
-  transform: scale(1.1021);
+  transform: scale(1.09);
 }
 
 /* Works (/works): kartlar shell içinde %100 — yatay breakout yok */
@@ -1507,13 +1568,13 @@ body {
 }
 
 .pw-card-category {
-  font-family: var(--b3-font-family);
-  font-size: var(--b3-font-size);
-  font-weight: var(--b3-font-weight);
-  line-height: var(--b3-line-height);
-  letter-spacing: var(--b3-letter-spacing);
-  text-transform: var(--b3-text-transform);
-  color: var(--gray-400);
+  font-family: var(--b1-font-family);
+  font-size: var(--b1-font-size);
+  font-weight: var(--b1-font-weight);
+  line-height: var(--b1-line-height);
+  letter-spacing: var(--b1-letter-spacing);
+  text-transform: var(--b1-text-transform);
+  color: var(--b1-color);
   text-align: left;
   margin: 0;
   max-width: min(100%, calc(5 * var(--space-10)));

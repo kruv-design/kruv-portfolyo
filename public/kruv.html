@@ -23,7 +23,7 @@
 <link href="./kruv_site_files/css2" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -134,7 +134,7 @@
 
   /* ===== Foundation: fonts ===== */
   --font-display: 'Manrope', system-ui, sans-serif;
-  --font-body: 'Fraunces', Georgia, serif;
+  --font-body: var(--font-display);
   --font-mono: 'DM Mono', monospace;
 
   /* ===== Typography: type scale =====
@@ -178,7 +178,7 @@
   --h4-letter-spacing: var(--ls-xl);
   --h4-text-transform: lowercase;
 
-  --b1-font-family: var(--font-body);
+  --b1-font-family: var(--font-display);
   --b1-font-size: var(--type-b1);
   --b1-font-weight: 400;
   --b1-line-height: 1.66;
@@ -187,7 +187,7 @@
   --b1-text-transform: lowercase;
   --b1-color: var(--silver);
 
-  --b2-font-family: var(--font-body);
+  --b2-font-family: var(--font-display);
   --b2-font-size: var(--type-b2);
   --b2-font-weight: 300;
   --b2-line-height: var(--lh-body);
@@ -195,7 +195,7 @@
   --b2-text-transform: lowercase;
   --b2-color: var(--gray-400);
 
-  --b3-font-family: var(--font-body);
+  --b3-font-family: var(--font-display);
   --b3-font-size: var(--type-b3);
   --b3-font-weight: 500;
   --b3-line-height: var(--lh-tight);
@@ -326,8 +326,9 @@
   --ticker-pad-y: var(--space-5);
   --ticker-height: calc(var(--ticker-hand-slot-h) + (2 * var(--ticker-pad-y)));
   --ticker-item-pad-x: 48px;
-  /* “share or it didn't happen” bandı — süre uzadıkça daha yavaş (orijinal 48s) */
+  /* “share or it didn't happen” — süre JS ile px/s sabit hesaplanır (fallback) */
   --ideal-share-marquee-dur: 12.5s;
+  --ideal-share-marquee-px-per-sec: 110;
 
   /* Hero fan — özel portfolio imleci (daire); önceki 104px + %30 */
   --hero-portfolio-cursor-size: calc(104px * 1.3);
@@ -437,9 +438,9 @@
      Karışım çapaları --black-fixed/--white-fixed (tema bağımsız tonlar). */
   --kruv-scene-theme-t: 0;
   --scene-surface-light: color-mix(in oklab, var(--black-fixed) 3.5%, var(--white-fixed) 96.5%);
-  --scene-ink-primary-on-light: color-mix(in oklab, var(--black-fixed) 8%, var(--white-fixed) 92%);
-  --scene-ink-muted-on-light: color-mix(in oklab, var(--black-fixed) 42%, var(--white-fixed) 58%);
-  --scene-ink-caption-on-light: color-mix(in oklab, var(--black-fixed) 52%, var(--white-fixed) 48%);
+  --scene-ink-primary-on-light: color-mix(in oklab, var(--black-fixed) 90%, var(--white-fixed) 10%);
+  --scene-ink-muted-on-light: color-mix(in oklab, var(--black-fixed) 58%, var(--white-fixed) 42%);
+  --scene-ink-caption-on-light: color-mix(in oklab, var(--black-fixed) 48%, var(--white-fixed) 52%);
   /* Koyu zeminde kategori: opak gri — yarı saydam --gray-400 ile scroll-mix mor üretir */
   --scene-category-on-dark: color-mix(in oklab, var(--black-fixed) 50%, var(--white-fixed) 50%);
 
@@ -706,15 +707,31 @@ nav.navbar.is-scrolled {
   opacity: 0;
   transition: opacity var(--nav-compact-dur) var(--nav-compact-ease);
   pointer-events: none;
-  background-color: var(--color-accent);
-  -webkit-mask-image: url("assets/kruv-nav-emblem.svg");
-  mask-image: url("assets/kruv-nav-emblem.svg");
+}
+
+.nav-logo-emblem::before,
+.nav-logo-emblem::after {
+  content: "";
+  position: absolute;
+  inset: 0;
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-position: left center;
   mask-position: left center;
   -webkit-mask-size: contain;
   mask-size: contain;
+}
+
+.nav-logo-emblem::before {
+  background-color: var(--color-accent);
+  -webkit-mask-image: url("assets/kruv-nav-emblem-shape.svg");
+  mask-image: url("assets/kruv-nav-emblem-shape.svg");
+}
+
+.nav-logo-emblem::after {
+  background-color: var(--white-fixed);
+  -webkit-mask-image: url("assets/kruv-nav-emblem-mark.svg");
+  mask-image: url("assets/kruv-nav-emblem-mark.svg");
 }
 nav.navbar.is-scrolled .nav-logo-wordmark {
   opacity: 0;
@@ -3686,7 +3703,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
             </a>
           </li>
           <li>
-            <a class="site-footer-social-btn" href="#" target="_blank" rel="noopener noreferrer" data-footer-social="behance" aria-label="Behance — yeni sekmede aç">
+            <a class="site-footer-social-btn" href="https://www.behance.net/kruv" target="_blank" rel="noopener noreferrer" data-footer-social="behance" aria-label="Behance — yeni sekmede aç">
               <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="48" height="48" rx="12" fill="var(--purple)"/><text x="24" y="31" text-anchor="middle" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15.5" font-weight="800" fill="var(--black-fixed)">Bē</text></svg>
             </a>
           </li>
@@ -3701,7 +3718,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
             </a>
           </li>
           <li>
-            <a class="site-footer-social-btn" href="#" target="_blank" rel="noopener noreferrer" data-footer-social="pinterest" aria-label="Pinterest — yeni sekmede aç">
+            <a class="site-footer-social-btn" href="https://www.pinterest.com/kruvdesign/" target="_blank" rel="noopener noreferrer" data-footer-social="pinterest" aria-label="Pinterest — yeni sekmede aç">
               <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="48" height="48" rx="12" fill="var(--purple)"/><g transform="translate(12 12) scale(2)" fill="var(--black-fixed)"><path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.219-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.994-.283 1.194.599 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.746-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></g></svg>
             </a>
           </li>
@@ -4104,11 +4121,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
 .featured-work-media::before {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: -2px;
+  background-image: var(--featured-cover, none);
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  transform: scale(1);
+  transform: scale(1.02);
   transform-origin: center center;
   transition: transform 1.8s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform;
@@ -4127,11 +4145,11 @@ body:has(.featured-work-card:hover) .hero-bottom {
   transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1);
   z-index: 1;
 }
-.featured-work-media-1::before { background-image: url("assets/featured-1.png"); }
-.featured-work-media-2::before { background-image: url("assets/featured-2.png"); }
-.featured-work-media-3::before { background-image: url("assets/featured-3.png"); }
-.featured-work-media-4::before { background-image: url("assets/featured-4.png"); }
-.featured-work-media-5::before { background-image: url("assets/featured-5.png"); }
+.featured-work-media-1 { --featured-cover: url("assets/featured-1.png"); }
+.featured-work-media-2 { --featured-cover: url("assets/featured-2.png"); }
+.featured-work-media-3 { --featured-cover: url("assets/featured-3.png"); }
+.featured-work-media-4 { --featured-cover: url("assets/featured-4.png"); }
+.featured-work-media-5 { --featured-cover: url("assets/featured-5.png"); }
 
 @media (max-width: 768px) {
   .featured-work-media {
@@ -4141,7 +4159,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
 
 /* Hover edilen kart → görseli yavaş büyür */
 .featured-work-card:hover .featured-work-media::before {
-  transform: scale(1.07);
+  transform: scale(1.08);
 }
 /* Bir kart hover edildiğinde → diğer kartların görseli %15 siyah overlay alır */
 .featured-works:has(.featured-work-card:hover) .featured-work-card:not(:hover) .featured-work-media::after {
@@ -5949,11 +5967,11 @@ body:has(.featured-work-card:hover) .hero-bottom {
     var media = card.querySelector('.featured-work-media');
     var coverUrl = projectCoverUrl(p);
     if (media && coverUrl) {
-      media.style.backgroundImage = 'url("' + coverUrl + '")';
-      media.style.backgroundSize = 'cover';
-      media.style.backgroundPosition = 'center center';
-      media.style.backgroundRepeat = 'no-repeat';
-      media.style.backgroundColor = 'var(--color-surface)';
+      media.style.setProperty('--featured-cover', 'url("' + coverUrl + '")');
+      media.style.backgroundImage = '';
+      media.style.backgroundSize = '';
+      media.style.backgroundPosition = '';
+      media.style.backgroundRepeat = '';
     }
     var meta = card.querySelector('.featured-work-meta');
     var title = card.querySelector('.featured-work-title');
@@ -6276,6 +6294,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
     var seqA = sequences[0];
     var seqB = sequences[1];
     var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var pxPerSec = 110;
+    try {
+      var root = getComputedStyle(document.documentElement);
+      var token = parseFloat(root.getPropertyValue('--ideal-share-marquee-px-per-sec'));
+      if (token > 0) pxPerSec = token;
+    } catch (e) {}
 
     function firstPiece(seq) {
       return seq.querySelector('.ideal-share-marquee-piece');
@@ -6311,12 +6335,22 @@ body:has(.featured-work-card:hover) .hero-bottom {
       }
     }
 
-    syncMarquee();
+    /** Sabit px/s: track genişliği değişse de görsel hız aynı kalır */
+    function applyConstantSpeed() {
+      if (reducedMotion) return;
+      syncMarquee();
+      var loopWidth = track.scrollWidth / 2;
+      if (loopWidth < 1) return;
+      var dur = loopWidth / pxPerSec;
+      track.style.setProperty('--ideal-share-marquee-dur', dur + 's');
+    }
+
+    applyConstantSpeed();
 
     var resizeTimer;
     window.addEventListener('resize', function () {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(syncMarquee, 150);
+      resizeTimer = setTimeout(applyConstantSpeed, 150);
     });
   })();
 </script>

@@ -1,21 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { DM_Mono, Fraunces, Manrope } from "next/font/google";
+import { DM_Mono, Manrope } from "next/font/google";
 import { env } from "@/lib/env";
 import "./globals.css";
 
-const body = Fraunces({
-  subsets: ["latin", "latin-ext"],
-  variable: "--font-body",
-  display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
-  style: ["normal", "italic"],
-});
-
-const display = Manrope({
+const manrope = Manrope({
   subsets: ["latin", "latin-ext"],
   variable: "--font-display",
   display: "swap",
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
 const mono = DM_Mono({
@@ -72,7 +64,7 @@ export default function RootLayout({
   return (
     <html
       lang="tr"
-      className={`${body.variable} ${display.variable} ${mono.variable}`}
+      className={`${manrope.variable} ${mono.variable}`}
       suppressHydrationWarning
     >
       <head>

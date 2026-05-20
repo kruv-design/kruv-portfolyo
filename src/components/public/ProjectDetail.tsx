@@ -61,9 +61,11 @@ export function ProjectDetail({
 
       <div className="project-detail-body">
         <header className="project-detail-intro animate-fadeUp">
-          <h1 className="h1">{project.baslik}</h1>
+          <h1 className="h1" style={{ color: "var(--ink)" }}>
+            {project.baslik}
+          </h1>
           {project.aciklama?.trim() ? (
-            <p className="b1 mt-6" style={{ color: "var(--b1-color)" }}>
+            <p className="b1 mt-6">
               {project.aciklama.trim()}
             </p>
           ) : null}

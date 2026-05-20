@@ -11,10 +11,10 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   instagramUrl: "https://www.instagram.com/kruvsocial/",
   xUrl: "",
   linkedinUrl: "https://www.linkedin.com/company/kruv/?viewAsMember=true",
-  behanceUrl: "",
+  behanceUrl: "https://www.behance.net/kruv",
   dribbbleUrl: "https://dribbble.com/Kruvcom",
   youtubeUrl: "https://www.youtube.com/@KruvDesignAgency",
-  pinterestUrl: "",
+  pinterestUrl: "https://www.pinterest.com/kruvdesign/",
   githubUrl: "",
 };
 
