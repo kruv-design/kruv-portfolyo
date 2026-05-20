@@ -63,6 +63,8 @@ export default function RootLayout({
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
+        <link rel="stylesheet" href="/site-nav.css" />
+        <link rel="stylesheet" href="/site-nav-shared.css" />
       </head>
       <body className="min-h-screen">{children}</body>
     </html>

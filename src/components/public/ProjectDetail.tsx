@@ -48,9 +48,6 @@ export function ProjectDetail({
           )}
         </div>
         <div className="project-detail-toolbar">
-          <Link href="/works" className="project-detail-back">
-            ← Tüm projeler
-          </Link>
           <div className="project-detail-nav-arrows">
             <NavArrow slug={prevSlug} label="←" />
             <NavArrow slug={nextSlug} label="→" />
@@ -145,9 +142,9 @@ export function ProjectDetail({
             </div>
           </div>
         )}
-      </div>
 
-      {nextProject ? <ProjectNextTeaser project={nextProject} /> : null}
+        {nextProject ? <ProjectNextTeaser project={nextProject} /> : null}
+      </div>
 
       <Lightbox src={lightbox} onClose={() => setLightbox(null)} />
     </>

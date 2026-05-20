@@ -38,71 +38,31 @@
 </head>
 <body>
 
-<div id="nav-sentinel" aria-hidden="true"></div>
+<div id="nav-sentinel" class="marketing-nav-sentinel" aria-hidden="true"></div>
 
-<nav id="site-nav" class="navbar" lang="en" aria-label="Primary">
-  <div class="nav-inner">
-    <div class="nav-cols">
-      <div class="nav-col nav-col--brand">
-        <a class="nav-logo brand" href="/" aria-label="Ana sayfa — kruv">
-          <span class="nav-logo-stack">
-            <span class="nav-logo-wordmark" aria-hidden="true"></span>
-            <span class="nav-logo-emblem" aria-hidden="true"></span>
+<nav id="site-nav" class="marketing-navbar" lang="en" aria-label="Primary">
+  <div class="marketing-navbar-inner">
+    <div class="marketing-navbar-cols">
+      <div class="marketing-navbar-col marketing-navbar-col--brand">
+        <a class="marketing-navbar-logo brand" href="/" aria-label="Ana sayfa — kruv">
+          <span class="marketing-navbar-logo-stack">
+            <span class="marketing-navbar-logo-wordmark" aria-hidden="true"></span>
+            <span class="marketing-navbar-logo-emblem" aria-hidden="true"></span>
           </span>
         </a>
       </div>
-      <div class="nav-col nav-col--links">
-        <div class="nav-menu-drawer" id="nav-menu-drawer">
-          <div class="nav-mobile-overlay__top">
-            <button type="button" class="nav-mobile-close" id="nav-menu-close" aria-label="Menüyü kapat">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-                <path d="M18 6 6 18"></path>
-                <path d="m6 6 12 12"></path>
-              </svg>
-            </button>
-          </div>
-          <div class="nav-menu-body">
-            <button
-              type="button"
-              class="nav-theme-toggle nav-theme-toggle--drawer"
-              data-kruv-theme-toggle
-              aria-label="Aydınlık moda geç"
-              aria-pressed="false"
-              title="Tema değiştir"
-            >
-              <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-              </svg>
-              <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="4"></circle>
-                <path d="M12 2v2"></path>
-                <path d="M12 20v2"></path>
-                <path d="m4.93 4.93 1.41 1.41"></path>
-                <path d="m17.66 17.66 1.41 1.41"></path>
-                <path d="M2 12h2"></path>
-                <path d="M20 12h2"></path>
-                <path d="m6.34 17.66-1.41 1.41"></path>
-                <path d="m19.07 4.93-1.41 1.41"></path>
-              </svg>
-            </button>
-            <form class="nav-mobile-search" id="nav-mobile-search-form" role="search">
-              <label for="nav-mobile-q" class="site-footer-sr-only">Search</label>
-              <input id="nav-mobile-q" name="q" type="search" placeholder="Search" autocomplete="off" enterkeyhint="search">
-            </form>
-            <ul class="nav-links">
-              <li><a class="navbar-item1" href="/works">Projects</a></li>
-              <li><a class="navbar-item3" href="/contact">Contact</a></li>
-            </ul>
-          </div>
-        </div>
+      <div class="marketing-navbar-col marketing-navbar-col--links">
+        <ul class="marketing-navbar-links">
+          <li><a class="marketing-navbar-item" href="/works">Projects</a></li>
+          <li><a class="marketing-navbar-item" href="/contact">Contact</a></li>
+        </ul>
       </div>
-      <div class="nav-col nav-col--cta">
-        <div class="nav-actions">
-          <a class="nav-cta" href="/contact">Start a project</a>
+      <div class="marketing-navbar-col marketing-navbar-col--cta">
+        <div class="marketing-navbar-actions">
           <button
             type="button"
             id="theme-toggle"
-            class="nav-theme-toggle nav-theme-toggle--dock"
+            class="marketing-navbar-theme-toggle marketing-navbar-theme-toggle--dock nav-theme-toggle"
             data-kruv-theme-toggle
             aria-label="Aydınlık moda geç"
             aria-pressed="false"
@@ -123,18 +83,20 @@
               <path d="m19.07 4.93-1.41 1.41"></path>
             </svg>
           </button>
+          <a class="marketing-navbar-cta" href="/contact">Start a project</a>
           <button
             type="button"
             id="nav-menu-toggle"
-            class="nav-menu-toggle"
+            class="marketing-navbar-menu-btn"
             aria-expanded="false"
-            aria-controls="nav-menu-drawer"
-            aria-label="Menüyü aç"
+            aria-controls="site-nav-mobile-menu"
+            aria-haspopup="dialog"
+            aria-label="Open menu"
           >
-            <span class="nav-menu-toggle__inner" aria-hidden="true">
-              <span class="nav-menu-toggle__bar"></span>
-              <span class="nav-menu-toggle__bar"></span>
-              <span class="nav-menu-toggle__bar"></span>
+            <span class="marketing-navbar-menu-btn__bars site-nav-menu-btn__bars" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
             </span>
           </button>
         </div>
@@ -142,6 +104,45 @@
     </div>
   </div>
 </nav>
+
+<div id="site-nav-mobile-menu" class="marketing-nav-mobile-overlay site-nav-mobile-overlay" role="dialog" aria-modal="true" aria-labelledby="site-nav-mobile-menu-title" hidden>
+  <h2 id="site-nav-mobile-menu-title" class="site-footer-sr-only">Menu</h2>
+  <div class="marketing-nav-mobile-body site-nav-mobile-body">
+    <button
+      type="button"
+      class="marketing-nav-mobile-theme-toggle site-nav-mobile-theme-toggle nav-theme-toggle"
+      data-kruv-theme-toggle
+      aria-label="Aydınlık moda geç"
+      aria-pressed="false"
+      title="Tema değiştir"
+    >
+      <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+      <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v2"></path>
+        <path d="M12 20v2"></path>
+        <path d="m4.93 4.93 1.41 1.41"></path>
+        <path d="m17.66 17.66 1.41 1.41"></path>
+        <path d="M2 12h2"></path>
+        <path d="M20 12h2"></path>
+        <path d="m6.34 17.66-1.41 1.41"></path>
+        <path d="m19.07 4.93-1.41 1.41"></path>
+      </svg>
+    </button>
+    <form class="nav-mobile-search marketing-nav-mobile-search" id="nav-mobile-search-form" role="search">
+      <label for="nav-mobile-q" class="site-footer-sr-only">Search</label>
+      <input id="nav-mobile-q" name="q" type="search" placeholder="Search" autocomplete="off" enterkeyhint="search">
+    </form>
+    <nav aria-label="Mobile">
+      <ul class="site-nav-mobile-links marketing-nav-mobile-links">
+        <li><a class="navbar-item1" href="/works">Projects</a></li>
+        <li><a class="navbar-item3" href="/contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</div>
 
 <div id="lanShareHint" class="lan-share-hint" role="region" aria-label="Yerel ağda mobil adres">
   <div class="lan-share-hint__main">
@@ -1447,17 +1448,29 @@
   var sentinel = document.getElementById('nav-sentinel');
   if (!nav || !sentinel) return;
 
-  function applySentinelEntry(entry) {
-    if (!entry || entry.target !== sentinel) return;
-    /* threshold:0 — viewport ile en az 1px kesişme yoksa sayfa kaymış sayılır */
-    nav.classList.toggle('is-scrolled', !entry.isIntersecting);
+  var isScrolled = false;
+  var SCROLL_ON = 32;
+  var SCROLL_OFF = 8;
+
+  function setScrolled(next) {
+    if (next === isScrolled) return;
+    isScrolled = next;
+    nav.classList.toggle('is-scrolled', next);
   }
 
-  function syncScrolledFromSentinelRect() {
-    var r = sentinel.getBoundingClientRect();
-    var vh = window.innerHeight || document.documentElement.clientHeight;
-    var inView = r.bottom > 0 && r.top < vh;
-    nav.classList.toggle('is-scrolled', !inView);
+  function applySentinelEntry(entry) {
+    if (!entry || entry.target !== sentinel) return;
+    if (!entry.isIntersecting) {
+      setScrolled(true);
+    } else if ((window.scrollY || 0) <= SCROLL_OFF) {
+      setScrolled(false);
+    }
+  }
+
+  function syncScrolledFromScroll() {
+    var y = window.scrollY || 0;
+    if (!isScrolled && y > SCROLL_ON) setScrolled(true);
+    else if (isScrolled && y <= SCROLL_OFF) setScrolled(false);
   }
 
   if ('IntersectionObserver' in window) {
@@ -1471,13 +1484,18 @@
     for (var j = 0; j < pending.length; j++) {
       applySentinelEntry(pending[j]);
     }
-    requestAnimationFrame(syncScrolledFromSentinelRect);
+    syncScrolledFromScroll();
+    var scrollRaf = 0;
+    window.addEventListener('scroll', function () {
+      if (scrollRaf) return;
+      scrollRaf = requestAnimationFrame(function () {
+        scrollRaf = 0;
+        syncScrolledFromScroll();
+      });
+    }, { passive: true });
     return;
   }
 
-  function syncScrolledFromScroll() {
-    nav.classList.toggle('is-scrolled', (window.scrollY || 0) > 0);
-  }
   syncScrolledFromScroll();
   window.addEventListener('scroll', syncScrolledFromScroll, { passive: true });
 })();
@@ -1487,28 +1505,19 @@
 (function () {
   var nav = document.getElementById('site-nav');
   var toggle = document.getElementById('nav-menu-toggle');
-  var drawer = document.getElementById('nav-menu-drawer');
-  var closeBtn = document.getElementById('nav-menu-close');
+  var panel = document.getElementById('site-nav-mobile-menu');
   var searchForm = document.getElementById('nav-mobile-search-form');
-  if (!nav || !toggle || !drawer) return;
+  if (!nav || !toggle || !panel) return;
 
   var mq = window.matchMedia('(max-width: 768px)');
-
-  function applyInert() {
-    if (mq.matches) {
-      if (nav.classList.contains('is-menu-open')) drawer.removeAttribute('inert');
-      else drawer.setAttribute('inert', '');
-    } else {
-      drawer.removeAttribute('inert');
-    }
-  }
 
   function setOpen(open) {
     if (!mq.matches) open = false;
     nav.classList.toggle('is-menu-open', !!open);
     toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    toggle.setAttribute('aria-label', open ? 'Menüyü kapat' : 'Menüyü aç');
-    applyInert();
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    if (open) panel.removeAttribute('hidden');
+    else panel.setAttribute('hidden', '');
     document.body.style.overflow = open && mq.matches ? 'hidden' : '';
   }
 
@@ -1523,12 +1532,6 @@
 
   toggle.addEventListener('click', toggleMenu);
 
-  if (closeBtn) {
-    closeBtn.addEventListener('click', function () {
-      if (mq.matches) closeMenu();
-    });
-  }
-
   if (searchForm) {
     searchForm.addEventListener('submit', function (ev) {
       if (!mq.matches) return;
@@ -1540,7 +1543,7 @@
     });
   }
 
-  drawer.querySelectorAll('.nav-links a').forEach(function (a) {
+  panel.querySelectorAll('a[href]').forEach(function (a) {
     a.addEventListener('click', function () {
       if (mq.matches) closeMenu();
     });
@@ -1552,12 +1555,9 @@
 
   function onMqChange() {
     if (!mq.matches) closeMenu();
-    applyInert();
   }
   if (mq.addEventListener) mq.addEventListener('change', onMqChange);
   else if (mq.addListener) mq.addListener(onMqChange);
-
-  applyInert();
 })();
 </script>
 

@@ -5,35 +5,23 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useId, useState } from "react";
 import type { SiteSettings } from "@/types";
 import { ThemeToggle } from "./ThemeToggle";
+import {
+  SiteNavMenuButton,
+  SiteNavMobileOverlay,
+  SITE_NAV_MOBILE_MENU_ID,
+  SITE_NAV_SENTINEL_ID,
+  useSiteNavScroll,
+} from "./site-nav";
 
 /**
- * kruv.html `nav.navbar` ile aynı yapı — Work sayfası ve homepage hissi.
+ * Ortak site header — anasayfa (kruv.html) ile aynı markup + sınıflar.
  */
 export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
   const pathname = usePathname();
   const router = useRouter();
   const menuTitleId = useId();
-  const [scrolled, setScrolled] = useState(false);
+  const scrolled = useSiteNavScroll(SITE_NAV_SENTINEL_ID);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const sentinel = document.getElementById("marketing-nav-sentinel");
-    if (!sentinel || !("IntersectionObserver" in window)) {
-      setScrolled(window.scrollY > 0);
-      const onScroll = () => setScrolled(window.scrollY > 0);
-      window.addEventListener("scroll", onScroll, { passive: true });
-      return () => window.removeEventListener("scroll", onScroll);
-    }
-    const obs = new IntersectionObserver(
-      (entries) => {
-        const e = entries[0];
-        if (e) setScrolled(!e.isIntersecting);
-      },
-      { threshold: 0, rootMargin: "0px" },
-    );
-    obs.observe(sentinel);
-    return () => obs.disconnect();
-  }, []);
 
   useEffect(() => {
     setMobileMenuOpen(false);
@@ -55,6 +43,10 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
 
   const brandLabel = (settings.siteAdi || "kruv.").replace(/\.$/, "").toLowerCase() || "kruv";
 
+  const isProjectsActive =
+    pathname === "/works" || (pathname?.startsWith("/projects/") ?? false);
+  const isContactActive = pathname === "/contact";
+
   function closeMobileMenu() {
     setMobileMenuOpen(false);
   }
@@ -70,8 +62,9 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
 
   return (
     <>
-      <div id="marketing-nav-sentinel" className="marketing-nav-sentinel" aria-hidden="true" />
+      <div id={SITE_NAV_SENTINEL_ID} className="marketing-nav-sentinel" aria-hidden="true" />
       <nav
+        id="site-nav"
         className={`marketing-navbar${scrolled ? " is-scrolled" : ""}${mobileMenuOpen ? " is-menu-open" : ""}`}
         aria-label="Primary"
         lang="en"
@@ -92,20 +85,16 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
                   <Link
                     href="/works"
                     className="marketing-navbar-item"
-                    aria-current={
-                      pathname === "/works" || pathname?.startsWith("/projects/")
-                        ? "page"
-                        : undefined
-                    }
+                    aria-current={isProjectsActive ? "page" : undefined}
                   >
-                    Work
+                    Projects
                   </Link>
                 </li>
                 <li>
                   <Link
                     href="/contact"
                     className="marketing-navbar-item"
-                    aria-current={pathname === "/contact" ? "page" : undefined}
+                    aria-current={isContactActive ? "page" : undefined}
                   >
                     Contact
                   </Link>
@@ -118,74 +107,53 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
                 <Link href="/contact" className="marketing-navbar-cta">
                   Start a project
                 </Link>
-                <button
-                  type="button"
-                  className="marketing-navbar-menu-btn"
-                  aria-expanded={mobileMenuOpen}
-                  aria-controls="marketing-mobile-menu"
-                  aria-haspopup="dialog"
-                  aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+                <SiteNavMenuButton
+                  open={mobileMenuOpen}
+                  controlsId={SITE_NAV_MOBILE_MENU_ID}
                   onClick={() => setMobileMenuOpen((open) => !open)}
-                >
-                  <span className="sr-only">{mobileMenuOpen ? "Close menu" : "Open menu"}</span>
-                  <span className="marketing-navbar-menu-btn__bars" aria-hidden="true">
-                    <span />
-                    <span />
-                    <span />
-                  </span>
-                </button>
+                />
               </div>
             </div>
           </div>
         </div>
       </nav>
 
-      {mobileMenuOpen ? (
-        <div
-          id="marketing-mobile-menu"
-          className="marketing-nav-mobile-overlay"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby={menuTitleId}
-        >
-          <h2 id={menuTitleId} className="sr-only">
-            Menu
-          </h2>
+      <SiteNavMobileOverlay
+        id={SITE_NAV_MOBILE_MENU_ID}
+        titleId={menuTitleId}
+        open={mobileMenuOpen}
+      >
+        <ThemeToggle className="marketing-nav-mobile-theme-toggle site-nav-mobile-theme-toggle" />
 
-          <div className="marketing-nav-mobile-body">
-            <ThemeToggle className="marketing-nav-mobile-theme-toggle" />
+        <form className="marketing-nav-mobile-search" role="search" onSubmit={onMobileSearch}>
+          <label htmlFor="marketing-nav-mobile-q" className="sr-only">
+            Search
+          </label>
+          <input
+            id="marketing-nav-mobile-q"
+            name="q"
+            type="search"
+            placeholder="Search"
+            autoComplete="off"
+            enterKeyHint="search"
+          />
+        </form>
 
-            <form className="marketing-nav-mobile-search" role="search" onSubmit={onMobileSearch}>
-            <label htmlFor="marketing-nav-mobile-q" className="sr-only">
-              Search
-            </label>
-            <input
-              id="marketing-nav-mobile-q"
-              name="q"
-              type="search"
-              placeholder="Search"
-              autoComplete="off"
-              enterKeyHint="search"
-            />
-            </form>
-
-            <nav aria-label="Mobile">
-              <ul className="marketing-nav-mobile-links">
-              <li>
-                <Link href="/works" onClick={closeMobileMenu}>
-                  Projects
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" onClick={closeMobileMenu}>
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </nav>
-          </div>
-        </div>
-      ) : null}
+        <nav aria-label="Mobile">
+          <ul className="marketing-nav-mobile-links site-nav-mobile-links">
+            <li>
+              <Link href="/works" onClick={closeMobileMenu}>
+                Projects
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact" onClick={closeMobileMenu}>
+                Contact
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      </SiteNavMobileOverlay>
     </>
   );
 }

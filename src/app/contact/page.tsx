@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { DEFAULT_SITE_SETTINGS, getSettings } from "@/lib/queries";
 import { MarketingSiteNav } from "@/components/public/MarketingSiteNav";
-import { MarketingHero } from "@/components/public/MarketingHero";
 import { MarketingPageShell } from "@/components/public/MarketingPageShell";
 import { ContactForm } from "@/components/public/ContactForm";
 import { SiteFooter } from "@/components/public/SiteFooter";
@@ -19,7 +18,6 @@ export default async function ContactPage() {
   return (
     <MarketingPageShell className="flex min-h-screen flex-col" style={{ background: "var(--bg)" }}>
       <MarketingSiteNav settings={settings} />
-      <MarketingHero ctaHref="/works" scrollHref="/works" />
       <main className="contact-page-main">
         <ContactForm />
       </main>

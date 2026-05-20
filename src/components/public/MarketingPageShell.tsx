@@ -1,7 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
 import { MarketingKruvStyles } from "./MarketingKruvStyles";
 
-/** Works / Contact — nav + ortak hero + içerik; `kruv.css` tek kaynak. */
+/** Works / Contact — anasayfa ile aynı nav + `kruv.css`; hero yok. */
 export function MarketingPageShell({
   children,
   className,

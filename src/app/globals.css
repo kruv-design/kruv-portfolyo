@@ -120,7 +120,9 @@
   --ls-2xs: 0.01em;
   --ls-display: -0.02em;
   --card-meta-title-ls: 0.03em;
-  --card-meta-tag-ls: 0.02em;
+  /* Kart kategori: b3 takibi (sıkı 0.02em override kaldırıldı) */
+  --card-meta-tag-ls: var(--b3-letter-spacing);
+  --card-meta-tag-size-mobile: calc(var(--type-b3) + 2pt);
   --ls-lg: -0.015em;
   --ls-xl: -0.01em;
   --ls-2xl: 0.14em;
@@ -249,7 +251,15 @@
   /* Mobil: daha küçük wordmark (satır yüksekliği --nav-bar-ctrl-h ile hâlâ hizalı) */
   --nav-logo-slot-w-mobile: 48px;
   --nav-logo-slot-h: var(--nav-bar-ctrl-h);
+  --nav-pill-pad-x: clamp(16px, 4vw, 22px);
+  --nav-pill-inset: var(--nav-pill-pad-x);
   --works-body-pad-top: calc(var(--space-6) + var(--nav-logo-slot-h) + var(--space-6));
+  /* Proje detay kapak: fixed nav + pill inset altında başlar */
+  --project-detail-cover-offset: calc(
+    env(safe-area-inset-top, 0px) + var(--works-body-pad-top) + 2 * var(--nav-pill-inset)
+  );
+  /* Kapak / galeri / featured — masaüstü ile aynı en-boy (mobilde svh yok) */
+  --project-media-aspect-ratio: 16 / 9;
   /* Proje detay galeri: viewport’a ufak inset */
   --project-gallery-inset-x: var(--container-gutter);
   --project-gallery-inset-y: var(--space-4);
@@ -536,566 +546,7 @@ body {
   }
 }
 
-/* ── Marketing navbar (kruv.html nav.navbar) ── */
-.marketing-nav-sentinel {
-  height: 1px;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  pointer-events: none;
-  overflow: hidden;
-  opacity: 0;
-}
-
-.marketing-navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  padding: var(--space-6) var(--container-gutter);
-  isolation: isolate;
-  transition:
-    filter var(--dur-slow) var(--ease),
-    opacity var(--dur-slow) var(--ease),
-    padding var(--nav-compact-dur) var(--nav-compact-ease);
-}
-
-.marketing-navbar-inner {
-  position: relative;
-  width: 100%;
-  max-width: 100%;
-  margin-inline: auto;
-}
-
-.marketing-navbar-inner > * {
-  position: relative;
-  z-index: 1;
-}
-
-.marketing-navbar-inner::before {
-  content: "";
-  position: absolute;
-  left: calc(var(--space-3) * -1);
-  right: calc(var(--space-3) * -1);
-  top: calc(var(--space-2) * -1);
-  bottom: calc(var(--space-2) * -1);
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.92;
-  transform: translateY(0) scale(1);
-  transition:
-    opacity var(--nav-compact-dur) var(--nav-compact-ease),
-    transform var(--nav-compact-dur) var(--nav-compact-ease);
-  background: transparent;
-  backdrop-filter: blur(22px) saturate(1.2);
-  -webkit-backdrop-filter: blur(22px) saturate(1.2);
-  border: none;
-  border-radius: 999px;
-  box-shadow: none;
-}
-
-.marketing-navbar.is-scrolled .marketing-navbar-inner {
-  width: fit-content;
-  max-width: 100%;
-}
-
-.marketing-navbar.is-scrolled .marketing-navbar-inner::before {
-  opacity: 1;
-}
-
-.marketing-navbar.is-scrolled {
-  padding: var(--space-3) var(--container-gutter);
-}
-
-.marketing-navbar-cols {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0;
-  width: 100%;
-  max-width: 100%;
-  row-gap: var(--space-3);
-  transition: gap var(--nav-compact-dur) var(--nav-compact-ease);
-}
-
-.marketing-navbar.is-scrolled .marketing-navbar-cols {
-  justify-content: center;
-  gap: var(--nav-col-gap-scrolled);
-  width: max-content;
-  max-width: 100%;
-}
-
-.marketing-navbar-col {
-  display: flex;
-  align-items: center;
-  flex-wrap: nowrap;
-  flex-shrink: 0;
-  min-width: 0;
-}
-
-.marketing-navbar-col--brand {
-  justify-content: flex-start;
-}
-
-.marketing-navbar-col--links {
-  justify-content: center;
-  min-width: 0;
-}
-
-.marketing-navbar-col--cta {
-  justify-content: flex-end;
-}
-
-.marketing-navbar-logo {
-  display: inline-flex;
-  align-items: center;
-  text-decoration: none;
-  position: relative;
-  flex: 0 0 auto;
-  width: var(--nav-logo-slot-w);
-  height: var(--nav-logo-slot-h);
-}
-
-.marketing-navbar-logo-stack {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: var(--nav-logo-slot-w);
-  height: var(--nav-logo-slot-h);
-}
-
-/* Üstte wordmark, scroll’da bayrak amblem */
-.marketing-navbar-logo-wordmark {
-  position: absolute;
-  inset: 0;
-  display: block;
-  opacity: 1;
-  transition: opacity var(--nav-compact-dur) var(--nav-compact-ease);
-  background-color: var(--color-accent);
-  -webkit-mask-image: url("/assets/kruv-wordmark.svg");
-  mask-image: url("/assets/kruv-wordmark.svg");
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: left center;
-  mask-position: left center;
-  -webkit-mask-size: contain;
-  mask-size: contain;
-}
-
-.marketing-navbar-logo-emblem {
-  position: absolute;
-  inset: 0;
-  display: block;
-  opacity: 0;
-  transition: opacity var(--nav-compact-dur) var(--nav-compact-ease);
-  pointer-events: none;
-}
-
-.marketing-navbar-logo-emblem::before,
-.marketing-navbar-logo-emblem::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: left center;
-  mask-position: left center;
-  -webkit-mask-size: contain;
-  mask-size: contain;
-}
-
-.marketing-navbar-logo-emblem::before {
-  background-color: var(--color-accent);
-  -webkit-mask-image: url("/assets/kruv-nav-emblem-shape.svg");
-  mask-image: url("/assets/kruv-nav-emblem-shape.svg");
-}
-
-.marketing-navbar-logo-emblem::after {
-  background-color: var(--white-fixed);
-  -webkit-mask-image: url("/assets/kruv-nav-emblem-mark.svg");
-  mask-image: url("/assets/kruv-nav-emblem-mark.svg");
-}
-
-.marketing-navbar.is-scrolled .marketing-navbar-logo-wordmark {
-  opacity: 0;
-}
-
-.marketing-navbar.is-scrolled .marketing-navbar-logo-emblem {
-  opacity: 1;
-}
-
-.marketing-navbar-links {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: nowrap;
-  gap: var(--space-9);
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  max-width: 100%;
-  transition: gap var(--nav-compact-dur) var(--nav-compact-ease);
-}
-
-.marketing-navbar.is-scrolled .marketing-navbar-links {
-  gap: var(--space-6);
-}
-
-.marketing-navbar-item {
-  font-family: var(--font-display), system-ui, sans-serif;
-  font-size: var(--b1-font-size);
-  font-weight: var(--b1-font-weight);
-  line-height: var(--b1-line-height);
-  letter-spacing: var(--b1-letter-spacing);
-  text-transform: var(--b1-text-transform);
-  color: var(--ink-soft);
-  text-decoration: none;
-  transition: color var(--dur-fast) var(--ease);
-}
-
-.marketing-navbar-item:hover {
-  color: var(--ink);
-}
-
-.marketing-navbar-actions {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  gap: var(--space-3);
-}
-
-/* Theme toggle — navbar satırında CTA ile aynı kutu yüksekliği */
-.marketing-navbar-theme-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  box-sizing: border-box;
-  width: var(--nav-bar-ctrl-h);
-  height: var(--nav-bar-ctrl-h);
-  padding: 0;
-  border-radius: var(--btn-radius);
-}
-
-.marketing-navbar-theme-toggle svg {
-  width: 16px;
-  height: 16px;
-}
-
-.marketing-navbar-cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  box-sizing: border-box;
-  height: var(--nav-bar-ctrl-h);
-  min-height: var(--nav-bar-ctrl-h);
-  max-height: var(--nav-bar-ctrl-h);
-  gap: var(--btn-gap);
-  font-family: var(--btn-font-family), system-ui, sans-serif;
-  font-size: var(--btn-font-size);
-  font-weight: var(--btn-font-weight);
-  line-height: 1;
-  letter-spacing: var(--ls-2xs);
-  text-transform: lowercase;
-  padding: 0 var(--btn-pad-x);
-  background: transparent;
-  border: var(--btn-border-width) solid var(--accent);
-  color: var(--accent);
-  text-decoration: none;
-  border-radius: var(--btn-radius);
-  transition:
-    background var(--dur-fast) var(--ease),
-    color var(--dur-fast) var(--ease),
-    border-color var(--dur-fast) var(--ease);
-}
-
-.marketing-navbar-cta:hover {
-  background: var(--accent);
-  color: var(--white-fixed);
-  border-color: var(--accent);
-}
-
-/* Mobil hamburger — masaüstünde gizli */
-.marketing-navbar-menu-btn {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  box-sizing: border-box;
-  width: var(--nav-bar-ctrl-h);
-  height: var(--nav-bar-ctrl-h);
-  padding: 0;
-  margin: 0;
-  border: 1px solid var(--border);
-  border-radius: var(--btn-radius);
-  background: transparent;
-  color: var(--ink-soft);
-  cursor: pointer;
-  transition:
-    color var(--dur-fast) var(--ease),
-    border-color var(--dur-fast) var(--ease),
-    background var(--dur-fast) var(--ease);
-}
-
-.marketing-navbar-menu-btn:hover {
-  color: var(--ink);
-  border-color: var(--border-md);
-}
-
-.marketing-navbar-menu-btn:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-.marketing-navbar-menu-btn__bars {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  width: 18px;
-}
-
-.marketing-navbar-menu-btn__bars span {
-  display: block;
-  height: 2px;
-  width: 100%;
-  border-radius: 1px;
-  background: currentColor;
-  transition: transform var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease);
-}
-
-.marketing-navbar.is-menu-open .marketing-navbar-menu-btn__bars span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-
-.marketing-navbar.is-menu-open .marketing-navbar-menu-btn__bars span:nth-child(2) {
-  opacity: 0;
-}
-
-.marketing-navbar.is-menu-open .marketing-navbar-menu-btn__bars span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
-
-/* Tam ekran mobil menü — light/dark temaya uyumlu panel */
-.marketing-nav-mobile-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 200;
-  display: flex;
-  flex-direction: column;
-  padding: var(--space-6) var(--container-gutter);
-  padding-top: calc(
-    env(safe-area-inset-top, 0px) + var(--space-6) + var(--nav-bar-ctrl-h) + var(--space-8)
-  );
-  padding-bottom: calc(var(--space-6) + env(safe-area-inset-bottom, 0px));
-  background: var(--bg);
-  color: var(--ink);
-  overflow: auto;
-  animation: marketing-nav-overlay-in 0.22s var(--ease) both;
-}
-
-@keyframes marketing-nav-overlay-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* Kapatma: üst şeritteki menü düğmesi → X; panelde ayrı çarpı yok */
-.marketing-nav-mobile-overlay__top {
-  display: none;
-}
-
-.marketing-nav-mobile-close {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--space-10);
-  height: var(--space-10);
-  padding: 0;
-  border: none;
-  border-radius: var(--btn-radius);
-  background: transparent;
-  color: var(--ink);
-  cursor: pointer;
-  transition: background var(--dur-fast) var(--ease);
-}
-
-.marketing-nav-mobile-close:hover {
-  background: color-mix(in srgb, var(--ink) 8%, transparent);
-}
-
-.marketing-nav-mobile-close:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-.marketing-nav-mobile-search {
-  margin-bottom: var(--space-10);
-}
-
-.marketing-nav-mobile-search input {
-  width: 100%;
-  box-sizing: border-box;
-  padding: var(--space-3) 0;
-  border: none;
-  border-bottom: 1px solid var(--border-md);
-  border-radius: 0;
-  background: transparent;
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-size: var(--type-b1);
-  font-weight: 500;
-}
-
-.marketing-nav-mobile-search input::placeholder {
-  color: var(--ink-faint);
-}
-
-.marketing-nav-mobile-search input:focus {
-  outline: none;
-  border-bottom-color: var(--accent);
-}
-
-.marketing-nav-mobile-links {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-6);
-}
-
-.marketing-nav-mobile-links a {
-  font-family: var(--font-display), system-ui, sans-serif;
-  font-size: clamp(1.5rem, 6vw, 2rem);
-  font-weight: var(--h3-font-weight);
-  letter-spacing: var(--ls-xl);
-  text-transform: lowercase;
-  color: var(--ink);
-  text-decoration: none;
-  transition: color var(--dur-fast) var(--ease);
-}
-
-.marketing-nav-mobile-links a:hover,
-.marketing-nav-mobile-links a:focus-visible {
-  color: var(--accent);
-}
-
-.marketing-nav-mobile-body {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0;
-  flex: 1;
-  min-height: 0;
-}
-
-.marketing-nav-mobile-theme-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  box-sizing: border-box;
-  width: var(--nav-bar-ctrl-h);
-  height: var(--nav-bar-ctrl-h);
-  margin-bottom: var(--space-8);
-  padding: 0;
-  border-radius: var(--btn-radius);
-  color: var(--ink-faint) !important;
-  border-color: var(--border-md) !important;
-}
-
-.marketing-nav-mobile-theme-toggle svg {
-  width: 16px;
-  height: 16px;
-}
-
-@media (max-width: 699px) {
-  .marketing-navbar-theme-toggle--dock {
-    display: none !important;
-  }
-
-  .marketing-navbar-actions {
-    gap: var(--space-3);
-  }
-
-  .marketing-navbar-col--links {
-    display: none;
-  }
-
-  .marketing-navbar-menu-btn {
-    display: inline-flex;
-  }
-
-  .marketing-navbar.is-menu-open {
-    z-index: 201;
-  }
-
-  .marketing-navbar.is-menu-open .marketing-navbar-menu-btn {
-    position: relative;
-    z-index: 1;
-    color: var(--ink);
-    border-color: var(--border-md);
-  }
-
-  .marketing-navbar-logo,
-  .marketing-navbar-logo-stack {
-    width: var(--nav-logo-slot-w-mobile);
-  }
-
-  .marketing-navbar-logo {
-    overflow: hidden;
-  }
-
-  /* Pill içi nefes: logo / CTA / menü çerçeveye yapışmasın */
-  .marketing-navbar-inner {
-    padding-inline: var(--space-4);
-    padding-block: var(--space-3);
-    box-sizing: border-box;
-  }
-
-  /* Scroll’da “pill” masaüstü daraltmasını mobilde kapat — logo + aksiyonlar tek satır */
-  .marketing-navbar.is-scrolled .marketing-navbar-inner {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .marketing-navbar.is-scrolled .marketing-navbar-cols {
-    justify-content: space-between;
-    width: 100%;
-    max-width: 100%;
-    gap: var(--space-3);
-  }
-
-  /* Çift hatlı CTA taşmasını önle; kutu yüksekliği sabit kalır */
-  .marketing-navbar-cta {
-    padding-inline: var(--space-4);
-    white-space: nowrap;
-    font-size: var(--b1-font-size);
-  }
-
-  /* Mobil pill: kenarlardan inset + düz yüzey */
-  .marketing-navbar-inner::before {
-    inset: var(--space-2);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    background: color-mix(in srgb, var(--surface) 92%, transparent);
-  }
-
-  /* Touch: font-size tween her karede layout — scroll header geçişinde titreme */
-  .marketing-navbar-item {
-    transition: color var(--dur-fast) var(--ease);
-  }
-}
+/* Site header → public/site-nav.css (layout + kruv.css import) */
 
 /* About us — /works#about ve ortak metin (src/content/about.ts) */
 .about-section {
@@ -1148,13 +599,14 @@ body {
   overflow-x: clip;
 }
 
-/* Hero üstünde nav overlay — ekstra nav boşluğu yok */
+/* /works — hero yok; nav altında içerik başlar */
 .marketing-page-shell .marketing-works-grid.works-shell-inner {
-  padding-top: var(--space-6);
+  padding-top: var(--works-body-pad-top);
 }
 
+/* /contact — hero yok; nav altında form başlar (Works ile aynı üst boşluk) */
 .marketing-page-shell .contact-page-main {
-  padding-top: var(--space-8);
+  padding-top: var(--works-body-pad-top);
 }
 
 .portfolio-works-page .portfolio-grid {
@@ -1179,36 +631,13 @@ body {
 .project-detail-toolbar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   flex-wrap: wrap;
   gap: var(--space-4);
   width: 100%;
   box-sizing: border-box;
   padding-bottom: var(--space-6);
   border-bottom: 1px solid var(--border);
-}
-.project-detail-back {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2) var(--space-4);
-  border-radius: var(--btn-radius);
-  border: 1px solid var(--border);
-  color: var(--b2-color);
-  text-decoration: none;
-  font-family: var(--b2-font-family);
-  font-size: var(--b2-font-size);
-  font-weight: var(--b2-font-weight);
-  line-height: var(--b2-line-height);
-  letter-spacing: var(--b2-letter-spacing);
-  text-transform: var(--b2-text-transform);
-  transition:
-    color var(--dur-fast) var(--ease),
-    border-color var(--dur-fast) var(--ease);
-}
-.project-detail-back:hover {
-  color: var(--ink);
-  border-color: var(--border-md);
 }
 .project-detail-nav-arrows {
   display: flex;
@@ -1287,6 +716,15 @@ body {
     grid-column: 1;
     grid-row: 4;
   }
+  .project-detail-next {
+    grid-column: 1 / -1;
+    grid-row: 5;
+  }
+}
+
+.project-detail-body > .project-detail-next {
+  width: 100%;
+  min-width: 0;
 }
 .project-detail-cover {
   position: relative;
@@ -1297,6 +735,27 @@ body {
   min-height: 100svh;
   box-sizing: border-box;
   overflow: hidden;
+}
+
+@media (max-width: 699px) {
+  /* Kapak: nav altında, web ile aynı 16:9 — uzun svh kırpma yok */
+  .project-detail-page .project-detail-cover {
+    margin-top: var(--project-detail-cover-offset);
+    height: auto;
+    min-height: 0;
+    aspect-ratio: var(--project-media-aspect-ratio);
+  }
+
+  .project-detail-gallery__item {
+    height: auto;
+    min-height: 0;
+    aspect-ratio: var(--project-media-aspect-ratio);
+  }
+
+  /* Works ızgarası: kart görselleri de 16:9 (16/12 mobilde fazla uzun) */
+  .pw-card-media {
+    aspect-ratio: var(--project-media-aspect-ratio);
+  }
 }
 .project-detail-intro {
   margin: 0;
@@ -1404,29 +863,19 @@ body {
   object-fit: cover;
   object-position: center;
 }
-.project-detail-next__media > span {
-  inset: -2px !important;
-  width: calc(100% + 4px) !important;
-  height: calc(100% + 4px) !important;
-  max-width: none !important;
-  max-height: none !important;
-}
-.project-detail-next__media img {
-  transform: scale(1.02);
-  transform-origin: center center;
-}
 
-/* Proje detay — footer öncesi sonraki proje (sira sırası) */
+/* Proje detay altı — next + sonraki kapak (sıra sırası) */
 .project-detail-next {
   width: 100%;
   box-sizing: border-box;
-  margin-top: var(--space-12);
-  padding-top: var(--space-12);
+  margin-top: var(--space-4);
+  padding-top: var(--space-10);
   border-top: 1px solid var(--border);
 }
 .project-detail-next__eyebrow {
-  margin: 0 0 var(--space-6);
+  margin: 0 0 var(--space-4);
   color: var(--ink-faint);
+  letter-spacing: var(--b3-letter-spacing);
   text-transform: lowercase;
 }
 .project-detail-next__link {
@@ -1435,50 +884,32 @@ body {
   color: inherit;
 }
 .project-detail-next__media {
-  width: var(--project-media-width);
-  max-width: var(--project-media-width);
-  margin-inline: auto;
-  aspect-ratio: 16 / 9;
-  min-height: min(36vh, 480px);
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin-inline: 0;
+  aspect-ratio: var(--project-media-aspect-ratio);
   overflow: hidden;
   border-radius: var(--radius-md);
   background: var(--surface);
   box-sizing: border-box;
+  isolation: isolate;
 }
-.project-detail-next__meta {
-  display: flex;
-  align-items: flex-end;
-  gap: var(--space-6);
-  width: var(--project-media-width);
-  max-width: var(--project-media-width);
-  margin: var(--space-6) auto 0;
-  box-sizing: border-box;
-}
-.project-detail-next__arrow {
-  flex-shrink: 0;
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  line-height: 1;
-  color: var(--accent);
-  transition: transform var(--dur-fast) var(--ease);
-}
-.project-detail-next__link:hover .project-detail-next__arrow,
-.project-detail-next__link:focus-visible .project-detail-next__arrow {
-  transform: translateX(0.15em);
-}
-.project-detail-next__title {
-  margin: 0;
-  color: var(--ink);
-}
-.project-detail-next__category {
-  margin: var(--space-2) 0 0;
-  color: var(--ink-soft);
-  text-transform: lowercase;
+.project-detail-next__media > span {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
 }
 .project-detail-next__link:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: var(--space-2);
   border-radius: var(--radius-md);
+}
+.project-detail-next__link:focus-visible .project-detail-next__media {
+  outline: none;
 }
 
 /* Homepage featured-work kart tipografisi (kruv.html) */
@@ -1621,6 +1052,15 @@ body {
   margin: 0;
   max-width: min(100%, calc(5 * var(--space-10)));
 }
+
+@media (max-width: 699px) {
+  .portfolio-works-page .pw-card-category {
+    font-size: var(--card-meta-tag-size-mobile);
+    letter-spacing: var(--b3-letter-spacing);
+  }
+}
+
+/* Mobil menü: site-nav-shared.css — breakpoint 768px */
 
 .pw-card:focus-visible {
   outline: 2px solid var(--accent);

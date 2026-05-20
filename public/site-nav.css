@@ -1,0 +1,436 @@
+/**
+ * Site header — tek kaynak (anasayfa + Next).
+ * Token: Next (--ink) ↔ kruv.html (--frost, --silver) fallback zinciri.
+ */
+#nav-sentinel,
+.marketing-nav-sentinel {
+  height: 1px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.marketing-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: var(--space-6) var(--container-gutter, var(--section-pad-x));
+  isolation: isolate;
+  transition:
+    filter var(--dur-slow) var(--ease, var(--ease-standard)),
+    opacity var(--dur-slow) var(--ease, var(--ease-standard));
+}
+
+.marketing-navbar-inner {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+.marketing-navbar-inner > * {
+  position: relative;
+  z-index: 1;
+}
+
+.marketing-navbar-inner::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--space-3) * -1);
+  right: calc(var(--space-3) * -1);
+  top: calc(var(--space-2) * -1);
+  bottom: calc(var(--space-2) * -1);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.92;
+  transform: translateY(0) scale(1);
+  transition:
+    opacity var(--nav-compact-dur) var(--nav-compact-ease),
+    transform var(--nav-compact-dur) var(--nav-compact-ease);
+  background: transparent;
+  backdrop-filter: blur(22px) saturate(1.2);
+  -webkit-backdrop-filter: blur(22px) saturate(1.2);
+  border: none;
+  border-radius: 999px;
+  box-shadow: none;
+}
+
+.marketing-navbar.is-scrolled .marketing-navbar-inner {
+  width: fit-content;
+  max-width: 100%;
+}
+
+.marketing-navbar.is-scrolled .marketing-navbar-inner::before {
+  opacity: 1;
+}
+
+.marketing-navbar.is-scrolled {
+  padding: var(--space-3) var(--container-gutter, var(--section-pad-x));
+}
+
+.marketing-navbar-cols {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0;
+  width: 100%;
+  max-width: 100%;
+  row-gap: var(--space-3);
+}
+
+.marketing-navbar.is-scrolled .marketing-navbar-cols {
+  justify-content: center;
+  gap: var(--nav-col-gap-scrolled);
+  width: max-content;
+  max-width: 100%;
+}
+
+.marketing-navbar-col {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+.marketing-navbar-col--brand {
+  justify-content: flex-start;
+}
+
+.marketing-navbar-col--links {
+  justify-content: center;
+  min-width: 0;
+}
+
+.marketing-navbar-col--cta {
+  justify-content: flex-end;
+}
+
+.marketing-navbar-logo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  position: relative;
+  flex: 0 0 auto;
+  width: var(--nav-logo-slot-w);
+  height: var(--nav-logo-slot-h);
+}
+
+.marketing-navbar-logo-stack {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: var(--nav-logo-slot-w);
+  height: var(--nav-logo-slot-h);
+}
+
+/* Üstte wordmark, scroll’da bayrak amblem */
+.marketing-navbar-logo-wordmark {
+  position: absolute;
+  inset: 0;
+  display: block;
+  opacity: 1;
+  transition: opacity var(--nav-compact-dur) var(--nav-compact-ease);
+  background-color: var(--color-accent);
+  -webkit-mask-image: url("/assets/kruv-wordmark.svg");
+  mask-image: url("/assets/kruv-wordmark.svg");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: left center;
+  mask-position: left center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.marketing-navbar-logo-emblem {
+  position: absolute;
+  inset: 0;
+  display: block;
+  opacity: 0;
+  transition: opacity var(--nav-compact-dur) var(--nav-compact-ease);
+  pointer-events: none;
+}
+
+.marketing-navbar-logo-emblem::before,
+.marketing-navbar-logo-emblem::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: left center;
+  mask-position: left center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.marketing-navbar-logo-emblem::before {
+  background-color: var(--color-accent);
+  -webkit-mask-image: url("/assets/kruv-nav-emblem-shape.svg");
+  mask-image: url("/assets/kruv-nav-emblem-shape.svg");
+}
+
+.marketing-navbar-logo-emblem::after {
+  background-color: var(--white-fixed);
+  -webkit-mask-image: url("/assets/kruv-nav-emblem-mark.svg");
+  mask-image: url("/assets/kruv-nav-emblem-mark.svg");
+}
+
+.marketing-navbar.is-scrolled .marketing-navbar-logo-wordmark {
+  opacity: 0;
+}
+
+.marketing-navbar.is-scrolled .marketing-navbar-logo-emblem {
+  opacity: 1;
+}
+
+.marketing-navbar-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: var(--space-9);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  max-width: 100%;
+}
+
+.marketing-navbar.is-scrolled .marketing-navbar-links {
+  gap: var(--space-6);
+}
+
+.marketing-navbar-item {
+  font-family: var(--b1-font-family);
+  font-size: var(--b1-font-size);
+  font-weight: var(--b1-font-weight);
+  line-height: var(--b1-line-height);
+  letter-spacing: var(--b1-letter-spacing);
+  text-transform: var(--b1-text-transform);
+  color: var(--ink-soft, var(--silver));
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease, var(--ease-standard));
+}
+
+/* Scroll (navbar2): menü linkleri b1 / type style 1 */
+.marketing-navbar.is-scrolled .marketing-navbar-item {
+  font-family: var(--b1-font-family);
+  font-size: var(--b1-font-size);
+  font-weight: var(--b1-font-weight);
+  line-height: var(--b1-line-height);
+  letter-spacing: var(--b1-letter-spacing);
+  text-transform: var(--b1-text-transform);
+}
+
+.marketing-navbar-item:hover {
+  color: var(--ink, var(--frost));
+}
+
+.marketing-navbar-actions {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: var(--space-3);
+}
+
+/* Theme toggle — navbar satırında CTA ile aynı kutu yüksekliği */
+.marketing-navbar-theme-toggle,
+.nav-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: var(--nav-bar-ctrl-h);
+  height: var(--nav-bar-ctrl-h);
+  padding: 0;
+  border-radius: var(--btn-radius);
+  border: 1px solid var(--border, var(--gray-100));
+  background: transparent;
+  color: var(--ink-soft, var(--silver));
+  cursor: pointer;
+  transition:
+    color var(--dur-fast, 0.15s) var(--ease, var(--ease-standard)),
+    border-color var(--dur-fast, 0.15s) var(--ease, var(--ease-standard));
+}
+
+.marketing-navbar-theme-toggle:hover,
+.nav-theme-toggle:hover {
+  color: var(--ink, var(--frost));
+  border-color: var(--border-md, var(--gray-250));
+}
+
+.marketing-navbar-theme-toggle:focus-visible,
+.nav-theme-toggle:focus-visible {
+  outline: 2px solid var(--accent, var(--purple));
+  outline-offset: 2px;
+}
+
+.marketing-navbar-theme-toggle svg,
+.nav-theme-toggle svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.nav-theme-toggle .icon-sun {
+  display: none;
+}
+
+.nav-theme-toggle .icon-moon {
+  display: block;
+}
+
+[data-theme="light"] .nav-theme-toggle .icon-sun {
+  display: block;
+}
+
+[data-theme="light"] .nav-theme-toggle .icon-moon {
+  display: none;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .nav-theme-toggle .icon-sun {
+    display: block;
+  }
+
+  :root:not([data-theme="dark"]) .nav-theme-toggle .icon-moon {
+    display: none;
+  }
+}
+
+.marketing-navbar-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  height: var(--nav-bar-ctrl-h);
+  min-height: var(--nav-bar-ctrl-h);
+  max-height: var(--nav-bar-ctrl-h);
+  gap: var(--btn-gap);
+  font-family: var(--btn-font-family), system-ui, sans-serif;
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
+  line-height: 1;
+  letter-spacing: var(--ls-2xs);
+  text-transform: lowercase;
+  padding: 0 var(--btn-pad-x);
+  background: transparent;
+  border: var(--btn-border-width) solid var(--accent, var(--purple));
+  color: var(--accent, var(--purple));
+  text-decoration: none;
+  border-radius: var(--btn-radius);
+  transition:
+    background var(--dur-fast) var(--ease, var(--ease-standard)),
+    color var(--dur-fast) var(--ease, var(--ease-standard)),
+    border-color var(--dur-fast) var(--ease, var(--ease-standard));
+}
+
+.marketing-navbar-cta:hover {
+  background: var(--accent, var(--purple));
+  color: var(--white-fixed);
+  border-color: var(--accent, var(--purple));
+}
+
+/* Mobil hamburger — masaüstünde gizli (detay: site-nav-shared.css) */
+.marketing-navbar-menu-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: var(--nav-bar-ctrl-h);
+  height: var(--nav-bar-ctrl-h);
+  padding: 0;
+  margin: 0;
+  border: 1px solid var(--border, var(--gray-100));
+  border-radius: var(--btn-radius);
+  background: transparent;
+  color: var(--ink-soft, var(--silver));
+  cursor: pointer;
+  transition:
+    color var(--dur-fast) var(--ease, var(--ease-standard)),
+    border-color var(--dur-fast) var(--ease, var(--ease-standard)),
+    background var(--dur-fast) var(--ease, var(--ease-standard));
+}
+
+.marketing-navbar-menu-btn:hover {
+  color: var(--ink, var(--frost));
+  border-color: var(--border-md, var(--gray-180));
+}
+
+.marketing-navbar-menu-btn:focus-visible {
+  outline: 2px solid var(--accent, var(--purple));
+  outline-offset: 2px;
+}
+
+/* Hamburger / overlay / panel: public/site-nav-shared.css */
+
+@media (max-width: 768px) {
+  .marketing-navbar-actions {
+    gap: var(--space-3);
+  }
+
+  .marketing-navbar.is-menu-open .marketing-navbar-menu-btn {
+    color: var(--ink, var(--frost));
+    border-color: var(--border-md, var(--gray-180));
+  }
+
+  .marketing-navbar-logo,
+  .marketing-navbar-logo-stack {
+    width: var(--nav-logo-slot-w-mobile, calc(var(--nav-logo-slot-w) * 0.75));
+  }
+
+  .marketing-navbar-logo {
+    overflow: hidden;
+  }
+
+  /* Pill içi: sol = üst = alt = sağ (hamburger pixel-perfect) */
+  .marketing-navbar-inner {
+    padding: var(--nav-pill-inset);
+    box-sizing: border-box;
+  }
+
+  /* Scroll’da “pill” masaüstü daraltmasını mobilde kapat — logo + aksiyonlar tek satır */
+  .marketing-navbar.is-scrolled .marketing-navbar-inner {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .marketing-navbar.is-scrolled .marketing-navbar-cols {
+    justify-content: space-between;
+    width: 100%;
+    max-width: 100%;
+    gap: var(--space-3);
+  }
+
+  /* Çift hatlı CTA taşmasını önle; kutu yüksekliği sabit kalır */
+  .marketing-navbar-cta {
+    padding-inline: var(--space-4);
+    white-space: nowrap;
+    font-size: var(--b1-font-size);
+  }
+
+  /* Mobil pill: içerik kutusu = pill — çift inset yok */
+  .marketing-navbar-inner::before {
+    inset: 0;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: color-mix(in srgb, var(--surface, var(--midnight)) 92%, transparent);
+  }
+
+  /* Touch: font-size tween her karede layout — scroll header geçişinde titreme */
+  .marketing-navbar-item {
+    transition: color var(--dur-fast) var(--ease, var(--ease-standard));
+  }
+}

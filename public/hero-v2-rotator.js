@@ -1,5 +1,5 @@
 (function () {
-  var WORDS = ["brands", "campaigns", "stories", "feeds"];
+  var WORDS = ["brands", "stories", "feeds"];
   var INTERVAL = 2400;
   var FIRST_ROTATE_DELAY = 1200;
 
