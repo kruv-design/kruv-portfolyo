@@ -1,14 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { DM_Mono, Manrope } from "next/font/google";
+import { DM_Mono } from "next/font/google";
 import { env } from "@/lib/env";
+import { switzer } from "@/lib/fonts/switzer";
 import "./globals.css";
-
-const manrope = Manrope({
-  subsets: ["latin", "latin-ext"],
-  variable: "--font-display",
-  display: "swap",
-  weight: ["300", "400", "500", "600", "700", "800"],
-});
 
 const mono = DM_Mono({
   subsets: ["latin", "latin-ext"],
@@ -64,7 +58,7 @@ export default function RootLayout({
   return (
     <html
       lang="tr"
-      className={`${manrope.variable} ${mono.variable}`}
+      className={`${switzer.variable} ${mono.variable}`}
       suppressHydrationWarning
     >
       <head>

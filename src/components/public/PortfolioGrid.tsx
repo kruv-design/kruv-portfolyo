@@ -27,8 +27,8 @@ export function PortfolioGrid({
   }, [active, projects]);
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col overflow-x-clip">
-      <div className="works-shell-inner portfolio-works-page">
+    <div id="works" className="flex min-h-0 flex-1 flex-col overflow-x-clip">
+      <div className="works-shell-inner portfolio-works-page marketing-works-grid">
         <FilterBar
           categories={[...WORK_PAGE_FILTER_LABELS]}
           active={active}

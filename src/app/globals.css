@@ -6,7 +6,7 @@
    DESIGN TOKENS — kruv.html visual language
    Theme-aware: dark default, light via [data-theme="light"]
    or system `prefers-color-scheme: light`.
-   Accent #6366F1 (indigo) · Manrope + DM Mono.
+   Accent #6366F1 (indigo) · Switzer + DM Mono.
    ───────────────────────────────────────────────────────── */
 :root {
   color-scheme: light dark;
@@ -99,7 +99,7 @@
   --photo-card-overlay-dim: color-mix(in srgb, var(--black-fixed) 15%, transparent);
 
   /* ===== Typography ===== */
-  --font-display: "Manrope", system-ui, sans-serif;
+  --font-display: "Switzer", system-ui, sans-serif;
   --font-body:    var(--font-display);
   --font-mono:    "DM Mono", ui-monospace, monospace;
   --font-sans:    var(--font-display);
@@ -248,7 +248,10 @@
   --nav-logo-slot-w-mobile: 48px;
   --nav-logo-slot-h: var(--nav-bar-ctrl-h);
   --works-body-pad-top: calc(var(--space-6) + var(--nav-logo-slot-h) + var(--space-6));
-  /* Proje detay: kapak + galeri (galeri_2 hariç) — viewport genişliğinin %90'ı */
+  /* Proje detay galeri: viewport’a ufak inset */
+  --project-gallery-inset-x: var(--container-gutter);
+  --project-gallery-inset-y: var(--space-4);
+  /* Sonraki proje teaser — orta kolon genişliği */
   --project-media-width: 90vw;
 }
 
@@ -742,7 +745,7 @@ body {
 }
 
 .marketing-navbar-item {
-  font-family: "Manrope", var(--b1-font-family), system-ui, sans-serif;
+  font-family: var(--font-display), system-ui, sans-serif;
   font-size: var(--b1-font-size);
   font-weight: var(--b1-font-weight);
   line-height: var(--b1-line-height);
@@ -792,7 +795,7 @@ body {
   min-height: var(--nav-bar-ctrl-h);
   max-height: var(--nav-bar-ctrl-h);
   gap: var(--btn-gap);
-  font-family: "Manrope", var(--btn-font-family), system-ui, sans-serif;
+  font-family: var(--btn-font-family), system-ui, sans-serif;
   font-size: var(--btn-font-size);
   font-weight: var(--btn-font-weight);
   line-height: 1;
@@ -957,7 +960,7 @@ body {
 }
 
 .marketing-nav-mobile-links a {
-  font-family: "Manrope", var(--font-display), system-ui, sans-serif;
+  font-family: var(--font-display), system-ui, sans-serif;
   font-size: clamp(1.5rem, 6vw, 2rem);
   font-weight: 600;
   letter-spacing: var(--ls-xl);
@@ -1119,6 +1122,15 @@ body {
   overflow-x: clip;
 }
 
+/* Hero üstünde nav overlay — ekstra nav boşluğu yok */
+.marketing-page-shell .marketing-works-grid.works-shell-inner {
+  padding-top: var(--space-6);
+}
+
+.marketing-page-shell .contact-page-main {
+  padding-top: var(--space-8);
+}
+
 .portfolio-works-page .portfolio-grid {
   width: 100%;
   min-width: 0;
@@ -1202,19 +1214,31 @@ body {
   opacity: 0.3;
   pointer-events: none;
 }
-.project-detail-shell {
+.project-detail-page {
   overflow-x: clip;
+}
+
+/* Proje detay: kapak tam viewport; gövde shell genişliğinde kalır */
+.works-shell-inner.project-detail-shell {
+  width: 100%;
+  max-width: 100%;
+  padding-top: 0;
+  overflow-x: visible;
 }
 
 .project-detail-body {
   display: grid;
-  width: 100%;
+  width: var(--grid-shell-width);
+  max-width: 100%;
+  margin-inline: auto;
   box-sizing: border-box;
   padding-top: var(--section-pad-y);
   padding-bottom: var(--section-pad-y);
+  padding-inline: var(--container-gutter);
   gap: var(--space-8);
   grid-template-columns: 1fr;
   align-items: start;
+  overflow-x: visible;
 }
 @media (min-width: 900px) {
   .project-detail-body {
@@ -1240,14 +1264,11 @@ body {
 }
 .project-detail-cover {
   position: relative;
-  width: 100vw;
-  max-width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-  margin-top: 0;
-  margin-bottom: var(--space-8);
-  height: calc(100dvh - var(--works-body-pad-top));
-  min-height: calc(100dvh - var(--works-body-pad-top));
+  width: 100%;
+  max-width: 100%;
+  margin: 0 0 var(--space-8);
+  height: 100svh;
+  min-height: 100svh;
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -1258,8 +1279,12 @@ body {
 .project-detail-gallery-wrap {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
-  width: 100%;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding: var(--project-gallery-inset-y) var(--project-gallery-inset-x);
+  box-sizing: border-box;
   min-width: 0;
 }
 /* Kapak: tam genişlik, nav altında kalan viewport yüksekliği */
@@ -1275,15 +1300,16 @@ body {
   box-sizing: border-box;
 }
 .project-detail-hero > span {
-  inset: -2px !important;
-  width: calc(100% + 4px) !important;
-  height: calc(100% + 4px) !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
   max-width: none !important;
   max-height: none !important;
 }
 .project-detail-hero img {
-  transform: scale(1.02);
-  transform-origin: center center;
+  object-fit: cover;
+  object-position: center;
 }
 .project-detail-cover .project-detail-toolbar {
   position: absolute;
@@ -1300,18 +1326,6 @@ body {
     transparent 100%
   );
 }
-/* Galeri: viewport genişliğinin %90'ı, shell içinde ortalanır */
-.project-detail-gallery__item {
-  width: var(--project-media-width);
-  max-width: var(--project-media-width);
-  margin-inline: auto;
-  aspect-ratio: 16 / 9;
-  min-height: min(52vh, 720px);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  background: var(--surface);
-  box-sizing: border-box;
-}
 .project-detail-aside {
   min-width: 0;
 }
@@ -1327,28 +1341,42 @@ body {
   border: 1px solid var(--border);
   box-sizing: border-box;
 }
+/* Galeri: sağ/sol viewport inset; dikeyde svh − üst/alt margin */
 .project-detail-gallery {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: var(--space-6);
+  align-items: stretch;
+  width: 100%;
+  gap: var(--project-gallery-inset-y);
 }
 .project-detail-gallery__item {
+  position: relative;
   display: block;
-  min-height: min(44vh, 640px);
+  width: 100%;
+  max-width: 100%;
+  margin-inline: 0;
+  height: calc(100svh - 2 * var(--project-gallery-inset-y));
+  min-height: calc(100svh - 2 * var(--project-gallery-inset-y));
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--surface);
+  box-sizing: border-box;
   cursor: zoom-in;
   padding: 0;
   border: none;
-  background: transparent;
   isolation: isolate;
 }
+.project-detail-gallery__item > span {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+}
 .project-detail-gallery__item img {
-  display: block;
-  width: 100%;
-  height: 100%;
   object-fit: cover;
-  transform: scale(1.02);
-  transform-origin: center center;
+  object-position: center;
 }
 .project-detail-next__media > span {
   inset: -2px !important;
@@ -1840,7 +1868,7 @@ body {
 
 /* ═══════════════════════════════════════════════════════════
    Olly landing — Figma Olly Website (node 2:2) token eşlemesi
-   `.olly-landing` altında geçerli; Manrope: --font-olly-sans
+   `.olly-landing` altında geçerli; Switzer: --font-olly-sans
    ═══════════════════════════════════════════════════════════ */
 .olly-landing {
   /* Figma brand & lime */
@@ -1900,7 +1928,7 @@ body {
 
   --olly-container-max: 1200px;
 
-  /* Manrope scale — Figma H1 72 / mobile 32, H2 48 / 28, H3 32 / 20 */
+  /* Switzer scale — Figma H1 72 / mobile 32, H2 48 / 28, H3 32 / 20 */
   --olly-type-h1-max: 72px;
   --olly-type-h1-min: 32px;
   --olly-type-h2-max: 48px;

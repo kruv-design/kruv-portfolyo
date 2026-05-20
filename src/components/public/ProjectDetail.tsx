@@ -33,9 +33,8 @@ export function ProjectDetail({
             <Image
               src={cover}
               alt={project.baslik}
-              width={1920}
-              height={1080}
-              className="h-full w-full object-cover"
+              fill
+              className="object-cover object-center"
               priority
               sizes="100vw"
             />
@@ -120,10 +119,9 @@ export function ProjectDetail({
                   <Image
                     src={src}
                     alt=""
-                    width={1920}
-                    height={1080}
-                    sizes="90vw"
-                    className="h-full w-full object-cover transition-transform duration-[400ms] hover:scale-[1.02]"
+                    fill
+                    sizes="100vw"
+                    className="object-cover object-center transition-transform duration-[400ms] hover:scale-[1.02]"
                   />
                 </button>
               ))}

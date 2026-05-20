@@ -103,7 +103,7 @@ export default async function ProjectPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div
-        className="flex min-h-screen flex-col"
+        className="project-detail-page flex min-h-screen flex-col"
         style={{ background: "var(--bg)", color: "var(--ink)", minHeight: "100vh" }}
       >
         <MarketingSiteNav settings={settings} />

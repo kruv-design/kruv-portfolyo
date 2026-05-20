@@ -109,7 +109,7 @@
   --ideal-clients-divider: var(--gray-80);
 
   /* ===== Foundation: fonts ===== */
-  --font-display: 'Manrope', system-ui, sans-serif;
+  --font-display: 'Switzer', system-ui, sans-serif;
   --font-body: var(--font-display);
   --font-mono: 'DM Mono', monospace;
 
@@ -764,7 +764,7 @@ nav.navbar.is-scrolled .nav-links {
 .navbar-item1,
 .navbar-item2,
 .navbar-item3 {
-  font-family: "Manrope", var(--b1-font-family), system-ui, sans-serif;
+  font-family: var(--font-display), system-ui, sans-serif;
   font-size: var(--b1-font-size);
   font-weight: var(--b1-font-weight);
   line-height: var(--b1-line-height);
@@ -3598,12 +3598,11 @@ body:has(.featured-work-card:hover) .hero-bottom {
   to { transform: translateY(0); }
 }
 .hero-v2-line1 {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
+  display: inline-flex;
+  flex-flow: row wrap;
   align-items: baseline;
   justify-content: center;
-  gap: var(--space-3);
+  gap: 0.28em;
   max-width: 100%;
 }
 .hero-v2-static {
@@ -3617,6 +3616,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
 .hero-v2-word-box {
   position: relative;
   display: inline-block;
+  width: fit-content;
+  max-width: 100%;
   overflow: hidden;
   /* overflow + sıkı line-height: g, p, y descender’ları kesiyordu; em bu kutuda yanlış fonttan çözülüyordu */
   padding-bottom: calc(21px * 1.5);
@@ -3658,7 +3659,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
       --hero-v2-rotator-fs: clamp(1.625rem, 11cqw, 5.5rem);
     }
     .hero-v2-line1 {
-      gap: clamp(var(--space-2), 1.5cqw, var(--space-5));
+      gap: 0.28em;
     }
     .hero-v2-static,
     .hero-v2-word-box,
@@ -3679,7 +3680,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
       --hero-v2-rotator-fs: clamp(1.625rem, 7.7vw, 5.5rem);
     }
     .hero-v2-line1 {
-      gap: clamp(var(--space-2), 1.1vw, var(--space-5));
+      gap: 0.28em;
     }
     .hero-v2-static,
     .hero-v2-word-box,
