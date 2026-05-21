@@ -263,8 +263,8 @@
   /* Proje detay galeri: viewport’a ufak inset */
   --project-gallery-inset-x: var(--container-gutter);
   --project-gallery-inset-y: var(--space-4);
-  /* Sonraki proje teaser — orta kolon genişliği */
-  --project-media-width: 90vw;
+  /* Proje detay kapak / galeri / next — orijinal oran, genişlik viewport’un %80’i */
+  --project-detail-media-width: 80vw;
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -726,13 +726,13 @@ body {
   width: 100%;
   min-width: 0;
 }
-/* Kapak + galeri: orijinal en-boy (kırpma / sabit 16:9 çerçeve yok) */
+/* Kapak + galeri: orijinal oran; genişlik 80vw, yükseklik serbest */
 .project-detail-cover {
   position: relative;
   display: block;
-  width: 100%;
+  width: var(--project-detail-media-width);
   max-width: 100%;
-  margin: 0 0 var(--space-8);
+  margin: 0 auto var(--space-8);
   flex-shrink: 0;
   box-sizing: border-box;
   overflow: hidden;
@@ -747,8 +747,6 @@ body {
   max-width: 100%;
   position: static !important;
   inset: auto !important;
-  object-fit: contain;
-  object-position: center;
   vertical-align: top;
 }
 
@@ -769,15 +767,15 @@ body {
   margin: 0;
   min-width: 0;
 }
-/* Tam genişlik: 100vw değil — scrollbar/vw ile yatay kayma ve dikey sıçrama yok */
+/* Galeri: grid kolonundan taşmadan 80vw görselleri ortala */
 .project-detail-gallery-wrap {
   display: flex;
   flex-direction: column;
-  width: calc(100% + 2 * var(--container-gutter));
-  max-width: none;
-  margin-left: calc(-1 * var(--container-gutter));
-  margin-right: calc(-1 * var(--container-gutter));
-  padding: var(--project-gallery-inset-y) var(--project-gallery-inset-x);
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: var(--project-gallery-inset-y) 0;
   box-sizing: border-box;
   min-width: 0;
   flex-shrink: 0;
@@ -812,17 +810,17 @@ body {
   border: 1px solid var(--border);
   box-sizing: border-box;
 }
-/* Galeri: tam genişlik, her görsel kendi oranında */
+/* Galeri: her görsel 80vw, kendi oranında */
 .project-detail-gallery {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: center;
   width: 100%;
   gap: var(--project-gallery-inset-y);
 }
 .project-detail-gallery__item {
   display: block;
-  width: 100%;
+  width: var(--project-detail-media-width);
   max-width: 100%;
   margin: 0;
   flex-shrink: 0;
@@ -847,15 +845,17 @@ body {
   text-transform: lowercase;
 }
 .project-detail-next__link {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-decoration: none;
   color: inherit;
 }
 .project-detail-next__media {
   display: block;
-  width: 100%;
+  width: var(--project-detail-media-width);
   max-width: 100%;
-  margin-inline: 0;
+  margin-inline: auto;
   overflow: hidden;
   border-radius: var(--radius-md);
   background: var(--surface);

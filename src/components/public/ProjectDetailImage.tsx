@@ -5,7 +5,7 @@ export function ProjectDetailImage({
   src,
   alt,
   priority = false,
-  sizes = "100vw",
+  sizes = "80vw",
 }: {
   src: string;
   alt: string;

@@ -23,7 +23,7 @@ export function ProjectNextTeaser({ project }: { project: Project }) {
             <ProjectDetailImage
               src={cover}
               alt=""
-              sizes="(max-width: 699px) 100vw, (min-width: 900px) 58vw, 90vw"
+              sizes="80vw"
             />
           ) : (
             <ImagePlaceholder
