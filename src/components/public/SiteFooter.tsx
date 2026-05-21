@@ -33,8 +33,8 @@ export function SiteFooter({
         color: "var(--ink-soft)",
       }}
     >
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-10 md:grid-cols-2 md:gap-10 lg:grid-cols-3 lg:gap-14">
-        <div>
+      <div className="mx-auto grid max-w-6xl grid-cols-2 gap-x-8 gap-y-10 md:gap-10 lg:grid-cols-3 lg:gap-x-14 lg:gap-y-14">
+        <div className="min-w-0">
           <h2
             className="b3 mb-4"
             style={{ color: "var(--ink-faint)", letterSpacing: "var(--ls-2xl)" }}
@@ -52,7 +52,7 @@ export function SiteFooter({
           </ul>
         </div>
 
-        <nav aria-label="Sitemap">
+        <nav aria-label="Sitemap" className="min-w-0">
           <h2
             className="b3 mb-4"
             style={{ color: "var(--ink-faint)", letterSpacing: "var(--ls-2xl)" }}
@@ -77,7 +77,7 @@ export function SiteFooter({
           </ul>
         </nav>
 
-        <div className="md:col-span-2 lg:col-span-1">
+        <div className="col-span-2 min-w-0 lg:col-span-1">
           <h2
             className="b3 mb-4"
             style={{ color: "var(--ink-faint)", letterSpacing: "var(--ls-2xl)" }}

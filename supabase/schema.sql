@@ -58,7 +58,7 @@ create table if not exists public.site_settings (
   id          int primary key default 1,
   "siteAdi"   text not null default 'kruv.',
   tagline     text not null default 'Seçilmiş projeler & çalışmalar',
-  "footerYazi" text not null default 'kruv. — portfolyo',
+  "footerYazi" text not null default 'estd 2025',
   "instagramUrl" text not null default '',
   "xUrl" text not null default '',
   "linkedinUrl" text not null default '',

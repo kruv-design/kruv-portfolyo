@@ -9,6 +9,8 @@
   --site-nav-links-gap: 36px;
   --site-nav-links-gap-compact: 24px;
   --site-nav-col-gap-scrolled: 16px;
+  /* Mobil pill iç boşluk — navbar genişliğini değil yalnızca inset’i ayarlar */
+  --site-nav-pill-inset-mobile: clamp(10px, 2.5vw, 16px);
 }
 
 /* Works (globals) ile aynı — sayfa geçişinde nav kaymasın */
@@ -430,8 +432,43 @@ html {
 /* Hamburger / overlay / panel: public/site-nav-shared.css */
 
 @media (max-width: 768px) {
+  /* Mobil: pill içeriğe göre dar — tam genişlik değil */
+  .marketing-navbar-inner,
+  .marketing-navbar.is-scrolled .marketing-navbar-inner {
+    width: fit-content;
+    max-width: calc(100% - 2 * var(--site-nav-gutter-x));
+    margin-inline: auto;
+    padding: var(--site-nav-pill-inset-mobile, var(--nav-pill-inset, 16px));
+    box-sizing: border-box;
+  }
+
+  .marketing-navbar-cols,
+  .marketing-navbar.is-scrolled .marketing-navbar-cols {
+    width: auto;
+    max-width: 100%;
+    padding: 0;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: var(--space-3, 12px);
+  }
+
+  .marketing-navbar-inner::before {
+    inset: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: color-mix(in srgb, var(--surface, var(--midnight)) 92%, transparent);
+  }
+
+  .marketing-navbar.is-scrolled .marketing-navbar-inner::before {
+    background: color-mix(in srgb, var(--midnight, var(--surface)) 82%, transparent);
+  }
+
   .marketing-navbar-actions {
-    gap: var(--space-3);
+    gap: var(--space-3, 12px);
   }
 
   .marketing-navbar.is-menu-open .marketing-navbar-menu-btn {
@@ -441,49 +478,20 @@ html {
 
   .marketing-navbar-logo,
   .marketing-navbar-logo-stack {
-    width: var(--nav-logo-slot-w-mobile, calc(var(--nav-logo-slot-w) * 0.75));
+    width: var(--nav-logo-slot-w-mobile, calc(var(--nav-logo-slot-w, 80px) * 0.75));
   }
 
   .marketing-navbar-logo {
     overflow: hidden;
   }
 
-  /* Pill içi: sol = üst = alt = sağ (hamburger pixel-perfect) */
-  .marketing-navbar-inner {
-    padding: var(--nav-pill-inset);
-    box-sizing: border-box;
-  }
-
-  /* Scroll’da “pill” masaüstü daraltmasını mobilde kapat — logo + aksiyonlar tek satır */
-  .marketing-navbar.is-scrolled .marketing-navbar-inner {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .marketing-navbar.is-scrolled .marketing-navbar-cols {
-    justify-content: space-between;
-    width: 100%;
-    max-width: 100%;
-    gap: var(--space-3);
-  }
-
-  /* Çift hatlı CTA taşmasını önle; kutu yüksekliği sabit kalır */
   .marketing-navbar-cta {
-    padding-inline: var(--space-4);
+    padding-inline: var(--space-4, 16px);
     white-space: nowrap;
-    font-size: var(--b1-font-size);
+    font-size: var(--b1-font-size, 14px);
   }
 
-  /* Mobil pill: içerik kutusu = pill — çift inset yok */
-  .marketing-navbar-inner::before {
-    inset: 0;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    background: color-mix(in srgb, var(--surface, var(--midnight)) 92%, transparent);
-  }
-
-  /* Touch: font-size tween her karede layout — scroll header geçişinde titreme */
   .marketing-navbar-item {
-    transition: color var(--dur-fast) var(--ease, var(--ease-standard));
+    transition: color var(--dur-fast, 0.15s) var(--ease, var(--ease-standard));
   }
 }

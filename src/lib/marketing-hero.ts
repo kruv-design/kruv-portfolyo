@@ -12,7 +12,7 @@ export type HeroV2Options = {
 
 /** Ortak hero-v2 HTML — `public/partials/hero-v2.html` tek kaynak. */
 export async function loadHeroV2Html(options: HeroV2Options = {}): Promise<string> {
-  const { ctaHref = "#works", scrollHref = "" } = options;
+  const { ctaHref = "/works", scrollHref = "" } = options;
   const raw = await readFile(HERO_PARTIAL_PATH, "utf8");
   return raw
     .replace(/\{\{CTA_HREF\}\}/g, ctaHref)

@@ -7,7 +7,7 @@ import type { Project, SiteSettings } from "@/types";
 export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   siteAdi: "kruv.",
   tagline: "Seçilmiş projeler & çalışmalar",
-  footerYazi: "kruv. — portfolyo",
+  footerYazi: "estd 2025",
   instagramUrl: "https://www.instagram.com/kruvsocial/",
   xUrl: "",
   linkedinUrl: "https://www.linkedin.com/company/kruv/?viewAsMember=true",
@@ -21,6 +21,18 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
 function pickSettingsUrl(value: unknown, fallback: string): string {
   const v = typeof value === "string" ? value.trim() : "";
   return v || fallback;
+}
+
+const LEGACY_FOOTER_YAZI = new Set([
+  "kruv. — portfolyo",
+  "kruv.-portfolyo",
+  "kruv. - portfolyo",
+]);
+
+function normalizeFooterYazi(value: unknown): string {
+  const v = typeof value === "string" ? value.trim() : "";
+  if (!v || LEGACY_FOOTER_YAZI.has(v)) return DEFAULT_SITE_SETTINGS.footerYazi;
+  return v;
 }
 
 /**
@@ -112,7 +124,7 @@ export async function getSettings(): Promise<SiteSettings> {
     return {
       siteAdi: row?.siteAdi ?? DEFAULT_SITE_SETTINGS.siteAdi,
       tagline: row?.tagline ?? DEFAULT_SITE_SETTINGS.tagline,
-      footerYazi: row?.footerYazi ?? DEFAULT_SITE_SETTINGS.footerYazi,
+      footerYazi: normalizeFooterYazi(row?.footerYazi),
       instagramUrl: pickSettingsUrl(row?.instagramUrl, DEFAULT_SITE_SETTINGS.instagramUrl),
       xUrl: pickSettingsUrl(row?.xUrl, DEFAULT_SITE_SETTINGS.xUrl),
       linkedinUrl: pickSettingsUrl(row?.linkedinUrl, DEFAULT_SITE_SETTINGS.linkedinUrl),

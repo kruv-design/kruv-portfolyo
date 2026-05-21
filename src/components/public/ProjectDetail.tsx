@@ -1,10 +1,6 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
 import type { Project } from "@/types";
-import { Lightbox } from "./Lightbox";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { projectCover, projectGallerySlots } from "@/lib/project-images";
 import { ProjectNextTeaser } from "./ProjectNextTeaser";
@@ -20,8 +16,6 @@ export function ProjectDetail({
   nextSlug: string | null;
   nextProject: Project | null;
 }) {
-  const [lightbox, setLightbox] = useState<string | null>(null);
-
   const cover = projectCover(project);
   const gallerySlots = projectGallerySlots(project);
 
@@ -107,20 +101,15 @@ export function ProjectDetail({
           <div className="project-detail-gallery-wrap animate-fadeUp">
             <div className="project-detail-gallery">
               {gallerySlots.map(({ key, src }) => (
-                <button
-                  key={key}
-                  type="button"
-                  className="project-detail-gallery__item"
-                  onClick={() => setLightbox(src)}
-                >
+                <div key={key} className="project-detail-gallery__item">
                   <Image
                     src={src}
                     alt=""
                     fill
                     sizes="100vw"
-                    className="object-cover object-center transition-transform duration-[400ms] hover:scale-[1.02]"
+                    className="object-cover object-center"
                   />
-                </button>
+                </div>
               ))}
             </div>
           </div>
@@ -146,7 +135,6 @@ export function ProjectDetail({
         {nextProject ? <ProjectNextTeaser project={nextProject} /> : null}
       </div>
 
-      <Lightbox src={lightbox} onClose={() => setLightbox(null)} />
     </>
   );
 }

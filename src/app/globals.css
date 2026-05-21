@@ -258,7 +258,7 @@
   --project-detail-cover-offset: calc(
     env(safe-area-inset-top, 0px) + var(--works-body-pad-top) + 2 * var(--nav-pill-inset)
   );
-  /* Kapak / galeri / featured — masaüstü ile aynı en-boy (mobilde svh yok) */
+  /* Kapak / galeri / featured — her yerde aynı 16:9 */
   --project-media-aspect-ratio: 16 / 9;
   /* Proje detay galeri: viewport’a ufak inset */
   --project-gallery-inset-x: var(--container-gutter);
@@ -726,33 +726,25 @@ body {
   width: 100%;
   min-width: 0;
 }
+/* Kapak + galeri: tek oran (16:9) — mobil/desktop aynı; svh ile dikey kırpma yok */
 .project-detail-cover {
   position: relative;
   width: 100%;
   max-width: 100%;
   margin: 0 0 var(--space-8);
-  height: 100svh;
-  min-height: 100svh;
+  height: auto;
+  min-height: 0;
+  aspect-ratio: var(--project-media-aspect-ratio);
   box-sizing: border-box;
   overflow: hidden;
 }
 
-@media (max-width: 699px) {
-  /* Kapak: nav altında, web ile aynı 16:9 — uzun svh kırpma yok */
+@media (max-width: 768px) {
   .project-detail-page .project-detail-cover {
     margin-top: var(--project-detail-cover-offset);
-    height: auto;
-    min-height: 0;
-    aspect-ratio: var(--project-media-aspect-ratio);
   }
 
-  .project-detail-gallery__item {
-    height: auto;
-    min-height: 0;
-    aspect-ratio: var(--project-media-aspect-ratio);
-  }
-
-  /* Works ızgarası: kart görselleri de 16:9 (16/12 mobilde fazla uzun) */
+  /* Works kartları: 16/12 yerine proje medyası ile aynı oran */
   .pw-card-media {
     aspect-ratio: var(--project-media-aspect-ratio);
   }
@@ -772,7 +764,7 @@ body {
   box-sizing: border-box;
   min-width: 0;
 }
-/* Kapak: tam genişlik, nav altında kalan viewport yüksekliği */
+/* Kapak görseli: kapsayıcıyı doldurur (16:9) */
 .project-detail-hero {
   position: absolute;
   inset: 0;
@@ -826,7 +818,7 @@ body {
   border: 1px solid var(--border);
   box-sizing: border-box;
 }
-/* Galeri: sağ/sol viewport inset; dikeyde svh − üst/alt margin */
+/* Galeri: tam genişlik, her kare aynı 16:9 */
 .project-detail-gallery {
   display: flex;
   flex-direction: column;
@@ -840,15 +832,13 @@ body {
   width: 100%;
   max-width: 100%;
   margin-inline: 0;
-  height: calc(100svh - 2 * var(--project-gallery-inset-y));
-  min-height: calc(100svh - 2 * var(--project-gallery-inset-y));
+  height: auto;
+  min-height: 0;
+  aspect-ratio: var(--project-media-aspect-ratio);
   border-radius: var(--radius-md);
   overflow: hidden;
   background: var(--surface);
   box-sizing: border-box;
-  cursor: zoom-in;
-  padding: 0;
-  border: none;
   isolation: isolate;
 }
 .project-detail-gallery__item > span {
