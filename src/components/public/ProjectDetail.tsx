@@ -3,7 +3,7 @@ import type { Project } from "@/types";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { projectCover, projectGallerySlots } from "@/lib/project-images";
 import { ProjectDetailImage } from "./ProjectDetailImage";
-import { ProjectNextTeaser } from "./ProjectNextTeaser";
+import { ProjectEndCta } from "./ProjectEndCta";
 
 export function ProjectDetail({
   project,
@@ -122,7 +122,7 @@ export function ProjectDetail({
           </div>
         )}
 
-        {nextProject ? <ProjectNextTeaser project={nextProject} /> : null}
+        <ProjectEndCta nextProject={nextProject} />
       </div>
 
     </>

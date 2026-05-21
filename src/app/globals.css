@@ -714,13 +714,13 @@ body {
     grid-column: 1;
     grid-row: 4;
   }
-  .project-detail-next {
+  .project-end-cta {
     grid-column: 1 / -1;
     grid-row: 5;
   }
 }
 
-.project-detail-body > .project-detail-next {
+.project-detail-body > .project-end-cta {
   width: 100%;
   min-width: 0;
 }
@@ -834,51 +834,153 @@ body {
   box-sizing: border-box;
 }
 
-/* Proje detay altı — next + sonraki kapak (sıra sırası) */
-.project-detail-next {
+/* Proje detay sonu — contact | next, altında See all our projects */
+.project-end-cta {
   width: 100%;
   box-sizing: border-box;
   margin-top: var(--space-4);
   padding-top: var(--space-10);
   border-top: 1px solid var(--border);
 }
-.project-detail-next__eyebrow {
+
+.project-end-cta__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-10);
+  align-items: start;
+}
+
+@media (min-width: 768px) {
+  .project-end-cta__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+  }
+}
+
+.project-end-cta__col--contact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-6);
+  min-width: 0;
+}
+
+.project-end-cta__contact-heading {
+  margin: 0;
+  color: var(--ink);
+}
+
+.project-end-cta__col--nav {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  min-width: 0;
+}
+
+.project-end-cta__nav-eyebrow {
   margin: 0 0 var(--space-4);
   color: var(--ink-faint);
   letter-spacing: var(--b3-letter-spacing);
   text-transform: lowercase;
 }
-.project-detail-next__link {
-  display: block;
+
+.project-end-cta__next-card,
+.project-end-cta__works-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
   text-decoration: none;
   color: inherit;
+  min-width: 0;
 }
-.project-detail-next__media {
+
+.project-end-cta__next-media {
   display: block;
-  width: 100%;
-  max-width: 100%;
-  margin-inline: 0;
+  width: var(--project-detail-gallery-width);
+  max-width: var(--project-detail-gallery-width);
+  margin-inline: auto;
   overflow: hidden;
   border-radius: var(--radius-md);
   background: var(--surface);
   box-sizing: border-box;
 }
 
-.project-detail-next__media .project-detail-cover-img {
+@media (min-width: 768px) {
+  .project-end-cta__next-media {
+    width: 100%;
+    max-width: 100%;
+    margin-inline: 0;
+  }
+}
+
+.project-end-cta__next-media .project-detail-cover-img {
   transition: transform 0.4s var(--ease);
 }
 
-.project-detail-next__link:hover .project-detail-cover-img,
-.project-detail-next__link:focus-visible .project-detail-cover-img {
+.project-end-cta__next-card:hover .project-detail-cover-img,
+.project-end-cta__next-card:focus-visible .project-detail-cover-img {
   transform: scale(1.02);
 }
-.project-detail-next__link:focus-visible {
+
+.project-end-cta__next-meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+  min-width: 0;
+}
+
+@media (max-width: 767px) {
+  .project-end-cta__next-meta {
+    width: var(--project-detail-gallery-width);
+    max-width: var(--project-detail-gallery-width);
+    margin-inline: auto;
+  }
+}
+
+.project-end-cta__next-card:focus-visible,
+.project-end-cta__works-card:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: var(--space-2);
   border-radius: var(--radius-md);
 }
-.project-detail-next__link:focus-visible .project-detail-next__media {
+
+.project-end-cta__next-card:focus-visible .project-end-cta__next-media {
   outline: none;
+}
+
+.project-end-cta__works-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-8);
+  background: var(--surface);
+  transition:
+    border-color var(--dur-fast) var(--ease),
+    background var(--dur-fast) var(--ease);
+}
+
+.project-end-cta__works-card:hover,
+.project-end-cta__works-card:focus-visible {
+  border-color: var(--border-md);
+}
+
+.project-end-cta__works-inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.project-end-cta__footer {
+  margin-top: var(--space-10);
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.project-end-cta__all:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: var(--space-2);
 }
 
 /* Homepage featured-work kart tipografisi (kruv.html) */
