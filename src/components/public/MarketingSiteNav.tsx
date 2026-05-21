@@ -10,6 +10,7 @@ import {
   SiteNavMobileOverlay,
   SITE_NAV_MOBILE_MENU_ID,
   SITE_NAV_SENTINEL_ID,
+  useSiteNavScroll,
 } from "./site-nav";
 
 /**
@@ -19,6 +20,7 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
   const pathname = usePathname();
   const router = useRouter();
   const menuTitleId = useId();
+  const scrolled = useSiteNavScroll(SITE_NAV_SENTINEL_ID);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
