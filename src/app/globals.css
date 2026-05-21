@@ -120,9 +120,9 @@
   --ls-2xs: 0.01em;
   --ls-display: -0.02em;
   --card-meta-title-ls: 0.03em;
-  /* Kart kategori: b3 takibi (sıkı 0.02em override kaldırıldı) */
+  /* Kart kategori: b3 ile aynı */
   --card-meta-tag-ls: var(--b3-letter-spacing);
-  --card-meta-tag-size-mobile: calc(var(--type-b3) + 2pt);
+  --card-meta-tag-size-mobile: var(--b3-font-size);
   --ls-lg: -0.015em;
   --ls-xl: -0.01em;
   --ls-2xl: 0.14em;
@@ -172,10 +172,10 @@
   --b2-color: var(--ink-faint);
 
   --b3-font-family: var(--font-display);
-  --b3-font-size: var(--type-b3);
+  --b3-font-size: calc(var(--type-b3) + 2pt);
   --b3-font-weight: 500;
   --b3-line-height: var(--lh-tight);
-  --b3-letter-spacing: var(--ls-2xl);
+  --b3-letter-spacing: 0;
   --b3-text-transform: lowercase;
 
   /* ===== Space scale (kruv.html) ===== */

@@ -37,7 +37,7 @@ export function SiteFooter({
         <div className="min-w-0">
           <h2
             className="b3 mb-4"
-            style={{ color: "var(--ink-faint)", letterSpacing: "var(--ls-2xl)" }}
+            style={{ color: "var(--ink-faint)" }}
           >
             Services
           </h2>
@@ -55,7 +55,7 @@ export function SiteFooter({
         <nav aria-label="Sitemap" className="min-w-0">
           <h2
             className="b3 mb-4"
-            style={{ color: "var(--ink-faint)", letterSpacing: "var(--ls-2xl)" }}
+            style={{ color: "var(--ink-faint)" }}
           >
             Sitemap
           </h2>
@@ -80,7 +80,7 @@ export function SiteFooter({
         <div className="col-span-2 min-w-0 lg:col-span-1">
           <h2
             className="b3 mb-4"
-            style={{ color: "var(--ink-faint)", letterSpacing: "var(--ls-2xl)" }}
+            style={{ color: "var(--ink-faint)" }}
           >
             Follow
           </h2>
