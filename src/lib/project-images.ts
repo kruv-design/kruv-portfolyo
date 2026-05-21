@@ -1,5 +1,25 @@
 import type { Project } from "@/types";
 
+function cloudName(): string {
+  return String(process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME ?? "").trim();
+}
+
+/**
+ * Supabase / admin: tam https URL veya Cloudinary public_id (örn. kruv-portfolio/abc).
+ * Public_id tek başına tarayıcıda görüntülenemez — delivery URL üretilir.
+ */
+export function resolveProjectImageUrl(raw: string): string {
+  const s = raw.trim().replace(/\s+/g, "");
+  if (!s) return "";
+  if (/^https?:\/\//i.test(s)) return s;
+  const cloud = cloudName();
+  if (!cloud) return s;
+  const id = s
+    .replace(/^\/+/, "")
+    .replace(/\.(jpe?g|png|webp|gif|avif|heic)$/i, "");
+  return `https://res.cloudinary.com/${cloud}/image/upload/f_auto,q_auto/${id}`;
+}
+
 /** Supabase + admin: kapak + numaralı galeri slotları (hepsi isteğe bağlı). */
 export const GALERI_KEYS = [
   "galeri_1",
@@ -23,12 +43,12 @@ export function emptyGaleriSlots(): Record<GaleriKey, string> {
 }
 
 export function projectCover(project: Pick<Project, "kapak">): string | null {
-  const k = (project.kapak ?? "").trim();
+  const k = resolveProjectImageUrl(project.kapak ?? "");
   return k || null;
 }
 
 export function projectGallery(project: Pick<Project, GaleriKey>): string[] {
-  return GALERI_KEYS.map((k) => project[k]?.trim() ?? "").filter(Boolean);
+  return GALERI_KEYS.map((k) => resolveProjectImageUrl(project[k] ?? "")).filter(Boolean);
 }
 
 /** Galeri slot anahtarı korunur — galeri_2 künye hizası için ayrı stil. */
@@ -37,7 +57,7 @@ export function projectGallerySlots(
 ): { key: GaleriKey; src: string }[] {
   return GALERI_KEYS.map((key) => ({
     key,
-    src: project[key]?.trim() ?? "",
+    src: resolveProjectImageUrl(project[key] ?? ""),
   })).filter((item) => item.src.length > 0);
 }
 

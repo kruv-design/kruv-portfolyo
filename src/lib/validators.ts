@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { resolveProjectImageUrl } from "@/lib/project-images";
 import { slugify } from "@/lib/slugify";
 
 const nonEmpty = z.string().trim().min(1, "Bu alan zorunlu.");
@@ -18,10 +19,14 @@ function compactUrlWhitespace(s: string): string {
 const imageUrlOrEmpty = z
   .string()
   .max(2048)
-  .transform((s) => compactUrlWhitespace(s))
+  .transform((s) => {
+    const c = compactUrlWhitespace(s);
+    if (!c) return "";
+    return resolveProjectImageUrl(c);
+  })
   .refine(
     (s) => !s || /^https?:\/\//i.test(s),
-    "Görsel adresi http(s) ile başlamalı veya boş bırakın.",
+    "Görsel: https://… URL veya Cloudinary public_id (örn. kruv-portfolio/abc). NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME gerekli.",
   )
   .refine((s) => {
     if (!s) return true;

@@ -254,11 +254,11 @@
   --nav-pill-pad-x: clamp(16px, 4vw, 22px);
   --nav-pill-inset: var(--nav-pill-pad-x);
   --works-body-pad-top: calc(var(--space-6) + var(--nav-logo-slot-h) + var(--space-6));
-  /* Proje detay kapak: fixed nav + pill inset altında başlar */
-  --project-detail-cover-offset: calc(
-    env(safe-area-inset-top, 0px) + var(--works-body-pad-top) + 2 * var(--nav-pill-inset)
+  /* Proje detay: nav altı — vw/clamp yok (resize’da kapak kaymasın) */
+  --project-detail-shell-pad-top: calc(
+    env(safe-area-inset-top, 0px) + var(--works-body-pad-top)
   );
-  /* Kapak / galeri / featured — her yerde aynı 16:9 */
+  /* Works kartları; proje detay medyası orijinal oran */
   --project-media-aspect-ratio: 16 / 9;
   /* Proje detay galeri: viewport’a ufak inset */
   --project-gallery-inset-x: var(--container-gutter);
@@ -677,13 +677,13 @@ body {
 .works-shell-inner.project-detail-shell {
   width: 100%;
   max-width: 100%;
-  padding-top: 0;
-  overflow-x: visible;
+  padding-top: var(--project-detail-shell-pad-top);
+  overflow-x: clip;
 }
 
 .project-detail-body {
   display: grid;
-  width: var(--grid-shell-width);
+  width: min(100%, var(--grid-shell-max));
   max-width: 100%;
   margin-inline: auto;
   box-sizing: border-box;
@@ -693,7 +693,7 @@ body {
   gap: var(--space-8);
   grid-template-columns: 1fr;
   align-items: start;
-  overflow-x: visible;
+  overflow-x: clip;
 }
 @media (min-width: 900px) {
   .project-detail-body {
@@ -726,24 +726,40 @@ body {
   width: 100%;
   min-width: 0;
 }
-/* Kapak + galeri: tek oran (16:9) — mobil/desktop aynı; svh ile dikey kırpma yok */
+/* Kapak + galeri: orijinal en-boy (kırpma / sabit 16:9 çerçeve yok) */
 .project-detail-cover {
   position: relative;
+  display: block;
   width: 100%;
   max-width: 100%;
   margin: 0 0 var(--space-8);
-  height: auto;
-  min-height: 0;
-  aspect-ratio: var(--project-media-aspect-ratio);
+  flex-shrink: 0;
   box-sizing: border-box;
   overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.project-detail-media-img {
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100%;
+  position: static !important;
+  inset: auto !important;
+  object-fit: contain;
+  object-position: center;
+  vertical-align: top;
+}
+
+.project-detail-cover__placeholder {
+  display: block;
+  width: 100%;
+  min-height: min(40vh, 360px);
+  aspect-ratio: var(--project-media-aspect-ratio);
 }
 
 @media (max-width: 768px) {
-  .project-detail-page .project-detail-cover {
-    margin-top: var(--project-detail-cover-offset);
-  }
-
   /* Works kartları: 16/12 yerine proje medyası ile aynı oran */
   .pw-card-media {
     aspect-ratio: var(--project-media-aspect-ratio);
@@ -753,40 +769,18 @@ body {
   margin: 0;
   min-width: 0;
 }
+/* Tam genişlik: 100vw değil — scrollbar/vw ile yatay kayma ve dikey sıçrama yok */
 .project-detail-gallery-wrap {
   display: flex;
   flex-direction: column;
-  width: 100vw;
-  max-width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
+  width: calc(100% + 2 * var(--container-gutter));
+  max-width: none;
+  margin-left: calc(-1 * var(--container-gutter));
+  margin-right: calc(-1 * var(--container-gutter));
   padding: var(--project-gallery-inset-y) var(--project-gallery-inset-x);
   box-sizing: border-box;
   min-width: 0;
-}
-/* Kapak görseli: kapsayıcıyı doldurur (16:9) */
-.project-detail-hero {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  max-width: none;
-  margin: 0;
-  border-radius: 0;
-  overflow: hidden;
-  background: var(--surface);
-  box-sizing: border-box;
-}
-.project-detail-hero > span {
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  max-width: none !important;
-  max-height: none !important;
-}
-.project-detail-hero img {
-  object-fit: cover;
-  object-position: center;
+  flex-shrink: 0;
 }
 .project-detail-cover .project-detail-toolbar {
   position: absolute;
@@ -818,7 +812,7 @@ body {
   border: 1px solid var(--border);
   box-sizing: border-box;
 }
-/* Galeri: tam genişlik, her kare aynı 16:9 */
+/* Galeri: tam genişlik, her görsel kendi oranında */
 .project-detail-gallery {
   display: flex;
   flex-direction: column;
@@ -827,31 +821,15 @@ body {
   gap: var(--project-gallery-inset-y);
 }
 .project-detail-gallery__item {
-  position: relative;
   display: block;
   width: 100%;
   max-width: 100%;
-  margin-inline: 0;
-  height: auto;
-  min-height: 0;
-  aspect-ratio: var(--project-media-aspect-ratio);
+  margin: 0;
+  flex-shrink: 0;
   border-radius: var(--radius-md);
   overflow: hidden;
   background: var(--surface);
   box-sizing: border-box;
-  isolation: isolate;
-}
-.project-detail-gallery__item > span {
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  max-width: none !important;
-  max-height: none !important;
-}
-.project-detail-gallery__item img {
-  object-fit: cover;
-  object-position: center;
 }
 
 /* Proje detay altı — next + sonraki kapak (sıra sırası) */
@@ -874,24 +852,23 @@ body {
   color: inherit;
 }
 .project-detail-next__media {
-  position: relative;
+  display: block;
   width: 100%;
   max-width: 100%;
   margin-inline: 0;
-  aspect-ratio: var(--project-media-aspect-ratio);
   overflow: hidden;
   border-radius: var(--radius-md);
   background: var(--surface);
   box-sizing: border-box;
-  isolation: isolate;
 }
-.project-detail-next__media > span {
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  max-width: none !important;
-  max-height: none !important;
+
+.project-detail-next__media .project-detail-media-img {
+  transition: transform 0.4s var(--ease);
+}
+
+.project-detail-next__link:hover .project-detail-media-img,
+.project-detail-next__link:focus-visible .project-detail-media-img {
+  transform: scale(1.02);
 }
 .project-detail-next__link:focus-visible {
   outline: 2px solid var(--accent);

@@ -1,8 +1,8 @@
 import Link from "next/link";
-import Image from "next/image";
 import type { Project } from "@/types";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { projectCover, projectGallerySlots } from "@/lib/project-images";
+import { ProjectDetailImage } from "./ProjectDetailImage";
 import { ProjectNextTeaser } from "./ProjectNextTeaser";
 
 export function ProjectDetail({
@@ -22,25 +22,16 @@ export function ProjectDetail({
   return (
     <>
       <div className="project-detail-cover animate-fadeUp">
-        <div className="project-detail-hero">
-          {cover ? (
-            <Image
-              src={cover}
-              alt={project.baslik}
-              fill
-              className="object-cover object-center"
-              priority
-              sizes="100vw"
-            />
-          ) : (
-            <ImagePlaceholder
-              label={project.baslik[0] ?? "•"}
-              color={project.renk}
-              fontSize="5rem"
-              className="h-full w-full"
-            />
-          )}
-        </div>
+        {cover ? (
+          <ProjectDetailImage src={cover} alt={project.baslik} priority />
+        ) : (
+          <ImagePlaceholder
+            label={project.baslik[0] ?? "•"}
+            color={project.renk}
+            fontSize="5rem"
+            className="project-detail-cover__placeholder"
+          />
+        )}
         <div className="project-detail-toolbar">
           <div className="project-detail-nav-arrows">
             <NavArrow slug={prevSlug} label="←" />
@@ -101,15 +92,9 @@ export function ProjectDetail({
           <div className="project-detail-gallery-wrap animate-fadeUp">
             <div className="project-detail-gallery">
               {gallerySlots.map(({ key, src }) => (
-                <div key={key} className="project-detail-gallery__item">
-                  <Image
-                    src={src}
-                    alt=""
-                    fill
-                    sizes="100vw"
-                    className="object-cover object-center"
-                  />
-                </div>
+                <figure key={key} className="project-detail-gallery__item">
+                  <ProjectDetailImage src={src} alt="" />
+                </figure>
               ))}
             </div>
           </div>
