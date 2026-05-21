@@ -16,7 +16,8 @@ export function ProjectDetailImage({
   variant?: ProjectDetailImageVariant;
   sizes?: string;
 }) {
-  const resolvedSizes = sizes ?? "80vw";
+  const resolvedSizes =
+    sizes ?? (variant === "cover" ? "100vw" : "80vw");
   const className =
     variant === "cover" ? "project-detail-cover-img" : "project-detail-media-img";
 
