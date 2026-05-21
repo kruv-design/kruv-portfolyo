@@ -9,6 +9,43 @@ export const WORK_PAGE_FILTER_LABELS = [
 
 export type WorkPageFilterLabel = (typeof WORK_PAGE_FILTER_LABELS)[number];
 
+const FILTER_SLUGS: Record<WorkPageFilterLabel, string> = {
+  "Social media": "social-media",
+  Branding: "branding",
+  Editorial: "editorial",
+  "Web design": "web-design",
+};
+
+const SLUG_TO_FILTER: Record<string, WorkPageFilterLabel> = {
+  "social-media": "Social media",
+  branding: "Branding",
+  editorial: "Editorial",
+  "web-design": "Web design",
+};
+
+/** Footer Services → `/works` filtresi */
+export const FOOTER_SERVICE_LINKS = [
+  { label: "Brand identity", filter: "Branding" as const },
+  { label: "Packaging", filter: "Branding" as const },
+  { label: "Editorial", filter: "Editorial" as const },
+  { label: "UI/UX", filter: "Web design" as const },
+  { label: "Illustration", filter: "Branding" as const },
+] as const;
+
+export const HOME_HERO_HREF = "/#hero";
+
+export function worksPageHref(filter?: WorkPageFilterLabel): string {
+  if (!filter) return "/works";
+  return `/works?filter=${FILTER_SLUGS[filter]}`;
+}
+
+export function parseWorksFilterParam(
+  raw: string | null | undefined,
+): WorkPageFilterLabel | null {
+  if (!raw) return null;
+  return SLUG_TO_FILTER[raw.trim().toLowerCase()] ?? null;
+}
+
 function norm(s: string): string {
   return s.trim().toLowerCase();
 }

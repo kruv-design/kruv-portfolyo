@@ -1,26 +1,35 @@
 import Image from "next/image";
 
-/** Proje detay: orijinal en-boy; zorunlu kırpma / sabit çerçeve yok. */
+type ProjectDetailImageVariant = "cover" | "gallery";
+
+/** Proje detay: orijinal en-boy; kırpma / sabit çerçeve yok. */
 export function ProjectDetailImage({
   src,
   alt,
   priority = false,
-  sizes = "80vw",
+  variant = "gallery",
+  sizes,
 }: {
   src: string;
   alt: string;
   priority?: boolean;
+  variant?: ProjectDetailImageVariant;
   sizes?: string;
 }) {
+  const resolvedSizes =
+    sizes ?? (variant === "cover" ? "100vw" : "80vw");
+  const className =
+    variant === "cover" ? "project-detail-cover-img" : "project-detail-media-img";
+
   return (
     <Image
       src={src}
       alt={alt}
       width={0}
       height={0}
-      sizes={sizes}
+      sizes={resolvedSizes}
       priority={priority}
-      className="project-detail-media-img"
+      className={className}
     />
   );
 }

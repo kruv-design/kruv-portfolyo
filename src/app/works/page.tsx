@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { DEFAULT_SITE_SETTINGS, getProjects, getSettings } from "@/lib/queries";
 import { MarketingSiteNav } from "@/components/public/MarketingSiteNav";
 import { MarketingPageShell } from "@/components/public/MarketingPageShell";
@@ -15,7 +16,9 @@ export default async function WorksPage() {
   return (
     <MarketingPageShell className="flex min-h-screen flex-col">
       <MarketingSiteNav settings={settings} />
-      <PortfolioGrid projects={projects} settings={settings} />
+      <Suspense fallback={null}>
+        <PortfolioGrid projects={projects} settings={settings} />
+      </Suspense>
     </MarketingPageShell>
   );
 }

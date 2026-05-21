@@ -186,6 +186,7 @@
 
   .marketing-nav-mobile-theme-toggle,
   .site-nav-mobile-theme-toggle {
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -195,6 +196,7 @@
     height: var(--nav-bar-ctrl-h);
     margin-bottom: var(--space-8);
     padding: 0;
+    overflow: hidden;
     border-radius: var(--btn-radius);
   }
 
@@ -210,8 +212,14 @@
 
   .marketing-nav-mobile-theme-toggle svg,
   .site-nav-mobile-theme-toggle svg {
+    position: absolute;
+    left: 50%;
+    top: 50%;
     width: 16px;
     height: 16px;
+    margin: 0;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
   }
 
   .marketing-nav-mobile-search,

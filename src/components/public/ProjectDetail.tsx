@@ -23,7 +23,12 @@ export function ProjectDetail({
     <>
       <div className="project-detail-cover animate-fadeUp">
         {cover ? (
-          <ProjectDetailImage src={cover} alt={project.baslik} priority />
+          <ProjectDetailImage
+            src={cover}
+            alt={project.baslik}
+            priority
+            variant="cover"
+          />
         ) : (
           <ImagePlaceholder
             label={project.baslik[0] ?? "•"}

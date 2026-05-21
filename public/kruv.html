@@ -42,7 +42,7 @@
 
 <div id="nav-sentinel" class="marketing-nav-sentinel" aria-hidden="true"></div>
 
-<nav id="site-nav" class="marketing-navbar" lang="en" aria-label="Primary">
+<nav id="site-nav" class="marketing-navbar is-scrolled is-nav-stable" lang="en" aria-label="Primary">
   <div class="marketing-navbar-inner">
     <div class="marketing-navbar-cols">
       <div class="marketing-navbar-col marketing-navbar-col--brand">
@@ -790,17 +790,18 @@
       <div class="site-footer-col">
         <h4 class="h4 site-footer-heading">Services</h4>
         <ul class="site-footer-list site-footer-services">
-          <li><a class="site-footer-service-link" href="#works" data-work-filter="brand-identity">Brand identity</a></li>
-          <li><a class="site-footer-service-link" href="#works" data-work-filter="packaging">Packaging</a></li>
-          <li><a class="site-footer-service-link" href="#works" data-work-filter="editorial">Editorial</a></li>
-          <li><a class="site-footer-service-link" href="#works" data-work-filter="ui-ux">UI/UX</a></li>
-          <li><a class="site-footer-service-link" href="#works" data-work-filter="illustration">Illustration</a></li>
+          <li><a class="site-footer-service-link" href="/works?filter=branding">Brand identity</a></li>
+          <li><a class="site-footer-service-link" href="/works?filter=branding">Packaging</a></li>
+          <li><a class="site-footer-service-link" href="/works?filter=editorial">Editorial</a></li>
+          <li><a class="site-footer-service-link" href="/works?filter=web-design">UI/UX</a></li>
+          <li><a class="site-footer-service-link" href="/works?filter=branding">Illustration</a></li>
         </ul>
       </div>
       <nav class="site-footer-col" aria-label="Sitemap">
         <h4 class="h4 site-footer-heading">Sitemap</h4>
         <ul class="site-footer-list site-footer-links">
-          <li><a href="/">Home</a></li>
+          <li><a href="/#hero">Home</a></li>
+          <li><a href="/works">Projects</a></li>
           <li><a href="/contact">Contact us</a></li>
         </ul>
       </nav>
@@ -1447,64 +1448,6 @@
 })();
 </script>
 
-<script>
-(function () {
-  var nav = document.getElementById('site-nav');
-  var sentinel = document.getElementById('nav-sentinel');
-  if (!nav || !sentinel) return;
-
-  var isScrolled = false;
-  var SCROLL_ON = 32;
-  var SCROLL_OFF = 8;
-
-  function setScrolled(next) {
-    if (next === isScrolled) return;
-    isScrolled = next;
-    nav.classList.toggle('is-scrolled', next);
-  }
-
-  function applySentinelEntry(entry) {
-    if (!entry || entry.target !== sentinel) return;
-    if (!entry.isIntersecting) {
-      setScrolled(true);
-    } else if ((window.scrollY || 0) <= SCROLL_OFF) {
-      setScrolled(false);
-    }
-  }
-
-  function syncScrolledFromScroll() {
-    var y = window.scrollY || 0;
-    if (!isScrolled && y > SCROLL_ON) setScrolled(true);
-    else if (isScrolled && y <= SCROLL_OFF) setScrolled(false);
-  }
-
-  if ('IntersectionObserver' in window) {
-    var observer = new IntersectionObserver(function (entries) {
-      for (var i = 0; i < entries.length; i++) {
-        applySentinelEntry(entries[i]);
-      }
-    }, { threshold: 0, root: null, rootMargin: '0px' });
-    observer.observe(sentinel);
-    var pending = observer.takeRecords();
-    for (var j = 0; j < pending.length; j++) {
-      applySentinelEntry(pending[j]);
-    }
-    syncScrolledFromScroll();
-    var scrollRaf = 0;
-    window.addEventListener('scroll', function () {
-      if (scrollRaf) return;
-      scrollRaf = requestAnimationFrame(function () {
-        scrollRaf = 0;
-        syncScrolledFromScroll();
-      });
-    }, { passive: true });
-    return;
-  }
-
-  syncScrolledFromScroll();
-  window.addEventListener('scroll', syncScrolledFromScroll, { passive: true });
-})();
-</script>
 
 <script>
 (function () {
@@ -1929,61 +1872,17 @@
 
 <script>
   (function () {
-    var HASH_PREFIX = 'works-filter-';
-    var grid = document.querySelector('.featured-works');
-    if (!grid) return;
-
-    function tagSet(card) {
-      if (!card.hasAttribute('data-work-tags')) return null;
-      var raw = card.getAttribute('data-work-tags') || '';
-      var parts = raw.split(/\s+/).filter(Boolean);
-      return parts.length ? parts : null;
+    if (window.location.hash !== '#hero') return;
+    var hero = document.getElementById('hero') || document.querySelector('.hero-v2');
+    if (!hero) return;
+    function scrollHero() {
+      hero.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-
-    function applyWorkFilter(slug) {
-      var cards = grid.querySelectorAll('.featured-work-card');
-      var showAll = !slug;
-      cards.forEach(function (card) {
-        var tags = tagSet(card);
-        var match = showAll || tags === null || tags.indexOf(slug) !== -1;
-        card.hidden = !match;
-      });
-      grid.classList.toggle('featured-works--filtered', !showAll);
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', scrollHero, { once: true });
+    } else {
+      scrollHero();
     }
-
-    function scrollToWorks() {
-      var el = document.getElementById('works');
-      if (!el) return;
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    function slugFromHash() {
-      var h = window.location.hash.slice(1);
-      if (h.indexOf(HASH_PREFIX) !== 0) return '';
-      return h.slice(HASH_PREFIX.length);
-    }
-
-    function activateFromHash() {
-      var slug = slugFromHash();
-      if (slug) applyWorkFilter(slug);
-      else applyWorkFilter('');
-    }
-
-    document.querySelectorAll('.site-footer-service-link[data-work-filter]').forEach(function (a) {
-      a.addEventListener('click', function (e) {
-        var slug = a.getAttribute('data-work-filter');
-        if (!slug) return;
-        e.preventDefault();
-        applyWorkFilter(slug);
-        try {
-          history.replaceState(null, '', '#' + HASH_PREFIX + slug);
-        } catch (err) {}
-        scrollToWorks();
-      });
-    });
-
-    window.addEventListener('hashchange', activateFromHash);
-    activateFromHash();
   })();
 
   (function initIdealShareMarquee() {

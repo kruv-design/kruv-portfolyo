@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
 const SCROLL_ON = 32;
 const SCROLL_OFF = 8;
@@ -8,6 +8,11 @@ const SCROLL_OFF = 8;
 /** Navbar scroll (sentinel + histerezis) — tüm sayfalarda aynı. */
 export function useSiteNavScroll(sentinelId = "nav-sentinel") {
   const [scrolled, setScrolled] = useState(false);
+
+  useLayoutEffect(() => {
+    const y = window.scrollY;
+    setScrolled(y > SCROLL_ON);
+  }, []);
 
   useEffect(() => {
     const sentinel = document.getElementById(sentinelId);

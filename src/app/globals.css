@@ -263,8 +263,8 @@
   /* Proje detay galeri: viewport’a ufak inset */
   --project-gallery-inset-x: var(--container-gutter);
   --project-gallery-inset-y: var(--space-4);
-  /* Proje detay kapak / galeri / next — orijinal oran, genişlik viewport’un %80’i */
-  --project-detail-media-width: 80vw;
+  /* Proje detay galeri görselleri — orijinal oran, genişlik viewport’un %80’i */
+  --project-detail-gallery-width: 80vw;
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -604,11 +604,6 @@ body {
   padding-top: var(--works-body-pad-top);
 }
 
-/* /contact — hero yok; nav altında form başlar (Works ile aynı üst boşluk) */
-.marketing-page-shell .contact-page-main {
-  padding-top: var(--works-body-pad-top);
-}
-
 .portfolio-works-page .portfolio-grid {
   width: 100%;
   min-width: 0;
@@ -726,20 +721,21 @@ body {
   width: 100%;
   min-width: 0;
 }
-/* Kapak + galeri: orijinal oran; genişlik 80vw, yükseklik serbest */
+/* Kapak: tam genişlik (zemin), orijinal oran */
 .project-detail-cover {
   position: relative;
   display: block;
-  width: var(--project-detail-media-width);
+  width: 100%;
   max-width: 100%;
-  margin: 0 auto var(--space-8);
+  margin: 0 0 var(--space-8);
   flex-shrink: 0;
   box-sizing: border-box;
   overflow: hidden;
-  border-radius: var(--radius-md);
+  border-radius: 0;
   background: var(--surface);
 }
 
+.project-detail-cover-img,
 .project-detail-media-img {
   display: block;
   width: 100% !important;
@@ -820,7 +816,7 @@ body {
 }
 .project-detail-gallery__item {
   display: block;
-  width: var(--project-detail-media-width);
+  width: var(--project-detail-gallery-width);
   max-width: 100%;
   margin: 0;
   flex-shrink: 0;
@@ -845,29 +841,27 @@ body {
   text-transform: lowercase;
 }
 .project-detail-next__link {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: block;
   text-decoration: none;
   color: inherit;
 }
 .project-detail-next__media {
   display: block;
-  width: var(--project-detail-media-width);
+  width: 100%;
   max-width: 100%;
-  margin-inline: auto;
+  margin-inline: 0;
   overflow: hidden;
   border-radius: var(--radius-md);
   background: var(--surface);
   box-sizing: border-box;
 }
 
-.project-detail-next__media .project-detail-media-img {
+.project-detail-next__media .project-detail-cover-img {
   transition: transform 0.4s var(--ease);
 }
 
-.project-detail-next__link:hover .project-detail-media-img,
-.project-detail-next__link:focus-visible .project-detail-media-img {
+.project-detail-next__link:hover .project-detail-cover-img,
+.project-detail-next__link:focus-visible .project-detail-cover-img {
   transform: scale(1.02);
 }
 .project-detail-next__link:focus-visible {
@@ -1038,8 +1032,8 @@ body {
 /* ── Contact page / form ───────────────────────────────── */
 .contact-page-main {
   flex: 1;
-  /* Sabit navbar — başlık nav altında kalmaması için Works ile aynı üst boşluk */
-  padding-top: calc(var(--works-body-pad-top) + var(--space-4));
+  /* Sabit compact nav — Works ile aynı üst ritim */
+  padding-top: var(--works-body-pad-top);
   padding-inline: var(--container-gutter);
   padding-bottom: var(--space-12);
 }

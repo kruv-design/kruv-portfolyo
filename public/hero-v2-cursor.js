@@ -4,7 +4,16 @@
   if (!section) return;
 
   var scrollTarget = section.getAttribute("data-scroll-target") || "works";
-  var scrollHref = (section.getAttribute("data-scroll-href") || "").trim();
+
+  function resolveHeroNavigateHref() {
+    var href = (section.getAttribute("data-scroll-href") || "").trim();
+    if (href) return href;
+    href = (section.getAttribute("data-cta-href") || "").trim();
+    if (href) return href;
+    var cta = section.querySelector("a.hero-v2-mobile-cta[href]");
+    if (cta) return (cta.getAttribute("href") || "").trim();
+    return "";
+  }
 
   section.addEventListener(
     "click",
@@ -13,35 +22,34 @@
       if (e.target.closest("a[href], button, input, select, textarea")) return;
       if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       e.preventDefault();
-      if (scrollHref) {
-        window.location.href = scrollHref;
-      } else {
-        window.location.hash = scrollTarget;
+      var href = resolveHeroNavigateHref();
+      if (href.charAt(0) === "#") {
+        window.location.hash = href.slice(1) || scrollTarget;
+        return;
       }
+      if (href) {
+        window.location.assign(href);
+        return;
+      }
+      window.location.hash = scrollTarget;
     },
     false,
   );
 
   if (!el) return;
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  /* Windows / hibrit: pointer:fine tek başına yetersiz; hover veya any-pointer:fine */
   var mqDesktop = window.matchMedia("(min-width: 701px)");
-  var mqHover = window.matchMedia("(hover: hover)");
-  var mqAnyFine = window.matchMedia("(any-pointer: fine)");
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* Win hibrit: medya sorgusu coarse dese bile gerçek mousemove gelirse aç */
-  var forceFromMouse = false;
-
+  /* Masaüstü genişlikte her zaman (Win hibrit/touch laptop medya sorguları yanıltıcı) */
   function shouldUseCustomCursor() {
-    if (!mqDesktop.matches) return false;
-    if (forceFromMouse) return true;
-    return mqHover.matches || mqAnyFine.matches;
+    return mqDesktop.matches;
   }
 
   var rootStyle = getComputedStyle(document.documentElement);
 
   function readLerp() {
+    if (reduceMotion) return 1;
     var v = parseFloat(rootStyle.getPropertyValue("--hero-v2-cursor-lerp").trim());
     return v > 0 && v < 1 ? v : 0.18;
   }
@@ -52,6 +60,8 @@
   var posY = 0;
   var visible = false;
   var rafId = 0;
+  var lastX = 0;
+  var lastY = 0;
 
   function setTransform() {
     el.style.transform =
@@ -108,9 +118,8 @@
   }
 
   function onPointerMove(clientX, clientY) {
-    if (mqDesktop.matches && !mqHover.matches && !mqAnyFine.matches) {
-      forceFromMouse = true;
-    }
+    lastX = clientX;
+    lastY = clientY;
     if (!shouldUseCustomCursor()) {
       if (visible) hideCursor();
       return;
@@ -128,9 +137,19 @@
     kickLerp();
   }
 
-  document.addEventListener(
-    "mousemove",
+  function bindPointerMove(e) {
+    if (e.pointerType === "touch") return;
+    onPointerMove(e.clientX, e.clientY);
+  }
+
+  document.addEventListener("mousemove", bindPointerMove, { passive: true });
+  document.addEventListener("pointermove", bindPointerMove, { passive: true });
+
+  section.addEventListener(
+    "pointerenter",
     function (e) {
+      if (e.pointerType === "touch") return;
+      if (!shouldUseCustomCursor()) return;
       onPointerMove(e.clientX, e.clientY);
     },
     { passive: true },
@@ -148,6 +167,7 @@
     "scroll",
     function () {
       if (!visible) return;
+      if (isPointerOverHero(lastX, lastY)) return;
       hideCursor();
     },
     { passive: true },
@@ -159,11 +179,7 @@
 
   if (mqDesktop.addEventListener) {
     mqDesktop.addEventListener("change", onMqChange);
-    mqHover.addEventListener("change", onMqChange);
-    mqAnyFine.addEventListener("change", onMqChange);
   } else if (mqDesktop.addListener) {
     mqDesktop.addListener(onMqChange);
-    mqHover.addListener(onMqChange);
-    mqAnyFine.addListener(onMqChange);
   }
 })();

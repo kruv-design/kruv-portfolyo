@@ -10,7 +10,6 @@ import {
   SiteNavMobileOverlay,
   SITE_NAV_MOBILE_MENU_ID,
   SITE_NAV_SENTINEL_ID,
-  useSiteNavScroll,
 } from "./site-nav";
 
 /**
@@ -20,7 +19,6 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
   const pathname = usePathname();
   const router = useRouter();
   const menuTitleId = useId();
-  const scrolled = useSiteNavScroll(SITE_NAV_SENTINEL_ID);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -65,7 +63,7 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
       <div id={SITE_NAV_SENTINEL_ID} className="marketing-nav-sentinel" aria-hidden="true" />
       <nav
         id="site-nav"
-        className={`marketing-navbar${scrolled ? " is-scrolled" : ""}${mobileMenuOpen ? " is-menu-open" : ""}`}
+        className={`marketing-navbar is-scrolled is-nav-stable${mobileMenuOpen ? " is-menu-open" : ""}`}
         aria-label="Primary"
         lang="en"
       >
@@ -103,7 +101,7 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
             </div>
             <div className="marketing-navbar-col marketing-navbar-col--cta">
               <div className="marketing-navbar-actions">
-                <ThemeToggle className="marketing-navbar-theme-toggle marketing-navbar-theme-toggle--dock" />
+                <ThemeToggle className="marketing-navbar-theme-toggle marketing-navbar-theme-toggle--dock nav-theme-toggle" />
                 <Link href="/contact" className="marketing-navbar-cta">
                   Start a project
                 </Link>
@@ -123,7 +121,7 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
         titleId={menuTitleId}
         open={mobileMenuOpen}
       >
-        <ThemeToggle className="marketing-nav-mobile-theme-toggle site-nav-mobile-theme-toggle" />
+        <ThemeToggle className="marketing-nav-mobile-theme-toggle site-nav-mobile-theme-toggle nav-theme-toggle" />
 
         <form className="marketing-nav-mobile-search" role="search" onSubmit={onMobileSearch}>
           <label htmlFor="marketing-nav-mobile-q" className="sr-only">

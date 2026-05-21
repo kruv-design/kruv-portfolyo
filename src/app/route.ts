@@ -9,7 +9,10 @@ export const runtime = "nodejs";
 async function kruvHtmlResponse(): Promise<NextResponse> {
   const filePath = path.join(process.cwd(), "public", "kruv.html");
   const raw = await readFile(filePath, "utf8");
-  const html = await injectHeroV2IntoPageHtml(raw, { ctaHref: "/works" });
+  const html = await injectHeroV2IntoPageHtml(raw, {
+    ctaHref: "/works",
+    scrollHref: "/works",
+  });
   return new NextResponse(html, {
     status: 200,
     headers: {

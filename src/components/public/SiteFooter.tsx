@@ -1,14 +1,11 @@
 import Link from "next/link";
 import type { SiteSettings } from "@/types";
+import {
+  FOOTER_SERVICE_LINKS,
+  HOME_HERO_HREF,
+  worksPageHref,
+} from "@/lib/work-filters";
 import { SocialFooterLinks } from "./SocialFooterLinks";
-
-const SERVICES = [
-  "Brand identity",
-  "Packaging",
-  "Editorial",
-  "UI/UX",
-  "Illustration",
-] as const;
 
 const footerLinkClass =
   "b2 block lowercase transition-colors duration-150 hover:text-[color:var(--ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bg)]";
@@ -42,11 +39,15 @@ export function SiteFooter({
             Services
           </h2>
           <ul className="flex flex-col gap-2.5">
-            {SERVICES.map((label) => (
+            {FOOTER_SERVICE_LINKS.map(({ label, filter }) => (
               <li key={label}>
-                <span className="b2 lowercase" style={{ color: "var(--ink-soft)" }}>
+                <Link
+                  href={worksPageHref(filter)}
+                  className={footerLinkClass}
+                  style={{ color: "var(--ink-soft)" }}
+                >
                   {label}
-                </span>
+                </Link>
               </li>
             ))}
           </ul>
@@ -61,8 +62,21 @@ export function SiteFooter({
           </h2>
           <ul className="flex flex-col gap-2.5">
             <li>
-              <Link href="/" className={footerLinkClass} style={{ color: "var(--ink-soft)" }}>
+              <Link
+                href={HOME_HERO_HREF}
+                className={footerLinkClass}
+                style={{ color: "var(--ink-soft)" }}
+              >
                 Home
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={worksPageHref()}
+                className={footerLinkClass}
+                style={{ color: "var(--ink-soft)" }}
+              >
+                Projects
               </Link>
             </li>
             <li>

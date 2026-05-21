@@ -20,11 +20,7 @@ export function ProjectNextTeaser({ project }: { project: Project }) {
       >
         <div className="project-detail-next__media">
           {cover ? (
-            <ProjectDetailImage
-              src={cover}
-              alt=""
-              sizes="80vw"
-            />
+            <ProjectDetailImage src={cover} alt="" variant="cover" />
           ) : (
             <ImagePlaceholder
               label={project.baslik[0] ?? "•"}

@@ -90,6 +90,19 @@ html {
   padding: var(--site-nav-pad-y-compact) var(--site-nav-gutter-x);
 }
 
+/* Tüm sayfalar — tek görünüm; yükleme/geçişte 2 hamleli animasyon yok */
+.marketing-navbar.is-nav-stable {
+  transition: none;
+}
+.marketing-navbar.is-nav-stable .marketing-navbar-inner::before,
+.marketing-navbar.is-nav-stable .marketing-navbar-logo-wordmark,
+.marketing-navbar.is-nav-stable .marketing-navbar-logo-emblem,
+.marketing-navbar.is-nav-stable .marketing-navbar-cols,
+.marketing-navbar.is-nav-stable .marketing-navbar-links,
+.marketing-navbar.is-nav-stable .marketing-navbar-item {
+  transition: none;
+}
+
 .marketing-navbar-cols {
   display: flex;
   flex-direction: row;
@@ -268,6 +281,7 @@ html {
 /* Theme toggle — navbar satırında CTA ile aynı kutu yüksekliği */
 .marketing-navbar-theme-toggle,
 .nav-theme-toggle {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -276,6 +290,7 @@ html {
   width: var(--nav-bar-ctrl-h);
   height: var(--nav-bar-ctrl-h);
   padding: 0;
+  overflow: hidden;
   border-radius: var(--btn-radius);
   border: 1px solid var(--border, var(--gray-100));
   background: transparent;
@@ -300,32 +315,44 @@ html {
 
 .marketing-navbar-theme-toggle svg,
 .nav-theme-toggle svg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
   width: 16px;
   height: 16px;
+  margin: 0;
+  transform: translate(-50%, -50%);
   display: block;
+  pointer-events: none;
 }
 
+.marketing-navbar-theme-toggle .icon-sun,
 .nav-theme-toggle .icon-sun {
   display: none;
 }
 
+.marketing-navbar-theme-toggle .icon-moon,
 .nav-theme-toggle .icon-moon {
   display: block;
 }
 
+[data-theme="light"] .marketing-navbar-theme-toggle .icon-sun,
 [data-theme="light"] .nav-theme-toggle .icon-sun {
   display: block;
 }
 
+[data-theme="light"] .marketing-navbar-theme-toggle .icon-moon,
 [data-theme="light"] .nav-theme-toggle .icon-moon {
   display: none;
 }
 
 @media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .marketing-navbar-theme-toggle .icon-sun,
   :root:not([data-theme="dark"]) .nav-theme-toggle .icon-sun {
     display: block;
   }
 
+  :root:not([data-theme="dark"]) .marketing-navbar-theme-toggle .icon-moon,
   :root:not([data-theme="dark"]) .nav-theme-toggle .icon-moon {
     display: none;
   }

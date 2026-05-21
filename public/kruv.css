@@ -3019,10 +3019,12 @@ body:has(.featured-work-card:hover) .hero-bottom {
   /* overflow + sıkı line-height: g, p, y descender’ları kesiyordu; em bu kutuda yanlış fonttan çözülüyordu */
   padding-bottom: calc(21px * 1.5);
   margin-bottom: calc(-21px * 1.5);
-  /* Genişlik JS ile sabitlenir — width tween "We build"ı geç kaydırırdı */
+  /* Genişlik JS — aktif kelimeye göre; geçişte "We build" hafif kayar */
   flex-shrink: 0;
   min-width: 0;
-  /* Animasyonda iki kelime position:absolute olunca yüksekip çöküyordu; 1lh ile satır yüksekliği korunur */
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Animasyonda iki kelime position:absolute olunca yüksekip çöküyordu */
+  min-height: 1.1em;
   min-height: 1lh;
   line-height: 1.1;
 }
@@ -3104,15 +3106,14 @@ body:has(.featured-work-card:hover) .hero-bottom {
   margin: 0;
   padding: 0;
   pointer-events: none;
-  display: none;
+  display: block;
   visibility: hidden;
   opacity: 0;
   will-change: transform, opacity;
-  transform: translate3d(-9999px, -9999px, 0);
+  transform: translate3d(-9999px, -9999px, 0) translate(-50%, -50%);
   transition: opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .hero-v2-cursor.is-active {
-  display: block;
   visibility: visible;
   opacity: 1;
   transition: opacity 0.36s cubic-bezier(0.22, 1, 0.36, 1);
@@ -3178,12 +3179,15 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 
 @media (pointer: coarse) {
-  .hero-v2 {
+  .hero-v2:not(.is-custom-cursor-active) {
     cursor: pointer;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .hero-v2-word-box {
+    transition: none;
+  }
   .hero-v2 {
     cursor: auto;
   }
@@ -3222,10 +3226,29 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 
 @media (max-width: 700px) {
+  .hero-v2-cursor {
+    display: none !important;
+  }
   .hero-v2 { min-height: 100vh; padding: var(--section-pad-y) var(--section-pad-x); }
-  .hero-v2-inner { gap: var(--space-6); }
+  .hero-v2-inner {
+    gap: var(--space-6);
+    align-items: center;
+  }
+  .hero-v2-headline {
+    font-size: var(--h2-font-size);
+    line-height: var(--h2-line-height);
+    width: 100%;
+    max-width: 100%;
+    min-height: calc(2 * var(--h2-line-height) * 1em + 2px);
+  }
+  .hero-v2-line1 {
+    flex-wrap: nowrap;
+    justify-content: center;
+    max-width: 100%;
+  }
   .hero-v2-mobile-cta {
     display: inline-flex;
+    flex-shrink: 0;
     margin-top: var(--space-1);
     opacity: 0;
     animation: fadeUp 0.4s 0.2s ease forwards;
@@ -3239,8 +3262,15 @@ body:has(.featured-work-card:hover) .hero-bottom {
     font-weight: 500;
     line-height: var(--h2-line-height);
     letter-spacing: var(--h2-letter-spacing);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: baseline;
+    flex: 0 0 auto;
+    transition: none;
     padding-bottom: clamp(12px, 0.55em, 22px);
     margin-bottom: calc(-1 * clamp(12px, 0.55em, 22px));
+    box-sizing: content-box;
   }
   /* Mobil: iki satır — (We build + kelime) / worth sharing.; tipografi h2 token */
   .hero-v2-static,

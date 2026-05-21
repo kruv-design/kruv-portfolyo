@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import type { Project } from "@/types";
 import { FilterBar } from "./FilterBar";
 import { PortfolioCard } from "./PortfolioCard";
@@ -8,6 +9,7 @@ import { SiteFooter } from "./SiteFooter";
 import type { SiteSettings } from "@/types";
 import {
   WORK_PAGE_FILTER_LABELS,
+  parseWorksFilterParam,
   projectMatchesWorkFilter,
   type WorkPageFilterLabel,
 } from "@/lib/work-filters";
@@ -19,7 +21,13 @@ export function PortfolioGrid({
   projects: Project[];
   settings: SiteSettings;
 }) {
+  const searchParams = useSearchParams();
   const [active, setActive] = useState<"Tümü" | WorkPageFilterLabel>("Tümü");
+
+  useEffect(() => {
+    const fromUrl = parseWorksFilterParam(searchParams.get("filter"));
+    if (fromUrl) setActive(fromUrl);
+  }, [searchParams]);
 
   const filtered = useMemo(() => {
     if (active === "Tümü") return projects;
