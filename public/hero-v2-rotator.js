@@ -2,16 +2,18 @@
   var WORDS = ["brands", "stories", "feeds"];
   var INTERVAL = 2400;
   var FIRST_ROTATE_DELAY = 1200;
-  var ANIM_IN_MS = 280;
+  var ANIM_IN_MS = 320;
   var ANIM_STAGGER_MS = 40;
-  /** Gerçek font ölçülmeden boot etme (Win/Edge’de 0px → overflow:hidden keser) */
   var MIN_MEASURED_WIDTH = 40;
+  /** Descender probe — slot yüksekliği tüm kelimelerde sabit */
+  var SLOT_PROBE = "gypjq";
 
   var wb = document.getElementById("hero-v2-wb");
   if (!wb) return;
   var current = document.getElementById("hero-v2-wa");
   if (!current) return;
   var measureRoot = wb.closest(".hero-v2-inner") || wb.parentElement || document.body;
+  var metricsRoot = wb.closest(".hero-v2-headline") || measureRoot;
 
   var idx = 0;
   var busy = false;
@@ -19,8 +21,6 @@
   var intervalId = null;
   var booted = false;
   var bootAttempts = 0;
-  var mqMobile =
-    window.matchMedia && window.matchMedia("(max-width: 700px)");
   var reduceMotion =
     window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -47,7 +47,6 @@
     }
   }
 
-  /** Ölçüm #hero-v2-wb dışında — overflow:hidden dar kutuda 0px döner */
   function measureWidth(text) {
     var ref = styleRef();
     var el = document.createElement("span");
@@ -65,6 +64,22 @@
     return Math.ceil(w);
   }
 
+  function measureSlotHeight() {
+    var ref = styleRef();
+    var el = document.createElement("span");
+    el.className = "hero-v2-word";
+    el.setAttribute("aria-hidden", "true");
+    el.textContent = SLOT_PROBE;
+    el.style.cssText =
+      "position:absolute;left:-9999px;top:0;visibility:hidden;pointer-events:none;white-space:nowrap;display:inline-block;";
+    copyFontStyles(el, ref);
+    measureRoot.appendChild(el);
+    var h = el.getBoundingClientRect().height;
+    if (!h) h = el.offsetHeight;
+    measureRoot.removeChild(el);
+    return Math.ceil(h);
+  }
+
   function isMeasurementReady() {
     for (var i = 0; i < WORDS.length; i++) {
       if (measureWidth(WORDS[i]) >= MIN_MEASURED_WIDTH) return true;
@@ -72,59 +87,32 @@
     return false;
   }
 
-  function lockMaxBoxWidth(instant) {
+  function lockMaxBoxWidth() {
     var max = 0;
     for (var i = 0; i < WORDS.length; i++) {
       max = Math.max(max, measureWidth(WORDS[i]));
     }
     if (max < MIN_MEASURED_WIDTH) return false;
-    if (instant) {
-      wb.style.transition = "none";
-      wb.style.width = max + "px";
-      void wb.offsetWidth;
-      wb.style.transition = "";
-    } else {
-      wb.style.width = max + "px";
-    }
+    wb.style.width = max + "px";
     return true;
   }
 
-  function applyBoxWidth(text, instant) {
-    if (mqMobile && mqMobile.matches) return lockMaxBoxWidth(instant);
-    var w = measureWidth(text);
-    if (w < MIN_MEASURED_WIDTH) return false;
-    if (instant) {
-      wb.style.transition = "none";
-      wb.style.width = w + "px";
-      void wb.offsetWidth;
-      wb.style.transition = "";
-    } else {
-      wb.style.width = w + "px";
-    }
-    return true;
-  }
+  function syncSlotMetrics() {
+    var slotH = measureSlotHeight();
+    if (slotH < 8) return false;
+    metricsRoot.style.setProperty("--hero-v2-slot-h", slotH + "px");
+    metricsRoot.style.setProperty("--hero-v2-line1-h", slotH + "px");
+    wb.style.height = slotH + "px";
+    wb.style.minHeight = slotH + "px";
 
-  /** Mobil: absolute animasyonda kutu çöküp satırı zıplatmasın */
-  function syncMobileWordSlotHeight() {
-    if (!mqMobile || !mqMobile.matches) {
-      wb.style.height = "";
-      wb.style.minHeight = "";
-      return;
-    }
-    var ref = styleRef();
-    if (!ref) return;
-    try {
-      var cs = window.getComputedStyle(ref);
-      var lh = parseFloat(cs.lineHeight);
-      if (!lh || isNaN(lh)) {
-        lh = parseFloat(cs.fontSize) * 1.26;
+    var suffix = metricsRoot.querySelector(".hero-v2-suffix");
+    if (suffix) {
+      var sh = Math.ceil(suffix.getBoundingClientRect().height);
+      if (sh > 0) {
+        metricsRoot.style.setProperty("--hero-v2-suffix-h", sh + "px");
       }
-      var h = Math.ceil(lh) + "px";
-      wb.style.height = h;
-      wb.style.minHeight = h;
-    } catch (e) {
-      /* ignore */
     }
+    return true;
   }
 
   function clearLoop() {
@@ -145,8 +133,6 @@
       var next = (idx + 1) % WORDS.length;
       current.textContent = WORDS[next];
       idx = next;
-      applyBoxWidth(WORDS[idx], false);
-      syncMobileWordSlotHeight();
     } finally {
       busy = false;
     }
@@ -156,34 +142,19 @@
     if (busy) return;
     busy = true;
     var next = (idx + 1) % WORDS.length;
-    applyBoxWidth(WORDS[next], false);
-    syncMobileWordSlotHeight();
     var incoming = document.createElement("span");
     incoming.className = "hero-v2-word";
     incoming.textContent = WORDS[next];
-    incoming.style.cssText =
-      "position:absolute;top:0;left:0;right:0;margin:0 auto;width:max-content;max-width:100%;white-space:nowrap;transform:translateY(110%);opacity:0";
     wb.appendChild(incoming);
     current.classList.add("hero-v2-anim-out");
-    current.style.position = "absolute";
-    current.style.top = "0";
-    current.style.left = "0";
-    current.style.right = "0";
-    current.style.margin = "0 auto";
-    current.style.width = "max-content";
-    current.style.maxWidth = "100%";
     window.setTimeout(function () {
-      incoming.style.cssText =
-        "position:absolute;top:0;left:0;right:0;margin:0 auto;width:max-content;max-width:100%;white-space:nowrap;";
       incoming.classList.add("hero-v2-anim-in");
       window.setTimeout(function () {
         if (current && current.parentNode) current.remove();
         incoming.classList.remove("hero-v2-anim-in");
-        incoming.removeAttribute("style");
         current = incoming;
         idx = next;
         busy = false;
-        syncMobileWordSlotHeight();
       }, ANIM_IN_MS);
     }, ANIM_STAGGER_MS);
   }
@@ -205,13 +176,11 @@
 
   function boot() {
     if (!isMeasurementReady()) return false;
-    applyBoxWidth(WORDS[idx], true);
-    syncMobileWordSlotHeight();
+    if (!syncSlotMetrics()) return false;
+    lockMaxBoxWidth();
     if (!booted) {
       booted = true;
       beginLoop();
-    } else {
-      applyBoxWidth(WORDS[idx], true);
     }
     return true;
   }
@@ -266,17 +235,9 @@
     "resize",
     function () {
       if (!booted) return;
-      applyBoxWidth(WORDS[idx], true);
-      syncMobileWordSlotHeight();
+      syncSlotMetrics();
+      lockMaxBoxWidth();
     },
     { passive: true },
   );
-
-  if (mqMobile && mqMobile.addEventListener) {
-    mqMobile.addEventListener("change", function () {
-      if (!booted) return;
-      applyBoxWidth(WORDS[idx], true);
-      syncMobileWordSlotHeight();
-    });
-  }
 })();

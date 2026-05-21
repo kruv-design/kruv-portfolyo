@@ -2978,9 +2978,10 @@ body:has(.featured-work-card:hover) .hero-bottom {
   padding: 0;
   border: 0;
   font: inherit;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: var(--hero-v2-line1-h, auto) var(--hero-v2-suffix-h, auto);
   align-items: center;
+  justify-items: center;
   gap: 2px;
   opacity: 1;
 }
@@ -2995,11 +2996,13 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 .hero-v2-line1 {
   display: inline-flex;
-  flex-flow: row wrap;
-  align-items: baseline;
+  flex-flow: row nowrap;
+  align-items: center;
   justify-content: center;
   gap: 0.28em;
   max-width: 100%;
+  min-height: var(--hero-v2-slot-h, 1.2em);
+  height: var(--hero-v2-line1-h, var(--hero-v2-slot-h, 1.2em));
 }
 .hero-v2-static {
   font-family: var(--font-display);
@@ -3011,22 +3014,22 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 .hero-v2-word-box {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: fit-content;
   max-width: 100%;
+  height: var(--hero-v2-slot-h, 1.2em);
+  min-height: var(--hero-v2-slot-h, 1.2em);
   overflow: hidden;
   text-align: center;
-  /* overflow + sıkı line-height: g, p, y descender’ları kesiyordu; em bu kutuda yanlış fonttan çözülüyordu */
-  padding-bottom: calc(21px * 1.5);
-  margin-bottom: calc(-21px * 1.5);
-  /* Genişlik JS — aktif kelimeye göre; geçişte "We build" hafif kayar */
   flex-shrink: 0;
   min-width: 0;
-  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  /* Animasyonda iki kelime position:absolute olunca yüksekip çöküyordu */
-  min-height: 1.1em;
-  min-height: 1lh;
-  line-height: 1.1;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  vertical-align: middle;
+  box-sizing: border-box;
 }
 .hero-v2-word {
   font-family: var(--font-display);
@@ -3036,7 +3039,16 @@ body:has(.featured-work-card:hover) .hero-bottom {
   line-height: 1.1;
   white-space: nowrap;
   display: block;
-  margin-inline: auto;
+  margin: 0;
+}
+.hero-v2-word-box > .hero-v2-word {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  width: max-content;
+  max-width: 100%;
 }
 .hero-v2-suffix {
   font-family: var(--font-display);
@@ -3048,6 +3060,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   display: block;
   text-align: center;
   line-height: 1.1;
+  min-height: var(--hero-v2-suffix-h, 1.1em);
 }
 
 /* Masaüstü (≥701px): punto, konteyner genişliği (≈70vw) ile orantılı ölçeklenir */
@@ -3067,10 +3080,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
     .hero-v2-suffix {
       font-size: var(--hero-v2-rotator-fs);
     }
-    .hero-v2-word-box {
-      padding-bottom: 0.38em;
-      margin-bottom: -0.38em;
-    }
   }
 }
 
@@ -3087,10 +3096,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
     .hero-v2-word,
     .hero-v2-suffix {
       font-size: var(--hero-v2-rotator-fs);
-    }
-    .hero-v2-word-box {
-      padding-bottom: 0.38em;
-      margin-bottom: -0.38em;
     }
   }
 }
@@ -3205,25 +3210,27 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 
 @keyframes hero-v2-slide-in {
-  from { transform: translateY(110%); opacity: 0; }
-  to   { transform: translateY(0);    opacity: 1; }
+  from {
+    transform: translate(-50%, calc(-50% + 0.55em));
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
 }
 @keyframes hero-v2-slide-out {
-  from { transform: translateY(0);    opacity: 1; }
-  to   { transform: translateY(-110%); opacity: 0; }
+  from {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, calc(-50% - 0.55em));
+    opacity: 0;
+  }
 }
-.hero-v2-anim-in  { animation: hero-v2-slide-in  0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-.hero-v2-anim-out { animation: hero-v2-slide-out 0.24s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-
-/* Geçiş sırasında mutlak konumlu kelimeler ortada kalsın */
-.hero-v2-word-box .hero-v2-word.hero-v2-anim-in,
-.hero-v2-word-box .hero-v2-word.hero-v2-anim-out {
-  left: 0;
-  right: 0;
-  margin-inline: auto;
-  width: max-content;
-  max-width: 100%;
-}
+.hero-v2-anim-in  { animation: hero-v2-slide-in  0.32s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.hero-v2-anim-out { animation: hero-v2-slide-out 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
 
 @media (max-width: 700px) {
   .hero-v2-cursor {
@@ -3239,10 +3246,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
     line-height: var(--h2-line-height);
     width: 100%;
     max-width: 100%;
-    min-height: calc(2 * var(--h2-line-height) * 1em + 2px);
   }
   .hero-v2-line1 {
-    flex-wrap: nowrap;
     justify-content: center;
     max-width: 100%;
   }
@@ -3262,15 +3267,6 @@ body:has(.featured-work-card:hover) .hero-bottom {
     font-weight: 500;
     line-height: var(--h2-line-height);
     letter-spacing: var(--h2-letter-spacing);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    vertical-align: baseline;
-    flex: 0 0 auto;
-    transition: none;
-    padding-bottom: clamp(12px, 0.55em, 22px);
-    margin-bottom: calc(-1 * clamp(12px, 0.55em, 22px));
-    box-sizing: content-box;
   }
   /* Mobil: iki satır — (We build + kelime) / worth sharing.; tipografi h2 token */
   .hero-v2-static,

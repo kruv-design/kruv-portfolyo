@@ -264,7 +264,8 @@
   --project-gallery-inset-x: var(--container-gutter);
   --project-gallery-inset-y: var(--space-4);
   /* Proje detay galeri görselleri — orijinal oran, genişlik viewport’un %80’i */
-  --project-detail-gallery-width: 80vw;
+  --project-detail-media-width: 80vw;
+  --project-detail-gallery-width: var(--project-detail-media-width);
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -668,12 +669,15 @@ body {
   overflow-x: clip;
 }
 
-/* Proje detay: kapak tam viewport; gövde shell genişliğinde kalır */
+/* Proje detay: medya 80vw ortalı; metin shell genişliğinde */
 .works-shell-inner.project-detail-shell {
   width: 100%;
   max-width: 100%;
   padding-top: var(--project-detail-shell-pad-top);
   overflow-x: clip;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .project-detail-body {
@@ -721,17 +725,17 @@ body {
   width: 100%;
   min-width: 0;
 }
-/* Kapak: tam genişlik (zemin), orijinal oran */
+/* Kapak + galeri: sağ/sol %10 boşluk (80vw), yükseklik doğal oran */
 .project-detail-cover {
   position: relative;
   display: block;
-  width: 100%;
+  width: var(--project-detail-media-width);
   max-width: 100%;
-  margin: 0 0 var(--space-8);
+  margin: 0 auto var(--space-8);
   flex-shrink: 0;
   box-sizing: border-box;
   overflow: hidden;
-  border-radius: 0;
+  border-radius: var(--radius-md);
   background: var(--surface);
 }
 
@@ -751,6 +755,11 @@ body {
   width: 100%;
   min-height: min(40vh, 360px);
   aspect-ratio: var(--project-media-aspect-ratio);
+}
+
+.project-detail-shell > .project-detail-body {
+  width: min(100%, var(--grid-shell-max));
+  max-width: 100%;
 }
 
 @media (max-width: 768px) {
