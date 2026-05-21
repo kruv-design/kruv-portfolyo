@@ -17,7 +17,7 @@ function projectCategoryLabel(project: Project): string | null {
   return project.kategori?.trim() || null;
 }
 
-/** Proje detay sonu — sol contact, sağ next/works, altta tüm projeler linki. */
+/** Proje detay sonu — tek shell içinde contact | next, altta See all our projects. */
 export function ProjectEndCta({
   nextProject,
   contactHref = "/contact",
@@ -30,35 +30,50 @@ export function ProjectEndCta({
       className="project-end-cta"
       aria-labelledby="project-end-contact-heading"
     >
-      <div className="project-end-cta__grid">
-        <div className="project-end-cta__col project-end-cta__col--contact">
-          <h2 id="project-end-contact-heading" className="h3 project-end-cta__contact-heading">
-            Got an idea worth building?
-          </h2>
-          <Link href={contactHref} className="btn btn-fill">
-            Contact us
-          </Link>
-        </div>
+      <div className="project-end-cta__shell">
+        <div className="project-end-cta__grid">
+          <div className="project-end-cta__panel project-end-cta__panel--contact">
+            <p
+              className="b3 project-end-cta__panel-eyebrow project-end-cta__panel-eyebrow--spacer"
+              aria-hidden="true"
+            >
+              next
+            </p>
+            <div className="project-end-cta__panel-body">
+              <h2
+                id="project-end-contact-heading"
+                className="h3 project-end-cta__contact-heading"
+              >
+                Got an idea worth building?
+              </h2>
+              <Link href={contactHref} className="btn btn-surface project-end-cta__contact-btn">
+                Contact us
+              </Link>
+            </div>
+          </div>
 
-        <div className="project-end-cta__col project-end-cta__col--nav">
-          <p id={navEyebrowId} className="b3 project-end-cta__nav-eyebrow">
-            {nextProject ? "next" : "all work"}
-          </p>
           {nextProject ? (
-            <ProjectEndNextCard
-              project={nextProject}
-              labelledBy={navEyebrowId}
-            />
-          ) : (
-            <ProjectEndWorksCard href={worksHref} labelledBy={navEyebrowId} />
-          )}
+            <div className="project-end-cta__panel project-end-cta__panel--next">
+              <p id={navEyebrowId} className="b3 project-end-cta__panel-eyebrow">
+                next
+              </p>
+              <div className="project-end-cta__panel-body">
+                <ProjectEndNextCard
+                  project={nextProject}
+                  labelledBy={navEyebrowId}
+                />
+              </div>
+            </div>
+          ) : null}
         </div>
       </div>
 
       <footer className="project-end-cta__footer">
-        <Link href={worksHref} className="btn btn-line project-end-cta__all">
+        <span className="project-end-cta__footer-line" aria-hidden="true" />
+        <Link href={worksHref} className="textbutton project-end-cta__all">
           See all our projects
         </Link>
+        <span className="project-end-cta__footer-line" aria-hidden="true" />
       </footer>
     </section>
   );
@@ -83,7 +98,12 @@ function ProjectEndNextCard({
     >
       <div className="project-end-cta__next-media">
         {cover ? (
-          <ProjectDetailImage src={cover} alt="" variant="cover" sizes="(max-width: 767px) 80vw, 50vw" />
+          <ProjectDetailImage
+            src={cover}
+            alt=""
+            variant="cover"
+            sizes="(max-width: 767px) 80vw, 50vw"
+          />
         ) : (
           <ImagePlaceholder
             label={project.baslik[0] ?? "•"}
@@ -95,27 +115,6 @@ function ProjectEndNextCard({
       <div className="project-end-cta__next-meta">
         <h3 className="pw-card-title">{project.baslik}</h3>
         {categoryLabel ? <p className="pw-card-category">{categoryLabel}</p> : null}
-      </div>
-    </Link>
-  );
-}
-
-function ProjectEndWorksCard({
-  href,
-  labelledBy,
-}: {
-  href: string;
-  labelledBy: string;
-}) {
-  return (
-    <Link
-      href={href}
-      className="project-end-cta__works-card group"
-      aria-labelledby={labelledBy}
-    >
-      <div className="project-end-cta__works-inner">
-        <h3 className="pw-card-title">View all work</h3>
-        <p className="pw-card-category">Explore the full portfolio</p>
       </div>
     </Link>
   );

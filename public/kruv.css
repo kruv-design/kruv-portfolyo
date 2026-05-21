@@ -1554,7 +1554,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 .ideal-tag {
   font-family: var(--b3-font-family);
-  font-size: var(--b3-font-size);
+  font-size: calc(var(--b3-font-size) + 2pt);
   font-weight: var(--b3-font-weight);
   line-height: var(--b3-line-height);
   letter-spacing: var(--b3-letter-spacing);
@@ -2663,7 +2663,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 .featured-work-title {
   font-family: var(--h4-font-family);
-  font-size: var(--h4-font-size);
+  font-size: calc(var(--h4-font-size) + 2pt);
   font-weight: var(--h4-font-weight);
   line-height: var(--h4-line-height);
   letter-spacing: var(--card-meta-title-ls);

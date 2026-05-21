@@ -139,16 +139,19 @@ export async function getSettings(): Promise<SiteSettings> {
   }
 }
 
-/** Supabase `sira` sırasına göre önceki / sonraki proje (getProjects ile aynı liste). */
+/** Supabase `sira` sırasına göre önceki / sonraki proje; son→ilk, ilk→son (döngü). */
 export async function getAdjacentProjects(
   currentSlug: string,
 ): Promise<{ prev: Project | null; next: Project | null }> {
   const all = await getProjects();
   const idx = all.findIndex((p) => p.slug === currentSlug);
   if (idx === -1) return { prev: null, next: null };
+  if (all.length <= 1) return { prev: null, next: null };
+
+  const last = all.length - 1;
   return {
-    prev: idx > 0 ? (all[idx - 1] ?? null) : null,
-    next: idx < all.length - 1 ? (all[idx + 1] ?? null) : null,
+    prev: all[idx === 0 ? last : idx - 1] ?? null,
+    next: all[idx === last ? 0 : idx + 1] ?? null,
   };
 }
 
