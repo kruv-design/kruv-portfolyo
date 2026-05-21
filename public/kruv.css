@@ -467,6 +467,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: var(--scroll-padding-top);
+  scrollbar-gutter: stable;
 }
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -3021,10 +3022,11 @@ body:has(.featured-work-card:hover) .hero-bottom {
   width: fit-content;
   max-width: 100%;
   overflow: hidden;
+  text-align: center;
   /* overflow + sıkı line-height: g, p, y descender’ları kesiyordu; em bu kutuda yanlış fonttan çözülüyordu */
   padding-bottom: calc(21px * 1.5);
   margin-bottom: calc(-21px * 1.5);
-  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Genişlik JS ile sabitlenir — width tween "We build"ı geç kaydırırdı */
   flex-shrink: 0;
   min-width: 0;
   /* Animasyonda iki kelime position:absolute olunca yüksekip çöküyordu; 1lh ile satır yüksekliği korunur */
@@ -3039,6 +3041,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
   line-height: 1.1;
   white-space: nowrap;
   display: block;
+  margin-inline: auto;
 }
 .hero-v2-suffix {
   font-family: var(--font-display);
@@ -3108,25 +3111,21 @@ body:has(.featured-work-card:hover) .hero-bottom {
   margin: 0;
   padding: 0;
   pointer-events: none;
+  display: none;
   visibility: hidden;
   opacity: 0;
   will-change: transform, opacity;
   transform: translate3d(-9999px, -9999px, 0);
-  transition:
-    opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1),
-    visibility 0s linear 0.35s;
+  transition: opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .hero-v2-cursor.is-active {
+  display: block;
   visibility: visible;
   opacity: 1;
-  transition:
-    opacity 0.36s cubic-bezier(0.22, 1, 0.36, 1),
-    visibility 0s linear 0s;
+  transition: opacity 0.36s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .hero-v2-cursor:not(.is-active) {
-  transition:
-    opacity 0.28s cubic-bezier(0.4, 0, 0.2, 1),
-    visibility 0s linear 0.3s;
+  transition: opacity 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .hero-v2-cursor__btn {
   width: 100%;
@@ -3166,8 +3165,21 @@ body:has(.featured-work-card:hover) .hero-bottom {
   text-wrap: balance;
 }
 
-@media (min-width: 701px) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+@media (min-width: 701px) and (hover: hover) and (prefers-reduced-motion: no-preference) {
   .hero-v2 {
+    cursor: none;
+  }
+}
+
+@media (min-width: 701px) and (any-pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .hero-v2 {
+    cursor: none;
+  }
+}
+
+/* JS etkinleştirince (Windows hibrit) sistem imlecini gizle */
+@media (min-width: 701px) and (prefers-reduced-motion: no-preference) {
+  .hero-v2.is-custom-cursor-active {
     cursor: none;
   }
 }
@@ -3205,6 +3217,16 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 .hero-v2-anim-in  { animation: hero-v2-slide-in  0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
 .hero-v2-anim-out { animation: hero-v2-slide-out 0.24s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+
+/* Geçiş sırasında mutlak konumlu kelimeler ortada kalsın */
+.hero-v2-word-box .hero-v2-word.hero-v2-anim-in,
+.hero-v2-word-box .hero-v2-word.hero-v2-anim-out {
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  width: max-content;
+  max-width: 100%;
+}
 
 @media (max-width: 700px) {
   .hero-v2 { min-height: 100vh; padding: var(--section-pad-y) var(--section-pad-x); }

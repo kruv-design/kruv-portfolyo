@@ -25,7 +25,20 @@
   if (!el) return;
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  var mq = window.matchMedia("(min-width: 701px) and (pointer: fine)");
+  /* Windows / hibrit: pointer:fine tek başına yetersiz; hover veya any-pointer:fine */
+  var mqDesktop = window.matchMedia("(min-width: 701px)");
+  var mqHover = window.matchMedia("(hover: hover)");
+  var mqAnyFine = window.matchMedia("(any-pointer: fine)");
+
+  /* Win hibrit: medya sorgusu coarse dese bile gerçek mousemove gelirse aç */
+  var forceFromMouse = false;
+
+  function shouldUseCustomCursor() {
+    if (!mqDesktop.matches) return false;
+    if (forceFromMouse) return true;
+    return mqHover.matches || mqAnyFine.matches;
+  }
+
   var rootStyle = getComputedStyle(document.documentElement);
 
   function readLerp() {
@@ -66,26 +79,91 @@
     visible = false;
     el.classList.remove("is-active");
     el.setAttribute("aria-hidden", "true");
+    section.classList.remove("is-custom-cursor-active");
   }
 
-  section.addEventListener("mousemove", function (e) {
-    if (!mq.matches) return;
-    targetX = e.clientX;
-    targetY = e.clientY;
+  function showCursor(x, y) {
+    targetX = x;
+    targetY = y;
     if (!visible) {
       visible = true;
       el.classList.add("is-active");
       el.setAttribute("aria-hidden", "false");
+      section.classList.add("is-custom-cursor-active");
       posX = targetX;
       posY = targetY;
       setTransform();
     }
     kickLerp();
-  });
+  }
 
-  section.addEventListener("mouseleave", function () {
-    if (!mq.matches) return;
-    if (visible) hideCursor();
+  function isPointerOverHero(clientX, clientY) {
+    var r = section.getBoundingClientRect();
+    return (
+      clientX >= r.left &&
+      clientX <= r.right &&
+      clientY >= r.top &&
+      clientY <= r.bottom
+    );
+  }
+
+  function onPointerMove(clientX, clientY) {
+    if (mqDesktop.matches && !mqHover.matches && !mqAnyFine.matches) {
+      forceFromMouse = true;
+    }
+    if (!shouldUseCustomCursor()) {
+      if (visible) hideCursor();
+      return;
+    }
+    if (!isPointerOverHero(clientX, clientY)) {
+      if (visible) hideCursor();
+      return;
+    }
+    targetX = clientX;
+    targetY = clientY;
+    if (!visible) {
+      showCursor(clientX, clientY);
+      return;
+    }
     kickLerp();
-  });
+  }
+
+  document.addEventListener(
+    "mousemove",
+    function (e) {
+      onPointerMove(e.clientX, e.clientY);
+    },
+    { passive: true },
+  );
+
+  section.addEventListener(
+    "mouseleave",
+    function () {
+      if (visible) hideCursor();
+    },
+    false,
+  );
+
+  window.addEventListener(
+    "scroll",
+    function () {
+      if (!visible) return;
+      hideCursor();
+    },
+    { passive: true },
+  );
+
+  function onMqChange() {
+    if (!shouldUseCustomCursor() && visible) hideCursor();
+  }
+
+  if (mqDesktop.addEventListener) {
+    mqDesktop.addEventListener("change", onMqChange);
+    mqHover.addEventListener("change", onMqChange);
+    mqAnyFine.addEventListener("change", onMqChange);
+  } else if (mqDesktop.addListener) {
+    mqDesktop.addListener(onMqChange);
+    mqHover.addListener(onMqChange);
+    mqAnyFine.addListener(onMqChange);
+  }
 })();
