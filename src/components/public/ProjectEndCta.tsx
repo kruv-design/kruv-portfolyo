@@ -27,7 +27,7 @@ export function ProjectEndCta({
 
   return (
     <section
-      className="project-end-cta animate-fadeUp"
+      className="project-end-cta"
       aria-labelledby="project-end-contact-heading"
     >
       <div className="project-end-cta__grid">

@@ -714,15 +714,17 @@ body {
     grid-column: 1;
     grid-row: 4;
   }
-  .project-end-cta {
-    grid-column: 1 / -1;
-    grid-row: 5;
-  }
 }
 
-.project-detail-body > .project-end-cta {
-  width: 100%;
-  min-width: 0;
+/* CTA: body grid dışında — sticky aside / satır 5 çakışmasını önler */
+.project-detail-shell > .project-end-cta {
+  width: min(100%, var(--grid-shell-max));
+  max-width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--container-gutter);
+  padding-bottom: var(--section-pad-y);
+  box-sizing: border-box;
+  flex-shrink: 0;
 }
 /* Kapak: tam ekran genişlik; galeri ayrı token (80vw / mobil 95vw) */
 .project-detail-cover {
@@ -838,9 +840,11 @@ body {
 .project-end-cta {
   width: 100%;
   box-sizing: border-box;
-  margin-top: var(--space-4);
+  margin-top: 0;
   padding-top: var(--space-10);
   border-top: 1px solid var(--border);
+  position: relative;
+  z-index: 1;
 }
 
 .project-end-cta__grid {

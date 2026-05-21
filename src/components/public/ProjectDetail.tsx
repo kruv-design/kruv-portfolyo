@@ -121,10 +121,9 @@ export function ProjectDetail({
             </div>
           </div>
         )}
-
-        <ProjectEndCta nextProject={nextProject} />
       </div>
 
+      <ProjectEndCta nextProject={nextProject} />
     </>
   );
 }
