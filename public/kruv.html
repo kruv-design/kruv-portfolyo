@@ -1448,6 +1448,64 @@
 })();
 </script>
 
+<script>
+(function () {
+  var nav = document.getElementById('site-nav');
+  var sentinel = document.getElementById('nav-sentinel');
+  if (!nav || !sentinel) return;
+
+  var isScrolled = false;
+  var SCROLL_ON = 32;
+  var SCROLL_OFF = 8;
+
+  function setScrolled(next) {
+    if (next === isScrolled) return;
+    isScrolled = next;
+    nav.classList.toggle('is-scrolled', next);
+  }
+
+  function applySentinelEntry(entry) {
+    if (!entry || entry.target !== sentinel) return;
+    if (!entry.isIntersecting) {
+      setScrolled(true);
+    } else if ((window.scrollY || 0) <= SCROLL_OFF) {
+      setScrolled(false);
+    }
+  }
+
+  function syncScrolledFromScroll() {
+    var y = window.scrollY || 0;
+    if (!isScrolled && y > SCROLL_ON) setScrolled(true);
+    else if (isScrolled && y <= SCROLL_OFF) setScrolled(false);
+  }
+
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i++) {
+        applySentinelEntry(entries[i]);
+      }
+    }, { threshold: 0, root: null, rootMargin: '0px' });
+    observer.observe(sentinel);
+    var pending = observer.takeRecords();
+    for (var j = 0; j < pending.length; j++) {
+      applySentinelEntry(pending[j]);
+    }
+    syncScrolledFromScroll();
+    var scrollRaf = 0;
+    window.addEventListener('scroll', function () {
+      if (scrollRaf) return;
+      scrollRaf = requestAnimationFrame(function () {
+        scrollRaf = 0;
+        syncScrolledFromScroll();
+      });
+    }, { passive: true });
+    return;
+  }
+
+  syncScrolledFromScroll();
+  window.addEventListener('scroll', syncScrolledFromScroll, { passive: true });
+})();
+</script>
 
 <script>
 (function () {

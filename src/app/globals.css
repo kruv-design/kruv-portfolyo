@@ -643,9 +643,9 @@ body {
   overflow-x: clip;
 }
 
-/* /works — hero yok; nav akışta, ekstra fixed boşluk yok */
+/* /works — hero yok; nav altında içerik başlar */
 .marketing-page-shell .marketing-works-grid.works-shell-inner {
-  padding-top: var(--space-6);
+  padding-top: var(--works-body-pad-top);
 }
 
 .portfolio-works-page .portfolio-grid {
@@ -712,25 +712,11 @@ body {
   overflow-x: clip;
 }
 
-/* İç sayfalar — fixed nav iptal; kartlar / içerik header altına binmez */
-.project-detail-page > .marketing-navbar,
-.marketing-page-shell > .marketing-navbar {
-  position: relative;
-  top: auto;
-  left: auto;
-  right: auto;
-}
-
-.project-detail-page > .marketing-nav-sentinel,
-.marketing-page-shell > .marketing-nav-sentinel {
-  display: none;
-}
-
 /* Proje detay: medya 80vw ortalı; metin shell genişliğinde */
-.project-detail-page .works-shell-inner.project-detail-shell {
+.works-shell-inner.project-detail-shell {
   width: 100%;
   max-width: 100%;
-  padding-top: var(--space-6);
+  padding-top: var(--project-detail-shell-pad-top);
   overflow-x: clip;
   display: flex;
   flex-direction: column;
@@ -1261,7 +1247,8 @@ body {
 /* ── Contact page / form ───────────────────────────────── */
 .contact-page-main {
   flex: 1;
-  padding-top: var(--space-6);
+  /* Sabit compact nav — Works ile aynı üst ritim */
+  padding-top: var(--works-body-pad-top);
   padding-inline: var(--container-gutter);
   padding-bottom: var(--space-12);
 }

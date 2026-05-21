@@ -65,7 +65,7 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
       <div id={SITE_NAV_SENTINEL_ID} className="marketing-nav-sentinel" aria-hidden="true" />
       <nav
         id="site-nav"
-        className={`marketing-navbar is-scrolled is-nav-stable${mobileMenuOpen ? " is-menu-open" : ""}`}
+        className={`marketing-navbar${scrolled ? " is-scrolled" : ""}${mobileMenuOpen ? " is-menu-open" : ""}`}
         aria-label="Primary"
         lang="en"
       >
