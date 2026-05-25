@@ -77,6 +77,10 @@ function fromProject(p: Project): FormState {
     galeri_7_video: p.galeri_7_video,
     galeri_8: p.galeri_8,
     galeri_8_video: p.galeri_8_video,
+    galeri_9: p.galeri_9,
+    galeri_9_video: p.galeri_9_video,
+    galeri_10: p.galeri_10,
+    galeri_10_video: p.galeri_10_video,
     bolumler: [...p.bolumler],
     etiketler: [...p.etiketler],
     link: p.link,
@@ -272,7 +276,7 @@ export function ProjectForm({
               Görseller
             </h2>
             <p className="b3 mt-2 max-w-2xl" style={{ color: "var(--ink-faint)" }}>
-              Kapak: anasayfa ve işler listesindeki kart. Galeri 1–8: proje detayında sırayla
+              Kapak: anasayfa ve işler listesindeki kart. Galeri 1–10: proje detayında sırayla
               (boş slotlar atlanır). Video isteğe bağlı; poster her zaman LCP için kullanılır.
             </p>
           </div>

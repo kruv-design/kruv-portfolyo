@@ -143,6 +143,10 @@ async function main() {
     galeri_7_video: "",
     galeri_8: "",
     galeri_8_video: "",
+    galeri_9: "",
+    galeri_9_video: "",
+    galeri_10: "",
+    galeri_10_video: "",
     sira: (i + 1) * 10,
   }));
 

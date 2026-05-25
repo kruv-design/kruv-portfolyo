@@ -32,6 +32,10 @@ export type Project = {
   galeri_7_video: string;
   galeri_8: string;
   galeri_8_video: string;
+  galeri_9: string;
+  galeri_9_video: string;
+  galeri_10: string;
+  galeri_10_video: string;
   bolumler: ProjectSection[];
   etiketler: string[];
   link: string;

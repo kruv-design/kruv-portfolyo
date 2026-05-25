@@ -43,6 +43,8 @@ export const GALERI_KEYS = [
   "galeri_6",
   "galeri_7",
   "galeri_8",
+  "galeri_9",
+  "galeri_10",
 ] as const;
 
 export type GaleriKey = (typeof GALERI_KEYS)[number];
@@ -56,6 +58,8 @@ export const GALERI_VIDEO_KEYS = [
   "galeri_6_video",
   "galeri_7_video",
   "galeri_8_video",
+  "galeri_9_video",
+  "galeri_10_video",
 ] as const;
 
 export type GaleriVideoKey = (typeof GALERI_VIDEO_KEYS)[number];
