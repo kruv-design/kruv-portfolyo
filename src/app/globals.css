@@ -885,6 +885,8 @@ body {
   position: relative;
   min-height: 52vh;
   overflow: hidden;
+  box-sizing: border-box;
+  border: 1px solid var(--project-next-banner-border);
   border-radius: var(--radius-lg);
   background: color-mix(in srgb, var(--project-next-banner-surface) 88%, var(--gray-anti) 12%);
 }
@@ -1193,6 +1195,50 @@ body {
   position: static !important;
   inset: auto !important;
   vertical-align: top;
+}
+
+/* Poster + opsiyonel loop video (LCP = poster) */
+.project-detail-media {
+  position: relative;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+}
+
+.project-detail-media__poster-wrap {
+  display: block;
+  width: 100%;
+}
+
+.project-detail-media__poster-wrap.is-under-video {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.project-detail-media__video {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  vertical-align: top;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.project-detail-media__video.is-visible {
+  opacity: 1;
+}
+
+.project-detail-media--cover .project-detail-media__video {
+  object-fit: cover;
+  width: 100%;
+  min-height: min(40vh, 360px);
+  aspect-ratio: var(--project-media-aspect-ratio);
 }
 
 .project-detail-cover__placeholder {

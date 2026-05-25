@@ -69,3 +69,15 @@ export function cldUrl(
     .join(",");
   return `https://res.cloudinary.com/${env.CLOUDINARY_CLOUD_NAME}/image/upload/${transforms}/${publicIdOrUrl}`;
 }
+
+/** Optimized Cloudinary video delivery (MP4, bandwidth clamp). */
+export function cldVideoUrl(
+  publicIdOrUrl: string,
+  opts: { w?: number } = {},
+): string {
+  if (!publicIdOrUrl) return "";
+  if (/^https?:\/\//i.test(publicIdOrUrl)) return publicIdOrUrl;
+  const { w = 1920 } = opts;
+  const transforms = ["q_auto", "f_mp4", `w_${w}`, "c_limit"].join(",");
+  return `https://res.cloudinary.com/${env.CLOUDINARY_CLOUD_NAME}/video/upload/${transforms}/${publicIdOrUrl}`;
+}

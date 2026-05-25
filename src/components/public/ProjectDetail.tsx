@@ -1,8 +1,7 @@
 import Link from "next/link";
 import type { Project } from "@/types";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
-import { projectCover, projectGallerySlots } from "@/lib/project-images";
-import { ProjectDetailImage } from "./ProjectDetailImage";
+import { projectCover, projectCoverVideo, projectGallerySlots } from "@/lib/project-images";
+import { ProjectDetailMedia } from "./ProjectDetailMedia";
 import { LetsTalkMarquee } from "./LetsTalkMarquee";
 import { ProjectNextBanner } from "./ProjectNextBanner";
 
@@ -20,26 +19,21 @@ export function ProjectDetail({
   allProjects: Project[];
 }) {
   const cover = projectCover(project);
+  const coverVideo = projectCoverVideo(project);
   const gallerySlots = projectGallerySlots(project);
 
   return (
     <>
       <div className="project-detail-cover animate-fadeUp">
-        {cover ? (
-          <ProjectDetailImage
-            src={cover}
-            alt={project.baslik}
-            priority
-            variant="cover"
-          />
-        ) : (
-          <ImagePlaceholder
-            label={project.baslik[0] ?? "•"}
-            color={project.renk}
-            fontSize="5rem"
-            className="project-detail-cover__placeholder"
-          />
-        )}
+        <ProjectDetailMedia
+          posterSrc={cover ?? ""}
+          videoSrc={coverVideo}
+          alt={project.baslik}
+          priority
+          variant="cover"
+          placeholderLabel={project.baslik[0] ?? "•"}
+          placeholderColor={project.renk}
+        />
         <div className="project-detail-toolbar">
           <div className="project-detail-nav-arrows">
             <NavArrow slug={prevSlug} label="←" />
@@ -96,9 +90,14 @@ export function ProjectDetail({
         {gallerySlots.length > 0 && (
           <div className="project-detail-gallery-wrap animate-fadeUp">
             <div className="project-detail-gallery">
-              {gallerySlots.map(({ key, src }) => (
+              {gallerySlots.map(({ key, posterSrc, videoSrc }) => (
                 <figure key={key} className="project-detail-gallery__item">
-                  <ProjectDetailImage src={src} alt="" />
+                  <ProjectDetailMedia
+                    posterSrc={posterSrc}
+                    videoSrc={videoSrc}
+                    alt=""
+                    variant="gallery"
+                  />
                 </figure>
               ))}
             </div>

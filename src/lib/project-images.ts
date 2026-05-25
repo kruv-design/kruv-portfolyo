@@ -20,6 +20,19 @@ export function resolveProjectImageUrl(raw: string): string {
   return `https://res.cloudinary.com/${cloud}/image/upload/f_auto,q_auto/${id}`;
 }
 
+/** Video: https URL veya Cloudinary video public_id */
+export function resolveProjectVideoUrl(raw: string): string {
+  const s = raw.trim().replace(/\s+/g, "");
+  if (!s) return "";
+  if (/^https?:\/\//i.test(s)) return s;
+  const cloud = cloudName();
+  if (!cloud) return s;
+  const id = s
+    .replace(/^\/+/, "")
+    .replace(/\.(mp4|webm|mov)$/i, "");
+  return `https://res.cloudinary.com/${cloud}/video/upload/q_auto,f_mp4,w_1920,c_limit/${id}`;
+}
+
 /** Supabase + admin: kapak + numaralı galeri slotları (hepsi isteğe bağlı). */
 export const GALERI_KEYS = [
   "galeri_1",
@@ -34,12 +47,33 @@ export const GALERI_KEYS = [
 
 export type GaleriKey = (typeof GALERI_KEYS)[number];
 
+export const GALERI_VIDEO_KEYS = [
+  "galeri_1_video",
+  "galeri_2_video",
+  "galeri_3_video",
+  "galeri_4_video",
+  "galeri_5_video",
+  "galeri_6_video",
+  "galeri_7_video",
+  "galeri_8_video",
+] as const;
+
+export type GaleriVideoKey = (typeof GALERI_VIDEO_KEYS)[number];
+
 export type ProjectImageFields = {
   kapak: string | null;
-} & Record<GaleriKey, string>;
+  kapak_video: string;
+} & Record<GaleriKey, string> &
+  Record<GaleriVideoKey, string>;
 
 export function emptyGaleriSlots(): Record<GaleriKey, string> {
   return Object.fromEntries(GALERI_KEYS.map((k) => [k, ""])) as Record<GaleriKey, string>;
+}
+
+export function emptyGaleriVideoSlots(): Record<GaleriVideoKey, string> {
+  return Object.fromEntries(
+    GALERI_VIDEO_KEYS.map((k) => [k, ""]),
+  ) as Record<GaleriVideoKey, string>;
 }
 
 export function projectCover(project: Pick<Project, "kapak">): string | null {
@@ -47,18 +81,64 @@ export function projectCover(project: Pick<Project, "kapak">): string | null {
   return k || null;
 }
 
+export function projectCoverVideo(
+  project: Pick<Project, "kapak_video">,
+): string | null {
+  const v = resolveProjectVideoUrl(project.kapak_video ?? "");
+  return v || null;
+}
+
 export function projectGallery(project: Pick<Project, GaleriKey>): string[] {
   return GALERI_KEYS.map((k) => resolveProjectImageUrl(project[k] ?? "")).filter(Boolean);
 }
 
+export type ProjectMediaSlot = {
+  key: GaleriKey | "kapak";
+  posterSrc: string;
+  videoSrc: string | null;
+};
+
+/** Kapak + galeri — poster ve opsiyonel video URL */
+export function projectMediaSlots(
+  project: Pick<Project, "kapak" | "kapak_video" | GaleriKey | GaleriVideoKey>,
+): ProjectMediaSlot[] {
+  const slots: ProjectMediaSlot[] = [];
+
+  const coverPoster = resolveProjectImageUrl(project.kapak ?? "");
+  const coverVideo = resolveProjectVideoUrl(project.kapak_video ?? "");
+  if (coverPoster || coverVideo) {
+    slots.push({
+      key: "kapak",
+      posterSrc: coverPoster,
+      videoSrc: coverVideo || null,
+    });
+  }
+
+  for (let i = 0; i < GALERI_KEYS.length; i++) {
+    const key = GALERI_KEYS[i]!;
+    const videoKey = GALERI_VIDEO_KEYS[i]!;
+    const posterSrc = resolveProjectImageUrl(project[key] ?? "");
+    const videoSrc = resolveProjectVideoUrl(project[videoKey] ?? "") || null;
+    if (posterSrc || videoSrc) {
+      slots.push({ key, posterSrc, videoSrc });
+    }
+  }
+
+  return slots;
+}
+
 /** Galeri slot anahtarı korunur — galeri_2 künye hizası için ayrı stil. */
 export function projectGallerySlots(
-  project: Pick<Project, GaleriKey>,
-): { key: GaleriKey; src: string }[] {
-  return GALERI_KEYS.map((key) => ({
-    key,
-    src: resolveProjectImageUrl(project[key] ?? ""),
-  })).filter((item) => item.src.length > 0);
+  project: Pick<Project, GaleriKey | GaleriVideoKey>,
+): { key: GaleriKey; posterSrc: string; videoSrc: string | null }[] {
+  return GALERI_KEYS.map((key, i) => {
+    const videoKey = GALERI_VIDEO_KEYS[i]!;
+    return {
+      key,
+      posterSrc: resolveProjectImageUrl(project[key] ?? ""),
+      videoSrc: resolveProjectVideoUrl(project[videoKey] ?? "") || null,
+    };
+  }).filter((item) => item.posterSrc.length > 0 || Boolean(item.videoSrc));
 }
 
 export function galeriFieldsFromRow(data: Record<string, unknown>): Record<GaleriKey, string> {
@@ -72,7 +152,26 @@ export function galeriFieldsFromRow(data: Record<string, unknown>): Record<Galer
   return out;
 }
 
+export function galeriVideoFieldsFromRow(
+  data: Record<string, unknown>,
+): Record<GaleriVideoKey, string> {
+  const out = emptyGaleriVideoSlots();
+  for (const key of GALERI_VIDEO_KEYS) {
+    out[key] = String(data[key] ?? "").trim();
+  }
+  return out;
+}
+
 export function kapakFromRow(data: Record<string, unknown>): string | null {
   const k = String(data.kapak ?? data.gorsel ?? "").trim();
   return k || null;
+}
+
+export function kapakVideoFromRow(data: Record<string, unknown>): string {
+  return String(data.kapak_video ?? "").trim();
+}
+
+/** Poster veya video varsa slot dolu */
+export function slotHasMedia(poster: string, video: string): boolean {
+  return Boolean(poster.trim() || video.trim());
 }

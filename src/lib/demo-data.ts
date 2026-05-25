@@ -1,5 +1,5 @@
 import type { Project } from "@/types";
-import type { GaleriKey } from "@/lib/project-images";
+import type { GaleriKey, GaleriVideoKey } from "@/lib/project-images";
 import { mapProjectRow } from "@/lib/map-project-row";
 
 /**
@@ -27,12 +27,18 @@ function img(seed: string, w = 1600, h = 900): string {
 /** Demo dosyasında hâlâ gorsel/gorseller kullanılabilir — mapProjectRow dönüştürür. */
 type DemoInput = Omit<
   Project,
-  "created_at" | "updated_at" | "kapak" | GaleriKey
+  | "created_at"
+  | "updated_at"
+  | "kapak"
+  | "kapak_video"
+  | GaleriKey
+  | GaleriVideoKey
 > & {
   gorsel?: string;
   gorseller?: string[];
   kapak?: string | null;
-} & Partial<Record<GaleriKey, string>>;
+  kapak_video?: string;
+} & Partial<Record<GaleriKey | GaleriVideoKey, string>>;
 
 function make(p: DemoInput): Project {
   const row = mapProjectRow(p as unknown as Record<string, unknown>);

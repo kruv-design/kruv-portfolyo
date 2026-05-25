@@ -8,8 +8,15 @@ import { toast } from "@/components/ui/Toast";
 import { Field } from "@/components/ui/Field";
 import { TagInput } from "./TagInput";
 import { SectionEditor } from "./SectionEditor";
-import { CoverUpload } from "./CoverUpload";
-import { GALERI_KEYS, emptyGaleriSlots, type GaleriKey } from "@/lib/project-images";
+import { MediaSlotEditor } from "./MediaSlotEditor";
+import {
+  GALERI_KEYS,
+  GALERI_VIDEO_KEYS,
+  emptyGaleriSlots,
+  emptyGaleriVideoSlots,
+  type GaleriKey,
+  type GaleriVideoKey,
+} from "@/lib/project-images";
 import { WORK_PAGE_FILTER_LABELS } from "@/lib/work-filters";
 
 type FormState = {
@@ -17,6 +24,7 @@ type FormState = {
   kategori: string;
   aciklama: string;
   kapak: string;
+  kapak_video: string;
   bolumler: ProjectSection[];
   etiketler: string[];
   link: string;
@@ -24,7 +32,8 @@ type FormState = {
   next_project_override: string;
   renk: string;
   slug: string;
-} & Record<GaleriKey, string>;
+} & Record<GaleriKey, string> &
+  Record<GaleriVideoKey, string>;
 
 const KATEGORI_EXTRA = ["Packaging", "Motion"] as const;
 
@@ -33,7 +42,9 @@ const EMPTY: FormState = {
   kategori: "",
   aciklama: "",
   kapak: "",
+  kapak_video: "",
   ...emptyGaleriSlots(),
+  ...emptyGaleriVideoSlots(),
   bolumler: [],
   etiketler: [],
   link: "",
@@ -49,14 +60,23 @@ function fromProject(p: Project): FormState {
     kategori: p.kategori,
     aciklama: p.aciklama,
     kapak: p.kapak ?? "",
+    kapak_video: p.kapak_video ?? "",
     galeri_1: p.galeri_1,
+    galeri_1_video: p.galeri_1_video,
     galeri_2: p.galeri_2,
+    galeri_2_video: p.galeri_2_video,
     galeri_3: p.galeri_3,
+    galeri_3_video: p.galeri_3_video,
     galeri_4: p.galeri_4,
+    galeri_4_video: p.galeri_4_video,
     galeri_5: p.galeri_5,
+    galeri_5_video: p.galeri_5_video,
     galeri_6: p.galeri_6,
+    galeri_6_video: p.galeri_6_video,
     galeri_7: p.galeri_7,
+    galeri_7_video: p.galeri_7_video,
     galeri_8: p.galeri_8,
+    galeri_8_video: p.galeri_8_video,
     bolumler: [...p.bolumler],
     etiketler: [...p.etiketler],
     link: p.link,
@@ -101,6 +121,16 @@ export function ProjectForm({
     const localErrors: Record<string, string> = {};
     if (!form.baslik.trim()) localErrors.baslik = "Başlık zorunlu.";
     if (!form.kategori.trim()) localErrors.kategori = "Kategori seçin.";
+    if (form.kapak_video.trim() && !form.kapak.trim()) {
+      localErrors.kapak = "Video için kapak görseli zorunlu.";
+    }
+    for (let i = 0; i < GALERI_KEYS.length; i++) {
+      const posterKey = GALERI_KEYS[i]!;
+      const videoKey = GALERI_VIDEO_KEYS[i]!;
+      if (form[videoKey].trim() && !form[posterKey].trim()) {
+        localErrors[posterKey] = "Video için poster görseli zorunlu.";
+      }
+    }
     setErrors(localErrors);
     if (Object.keys(localErrors).length) return;
 
@@ -243,28 +273,35 @@ export function ProjectForm({
             </h2>
             <p className="b3 mt-2 max-w-2xl" style={{ color: "var(--ink-faint)" }}>
               Kapak: anasayfa ve işler listesindeki kart. Galeri 1–8: proje detayında sırayla
-              (boş slotlar atlanır).
+              (boş slotlar atlanır). Video isteğe bağlı; poster her zaman LCP için kullanılır.
             </p>
           </div>
 
-          <Field label="Kapak görseli" hint="İsteğe bağlı — kart + detay üst banner.">
-            <CoverUpload
-              value={form.kapak}
-              onChange={(v) => patch("kapak", v)}
-              previewAlt="Kapak görseli"
-            />
-          </Field>
+          <MediaSlotEditor
+            label="Kapak görseli"
+            posterHint="İsteğe bağlı — kart + detay üst banner (LCP)."
+            posterValue={form.kapak}
+            posterOnChange={(v) => patch("kapak", v)}
+            videoValue={form.kapak_video}
+            videoOnChange={(v) => patch("kapak_video", v)}
+            posterError={errors.kapak}
+          />
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            {GALERI_KEYS.map((key, i) => (
-              <Field key={key} label={`Görsel ${i + 1}`}>
-                <CoverUpload
-                  value={form[key]}
-                  onChange={(v) => patch(key, v)}
-                  previewAlt={`Görsel ${i + 1}`}
+          <div className="grid gap-6 sm:grid-cols-2">
+            {GALERI_KEYS.map((key, i) => {
+              const videoKey = GALERI_VIDEO_KEYS[i]!;
+              return (
+                <MediaSlotEditor
+                  key={key}
+                  label={`Görsel ${i + 1}`}
+                  posterValue={form[key]}
+                  posterOnChange={(v) => patch(key, v)}
+                  videoValue={form[videoKey]}
+                  videoOnChange={(v) => patch(videoKey, v)}
+                  posterError={errors[key]}
                 />
-              </Field>
-            ))}
+              );
+            })}
           </div>
         </section>
 
