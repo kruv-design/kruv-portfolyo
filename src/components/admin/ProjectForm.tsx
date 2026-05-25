@@ -19,9 +19,6 @@ type FormState = {
   kapak: string;
   bolumler: ProjectSection[];
   etiketler: string[];
-  yil: string;
-  musteri: string;
-  sure: string;
   link: string;
   featured: boolean;
   next_project_override: string;
@@ -39,9 +36,6 @@ const EMPTY: FormState = {
   ...emptyGaleriSlots(),
   bolumler: [],
   etiketler: [],
-  yil: "",
-  musteri: "",
-  sure: "",
   link: "",
   featured: false,
   next_project_override: "",
@@ -65,9 +59,6 @@ function fromProject(p: Project): FormState {
     galeri_8: p.galeri_8,
     bolumler: [...p.bolumler],
     etiketler: [...p.etiketler],
-    yil: p.yil,
-    musteri: p.musteri,
-    sure: p.sure,
     link: p.link,
     featured: p.featured,
     next_project_override: p.next_project_override ?? "",
@@ -297,35 +288,6 @@ export function ProjectForm({
               className="flex flex-col gap-5 border-t px-5 pb-5 pt-4 sm:px-6"
               style={{ borderColor: "var(--adm-border)" }}
             >
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Field label="Müşteri">
-                  <input
-                    type="text"
-                    className="form-input"
-                    value={form.musteri}
-                    onChange={(e) => patch("musteri", e.target.value)}
-                    placeholder="İsteğe bağlı"
-                  />
-                </Field>
-                <Field label="Yıl">
-                  <input
-                    type="text"
-                    className="form-input"
-                    value={form.yil}
-                    onChange={(e) => patch("yil", e.target.value)}
-                    placeholder="2024"
-                  />
-                </Field>
-                <Field label="Süre">
-                  <input
-                    type="text"
-                    className="form-input"
-                    value={form.sure}
-                    onChange={(e) => patch("sure", e.target.value)}
-                  />
-                </Field>
-              </div>
-
               <Field label="Dış link" hint="Behance, web sitesi vb.">
                 <input
                   type="url"

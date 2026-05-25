@@ -71,9 +71,6 @@ export function projectMetaSubtitle(project: Project): string {
   if (project.kategori?.trim()) parts.push(project.kategori.trim());
   if (project.etiketler?.length) {
     parts.push(project.etiketler.slice(0, 2).join(", "));
-  } else if (project.musteri?.trim()) {
-    parts.push(project.musteri.trim());
   }
-  if (project.yil?.trim()) parts.push(project.yil.trim());
   return parts.join(" · ");
 }

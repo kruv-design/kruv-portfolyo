@@ -15,9 +15,6 @@ export function mapProjectRow(data: Record<string, unknown>): Project {
       ? (data.bolumler as ProjectSection[])
       : [],
     etiketler: Array.isArray(data.etiketler) ? (data.etiketler as string[]) : [],
-    yil: String(data.yil ?? ""),
-    musteri: String(data.musteri ?? ""),
-    sure: String(data.sure ?? ""),
     link: String(data.link ?? ""),
     featured: Boolean(data.featured),
     next_project_override: String(data.next_project_override ?? ""),

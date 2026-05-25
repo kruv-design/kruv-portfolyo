@@ -25,9 +25,6 @@ export type Project = {
   galeri_8: string;
   bolumler: ProjectSection[];
   etiketler: string[];
-  yil: string;
-  musteri: string;
-  sure: string;
   link: string;
   featured: boolean;
   /** Proje detay banner'ında manuel sonraki proje slug'ı (boş = otomatik) */

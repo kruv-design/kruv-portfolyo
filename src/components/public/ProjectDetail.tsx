@@ -63,9 +63,6 @@ export function ProjectDetail({
         <aside className="project-detail-aside animate-fadeUp">
           <div className="project-detail-aside-card">
             <MetaRow label="Kategori" value={project.kategori} />
-            <MetaRow label="Müşteri" value={project.musteri || "—"} />
-            <MetaRow label="Yıl" value={project.yil || "—"} />
-            <MetaRow label="Süre" value={project.sure || "—"} />
             {project.link?.trim() ? (
               <MetaLinkRow href={project.link.trim()} />
             ) : null}

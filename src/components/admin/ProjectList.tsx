@@ -123,7 +123,7 @@ export function ProjectList({ initial }: { initial: Project[] }) {
               {p.baslik}
             </div>
             <div className="b3 mt-0.5 lowercase" style={{ color: "var(--ink-faint)" }}>
-              {p.kategori} · {p.yil || "—"} · {p.musteri || "—"}
+              {p.kategori}
             </div>
           </div>
           {p.featured && (

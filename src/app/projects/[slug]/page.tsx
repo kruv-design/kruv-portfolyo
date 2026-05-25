@@ -45,7 +45,7 @@ export async function generateMetadata({
   const title = project.baslik;
   const description =
     project.aciklama?.slice(0, 160) ||
-    `${project.kategori} projesi · ${project.musteri || "Kruv"}`;
+    `${project.kategori} projesi · Kruv`;
   const canonical = `${env.SITE_URL}/projects/${project.slug}`;
   const img = project.kapak || undefined;
 
@@ -94,7 +94,6 @@ export default async function ProjectPage({
     url: `${env.SITE_URL}/projects/${project.slug}`,
     image: project.kapak || undefined,
     keywords: project.etiketler?.join(", ") || undefined,
-    dateCreated: project.yil || undefined,
     creator: { "@type": "Organization", name: settings.siteAdi },
     about: project.kategori,
   };

@@ -65,7 +65,6 @@ const SEED = [
       },
     ],
     etiketler: ["Logo", "Ambalaj", "Marka Rehberi"],
-    yil: "2024", musteri: "Karamel Coffee", sure: "6 hafta",
     link: "https://example.com", featured: true, renk: "#C8A882",
   },
   {
@@ -86,7 +85,6 @@ const SEED = [
       },
     ],
     etiketler: ["Figma", "Prototip", "Web App"],
-    yil: "2024", musteri: "Finetrack", sure: "10 hafta",
     link: "", featured: false, renk: "#7A9E8E",
   },
   {
@@ -107,7 +105,6 @@ const SEED = [
       },
     ],
     etiketler: ["Poster", "İllüstrasyon", "Risografi"],
-    yil: "2023", musteri: "Bağımsız", sure: "3 hafta",
     link: "", featured: false, renk: "#8E7AAD",
   },
 ];
