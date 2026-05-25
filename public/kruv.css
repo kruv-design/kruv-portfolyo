@@ -398,8 +398,9 @@
   --size-testimonial-card-h: 240px;
   --size-testimonial-card-h-lg: 264px;
   --size-kadraj-label-bottom: -26px;
-  --size-sub-max-w: 440px;
-  --size-sub-max-w-mobile: 320px;
+  --text-measure: 120ch;
+  --size-sub-max-w: var(--text-measure);
+  --size-sub-max-w-mobile: min(100%, var(--text-measure));
   --size-hero-pad-top-mobile: 70px;
 
   /* ===== Legacy aliases (backward compatibility) ===== */
@@ -990,7 +991,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 
 .sub {
-  max-width: var(--size-sub-max-w); margin: 0 auto var(--space-7);
+  max-width: min(100%, var(--text-measure, var(--size-sub-max-w)));
+  margin: 0 auto var(--space-7);
   opacity: 0; animation: fadeUp .5s 1s ease forwards;
 }
 .sub strong { color: var(--frost); font-weight: 400; }
@@ -1920,7 +1922,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
 }
 .focus-list-note {
   margin-top: var(--space-4);
-  max-width: 26ch;
+  max-width: min(100%, var(--text-measure, 120ch));
   font-family: var(--b1-font-family);
   font-size: var(--b1-font-size);
   font-weight: var(--b1-font-weight);
@@ -2160,7 +2162,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
 
 @media (max-width: 899px) {
   .focus-list-note {
-    max-width: 42ch;
+    max-width: min(100%, var(--text-measure, 120ch));
   }
 }
 

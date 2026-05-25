@@ -127,6 +127,9 @@
   --ls-xl: -0.01em;
   --ls-2xl: 0.14em;
 
+  /* Gövde metni satır uzunluğu (~120 karakter) */
+  --text-measure: 120ch;
+
   --h1-font-family: var(--font-display);
   --h1-font-size: var(--type-h1);
   --h1-font-weight: 600;
@@ -614,6 +617,50 @@ body {
 
 /* Site header → public/site-nav.css (layout + kruv.css import) */
 
+/* ── Okunabilir satır uzunluğu (~120 karakter) ── */
+.text-measure {
+  max-width: min(100%, var(--text-measure));
+}
+
+.project-detail-intro :is(p, .b1),
+.project-detail-copy :is(p, .b1),
+.about-section__body,
+.contact-form-lead,
+.contact-form-success-body {
+  max-width: min(100%, var(--text-measure));
+}
+
+.marketing-page-shell :is(p, .b1, .b2) {
+  max-width: min(100%, var(--text-measure));
+}
+
+.marketing-page-shell :is(
+    .marketing-navbar,
+    .marketing-nav-mobile-overlay,
+    .site-footer,
+    .lets-talk,
+    .pw-card,
+    .portfolio-grid,
+    .project-next-banner,
+    .contact-form
+  )
+  :is(p, .b1, .b2) {
+  max-width: none;
+}
+
+.project-detail-page :is(.marketing-navbar, .marketing-nav-mobile-overlay, .project-detail-aside)
+  :is(p, .b1, .b2) {
+  max-width: none;
+}
+
+.olly-landing :is(p, .b1, .b2) {
+  max-width: min(100%, var(--text-measure));
+}
+
+.olly-landing :is(nav, header, footer, button, label, input, textarea) :is(p, .b1, .b2) {
+  max-width: none;
+}
+
 /* About us — /works#about ve ortak metin (src/content/about.ts) */
 .about-section {
   padding-top: var(--section-pad-y);
@@ -639,7 +686,6 @@ body {
 }
 .about-section__body {
   margin: 0;
-  max-width: 62ch;
   color: var(--b1-color);
 }
 .about-section__body--tr {
@@ -1421,7 +1467,6 @@ body {
 
 .contact-form-lead {
   margin: 0;
-  max-width: 40ch;
   text-transform: none;
 }
 
@@ -1640,7 +1685,6 @@ body {
 
 .contact-form-success-body {
   margin: 0;
-  max-width: 42ch;
   text-transform: none;
 }
 

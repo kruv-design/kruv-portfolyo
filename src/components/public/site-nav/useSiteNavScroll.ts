@@ -5,7 +5,7 @@ import { useEffect, useLayoutEffect, useState } from "react";
 const SCROLL_ON = 32;
 const SCROLL_OFF = 8;
 
-/** Navbar scroll (sentinel + histerezis) — tüm sayfalarda aynı. */
+/** Navbar scroll (sentinel + histerezis) — anasayfa script ile aynı mantık; tüm Next sayfaları. */
 export function useSiteNavScroll(sentinelId = "nav-sentinel") {
   const [scrolled, setScrolled] = useState(false);
 

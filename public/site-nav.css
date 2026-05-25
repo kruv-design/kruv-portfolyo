@@ -90,23 +90,7 @@ html {
   padding: var(--site-nav-pad-y-compact) var(--site-nav-gutter-x);
 }
 
-/* İç sayfalar (Next) — tek görünüm; scroll ile hero moduna dönme yok */
-.marketing-navbar.is-nav-stable {
-  transition: none;
-}
-.marketing-navbar.is-nav-stable .marketing-navbar-inner::before,
-.marketing-navbar.is-nav-stable .marketing-navbar-logo-wordmark,
-.marketing-navbar.is-nav-stable .marketing-navbar-logo-emblem,
-.marketing-navbar.is-nav-stable .marketing-navbar-cols,
-.marketing-navbar.is-nav-stable .marketing-navbar-links,
-.marketing-navbar.is-nav-stable .marketing-navbar-item {
-  transition: none;
-}
-/* İç sayfa: compact pill her zaman okunaklı (açık zemin) */
-.marketing-navbar.is-nav-stable.is-scrolled .marketing-navbar-inner::before {
-  opacity: 1;
-  background: color-mix(in srgb, var(--surface) 94%, transparent);
-}
+/* Varyasyonlar: yalnızca `.marketing-navbar` (üst) ve `.marketing-navbar.is-scrolled` (compact) */
 
 .marketing-navbar-cols {
   display: flex;
@@ -497,33 +481,6 @@ html {
 
   .marketing-navbar.is-scrolled .marketing-navbar-inner::before {
     background: color-mix(in srgb, var(--midnight, var(--surface)) 82%, transparent);
-  }
-
-  .marketing-navbar.is-nav-stable.is-scrolled .marketing-navbar-inner::before {
-    background: color-mix(in srgb, var(--surface) 92%, transparent);
-  }
-
-  /* İç sayfa (Next): tek gutter — kruv.css ile çift padding / dar pill olmasın */
-  .marketing-navbar.is-nav-stable,
-  .marketing-navbar.is-nav-stable.is-scrolled {
-    padding-inline: var(--site-nav-gutter-x);
-    padding-block: var(--site-nav-pad-y-compact);
-  }
-
-  .marketing-navbar.is-nav-stable .marketing-navbar-inner,
-  .marketing-navbar.is-nav-stable.is-scrolled .marketing-navbar-inner {
-    width: 100%;
-    max-width: 100%;
-    margin-inline: 0;
-    padding: var(--site-nav-pill-inset-mobile, var(--nav-pill-inset, 16px));
-    box-sizing: border-box;
-  }
-
-  .marketing-navbar.is-nav-stable .marketing-navbar-cols,
-  .marketing-navbar.is-nav-stable.is-scrolled .marketing-navbar-cols {
-    width: 100%;
-    max-width: 100%;
-    justify-content: space-between;
   }
 
   .marketing-navbar-actions {
