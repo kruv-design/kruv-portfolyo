@@ -1,7 +1,12 @@
 import "server-only";
 import { supabasePublic } from "@/lib/supabase/server";
 import { mapProjectRow } from "@/lib/map-project-row";
-import { resolveNextProject } from "@/lib/next-project";
+import {
+  getSequentialNext,
+  getSequentialPrev,
+  resolveNextProject,
+  sortProjectsBySira,
+} from "@/lib/next-project";
 import { DEMO_PROJECTS, isPlaceholderEnv } from "@/lib/demo-data";
 import type { Project, SiteSettings } from "@/types";
 
@@ -140,19 +145,20 @@ export async function getSettings(): Promise<SiteSettings> {
   }
 }
 
-/** Supabase `sira` sırasına göre önceki / sonraki proje; son→ilk, ilk→son (döngü). */
+/** `sira` sırasına göre önceki / sonraki; son proje → ilk (döngü). */
 export async function getAdjacentProjects(
   currentSlug: string,
 ): Promise<{ prev: Project | null; next: Project | null }> {
   const all = await getProjects();
-  const idx = all.findIndex((p) => p.slug === currentSlug);
-  if (idx === -1) return { prev: null, next: null };
-  if (all.length <= 1) return { prev: null, next: null };
+  const ordered = sortProjectsBySira(all);
+  const current = ordered.find((p) => p.slug === currentSlug) ?? null;
+  if (!current || ordered.length <= 1) {
+    return { prev: null, next: null };
+  }
 
-  const last = all.length - 1;
   return {
-    prev: all[idx === 0 ? last : idx - 1] ?? null,
-    next: all[idx === last ? 0 : idx + 1] ?? null,
+    prev: getSequentialPrev(current, ordered),
+    next: getSequentialNext(current, ordered),
   };
 }
 

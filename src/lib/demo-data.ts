@@ -39,6 +39,46 @@ function make(p: DemoInput): Project {
   return { ...row, created_at: now, updated_at: now };
 }
 
+/* ─────────────────────────────  CANLI PORTFÖY ÇİFTİ (Marker → Roots) ── */
+
+const portfolioMarkerRoots: Project[] = [
+  make({
+    id: "demo-marker",
+    slug: "marker",
+    baslik: "Marker",
+    kategori: "branding, packaging",
+    aciklama: "MARKER ambalaj ve marka kimliği.",
+    gorsel: "https://picsum.photos/seed/kruv-marker-hero/1600/900",
+    bolumler: [],
+    etiketler: ["branding", "packaging"],
+    yil: "2025",
+    musteri: "Marker",
+    sure: "",
+    link: "",
+    featured: true,
+    next_project_override: "rootsadventure-travel",
+    renk: "#C8B8A8",
+    sira: 1,
+  }),
+  make({
+    id: "demo-roots-adventure",
+    slug: "rootsadventure-travel",
+    baslik: "Roots Adventure Travel",
+    kategori: "branding",
+    aciklama: "Roots Adventure Travel marka kimliği.",
+    gorsel: "https://picsum.photos/seed/kruv-roots-hero/1600/900",
+    bolumler: [],
+    etiketler: ["brand identity", "travel"],
+    yil: "2025",
+    musteri: "Roots Adventure Travel",
+    sure: "",
+    link: "",
+    featured: true,
+    renk: "#7A9E7E",
+    sira: 2,
+  }),
+];
+
 /* ─────────────────────────────  BRANDING  ───────────────────────────── */
 
 const branding: Project[] = [
@@ -615,6 +655,7 @@ const motion: Project[] = [
 ];
 
 export const DEMO_PROJECTS: Project[] = [
+  ...portfolioMarkerRoots,
   ...branding,
   ...packaging,
   ...social,

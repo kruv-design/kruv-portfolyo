@@ -1,6 +1,7 @@
 import type { Project } from "@/types";
 
-function sortBySira(projects: Project[]): Project[] {
+/** Tüm gezinme: `sira` artan — aynı sira’da en yeni önce. */
+export function sortProjectsBySira(projects: Project[]): Project[] {
   return [...projects].sort((a, b) => {
     if (a.sira !== b.sira) return a.sira - b.sira;
     return (
@@ -9,50 +10,32 @@ function sortBySira(projects: Project[]): Project[] {
   });
 }
 
-function categoryTokens(kategori: string): Set<string> {
-  return new Set(
-    kategori
-      .split(",")
-      .map((s) => s.trim().toLowerCase())
-      .filter(Boolean),
-  );
-}
-
-function sharesCategory(a: Project, b: Project): boolean {
-  const A = categoryTokens(a.kategori);
-  for (const t of categoryTokens(b.kategori)) {
-    if (A.has(t)) return true;
-  }
-  return false;
-}
-
-/** Sıralı listede current'tan sonra gelen ilk aday (döngüsel). */
-function nextInOrderedPool(
+/** Sonraki proje: sıradaki; listedeki son → ilk (sira 1 / en düşük sira). */
+export function getSequentialNext(
   current: Project,
   ordered: Project[],
-  pool: Project[],
 ): Project | null {
-  if (pool.length === 0) return null;
-  const poolSlugs = new Set(pool.map((p) => p.slug));
+  if (ordered.length <= 1) return null;
   const idx = ordered.findIndex((p) => p.slug === current.slug);
-  if (idx === -1) return pool[0] ?? null;
+  if (idx === -1) return ordered[0] ?? null;
+  return ordered[(idx + 1) % ordered.length] ?? null;
+}
 
-  for (let step = 1; step <= ordered.length; step++) {
-    const candidate = ordered[(idx + step) % ordered.length];
-    if (poolSlugs.has(candidate.slug) && candidate.slug !== current.slug) {
-      return candidate;
-    }
-  }
-  return null;
+/** Önceki proje: sıradaki geri; ilk → son. */
+export function getSequentialPrev(
+  current: Project,
+  ordered: Project[],
+): Project | null {
+  if (ordered.length <= 1) return null;
+  const idx = ordered.findIndex((p) => p.slug === current.slug);
+  if (idx === -1) return ordered[ordered.length - 1] ?? null;
+  return ordered[(idx - 1 + ordered.length) % ordered.length] ?? null;
 }
 
 /**
- * Proje detay sonu banner — öncelik:
- * 1) next_project_override
- * 2) Aynı kategori (sira sırası, döngü)
- * 3) Aynı müşteri
- * 4) Featured havuz
- * 5) Genel sira döngüsü
+ * Proje detay sonu banner + genel “sonraki”:
+ * 1) `next_project_override` (manuel)
+ * 2) `sira` sırası — son projeden sonra her zaman ilk projeye dön
  */
 export function resolveNextProject(
   current: Project,
@@ -60,9 +43,7 @@ export function resolveNextProject(
 ): Project | null {
   if (all.length <= 1) return null;
 
-  const ordered = sortBySira(all);
-  const others = ordered.filter((p) => p.slug !== current.slug);
-  if (others.length === 0) return null;
+  const ordered = sortProjectsBySira(all);
 
   const override = current.next_project_override?.trim();
   if (override && override !== current.slug) {
@@ -70,31 +51,14 @@ export function resolveNextProject(
     if (manual) return manual;
   }
 
-  const sameCategory = others.filter((p) => sharesCategory(current, p));
-  const fromCategory = nextInOrderedPool(current, ordered, sameCategory);
-  if (fromCategory) return fromCategory;
-
-  const client = current.musteri?.trim();
-  if (client) {
-    const sameClient = others.filter((p) => p.musteri?.trim() === client);
-    const fromClient = nextInOrderedPool(current, ordered, sameClient);
-    if (fromClient) return fromClient;
-  }
-
-  const featured = others.filter((p) => p.featured);
-  const fromFeatured = nextInOrderedPool(current, ordered, featured);
-  if (fromFeatured) return fromFeatured;
-
-  const idx = ordered.findIndex((p) => p.slug === current.slug);
-  if (idx === -1) return others[0] ?? null;
-  return ordered[(idx + 1) % ordered.length] ?? null;
+  return getSequentialNext(current, ordered);
 }
 
 export function projectListPosition(
   current: Project,
   all: Project[],
 ): { index: number; total: number } {
-  const ordered = sortBySira(all);
+  const ordered = sortProjectsBySira(all);
   const idx = ordered.findIndex((p) => p.slug === current.slug);
   return {
     index: idx === -1 ? 1 : idx + 1,
