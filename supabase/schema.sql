@@ -29,6 +29,7 @@ create table if not exists public.projects (
   sure        text default '',
   link        text default '',
   featured    boolean not null default false,
+  next_project_override text default '',
   renk        text default '#C8B8A8',
   sira        int not null default 0,
   created_at  timestamptz not null default now(),

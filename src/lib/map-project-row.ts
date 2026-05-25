@@ -20,6 +20,7 @@ export function mapProjectRow(data: Record<string, unknown>): Project {
     sure: String(data.sure ?? ""),
     link: String(data.link ?? ""),
     featured: Boolean(data.featured),
+    next_project_override: String(data.next_project_override ?? ""),
     renk: String(data.renk ?? "#C8B8A8"),
     sira: Number(data.sira ?? 0),
     created_at: String(data.created_at ?? ""),

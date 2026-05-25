@@ -30,6 +30,8 @@ export type Project = {
   sure: string;
   link: string;
   featured: boolean;
+  /** Proje detay banner'ında manuel sonraki proje slug'ı (boş = otomatik) */
+  next_project_override?: string;
   renk: string;
   sira: number;
   created_at: string;

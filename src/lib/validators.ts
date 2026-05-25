@@ -120,6 +120,12 @@ export const projectSchema = z.object({
   sure: optStr,
   link: linkUrlOrEmpty,
   featured: z.boolean().default(false),
+  next_project_override: z
+    .string()
+    .trim()
+    .max(96)
+    .optional()
+    .default(""),
   renk: z
     .union([z.string(), z.undefined(), z.null()])
     .transform((v) =>
@@ -152,6 +158,7 @@ export function projectPayloadToDbRow(input: ProjectFormInput, slug: string) {
     sure: input.sure,
     link: input.link,
     featured: input.featured,
+    next_project_override: input.next_project_override ?? "",
     renk: input.renk,
   };
 }

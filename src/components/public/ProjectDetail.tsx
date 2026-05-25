@@ -3,18 +3,21 @@ import type { Project } from "@/types";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { projectCover, projectGallerySlots } from "@/lib/project-images";
 import { ProjectDetailImage } from "./ProjectDetailImage";
-import { ProjectEndCta } from "./ProjectEndCta";
+import { LetsTalkMarquee } from "./LetsTalkMarquee";
+import { ProjectNextBanner } from "./ProjectNextBanner";
 
 export function ProjectDetail({
   project,
   prevSlug,
   nextSlug,
   nextProject,
+  allProjects,
 }: {
   project: Project;
   prevSlug: string | null;
   nextSlug: string | null;
   nextProject: Project | null;
+  allProjects: Project[];
 }) {
   const cover = projectCover(project);
   const gallerySlots = projectGallerySlots(project);
@@ -123,7 +126,15 @@ export function ProjectDetail({
         )}
       </div>
 
-      <ProjectEndCta nextProject={nextProject} />
+      {nextProject ? (
+        <ProjectNextBanner
+          current={project}
+          nextProject={nextProject}
+          allProjects={allProjects}
+        />
+      ) : null}
+
+      <LetsTalkMarquee headingId="project-lets-talk-heading" />
     </>
   );
 }

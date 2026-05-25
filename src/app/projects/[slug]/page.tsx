@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import {
   getAdjacentProjects,
+  getNextProjectForDetail,
   getProjectBySlug,
   getProjects,
   getSettings,
 } from "@/lib/queries";
 import { ProjectDetail } from "@/components/public/ProjectDetail";
 import { SiteFooter } from "@/components/public/SiteFooter";
+import { MarketingKruvStyles } from "@/components/public/MarketingKruvStyles";
 import { MarketingSiteNav } from "@/components/public/MarketingSiteNav";
 import { env } from "@/lib/env";
 
@@ -76,8 +78,10 @@ export default async function ProjectPage({
   const project = await getProjectBySlug(slug);
   if (!project) notFound();
 
-  const [{ prev, next }, settings] = await Promise.all([
+  const [allProjects, { prev, next }, nextBanner, settings] = await Promise.all([
+    getProjects(),
     getAdjacentProjects(project.slug),
+    getNextProjectForDetail(project.slug),
     getSettings(),
   ]);
 
@@ -106,6 +110,7 @@ export default async function ProjectPage({
         className="project-detail-page flex min-h-screen flex-col"
         style={{ background: "var(--bg)", color: "var(--ink)", minHeight: "100vh" }}
       >
+        <MarketingKruvStyles />
         <MarketingSiteNav settings={settings} />
         <div className="flex flex-1 flex-col">
           <div className="works-shell-inner project-detail-shell">
@@ -113,7 +118,8 @@ export default async function ProjectPage({
               project={project}
               prevSlug={prev?.slug ?? null}
               nextSlug={next?.slug ?? null}
-              nextProject={next}
+              nextProject={nextBanner}
+              allProjects={allProjects}
             />
           </div>
           <SiteFooter settings={settings} />

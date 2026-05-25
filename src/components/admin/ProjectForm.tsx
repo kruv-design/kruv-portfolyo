@@ -24,6 +24,7 @@ type FormState = {
   sure: string;
   link: string;
   featured: boolean;
+  next_project_override: string;
   renk: string;
   slug: string;
 } & Record<GaleriKey, string>;
@@ -43,6 +44,7 @@ const EMPTY: FormState = {
   sure: "",
   link: "",
   featured: false,
+  next_project_override: "",
   renk: "#C8B8A8",
   slug: "",
 };
@@ -68,6 +70,7 @@ function fromProject(p: Project): FormState {
     sure: p.sure,
     link: p.link,
     featured: p.featured,
+    next_project_override: p.next_project_override ?? "",
     renk: p.renk || "#C8B8A8",
     slug: p.slug,
   };
@@ -357,6 +360,20 @@ export function ProjectForm({
                   />
                 </Field>
               ) : null}
+
+              <Field
+                label="Sonraki proje (manuel)"
+                hint="Boş bırakılırsa kategori / featured kurallarına göre otomatik seçilir."
+              >
+                <input
+                  type="text"
+                  className="form-input"
+                  value={form.next_project_override}
+                  onChange={(e) => patch("next_project_override", e.target.value)}
+                  placeholder="ornek-proje-slug"
+                  pattern="[a-z0-9-]*"
+                />
+              </Field>
             </div>
           ) : null}
         </section>

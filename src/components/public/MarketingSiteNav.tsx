@@ -10,17 +10,16 @@ import {
   SiteNavMobileOverlay,
   SITE_NAV_MOBILE_MENU_ID,
   SITE_NAV_SENTINEL_ID,
-  useSiteNavScroll,
 } from "./site-nav";
 
 /**
- * Ortak site header — anasayfa (kruv.html) ile aynı markup + sınıflar.
+ * İç sayfa header — her zaman compact (is-scrolled + is-nav-stable).
+ * Anasayfa hero scroll davranışı yalnızca kruv.html + scroll script.
  */
 export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
   const pathname = usePathname();
   const router = useRouter();
   const menuTitleId = useId();
-  const scrolled = useSiteNavScroll(SITE_NAV_SENTINEL_ID);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -65,7 +64,7 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
       <div id={SITE_NAV_SENTINEL_ID} className="marketing-nav-sentinel" aria-hidden="true" />
       <nav
         id="site-nav"
-        className={`marketing-navbar${scrolled ? " is-scrolled" : ""}${mobileMenuOpen ? " is-menu-open" : ""}`}
+        className={`marketing-navbar is-scrolled is-nav-stable${mobileMenuOpen ? " is-menu-open" : ""}`}
         aria-label="Primary"
         lang="en"
       >

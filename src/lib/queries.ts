@@ -1,6 +1,7 @@
 import "server-only";
 import { supabasePublic } from "@/lib/supabase/server";
 import { mapProjectRow } from "@/lib/map-project-row";
+import { resolveNextProject } from "@/lib/next-project";
 import { DEMO_PROJECTS, isPlaceholderEnv } from "@/lib/demo-data";
 import type { Project, SiteSettings } from "@/types";
 
@@ -163,4 +164,14 @@ export async function getAdjacentSlugs(
     prev: prev?.slug ?? null,
     next: next?.slug ?? null,
   };
+}
+
+/** Proje detay sonu banner — akıllı sonraki proje seçimi. */
+export async function getNextProjectForDetail(
+  currentSlug: string,
+): Promise<Project | null> {
+  const all = await getProjects();
+  const current = all.find((p) => p.slug === currentSlug);
+  if (!current) return null;
+  return resolveNextProject(current, all);
 }
