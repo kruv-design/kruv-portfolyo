@@ -105,7 +105,7 @@ export function MarketingSiteNav({
     const base = `/${parts.join("/")}`;
     document.cookie = `kruv-locale=${nextLocale}; path=/; max-age=31536000; samesite=lax`;
     setLanguageMenuOpen(false);
-    router.push(withLocale(base === "/" ? "/works" : base, nextLocale));
+    router.push(withLocale(base, nextLocale));
   }
 
   const activeLanguage = LANGUAGE_OPTIONS.find((item) => item.locale === locale) ?? LANGUAGE_OPTIONS[0];
@@ -160,11 +160,11 @@ export function MarketingSiteNav({
                 <div className="relative" ref={languageMenuRef}>
                   <button
                     type="button"
-                    className="b3 inline-flex items-center gap-2 rounded-full border px-3 py-1.5"
+                    className="b3 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 transition-colors duration-200 hover:border-[color:var(--border-md)] hover:text-[color:var(--ink)]"
                     style={{
                       borderColor: "var(--border)",
                       background: "var(--surface)",
-                      color: "var(--ink)",
+                      color: "var(--ink-soft)",
                     }}
                     aria-haspopup="menu"
                     aria-expanded={languageMenuOpen}
@@ -181,7 +181,7 @@ export function MarketingSiteNav({
                       style={{
                         borderColor: "var(--border)",
                         background: "var(--surface)",
-                        boxShadow: "0 8px 24px var(--gray-200)",
+                        boxShadow: "0 4px 12px var(--gray-180)",
                       }}
                     >
                       {LANGUAGE_OPTIONS.map((item) => (
@@ -190,8 +190,11 @@ export function MarketingSiteNav({
                           type="button"
                           role="menuitemradio"
                           aria-checked={locale === item.locale}
-                          className="b3 flex w-full items-center gap-2 px-3 py-2 text-left transition-colors"
-                          style={{ color: "var(--ink)" }}
+                          className="b3 flex w-full items-center gap-2 px-3 py-2 text-left transition-colors duration-150 hover:bg-[color:var(--gray-70)] hover:text-[color:var(--ink)]"
+                          style={{
+                            color: locale === item.locale ? "var(--ink)" : "var(--ink-soft)",
+                            background: locale === item.locale ? "var(--gray-80)" : "transparent",
+                          }}
                           onClick={() => switchLocale(item.locale)}
                         >
                           <span aria-hidden="true">{item.flag}</span>
