@@ -1,45 +1,28 @@
-import { readFile } from "node:fs/promises";
-import path from "node:path";
-import { NextResponse } from "next/server";
-import { injectHeroV2IntoPageHtml } from "@/lib/marketing-hero";
+import { NextRequest, NextResponse } from "next/server";
+import { DEFAULT_LOCALE, normalizeLocale } from "@/lib/i18n/config";
 
 export const runtime = "nodejs";
 
-/** Kök `/` — React sayfası yok; statik `public/kruv.html` doğrudan gövde olarak döner (Vercel’de eski `page.tsx` önbelleğiyle çakışmaz). */
-async function kruvHtmlResponse(): Promise<NextResponse> {
-  const filePath = path.join(process.cwd(), "public", "kruv.html");
-  const raw = await readFile(filePath, "utf8");
-  const html = await injectHeroV2IntoPageHtml(raw, {
-    ctaHref: "/works",
-    scrollHref: "/works",
-  });
-  return new NextResponse(html, {
-    status: 200,
-    headers: {
-      "Content-Type": "text/html; charset=utf-8",
-      "Cache-Control": "public, max-age=0, must-revalidate",
-    },
-  });
+function resolveLocale(request: NextRequest): "tr" | "en" {
+  const cookieLocale = normalizeLocale(request.cookies.get("kruv-locale")?.value);
+  if (cookieLocale) return cookieLocale;
+  const headerLocale = normalizeLocale(
+    request.headers.get("accept-language")?.split(",")[0],
+  );
+  return headerLocale || DEFAULT_LOCALE;
 }
 
-export async function GET() {
-  try {
-    return await kruvHtmlResponse();
-  } catch (err) {
-    console.error("[GET /] kruv.html", err);
-    return new NextResponse("Internal Server Error", { status: 500 });
-  }
+/** Kök `/` artık locale-aware `/tr/works` veya `/en/works` yönlendirmesi yapar. */
+export async function GET(request: NextRequest) {
+  const locale = resolveLocale(request);
+  const url = request.nextUrl.clone();
+  url.pathname = `/${locale}/works`;
+  return NextResponse.redirect(url);
 }
 
-export async function HEAD() {
-  try {
-    const res = await kruvHtmlResponse();
-    return new NextResponse(null, {
-      status: res.status,
-      headers: res.headers,
-    });
-  } catch (err) {
-    console.error("[HEAD /] kruv.html", err);
-    return new NextResponse(null, { status: 500 });
-  }
+export async function HEAD(request: NextRequest) {
+  const locale = resolveLocale(request);
+  const url = request.nextUrl.clone();
+  url.pathname = `/${locale}/works`;
+  return NextResponse.redirect(url);
 }
