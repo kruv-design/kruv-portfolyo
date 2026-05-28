@@ -623,7 +623,10 @@ body {
 }
 
 .project-detail-intro :is(p, .b1),
-.project-detail-copy :is(p, .b1),
+.project-detail-copy :is(p, .b1) {
+  max-width: min(100%, calc(var(--text-measure) * 0.6));
+}
+
 .about-section__body,
 .contact-form-lead,
 .contact-form-success-body {
@@ -1285,11 +1288,7 @@ body {
   margin: 0;
   padding: var(--space-6) var(--container-gutter);
   border-bottom: none;
-  background: linear-gradient(
-    to top,
-    color-mix(in srgb, var(--bg) 88%, transparent) 0%,
-    transparent 100%
-  );
+  background: transparent;
 }
 .project-detail-aside {
   min-width: 0;
