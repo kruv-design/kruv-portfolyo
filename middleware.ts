@@ -1,10 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { updateSession } from "@/lib/supabase/middleware";
-import {
-  DEFAULT_LOCALE,
-  LOCALES,
-  normalizeLocale,
-} from "@/lib/i18n/config";
+import { DEFAULT_LOCALE, LOCALES } from "@/lib/i18n/config";
 
 const PUBLIC_FILE = /\.[^/]+$/;
 
@@ -14,7 +10,7 @@ function hasLocalePrefix(pathname: string): boolean {
   );
 }
 
-/** Kök `/` artık `src/app/route.ts` (GET) ile `public/kruv.html` döndürüyor — rewrite gerekmez. */
+/** Kök `/` artık App Router `src/app/page.tsx` üzerinden locale'e gider. */
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 

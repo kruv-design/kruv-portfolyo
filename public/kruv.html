@@ -9,14 +9,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kruv — Brand Identity for the Social-First Era</title>
 <script>
-  // Pre-paint tema bootstrap'i — kullanıcı tercihini React tarafıyla (kruv-theme)
-  // paylaşır; flash önlemek için CSS'ten önce çalışmalı.
+  // Bu fazda tema sabit: light.
   (function(){
     try {
-      var t = localStorage.getItem('kruv-theme');
-      if (t === 'light' || t === 'dark') {
-        document.documentElement.setAttribute('data-theme', t);
-      }
+      document.documentElement.setAttribute('data-theme', 'light');
     } catch (e) {}
   })();
 </script>
@@ -61,31 +57,22 @@
       </div>
       <div class="marketing-navbar-col marketing-navbar-col--cta">
         <div class="marketing-navbar-actions">
-          <button
-            type="button"
-            id="theme-toggle"
-            class="marketing-navbar-theme-toggle marketing-navbar-theme-toggle--dock nav-theme-toggle"
-            data-kruv-theme-toggle
-            aria-label="Aydınlık moda geç"
-            aria-pressed="false"
-            title="Tema değiştir"
-          >
-            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="4"></circle>
-              <path d="M12 2v2"></path>
-              <path d="M12 20v2"></path>
-              <path d="m4.93 4.93 1.41 1.41"></path>
-              <path d="m17.66 17.66 1.41 1.41"></path>
-              <path d="M2 12h2"></path>
-              <path d="M20 12h2"></path>
-              <path d="m6.34 17.66-1.41 1.41"></path>
-              <path d="m19.07 4.93-1.41 1.41"></path>
-            </svg>
-          </button>
-          <a class="marketing-navbar-cta" href="/contact">Start a project</a>
+          <div class="lang-switch" id="lang-switch">
+            <button type="button" id="lang-switch-trigger" class="lang-switch__trigger" aria-haspopup="menu" aria-expanded="false">
+              <span id="lang-switch-flag" aria-hidden="true">🇹🇷</span>
+              <span id="lang-switch-label">TR</span>
+              <span aria-hidden="true">▾</span>
+            </button>
+            <div id="lang-switch-menu" class="lang-switch__menu" role="menu" hidden>
+              <button type="button" role="menuitemradio" aria-checked="true" class="lang-switch__item" data-locale="tr">
+                <span aria-hidden="true">🇹🇷</span><span>TR</span>
+              </button>
+              <button type="button" role="menuitemradio" aria-checked="false" class="lang-switch__item" data-locale="en">
+                <span aria-hidden="true">🇬🇧</span><span>EN</span>
+              </button>
+            </div>
+          </div>
+          <a class="marketing-navbar-cta" id="nav-cta-link" href="/tr/contact">Start a project</a>
           <button
             type="button"
             id="nav-menu-toggle"
@@ -110,37 +97,14 @@
 <div id="site-nav-mobile-menu" class="marketing-nav-mobile-overlay site-nav-mobile-overlay" role="dialog" aria-modal="true" aria-labelledby="site-nav-mobile-menu-title" hidden>
   <h2 id="site-nav-mobile-menu-title" class="site-footer-sr-only">Menu</h2>
   <div class="marketing-nav-mobile-body site-nav-mobile-body">
-    <button
-      type="button"
-      class="marketing-nav-mobile-theme-toggle site-nav-mobile-theme-toggle nav-theme-toggle"
-      data-kruv-theme-toggle
-      aria-label="Aydınlık moda geç"
-      aria-pressed="false"
-      title="Tema değiştir"
-    >
-      <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-      </svg>
-      <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <circle cx="12" cy="12" r="4"></circle>
-        <path d="M12 2v2"></path>
-        <path d="M12 20v2"></path>
-        <path d="m4.93 4.93 1.41 1.41"></path>
-        <path d="m17.66 17.66 1.41 1.41"></path>
-        <path d="M2 12h2"></path>
-        <path d="M20 12h2"></path>
-        <path d="m6.34 17.66-1.41 1.41"></path>
-        <path d="m19.07 4.93-1.41 1.41"></path>
-      </svg>
-    </button>
     <form class="nav-mobile-search marketing-nav-mobile-search" id="nav-mobile-search-form" role="search">
       <label for="nav-mobile-q" class="site-footer-sr-only">Search</label>
       <input id="nav-mobile-q" name="q" type="search" placeholder="Search" autocomplete="off" enterkeyhint="search">
     </form>
     <nav aria-label="Mobile">
       <ul class="site-nav-mobile-links marketing-nav-mobile-links">
-        <li><a class="navbar-item1" href="/works">Projects</a></li>
-        <li><a class="navbar-item3" href="/contact">Contact</a></li>
+        <li><a class="navbar-item1" id="nav-mobile-projects-link" href="/tr/works">Projects</a></li>
+        <li><a class="navbar-item3" id="nav-mobile-contact-link" href="/tr/contact">Contact</a></li>
       </ul>
     </nav>
   </div>
@@ -1871,6 +1835,94 @@
 
 <script src="/hero-v2-rotator.js" defer></script>
 <script src="/hero-v2-cursor.js" defer></script>
+
+<script>
+  (function () {
+    var options = [
+      { locale: 'tr', label: 'TR', flag: '🇹🇷' },
+      { locale: 'en', label: 'EN', flag: '🇬🇧' }
+    ];
+    function normLocale(raw) {
+      var s = String(raw || '').toLowerCase().split('-')[0];
+      return s === 'en' ? 'en' : 'tr';
+    }
+    function readCookieLocale() {
+      var m = document.cookie.match(/(?:^|;\s*)kruv-locale=([^;]+)/);
+      return m ? normLocale(decodeURIComponent(m[1])) : '';
+    }
+    function activeLocale() {
+      return readCookieLocale() || normLocale(navigator.language || 'tr');
+    }
+    function setCookie(locale) {
+      document.cookie = 'kruv-locale=' + encodeURIComponent(locale) + '; path=/; max-age=31536000; samesite=lax';
+    }
+    function withLocale(path, locale) {
+      var p = String(path || '/');
+      if (!p.startsWith('/')) p = '/' + p;
+      return '/' + locale + p;
+    }
+
+    var trigger = document.getElementById('lang-switch-trigger');
+    var menu = document.getElementById('lang-switch-menu');
+    var flagEl = document.getElementById('lang-switch-flag');
+    var labelEl = document.getElementById('lang-switch-label');
+    if (!trigger || !menu || !flagEl || !labelEl) return;
+
+    var projectsDesktop = document.querySelector('.marketing-navbar-links a[href$="/works"]');
+    var contactDesktop = document.querySelector('.marketing-navbar-links a[href$="/contact"]');
+    var cta = document.getElementById('nav-cta-link');
+    var projectsMobile = document.getElementById('nav-mobile-projects-link');
+    var contactMobile = document.getElementById('nav-mobile-contact-link');
+
+    function paint(locale) {
+      var active = options.find(function (o) { return o.locale === locale; }) || options[0];
+      flagEl.textContent = active.flag;
+      labelEl.textContent = active.label;
+      menu.querySelectorAll('[data-locale]').forEach(function (el) {
+        el.setAttribute('aria-checked', el.getAttribute('data-locale') === locale ? 'true' : 'false');
+      });
+      if (projectsDesktop) projectsDesktop.setAttribute('href', withLocale('/works', locale));
+      if (contactDesktop) contactDesktop.setAttribute('href', withLocale('/contact', locale));
+      if (cta) cta.setAttribute('href', withLocale('/contact', locale));
+      if (projectsMobile) projectsMobile.setAttribute('href', withLocale('/works', locale));
+      if (contactMobile) contactMobile.setAttribute('href', withLocale('/contact', locale));
+    }
+
+    function closeMenu() {
+      menu.hidden = true;
+      trigger.setAttribute('aria-expanded', 'false');
+    }
+    function openMenu() {
+      menu.hidden = false;
+      trigger.setAttribute('aria-expanded', 'true');
+    }
+
+    trigger.addEventListener('click', function () {
+      if (menu.hidden) openMenu();
+      else closeMenu();
+    });
+    document.addEventListener('mousedown', function (ev) {
+      var root = document.getElementById('lang-switch');
+      if (!root) return;
+      if (!root.contains(ev.target)) closeMenu();
+    });
+    document.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Escape') closeMenu();
+    });
+    menu.querySelectorAll('[data-locale]').forEach(function (item) {
+      item.addEventListener('click', function () {
+        var next = normLocale(item.getAttribute('data-locale'));
+        setCookie(next);
+        paint(next);
+        closeMenu();
+        window.location.href = withLocale('/works', next);
+      });
+    });
+
+    paint(activeLocale());
+    closeMenu();
+  })();
+</script>
 
 <script>
   // Theme toggle — kullanıcı tercihini localStorage'a yazar (kruv-theme),

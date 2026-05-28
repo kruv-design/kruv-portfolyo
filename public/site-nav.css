@@ -267,6 +267,74 @@ html {
   gap: var(--space-3);
 }
 
+.lang-switch {
+  position: relative;
+}
+
+.lang-switch__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: var(--nav-bar-ctrl-h);
+  padding: 0 12px;
+  border-radius: var(--btn-radius);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--ink-soft);
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+
+.lang-switch__trigger:hover {
+  color: var(--ink);
+  border-color: var(--border-md);
+}
+
+.lang-switch__menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  min-width: 132px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 4px;
+  background: var(--surface);
+  box-shadow: 0 4px 12px var(--gray-180);
+  z-index: 30;
+}
+
+.lang-switch__item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: transparent;
+  color: var(--ink-soft);
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+
+.lang-switch__item:hover {
+  background: var(--gray-70);
+  color: var(--ink);
+}
+
+.lang-switch__item[aria-checked="true"] {
+  background: var(--gray-80);
+  color: var(--ink);
+}
+
 /* Theme toggle — navbar satırında CTA ile aynı kutu yüksekliği */
 .marketing-navbar-theme-toggle,
 .nav-theme-toggle {
@@ -485,6 +553,10 @@ html {
 
   .marketing-navbar-actions {
     gap: var(--space-3, 12px);
+  }
+
+  .lang-switch {
+    display: none;
   }
 
   .marketing-navbar.is-menu-open .marketing-navbar-menu-btn {

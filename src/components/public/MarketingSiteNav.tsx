@@ -123,7 +123,7 @@ export function MarketingSiteNav({
           <div className="marketing-navbar-cols">
             <div className="marketing-navbar-col marketing-navbar-col--brand">
               <Link
-                href="/"
+                href={withLocale("/", locale)}
                 className="marketing-navbar-logo brand"
                 aria-label={`Home — ${brandLabel}`}
               >

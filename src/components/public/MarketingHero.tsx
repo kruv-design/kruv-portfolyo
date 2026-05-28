@@ -3,7 +3,7 @@ import { loadHeroV2Html, type HeroV2Options } from "@/lib/marketing-hero";
 
 /** `public/partials/hero-v2.html` — anasayfa ile birebir aynı hero. */
 export async function MarketingHero(options: HeroV2Options = {}) {
-  const html = await loadHeroV2Html({ ctaHref: "/works", ...options });
+  const html = await loadHeroV2Html({ ctaHref: "/tr/works", ...options });
 
   return (
     <>
