@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import type { Locale } from "@/lib/i18n/config";
-import { DEFAULT_SITE_SETTINGS, getProjects, getSettings } from "@/lib/queries";
+import { DEFAULT_SITE_SETTINGS, getSettings } from "@/lib/queries";
 import { MarketingPageShell } from "@/components/public/MarketingPageShell";
 import { MarketingSiteNav } from "@/components/public/MarketingSiteNav";
 import { MarketingHero } from "@/components/public/MarketingHero";
-import { PortfolioGrid } from "@/components/public/PortfolioGrid";
+import { MarketingHomeBody } from "@/components/public/MarketingHomeBody";
 import { getMessages } from "@/lib/i18n/get-messages";
 import { withLocale } from "@/lib/i18n/path";
 import { env } from "@/lib/env";
@@ -33,19 +33,16 @@ export default async function LocaleHomePage({
 }) {
   const { locale } = await params;
   const messages = getMessages(locale);
-  const [projects, settings] = await Promise.all([
-    getProjects().catch(() => []),
-    getSettings().catch(() => DEFAULT_SITE_SETTINGS),
-  ]);
+  const settings = await getSettings().catch(() => DEFAULT_SITE_SETTINGS);
 
   return (
     <MarketingPageShell className="flex min-h-screen flex-col">
       <MarketingSiteNav settings={settings} locale={locale} messages={messages} />
       <MarketingHero
         ctaHref={withLocale("/works", locale)}
-        scrollHref={withLocale("/works", locale)}
+        scrollHref="#works"
       />
-      <PortfolioGrid projects={projects} settings={settings} />
+      <MarketingHomeBody locale={locale} />
     </MarketingPageShell>
   );
 }
