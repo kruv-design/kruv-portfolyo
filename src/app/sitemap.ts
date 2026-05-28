@@ -1,19 +1,28 @@
 import type { MetadataRoute } from "next";
 import { getProjects } from "@/lib/queries";
 import { env } from "@/lib/env";
+import { LOCALES } from "@/lib/i18n/config";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const projects = await getProjects().catch(() => []);
   const base = env.SITE_URL;
+  const staticPaths = ["/works", "/contact"];
+
   return [
-    { url: `${base}/`, changeFrequency: "weekly", priority: 1 },
-    { url: `${base}/works`, changeFrequency: "weekly", priority: 0.9 },
-    { url: `${base}/contact`, changeFrequency: "monthly", priority: 0.85 },
-    ...projects.map((p) => ({
-      url: `${base}/projects/${p.slug}`,
-      lastModified: new Date(p.updated_at || p.created_at),
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    })),
+    ...LOCALES.flatMap((locale) =>
+      staticPaths.map((path) => ({
+        url: `${base}/${locale}${path}`,
+        changeFrequency: path === "/works" ? ("weekly" as const) : ("monthly" as const),
+        priority: path === "/works" ? 0.9 : 0.85,
+      })),
+    ),
+    ...LOCALES.flatMap((locale) =>
+      projects.map((p) => ({
+        url: `${base}/${locale}/projects/${p.slug}`,
+        lastModified: new Date(p.updated_at || p.created_at),
+        changeFrequency: "monthly" as const,
+        priority: 0.7,
+      })),
+    ),
   ];
 }

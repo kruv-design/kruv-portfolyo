@@ -12,23 +12,19 @@ import { SiteFooter } from "@/components/public/SiteFooter";
 import { MarketingKruvStyles } from "@/components/public/MarketingKruvStyles";
 import { MarketingSiteNav } from "@/components/public/MarketingSiteNav";
 import { env } from "@/lib/env";
+import type { Locale } from "@/lib/i18n/config";
+import { LOCALES } from "@/lib/i18n/config";
 import { getMessages } from "@/lib/i18n/get-messages";
 
 export const revalidate = 60;
-/**
- * `dynamicParams = true` lets any slug not pre-rendered fall back to ISR on
- * first request — which means we don't need to reach the DB at build time.
- * If `generateStaticParams()` fails (e.g. DB down during build) the page
- * still works at runtime.
- */
 export const dynamicParams = true;
 
-type Params = { slug: string };
+type Params = { slug: string; locale: Locale };
 
 export async function generateStaticParams() {
   try {
     const all = await getProjects();
-    return all.map((p) => ({ slug: p.slug }));
+    return LOCALES.flatMap((locale) => all.map((p) => ({ slug: p.slug, locale })));
   } catch {
     return [];
   }
@@ -39,21 +35,25 @@ export async function generateMetadata({
 }: {
   params: Promise<Params>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, locale } = await params;
   const project = await getProjectBySlug(slug);
-  if (!project) return { title: "Bulunamadı" };
+  if (!project) return { title: "Not found" };
 
   const title = project.baslik;
-  const description =
-    project.aciklama?.slice(0, 160) ||
-    `${project.kategori} projesi · Kruv`;
-  const canonical = `${env.SITE_URL}/projects/${project.slug}`;
+  const description = project.aciklama?.slice(0, 160) || `${project.kategori} project · Kruv`;
+  const canonical = `${env.SITE_URL}/${locale}/projects/${project.slug}`;
   const img = project.kapak || undefined;
 
   return {
     title,
     description,
-    alternates: { canonical },
+    alternates: {
+      canonical,
+      languages: {
+        "tr-TR": `${env.SITE_URL}/tr/projects/${project.slug}`,
+        en: `${env.SITE_URL}/en/projects/${project.slug}`,
+      },
+    },
     openGraph: {
       title,
       description,
@@ -70,14 +70,12 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProjectPage({
+export default async function LocalizedProjectPage({
   params,
 }: {
   params: Promise<Params>;
 }) {
-  const { slug } = await params;
-  const locale = "tr";
-  const messages = getMessages(locale);
+  const { slug, locale } = await params;
   const project = await getProjectBySlug(slug);
   if (!project) notFound();
 
@@ -87,14 +85,14 @@ export default async function ProjectPage({
     getNextProjectForDetail(project.slug),
     getSettings(),
   ]);
+  const messages = getMessages(locale);
 
-  // JSON-LD structured data for SEO
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
     name: project.baslik,
     description: project.aciklama || undefined,
-    url: `${env.SITE_URL}/projects/${project.slug}`,
+    url: `${env.SITE_URL}/${locale}/projects/${project.slug}`,
     image: project.kapak || undefined,
     keywords: project.etiketler?.join(", ") || undefined,
     creator: { "@type": "Organization", name: settings.siteAdi },

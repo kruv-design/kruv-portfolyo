@@ -1,0 +1,46 @@
+{
+  "nav": {
+    "projects": "Projects",
+    "contact": "Contact",
+    "startProject": "Start a project",
+    "search": "Search",
+    "searchPlaceholder": "Search"
+  },
+  "project": {
+    "category": "Category",
+    "tags": "Tags",
+    "link": "Link",
+    "previousProject": "Previous project",
+    "nextProject": "Next project",
+    "view": "View",
+    "seeProject": "See project",
+    "scrollUp": "Scroll up",
+    "nextBadge": "Next"
+  },
+  "contact": {
+    "metaTitle": "Contact",
+    "metaDescription": "Contact form for project inquiries and collaborations.",
+    "eyebrow": "Contact",
+    "title": "Let's build together",
+    "lead": "Three quick steps: your name, your email, and your message.",
+    "step": "Step",
+    "stepTitles": ["Your name", "Your email", "Your message"],
+    "nameLabel": "Your name",
+    "emailLabel": "Your email",
+    "messageLabel": "Your message",
+    "namePlaceholder": "e.g. jane doe",
+    "emailPlaceholder": "you@example.com",
+    "messagePlaceholder": "Briefly describe your project or question.",
+    "honeypotLabel": "Your website (leave empty)",
+    "back": "Back",
+    "continue": "Continue",
+    "submit": "Submit",
+    "submitting": "Submitting…",
+    "submitFailed": "Submission failed. Please try again in a moment.",
+    "networkError": "Network error. Please check your connection and try again.",
+    "successTitle": "Your message has been sent.",
+    "successBodyPrefix": "We will get back to you shortly. In the meantime, you can visit the",
+    "successBodyLink": "Work",
+    "successBodySuffix": "page."
+  }
+}

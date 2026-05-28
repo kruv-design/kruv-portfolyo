@@ -899,7 +899,7 @@ body {
   width: 100% !important;
   height: 100% !important;
   min-height: 52vh;
-  object-fit: cover;
+  object-fit: contain;
   transition: transform 0.38s var(--ease);
 }
 
@@ -1238,10 +1238,11 @@ body {
 }
 
 .project-detail-media--cover .project-detail-media__video {
-  object-fit: cover;
+  object-fit: contain;
   width: 100%;
-  min-height: min(40vh, 360px);
-  aspect-ratio: var(--project-media-aspect-ratio);
+  height: auto;
+  min-height: 0;
+  aspect-ratio: auto;
 }
 
 .project-detail-cover__placeholder {

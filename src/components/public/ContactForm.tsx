@@ -2,8 +2,11 @@
 
 import Link from "next/link";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
-import { CONTACT_STEP_TITLES, CONTACT_TOTAL_STEPS } from "@/lib/contact-form-config";
 import type { ContactPayloadInput } from "@/lib/validators";
+import type { Locale } from "@/lib/i18n/config";
+import type { Messages } from "@/lib/i18n/get-messages";
+import { withLocale } from "@/lib/i18n/path";
+import { t } from "@/lib/i18n/t";
 
 const INITIAL: ContactPayloadInput = {
   name: "",
@@ -17,7 +20,13 @@ const INITIAL: ContactPayloadInput = {
   referrer: "",
 };
 
-export function ContactForm() {
+export function ContactForm({
+  locale,
+  messages,
+}: {
+  locale: Locale;
+  messages: Messages;
+}) {
   const formId = useId();
   const hpId = `${formId}-hp`;
   const [sessionId, setSessionId] = useState("");
@@ -93,7 +102,7 @@ export function ContactForm() {
 
   function goNext() {
     if (!currentStepFieldsValid()) return;
-    setStep((s) => Math.min(CONTACT_TOTAL_STEPS - 1, s + 1));
+    setStep((s) => Math.min(totalSteps - 1, s + 1));
   }
 
   function goBack() {
@@ -124,33 +133,35 @@ export function ContactForm() {
       });
       const data = (await res.json()) as { ok?: boolean; error?: string };
       if (!res.ok) {
-        setFormError(data.error ?? "Gönderim başarısız. Biraz sonra tekrar deneyin.");
+        setFormError(data.error ?? t(messages, "contact.submitFailed"));
         return;
       }
       setDone(true);
       sessionStorage.removeItem("kruv-contact-session");
     } catch {
-      setFormError("Ağ hatası. Bağlantınızı kontrol edip tekrar deneyin.");
+      setFormError(t(messages, "contact.networkError"));
     } finally {
       setSubmitting(false);
     }
   }
 
-  const progress = ((step + 1) / CONTACT_TOTAL_STEPS) * 100;
+  const stepTitles = (messages.contact.stepTitles ?? []) as string[];
+  const totalSteps = stepTitles.length || 3;
+  const progress = ((step + 1) / totalSteps) * 100;
 
   if (done) {
     return (
-      <div className="contact-form-shell" lang="tr">
+      <div className="contact-form-shell" lang={locale}>
         <div className="contact-form-success" role="status">
           <p className="contact-form-success-title h3" style={{ color: "var(--ink)" }}>
-            Mesajınız iletildi.
+            {t(messages, "contact.successTitle")}
           </p>
           <p className="contact-form-success-body b1" style={{ color: "var(--b1-color)" }}>
-            Size en kısa zamanda ulaşacağız. Bu arada projelerimize göz atmak isterseniz{" "}
-            <Link href="/works" className="contact-form-inline-link">
-              Work
+            {t(messages, "contact.successBodyPrefix")}{" "}
+            <Link href={withLocale("/works", locale)} className="contact-form-inline-link">
+              {t(messages, "contact.successBodyLink")}
             </Link>{" "}
-            sayfasına gidebilirsiniz.
+            {t(messages, "contact.successBodySuffix")}
           </p>
         </div>
       </div>
@@ -158,16 +169,16 @@ export function ContactForm() {
   }
 
   return (
-    <div className="contact-form-shell" lang="tr">
+    <div className="contact-form-shell" lang={locale}>
       <header className="contact-form-header">
         <p className="contact-form-eyebrow b3" style={{ color: "var(--ink-faint)" }}>
-          İletişim
+          {t(messages, "contact.eyebrow")}
         </p>
         <h1 className="contact-form-title h2" style={{ color: "var(--ink)" }}>
-          Birlikte üretelim
+          {t(messages, "contact.title")}
         </h1>
         <p className="contact-form-lead b1" style={{ color: "var(--b1-color)" }}>
-          Üç kısa adım: adınız, e-postanız ve mesajınız.
+          {t(messages, "contact.lead")}
         </p>
       </header>
 
@@ -180,13 +191,13 @@ export function ContactForm() {
           className="contact-form-progress-label b2"
           style={{ color: "var(--ink-faint)" }}
         >
-          Adım {step + 1} / {CONTACT_TOTAL_STEPS} — {CONTACT_STEP_TITLES[step]}
+          {t(messages, "contact.step")} {step + 1} / {totalSteps} — {stepTitles[step]}
         </p>
       </div>
 
       <form className="contact-form" onSubmit={onSubmit} noValidate>
         <label htmlFor={hpId} className="sr-only">
-          Web siteniz (boş bırakın)
+          {t(messages, "contact.honeypotLabel")}
         </label>
         <input
           id={hpId}
@@ -210,7 +221,7 @@ export function ContactForm() {
             {step === 0 ? (
               <div className="contact-form-field">
                 <label htmlFor={`${formId}-name`} className="contact-form-label b2">
-                  Adınız <span className="contact-form-req">*</span>
+                  {t(messages, "contact.nameLabel")} <span className="contact-form-req">*</span>
                 </label>
                 <input
                   id={`${formId}-name`}
@@ -219,7 +230,7 @@ export function ContactForm() {
                   autoComplete="name"
                   value={values.name}
                   onChange={(e) => patch("name", e.target.value)}
-                  placeholder="ör. ayşe yılmaz"
+                  placeholder={t(messages, "contact.namePlaceholder")}
                   minLength={2}
                   required
                 />
@@ -229,7 +240,7 @@ export function ContactForm() {
             {step === 1 ? (
               <div className="contact-form-field">
                 <label htmlFor={`${formId}-email`} className="contact-form-label b2">
-                  Mailiniz <span className="contact-form-req">*</span>
+                  {t(messages, "contact.emailLabel")} <span className="contact-form-req">*</span>
                 </label>
                 <input
                   id={`${formId}-email`}
@@ -239,7 +250,7 @@ export function ContactForm() {
                   inputMode="email"
                   value={values.email}
                   onChange={(e) => patch("email", e.target.value)}
-                  placeholder="siz@ornek.com"
+                  placeholder={t(messages, "contact.emailPlaceholder")}
                   required
                 />
               </div>
@@ -248,7 +259,7 @@ export function ContactForm() {
             {step === 2 ? (
               <div className="contact-form-field">
                 <label htmlFor={`${formId}-message`} className="contact-form-label b2">
-                  Mesajınız <span className="contact-form-req">*</span>
+                  {t(messages, "contact.messageLabel")} <span className="contact-form-req">*</span>
                 </label>
                 <textarea
                   id={`${formId}-message`}
@@ -256,7 +267,7 @@ export function ContactForm() {
                   rows={6}
                   value={values.message}
                   onChange={(e) => patch("message", e.target.value)}
-                  placeholder="Kısaca projenizi veya sorunuzu yazın."
+                  placeholder={t(messages, "contact.messagePlaceholder")}
                   minLength={15}
                   required
                 />
@@ -274,14 +285,14 @@ export function ContactForm() {
         <div className="contact-form-actions">
           {step > 0 ? (
             <button type="button" className="contact-form-btn contact-form-btn--ghost" onClick={goBack}>
-              Geri
+              {t(messages, "contact.back")}
             </button>
           ) : (
             <span />
           )}
-          {step < CONTACT_TOTAL_STEPS - 1 ? (
+          {step < totalSteps - 1 ? (
             <button type="button" className="contact-form-btn contact-form-btn--primary" onClick={goNext}>
-              Devam
+              {t(messages, "contact.continue")}
             </button>
           ) : (
             <button
@@ -289,7 +300,7 @@ export function ContactForm() {
               className="contact-form-btn contact-form-btn--primary"
               disabled={submitting || !sessionId}
             >
-              {submitting ? "Gönderiliyor…" : "Gönder"}
+              {submitting ? t(messages, "contact.submitting") : t(messages, "contact.submit")}
             </button>
           )}
         </div>

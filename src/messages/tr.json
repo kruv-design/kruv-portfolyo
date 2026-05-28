@@ -1,0 +1,46 @@
+{
+  "nav": {
+    "projects": "Projeler",
+    "contact": "İletişim",
+    "startProject": "Projeye başla",
+    "search": "Ara",
+    "searchPlaceholder": "Ara"
+  },
+  "project": {
+    "category": "Kategori",
+    "tags": "Etiketler",
+    "link": "Link",
+    "previousProject": "Önceki proje",
+    "nextProject": "Sonraki proje",
+    "view": "Görüntüle",
+    "seeProject": "Projeyi gör",
+    "scrollUp": "Yukarı kaydır",
+    "nextBadge": "Sonraki"
+  },
+  "contact": {
+    "metaTitle": "İletişim",
+    "metaDescription": "Proje teklifi ve iş birliği talepleri için iletişim formu.",
+    "eyebrow": "İletişim",
+    "title": "Birlikte üretelim",
+    "lead": "Üç kısa adım: adınız, e-postanız ve mesajınız.",
+    "step": "Adım",
+    "stepTitles": ["Adınız", "Mailiniz", "Mesajınız"],
+    "nameLabel": "Adınız",
+    "emailLabel": "Mailiniz",
+    "messageLabel": "Mesajınız",
+    "namePlaceholder": "ör. ayşe yılmaz",
+    "emailPlaceholder": "siz@ornek.com",
+    "messagePlaceholder": "Kısaca projenizi veya sorunuzu yazın.",
+    "honeypotLabel": "Web siteniz (boş bırakın)",
+    "back": "Geri",
+    "continue": "Devam",
+    "submit": "Gönder",
+    "submitting": "Gönderiliyor…",
+    "submitFailed": "Gönderim başarısız. Biraz sonra tekrar deneyin.",
+    "networkError": "Ağ hatası. Bağlantınızı kontrol edip tekrar deneyin.",
+    "successTitle": "Mesajınız iletildi.",
+    "successBodyPrefix": "Size en kısa zamanda ulaşacağız. Bu arada projelerimize göz atmak isterseniz",
+    "successBodyLink": "Work",
+    "successBodySuffix": "sayfasına gidebilirsiniz."
+  }
+}

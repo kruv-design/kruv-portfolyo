@@ -4,6 +4,10 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useId, useState } from "react";
 import type { SiteSettings } from "@/types";
+import type { Locale } from "@/lib/i18n/config";
+import type { Messages } from "@/lib/i18n/get-messages";
+import { withLocale } from "@/lib/i18n/path";
+import { t } from "@/lib/i18n/t";
 import { ThemeToggle } from "./ThemeToggle";
 import {
   SiteNavMenuButton,
@@ -17,7 +21,15 @@ import {
  * Site header — anasayfa (kruv.html) ile aynı markup + iki varyasyon:
  * üstte geniş (wordmark), scroll’da compact pill (`is-scrolled`).
  */
-export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
+export function MarketingSiteNav({
+  settings,
+  locale,
+  messages,
+}: {
+  settings: SiteSettings;
+  locale: Locale;
+  messages: Messages;
+}) {
   const pathname = usePathname();
   const router = useRouter();
   const menuTitleId = useId();
@@ -44,9 +56,8 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
 
   const brandLabel = (settings.siteAdi || "kruv.").replace(/\.$/, "").toLowerCase() || "kruv";
 
-  const isProjectsActive =
-    pathname === "/works" || (pathname?.startsWith("/projects/") ?? false);
-  const isContactActive = pathname === "/contact";
+  const isProjectsActive = pathname?.includes("/works") || (pathname?.includes("/projects/") ?? false);
+  const isContactActive = pathname?.includes("/contact");
 
   function closeMobileMenu() {
     setMobileMenuOpen(false);
@@ -57,8 +68,17 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
     const fd = new FormData(ev.currentTarget);
     const q = String(fd.get("q") ?? "").trim();
     closeMobileMenu();
-    if (q) router.push(`/works?q=${encodeURIComponent(q)}`);
-    else router.push("/works");
+    if (q) router.push(`${withLocale("/works", locale)}?q=${encodeURIComponent(q)}`);
+    else router.push(withLocale("/works", locale));
+  }
+
+  function switchLocale(nextLocale: Locale) {
+    const current = pathname || "/";
+    const parts = current.split("/").filter(Boolean);
+    if (parts[0] === "tr" || parts[0] === "en") parts.shift();
+    const base = `/${parts.join("/")}`;
+    document.cookie = `kruv-locale=${nextLocale}; path=/; max-age=31536000; samesite=lax`;
+    router.push(withLocale(base === "/" ? "/works" : base, nextLocale));
   }
 
   return (
@@ -68,12 +88,16 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
         id="site-nav"
         className={`marketing-navbar${scrolled ? " is-scrolled" : ""}${mobileMenuOpen ? " is-menu-open" : ""}`}
         aria-label="Primary"
-        lang="en"
+        lang={locale}
       >
         <div className="marketing-navbar-inner">
           <div className="marketing-navbar-cols">
             <div className="marketing-navbar-col marketing-navbar-col--brand">
-              <Link href="/" className="marketing-navbar-logo brand" aria-label={`Home — ${brandLabel}`}>
+              <Link
+                href={withLocale("/works", locale)}
+                className="marketing-navbar-logo brand"
+                aria-label={`Home — ${brandLabel}`}
+              >
                 <span className="marketing-navbar-logo-stack">
                   <span className="marketing-navbar-logo-wordmark" aria-hidden="true" />
                   <span className="marketing-navbar-logo-emblem" aria-hidden="true" />
@@ -84,29 +108,47 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
               <ul className="marketing-navbar-links">
                 <li>
                   <Link
-                    href="/works"
+                    href={withLocale("/works", locale)}
                     className="marketing-navbar-item"
                     aria-current={isProjectsActive ? "page" : undefined}
                   >
-                    Projects
+                    {t(messages, "nav.projects", "Projects")}
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/contact"
+                    href={withLocale("/contact", locale)}
                     className="marketing-navbar-item"
                     aria-current={isContactActive ? "page" : undefined}
                   >
-                    Contact
+                    {t(messages, "nav.contact", "Contact")}
                   </Link>
                 </li>
               </ul>
             </div>
             <div className="marketing-navbar-col marketing-navbar-col--cta">
               <div className="marketing-navbar-actions">
+                <div className="flex items-center gap-1 rounded-full border px-2 py-1" style={{ borderColor: "var(--border)" }}>
+                  <button
+                    type="button"
+                    className="b3 px-2 py-0.5"
+                    aria-pressed={locale === "tr"}
+                    onClick={() => switchLocale("tr")}
+                  >
+                    TR
+                  </button>
+                  <button
+                    type="button"
+                    className="b3 px-2 py-0.5"
+                    aria-pressed={locale === "en"}
+                    onClick={() => switchLocale("en")}
+                  >
+                    EN
+                  </button>
+                </div>
                 <ThemeToggle className="marketing-navbar-theme-toggle marketing-navbar-theme-toggle--dock nav-theme-toggle" />
-                <Link href="/contact" className="marketing-navbar-cta">
-                  Start a project
+                <Link href={withLocale("/contact", locale)} className="marketing-navbar-cta">
+                  {t(messages, "nav.startProject", "Start a project")}
                 </Link>
                 <SiteNavMenuButton
                   open={mobileMenuOpen}
@@ -128,13 +170,13 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
 
         <form className="marketing-nav-mobile-search" role="search" onSubmit={onMobileSearch}>
           <label htmlFor="marketing-nav-mobile-q" className="sr-only">
-            Search
+            {t(messages, "nav.search", "Search")}
           </label>
           <input
             id="marketing-nav-mobile-q"
             name="q"
             type="search"
-            placeholder="Search"
+            placeholder={t(messages, "nav.searchPlaceholder", "Search")}
             autoComplete="off"
             enterKeyHint="search"
           />
@@ -143,13 +185,13 @@ export function MarketingSiteNav({ settings }: { settings: SiteSettings }) {
         <nav aria-label="Mobile">
           <ul className="marketing-nav-mobile-links site-nav-mobile-links">
             <li>
-              <Link href="/works" onClick={closeMobileMenu}>
-                Projects
+              <Link href={withLocale("/works", locale)} onClick={closeMobileMenu}>
+                {t(messages, "nav.projects", "Projects")}
               </Link>
             </li>
             <li>
-              <Link href="/contact" onClick={closeMobileMenu}>
-                Contact
+              <Link href={withLocale("/contact", locale)} onClick={closeMobileMenu}>
+                {t(messages, "nav.contact", "Contact")}
               </Link>
             </li>
           </ul>

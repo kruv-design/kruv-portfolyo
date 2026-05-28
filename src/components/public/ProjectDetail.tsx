@@ -1,6 +1,10 @@
 import Link from "next/link";
 import type { Project } from "@/types";
 import { projectCover, projectCoverVideo, projectGallerySlots } from "@/lib/project-images";
+import type { Locale } from "@/lib/i18n/config";
+import type { Messages } from "@/lib/i18n/get-messages";
+import { withLocale } from "@/lib/i18n/path";
+import { t } from "@/lib/i18n/t";
 import { ProjectDetailMedia } from "./ProjectDetailMedia";
 import { LetsTalkMarquee } from "./LetsTalkMarquee";
 import { ProjectNextBanner } from "./ProjectNextBanner";
@@ -11,12 +15,16 @@ export function ProjectDetail({
   nextSlug,
   nextProject,
   allProjects,
+  locale,
+  messages,
 }: {
   project: Project;
   prevSlug: string | null;
   nextSlug: string | null;
   nextProject: Project | null;
   allProjects: Project[];
+  locale: Locale;
+  messages: Messages;
 }) {
   const cover = projectCover(project);
   const coverVideo = projectCoverVideo(project);
@@ -36,8 +44,8 @@ export function ProjectDetail({
         />
         <div className="project-detail-toolbar">
           <div className="project-detail-nav-arrows">
-            <NavArrow slug={prevSlug} label="←" />
-            <NavArrow slug={nextSlug} label="→" />
+            <NavArrow slug={prevSlug} label="←" locale={locale} messages={messages} />
+            <NavArrow slug={nextSlug} label="→" locale={locale} messages={messages} />
           </div>
         </div>
       </div>
@@ -56,9 +64,9 @@ export function ProjectDetail({
 
         <aside className="project-detail-aside animate-fadeUp">
           <div className="project-detail-aside-card">
-            <MetaRow label="Kategori" value={project.kategori} />
+            <MetaRow label={t(messages, "project.category", "Category")} value={project.kategori} />
             {project.link?.trim() ? (
-              <MetaLinkRow href={project.link.trim()} />
+              <MetaLinkRow href={project.link.trim()} messages={messages} />
             ) : null}
             {project.etiketler?.length > 0 && (
               <div
@@ -66,7 +74,7 @@ export function ProjectDetail({
                 style={{ borderTop: "1px solid var(--border)" }}
               >
                 <span className="b3" style={{ color: "var(--ink-faint)" }}>
-                  Etiketler
+                  {t(messages, "project.tags", "Tags")}
                 </span>
                 <div className="mt-1 flex flex-wrap gap-1.5">
                   {project.etiketler.map((t) => (
@@ -127,6 +135,8 @@ export function ProjectDetail({
           current={project}
           nextProject={nextProject}
           allProjects={allProjects}
+          locale={locale}
+          messages={messages}
         />
       ) : null}
 
@@ -166,7 +176,13 @@ function projectLinkLabel(raw: string): string {
   }
 }
 
-function MetaLinkRow({ href }: { href: string }) {
+function MetaLinkRow({
+  href,
+  messages,
+}: {
+  href: string;
+  messages: Messages;
+}) {
   const url = projectLinkHref(href);
   return (
     <div
@@ -174,7 +190,7 @@ function MetaLinkRow({ href }: { href: string }) {
       style={{ borderBottom: "1px solid var(--border)" }}
     >
       <span className="b3" style={{ color: "var(--ink-faint)" }}>
-        Link
+        {t(messages, "project.link", "Link")}
       </span>
       <a
         href={url}
@@ -189,7 +205,17 @@ function MetaLinkRow({ href }: { href: string }) {
   );
 }
 
-function NavArrow({ slug, label }: { slug: string | null; label: string }) {
+function NavArrow({
+  slug,
+  label,
+  locale,
+  messages,
+}: {
+  slug: string | null;
+  label: string;
+  locale: Locale;
+  messages: Messages;
+}) {
   if (!slug) {
     return (
       <span
@@ -202,9 +228,13 @@ function NavArrow({ slug, label }: { slug: string | null; label: string }) {
   }
   return (
     <Link
-      href={`/projects/${slug}`}
+      href={withLocale(`/projects/${slug}`, locale)}
       className="project-detail-nav-arrow"
-      aria-label={label === "←" ? "Önceki proje" : "Sonraki proje"}
+      aria-label={
+        label === "←"
+          ? t(messages, "project.previousProject", "Previous project")
+          : t(messages, "project.nextProject", "Next project")
+      }
     >
       {label}
     </Link>

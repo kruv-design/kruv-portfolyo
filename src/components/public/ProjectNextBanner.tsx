@@ -2,6 +2,10 @@ import Link from "next/link";
 import type { Project } from "@/types";
 import { projectCover } from "@/lib/project-images";
 import { projectListPosition, projectMetaSubtitle } from "@/lib/next-project";
+import type { Locale } from "@/lib/i18n/config";
+import type { Messages } from "@/lib/i18n/get-messages";
+import { withLocale } from "@/lib/i18n/path";
+import { t } from "@/lib/i18n/t";
 import { ProjectDetailImage } from "./ProjectDetailImage";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 
@@ -9,6 +13,8 @@ type ProjectNextBannerProps = {
   current: Project;
   nextProject: Project;
   allProjects: Project[];
+  locale: Locale;
+  messages: Messages;
 };
 
 function formatIndex(index: number, total: number): string {
@@ -21,13 +27,15 @@ export function ProjectNextBanner({
   current,
   nextProject,
   allProjects,
+  locale,
+  messages,
 }: ProjectNextBannerProps) {
   const cover = projectCover(nextProject);
   const { index, total } = projectListPosition(current, allProjects);
   const progressPct = total > 0 ? Math.round((index / total) * 100) : 0;
   const meta = projectMetaSubtitle(nextProject);
-  const href = `/projects/${nextProject.slug}`;
-  const ariaLabel = `Sonraki projeye git: ${nextProject.baslik}`;
+  const href = withLocale(`/projects/${nextProject.slug}`, locale);
+  const ariaLabel = `${t(messages, "project.nextProject", "Next project")}: ${nextProject.baslik}`;
 
   return (
     <section
@@ -39,12 +47,12 @@ export function ProjectNextBanner({
           <div className="project-next-banner__meta">
             <p className="project-next-banner__eyebrow project-next-banner__eyebrow--desktop">
               <span aria-hidden="true">↘ </span>
-              Sonraki proje
+              {t(messages, "project.nextProject", "Next project")}
             </p>
             <p className="project-next-banner__eyebrow project-next-banner__eyebrow--mobile">
               {formatIndex(index, total)}
               <span className="project-next-banner__eyebrow-sep"> — </span>
-              Sonraki proje
+              {t(messages, "project.nextProject", "Next project")}
             </p>
 
             <h2 id="project-next-banner-heading" className="project-next-banner__title">
@@ -68,21 +76,21 @@ export function ProjectNextBanner({
             </div>
 
             <p className="project-next-banner__cta project-next-banner__cta--desktop">
-              <span>Görüntüle</span>
+              <span>{t(messages, "project.view", "View")}</span>
               <span className="project-next-banner__cta-arrow" aria-hidden="true">
                 →
               </span>
             </p>
 
             <div className="project-next-banner__cta-row project-next-banner__cta-row--mobile">
-              <span>Projeyi gör</span>
+              <span>{t(messages, "project.seeProject", "See project")}</span>
               <span className="project-next-banner__cta-arrow" aria-hidden="true">
                 →
               </span>
             </div>
 
             <p className="project-next-banner__scroll-hint" aria-hidden="true">
-              ↑ Yukarı kaydır
+              ↑ {t(messages, "project.scrollUp", "Scroll up")}
             </p>
           </div>
 
@@ -102,7 +110,7 @@ export function ProjectNextBanner({
               />
             )}
             <span className="project-next-banner__badge" aria-hidden="true">
-              Sonraki →
+              {t(messages, "project.nextBadge", "Next")} →
             </span>
           </div>
         </div>

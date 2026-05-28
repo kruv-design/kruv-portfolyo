@@ -31,6 +31,12 @@ export const metadata: Metadata = {
     locale: "tr_TR",
     siteName: "kruv.",
   },
+  alternates: {
+    languages: {
+      "tr-TR": `${env.SITE_URL}/tr/works`,
+      en: `${env.SITE_URL}/en/works`,
+    },
+  },
   twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true },
 };
