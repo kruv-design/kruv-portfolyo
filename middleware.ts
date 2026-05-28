@@ -25,18 +25,9 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith("/login") ||
     PUBLIC_FILE.test(pathname);
 
-  if (!isAsset && !hasLocalePrefix(pathname)) {
+  if (!isAsset && pathname !== "/" && !hasLocalePrefix(pathname)) {
     const next = request.nextUrl.clone();
-    if (pathname === "/") {
-      const cookieLocale = normalizeLocale(request.cookies.get("kruv-locale")?.value);
-      const headerLocale = normalizeLocale(
-        request.headers.get("accept-language")?.split(",")[0],
-      );
-      const locale = cookieLocale || headerLocale || DEFAULT_LOCALE;
-      next.pathname = `/${locale}/works`;
-    } else {
-      next.pathname = `/${DEFAULT_LOCALE}${pathname}`;
-    }
+    next.pathname = `/${DEFAULT_LOCALE}${pathname}`;
     return NextResponse.redirect(next);
   }
 

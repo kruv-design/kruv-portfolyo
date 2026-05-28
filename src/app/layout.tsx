@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { DM_Mono } from "next/font/google";
 import { env } from "@/lib/env";
 import { switzer } from "@/lib/fonts/switzer";
+import { ENABLE_THEME_TOGGLE, FORCED_THEME } from "@/lib/theme/flags";
 import "./globals.css";
 
 const mono = DM_Mono({
@@ -42,10 +43,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#FAFAFA" },
-    { media: "(prefers-color-scheme: dark)", color: "#0E0E0E" },
-  ],
+  themeColor: "#FAFAFA",
   width: "device-width",
   initialScale: 1,
 };
@@ -66,9 +64,12 @@ export default function RootLayout({
       lang="tr"
       className={`${switzer.variable} ${mono.variable}`}
       suppressHydrationWarning
+      data-theme={ENABLE_THEME_TOGGLE ? undefined : FORCED_THEME}
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
+        {ENABLE_THEME_TOGGLE ? (
+          <script dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
+        ) : null}
         <link rel="stylesheet" href="/site-nav.css" />
         <link rel="stylesheet" href="/site-nav-shared.css" />
       </head>

@@ -4,6 +4,7 @@ import type { Locale } from "@/lib/i18n/config";
 import type { Messages } from "@/lib/i18n/get-messages";
 import { withLocale } from "@/lib/i18n/path";
 import { t } from "@/lib/i18n/t";
+import { ENABLE_THEME_TOGGLE } from "@/lib/theme/flags";
 import { ThemeToggle } from "./ThemeToggle";
 
 export function SiteHeader({
@@ -37,7 +38,7 @@ export function SiteHeader({
         <p className="b1 max-w-[280px]" style={{ color: "var(--b1-color)" }}>
           {settings.tagline}
         </p>
-        <ThemeToggle />
+        {ENABLE_THEME_TOGGLE ? <ThemeToggle /> : null}
         <Link
           href="/admin"
           title="Admin"
