@@ -3055,7 +3055,45 @@ body:has(.card:hover) .ticker {
   min-height: var(--hero-v2-suffix-h, 1.1em);
 }
 
-/* Statik hero — rotator yok; kelime satır içinde */
+/* Statik hero — 2 satır: mor üst, siyah alt */
+.hero-v2--static .hero-v2-headline {
+  grid-template-rows: auto auto;
+  gap: 0.12em;
+}
+.hero-v2-accent {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--purple);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  display: block;
+  text-align: center;
+  line-height: 1.1;
+}
+.hero-v2-main {
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: var(--frost);
+  letter-spacing: -0.035em;
+  white-space: nowrap;
+  display: block;
+  text-align: center;
+  line-height: 1.1;
+}
+.hero-v2-main--split {
+  display: inline-flex;
+  flex-flow: row nowrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.28em;
+  max-width: 100%;
+}
+.hero-v2-main-part {
+  flex-shrink: 0;
+}
+
+/* Statik hero — rotator yok; eski satır yapısı */
 .hero-v2--static .hero-v2-line1 {
   min-height: 0;
   height: auto;
@@ -3081,7 +3119,9 @@ body:has(.card:hover) .ticker {
     .hero-v2-static,
     .hero-v2-word-box,
     .hero-v2-word,
-    .hero-v2-suffix {
+    .hero-v2-suffix,
+    .hero-v2-accent,
+    .hero-v2-main {
       font-size: var(--hero-v2-rotator-fs);
     }
   }
@@ -3098,7 +3138,9 @@ body:has(.card:hover) .ticker {
     .hero-v2-static,
     .hero-v2-word-box,
     .hero-v2-word,
-    .hero-v2-suffix {
+    .hero-v2-suffix,
+    .hero-v2-accent,
+    .hero-v2-main {
       font-size: var(--hero-v2-rotator-fs);
     }
   }
@@ -3272,7 +3314,22 @@ body:has(.card:hover) .ticker {
     line-height: var(--h2-line-height);
     letter-spacing: var(--h2-letter-spacing);
   }
-  /* Mobil: iki satır — (We build + kelime) / worth sharing.; tipografi h2 token */
+  /* Mobil: iki satır — mor üst / siyah alt */
+  .hero-v2-accent,
+  .hero-v2-main {
+    font-family: var(--h2-font-family);
+    font-size: var(--h2-font-size);
+    line-height: var(--h2-line-height);
+    letter-spacing: var(--h2-letter-spacing);
+    text-transform: none;
+  }
+  .hero-v2-accent {
+    font-weight: 400;
+    font-style: italic;
+  }
+  .hero-v2-main {
+    font-weight: 500;
+  }
   .hero-v2-static,
   .hero-v2-word {
     font-family: var(--h2-font-family);

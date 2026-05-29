@@ -5,12 +5,15 @@
       "title": "In Good Company"
     },
     "hero": {
-      "static": "We build",
-      "word": "brands",
-      "suffix": "worth-sharing.",
+      "line1": "worth-sharing.",
+      "line2": "We build",
+      "line2Tail": "brands",
       "cursorLabel": "See projects",
       "mobileCta": "See projects",
       "mobileCtaA11y": "See projects — open portfolio"
+    },
+    "showreel": {
+      "ariaLabel": "Showreel video"
     },
     "featuredWorks": {
       "tag": "Selected work",

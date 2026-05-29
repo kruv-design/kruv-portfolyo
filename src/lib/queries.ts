@@ -22,6 +22,8 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   youtubeUrl: "https://www.youtube.com/@KruvDesignAgency",
   pinterestUrl: "https://www.pinterest.com/kruvdesign/",
   githubUrl: "",
+  homeVideoPoster: "",
+  homeVideo: "",
 };
 
 function pickSettingsUrl(value: unknown, fallback: string): string {
@@ -139,6 +141,9 @@ export async function getSettings(): Promise<SiteSettings> {
       youtubeUrl: pickSettingsUrl(row?.youtubeUrl, DEFAULT_SITE_SETTINGS.youtubeUrl),
       pinterestUrl: pickSettingsUrl(row?.pinterestUrl, DEFAULT_SITE_SETTINGS.pinterestUrl),
       githubUrl: pickSettingsUrl(row?.githubUrl, DEFAULT_SITE_SETTINGS.githubUrl),
+      homeVideoPoster:
+        typeof row?.homeVideoPoster === "string" ? row.homeVideoPoster.trim() : "",
+      homeVideo: typeof row?.homeVideo === "string" ? row.homeVideo.trim() : "",
     };
   } catch {
     return DEFAULT_SITE_SETTINGS;

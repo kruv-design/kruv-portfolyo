@@ -90,6 +90,44 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
           className="mb-5 border-b pb-3 b1 font-medium"
           style={{ borderColor: "var(--adm-border)", color: "var(--ink)" }}
         >
+          Anasayfa showreel
+        </div>
+        <p className="b1 mb-5" style={{ color: "var(--b1-color)" }}>
+          Hero altı video. Poster zorunlu (LCP). Video boş bırakılırsa yalnızca poster
+          gösterilir. Cloudinary <span className="b2">public_id</span> veya tam{" "}
+          <span className="b2">https://</span> URL.
+        </p>
+        <div className="flex flex-col gap-5">
+          <Field label="homeVideoPoster">
+            <input
+              type="text"
+              className="form-input"
+              placeholder="kruv-portfolio/home-poster"
+              value={state.homeVideoPoster}
+              onChange={(e) =>
+                setState((s) => ({ ...s, homeVideoPoster: e.target.value }))
+              }
+            />
+          </Field>
+          <Field label="homeVideo (isteğe bağlı)">
+            <input
+              type="text"
+              className="form-input"
+              placeholder="kruv-portfolio/home-loop"
+              value={state.homeVideo}
+              onChange={(e) =>
+                setState((s) => ({ ...s, homeVideo: e.target.value }))
+              }
+            />
+          </Field>
+        </div>
+      </div>
+
+      <div className="adm-card mb-5 p-7">
+        <div
+          className="mb-5 border-b pb-3 b1 font-medium"
+          style={{ borderColor: "var(--adm-border)", color: "var(--ink)" }}
+        >
           Sosyal medya (footer ikonları)
         </div>
         <p className="b1 mb-5" style={{ color: "var(--b1-color)" }}>

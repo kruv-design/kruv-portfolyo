@@ -270,6 +270,8 @@ export const settingsSchema = z.object({
   youtubeUrl: optHttpUrl,
   pinterestUrl: optHttpUrl,
   githubUrl: optHttpUrl,
+  homeVideoPoster: optStr,
+  homeVideo: optStr,
 });
 
 const emptyOrEmail = z

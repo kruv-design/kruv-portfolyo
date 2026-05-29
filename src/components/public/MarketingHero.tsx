@@ -17,9 +17,9 @@ export async function MarketingHero({
     ...options,
     copy: {
       lang: locale,
-      staticLine: hero.static,
-      word: hero.word,
-      suffix: hero.suffix,
+      line1: hero.line1,
+      line2: hero.line2,
+      line2Tail: hero.line2Tail,
       cursorLabel: hero.cursorLabel,
       mobileCta: hero.mobileCta,
       mobileCtaA11y: hero.mobileCtaA11y,

@@ -1233,6 +1233,24 @@ body {
   aspect-ratio: auto;
 }
 
+/* Anasayfa hero altı showreel (site_settings) */
+.home-showreel {
+  width: 100%;
+  padding: var(--spacing-lg) var(--section-pad-x) 0;
+  box-sizing: border-box;
+}
+
+.home-showreel__inner {
+  width: min(80vw, 100%);
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+.home-showreel .project-detail-media-img {
+  width: 100%;
+  height: auto;
+}
+
 .project-detail-cover__placeholder {
   display: block;
   width: 100%;

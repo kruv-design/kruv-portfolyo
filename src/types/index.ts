@@ -77,6 +77,10 @@ export type SiteSettings = {
   youtubeUrl: string;
   pinterestUrl: string;
   githubUrl: string;
+  /** Anasayfa hero altı poster (Cloudinary public_id veya https URL) */
+  homeVideoPoster: string;
+  /** Anasayfa loop video — poster zorunlu; boş = sadece poster */
+  homeVideo: string;
 };
 
 export type ApiError = {

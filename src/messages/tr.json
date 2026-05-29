@@ -5,12 +5,15 @@
       "title": "Birlikte Çalıştıklarımız"
     },
     "hero": {
-      "static": "paylaşmaya değer",
-      "word": "markalar",
-      "suffix": "üretiyoruz.",
+      "line1": "paylaşmaya değer",
+      "line2": "markalar",
+      "line2Tail": "üretiyoruz.",
       "cursorLabel": "Projeleri gör",
       "mobileCta": "Projeleri gör",
       "mobileCtaA11y": "Projeleri gör — portföyü aç"
+    },
+    "showreel": {
+      "ariaLabel": "Showreel videosu"
     },
     "featuredWorks": {
       "tag": "Seçili işler",
