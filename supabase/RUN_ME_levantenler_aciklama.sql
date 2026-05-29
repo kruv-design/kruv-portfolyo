@@ -1,6 +1,7 @@
 -- ═══════════════════════════════════════════════════════════
--- Levantenler — TR açıklama + EN (i18n.en.aciklama)
--- Supabase SQL Editor → RUN
+-- Levantenler — TR: aciklama | EN: description (+ title, category)
+-- Önce RUN_ME_projects_en_columns.sql çalıştırın
+-- Supabase → SQL Editor → RUN
 -- ═══════════════════════════════════════════════════════════
 
 update public.projects
@@ -14,12 +15,10 @@ Beyoğlu Kültür Yolu Festivali kapsamında düzenlenen Levantenler Konferansı
 
 Konferansın kimlik ve yönlendirme tasarımını biz üstlendik.
 $tr$,
-  i18n = jsonb_set(
-    coalesce(i18n, '{}'::jsonb),
-    '{en}',
-    coalesce(i18n->'en', '{}'::jsonb) || jsonb_build_object(
-      'aciklama',
-      $en$
+  title = 'Levantines Conference',
+  kategori = 'Markalaşma, Sergi tasarımı',
+  category = 'Branding, exhibition design',
+  description = $en$
 Levantines are people of mostly Italian and French origin who settled in the eastern Mediterranean; primarily Istanbul and Izmir, and shaped Ottoman and Turkish culture and economy for generations.
 
 A culture born between two cultures. The intersection of East and West.
@@ -28,6 +27,4 @@ The Levantines Conference, held as part of the Beyoğlu Kültür Yolu Festival, 
 
 We designed the identity and conference wayfinding.
 $en$
-    )
-  )
 where slug = 'levantenler';

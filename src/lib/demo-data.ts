@@ -31,6 +31,9 @@ type DemoInput = Omit<
   | "updated_at"
   | "kapak"
   | "kapak_video"
+  | "title"
+  | "category"
+  | "description"
   | GaleriKey
   | GaleriVideoKey
 > & {
@@ -41,7 +44,12 @@ type DemoInput = Omit<
 } & Partial<Record<GaleriKey | GaleriVideoKey, string>>;
 
 function make(p: DemoInput): Project {
-  const row = mapProjectRow(p as unknown as Record<string, unknown>);
+  const row = mapProjectRow({
+    title: "",
+    category: "",
+    description: "",
+    ...p,
+  } as unknown as Record<string, unknown>);
   return { ...row, created_at: now, updated_at: now };
 }
 

@@ -1,5 +1,15 @@
 (function () {
+  var heroSection = document.querySelector(".hero-v2");
+  var wordsAttr = heroSection && heroSection.getAttribute("data-hero-words");
   var WORDS = ["brands", "stories", "feeds"];
+  if (wordsAttr) {
+    try {
+      var parsed = JSON.parse(wordsAttr);
+      if (Array.isArray(parsed) && parsed.length > 0) WORDS = parsed;
+    } catch (e) {
+      /* fallback */
+    }
+  }
   var INTERVAL = 2400;
   var FIRST_ROTATE_DELAY = 1200;
   var ANIM_IN_MS = 320;

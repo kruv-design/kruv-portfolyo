@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import Image from "next/image";
 import type { Locale } from "@/lib/i18n/config";
 import type { Messages } from "@/lib/i18n/get-messages";
 import { withLocale } from "@/lib/i18n/path";
@@ -6,6 +6,7 @@ import {
   featuredWorkTagsFromProject,
   sortProjectsForFeatured,
 } from "@/lib/featured-work-tags";
+import { resolveProjectForLocale } from "@/lib/project-locale";
 import { projectCover } from "@/lib/project-images";
 import type { Project } from "@/types";
 
@@ -43,18 +44,14 @@ export function MarketingFeaturedWorks({
         aria-label={copy.ariaLabel}
       >
         {top.map((project, index) => {
-          const cover = projectCover(project);
+          const localized = resolveProjectForLocale(project, locale);
+          const cover = projectCover(localized);
           const href = withLocale(`/projects/${project.slug}`, locale);
           const tags = featuredWorkTagsFromProject(project);
+          const category = categoryLabel(localized);
           const mediaClass = cover
-            ? "featured-work-media"
+            ? "featured-work-media featured-work-media--photo"
             : `featured-work-media featured-work-media-${index + 1}`;
-
-          const mediaStyle: CSSProperties | undefined = cover
-            ? ({
-                "--featured-cover": `url("${cover.replace(/"/g, '\\"')}")`,
-              } as CSSProperties)
-            : undefined;
 
           return (
             <article
@@ -65,17 +62,24 @@ export function MarketingFeaturedWorks({
               <a
                 className="featured-work-hit"
                 href={href}
-                aria-label={`${copy.seeProject} — ${project.baslik}`}
+                aria-label={`${copy.seeProject} — ${localized.baslik}`}
               />
-              <div
-                className={mediaClass}
-                style={mediaStyle}
-                aria-hidden="true"
-              />
+              <div className={mediaClass} aria-hidden="true">
+                {cover ? (
+                  <Image
+                    src={cover}
+                    alt=""
+                    width={0}
+                    height={0}
+                    sizes="(max-width: 899px) 100vw, 80vw"
+                    className="featured-work-media-img"
+                  />
+                ) : null}
+              </div>
               <div className="featured-work-meta">
-                <h4 className="featured-work-title">{project.baslik}</h4>
-                {categoryLabel(project) ? (
-                  <p className="featured-work-category">{categoryLabel(project)}</p>
+                <h4 className="featured-work-title">{localized.baslik}</h4>
+                {category ? (
+                  <p className="featured-work-category">{category}</p>
                 ) : null}
               </div>
             </article>

@@ -5,7 +5,12 @@
       "title": "In Good Company"
     },
     "hero": {
-      "cursorLabel": "See projects"
+      "static": "We build",
+      "suffix": "worth sharing.",
+      "words": ["brands", "stories", "feeds"],
+      "cursorLabel": "See projects",
+      "mobileCta": "See projects",
+      "mobileCtaA11y": "See projects — open portfolio"
     },
     "featuredWorks": {
       "tag": "Selected work",
@@ -36,6 +41,11 @@
     "startProject": "Start a project",
     "search": "Search",
     "searchPlaceholder": "Search"
+  },
+  "works": {
+    "all": "All",
+    "empty": "No projects in this category.",
+    "filterAria": "Project filters"
   },
   "project": {
     "category": "Category",

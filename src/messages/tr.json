@@ -5,7 +5,12 @@
       "title": "Birlikte Çalıştıklarımız"
     },
     "hero": {
-      "cursorLabel": "Projeleri gör"
+      "static": "paylaşmaya değer",
+      "suffix": "üretiyoruz.",
+      "words": ["markalar", "hikayeler", "feedler"],
+      "cursorLabel": "Projeleri gör",
+      "mobileCta": "Projeleri gör",
+      "mobileCtaA11y": "Projeleri gör — portföyü aç"
     },
     "featuredWorks": {
       "tag": "Seçili işler",
@@ -15,8 +20,8 @@
     },
     "shareMarquee": {
       "line1": "Paylaşılmadıysa yaşanmamıştır",
-      "line2": "Biz hayata geçiririz",
-      "ariaLabel": "Paylaşılmadıysa yaşanmamıştır. Biz hayata geçiririz."
+      "line2": "Hayata geçirelim",
+      "ariaLabel": "Paylaşılmadıysa yaşanmamıştır. Hayata geçirelim."
     },
     "ticker": {
       "items": [
@@ -36,6 +41,11 @@
     "startProject": "Projeye başla",
     "search": "Ara",
     "searchPlaceholder": "Ara"
+  },
+  "works": {
+    "all": "Tümü",
+    "empty": "Bu kategoride proje yok.",
+    "filterAria": "Proje filtreleri"
   },
   "project": {
     "category": "Kategori",

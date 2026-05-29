@@ -12,10 +12,18 @@ export async function MarketingHero({
   locale: Locale;
   messages: Messages;
 }) {
+  const hero = messages.home.hero;
   const html = await loadHeroV2Html({
-    ctaHref: "/tr/works",
-    cursorLabel: messages.home.hero.cursorLabel,
     ...options,
+    copy: {
+      lang: locale,
+      staticLine: hero.static,
+      suffix: hero.suffix,
+      words: hero.words,
+      cursorLabel: hero.cursorLabel,
+      mobileCta: hero.mobileCta,
+      mobileCtaA11y: hero.mobileCtaA11y,
+    },
   });
 
   return <MarketingHeroMount html={html} locale={locale} />;

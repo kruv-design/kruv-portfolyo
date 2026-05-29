@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /**
- * Levantenler projesi — TR/EN açıklama güncelleme.
+ * Levantenler — TR aciklama + EN description (düz sütunlar).
  * Usage: npx tsx scripts/patch-levantenler-copy.ts
  */
 import { createClient } from "@supabase/supabase-js";
@@ -29,7 +29,9 @@ Beyoğlu Kültür Yolu Festivali kapsamında düzenlenen Levantenler Konferansı
 
 Konferansın kimlik ve yönlendirme tasarımını biz üstlendik.`;
 
-const EN_ACIKLAMA = `Levantines are people of mostly Italian and French origin who settled in the eastern Mediterranean; primarily Istanbul and Izmir, and shaped Ottoman and Turkish culture and economy for generations.
+const EN_TITLE = "Levantines Conference";
+const EN_CATEGORY = "Branding, exhibition design";
+const EN_DESCRIPTION = `Levantines are people of mostly Italian and French origin who settled in the eastern Mediterranean; primarily Istanbul and Izmir, and shaped Ottoman and Turkish culture and economy for generations.
 
 A culture born between two cultures. The intersection of East and West.
 
@@ -47,47 +49,26 @@ async function main() {
   }
 
   const sb = createClient(url, key);
-  const { data: existing, error: fetchErr } = await sb
-    .from("projects")
-    .select("id, slug")
-    .eq("slug", "levantenler")
-    .maybeSingle();
-
-  if (fetchErr) throw fetchErr;
-  if (!existing) {
-    console.error("slug=levantenler projesi bulunamadı.");
-    process.exit(1);
-  }
-
-  const { error: trErr } = await sb
-    .from("projects")
-    .update({ aciklama: TR_ACIKLAMA })
-    .eq("id", existing.id);
-
-  if (trErr) throw trErr;
-  console.log("✓ levantenler — TR aciklama güncellendi");
-
-  const { error: enErr } = await sb
+  const { error } = await sb
     .from("projects")
     .update({
-      i18n: { en: { aciklama: EN_ACIKLAMA } },
+      aciklama: TR_ACIKLAMA,
+      title: EN_TITLE,
+      category: EN_CATEGORY,
+      description: EN_DESCRIPTION,
     })
-    .eq("id", existing.id);
+    .eq("slug", "levantenler");
 
-  if (enErr) {
-    const missingColumn =
-      enErr.code === "42703" ||
-      enErr.code === "PGRST204" ||
-      /i18n/i.test(enErr.message ?? "");
-    if (missingColumn) {
-      console.warn(
-        "⚠ i18n sütunu yok — EN için Supabase’de sırayla RUN_ME_projects_i18n.sql, sonra RUN_ME_levantenler_aciklama.sql çalıştırın.",
+  if (error) {
+    if (error.code === "42703" || error.code === "PGRST204") {
+      console.error(
+        "description/title/category sütunları yok — önce supabase/RUN_ME_projects_en_columns.sql çalıştırın.",
       );
-      return;
+      process.exit(1);
     }
-    throw enErr;
+    throw error;
   }
-  console.log("✓ levantenler — i18n.en.aciklama güncellendi");
+  console.log("✓ levantenler — aciklama + title + category + description güncellendi");
 }
 
 main().catch((e) => {

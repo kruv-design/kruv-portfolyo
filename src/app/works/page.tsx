@@ -20,7 +20,12 @@ export default async function WorksPage() {
     <MarketingPageShell className="flex min-h-screen flex-col">
       <MarketingSiteNav settings={settings} locale={locale} messages={messages} />
       <Suspense fallback={null}>
-        <PortfolioGrid projects={projects} settings={settings} />
+        <PortfolioGrid
+          projects={projects}
+          settings={settings}
+          locale={locale}
+          messages={messages}
+        />
       </Suspense>
     </MarketingPageShell>
   );

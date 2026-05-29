@@ -18,24 +18,15 @@ import {
   type GaleriVideoKey,
 } from "@/lib/project-images";
 import { ADMIN_ONLY_CATEGORY_LABELS } from "@/lib/project-categories";
-import {
-  buildProjectI18nPayload,
-  EMPTY_PROJECT_I18N_EN,
-} from "@/lib/project-locale";
 import { WORK_PAGE_FILTER_LABELS } from "@/lib/work-filters";
-
-type I18nEnForm = {
-  baslik: string;
-  kategori: string;
-  aciklama: string;
-  bolumler: ProjectSection[];
-  etiketler: string[];
-};
 
 type FormState = {
   baslik: string;
+  title: string;
   kategori: string;
+  category: string;
   aciklama: string;
+  description: string;
   kapak: string;
   kapak_video: string;
   bolumler: ProjectSection[];
@@ -45,14 +36,16 @@ type FormState = {
   next_project_override: string;
   renk: string;
   slug: string;
-  i18n_en: I18nEnForm;
 } & Record<GaleriKey, string> &
   Record<GaleriVideoKey, string>;
 
 const EMPTY: FormState = {
   baslik: "",
+  title: "",
   kategori: "",
+  category: "",
   aciklama: "",
+  description: "",
   kapak: "",
   kapak_video: "",
   ...emptyGaleriSlots(),
@@ -64,25 +57,16 @@ const EMPTY: FormState = {
   next_project_override: "",
   renk: "#C8B8A8",
   slug: "",
-  i18n_en: { ...EMPTY_PROJECT_I18N_EN },
 };
-
-function i18nEnFromProject(p: Project): I18nEnForm {
-  const en = p.i18n?.en;
-  return {
-    baslik: en?.baslik ?? "",
-    kategori: en?.kategori ?? "",
-    aciklama: en?.aciklama ?? "",
-    bolumler: en?.bolumler ? [...en.bolumler] : [],
-    etiketler: en?.etiketler ? [...en.etiketler] : [],
-  };
-}
 
 function fromProject(p: Project): FormState {
   return {
     baslik: p.baslik,
+    title: p.title,
     kategori: p.kategori,
+    category: p.category,
     aciklama: p.aciklama,
+    description: p.description,
     kapak: p.kapak ?? "",
     kapak_video: p.kapak_video ?? "",
     galeri_1: p.galeri_1,
@@ -112,7 +96,6 @@ function fromProject(p: Project): FormState {
     next_project_override: p.next_project_override ?? "",
     renk: p.renk || "#C8B8A8",
     slug: p.slug,
-    i18n_en: i18nEnFromProject(p),
   };
 }
 
@@ -144,11 +127,6 @@ export function ProjectForm({
     setFormError(null);
   }
 
-  function patchI18n<K extends keyof I18nEnForm>(key: K, val: I18nEnForm[K]) {
-    setForm((f) => ({ ...f, i18n_en: { ...f.i18n_en, [key]: val } }));
-    setFormError(null);
-  }
-
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setFormError(null);
@@ -170,14 +148,12 @@ export function ProjectForm({
 
     start(async () => {
       try {
-        const { i18n_en, ...rest } = form;
         const payload = {
-          ...rest,
+          ...form,
           etiketler: form.etiketler ?? [],
           bolumler: form.bolumler.filter(
             (b) => b.baslik.trim() || b.metin.trim(),
           ),
-          i18n: buildProjectI18nPayload(i18n_en),
         };
         if (mode === "create") {
           await api.createProject(payload);
@@ -305,32 +281,32 @@ export function ProjectForm({
         >
           <div>
             <h2 className="b1 font-semibold" style={{ color: "var(--ink)" }}>
-              English (optional)
+              English
             </h2>
             <p className="b3 mt-2 max-w-2xl" style={{ color: "var(--ink-faint)" }}>
-              Boş bırakılan alanlar İngilizce sitede Türkçe metni gösterir. Dolu alanlar
-              <code className="mx-1">/en/projects/…</code> sayfasında kullanılır.
+              Supabase sütunları: <code>title</code>, <code>description</code>,{" "}
+              <code>category</code>. Boş bırakılırsa İngilizce sitede Türkçe gösterilir.
             </p>
           </div>
 
-          <Field label="Title (EN)">
+          <Field label="title">
             <input
               type="text"
               className="form-input"
-              value={form.i18n_en.baslik}
-              onChange={(e) => patchI18n("baslik", e.target.value)}
-              placeholder="e.g. Marker"
+              value={form.title}
+              onChange={(e) => patch("title", e.target.value)}
+              placeholder="e.g. Levantines Conference"
               maxLength={200}
             />
           </Field>
 
-          <Field label="Category (EN)">
+          <Field label="category">
             <select
               className="form-input contact-form-select"
-              value={form.i18n_en.kategori}
-              onChange={(e) => patchI18n("kategori", e.target.value)}
+              value={form.category}
+              onChange={(e) => patch("category", e.target.value)}
             >
-              <option value="">— same as Turkish / auto —</option>
+              <option value="">— same as kategori —</option>
               {kategoriOptions.map((k) => (
                 <option key={`en-${k}`} value={k}>
                   {k}
@@ -339,27 +315,15 @@ export function ProjectForm({
             </select>
           </Field>
 
-          <Field label="Short description (EN)">
+          <Field label="description">
             <textarea
               className="form-textarea"
               rows={3}
-              value={form.i18n_en.aciklama}
-              onChange={(e) => patchI18n("aciklama", e.target.value)}
-              placeholder="Intro paragraph for the project page."
+              value={form.description}
+              onChange={(e) => patch("description", e.target.value)}
+              placeholder="English intro for the project page."
             />
           </Field>
-
-          <Field label="Tags (EN)">
-            <TagInput
-              value={form.i18n_en.etiketler}
-              onChange={(v) => patchI18n("etiketler", v)}
-            />
-          </Field>
-
-          <SectionEditor
-            value={form.i18n_en.bolumler}
-            onChange={(v) => patchI18n("bolumler", v)}
-          />
         </section>
 
         <section
