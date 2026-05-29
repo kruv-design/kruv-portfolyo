@@ -221,6 +221,4 @@
   global.destroyHeroV2Cursor = function () {
     if (activeTeardown) activeTeardown();
   };
-
-  initHeroV2Cursor();
 })(typeof window !== "undefined" ? window : this);

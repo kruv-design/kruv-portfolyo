@@ -1,7 +1,7 @@
 import type { Locale } from "@/lib/i18n/config";
 import type { Messages } from "@/lib/i18n/get-messages";
 import { loadHeroV2Html, type HeroV2Options } from "@/lib/marketing-hero";
-import { MarketingHeroEffects } from "./MarketingHeroEffects";
+import { MarketingHeroMount } from "./MarketingHeroMount";
 
 /** `public/partials/hero-v2.html` — anasayfa ile birebir aynı hero. */
 export async function MarketingHero({
@@ -18,14 +18,5 @@ export async function MarketingHero({
     ...options,
   });
 
-  return (
-    <>
-      <div
-        className="marketing-hero-mount"
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{ __html: html }}
-      />
-      <MarketingHeroEffects locale={locale} />
-    </>
-  );
+  return <MarketingHeroMount html={html} locale={locale} />;
 }

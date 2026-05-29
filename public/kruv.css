@@ -618,24 +618,10 @@ html, body {
 }
 .hero:has(.card:hover) .hero-bottom,
 body:has(.card:hover) nav,
-body:has(.card:hover) .ticker,
-body:has(.featured-work-card:hover) nav,
-body:has(.featured-work-card:hover) .ticker,
-body:has(.featured-work-card:hover) .hero-bottom {
+body:has(.card:hover) .ticker {
   filter: blur(6px);
   opacity: 0.4;
   transition: filter .2s cubic-bezier(0.4,0,0.2,1), opacity .2s cubic-bezier(0.4,0,0.2,1);
-}
-
-/* Featured: hover'lanmayan kartlar — blur yerine sade overlay (alttaki .featured-work-media::after) */
-.featured-works:has(.featured-work-card:hover) .featured-work-card:not(:hover) .featured-work-meta {
-  opacity: 0.55;
-  transition: opacity .25s cubic-bezier(0.22,1,0.36,1);
-}
-.scene-section:has(.featured-work-card:hover) .scene-label,
-.scene-section:has(.featured-work-card:hover) .scene {
-  opacity: 0.4;
-  transition: opacity .2s cubic-bezier(0.4,0,0.2,1);
 }
 
 /* card positions — fan layout */
@@ -2654,10 +2640,7 @@ body:has(.featured-work-card:hover) .hero-bottom {
 .featured-work-card:hover .featured-work-media::before {
   transform: scale(1.08);
 }
-/* Bir kart hover edildiğinde → diğer kartların görseli %15 siyah overlay alır */
-.featured-works:has(.featured-work-card:hover) .featured-work-card:not(:hover) .featured-work-media::after {
-  opacity: 1;
-}
+/* Diğer kartları karartma / blur yok — yalnızca hover kartında hafif zoom */
 /* Kart altında yalnızca başlık + kategori — açıklama gösterilmez */
 .featured-work-desc,
 .featured-work-meta > p:not(.featured-work-category) {
@@ -2758,22 +2741,8 @@ body:has(.featured-work-card:hover) .hero-bottom {
   }
 }
 
-/* Mobil / dar layout / dokunmatik: Selected Work hover efektleri kapalı */
+/* Mobil / dar layout / dokunmatik: kart zoom kapalı */
 @media (max-width: 899px), (hover: none) {
-  body:has(.featured-work-card:hover) nav,
-  body:has(.featured-work-card:hover) .ticker,
-  body:has(.featured-work-card:hover) .hero-bottom,
-  .scene-section:has(.featured-work-card:hover) .scene-label,
-  .scene-section:has(.featured-work-card:hover) .scene {
-    filter: none;
-    opacity: 1;
-  }
-  .featured-works:has(.featured-work-card:hover) .featured-work-card:not(:hover) .featured-work-meta {
-    opacity: 1;
-  }
-  .featured-works:has(.featured-work-card:hover) .featured-work-card:not(:hover) .featured-work-media::after {
-    opacity: 0;
-  }
   .featured-work-card:hover .featured-work-media::before {
     transform: none;
   }
