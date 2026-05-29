@@ -3055,6 +3055,18 @@ body:has(.card:hover) .ticker {
   min-height: var(--hero-v2-suffix-h, 1.1em);
 }
 
+/* Statik hero — rotator yok; kelime satır içinde */
+.hero-v2--static .hero-v2-line1 {
+  min-height: 0;
+  height: auto;
+}
+.hero-v2--static .hero-v2-word {
+  position: static;
+  transform: none;
+  display: inline;
+  white-space: normal;
+}
+
 /* Masaüstü (≥701px): punto, konteyner genişliği (≈70vw) ile orantılı ölçeklenir */
 @supports (font-size: 1cqw) {
   @media (min-width: 701px) {

@@ -18,8 +18,8 @@ export async function MarketingHero({
     copy: {
       lang: locale,
       staticLine: hero.static,
+      word: hero.word,
       suffix: hero.suffix,
-      words: hero.words,
       cursorLabel: hero.cursorLabel,
       mobileCta: hero.mobileCta,
       mobileCtaA11y: hero.mobileCtaA11y,

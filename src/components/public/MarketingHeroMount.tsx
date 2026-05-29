@@ -99,7 +99,6 @@ export function MarketingHeroMount({
   return (
     <>
       <div ref={mountRef} className="marketing-hero-mount" />
-      <Script src="/hero-v2-rotator.js" strategy="afterInteractive" />
       <Script
         src="/hero-v2-cursor.js"
         strategy="afterInteractive"

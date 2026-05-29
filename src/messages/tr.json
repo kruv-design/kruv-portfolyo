@@ -6,8 +6,8 @@
     },
     "hero": {
       "static": "paylaşmaya değer",
+      "word": "markalar",
       "suffix": "üretiyoruz.",
-      "words": ["markalar", "hikayeler", "feedler"],
       "cursorLabel": "Projeleri gör",
       "mobileCta": "Projeleri gör",
       "mobileCtaA11y": "Projeleri gör — portföyü aç"

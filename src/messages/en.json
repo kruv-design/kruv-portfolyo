@@ -6,8 +6,8 @@
     },
     "hero": {
       "static": "We build",
-      "suffix": "worth sharing.",
-      "words": ["brands", "stories", "feeds"],
+      "word": "brands",
+      "suffix": "worth-sharing.",
       "cursorLabel": "See projects",
       "mobileCta": "See projects",
       "mobileCtaA11y": "See projects — open portfolio"
