@@ -490,9 +490,6 @@ html, body {
   .scene {
     transition: filter .2s cubic-bezier(0.4,0,0.2,1), opacity .2s cubic-bezier(0.4,0,0.2,1);
   }
-  .featured-work-card {
-    transition: filter .2s cubic-bezier(0.4,0,0.2,1), opacity .2s cubic-bezier(0.4,0,0.2,1);
-  }
   .featured-work-media {
     transition: none;
   }
@@ -2636,11 +2633,10 @@ body:has(.card:hover) .ticker {
 
 /* Mobil: featured-work masaüstü ile aynı 16:9 — dikey svh/4:3 kırpma yok */
 
-/* Hover edilen kart → görseli yavaş büyür */
+/* Hover: blur / zoom / karartma yok */
 .featured-work-card:hover .featured-work-media::before {
-  transform: scale(1.08);
+  transform: scale(1.02);
 }
-/* Diğer kartları karartma / blur yok — yalnızca hover kartında hafif zoom */
 /* Kart altında yalnızca başlık + kategori — açıklama gösterilmez */
 .featured-work-desc,
 .featured-work-meta > p:not(.featured-work-category) {
@@ -2741,10 +2737,18 @@ body:has(.card:hover) .ticker {
   }
 }
 
-/* Mobil / dar layout / dokunmatik: kart zoom kapalı */
+/* Proje kartları — hover'da blur yok */
+.featured-work-card,
+.featured-work-card:hover,
+.featured-work-media,
+.featured-work-media::before,
+.featured-work-media::after {
+  filter: none;
+}
+
 @media (max-width: 899px), (hover: none) {
   .featured-work-card:hover .featured-work-media::before {
-    transform: none;
+    transform: scale(1.02);
   }
 }
 

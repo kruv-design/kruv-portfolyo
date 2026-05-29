@@ -1,3 +1,4 @@
+import { parseProjectI18n } from "@/lib/project-locale";
 import type { Project, ProjectSection } from "@/types";
 import {
   galeriFieldsFromRow,
@@ -22,6 +23,7 @@ export function mapProjectRow(data: Record<string, unknown>): Project {
       ? (data.bolumler as ProjectSection[])
       : [],
     etiketler: Array.isArray(data.etiketler) ? (data.etiketler as string[]) : [],
+    i18n: parseProjectI18n(data.i18n),
     link: String(data.link ?? ""),
     featured: Boolean(data.featured),
     next_project_override: String(data.next_project_override ?? ""),

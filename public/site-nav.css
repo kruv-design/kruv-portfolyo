@@ -274,24 +274,39 @@ html {
 .lang-switch__trigger {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  gap: var(--space-2, 8px);
   height: var(--nav-bar-ctrl-h);
-  padding: 0 12px;
+  min-height: var(--nav-bar-ctrl-h);
+  max-height: var(--nav-bar-ctrl-h);
+  padding: 0 var(--space-3, 12px);
   border-radius: var(--btn-radius);
-  border: 1px solid var(--border);
-  background: var(--surface);
-  color: var(--ink-soft);
+  border: 1px solid var(--border, var(--gray-100));
+  background: transparent;
+  color: var(--ink-soft, var(--silver));
   font-family: var(--b3-font-family);
   font-size: var(--b3-font-size);
   font-weight: var(--b3-font-weight);
-  line-height: var(--b3-line-height);
+  line-height: 1;
+  letter-spacing: var(--ls-2xs);
+  text-transform: lowercase;
   cursor: pointer;
-  transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+  transition:
+    color var(--dur-fast, 0.15s) var(--ease, var(--ease-standard)),
+    border-color var(--dur-fast, 0.15s) var(--ease, var(--ease-standard)),
+    background var(--dur-fast, 0.15s) var(--ease, var(--ease-standard));
 }
 
 .lang-switch__trigger:hover {
-  color: var(--ink);
-  border-color: var(--border-md);
+  color: var(--ink, var(--frost));
+  border-color: var(--border-md, var(--gray-250));
+}
+
+.lang-switch__trigger:focus-visible {
+  outline: 2px solid var(--accent, var(--purple));
+  outline-offset: 2px;
 }
 
 .lang-switch__menu {
@@ -553,10 +568,6 @@ html {
 
   .marketing-navbar-actions {
     gap: var(--space-3, 12px);
-  }
-
-  .lang-switch {
-    display: none;
   }
 
   .marketing-navbar.is-menu-open .marketing-navbar-menu-btn {

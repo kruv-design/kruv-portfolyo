@@ -16,6 +16,20 @@ export const sectionSchema = z.object({
   metin: z.string().trim().max(5000).optional().default(""),
 });
 
+const projectLocaleBlockSchema = z.object({
+  baslik: z.string().trim().max(200).optional(),
+  aciklama: longStr.optional(),
+  kategori: z.string().trim().max(80).optional(),
+  bolumler: z.array(sectionSchema).max(20).optional(),
+  etiketler: z.array(z.string().trim().min(1).max(40)).max(20).optional(),
+});
+
+export const projectI18nSchema = z
+  .object({
+    en: projectLocaleBlockSchema.optional(),
+  })
+  .optional();
+
 /** Yapıştırma hatası: URL içindeki tüm boşluklar (Cloudinary cloud_name vb.) — z.url() kaydı düşürüyordu */
 function compactUrlWhitespace(s: string): string {
   return s.trim().replace(/\s+/g, "");
@@ -155,6 +169,7 @@ export const projectSchema = z.object({
   galeri_10_video: videoUrlOrEmpty.optional().default(""),
   bolumler: z.array(sectionSchema).max(20).default([]),
   etiketler: z.array(z.string().trim().min(1).max(40)).max(20).default([]),
+  i18n: projectI18nSchema,
   link: linkUrlOrEmpty,
   featured: z.boolean().default(false),
   next_project_override: z
@@ -225,6 +240,7 @@ export function projectPayloadToDbRow(input: ProjectFormInput, slug: string) {
     galeri_10_video: input.galeri_10_video,
     bolumler: input.bolumler,
     etiketler: input.etiketler,
+    i18n: input.i18n ?? {},
     link: input.link,
     featured: input.featured,
     next_project_override: input.next_project_override ?? "",

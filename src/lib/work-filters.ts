@@ -1,19 +1,18 @@
 /** Work sayfası filtre şeridi — sabit etiketler; proje `kategori` alanı bunlara eşlenir. */
 
-export const WORK_PAGE_FILTER_LABELS = [
-  "Social media",
-  "Branding",
-  "Editorial",
-  "Web design",
-] as const;
+import {
+  WORK_PAGE_FILTER_LABELS,
+  type WorkPageFilterLabel,
+} from "@/lib/project-categories";
 
-export type WorkPageFilterLabel = (typeof WORK_PAGE_FILTER_LABELS)[number];
+export { WORK_PAGE_FILTER_LABELS, type WorkPageFilterLabel };
 
 const FILTER_SLUGS: Record<WorkPageFilterLabel, string> = {
   "Social media": "social-media",
   Branding: "branding",
   Editorial: "editorial",
   "Web design": "web-design",
+  Packaging: "packaging",
 };
 
 const SLUG_TO_FILTER: Record<string, WorkPageFilterLabel> = {
@@ -21,12 +20,13 @@ const SLUG_TO_FILTER: Record<string, WorkPageFilterLabel> = {
   branding: "Branding",
   editorial: "Editorial",
   "web-design": "Web design",
+  packaging: "Packaging",
 };
 
 /** Footer Services → `/works` filtresi */
 export const FOOTER_SERVICE_LINKS = [
   { label: "Brand identity", filter: "Branding" as const },
-  { label: "Packaging", filter: "Branding" as const },
+  { label: "Packaging", filter: "Packaging" as const },
   { label: "Editorial", filter: "Editorial" as const },
   { label: "UI/UX", filter: "Web design" as const },
   { label: "Illustration", filter: "Branding" as const },
@@ -74,10 +74,10 @@ export function projectMatchesWorkFilter(
         k.includes("brand") ||
         k.includes("marka") ||
         k.includes("identity") ||
-        k.includes("kimlik") ||
-        k.includes("packaging") ||
-        k.includes("ambalaj")
+        k.includes("kimlik")
       );
+    case "Packaging":
+      return k.includes("packaging") || k.includes("ambalaj");
     case "Editorial":
       return (
         k.includes("editorial") ||

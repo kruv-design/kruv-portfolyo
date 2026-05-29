@@ -8,6 +8,19 @@ export type ProjectSection = {
   metin: string;
 };
 
+/** İsteğe bağlı çeviriler — `projects.i18n` jsonb */
+export type ProjectLocaleBlock = {
+  baslik?: string;
+  aciklama?: string;
+  kategori?: string;
+  bolumler?: ProjectSection[];
+  etiketler?: string[];
+};
+
+export type ProjectI18n = {
+  en?: ProjectLocaleBlock;
+};
+
 export type Project = {
   id: string;
   slug: string;
@@ -38,6 +51,8 @@ export type Project = {
   galeri_10_video: string;
   bolumler: ProjectSection[];
   etiketler: string[];
+  /** İngilizce metinler; TR alanları varsayılan */
+  i18n?: ProjectI18n;
   link: string;
   featured: boolean;
   /** Proje detay banner'ında manuel sonraki proje slug'ı (boş = otomatik) */

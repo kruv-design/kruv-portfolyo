@@ -15,6 +15,7 @@ import { env } from "@/lib/env";
 import type { Locale } from "@/lib/i18n/config";
 import { LOCALES } from "@/lib/i18n/config";
 import { getMessages } from "@/lib/i18n/get-messages";
+import { resolveProjectForLocale } from "@/lib/project-locale";
 
 export const revalidate = 60;
 export const dynamicParams = true;
@@ -39,8 +40,11 @@ export async function generateMetadata({
   const project = await getProjectBySlug(slug);
   if (!project) return { title: "Not found" };
 
-  const title = project.baslik;
-  const description = project.aciklama?.slice(0, 160) || `${project.kategori} project · Kruv`;
+  const localized = resolveProjectForLocale(project, locale);
+  const title = localized.baslik;
+  const description =
+    localized.aciklama?.slice(0, 160) ||
+    `${localized.kategori} · Kruv`;
   const canonical = `${env.SITE_URL}/${locale}/projects/${project.slug}`;
   const img = project.kapak || undefined;
 
@@ -86,17 +90,24 @@ export default async function LocalizedProjectPage({
     getSettings(),
   ]);
   const messages = getMessages(locale);
+  const localized = resolveProjectForLocale(project, locale);
+  const localizedNext = nextBanner
+    ? resolveProjectForLocale(nextBanner, locale)
+    : null;
+  const localizedAll = allProjects.map((p) =>
+    resolveProjectForLocale(p, locale),
+  );
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
-    name: project.baslik,
-    description: project.aciklama || undefined,
+    name: localized.baslik,
+    description: localized.aciklama || undefined,
     url: `${env.SITE_URL}/${locale}/projects/${project.slug}`,
     image: project.kapak || undefined,
-    keywords: project.etiketler?.join(", ") || undefined,
+    keywords: localized.etiketler?.join(", ") || undefined,
     creator: { "@type": "Organization", name: settings.siteAdi },
-    about: project.kategori,
+    about: localized.kategori,
   };
 
   return (
@@ -108,6 +119,7 @@ export default async function LocalizedProjectPage({
       />
       <div
         className="project-detail-page flex min-h-screen flex-col"
+        lang={locale}
         style={{ background: "var(--bg)", color: "var(--ink)", minHeight: "100vh" }}
       >
         <MarketingKruvStyles />
@@ -115,11 +127,11 @@ export default async function LocalizedProjectPage({
         <div className="flex flex-1 flex-col">
           <div className="works-shell-inner project-detail-shell">
             <ProjectDetail
-              project={project}
+              project={localized}
               prevSlug={prev?.slug ?? null}
               nextSlug={next?.slug ?? null}
-              nextProject={nextBanner}
-              allProjects={allProjects}
+              nextProject={localizedNext}
+              allProjects={localizedAll}
               locale={locale}
               messages={messages}
             />
