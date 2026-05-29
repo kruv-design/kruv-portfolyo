@@ -226,7 +226,7 @@
   --ls-5xl: .22em;
   --ls-display: -0.02em;
   /* Kart / proje meta: başlık biraz açık, kategori etiketi sıkı */
-  --card-meta-title-ls: 0.03em;
+  --card-meta-title-ls: 0.027em;
   --card-meta-tag-ls: var(--b3-letter-spacing);
   --card-meta-tag-size-mobile: var(--b3-font-size);
   --ls-anim-start: .3em;

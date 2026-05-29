@@ -1,4 +1,35 @@
 {
+  "home": {
+    "ideal": {
+      "tag": "Partners",
+      "title": "In Good Company"
+    },
+    "hero": {
+      "cursorLabel": "See projects"
+    },
+    "featuredWorks": {
+      "tag": "Selected work",
+      "title": "Projects",
+      "seeProject": "See project",
+      "ariaLabel": "Featured works list"
+    },
+    "shareMarquee": {
+      "line1": "share or it didn't happen",
+      "line2": "we make sure it happens",
+      "ariaLabel": "Share or it did not happen. We make sure it happens."
+    },
+    "ticker": {
+      "items": [
+        { "label": "Brand identity" },
+        { "label": "Social media design" },
+        { "label": "Motion design" },
+        { "label": "Feed-first strategy" },
+        { "label": "Social native" },
+        { "label": "D2C brands" },
+        { "label": "Istanbul" }
+      ]
+    }
+  },
   "nav": {
     "projects": "Projects",
     "contact": "Contact",

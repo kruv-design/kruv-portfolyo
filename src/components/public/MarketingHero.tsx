@@ -1,9 +1,22 @@
-import Script from "next/script";
+import type { Locale } from "@/lib/i18n/config";
+import type { Messages } from "@/lib/i18n/get-messages";
 import { loadHeroV2Html, type HeroV2Options } from "@/lib/marketing-hero";
+import { MarketingHeroEffects } from "./MarketingHeroEffects";
 
 /** `public/partials/hero-v2.html` — anasayfa ile birebir aynı hero. */
-export async function MarketingHero(options: HeroV2Options = {}) {
-  const html = await loadHeroV2Html({ ctaHref: "/tr/works", ...options });
+export async function MarketingHero({
+  locale,
+  messages,
+  ...options
+}: HeroV2Options & {
+  locale: Locale;
+  messages: Messages;
+}) {
+  const html = await loadHeroV2Html({
+    ctaHref: "/tr/works",
+    cursorLabel: messages.home.hero.cursorLabel,
+    ...options,
+  });
 
   return (
     <>
@@ -12,8 +25,7 @@ export async function MarketingHero(options: HeroV2Options = {}) {
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: html }}
       />
-      <Script src="/hero-v2-rotator.js" strategy="afterInteractive" />
-      <Script src="/hero-v2-cursor.js" strategy="afterInteractive" />
+      <MarketingHeroEffects locale={locale} />
     </>
   );
 }

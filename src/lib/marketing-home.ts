@@ -1,12 +1,15 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import type { Locale } from "@/lib/i18n/config";
+import { getMessages, type Messages } from "@/lib/i18n/get-messages";
 import { withLocale } from "@/lib/i18n/path";
 
 const KRUV_HTML_PATH = path.join(process.cwd(), "public", "kruv.html");
 
-/** `kruv.html` içinde hero altı gövde başlangıcı (ticker band). */
-const HOME_BODY_START = '<div class="ticker">';
+/** `kruv.html` içinde hero altı gövde başlangıcı (ticker React’te — ideal clients). */
+const HOME_BODY_START = '<section class="ideal-section"';
+const HOME_SCENE_SECTION = '<section class="scene-section">';
+const HOME_PROJECTS_BELIEF = '<section class="projects-belief"';
 const HOME_FOOTER_START = '<footer class="site-footer"';
 
 function sliceBetween(html: string, start: string, end: string): string {
@@ -29,9 +32,39 @@ function sliceFooter(html: string): string {
   return html.slice(from, close + "</footer>".length).trim();
 }
 
-/** Göreli asset ve dahili linkleri Next locale yollarına çevirir. */
-export function rewriteMarketingHomeHtml(html: string, locale: Locale): string {
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+/** Göreli asset, ideal clients metinleri ve dahili linkleri locale’e göre yazar. */
+export function rewriteMarketingHomeHtml(
+  html: string,
+  locale: Locale,
+  messages: Messages,
+): string {
   let out = html;
+
+  const { tag, title } = messages.home.ideal;
+  out = out.replace(
+    /(<span class="ideal-tag">)[^<]*(<\/span>)/,
+    `$1${escapeHtml(tag)}$2`,
+  );
+  out = out.replace(
+    /(<h3 class="ideal-title" id="ideal-heading">)[^<]*(<\/h3>)/,
+    `$1${escapeHtml(title)}$2`,
+  );
+
+  const share = messages.home.shareMarquee;
+  const sharePiece = `<span class="ideal-share-marquee-piece">\n            ${escapeHtml(share.line1)}\n            <em>${escapeHtml(share.line2)}</em>\n          </span>`;
+  out = out.replace(/<span class="ideal-share-marquee-piece">[\s\S]*?<\/span>/g, sharePiece);
+  out = out.replace(
+    /<section\s+class="ideal-share-marquee-band"[^>]*>/,
+    `<section\n  class="ideal-share-marquee-band"\n  lang="${locale}"\n  aria-label="${escapeHtml(share.ariaLabel)}"\n>`,
+  );
 
   out = out.replace(/\b(src|href)="assets\//g, '$1="/assets/');
   out = out.replace(/'link\//g, "'/link/");
@@ -65,18 +98,18 @@ function shouldIncludeHomeScript(content: string): boolean {
     content.includes("fan-wrap") ||
     content.includes("lang-switch-trigger") ||
     content.includes("kruv-theme") ||
-    content.includes("Global wheel dampening")
+    content.includes("Global wheel dampening") ||
+    content.includes("bindCMS")
   ) {
     return false;
   }
 
   return (
-    content.includes("featured-works") ||
+    content.includes("featuredWorkCursorHint") ||
     content.includes("focusList") ||
     content.includes("getElementById('scene')") ||
     content.includes("testimonialsMarquee") ||
     content.includes("scroll-theme-bridge") ||
-    content.includes("/api/projects") ||
     content.includes("hydrateFooterSocial") ||
     content.includes("initIdealShareMarquee") ||
     content.includes("location.hash !== '#hero'")
@@ -85,10 +118,12 @@ function shouldIncludeHomeScript(content: string): boolean {
 
 function extractHomeScripts(html: string, locale: Locale): string[] {
   const footerEnd = html.indexOf("</footer>");
-  const rotatorIdx = html.indexOf('<script src="/hero-v2-rotator.js"');
-  if (footerEnd === -1 || rotatorIdx === -1) return [];
+  if (footerEnd === -1) return [];
 
-  const chunk = html.slice(footerEnd, rotatorIdx);
+  // `initIdealShareMarquee` rotator scriptlerinden sonra — tüm inline scriptleri al.
+  const bodyEnd = html.lastIndexOf("</body>");
+  const chunkEnd = bodyEnd > footerEnd ? bodyEnd : html.length;
+  const chunk = html.slice(footerEnd, chunkEnd);
   const scripts: string[] = [];
   const re = /<script>\s*([\s\S]*?)<\/script>/g;
   let match: RegExpExecArray | null;
@@ -100,8 +135,21 @@ function extractHomeScripts(html: string, locale: Locale): string[] {
   return scripts;
 }
 
+function splitHomeBody(html: string): { beforeScene: string; afterScene: string } {
+  const sceneIdx = html.indexOf(HOME_SCENE_SECTION);
+  const beliefIdx = html.indexOf(HOME_PROJECTS_BELIEF);
+  if (sceneIdx === -1 || beliefIdx === -1 || beliefIdx <= sceneIdx) {
+    throw new Error("marketing-home: scene-section or projects-belief marker not found");
+  }
+  return {
+    beforeScene: html.slice(0, sceneIdx).trim(),
+    afterScene: html.slice(beliefIdx).trim(),
+  };
+}
+
 export type MarketingHomeContent = {
-  bodyHtml: string;
+  bodyBeforeScene: string;
+  bodyAfterScene: string;
   footerHtml: string;
   scripts: string[];
 };
@@ -119,12 +167,15 @@ export async function loadMarketingHomeContent(
   locale: Locale,
 ): Promise<MarketingHomeContent> {
   const html = await readKruvHtml();
+  const messages = getMessages(locale);
   const bodyRaw = sliceBetween(html, HOME_BODY_START, HOME_FOOTER_START);
+  const { beforeScene, afterScene } = splitHomeBody(bodyRaw);
   const footerRaw = sliceFooter(html);
 
   return {
-    bodyHtml: rewriteMarketingHomeHtml(bodyRaw, locale),
-    footerHtml: rewriteMarketingHomeHtml(footerRaw, locale),
+    bodyBeforeScene: rewriteMarketingHomeHtml(beforeScene, locale, messages),
+    bodyAfterScene: rewriteMarketingHomeHtml(afterScene, locale, messages),
+    footerHtml: rewriteMarketingHomeHtml(footerRaw, locale, messages),
     scripts: extractHomeScripts(html, locale),
   };
 }

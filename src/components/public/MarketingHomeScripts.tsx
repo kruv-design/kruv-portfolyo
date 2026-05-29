@@ -6,11 +6,17 @@ import { useEffect } from "react";
 export function MarketingHomeScripts({ scripts }: { scripts: string[] }) {
   useEffect(() => {
     if (!scripts.length) return;
-    for (const code of scripts) {
-      const el = document.createElement("script");
-      el.text = code;
-      document.body.appendChild(el);
-    }
+
+    const run = () => {
+      for (const code of scripts) {
+        const el = document.createElement("script");
+        el.text = code;
+        document.body.appendChild(el);
+      }
+    };
+
+    // Layout ölçümü (marquee fill) için paint sonrası çalıştır.
+    requestAnimationFrame(() => requestAnimationFrame(run));
   }, [scripts]);
 
   return null;

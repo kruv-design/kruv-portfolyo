@@ -39,10 +39,12 @@ export default async function LocaleHomePage({
     <MarketingPageShell className="flex min-h-screen flex-col">
       <MarketingSiteNav settings={settings} locale={locale} messages={messages} />
       <MarketingHero
+        locale={locale}
+        messages={messages}
         ctaHref={withLocale("/works", locale)}
         scrollHref="#works"
       />
-      <MarketingHomeBody locale={locale} />
+      <MarketingHomeBody locale={locale} messages={messages} />
     </MarketingPageShell>
   );
 }

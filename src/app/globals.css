@@ -119,7 +119,7 @@
   --lh-note: 1.45;
   --ls-2xs: 0.01em;
   --ls-display: -0.02em;
-  --card-meta-title-ls: 0.03em;
+  --card-meta-title-ls: 0.027em;
   /* Kart kategori: b3 ile aynı */
   --card-meta-tag-ls: var(--b3-letter-spacing);
   --card-meta-tag-size-mobile: var(--b3-font-size);

@@ -1,4 +1,35 @@
 {
+  "home": {
+    "ideal": {
+      "tag": "Portföy",
+      "title": "Birlikte Çalıştıklarımız"
+    },
+    "hero": {
+      "cursorLabel": "Projeleri gör"
+    },
+    "featuredWorks": {
+      "tag": "Seçili işler",
+      "title": "Projeler",
+      "seeProject": "Projeyi gör",
+      "ariaLabel": "Öne çıkan projeler"
+    },
+    "shareMarquee": {
+      "line1": "paylaşmadıysan olmamıştır",
+      "line2": "biz bunun olmasını sağlıyoruz",
+      "ariaLabel": "Paylaşmadıysan olmamıştır. Biz bunun olmasını sağlıyoruz."
+    },
+    "ticker": {
+      "items": [
+        { "label": "Marka kimliği" },
+        { "label": "Sosyal medya tasarımı" },
+        { "label": "Hareket tasarımı" },
+        { "label": "Feed-first strateji" },
+        { "label": "Sosyal native" },
+        { "label": "D2C markalar" },
+        { "label": "İstanbul" }
+      ]
+    }
+  },
   "nav": {
     "projects": "Projeler",
     "contact": "İletişim",
