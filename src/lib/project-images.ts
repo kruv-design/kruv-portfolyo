@@ -24,7 +24,16 @@ export function resolveProjectImageUrl(raw: string): string {
 export function resolveProjectVideoUrl(raw: string): string {
   const s = raw.trim().replace(/\s+/g, "");
   if (!s) return "";
-  if (/^https?:\/\//i.test(s)) return s;
+  if (/^https?:\/\//i.test(s)) {
+    // Supabase’e yanlışlıkla image delivery URL yapıştırılmışsa düzelt
+    if (s.includes("/image/upload/")) {
+      return s.replace(
+        "/image/upload/",
+        "/video/upload/q_auto,f_mp4,w_1920,c_limit/",
+      );
+    }
+    return s;
+  }
   const cloud = cloudName();
   if (!cloud) return s;
   const id = s

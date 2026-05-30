@@ -33,6 +33,7 @@ export function ProjectDetailMedia({
   const videoRef = useRef<HTMLVideoElement>(null);
   const [loadVideo, setLoadVideo] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
+  const [activated, setActivated] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   const clickMode = playback === "click";
@@ -74,30 +75,52 @@ export function ProjectDetailMedia({
 
   const tryPlay = useCallback(async () => {
     const v = videoRef.current;
-    if (!v) return;
+    if (!v) return false;
     try {
       await v.play();
       setIsPlaying(true);
+      return true;
     } catch {
       setIsPlaying(false);
+      return false;
     }
   }, []);
 
+  /** Tıklama modu: src yüklendikten sonra oynat */
+  useEffect(() => {
+    if (!clickMode || !activated || !loadVideo || !videoSrc) return;
+    const v = videoRef.current;
+    if (!v) return;
+
+    const playWhenReady = () => {
+      void tryPlay();
+    };
+
+    if (v.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      playWhenReady();
+      return;
+    }
+
+    v.addEventListener("canplay", playWhenReady, { once: true });
+    v.addEventListener("loadeddata", playWhenReady, { once: true });
+    return () => {
+      v.removeEventListener("canplay", playWhenReady);
+      v.removeEventListener("loadeddata", playWhenReady);
+    };
+  }, [clickMode, activated, loadVideo, videoSrc, tryPlay]);
+
   const handlePlayClick = useCallback(() => {
     if (!videoSrc || reducedMotion) return;
+    setActivated(true);
     setLoadVideo(true);
-    const v = videoRef.current;
-    if (v && v.readyState >= 2) {
-      void tryPlay();
-    }
-  }, [videoSrc, reducedMotion, tryPlay]);
+  }, [videoSrc, reducedMotion]);
 
   const showVideo =
     Boolean(videoSrc) &&
     loadVideo &&
     !reducedMotion &&
     videoReady &&
-    (clickMode ? isPlaying : true);
+    (clickMode ? activated && isPlaying : true);
 
   const showPlayButton =
     clickMode && Boolean(videoSrc) && !reducedMotion && !isPlaying;
@@ -163,21 +186,22 @@ export function ProjectDetailMedia({
           playsInline
           loop
           autoPlay={!clickMode}
-          preload="none"
+          preload={clickMode && activated ? "auto" : "none"}
           aria-hidden={clickMode ? undefined : true}
           tabIndex={clickMode ? 0 : -1}
           {...(loadVideo ? { src: videoSrc } : {})}
           onLoadedData={() => setVideoReady(true)}
           onCanPlay={() => {
-            if (clickMode && loadVideo && !isPlaying) {
-              void tryPlay();
-              return;
-            }
+            if (clickMode) return;
             const v = videoRef.current;
-            if (!clickMode && v && !document.hidden) void v.play().catch(() => {});
+            if (v && !document.hidden) void v.play().catch(() => {});
           }}
           onPlay={() => setIsPlaying(true)}
           onPause={() => setIsPlaying(false)}
+          onError={() => {
+            setIsPlaying(false);
+            setActivated(false);
+          }}
         />
       ) : null}
     </div>
