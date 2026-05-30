@@ -93,7 +93,8 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
           Anasayfa showreel
         </div>
         <p className="b1 mb-5" style={{ color: "var(--b1-color)" }}>
-          Hero altı showreel. Masaüstü (≥701px) ve mobil ayrı. Poster zorunlu. Cloudinary{" "}
+          Hero altı showreel. Masaüstü (≥900px) ve mobil (≤899px) tamamen ayrı alanlar —
+          birbirine düşmez. Poster zorunlu. Cloudinary{" "}
           <span className="b2">public_id</span> veya <span className="b2">https://</span> URL.
         </p>
         <p

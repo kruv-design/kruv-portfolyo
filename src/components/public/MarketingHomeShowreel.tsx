@@ -61,11 +61,10 @@ export function MarketingHomeShowreel({
     settings.homeVideo ?? "",
   );
 
-  const mobilePosterRaw =
-    settings.homeVideoPosterMobile?.trim() || settings.homeVideoPoster?.trim() || "";
-  const mobileVideoRaw =
-    settings.homeVideoMobile?.trim() || settings.homeVideo?.trim() || "";
-  const mobile = buildShowreelSlot(mobilePosterRaw, mobileVideoRaw);
+  const mobile = buildShowreelSlot(
+    settings.homeVideoPosterMobile ?? "",
+    settings.homeVideoMobile ?? "",
+  );
 
   if (!web && !mobile) return null;
 

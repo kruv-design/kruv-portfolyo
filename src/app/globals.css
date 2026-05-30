@@ -1293,7 +1293,7 @@ body {
   height: auto;
 }
 
-/* Web (≥701px) vs mobil showreel */
+/* Web (≥900px) vs mobil showreel — site breakpoint ile aynı */
 .home-showreel__variant--web {
   display: none;
 }
@@ -1302,9 +1302,17 @@ body {
   display: block;
 }
 
-@media (min-width: 701px) {
+.home-showreel__variant--mobile .home-showreel__inner {
+  width: min(72vw, 22.5rem);
+}
+
+@media (min-width: 900px) {
   .home-showreel__variant--web {
     display: block;
+  }
+
+  .home-showreel__variant--web .home-showreel__inner {
+    width: min(80vw, 100%);
   }
 
   .home-showreel__variant--mobile {
