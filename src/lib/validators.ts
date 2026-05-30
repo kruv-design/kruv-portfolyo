@@ -14,6 +14,8 @@ const longStr = z.string().trim().max(5000).optional().default("");
 export const sectionSchema = z.object({
   baslik: z.string().trim().max(200).optional().default(""),
   metin: z.string().trim().max(5000).optional().default(""),
+  title: z.string().trim().max(200).optional().default(""),
+  text: z.string().trim().max(5000).optional().default(""),
 });
 
 /** Yapıştırma hatası: URL içindeki tüm boşluklar (Cloudinary cloud_name vb.) — z.url() kaydı düşürüyordu */

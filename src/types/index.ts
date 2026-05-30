@@ -4,8 +4,14 @@
  */
 
 export type ProjectSection = {
+  /** TR bölüm başlığı */
   baslik: string;
+  /** TR bölüm metni */
   metin: string;
+  /** EN bölüm başlığı (boşsa baslik) */
+  title?: string;
+  /** EN bölüm metni (boşsa metin) */
+  text?: string;
 };
 
 export type Project = {

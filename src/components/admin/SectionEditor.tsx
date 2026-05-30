@@ -18,7 +18,7 @@ export function SectionEditor({
     onChange(value.filter((_, i) => i !== idx));
   }
   function add() {
-    onChange([...value, { baslik: "", metin: "" }]);
+    onChange([...value, { baslik: "", metin: "", title: "", text: "" }]);
   }
 
   return (
@@ -58,14 +58,28 @@ export function SectionEditor({
               type="text"
               value={b.baslik}
               onChange={(e) => update(i, { baslik: e.target.value })}
-              placeholder="Başlık (ör. Süreç)"
+              placeholder="Başlık TR (ör. Süreç)"
               className="form-input mb-2"
             />
             <textarea
               rows={3}
               value={b.metin}
               onChange={(e) => update(i, { metin: e.target.value })}
-              placeholder="Bölüm metni…"
+              placeholder="Metin TR…"
+              className="form-textarea mb-2"
+            />
+            <input
+              type="text"
+              value={b.title ?? ""}
+              onChange={(e) => update(i, { title: e.target.value })}
+              placeholder="title EN (ör. Process)"
+              className="form-input mb-2"
+            />
+            <textarea
+              rows={3}
+              value={b.text ?? ""}
+              onChange={(e) => update(i, { text: e.target.value })}
+              placeholder="text EN…"
               className="form-textarea"
             />
           </div>

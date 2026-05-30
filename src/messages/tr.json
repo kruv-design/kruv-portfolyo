@@ -7,7 +7,8 @@
     "hero": {
       "line1": "paylaşmaya değer",
       "line2": "markalar",
-      "line2Tail": "üretiyoruz.",
+      "line2Tail": "tasarlıyoruz.",
+      "lineOrder": "accent-first",
       "cursorLabel": "Projeleri gör",
       "mobileCta": "Projeleri gör",
       "mobileCtaA11y": "Projeleri gör — portföyü aç"

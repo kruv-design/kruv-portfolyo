@@ -6,12 +6,13 @@ export const HERO_V2_PARTIAL_MARKER = "<!-- @partial:hero-v2 -->";
 
 export type HeroV2Copy = {
   lang: string;
-  /** Üst satır — mor, italik */
+  /** Mor satır (accent) */
   line1: string;
-  /** Alt satır — siyah (tek parça veya line2 + line2Tail) */
+  /** Siyah satır (main) */
   line2: string;
-  /** Alt satır ikinci parça — örn. EN: "brands" (`We build` ile aynı satırda, aralıklı) */
   line2Tail?: string;
+  /** accent-first = mor üst (TR) | main-first = siyah üst (EN) */
+  lineOrder?: "accent-first" | "main-first";
   cursorLabel: string;
   mobileCta: string;
   mobileCtaA11y: string;
@@ -52,6 +53,7 @@ const DEFAULT_COPY: HeroV2Copy = {
   line1: "worth-sharing.",
   line2: "We build",
   line2Tail: "brands",
+  lineOrder: "main-first",
   cursorLabel: "See projects",
   mobileCta: "See projects",
   mobileCtaA11y: "See projects — open portfolio",
@@ -63,11 +65,13 @@ export async function loadHeroV2Html(options: HeroV2Options = {}): Promise<strin
   /** Boş bırakılırsa sayfa içi `#works`; varsayılan CTA ile aynı (`/works`). */
   const scrollHref =
     options.scrollHref !== undefined ? options.scrollHref : ctaHref;
+  const lineOrder = copy.lineOrder === "main-first" ? "main-first" : "accent-first";
   const raw = await readFile(HERO_PARTIAL_PATH, "utf8");
   return raw
     .replace(/\{\{CTA_HREF\}\}/g, escapeAttr(ctaHref))
     .replace(/\{\{SCROLL_HREF\}\}/g, escapeAttr(scrollHref))
     .replace(/\{\{HERO_LANG\}\}/g, escapeAttr(copy.lang))
+    .replace(/\{\{HERO_LINE_ORDER\}\}/g, escapeAttr(lineOrder))
     .replace(/\{\{HERO_LINE1\}\}/g, escapeHtml(copy.line1))
     .replace(/\{\{HERO_LINE2_HTML\}\}/g, buildLine2Html(copy))
     .replace(/\{\{CURSOR_LABEL\}\}/g, escapeHtml(copy.cursorLabel))

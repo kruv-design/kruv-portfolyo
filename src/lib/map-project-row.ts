@@ -6,6 +6,18 @@ import {
   kapakVideoFromRow,
 } from "@/lib/project-images";
 
+function normalizeSection(raw: unknown): ProjectSection {
+  const s = (raw && typeof raw === "object" ? raw : {}) as Record<string, unknown>;
+  const title = String(s.title ?? "").trim();
+  const text = String(s.text ?? "").trim();
+  return {
+    baslik: String(s.baslik ?? ""),
+    metin: String(s.metin ?? ""),
+    ...(title ? { title } : {}),
+    ...(text ? { text } : {}),
+  };
+}
+
 /** Supabase `projects` satırı → uygulama `Project` tipi (admin + API yanıtı). */
 export function mapProjectRow(data: Record<string, unknown>): Project {
   return {
@@ -22,7 +34,7 @@ export function mapProjectRow(data: Record<string, unknown>): Project {
     ...galeriFieldsFromRow(data),
     ...galeriVideoFieldsFromRow(data),
     bolumler: Array.isArray(data.bolumler)
-      ? (data.bolumler as ProjectSection[])
+      ? data.bolumler.map(normalizeSection)
       : [],
     etiketler: Array.isArray(data.etiketler) ? (data.etiketler as string[]) : [],
     link: String(data.link ?? ""),

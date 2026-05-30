@@ -132,7 +132,7 @@
 
   .marketing-navbar.is-menu-open .marketing-navbar-cta,
   .navbar.is-menu-open .nav-cta {
-    visibility: hidden;
+    display: none;
     pointer-events: none;
   }
 
@@ -179,9 +179,11 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    justify-content: flex-end;
     gap: 0;
     flex: 1;
     min-height: 0;
+    padding-bottom: max(var(--space-10), 12dvh);
   }
 
   .marketing-nav-mobile-theme-toggle,
@@ -225,7 +227,7 @@
   .marketing-nav-mobile-search,
   .nav-mobile-search {
     width: 100%;
-    margin-bottom: var(--space-10);
+    margin-bottom: var(--space-6);
   }
 
   .marketing-nav-mobile-search input,
@@ -268,7 +270,7 @@
   .site-nav-mobile-links {
     list-style: none;
     margin: 0;
-    margin-top: 20dvh;
+    margin-top: 0;
     padding: 0;
     display: flex;
     flex-direction: column;

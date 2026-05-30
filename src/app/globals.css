@@ -288,8 +288,14 @@
   /* Proje detay galeri: viewport’a ufak inset */
   --project-gallery-inset-x: var(--container-gutter);
   --project-gallery-inset-y: var(--space-4);
-  /* Proje detay galeri — viewport genişliğinin %80’i (vw = ekran genişliği birimi) */
+  /* Proje detay galeri — masaüstü %80; mobil %95 (aşağıdaki media) */
   --project-detail-gallery-width: 80vw;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --project-detail-gallery-width: 95vw;
+  }
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -723,6 +729,22 @@ body {
   width: 100%;
   min-width: 0;
   padding-top: var(--space-6);
+  padding-bottom: calc(var(--space-12) + var(--space-8));
+}
+
+/* Proje kartları ile footer üst çizgisi arası nefes payı */
+#works > footer {
+  margin-top: var(--space-10);
+}
+
+@media (max-width: 768px) {
+  .portfolio-works-page .portfolio-grid {
+    padding-bottom: var(--spacing-3xl);
+  }
+
+  #works > footer {
+    margin-top: var(--space-12);
+  }
 }
 
 @media (min-width: 640px) {
@@ -800,7 +822,8 @@ body {
   max-width: var(--project-detail-gallery-width);
   margin-inline: auto;
   box-sizing: border-box;
-  padding-top: var(--section-pad-y);
+  /* Kapak ↔ başlık arası (section-pad-y’nin 2/3’ü) */
+  padding-top: calc(var(--section-pad-y) * 2 / 3);
   padding-bottom: var(--section-pad-y);
   padding-inline: 0;
   gap: var(--space-8);
@@ -914,25 +937,6 @@ body {
   min-height: 12rem;
 }
 
-.project-next-banner__badge {
-  position: absolute;
-  top: var(--space-4);
-  right: var(--space-4);
-  z-index: 2;
-  padding: var(--space-2) var(--space-4);
-  border-radius: var(--radius-pill);
-  font-family: var(--b3-font-family);
-  font-size: var(--b3-font-size);
-  font-weight: var(--b3-font-weight);
-  letter-spacing: var(--ls-2xl);
-  text-transform: uppercase;
-  color: var(--ink);
-  background: color-mix(in srgb, var(--surface) 72%, transparent);
-  backdrop-filter: blur(12px) saturate(1.1);
-  -webkit-backdrop-filter: blur(12px) saturate(1.1);
-  border: 1px solid var(--border);
-}
-
 .project-next-banner__eyebrow {
   margin: 0;
   font-family: var(--b3-font-family);
@@ -1023,8 +1027,7 @@ body {
   transition: transform 0.35s var(--ease);
 }
 
-.project-next-banner__cta-row--mobile,
-.project-next-banner__scroll-hint {
+.project-next-banner__cta-row--mobile {
   display: none;
 }
 
@@ -1047,10 +1050,6 @@ body {
 
   .project-next-banner__media {
     border-radius: var(--radius-md);
-  }
-
-  .project-next-banner__badge {
-    display: none;
   }
 
   .project-next-banner__eyebrow--mobile {
@@ -1077,16 +1076,34 @@ body {
 }
 
 @media (max-width: 899px) {
+  /* Görsel üst/yan: kart kenarına yakın; metin alanı altta nefesli */
   .project-next-banner {
-    padding: var(--space-6);
+    padding: 0 var(--space-4) var(--space-6);
   }
 
   .project-next-banner__grid {
-    gap: var(--space-6);
+    gap: var(--space-5);
+  }
+
+  .project-next-banner__media {
+    margin-inline: calc(-1 * var(--space-4));
+    width: calc(100% + 2 * var(--space-4));
+    border-radius: 0;
+    border-top-left-radius: calc(var(--radius-lg) - 1px);
+    border-top-right-radius: calc(var(--radius-lg) - 1px);
   }
 
   .project-next-banner__meta {
     padding: 0;
+    gap: var(--space-3);
+  }
+
+  .project-next-banner__title {
+    margin-top: 0;
+  }
+
+  .project-next-banner__subtitle {
+    margin-top: 0;
   }
 
   .project-next-banner__progress {
@@ -1101,25 +1118,14 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: auto;
-    padding-top: var(--space-8);
+    margin-top: var(--space-8);
+    padding-top: var(--space-5);
     border-top: 1px solid var(--border);
     font-family: var(--b1-font-family);
     font-size: var(--b1-font-size);
     font-weight: 500;
     line-height: var(--b1-line-height);
     color: var(--ink);
-  }
-
-  .project-next-banner__scroll-hint {
-    display: block;
-    margin: var(--space-4) 0 0;
-    text-align: center;
-    font-family: var(--b3-font-family);
-    font-size: var(--b3-font-size);
-    font-weight: var(--b3-font-weight);
-    letter-spacing: var(--b3-letter-spacing);
-    color: var(--ink-faint);
   }
 }
 
@@ -1163,13 +1169,13 @@ body {
   margin-top: var(--spacing-3xl);
   flex-shrink: 0;
 }
-/* Kapak: tam ekran genişlik; galeri ayrı token (80vw / mobil 95vw) */
+/* Kapak: tam ekran genişlik; galeri + body kolonu: --project-detail-gallery-width */
 .project-detail-cover {
   position: relative;
   display: block;
   width: 100vw;
   max-width: 100vw;
-  margin: 0 calc(50% - 50vw) var(--space-8);
+  margin: 0 calc(50% - 50vw) calc(var(--space-8) * 2 / 3);
   flex-shrink: 0;
   box-sizing: border-box;
   overflow: hidden;
@@ -1263,8 +1269,28 @@ body {
   transition: opacity 0.35s ease;
 }
 
+.project-detail-media__video.is-mounted {
+  opacity: 0;
+}
+
 .project-detail-media__video.is-visible {
   opacity: 1;
+}
+
+.project-detail-media__play-error {
+  position: absolute;
+  left: 50%;
+  bottom: 0.75rem;
+  z-index: 3;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--radius-sm, 4px);
+  font-size: 0.75rem;
+  line-height: 1.3;
+  color: var(--gray-anti);
+  background: color-mix(in srgb, var(--ink) 75%, transparent);
+  white-space: nowrap;
 }
 
 .project-detail-media--cover .project-detail-media__video {
@@ -1291,6 +1317,58 @@ body {
 .home-showreel .project-detail-media-img {
   width: 100%;
   height: auto;
+}
+
+/* Web: zorunlu 16:9 yatay kutu */
+.home-showreel__variant--web .project-detail-media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.home-showreel__variant--web .project-detail-media__poster-wrap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.home-showreel__variant--web .project-detail-media-img,
+.home-showreel__variant--web .project-detail-media__video {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  max-height: none !important;
+  object-fit: cover;
+}
+
+/* Mobil: 9:16 dikey kutu */
+.home-showreel__variant--mobile .project-detail-media {
+  position: relative;
+  aspect-ratio: 9 / 16;
+  width: 100%;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.home-showreel__variant--mobile .project-detail-media__poster-wrap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.home-showreel__variant--mobile .project-detail-media-img,
+.home-showreel__variant--mobile .project-detail-media__video {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  max-height: none !important;
+  object-fit: cover;
 }
 
 /* Web (≥900px) vs mobil showreel — site breakpoint ile aynı */
@@ -1381,7 +1459,7 @@ body {
   border: 1px solid var(--border);
   box-sizing: border-box;
 }
-/* Galeri: her görsel 80vw, kendi oranında */
+/* Galeri: kolon genişliğinde, kendi oranında */
 .project-detail-gallery {
   display: flex;
   flex-direction: column;

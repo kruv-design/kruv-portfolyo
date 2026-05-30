@@ -20,6 +20,8 @@ export async function MarketingHero({
       line1: hero.line1,
       line2: hero.line2,
       line2Tail: hero.line2Tail,
+      lineOrder:
+        hero.lineOrder === "main-first" ? "main-first" : "accent-first",
       cursorLabel: hero.cursorLabel,
       mobileCta: hero.mobileCta,
       mobileCtaA11y: hero.mobileCtaA11y,

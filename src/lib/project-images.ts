@@ -42,6 +42,22 @@ export function resolveProjectVideoUrl(raw: string): string {
   return `https://res.cloudinary.com/${cloud}/video/upload/q_auto,f_mp4,w_1920,c_limit/${id}`;
 }
 
+export type ShowreelLayout = "landscape" | "portrait";
+
+/** Anasayfa showreel — web 16:9, mobil 9:16 (Cloudinary crop). */
+export function applyShowreelAspect(url: string, layout: ShowreelLayout): string {
+  if (!url.includes("res.cloudinary.com") || /ar_\d+:\d+/.test(url)) return url;
+  const crop = layout === "landscape" ? "c_fill,ar_16:9" : "c_fill,ar_9:16";
+
+  if (url.includes("/video/upload/")) {
+    return url.replace("/video/upload/", `/video/upload/${crop}/`);
+  }
+  if (url.includes("/image/upload/")) {
+    return url.replace("/image/upload/", `/image/upload/${crop}/`);
+  }
+  return url;
+}
+
 /** Supabase + admin: kapak + numaralı galeri slotları (hepsi isteğe bağlı). */
 export const GALERI_KEYS = [
   "galeri_1",

@@ -17,7 +17,8 @@ export function ProjectDetailImage({
   sizes?: string;
 }) {
   const resolvedSizes =
-    sizes ?? (variant === "cover" ? "100vw" : "80vw");
+    sizes ??
+    (variant === "cover" ? "100vw" : "(max-width: 768px) 95vw, 80vw");
   const className =
     variant === "cover" ? "project-detail-cover-img" : "project-detail-media-img";
 

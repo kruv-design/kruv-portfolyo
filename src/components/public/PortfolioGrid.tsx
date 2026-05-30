@@ -76,7 +76,7 @@ export function PortfolioGrid({
           ariaLabel={t(messages, "works.filterAria", "Project filters")}
         />
 
-        <main className="portfolio-grid pb-10">
+        <main className="portfolio-grid">
           {filtered.length === 0 ? (
             <div
               className="b1 col-span-full py-20 text-center italic"

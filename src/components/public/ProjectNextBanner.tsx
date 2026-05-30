@@ -88,10 +88,6 @@ export function ProjectNextBanner({
                 →
               </span>
             </div>
-
-            <p className="project-next-banner__scroll-hint" aria-hidden="true">
-              ↑ {t(messages, "project.scrollUp", "Scroll up")}
-            </p>
           </div>
 
           <div className="project-next-banner__media">
@@ -109,9 +105,6 @@ export function ProjectNextBanner({
                 className="project-next-banner__placeholder"
               />
             )}
-            <span className="project-next-banner__badge" aria-hidden="true">
-              {t(messages, "project.nextBadge", "Next")} →
-            </span>
           </div>
         </div>
       </Link>

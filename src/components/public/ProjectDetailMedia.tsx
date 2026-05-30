@@ -35,6 +35,7 @@ export function ProjectDetailMedia({
   const [videoReady, setVideoReady] = useState(false);
   const [activated, setActivated] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [playError, setPlayError] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   const clickMode = playback === "click";
 
@@ -73,54 +74,51 @@ export function ProjectDetailMedia({
     return () => document.removeEventListener("visibilitychange", onVis);
   }, [loadVideo, videoSrc, clickMode]);
 
-  const tryPlay = useCallback(async () => {
-    const v = videoRef.current;
-    if (!v) return false;
-    try {
-      await v.play();
-      setIsPlaying(true);
-      return true;
-    } catch {
-      setIsPlaying(false);
-      return false;
-    }
-  }, []);
+  /** Tıklama anında src + play — tarayıcı kullanıcı jesti kaybolmasın */
+  const handlePlayClick = useCallback(() => {
+    if (!videoSrc || reducedMotion) return;
 
-  /** Tıklama modu: src yüklendikten sonra oynat */
-  useEffect(() => {
-    if (!clickMode || !activated || !loadVideo || !videoSrc) return;
+    setActivated(true);
+    setLoadVideo(true);
+    setPlayError(false);
+
     const v = videoRef.current;
     if (!v) return;
 
-    const playWhenReady = () => {
-      void tryPlay();
+    const playNow = () => {
+      void v
+        .play()
+        .then(() => {
+          setIsPlaying(true);
+          setPlayError(false);
+        })
+        .catch(() => {
+          setIsPlaying(false);
+          setPlayError(true);
+        });
     };
 
+    if (v.src !== videoSrc) {
+      v.src = videoSrc;
+    }
+    v.load();
+
     if (v.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
-      playWhenReady();
+      playNow();
       return;
     }
 
-    v.addEventListener("canplay", playWhenReady, { once: true });
-    v.addEventListener("loadeddata", playWhenReady, { once: true });
-    return () => {
-      v.removeEventListener("canplay", playWhenReady);
-      v.removeEventListener("loadeddata", playWhenReady);
-    };
-  }, [clickMode, activated, loadVideo, videoSrc, tryPlay]);
-
-  const handlePlayClick = useCallback(() => {
-    if (!videoSrc || reducedMotion) return;
-    setActivated(true);
-    setLoadVideo(true);
+    const onReady = () => playNow();
+    v.addEventListener("canplay", onReady, { once: true });
+    v.addEventListener("loadeddata", onReady, { once: true });
   }, [videoSrc, reducedMotion]);
 
-  const showVideo =
-    Boolean(videoSrc) &&
-    loadVideo &&
-    !reducedMotion &&
-    videoReady &&
-    (clickMode ? activated && isPlaying : true);
+  const showVideoLayer =
+    Boolean(videoSrc) && loadVideo && !reducedMotion && (clickMode ? activated : true);
+
+  const showVideoVisible = clickMode
+    ? isPlaying
+    : Boolean(videoSrc) && loadVideo && !reducedMotion && videoReady;
 
   const showPlayButton =
     clickMode && Boolean(videoSrc) && !reducedMotion && !isPlaying;
@@ -153,7 +151,7 @@ export function ProjectDetailMedia({
       {posterSrc ? (
         <div
           className={
-            showVideo
+            showVideoVisible
               ? "project-detail-media__poster-wrap is-under-video"
               : "project-detail-media__poster-wrap"
           }
@@ -174,33 +172,42 @@ export function ProjectDetailMedia({
               <span className="project-detail-media__play-icon" aria-hidden="true" />
             </button>
           ) : null}
+          {playError ? (
+            <p className="project-detail-media__play-error" role="status">
+              Video yüklenemedi — URL’yi kontrol edin.
+            </p>
+          ) : null}
         </div>
       ) : null}
 
       {videoSrc && !reducedMotion ? (
         <video
           ref={videoRef}
-          className={`project-detail-media__video${showVideo ? " is-visible" : ""}`}
+          className={`project-detail-media__video${
+            showVideoLayer ? " is-mounted" : ""
+          }${showVideoVisible ? " is-visible" : ""}`}
           poster={posterSrc || undefined}
           muted
           playsInline
           loop
           autoPlay={!clickMode}
-          preload={clickMode && activated ? "auto" : "none"}
-          aria-hidden={clickMode ? undefined : true}
+          preload={clickMode ? "metadata" : "none"}
           tabIndex={clickMode ? 0 : -1}
-          {...(loadVideo ? { src: videoSrc } : {})}
+          src={loadVideo ? videoSrc : undefined}
           onLoadedData={() => setVideoReady(true)}
           onCanPlay={() => {
             if (clickMode) return;
             const v = videoRef.current;
             if (v && !document.hidden) void v.play().catch(() => {});
           }}
-          onPlay={() => setIsPlaying(true)}
+          onPlay={() => {
+            setIsPlaying(true);
+            setPlayError(false);
+          }}
           onPause={() => setIsPlaying(false)}
           onError={() => {
             setIsPlaying(false);
-            setActivated(false);
+            setPlayError(true);
           }}
         />
       ) : null}

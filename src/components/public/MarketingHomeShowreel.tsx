@@ -2,8 +2,10 @@ import type { Locale } from "@/lib/i18n/config";
 import type { Messages } from "@/lib/i18n/get-messages";
 import { t } from "@/lib/i18n/t";
 import {
+  applyShowreelAspect,
   resolveProjectImageUrl,
   resolveProjectVideoUrl,
+  type ShowreelLayout,
 } from "@/lib/project-images";
 import type { SiteSettings } from "@/types";
 import { ProjectDetailMedia } from "./ProjectDetailMedia";
@@ -13,11 +15,20 @@ type ShowreelSlot = {
   videoSrc: string | null;
 };
 
-function buildShowreelSlot(posterRaw: string, videoRaw: string): ShowreelSlot | null {
-  const posterSrc = resolveProjectImageUrl(posterRaw.trim());
+function buildShowreelSlot(
+  posterRaw: string,
+  videoRaw: string,
+  layout: ShowreelLayout,
+): ShowreelSlot | null {
+  const posterSrc = applyShowreelAspect(
+    resolveProjectImageUrl(posterRaw.trim()),
+    layout,
+  );
   if (!posterSrc) return null;
   const video = videoRaw.trim();
-  const videoSrc = video ? resolveProjectVideoUrl(video) || null : null;
+  const videoSrc = video
+    ? applyShowreelAspect(resolveProjectVideoUrl(video), layout) || null
+    : null;
   return { posterSrc, videoSrc };
 }
 
@@ -25,13 +36,15 @@ function ShowreelVariant({
   slot,
   className,
   playLabel,
+  layout,
 }: {
   slot: ShowreelSlot;
   className: string;
   playLabel: string;
+  layout: ShowreelLayout;
 }) {
   return (
-    <div className={className}>
+    <div className={className} data-showreel-layout={layout}>
       <div className="home-showreel__inner">
         <ProjectDetailMedia
           posterSrc={slot.posterSrc}
@@ -59,11 +72,13 @@ export function MarketingHomeShowreel({
   const web = buildShowreelSlot(
     settings.homeVideoPoster ?? "",
     settings.homeVideo ?? "",
+    "landscape",
   );
 
   const mobile = buildShowreelSlot(
     settings.homeVideoPosterMobile ?? "",
     settings.homeVideoMobile ?? "",
+    "portrait",
   );
 
   if (!web && !mobile) return null;
@@ -81,6 +96,7 @@ export function MarketingHomeShowreel({
           slot={web}
           className="home-showreel__variant home-showreel__variant--web"
           playLabel={playLabel}
+          layout="landscape"
         />
       ) : null}
       {mobile ? (
@@ -88,6 +104,7 @@ export function MarketingHomeShowreel({
           slot={mobile}
           className="home-showreel__variant home-showreel__variant--mobile"
           playLabel={playLabel}
+          layout="portrait"
         />
       ) : null}
     </section>
