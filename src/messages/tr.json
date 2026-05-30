@@ -13,7 +13,8 @@
       "mobileCtaA11y": "Projeleri gör — portföyü aç"
     },
     "showreel": {
-      "ariaLabel": "Showreel videosu"
+      "ariaLabel": "Showreel videosu",
+      "play": "Videoyu oynat"
     },
     "featuredWorks": {
       "tag": "Seçili işler",

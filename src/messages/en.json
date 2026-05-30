@@ -13,7 +13,8 @@
       "mobileCtaA11y": "See projects — open portfolio"
     },
     "showreel": {
-      "ariaLabel": "Showreel video"
+      "ariaLabel": "Showreel video",
+      "play": "Play video"
     },
     "featuredWorks": {
       "tag": "Selected work",

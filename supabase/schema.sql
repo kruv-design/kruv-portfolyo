@@ -105,6 +105,8 @@ create table if not exists public.site_settings (
   "githubUrl" text not null default '',
   "homeVideoPoster" text not null default '',
   "homeVideo" text not null default '',
+  "homeVideoPosterMobile" text not null default '',
+  "homeVideoMobile" text not null default '',
   updated_at  timestamptz not null default now(),
   constraint site_settings_singleton check (id = 1)
 );
@@ -123,6 +125,8 @@ alter table public.site_settings add column if not exists "pinterestUrl" text no
 alter table public.site_settings add column if not exists "githubUrl" text not null default '';
 alter table public.site_settings add column if not exists "homeVideoPoster" text not null default '';
 alter table public.site_settings add column if not exists "homeVideo" text not null default '';
+alter table public.site_settings add column if not exists "homeVideoPosterMobile" text not null default '';
+alter table public.site_settings add column if not exists "homeVideoMobile" text not null default '';
 
 drop trigger if exists settings_touch on public.site_settings;
 create trigger settings_touch

@@ -77,10 +77,14 @@ export type SiteSettings = {
   youtubeUrl: string;
   pinterestUrl: string;
   githubUrl: string;
-  /** Anasayfa hero altı poster (Cloudinary public_id veya https URL) */
+  /** Anasayfa showreel — web (masaüstü) poster */
   homeVideoPoster: string;
-  /** Anasayfa loop video — poster zorunlu; boş = sadece poster */
+  /** Anasayfa showreel — web video */
   homeVideo: string;
+  /** Anasayfa showreel — mobil poster */
+  homeVideoPosterMobile: string;
+  /** Anasayfa showreel — mobil video */
+  homeVideoMobile: string;
 };
 
 export type ApiError = {

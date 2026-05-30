@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ProjectDetailImage } from "./ProjectDetailImage";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 
 type Variant = "cover" | "gallery";
+type PlaybackMode = "auto" | "click";
 
 export function ProjectDetailMedia({
   posterSrc,
@@ -14,6 +15,8 @@ export function ProjectDetailMedia({
   variant = "gallery",
   placeholderLabel,
   placeholderColor,
+  playback = "auto",
+  playLabel = "Play video",
 }: {
   posterSrc: string;
   videoSrc: string | null;
@@ -22,12 +25,17 @@ export function ProjectDetailMedia({
   variant?: Variant;
   placeholderLabel?: string;
   placeholderColor?: string;
+  /** `click` = poster + oynat butonu; `auto` = scroll’da sessiz loop */
+  playback?: PlaybackMode;
+  playLabel?: string;
 }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  const [loadVideo, setLoadVideo] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const clickMode = playback === "click";
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -38,23 +46,23 @@ export function ProjectDetailMedia({
   }, []);
 
   useEffect(() => {
-    if (!videoSrc || reducedMotion) return;
+    if (!videoSrc || reducedMotion || clickMode) return;
     const el = rootRef.current;
     if (!el) return;
 
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (entry?.isIntersecting) setShouldLoadVideo(true);
+        if (entry?.isIntersecting) setLoadVideo(true);
       },
       { rootMargin: "200px 0px", threshold: 0.01 },
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [videoSrc, reducedMotion]);
+  }, [videoSrc, reducedMotion, clickMode]);
 
   useEffect(() => {
     const v = videoRef.current;
-    if (!v || !shouldLoadVideo || !videoSrc) return;
+    if (!v || !loadVideo || !videoSrc || clickMode) return;
 
     const onVis = () => {
       if (document.hidden) v.pause();
@@ -62,10 +70,37 @@ export function ProjectDetailMedia({
     };
     document.addEventListener("visibilitychange", onVis);
     return () => document.removeEventListener("visibilitychange", onVis);
-  }, [shouldLoadVideo, videoSrc]);
+  }, [loadVideo, videoSrc, clickMode]);
+
+  const tryPlay = useCallback(async () => {
+    const v = videoRef.current;
+    if (!v) return;
+    try {
+      await v.play();
+      setIsPlaying(true);
+    } catch {
+      setIsPlaying(false);
+    }
+  }, []);
+
+  const handlePlayClick = useCallback(() => {
+    if (!videoSrc || reducedMotion) return;
+    setLoadVideo(true);
+    const v = videoRef.current;
+    if (v && v.readyState >= 2) {
+      void tryPlay();
+    }
+  }, [videoSrc, reducedMotion, tryPlay]);
 
   const showVideo =
-    Boolean(videoSrc) && shouldLoadVideo && !reducedMotion && videoReady;
+    Boolean(videoSrc) &&
+    loadVideo &&
+    !reducedMotion &&
+    videoReady &&
+    (clickMode ? isPlaying : true);
+
+  const showPlayButton =
+    clickMode && Boolean(videoSrc) && !reducedMotion && !isPlaying;
 
   if (!posterSrc && !videoSrc) {
     if (!placeholderLabel) return null;
@@ -95,7 +130,9 @@ export function ProjectDetailMedia({
       {posterSrc ? (
         <div
           className={
-            showVideo ? "project-detail-media__poster-wrap is-under-video" : "project-detail-media__poster-wrap"
+            showVideo
+              ? "project-detail-media__poster-wrap is-under-video"
+              : "project-detail-media__poster-wrap"
           }
         >
           <ProjectDetailImage
@@ -104,6 +141,16 @@ export function ProjectDetailMedia({
             priority={priority}
             variant={variant}
           />
+          {showPlayButton ? (
+            <button
+              type="button"
+              className="project-detail-media__play"
+              onClick={handlePlayClick}
+              aria-label={playLabel}
+            >
+              <span className="project-detail-media__play-icon" aria-hidden="true" />
+            </button>
+          ) : null}
         </div>
       ) : null}
 
@@ -115,16 +162,22 @@ export function ProjectDetailMedia({
           muted
           playsInline
           loop
-          autoPlay
+          autoPlay={!clickMode}
           preload="none"
-          aria-hidden
-          tabIndex={-1}
-          {...(shouldLoadVideo ? { src: videoSrc } : {})}
+          aria-hidden={clickMode ? undefined : true}
+          tabIndex={clickMode ? 0 : -1}
+          {...(loadVideo ? { src: videoSrc } : {})}
           onLoadedData={() => setVideoReady(true)}
           onCanPlay={() => {
+            if (clickMode && loadVideo && !isPlaying) {
+              void tryPlay();
+              return;
+            }
             const v = videoRef.current;
-            if (v && !document.hidden) void v.play().catch(() => {});
+            if (!clickMode && v && !document.hidden) void v.play().catch(() => {});
           }}
+          onPlay={() => setIsPlaying(true)}
+          onPause={() => setIsPlaying(false)}
         />
       ) : null}
     </div>

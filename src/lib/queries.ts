@@ -24,6 +24,8 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   githubUrl: "",
   homeVideoPoster: "",
   homeVideo: "",
+  homeVideoPosterMobile: "",
+  homeVideoMobile: "",
 };
 
 function pickSettingsUrl(value: unknown, fallback: string): string {
@@ -144,6 +146,12 @@ export async function getSettings(): Promise<SiteSettings> {
       homeVideoPoster:
         typeof row?.homeVideoPoster === "string" ? row.homeVideoPoster.trim() : "",
       homeVideo: typeof row?.homeVideo === "string" ? row.homeVideo.trim() : "",
+      homeVideoPosterMobile:
+        typeof row?.homeVideoPosterMobile === "string"
+          ? row.homeVideoPosterMobile.trim()
+          : "",
+      homeVideoMobile:
+        typeof row?.homeVideoMobile === "string" ? row.homeVideoMobile.trim() : "",
     };
   } catch {
     return DEFAULT_SITE_SETTINGS;

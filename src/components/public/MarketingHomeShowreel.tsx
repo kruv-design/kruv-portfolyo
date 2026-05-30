@@ -8,7 +8,45 @@ import {
 import type { SiteSettings } from "@/types";
 import { ProjectDetailMedia } from "./ProjectDetailMedia";
 
-/** Anasayfa hero altı — poster LCP; video lazy (site_settings). */
+type ShowreelSlot = {
+  posterSrc: string;
+  videoSrc: string | null;
+};
+
+function buildShowreelSlot(posterRaw: string, videoRaw: string): ShowreelSlot | null {
+  const posterSrc = resolveProjectImageUrl(posterRaw.trim());
+  if (!posterSrc) return null;
+  const video = videoRaw.trim();
+  const videoSrc = video ? resolveProjectVideoUrl(video) || null : null;
+  return { posterSrc, videoSrc };
+}
+
+function ShowreelVariant({
+  slot,
+  className,
+  playLabel,
+}: {
+  slot: ShowreelSlot;
+  className: string;
+  playLabel: string;
+}) {
+  return (
+    <div className={className}>
+      <div className="home-showreel__inner">
+        <ProjectDetailMedia
+          posterSrc={slot.posterSrc}
+          videoSrc={slot.videoSrc}
+          alt=""
+          variant="gallery"
+          playback="click"
+          playLabel={playLabel}
+        />
+      </div>
+    </div>
+  );
+}
+
+/** Anasayfa hero altı — web / mobil ayrı poster+video (site_settings). */
 export function MarketingHomeShowreel({
   settings,
   locale,
@@ -18,11 +56,20 @@ export function MarketingHomeShowreel({
   locale: Locale;
   messages: Messages;
 }) {
-  const posterSrc = resolveProjectImageUrl(settings.homeVideoPoster ?? "");
-  if (!posterSrc) return null;
+  const web = buildShowreelSlot(
+    settings.homeVideoPoster ?? "",
+    settings.homeVideo ?? "",
+  );
 
-  const videoRaw = settings.homeVideo?.trim() ?? "";
-  const videoSrc = videoRaw ? resolveProjectVideoUrl(videoRaw) || null : null;
+  const mobilePosterRaw =
+    settings.homeVideoPosterMobile?.trim() || settings.homeVideoPoster?.trim() || "";
+  const mobileVideoRaw =
+    settings.homeVideoMobile?.trim() || settings.homeVideo?.trim() || "";
+  const mobile = buildShowreelSlot(mobilePosterRaw, mobileVideoRaw);
+
+  if (!web && !mobile) return null;
+
+  const playLabel = t(messages, "home.showreel.play", "Play video");
 
   return (
     <section
@@ -30,14 +77,20 @@ export function MarketingHomeShowreel({
       lang={locale}
       aria-label={t(messages, "home.showreel.ariaLabel", "Showreel video")}
     >
-      <div className="home-showreel__inner">
-        <ProjectDetailMedia
-          posterSrc={posterSrc}
-          videoSrc={videoSrc}
-          alt=""
-          variant="gallery"
+      {web ? (
+        <ShowreelVariant
+          slot={web}
+          className="home-showreel__variant home-showreel__variant--web"
+          playLabel={playLabel}
         />
-      </div>
+      ) : null}
+      {mobile ? (
+        <ShowreelVariant
+          slot={mobile}
+          className="home-showreel__variant home-showreel__variant--mobile"
+          playLabel={playLabel}
+        />
+      ) : null}
     </section>
   );
 }

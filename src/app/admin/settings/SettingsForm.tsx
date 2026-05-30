@@ -93,16 +93,21 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
           Anasayfa showreel
         </div>
         <p className="b1 mb-5" style={{ color: "var(--b1-color)" }}>
-          Hero altı video. Poster zorunlu (LCP). Video boş bırakılırsa yalnızca poster
-          gösterilir. Cloudinary <span className="b2">public_id</span> veya tam{" "}
-          <span className="b2">https://</span> URL.
+          Hero altı showreel. Masaüstü (≥701px) ve mobil ayrı. Poster zorunlu. Cloudinary{" "}
+          <span className="b2">public_id</span> veya <span className="b2">https://</span> URL.
         </p>
-        <div className="flex flex-col gap-5">
+        <p
+          className="b2 mb-4 font-medium"
+          style={{ color: "var(--ink)" }}
+        >
+          Web (masaüstü)
+        </p>
+        <div className="mb-6 flex flex-col gap-5">
           <Field label="homeVideoPoster">
             <input
               type="text"
               className="form-input"
-              placeholder="kruv-portfolio/home-poster"
+              placeholder="kruv-portfolio/home-poster-web"
               value={state.homeVideoPoster}
               onChange={(e) =>
                 setState((s) => ({ ...s, homeVideoPoster: e.target.value }))
@@ -113,10 +118,43 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
             <input
               type="text"
               className="form-input"
-              placeholder="kruv-portfolio/home-loop"
+              placeholder="kruv-portfolio/home-loop-web"
               value={state.homeVideo}
               onChange={(e) =>
                 setState((s) => ({ ...s, homeVideo: e.target.value }))
+              }
+            />
+          </Field>
+        </div>
+        <p
+          className="b2 mb-4 font-medium"
+          style={{ color: "var(--ink)" }}
+        >
+          Mobil (telefon)
+        </p>
+        <div className="flex flex-col gap-5">
+          <Field label="homeVideoPosterMobile">
+            <input
+              type="text"
+              className="form-input"
+              placeholder="kruv-portfolio/home-poster-mobile"
+              value={state.homeVideoPosterMobile}
+              onChange={(e) =>
+                setState((s) => ({
+                  ...s,
+                  homeVideoPosterMobile: e.target.value,
+                }))
+              }
+            />
+          </Field>
+          <Field label="homeVideoMobile (isteğe bağlı)">
+            <input
+              type="text"
+              className="form-input"
+              placeholder="kruv-portfolio/home-loop-mobile"
+              value={state.homeVideoMobile}
+              onChange={(e) =>
+                setState((s) => ({ ...s, homeVideoMobile: e.target.value }))
               }
             />
           </Field>

@@ -272,6 +272,8 @@ export const settingsSchema = z.object({
   githubUrl: optHttpUrl,
   homeVideoPoster: optStr,
   homeVideo: optStr,
+  homeVideoPosterMobile: optStr,
+  homeVideoMobile: optStr,
 });
 
 const emptyOrEmail = z
