@@ -1,5 +1,10 @@
 "use client";
 
+/**
+ * @section çift-kayan-yazi
+ * Scroll-linked çift satır metin bandı (değerler kartları sonrası).
+ * Aktif/pasif: src/lib/marketing-flags.ts → ENABLE_CIFT_KAYAN_YAZI
+ */
 import { Fragment, useEffect, useRef } from "react";
 import type { Locale } from "@/lib/i18n/config";
 import type { Messages } from "@/lib/i18n/get-messages";

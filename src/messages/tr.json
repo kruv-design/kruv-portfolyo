@@ -15,32 +15,34 @@
     },
     "showreel": {
       "ariaLabel": "Showreel videosu",
-      "play": "Videoyu oynat"
+      "play": "Videoyu oynat",
+      "playError": "Video yüklenemedi — URL adresini kontrol edin.",
+      "openVideo": "Videoyu aç"
     },
     "values": {
-      "ariaLabel": "Çalışma yaklaşımımız",
-      "title": "bizi farklı kılan ne.",
-      "lead": "sosyal native markalar için feed-first düşünce, net iletişim ve üretim disiplinini aynı masada birleştiriyoruz.",
+      "ariaLabel": "Hedef müşteri tipleri",
+      "title": "kime hitap ediyoruz.",
+      "lead": "markanın hangi evresinde olursan ol — sıfırdan kimlik kurmaktan ölçeklenmeye, görünürlükten yenilemeye kadar birlikte ilerleriz.",
       "items": [
         {
           "index": "01",
-          "title": "feed-first strateji",
-          "body": "tasarımı timeline'dan değil, akıştan başlatırız. her format platforma ve kategoriye göre düşünülür."
+          "title": "sıfırdan başlayanlar",
+          "body": "fikrin var ama her şey dağınık. kimlik yok, sistem yok, üzerine inşa edecek sağlam bir zemin yok."
         },
         {
           "index": "02",
-          "title": "net iletişim",
-          "body": "brief'ten teslimata kadar süreci şeffaf tutarız. kararları ve iterasyonları birlikte netleştiririz."
+          "title": "ölçeklenmeye hazır",
+          "body": "ürünün çalışıyor ama markan geride kalıyor. büyüyorsun ama kontrollü hissetmiyorsun."
         },
         {
           "index": "03",
-          "title": "marka sistemleri",
-          "body": "logo değil; ton, grid, tipografi ve görsel dil birlikte çalışan tutarlı bir sistem kurarız."
+          "title": "görünürlük ihtiyacı",
+          "body": "ciddi iş yapıyorsun ama öyle görünmüyor. algı, olduğun seviyeyi yansıtmıyor."
         },
         {
           "index": "04",
-          "title": "hareket ve zanaat",
-          "body": "motion, feed ve statik arasında geçişi bilinçli kullanırız. her kare paylaşmaya değer olmalı."
+          "title": "eskimiş kimlik",
+          "body": "markan seni buraya getirdi ama artık ileri taşımıyor. tutarsız ve güncel değil hissettiriyor."
         }
       ]
     },

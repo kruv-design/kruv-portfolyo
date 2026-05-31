@@ -8,6 +8,7 @@ import { MarketingHomeShowreel } from "@/components/public/MarketingHomeShowreel
 import { MarketingHomeValues } from "@/components/public/MarketingHomeValues";
 import { MarketingScrollMarquee } from "@/components/public/MarketingScrollMarquee";
 import { MarketingHomeBody } from "@/components/public/MarketingHomeBody";
+import { ENABLE_CIFT_KAYAN_YAZI } from "@/lib/marketing-flags";
 import { getMessages } from "@/lib/i18n/get-messages";
 import { withLocale } from "@/lib/i18n/path";
 import { env } from "@/lib/env";
@@ -53,7 +54,9 @@ export default async function LocaleHomePage({
         messages={messages}
       />
       <MarketingHomeValues locale={locale} messages={messages} />
-      <MarketingScrollMarquee locale={locale} messages={messages} />
+      {ENABLE_CIFT_KAYAN_YAZI ? (
+        <MarketingScrollMarquee locale={locale} messages={messages} />
+      ) : null}
       <MarketingHomeBody locale={locale} messages={messages} />
     </MarketingPageShell>
   );

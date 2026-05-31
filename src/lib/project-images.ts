@@ -44,10 +44,103 @@ export function resolveProjectVideoUrl(raw: string): string {
 
 export type ShowreelLayout = "landscape" | "portrait";
 
-/** Anasayfa showreel — web 16:9, mobil 9:16 (Cloudinary crop). */
+function showreelAspectCrop(layout: ShowreelLayout): string {
+  return layout === "landscape" ? "c_fill,ar_16:9" : "c_fill,ar_9:16";
+}
+
+function showreelVideoTransforms(layout: ShowreelLayout): string {
+  return `${showreelAspectCrop(layout)},f_mp4,q_auto,w_1920,c_limit`;
+}
+
+function showreelPosterTransforms(layout: ShowreelLayout): string {
+  return `${showreelAspectCrop(layout)},f_auto,q_auto`;
+}
+
+function stripCloudinaryExtension(id: string): string {
+  return id.replace(/\.(mp4|webm|mov|jpe?g|png|webp|gif|avif|heic)$/i, "");
+}
+
+/** Cloudinary delivery URL → public_id (transform/version segmentleri atlanır). */
+function cloudinaryPublicIdFromUrl(url: string, resource: "video" | "image"): string | null {
+  const marker = `/${resource}/upload/`;
+  const idx = url.indexOf(marker);
+  if (idx === -1) return null;
+
+  const rest = url.slice(idx + marker.length).split("?")[0] ?? "";
+  const segments = rest.split("/").filter(Boolean);
+  if (segments.length === 0) return null;
+
+  if (/^v\d+$/.test(segments[0] ?? "")) {
+    segments.shift();
+  }
+
+  while (segments.length > 1 && /^[a-z0-9_,.-]+$/i.test(segments[0] ?? "") && segments[0]!.includes("_")) {
+    segments.shift();
+  }
+
+  const joined = segments.join("/");
+  return stripCloudinaryExtension(joined) || null;
+}
+
+function buildCloudinaryVideoUrl(publicId: string, transforms: string): string {
+  const cloud = cloudName();
+  if (!cloud) return publicId;
+  const id = stripCloudinaryExtension(publicId.replace(/^\/+/, ""));
+  return `https://res.cloudinary.com/${cloud}/video/upload/${transforms}/${id}`;
+}
+
+function buildCloudinaryImageUrl(publicId: string, transforms: string): string {
+  const cloud = cloudName();
+  if (!cloud) return publicId;
+  const id = stripCloudinaryExtension(publicId.replace(/^\/+/, ""));
+  return `https://res.cloudinary.com/${cloud}/image/upload/${transforms}/${id}`;
+}
+
+/** Anasayfa showreel poster — web 16:9, mobil 9:16. */
+export function resolveShowreelPosterUrl(raw: string, layout: ShowreelLayout): string {
+  const s = raw.trim().replace(/\s+/g, "");
+  if (!s) return "";
+  const transforms = showreelPosterTransforms(layout);
+
+  if (/^https?:\/\//i.test(s)) {
+    if (s.includes("res.cloudinary.com") && s.includes("/image/upload/")) {
+      if (/ar_\d+:\d+/.test(s)) return s;
+      const id = cloudinaryPublicIdFromUrl(s, "image");
+      if (id) return buildCloudinaryImageUrl(id, transforms);
+    }
+    return s;
+  }
+
+  return buildCloudinaryImageUrl(s, transforms);
+}
+
+/** Anasayfa showreel video — f_mp4, crop, Safari uyumlu. */
+export function resolveShowreelVideoUrl(raw: string, layout: ShowreelLayout): string {
+  const s = raw.trim().replace(/\s+/g, "");
+  if (!s) return "";
+  const transforms = showreelVideoTransforms(layout);
+
+  if (/^https?:\/\//i.test(s)) {
+    if (s.includes("/image/upload/")) {
+      const id = cloudinaryPublicIdFromUrl(s, "image") ?? cloudinaryPublicIdFromUrl(s, "video");
+      if (id) return buildCloudinaryVideoUrl(id, transforms);
+      return s.replace("/image/upload/", `/video/upload/${transforms}/`);
+    }
+    if (s.includes("res.cloudinary.com") && s.includes("/video/upload/")) {
+      if (/ar_\d+:\d+/.test(s) && /f_mp4/.test(s)) return s;
+      const id = cloudinaryPublicIdFromUrl(s, "video");
+      if (id) return buildCloudinaryVideoUrl(id, transforms);
+    }
+    return s;
+  }
+
+  return buildCloudinaryVideoUrl(s, transforms);
+}
+
+/** @deprecated showreel için resolveShowreelPosterUrl / resolveShowreelVideoUrl kullanın */
 export function applyShowreelAspect(url: string, layout: ShowreelLayout): string {
   if (!url.includes("res.cloudinary.com") || /ar_\d+:\d+/.test(url)) return url;
-  const crop = layout === "landscape" ? "c_fill,ar_16:9" : "c_fill,ar_9:16";
+  const crop = showreelAspectCrop(layout);
 
   if (url.includes("/video/upload/")) {
     return url.replace("/video/upload/", `/video/upload/${crop}/`);

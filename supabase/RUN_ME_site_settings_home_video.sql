@@ -15,3 +15,6 @@ alter table public.site_settings
 --   "homeVideoPoster" = 'kruv-portfolio/home-showreel-poster',
 --   "homeVideo" = 'kruv-portfolio/home-showreel'
 -- where id = 1;
+--
+-- Kontrol: homeVideo bir VIDEO public_id olmalı (image URL değil).
+-- NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME (.env / Vercel) tanımlı olmalı.

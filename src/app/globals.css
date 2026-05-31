@@ -1319,6 +1319,73 @@ body {
   height: auto;
 }
 
+/* Showreel player — tüm poster alanı tıklanabilir */
+.home-showreel-player {
+  pointer-events: auto;
+}
+
+.home-showreel-player__hit {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.home-showreel-player__hit .project-detail-media__play {
+  pointer-events: none;
+}
+
+.home-showreel-player__poster {
+  pointer-events: auto;
+  z-index: 2;
+}
+
+.home-showreel-player__error {
+  position: absolute;
+  left: 50%;
+  bottom: 0.75rem;
+  z-index: 4;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  pointer-events: auto;
+}
+
+.home-showreel-player__open-link {
+  font-size: 0.75rem;
+  line-height: 1.3;
+  color: var(--gray-anti);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.home-showreel-player__open-link:hover {
+  color: var(--accent);
+}
+
+.home-showreel-player .project-detail-media__video {
+  pointer-events: none;
+  z-index: 1;
+}
+
+.home-showreel-player .project-detail-media__video.is-visible {
+  pointer-events: auto;
+  z-index: 3;
+}
+
+.home-showreel-player .project-detail-media__video.has-controls {
+  pointer-events: auto;
+  z-index: 4;
+}
+
 /* Web: zorunlu 16:9 yatay kutu */
 .home-showreel__variant--web .project-detail-media {
   position: relative;

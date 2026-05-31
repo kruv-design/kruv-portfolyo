@@ -2215,7 +2215,7 @@ body:has(.card:hover) .ticker {
   pointer-events: none;
 }
 
-/* ── HOME VALUES (showreel sonrası) ── */
+/* ── HOME AUDIENCE (showreel sonrası — journey focus-list müşteri tipleri) ── */
 .home-values {
   box-sizing: border-box;
   position: relative;
@@ -2276,21 +2276,21 @@ body:has(.card:hover) .ticker {
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
-  min-height: 100%;
-  padding: var(--space-8);
-  border: 1px solid var(--color-border-soft);
+  min-height: clamp(18rem, 34vh, 26rem);
+  padding: var(--space-8) var(--space-8) var(--space-10);
+  border: 1px solid var(--border);
   border-radius: var(--card-radius);
-  background: color-mix(in srgb, var(--color-surface) 36%, transparent);
+  background: color-mix(in srgb, var(--surface) 36%, transparent);
 }
 
 .home-values__index {
-  font-family: var(--font-mono);
-  font-size: var(--b2-font-size);
-  font-weight: 400;
-  line-height: var(--lh-tight);
-  letter-spacing: var(--ls-mono);
-  text-transform: lowercase;
-  color: var(--color-text-muted);
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: var(--b3-line-height);
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: var(--b3-text-transform);
+  color: var(--silver);
 }
 
 .home-values__icon {
@@ -2303,12 +2303,12 @@ body:has(.card:hover) .ticker {
 }
 
 .home-values__card-title {
-  font-family: var(--h4-font-family);
-  font-size: calc(var(--h4-font-size) + 2px);
-  font-weight: var(--h4-font-weight);
-  line-height: var(--h4-line-height);
-  letter-spacing: var(--h4-letter-spacing);
-  text-transform: var(--h4-text-transform);
+  font-family: var(--h3-font-family);
+  font-size: var(--h3-font-size);
+  font-weight: var(--h3-font-weight);
+  line-height: var(--h3-line-height);
+  letter-spacing: var(--h3-letter-spacing);
+  text-transform: var(--h3-text-transform);
   color: var(--frost);
 }
 
@@ -2350,7 +2350,7 @@ body:has(.card:hover) .ticker {
   }
 }
 
-/* ── HOME SCROLL MARQUEE (değerler sonrası — scroll scrub) ── */
+/* ── çift kayan yazı (home-scroll-marquee) — şimdilik kapalı: marketing-flags ENABLE_CIFT_KAYAN_YAZI ── */
 .home-scroll-marquee {
   --scroll-marquee-scrub: clamp(120vh, 165vh, 200vh);
   position: relative;

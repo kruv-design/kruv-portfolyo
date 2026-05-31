@@ -59,7 +59,7 @@ function ValueIconSvg({ name }: { name: ValueIcon }) {
   }
 }
 
-/** Anasayfa showreel sonrası — değer kartları (feed-first, iletişim, sistem, motion). */
+/** Anasayfa showreel sonrası — hedef müşteri tipleri (journey focus-list: sıfır, ölçek, görünürlük, yenileme). */
 export function MarketingHomeValues({
   locale,
   messages,
@@ -72,7 +72,7 @@ export function MarketingHomeValues({
   return (
     <section
       className="home-values"
-      id="values"
+      id="audience"
       lang={locale}
       aria-labelledby="home-values-heading"
     >

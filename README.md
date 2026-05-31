@@ -131,7 +131,13 @@ cp .env.example .env.local
    - Folder: `kruv-portfolio`
    - Set it to `CLOUDINARY_UPLOAD_PRESET`.
 
-### 4. Seed (optional)
+4. **Anasayfa showreel** (`site_settings` → `homeVideoPoster` / `homeVideo`):
+   - Poster: Cloudinary **image** public_id veya https URL.
+   - Video: Cloudinary **video** public_id (ör. `kruv-portfolio/home-showreel`) — image URL değil.
+   - Production’da `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` Vercel env’de tanımlı olmalı; aksi halde public_id tarayıcıda açılmaz.
+   - Doğrulama: üretilen MP4 URL’yi tarayıcıda doğrudan açın — oynuyorsa veri doğru, sorun UI’dadır.
+
+### 5. Seed (optional)
 
 Imports the three prototype projects:
 
@@ -139,7 +145,7 @@ Imports the three prototype projects:
 npm run seed
 ```
 
-### 5. Run
+### 6. Run
 
 ```bash
 npm run dev

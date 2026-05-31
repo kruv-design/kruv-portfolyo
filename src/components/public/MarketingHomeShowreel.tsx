@@ -2,13 +2,12 @@ import type { Locale } from "@/lib/i18n/config";
 import type { Messages } from "@/lib/i18n/get-messages";
 import { t } from "@/lib/i18n/t";
 import {
-  applyShowreelAspect,
-  resolveProjectImageUrl,
-  resolveProjectVideoUrl,
+  resolveShowreelPosterUrl,
+  resolveShowreelVideoUrl,
   type ShowreelLayout,
 } from "@/lib/project-images";
 import type { SiteSettings } from "@/types";
-import { ProjectDetailMedia } from "./ProjectDetailMedia";
+import { MarketingHomeShowreelPlayer } from "./MarketingHomeShowreelPlayer";
 
 type ShowreelSlot = {
   posterSrc: string;
@@ -20,14 +19,11 @@ function buildShowreelSlot(
   videoRaw: string,
   layout: ShowreelLayout,
 ): ShowreelSlot | null {
-  const posterSrc = applyShowreelAspect(
-    resolveProjectImageUrl(posterRaw.trim()),
-    layout,
-  );
+  const posterSrc = resolveShowreelPosterUrl(posterRaw.trim(), layout);
   if (!posterSrc) return null;
   const video = videoRaw.trim();
   const videoSrc = video
-    ? applyShowreelAspect(resolveProjectVideoUrl(video), layout) || null
+    ? resolveShowreelVideoUrl(video, layout) || null
     : null;
   return { posterSrc, videoSrc };
 }
@@ -36,24 +32,26 @@ function ShowreelVariant({
   slot,
   className,
   playLabel,
+  errorLabel,
+  openVideoLabel,
   layout,
 }: {
   slot: ShowreelSlot;
   className: string;
   playLabel: string;
+  errorLabel: string;
+  openVideoLabel: string;
   layout: ShowreelLayout;
 }) {
   return (
     <div className={className} data-showreel-layout={layout}>
       <div className="home-showreel__inner">
-        <ProjectDetailMedia
+        <MarketingHomeShowreelPlayer
           posterSrc={slot.posterSrc}
           videoSrc={slot.videoSrc}
-          alt=""
-          variant="gallery"
-          playback="click"
-          loadEagerly
           playLabel={playLabel}
+          errorLabel={errorLabel}
+          openVideoLabel={openVideoLabel}
         />
       </div>
     </div>
@@ -85,6 +83,12 @@ export function MarketingHomeShowreel({
   if (!web && !mobile) return null;
 
   const playLabel = t(messages, "home.showreel.play", "Play video");
+  const errorLabel = t(
+    messages,
+    "home.showreel.playError",
+    "Video failed to load — check the URL.",
+  );
+  const openVideoLabel = t(messages, "home.showreel.openVideo", "Open video");
 
   return (
     <section
@@ -97,6 +101,8 @@ export function MarketingHomeShowreel({
           slot={web}
           className="home-showreel__variant home-showreel__variant--web"
           playLabel={playLabel}
+          errorLabel={errorLabel}
+          openVideoLabel={openVideoLabel}
           layout="landscape"
         />
       ) : null}
@@ -105,6 +111,8 @@ export function MarketingHomeShowreel({
           slot={mobile}
           className="home-showreel__variant home-showreel__variant--mobile"
           playLabel={playLabel}
+          errorLabel={errorLabel}
+          openVideoLabel={openVideoLabel}
           layout="portrait"
         />
       ) : null}

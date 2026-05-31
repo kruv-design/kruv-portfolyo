@@ -1,0 +1,6 @@
+/**
+ * çift kayan yazı — scroll scrub ile iki satır yatay metin bandı.
+ * Bileşen: MarketingScrollMarquee · CSS: .home-scroll-marquee · i18n: home.scrollMarquee
+ * Geri açmak için true yapın.
+ */
+export const ENABLE_CIFT_KAYAN_YAZI = false;
