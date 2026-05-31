@@ -29,7 +29,7 @@ export function resolveProjectVideoUrl(raw: string): string {
     if (s.includes("/image/upload/")) {
       return s.replace(
         "/image/upload/",
-        "/video/upload/q_auto,f_mp4,w_1920,c_limit/",
+        "/video/upload/q_auto,f_auto:video,w_1920,c_limit/",
       );
     }
     return s;
@@ -39,7 +39,7 @@ export function resolveProjectVideoUrl(raw: string): string {
   const id = s
     .replace(/^\/+/, "")
     .replace(/\.(mp4|webm|mov)$/i, "");
-  return `https://res.cloudinary.com/${cloud}/video/upload/q_auto,f_mp4,w_1920,c_limit/${id}`;
+  return `https://res.cloudinary.com/${cloud}/video/upload/q_auto,f_auto:video,w_1920,c_limit/${id}`;
 }
 
 export type ShowreelLayout = "landscape" | "portrait";

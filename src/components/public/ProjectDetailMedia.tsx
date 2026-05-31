@@ -25,7 +25,7 @@ export function ProjectDetailMedia({
   variant?: Variant;
   placeholderLabel?: string;
   placeholderColor?: string;
-  /** `click` = poster + oynat butonu; `auto` = scroll’da sessiz loop */
+  /** `click` = poster + oynat butonu; `auto` = scroll'da sessiz loop */
   playback?: PlaybackMode;
   playLabel?: string;
 }) {
@@ -74,22 +74,26 @@ export function ProjectDetailMedia({
     return () => document.removeEventListener("visibilitychange", onVis);
   }, [loadVideo, videoSrc, clickMode]);
 
-  /** Tıklama anında src + play — tarayıcı kullanıcı jesti kaybolmasın */
+  /** Tıklama jesti içinde play — src DOM'da hazır */
   const handlePlayClick = useCallback(() => {
     if (!videoSrc || reducedMotion) return;
 
     setActivated(true);
-    setLoadVideo(true);
     setPlayError(false);
 
     const v = videoRef.current;
     if (!v) return;
 
-    const playNow = () => {
+    v.muted = true;
+    v.playsInline = true;
+    v.loop = true;
+
+    const attemptPlay = () => {
       void v
         .play()
         .then(() => {
           setIsPlaying(true);
+          setVideoReady(true);
           setPlayError(false);
         })
         .catch(() => {
@@ -98,30 +102,29 @@ export function ProjectDetailMedia({
         });
     };
 
-    if (v.src !== videoSrc) {
+    if (!v.src || !v.currentSrc) {
       v.src = videoSrc;
     }
-    v.load();
 
     if (v.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
-      playNow();
+      attemptPlay();
       return;
     }
 
-    const onReady = () => playNow();
+    const onReady = () => attemptPlay();
     v.addEventListener("canplay", onReady, { once: true });
     v.addEventListener("loadeddata", onReady, { once: true });
+    v.load();
+    attemptPlay();
   }, [videoSrc, reducedMotion]);
 
-  const showVideoLayer =
-    Boolean(videoSrc) && loadVideo && !reducedMotion && (clickMode ? activated : true);
-
+  const posterHidden = clickMode && activated;
   const showVideoVisible = clickMode
-    ? isPlaying
+    ? activated
     : Boolean(videoSrc) && loadVideo && !reducedMotion && videoReady;
 
   const showPlayButton =
-    clickMode && Boolean(videoSrc) && !reducedMotion && !isPlaying;
+    clickMode && Boolean(videoSrc) && !reducedMotion && !activated;
 
   if (!posterSrc && !videoSrc) {
     if (!placeholderLabel) return null;
@@ -151,7 +154,7 @@ export function ProjectDetailMedia({
       {posterSrc ? (
         <div
           className={
-            showVideoVisible
+            posterHidden || showVideoVisible
               ? "project-detail-media__poster-wrap is-under-video"
               : "project-detail-media__poster-wrap"
           }
@@ -172,9 +175,9 @@ export function ProjectDetailMedia({
               <span className="project-detail-media__play-icon" aria-hidden="true" />
             </button>
           ) : null}
-          {playError ? (
+          {playError && !posterHidden ? (
             <p className="project-detail-media__play-error" role="status">
-              Video yüklenemedi — URL’yi kontrol edin.
+              Video yüklenemedi — URL'yi kontrol edin.
             </p>
           ) : null}
         </div>
@@ -184,16 +187,16 @@ export function ProjectDetailMedia({
         <video
           ref={videoRef}
           className={`project-detail-media__video${
-            showVideoLayer ? " is-mounted" : ""
+            clickMode || loadVideo ? " is-mounted" : ""
           }${showVideoVisible ? " is-visible" : ""}`}
           poster={posterSrc || undefined}
           muted
           playsInline
           loop
-          autoPlay={!clickMode}
+          autoPlay={!clickMode && loadVideo}
           preload={clickMode ? "metadata" : "none"}
           tabIndex={clickMode ? 0 : -1}
-          src={loadVideo ? videoSrc : undefined}
+          src={clickMode || loadVideo ? videoSrc : undefined}
           onLoadedData={() => setVideoReady(true)}
           onCanPlay={() => {
             if (clickMode) return;

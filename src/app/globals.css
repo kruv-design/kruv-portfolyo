@@ -1345,6 +1345,14 @@ body {
   object-fit: cover;
 }
 
+.home-showreel__variant--web .project-detail-media__poster-wrap {
+  z-index: 2;
+}
+
+.home-showreel__variant--web .project-detail-media__video.is-visible {
+  z-index: 1;
+}
+
 /* Mobil: 9:16 dikey kutu */
 .home-showreel__variant--mobile .project-detail-media {
   position: relative;
@@ -1369,6 +1377,14 @@ body {
   height: 100% !important;
   max-height: none !important;
   object-fit: cover;
+}
+
+.home-showreel__variant--mobile .project-detail-media__poster-wrap {
+  z-index: 2;
+}
+
+.home-showreel__variant--mobile .project-detail-media__video.is-visible {
+  z-index: 1;
 }
 
 /* Web (≥900px) vs mobil showreel — site breakpoint ile aynı */
