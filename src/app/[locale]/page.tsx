@@ -5,6 +5,8 @@ import { MarketingPageShell } from "@/components/public/MarketingPageShell";
 import { MarketingSiteNav } from "@/components/public/MarketingSiteNav";
 import { MarketingHero } from "@/components/public/MarketingHero";
 import { MarketingHomeShowreel } from "@/components/public/MarketingHomeShowreel";
+import { MarketingHomeValues } from "@/components/public/MarketingHomeValues";
+import { MarketingScrollMarquee } from "@/components/public/MarketingScrollMarquee";
 import { MarketingHomeBody } from "@/components/public/MarketingHomeBody";
 import { getMessages } from "@/lib/i18n/get-messages";
 import { withLocale } from "@/lib/i18n/path";
@@ -50,6 +52,8 @@ export default async function LocaleHomePage({
         locale={locale}
         messages={messages}
       />
+      <MarketingHomeValues locale={locale} messages={messages} />
+      <MarketingScrollMarquee locale={locale} messages={messages} />
       <MarketingHomeBody locale={locale} messages={messages} />
     </MarketingPageShell>
   );

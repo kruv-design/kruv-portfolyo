@@ -538,15 +538,18 @@ html {
     padding-bottom: var(--site-nav-pad-y);
   }
 
+  /* Mobil: scroll (navbar 1↔2) ve menü açık/kapalı — aynı dış boşluk, konum kaymasın */
   .marketing-navbar.is-scrolled {
-    padding-top: max(var(--site-nav-pad-y-compact), env(safe-area-inset-top, 0px));
-    padding-bottom: var(--site-nav-pad-y-compact);
+    padding-top: max(var(--site-nav-pad-y), env(safe-area-inset-top, 0px));
+    padding-bottom: var(--site-nav-pad-y);
   }
 
-  /* Mobil: pill içeriğe göre dar — tam genişlik değil */
+  /* Mobil: pill her zaman tam genişlik — fit-content ortalama scroll/menüde zıplama yapıyordu */
   .marketing-navbar-inner,
-  .marketing-navbar.is-scrolled .marketing-navbar-inner {
-    width: fit-content;
+  .marketing-navbar.is-scrolled .marketing-navbar-inner,
+  .marketing-navbar.is-menu-open .marketing-navbar-inner,
+  .marketing-navbar.is-menu-open.is-scrolled .marketing-navbar-inner {
+    width: 100%;
     max-width: calc(100% - 2 * var(--site-nav-gutter-x));
     margin-inline: auto;
     padding: var(--site-nav-pill-inset-mobile, var(--nav-pill-inset, 16px));
@@ -556,7 +559,7 @@ html {
 
   .marketing-navbar-cols,
   .marketing-navbar.is-scrolled .marketing-navbar-cols {
-    width: auto;
+    width: 100%;
     max-width: 100%;
     padding: 0;
     flex-wrap: nowrap;
@@ -595,13 +598,7 @@ html {
     border-color: var(--border-md, var(--gray-180));
   }
 
-  /* Menü açık: pill tam genişlik; dil seçici logo ↔ çarpı ortasında */
-  .marketing-navbar.is-menu-open .marketing-navbar-inner,
-  .marketing-navbar.is-menu-open.is-scrolled .marketing-navbar-inner {
-    width: 100%;
-    max-width: calc(100% - 2 * var(--site-nav-gutter-x));
-  }
-
+  /* Menü açık: logo ↔ X sabit; dil seçici ortada (pill genişliği değişmez) */
   .marketing-navbar.is-menu-open .marketing-navbar-cols {
     display: grid;
     grid-template-columns: auto 1fr auto;
@@ -635,18 +632,15 @@ html {
     display: none;
   }
 
+  /* Logo yuvası scroll’da daralmaz — wordmark ↔ emblem geçişi yatay kaydırmasın */
   .marketing-navbar-logo,
-  .marketing-navbar-logo-stack {
-    width: var(--nav-logo-slot-w-mobile, calc(var(--nav-logo-slot-w, 80px) * 0.75));
-    height: var(--nav-bar-ctrl-h);
-    flex-shrink: 0;
-  }
-
-  /* Compact: bayrak dikey oran — dar kutuda alttan kırpılmasın */
+  .marketing-navbar-logo-stack,
   .marketing-navbar.is-scrolled .marketing-navbar-logo,
   .marketing-navbar.is-scrolled .marketing-navbar-logo-stack {
-    width: var(--nav-logo-emblem-w);
-    min-width: var(--nav-logo-emblem-w);
+    width: var(--nav-logo-slot-w-mobile, calc(var(--nav-logo-slot-w, 80px) * 0.75));
+    min-width: var(--nav-logo-slot-w-mobile, calc(var(--nav-logo-slot-w, 80px) * 0.75));
+    height: var(--nav-bar-ctrl-h);
+    flex-shrink: 0;
   }
 
   .marketing-navbar-logo {

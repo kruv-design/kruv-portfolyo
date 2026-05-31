@@ -7,6 +7,27 @@ function pickEn(primary: string, en: string | undefined): string {
   return primary;
 }
 
+/** EN kısa açıklama — description sütunu; boşsa aciklama (TR). */
+export function projectIntroForLocale(project: Project, locale: Locale): string {
+  if (locale === "en") {
+    const en = project.description?.trim();
+    if (en) return en;
+  }
+  return project.aciklama?.trim() || "";
+}
+
+/** Locale’e göre proje başlığı. */
+export function projectTitleForLocale(project: Project, locale: Locale): string {
+  if (locale === "en") {
+    return pickEn(project.baslik, project.title);
+  }
+  return project.baslik?.trim() || "";
+}
+
+function resolveEtiketler(etiketler: string[], locale: Locale): string[] {
+  return etiketler.map((tag) => localizeCategoryString(tag, locale) || tag);
+}
+
 function resolveCategory(project: Project, locale: Locale): string {
   if (locale === "en") {
     if (project.category?.trim()) return project.category.trim();
@@ -59,15 +80,17 @@ export function resolveProjectForLocale(
       baslik: project.baslik?.trim() || "",
       aciklama: project.aciklama?.trim() || "",
       kategori: resolveCategory(project, "tr"),
+      etiketler: resolveEtiketler(project.etiketler ?? [], "tr"),
       bolumler,
     };
   }
 
   return {
     ...project,
-    baslik: pickEn(project.baslik, project.title),
-    aciklama: pickEn(project.aciklama, project.description),
+    baslik: projectTitleForLocale(project, "en"),
+    aciklama: projectIntroForLocale(project, "en"),
     kategori: resolveCategory(project, "en"),
+    etiketler: resolveEtiketler(project.etiketler ?? [], "en"),
     bolumler,
   };
 }

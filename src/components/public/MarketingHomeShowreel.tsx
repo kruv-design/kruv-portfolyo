@@ -52,6 +52,7 @@ function ShowreelVariant({
           alt=""
           variant="gallery"
           playback="click"
+          loadEagerly
           playLabel={playLabel}
         />
       </div>
@@ -59,7 +60,7 @@ function ShowreelVariant({
   );
 }
 
-/** Anasayfa hero altı — web / mobil ayrı poster+video (site_settings). */
+/** Anasayfa hero altı — poster LCP; tıklayınca sessiz loop (site_settings). */
 export function MarketingHomeShowreel({
   settings,
   locale,

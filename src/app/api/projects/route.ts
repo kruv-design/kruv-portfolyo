@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
 import { supabaseAdmin, supabasePublic } from "@/lib/supabase/server";
 import { projectSchema, projectPayloadToDbRow } from "@/lib/validators";
 import { slugify } from "@/lib/slugify";
 import { requireUser, isAuthFailureResponse } from "@/lib/auth-guard";
 import { mapProjectRow } from "@/lib/map-project-row";
+import { revalidateProjectPaths } from "@/lib/revalidate-i18n";
 
 export const dynamic = "force-dynamic";
 
@@ -82,11 +82,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: message }, { status: 400 });
     }
 
-    revalidatePath("/", "layout");
-    revalidatePath("/");
-    revalidatePath("/works");
-    revalidatePath("/admin");
-    revalidatePath(`/projects/${slug}`);
+    revalidateProjectPaths(slug);
     return NextResponse.json(
       { data: mapProjectRow(data as Record<string, unknown>) },
       { status: 201 },

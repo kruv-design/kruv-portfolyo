@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Project } from "@/types";
+import { projectIntroForLocale, projectTitleForLocale } from "@/lib/project-locale";
 import { projectCover, projectCoverVideo, projectGallerySlots } from "@/lib/project-images";
 import type { Locale } from "@/lib/i18n/config";
 import type { Messages } from "@/lib/i18n/get-messages";
@@ -29,6 +30,8 @@ export function ProjectDetail({
   const cover = projectCover(project);
   const coverVideo = projectCoverVideo(project);
   const gallerySlots = projectGallerySlots(project);
+  const title = projectTitleForLocale(project, locale);
+  const intro = projectIntroForLocale(project, locale);
 
   return (
     <>
@@ -36,7 +39,7 @@ export function ProjectDetail({
         <ProjectDetailMedia
           posterSrc={cover ?? ""}
           videoSrc={coverVideo}
-          alt={project.baslik}
+          alt={title}
           priority
           variant="cover"
           placeholderLabel={project.baslik[0] ?? "•"}
@@ -53,13 +56,9 @@ export function ProjectDetail({
       <div className="project-detail-body">
         <header className="project-detail-intro animate-fadeUp">
           <h1 className="h1" style={{ color: "var(--ink)" }}>
-            {project.baslik}
+            {title}
           </h1>
-          {project.aciklama?.trim() ? (
-            <p className="b1 mt-6">
-              {project.aciklama.trim()}
-            </p>
-          ) : null}
+          {intro ? <p className="b1 mt-6">{intro}</p> : null}
         </header>
 
         <aside className="project-detail-aside animate-fadeUp">

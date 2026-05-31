@@ -12,9 +12,9 @@ export function MarketingKruvStyles() {
       <link rel="stylesheet" href="/fonts/switzer/switzer.css" />
       <style id="critical-lcp">{`
   .hero-v2 { background: #0e0e0e; min-height: 100svh; display: flex; align-items: center; justify-content: center; }
-  .hero-v2-headline { opacity: 1; margin: 0; display: grid; gap: 0.12em; justify-items: center; }
-  .hero-v2-accent { font: italic 400 clamp(1.625rem, 7.7vw, 5.5rem)/1.1 Switzer, system-ui, sans-serif; color: #6366f1; }
-  .hero-v2-main { font: 500 clamp(1.625rem, 7.7vw, 5.5rem)/1.1 Switzer, system-ui, sans-serif; color: #fafafa; }
+  .hero-v2-headline { opacity: 1; margin: 0; width: 100%; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.12em; }
+  .hero-v2-accent { font: italic 400 clamp(1.625rem, 7.7vw, 5.5rem)/1.1 Switzer, system-ui, sans-serif; color: #6366f1; text-align: center; width: 100%; }
+  .hero-v2-main { font: 500 clamp(1.625rem, 7.7vw, 5.5rem)/1.1 Switzer, system-ui, sans-serif; color: #fafafa; text-align: center; width: 100%; }
 `}</style>
       <link rel="preload" href="/kruv.css" as="style" />
       <link rel="stylesheet" href="/kruv.css" />

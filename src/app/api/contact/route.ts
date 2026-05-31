@@ -31,12 +31,12 @@ export async function POST(req: Request) {
   const { sessionId, payload } = parsed.data;
   const nameOk = payload.name.trim().length >= 2;
   const emailOk = z.string().email().safeParse(payload.email.trim()).success;
-  const messageOk = payload.message.trim().length >= 15;
+  const messageOk = payload.message.trim().length >= 1;
   if (!nameOk || !emailOk || !messageOk) {
     return NextResponse.json(
       {
         error:
-          "Ad (en az 2 karakter), geçerli e-posta ve mesaj (en az 15 karakter) zorunludur.",
+          "Ad (en az 2 karakter), geçerli e-posta ve mesaj zorunludur.",
       },
       { status: 422 },
     );

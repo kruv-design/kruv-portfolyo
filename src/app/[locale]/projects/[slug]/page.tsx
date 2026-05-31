@@ -15,10 +15,12 @@ import { env } from "@/lib/env";
 import type { Locale } from "@/lib/i18n/config";
 import { LOCALES } from "@/lib/i18n/config";
 import { getMessages } from "@/lib/i18n/get-messages";
-import { resolveProjectForLocale } from "@/lib/project-locale";
+import { projectIntroForLocale, projectTitleForLocale, resolveProjectForLocale } from "@/lib/project-locale";
 
 export const revalidate = 60;
 export const dynamicParams = true;
+/** Her istekte Supabase’ten güncel title/description okunur (EN/TR). */
+export const dynamic = "force-dynamic";
 
 type Params = { slug: string; locale: Locale };
 
@@ -41,9 +43,9 @@ export async function generateMetadata({
   if (!project) return { title: "Not found" };
 
   const localized = resolveProjectForLocale(project, locale);
-  const title = localized.baslik;
+  const title = projectTitleForLocale(project, locale);
   const description =
-    localized.aciklama?.slice(0, 160) ||
+    projectIntroForLocale(project, locale).slice(0, 160) ||
     `${localized.kategori} · Kruv`;
   const canonical = `${env.SITE_URL}/${locale}/projects/${project.slug}`;
   const img = project.kapak || undefined;
@@ -101,8 +103,8 @@ export default async function LocalizedProjectPage({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
-    name: localized.baslik,
-    description: localized.aciklama || undefined,
+    name: projectTitleForLocale(project, locale),
+    description: projectIntroForLocale(project, locale) || undefined,
     url: `${env.SITE_URL}/${locale}/projects/${project.slug}`,
     image: project.kapak || undefined,
     keywords: localized.etiketler?.join(", ") || undefined,

@@ -17,6 +17,52 @@
       "ariaLabel": "Showreel videosu",
       "play": "Videoyu oynat"
     },
+    "values": {
+      "ariaLabel": "Çalışma yaklaşımımız",
+      "title": "bizi farklı kılan ne.",
+      "lead": "sosyal native markalar için feed-first düşünce, net iletişim ve üretim disiplinini aynı masada birleştiriyoruz.",
+      "items": [
+        {
+          "index": "01",
+          "title": "feed-first strateji",
+          "body": "tasarımı timeline'dan değil, akıştan başlatırız. her format platforma ve kategoriye göre düşünülür."
+        },
+        {
+          "index": "02",
+          "title": "net iletişim",
+          "body": "brief'ten teslimata kadar süreci şeffaf tutarız. kararları ve iterasyonları birlikte netleştiririz."
+        },
+        {
+          "index": "03",
+          "title": "marka sistemleri",
+          "body": "logo değil; ton, grid, tipografi ve görsel dil birlikte çalışan tutarlı bir sistem kurarız."
+        },
+        {
+          "index": "04",
+          "title": "hareket ve zanaat",
+          "body": "motion, feed ve statik arasında geçişi bilinçli kullanırız. her kare paylaşmaya değer olmalı."
+        }
+      ]
+    },
+    "scrollMarquee": {
+      "ariaLabel": "Uzmanlık alanlarımız",
+      "rows": [
+        [
+          "feed-first tasarım",
+          "sosyal içerik",
+          "içerik yönetimi",
+          "reels",
+          "stories"
+        ],
+        [
+          "etkileşim görünür olur",
+          "hareket tasarımı",
+          "marka kimliği",
+          "social native",
+          "feed-first strateji"
+        ]
+      ]
+    },
     "featuredWorks": {
       "tag": "Seçili işler",
       "title": "Projeler",
@@ -25,8 +71,8 @@
     },
     "shareMarquee": {
       "line1": "Paylaşılmadıysa yaşanmamıştır",
-      "line2": "Hayata geçirelim",
-      "ariaLabel": "Paylaşılmadıysa yaşanmamıştır. Hayata geçirelim."
+      "line2": "yaşanmışsa paylaş",
+      "ariaLabel": "Paylaşılmadıysa yaşanmamıştır. yaşanmışsa paylaş."
     },
     "ticker": {
       "items": [

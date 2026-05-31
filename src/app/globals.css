@@ -1350,7 +1350,7 @@ body {
 }
 
 .home-showreel__variant--web .project-detail-media__video.is-visible {
-  z-index: 1;
+  z-index: 3;
 }
 
 /* Mobil: 9:16 dikey kutu */
@@ -1384,7 +1384,7 @@ body {
 }
 
 .home-showreel__variant--mobile .project-detail-media__video.is-visible {
-  z-index: 1;
+  z-index: 3;
 }
 
 /* Web (≥900px) vs mobil showreel — site breakpoint ile aynı */

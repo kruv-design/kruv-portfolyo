@@ -17,6 +17,52 @@
       "ariaLabel": "Showreel video",
       "play": "Play video"
     },
+    "values": {
+      "ariaLabel": "How we work",
+      "title": "what truly sets us apart.",
+      "lead": "we bring feed-first thinking, clear communication, and production craft together for social-native brands at every stage of growth.",
+      "items": [
+        {
+          "index": "01",
+          "title": "feed-first strategy",
+          "body": "we start from the feed, not the timeline. every format is shaped for its platform and category."
+        },
+        {
+          "index": "02",
+          "title": "clear communication",
+          "body": "we keep the process transparent from brief to delivery. decisions and iterations stay aligned together."
+        },
+        {
+          "index": "03",
+          "title": "brand systems",
+          "body": "not just a logo — tone, grid, typography, and visual language working as one consistent system."
+        },
+        {
+          "index": "04",
+          "title": "motion and craft",
+          "body": "we move deliberately between motion, feed, and static. every frame should be worth sharing."
+        }
+      ]
+    },
+    "scrollMarquee": {
+      "ariaLabel": "What we focus on",
+      "rows": [
+        [
+          "feed-first design",
+          "social content",
+          "content management",
+          "reels",
+          "stories"
+        ],
+        [
+          "interaction gets visible",
+          "motion design",
+          "brand identity",
+          "social native",
+          "feed-first strategy"
+        ]
+      ]
+    },
     "featuredWorks": {
       "tag": "Selected work",
       "title": "Projects",

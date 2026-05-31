@@ -5,6 +5,7 @@ import { projectSchema, projectPayloadToDbRow } from "@/lib/validators";
 import { slugify } from "@/lib/slugify";
 import { requireUser, isAuthFailureResponse } from "@/lib/auth-guard";
 import { mapProjectRow } from "@/lib/map-project-row";
+import { revalidateProjectPaths } from "@/lib/revalidate-i18n";
 
 type Ctx = { params: Promise<{ id: string }> };
 
@@ -52,11 +53,7 @@ export async function PATCH(req: Request, { params }: Ctx) {
       );
     }
 
-    revalidatePath("/", "layout");
-    revalidatePath("/");
-    revalidatePath("/works");
-    revalidatePath("/admin");
-    revalidatePath(`/projects/${slug}`);
+    revalidateProjectPaths(slug);
     return NextResponse.json({
       data: mapProjectRow(data as Record<string, unknown>),
     });

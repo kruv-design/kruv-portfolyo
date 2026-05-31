@@ -268,7 +268,6 @@ export function ContactForm({
                   value={values.message}
                   onChange={(e) => patch("message", e.target.value)}
                   placeholder={t(messages, "contact.messagePlaceholder")}
-                  minLength={15}
                   required
                 />
               </div>
