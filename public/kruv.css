@@ -3878,7 +3878,8 @@ body:has(.card:hover) .ticker {
   .lets-talk-heading-line1::after {
     content: none;
   }
+  .lets-talk-heading-line1,
   .lets-talk-heading-line2 {
-    display: inline;
+    display: block;
   }
 }

@@ -1332,6 +1332,8 @@ body {
   background: transparent;
   cursor: pointer;
   pointer-events: auto;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .home-showreel-player__hit::after {
@@ -1458,6 +1460,7 @@ body {
 .home-showreel-player .project-detail-media__video {
   pointer-events: none;
   z-index: 1;
+  object-fit: cover;
 }
 
 .home-showreel-player .project-detail-media__video.is-visible {

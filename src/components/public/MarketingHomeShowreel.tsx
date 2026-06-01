@@ -28,6 +28,23 @@ function buildShowreelSlot(
   return { posterSrc, videoSrc };
 }
 
+/** Mobil video yoksa web showreel’i kullan (Supabase’te sık boş kalır). */
+function resolveMobileShowreelSlot(
+  settings: SiteSettings,
+  web: ShowreelSlot | null,
+): ShowreelSlot | null {
+  const mobilePoster = settings.homeVideoPosterMobile ?? "";
+  const mobileVideo = settings.homeVideoMobile ?? "";
+  const dedicated = buildShowreelSlot(mobilePoster, mobileVideo, "portrait");
+  if (dedicated?.videoSrc) return dedicated;
+
+  if (!web?.videoSrc) return dedicated;
+
+  const posterSrc =
+    resolveShowreelPosterUrl(mobilePoster.trim(), "portrait") || web.posterSrc;
+  return { posterSrc, videoSrc: web.videoSrc };
+}
+
 function ShowreelVariant({
   slot,
   className,
@@ -75,11 +92,7 @@ export function MarketingHomeShowreel({
     "landscape",
   );
 
-  const mobile = buildShowreelSlot(
-    settings.homeVideoPosterMobile ?? "",
-    settings.homeVideoMobile ?? "",
-    "portrait",
-  );
+  const mobile = resolveMobileShowreelSlot(settings, web);
 
   if (!web && !mobile) return null;
 
