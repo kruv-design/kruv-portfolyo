@@ -32,6 +32,7 @@ function ShowreelVariant({
   slot,
   className,
   playLabel,
+  playCtaLabel,
   errorLabel,
   openVideoLabel,
   layout,
@@ -39,21 +40,21 @@ function ShowreelVariant({
   slot: ShowreelSlot;
   className: string;
   playLabel: string;
+  playCtaLabel: string;
   errorLabel: string;
   openVideoLabel: string;
   layout: ShowreelLayout;
 }) {
   return (
     <div className={className} data-showreel-layout={layout}>
-      <div className="home-showreel__inner">
-        <MarketingHomeShowreelPlayer
-          posterSrc={slot.posterSrc}
-          videoSrc={slot.videoSrc}
-          playLabel={playLabel}
-          errorLabel={errorLabel}
-          openVideoLabel={openVideoLabel}
-        />
-      </div>
+      <MarketingHomeShowreelPlayer
+        posterSrc={slot.posterSrc}
+        videoSrc={slot.videoSrc}
+        playLabel={playLabel}
+        playCtaLabel={playCtaLabel}
+        errorLabel={errorLabel}
+        openVideoLabel={openVideoLabel}
+      />
     </div>
   );
 }
@@ -82,7 +83,10 @@ export function MarketingHomeShowreel({
 
   if (!web && !mobile) return null;
 
-  const playLabel = t(messages, "home.showreel.play", "Play video");
+  const webOnly = Boolean(web && !mobile);
+
+  const playLabel = t(messages, "home.showreel.play", "Play showreel");
+  const playCtaLabel = t(messages, "home.showreel.playCta", "play showreel");
   const errorLabel = t(
     messages,
     "home.showreel.playError",
@@ -99,8 +103,11 @@ export function MarketingHomeShowreel({
       {web ? (
         <ShowreelVariant
           slot={web}
-          className="home-showreel__variant home-showreel__variant--web"
+          className={`home-showreel__variant home-showreel__variant--web${
+            webOnly ? " home-showreel__variant--solo" : ""
+          }`}
           playLabel={playLabel}
+          playCtaLabel={playCtaLabel}
           errorLabel={errorLabel}
           openVideoLabel={openVideoLabel}
           layout="landscape"
@@ -111,6 +118,7 @@ export function MarketingHomeShowreel({
           slot={mobile}
           className="home-showreel__variant home-showreel__variant--mobile"
           playLabel={playLabel}
+          playCtaLabel={playCtaLabel}
           errorLabel={errorLabel}
           openVideoLabel={openVideoLabel}
           layout="portrait"

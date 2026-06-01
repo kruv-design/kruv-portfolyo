@@ -17,12 +17,14 @@ export function MarketingHomeShowreelPlayer({
   posterSrc,
   videoSrc,
   playLabel,
+  playCtaLabel,
   errorLabel,
   openVideoLabel,
 }: {
   posterSrc: string;
   videoSrc: string | null;
   playLabel: string;
+  playCtaLabel: string;
   errorLabel: string;
   openVideoLabel: string;
 }) {
@@ -110,9 +112,16 @@ export function MarketingHomeShowreelPlayer({
                 src={posterSrc}
                 alt=""
                 variant="gallery"
+                priority
+                sizes="100vw"
               />
-              <span className="project-detail-media__play" aria-hidden="true">
-                <span className="project-detail-media__play-icon" />
+              <span className="home-showreel-player__cta" aria-hidden="true">
+                <span className="home-showreel-player__cta-play">
+                  <span className="home-showreel-player__cta-play-icon" />
+                </span>
+                <span className="home-showreel-player__cta-label">
+                  {playCtaLabel}
+                </span>
               </span>
             </button>
           ) : !posterHidden ? (

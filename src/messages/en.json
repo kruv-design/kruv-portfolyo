@@ -15,7 +15,8 @@
     },
     "showreel": {
       "ariaLabel": "Showreel video",
-      "play": "Play video",
+      "play": "Play showreel",
+      "playCta": "play showreel",
       "playError": "Video failed to load — check the URL.",
       "openVideo": "Open video"
     },

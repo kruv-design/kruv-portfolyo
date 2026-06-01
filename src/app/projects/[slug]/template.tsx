@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { ProjectSlugTemplateClient } from "@/components/public/ProjectSlugTemplateClient";
 
-/** Her proje geçişinde yeni instance — scroll üstte başlar. */
 export default function ProjectSlugTemplate({
   children,
 }: {

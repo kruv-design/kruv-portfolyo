@@ -54,7 +54,8 @@ function showreelAspectCrop(layout: ShowreelLayout): string {
 }
 
 function showreelPosterTransforms(layout: ShowreelLayout): string {
-  return `${showreelAspectCrop(layout)},f_auto,q_auto`;
+  const width = layout === "landscape" ? "w_1280" : "w_720";
+  return `${showreelAspectCrop(layout)},${width},f_auto,q_auto:good`;
 }
 
 function stripCloudinaryExtension(id: string): string {

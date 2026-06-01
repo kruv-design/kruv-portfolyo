@@ -15,7 +15,8 @@
     },
     "showreel": {
       "ariaLabel": "Showreel videosu",
-      "play": "Videoyu oynat",
+      "play": "Showreel'i oynat",
+      "playCta": "play showreel",
       "playError": "Video yüklenemedi — URL adresini kontrol edin.",
       "openVideo": "Videoyu aç"
     },

@@ -1,7 +1,7 @@
 "use client";
 
 import Script from "next/script";
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import type { Locale } from "@/lib/i18n/config";
 
 declare global {
@@ -67,14 +67,7 @@ export function MarketingHeroMount({
   html: string;
   locale: Locale;
 }) {
-  const mountRef = useRef<HTMLDivElement>(null);
-
   useLayoutEffect(() => {
-    const mount = mountRef.current;
-    if (!mount) return;
-
-    mount.innerHTML = html;
-
     let cancelled = false;
 
     void (async () => {
@@ -98,10 +91,15 @@ export function MarketingHeroMount({
 
   return (
     <>
-      <div ref={mountRef} className="marketing-hero-mount" />
+      <div
+        className="marketing-hero-mount"
+        suppressHydrationWarning
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
       <Script
         src="/hero-v2-cursor.js"
-        strategy="afterInteractive"
+        strategy="lazyOnload"
         onLoad={() => {
           void bindHeroCursor();
         }}

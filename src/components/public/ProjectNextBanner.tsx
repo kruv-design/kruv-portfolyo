@@ -42,7 +42,12 @@ export function ProjectNextBanner({
       className="project-next-banner-wrap"
       aria-labelledby="project-next-banner-heading"
     >
-      <Link href={href} className="project-next-banner" aria-label={ariaLabel}>
+      <Link
+        href={href}
+        scroll
+        className="project-next-banner"
+        aria-label={ariaLabel}
+      >
         <div className="project-next-banner__grid">
           <div className="project-next-banner__meta">
             <p className="project-next-banner__eyebrow project-next-banner__eyebrow--desktop">

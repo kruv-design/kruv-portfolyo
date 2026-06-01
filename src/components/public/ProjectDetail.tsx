@@ -228,6 +228,7 @@ function NavArrow({
   return (
     <Link
       href={withLocale(`/projects/${slug}`, locale)}
+      scroll
       className="project-detail-nav-arrow"
       aria-label={
         label === "←"
