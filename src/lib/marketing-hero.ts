@@ -2,7 +2,14 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 
 const HERO_PARTIAL_PATH = path.join(process.cwd(), "public", "partials", "hero-v2.html");
+const HERO_INNER_PARTIAL_PATH = path.join(
+  process.cwd(),
+  "public",
+  "partials",
+  "hero-v2-inner.html",
+);
 export const HERO_V2_PARTIAL_MARKER = "<!-- @partial:hero-v2 -->";
+export const HERO_V2_INNER_MARKER = "<!-- @partial:hero-v2-inner -->";
 
 export type HeroV2Copy = {
   lang: string;
@@ -59,15 +66,12 @@ const DEFAULT_COPY: HeroV2Copy = {
   mobileCtaA11y: "See projects — open portfolio",
 };
 
-/** Ortak hero-v2 HTML — `public/partials/hero-v2.html` tek kaynak. */
-export async function loadHeroV2Html(options: HeroV2Options = {}): Promise<string> {
+function applyHeroV2Replacements(html: string, options: HeroV2Options): string {
   const { ctaHref = "/works", copy = DEFAULT_COPY } = options;
-  /** Boş bırakılırsa sayfa içi `#works`; varsayılan CTA ile aynı (`/works`). */
   const scrollHref =
     options.scrollHref !== undefined ? options.scrollHref : ctaHref;
   const lineOrder = copy.lineOrder === "main-first" ? "main-first" : "accent-first";
-  const raw = await readFile(HERO_PARTIAL_PATH, "utf8");
-  return raw
+  return html
     .replace(/\{\{CTA_HREF\}\}/g, escapeAttr(ctaHref))
     .replace(/\{\{SCROLL_HREF\}\}/g, escapeAttr(scrollHref))
     .replace(/\{\{HERO_LANG\}\}/g, escapeAttr(copy.lang))
@@ -79,6 +83,21 @@ export async function loadHeroV2Html(options: HeroV2Options = {}): Promise<strin
     .replace(/\{\{MOBILE_CTA_A11Y\}\}/g, escapeHtml(copy.mobileCtaA11y));
 }
 
+/** Hero iç gövde — tipografi + imleç (`hero-v2-inner.html`). */
+export async function loadHeroV2InnerHtml(options: HeroV2Options = {}): Promise<string> {
+  const raw = await readFile(HERO_INNER_PARTIAL_PATH, "utf8");
+  return applyHeroV2Replacements(raw, options);
+}
+
+/** Tam `<section>` — statik `kruv.html` enjeksiyonu. */
+export async function loadHeroV2Html(options: HeroV2Options = {}): Promise<string> {
+  const [shell, inner] = await Promise.all([
+    readFile(HERO_PARTIAL_PATH, "utf8"),
+    loadHeroV2InnerHtml(options),
+  ]);
+  return shell.replace(HERO_V2_INNER_MARKER, inner);
+}
+
 /** Statik `kruv.html` gövdesine partial enjekte eder. */
 export async function injectHeroV2IntoPageHtml(
   pageHtml: string,
@@ -87,6 +106,10 @@ export async function injectHeroV2IntoPageHtml(
   const hero = await loadHeroV2Html(options);
   if (pageHtml.includes(HERO_V2_PARTIAL_MARKER)) {
     return pageHtml.replace(HERO_V2_PARTIAL_MARKER, hero);
+  }
+  if (pageHtml.includes(HERO_V2_INNER_MARKER)) {
+    const inner = await loadHeroV2InnerHtml(options);
+    return pageHtml.replace(HERO_V2_INNER_MARKER, inner);
   }
   return pageHtml;
 }

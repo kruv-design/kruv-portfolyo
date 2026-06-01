@@ -320,8 +320,7 @@
   --hero-v2-cursor-size: 7.5rem;
   --hero-v2-cursor-lerp: 0.18;
 
-  /* Navbar: logo yuvası (~%50 genişlik; yükseklik tema + CTA ile aynı) */
-  --nav-logo-slot-w: 80px;
+  /* Navbar logo yuvası — genişlik site-nav.css (wordmark oranı) */
   --nav-logo-slot-h: var(--nav-bar-ctrl-h);
   /* Pill içi nefes — logo sol = menü üst/alt/sağ (mobil pixel-perfect) */
   --nav-pill-pad-x: clamp(16px, 4vw, 22px);
@@ -3200,6 +3199,74 @@ body:has(.card:hover) .ticker {
   padding: calc(var(--section-pad-y) + var(--space-2)) var(--container-gutter) var(--section-pad-y);
   position: relative;
   z-index: 1;
+}
+
+/* Showreel hero arka planı — video + üstte tipografi */
+.hero-v2--has-showreel {
+  justify-content: center;
+  overflow: hidden;
+  padding-top: calc(env(safe-area-inset-top, 0px) + var(--nav-logo-slot-h) + var(--space-8));
+}
+
+.hero-v2__showreel.home-showreel {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  pointer-events: auto;
+}
+
+.hero-v2--has-showreel .hero-v2__showreel .home-showreel__variant {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-v2--has-showreel .hero-v2__showreel .project-detail-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  aspect-ratio: auto;
+}
+
+.hero-v2--has-showreel .hero-v2__showreel .project-detail-media-img,
+.hero-v2--has-showreel .hero-v2__showreel .project-detail-media__video {
+  object-fit: cover;
+}
+
+.hero-v2--has-showreel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--midnight) 72%, transparent) 0%,
+    color-mix(in srgb, var(--midnight) 42%, transparent) 42%,
+    color-mix(in srgb, var(--midnight) 78%, transparent) 100%
+  );
+}
+
+.hero-v2--has-showreel .hero-v2-inner {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hero-v2--has-showreel .hero-v2-inner a {
+  pointer-events: auto;
+}
+
+.hero-v2--has-showreel .hero-v2-cursor {
+  z-index: 3;
 }
 .hero-v2-inner {
   display: flex;

@@ -4,7 +4,6 @@ import { DEFAULT_SITE_SETTINGS, getSettings } from "@/lib/queries";
 import { MarketingPageShell } from "@/components/public/MarketingPageShell";
 import { MarketingSiteNav } from "@/components/public/MarketingSiteNav";
 import { MarketingHero } from "@/components/public/MarketingHero";
-import { MarketingHomeShowreel } from "@/components/public/MarketingHomeShowreel";
 import { MarketingHomeValues } from "@/components/public/MarketingHomeValues";
 import { MarketingScrollMarquee } from "@/components/public/MarketingScrollMarquee";
 import { MarketingHomeBody } from "@/components/public/MarketingHomeBody";
@@ -76,12 +75,8 @@ export default async function LocaleHomePage({
         />
       ) : null}
       <MarketingSiteNav settings={settings} locale={locale} messages={messages} />
-      <MarketingHomeShowreel
-        settings={settings}
-        locale={locale}
-        messages={messages}
-      />
       <MarketingHero
+        settings={settings}
         locale={locale}
         messages={messages}
         ctaHref={withLocale("/works", locale)}

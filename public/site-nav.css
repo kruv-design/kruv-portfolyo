@@ -13,6 +13,9 @@
   --site-nav-pill-inset-mobile: clamp(10px, 2.5vw, 16px);
   /* Bayrak amblem (308×373) — yükseklik nav kontrolleriyle hizalı genişlik */
   --nav-logo-emblem-w: calc(var(--nav-bar-ctrl-h) * 308 / 373);
+  /* Wordmark SVG viewBox 150×53 — yuvayı orana göre hesapla (kesilme önlenir) */
+  --nav-logo-wordmark-w: calc(var(--nav-logo-slot-h) * 150 / 53.01);
+  --nav-logo-slot-w: var(--nav-logo-wordmark-w);
 }
 
 /* Works (globals) ile aynı — sayfa geçişinde nav kaymasın */
@@ -124,6 +127,8 @@ html {
 
 .marketing-navbar-col--brand {
   justify-content: flex-start;
+  flex-shrink: 0;
+  min-width: auto;
 }
 
 .marketing-navbar-col--links {
@@ -142,7 +147,9 @@ html {
   position: relative;
   flex: 0 0 auto;
   width: var(--nav-logo-slot-w);
+  min-width: var(--nav-logo-slot-w);
   height: var(--nav-logo-slot-h);
+  overflow: visible;
 }
 
 .marketing-navbar-logo-stack {
@@ -150,8 +157,10 @@ html {
   display: flex;
   align-items: center;
   width: var(--nav-logo-slot-w);
+  min-width: var(--nav-logo-slot-w);
   height: var(--nav-logo-slot-h);
   flex-shrink: 0;
+  overflow: visible;
 }
 
 /* Üstte wordmark, scroll’da bayrak amblem */
@@ -168,8 +177,8 @@ html {
   mask-repeat: no-repeat;
   -webkit-mask-position: left center;
   mask-position: left center;
-  -webkit-mask-size: contain;
-  mask-size: contain;
+  -webkit-mask-size: auto 100%;
+  mask-size: auto 100%;
 }
 
 .marketing-navbar-logo-emblem {
@@ -212,6 +221,13 @@ html {
 
 .marketing-navbar.is-scrolled .marketing-navbar-logo-emblem {
   opacity: 1;
+}
+
+/* Scroll: wordmark gizli — yuva amblem genişliğine daralır */
+.marketing-navbar.is-scrolled .marketing-navbar-logo,
+.marketing-navbar.is-scrolled .marketing-navbar-logo-stack {
+  width: var(--nav-logo-emblem-w);
+  min-width: var(--nav-logo-emblem-w);
 }
 
 .marketing-navbar-links {
@@ -503,7 +519,7 @@ html {
 @media (min-width: 769px) {
   .marketing-navbar:not(.is-scrolled) .marketing-navbar-cols {
     display: grid;
-    grid-template-columns: var(--nav-logo-slot-w, 80px) minmax(0, 1fr) auto;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
     justify-content: stretch;
     width: 100%;
@@ -633,19 +649,10 @@ html {
     display: none;
   }
 
-  /* Logo yuvası scroll’da daralmaz — wordmark ↔ emblem geçişi yatay kaydırmasın */
   .marketing-navbar-logo,
-  .marketing-navbar-logo-stack,
-  .marketing-navbar.is-scrolled .marketing-navbar-logo,
-  .marketing-navbar.is-scrolled .marketing-navbar-logo-stack {
-    width: var(--nav-logo-slot-w-mobile, calc(var(--nav-logo-slot-w, 80px) * 0.75));
-    min-width: var(--nav-logo-slot-w-mobile, calc(var(--nav-logo-slot-w, 80px) * 0.75));
+  .marketing-navbar-logo-stack {
     height: var(--nav-bar-ctrl-h);
     flex-shrink: 0;
-  }
-
-  .marketing-navbar-logo {
-    overflow: visible;
   }
 
   .marketing-navbar-logo-emblem::before,

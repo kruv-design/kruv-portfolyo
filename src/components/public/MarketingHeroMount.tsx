@@ -61,10 +61,10 @@ async function bindHeroCursor() {
  * Hero HTML + imleç: locale değişince önce DOM yazılır, sonra cursor bağlanır.
  */
 export function MarketingHeroMount({
-  html,
+  innerHtml,
   locale,
 }: {
-  html: string;
+  innerHtml: string;
   locale: Locale;
 }) {
   useLayoutEffect(() => {
@@ -81,7 +81,7 @@ export function MarketingHeroMount({
       cancelled = true;
       window.destroyHeroV2Cursor?.();
     };
-  }, [html, locale]);
+  }, [innerHtml, locale]);
 
   useEffect(() => {
     if (typeof window.initHeroV2Cursor === "function" && heroDomReady()) {
@@ -95,7 +95,7 @@ export function MarketingHeroMount({
         className="marketing-hero-mount"
         suppressHydrationWarning
         // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{ __html: html }}
+        dangerouslySetInnerHTML={{ __html: innerHtml }}
       />
       <Script
         src="/hero-v2-cursor.js"

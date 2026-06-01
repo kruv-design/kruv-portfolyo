@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { ScrollToTopLink } from "./ScrollToTopLink";
 import type { Project } from "@/types";
 import { projectIntroForLocale, projectTitleForLocale } from "@/lib/project-locale";

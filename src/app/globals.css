@@ -272,9 +272,7 @@
   --nav-bar-ctrl-h: calc(
     2 * var(--btn-pad-y) + var(--btn-font-size) + 2 * var(--btn-border-width)
   );
-  --nav-logo-slot-w: 80px;
-  /* Mobil: daha küçük wordmark (satır yüksekliği --nav-bar-ctrl-h ile hâlâ hizalı) */
-  --nav-logo-slot-w-mobile: 48px;
+  /* Genişlik: public/site-nav.css (--nav-logo-wordmark-w / scroll’da emblem) */
   --nav-logo-slot-h: var(--nav-bar-ctrl-h);
   --nav-pill-pad-x: clamp(16px, 4vw, 22px);
   --nav-pill-inset: var(--nav-pill-pad-x);

@@ -1,32 +1,27 @@
 import type { Locale } from "@/lib/i18n/config";
 import type { Messages } from "@/lib/i18n/get-messages";
-import { loadHeroV2Html, type HeroV2Options } from "@/lib/marketing-hero";
-import { MarketingHeroMount } from "./MarketingHeroMount";
+import { DEFAULT_SITE_SETTINGS } from "@/lib/queries";
+import type { HeroV2Options } from "@/lib/marketing-hero";
+import type { SiteSettings } from "@/types";
+import { MarketingHomeHero } from "./MarketingHomeHero";
 
-/** `public/partials/hero-v2.html` — anasayfa ile birebir aynı hero. */
-export async function MarketingHero({
+/** Anasayfa hero — video arka plan + tipografi (`MarketingHomeHero`). */
+export function MarketingHero({
+  settings = DEFAULT_SITE_SETTINGS,
   locale,
   messages,
   ...options
 }: HeroV2Options & {
+  settings?: SiteSettings;
   locale: Locale;
   messages: Messages;
 }) {
-  const hero = messages.home.hero;
-  const html = await loadHeroV2Html({
-    ...options,
-    copy: {
-      lang: locale,
-      line1: hero.line1,
-      line2: hero.line2,
-      line2Tail: hero.line2Tail,
-      lineOrder:
-        hero.lineOrder === "main-first" ? "main-first" : "accent-first",
-      cursorLabel: hero.cursorLabel,
-      mobileCta: hero.mobileCta,
-      mobileCtaA11y: hero.mobileCtaA11y,
-    },
-  });
-
-  return <MarketingHeroMount html={html} locale={locale} />;
+  return (
+    <MarketingHomeHero
+      settings={settings}
+      locale={locale}
+      messages={messages}
+      {...options}
+    />
+  );
 }

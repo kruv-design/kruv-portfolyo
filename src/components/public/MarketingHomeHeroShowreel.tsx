@@ -34,8 +34,8 @@ function ShowreelVariant({
   );
 }
 
-/** @deprecated Ayrı bant — anasayfada `MarketingHomeHero` içinde kullanılıyor. */
-export function MarketingHomeShowreel({
+/** Hero arka planı — web / mobil showreel (site_settings). */
+export function MarketingHomeHeroShowreel({
   settings,
   locale,
   messages,
@@ -45,7 +45,6 @@ export function MarketingHomeShowreel({
   messages: Messages;
 }) {
   const { web, mobile, webOnly } = resolveHomeShowreelSlots(settings);
-
   if (!web && !mobile) return null;
 
   const playLabel = t(messages, "home.showreel.play", "Play showreel");
@@ -58,11 +57,7 @@ export function MarketingHomeShowreel({
   const openVideoLabel = t(messages, "home.showreel.openVideo", "Open video");
 
   return (
-    <section
-      className="home-showreel"
-      lang={locale}
-      aria-label={t(messages, "home.showreel.ariaLabel", "Showreel video")}
-    >
+    <div className="hero-v2__showreel home-showreel" lang={locale}>
       {web ? (
         <ShowreelVariant
           slot={web}
@@ -85,6 +80,6 @@ export function MarketingHomeShowreel({
           openVideoLabel={openVideoLabel}
         />
       ) : null}
-    </section>
+    </div>
   );
 }
