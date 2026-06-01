@@ -23,26 +23,26 @@
     "values": {
       "ariaLabel": "Hedef müşteri tipleri",
       "title": "kime hitap ediyoruz.",
-      "lead": "markanın hangi evresinde olursan ol — sıfırdan kimlik kurmaktan ölçeklenmeye, görünürlükten yenilemeye kadar birlikte ilerleriz.",
+      "lead": "İster yeni başlıyor olun, ister büyüyor ya da değişime hazırlanıyor olun. Markanızın ihtiyaç duyduğu temelleri ve yönü birlikte şekillendirmenize yardımcı olalım.",
       "items": [
         {
           "index": "01",
-          "title": "Yeni başlayan markalar",
+          "title": "Kurulum aşamasındaki",
           "body": "Harika bir fikrin var ama onu taşıyacak net bir marka yapısı henüz oluşmadı. İsmini, kimliğini ve temel sistemlerini birlikte kuruyoruz."
         },
         {
           "index": "02",
-          "title": "Büyümeye hazır markalar",
+          "title": "Büyümeye hazır",
           "body": "Ürünün ya da hizmetin karşılık buluyor. İşler büyüyor ancak marka aynı hızda ilerlemiyor. Daha net, daha tutarlı ve ölçeklenebilir bir yapı oluşturuyoruz."
         },
         {
           "index": "03",
-          "title": "Daha görünür olmak isteyenler",
+          "title": "Görünürlük arayan",
           "body": "Yaptığın iş güçlü ama dışarıdan bakıldığında bunu hissettirmiyor. Markanı, kaliteni ve uzmanlığını doğru şekilde görünür kılıyoruz."
         },
         {
           "index": "04",
-          "title": "Yenilenmeye ihtiyaç duyan markalar",
+          "title": "Yenilenme ihtiyacı duyan",
           "body": "Markan seni bugüne getirdi ama yarına taşımakta zorlanıyor. Güncel, tutarlı ve geleceğe hazır bir kimlikle yeniden konumlandırıyoruz."
         }
       ]

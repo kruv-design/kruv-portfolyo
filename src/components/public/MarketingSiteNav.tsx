@@ -132,7 +132,6 @@ export function MarketingSiteNav({
                   <span className="marketing-navbar-logo-wordmark" aria-hidden="true" />
                   <span className="marketing-navbar-logo-emblem" aria-hidden="true" />
                 </span>
-                <span className="marketing-navbar-brand-label">{brandLabel}</span>
               </Link>
             </div>
             <div className="marketing-navbar-col marketing-navbar-col--links">

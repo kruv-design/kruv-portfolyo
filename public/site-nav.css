@@ -154,28 +154,6 @@ html {
   flex-shrink: 0;
 }
 
-.marketing-navbar-brand-label {
-  display: none;
-  flex-shrink: 0;
-  font-family: var(--font-display);
-  font-size: var(--btn-font-size);
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: var(--ls-sm);
-  text-transform: lowercase;
-  color: var(--frost, var(--ink));
-}
-
-.marketing-navbar.is-scrolled .marketing-navbar-brand-label {
-  display: block;
-}
-
-.marketing-navbar.is-scrolled .marketing-navbar-logo {
-  width: auto;
-  max-width: min(100%, 12rem);
-  gap: var(--space-2);
-}
-
 /* Üstte wordmark, scroll’da bayrak amblem */
 .marketing-navbar-logo-wordmark {
   position: absolute;
