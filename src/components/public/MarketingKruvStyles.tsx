@@ -1,7 +1,6 @@
 import { MARKETING_CRITICAL_CSS } from "@/lib/marketing-critical-css";
-import { AsyncStylesheet } from "./AsyncStylesheet";
 
-/** Ana site (`kruv.html`) — kritik CSS inline, `kruv.css` async (render-blocking azaltır). */
+/** Ana site (`kruv.html`) — kritik CSS inline + tam stil dosyası (senkron). */
 export function MarketingKruvStyles() {
   return (
     <>
@@ -14,7 +13,8 @@ export function MarketingKruvStyles() {
       />
       <link rel="stylesheet" href="/fonts/switzer/switzer.css" />
       <style id="critical-marketing">{MARKETING_CRITICAL_CSS}</style>
-      <AsyncStylesheet href="/kruv.css" />
+      <link rel="preload" href="/kruv.css" as="style" />
+      <link rel="stylesheet" href="/kruv.css" />
     </>
   );
 }
