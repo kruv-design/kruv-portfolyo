@@ -2062,7 +2062,13 @@
       syncMarquee();
       var loopWidth = loopHalfWidth();
       if (loopWidth < 1) return false;
-      var dur = Math.max(8, loopWidth / pxPerSec);
+      var dur = loopWidth / pxPerSec;
+      dur = Math.max(20, Math.min(96, dur));
+      try {
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          dur = Math.max(dur, 48);
+        }
+      } catch (e) {}
       track.style.setProperty('--ideal-share-marquee-dur', dur + 's');
       return true;
     }

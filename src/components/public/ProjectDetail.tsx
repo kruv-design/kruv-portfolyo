@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ScrollToTopLink } from "./ScrollToTopLink";
 import type { Project } from "@/types";
 import { projectIntroForLocale, projectTitleForLocale } from "@/lib/project-locale";
 import { projectCover, projectCoverVideo, projectGallerySlots } from "@/lib/project-images";
@@ -230,9 +231,8 @@ function NavArrow({
     );
   }
   return (
-    <Link
+    <ScrollToTopLink
       href={withLocale(`/projects/${slug}`, locale)}
-      scroll
       className="project-detail-nav-arrow"
       aria-label={
         label === "←"
@@ -241,6 +241,6 @@ function NavArrow({
       }
     >
       {label}
-    </Link>
+    </ScrollToTopLink>
   );
 }

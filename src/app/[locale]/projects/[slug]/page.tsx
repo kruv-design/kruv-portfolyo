@@ -8,6 +8,7 @@ import {
   getSettings,
 } from "@/lib/queries";
 import { ProjectDetail } from "@/components/public/ProjectDetail";
+import { ProjectDetailPageFrame } from "@/components/public/ProjectDetailPageFrame";
 import { SiteFooter } from "@/components/public/SiteFooter";
 import { MarketingKruvStyles } from "@/components/public/MarketingKruvStyles";
 import { MarketingSiteNav } from "@/components/public/MarketingSiteNav";
@@ -119,28 +120,30 @@ export default async function LocalizedProjectPage({
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div
-        className="project-detail-page flex min-h-screen flex-col"
-        lang={locale}
-        style={{ background: "var(--bg)", color: "var(--ink)", minHeight: "100vh" }}
-      >
-        <MarketingKruvStyles />
-        <MarketingSiteNav settings={settings} locale={locale} messages={messages} />
-        <div className="flex flex-1 flex-col">
-          <div className="works-shell-inner project-detail-shell">
-            <ProjectDetail
-              project={localized}
-              prevSlug={prev?.slug ?? null}
-              nextSlug={next?.slug ?? null}
-              nextProject={localizedNext}
-              allProjects={localizedAll}
-              locale={locale}
-              messages={messages}
-            />
+      <ProjectDetailPageFrame slug={project.slug}>
+        <div
+          className="project-detail-page flex min-h-screen flex-col"
+          lang={locale}
+          style={{ background: "var(--bg)", color: "var(--ink)", minHeight: "100vh" }}
+        >
+          <MarketingKruvStyles />
+          <MarketingSiteNav settings={settings} locale={locale} messages={messages} />
+          <div className="flex flex-1 flex-col">
+            <div className="works-shell-inner project-detail-shell">
+              <ProjectDetail
+                project={localized}
+                prevSlug={prev?.slug ?? null}
+                nextSlug={next?.slug ?? null}
+                nextProject={localizedNext}
+                allProjects={localizedAll}
+                locale={locale}
+                messages={messages}
+              />
+            </div>
+            <SiteFooter settings={settings} />
           </div>
-          <SiteFooter settings={settings} />
         </div>
-      </div>
+      </ProjectDetailPageFrame>
     </>
   );
 }

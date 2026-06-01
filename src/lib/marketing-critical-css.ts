@@ -13,7 +13,7 @@ export const MARKETING_CRITICAL_CSS = `
 .home-showreel__variant--solo { display: block; }
 .home-showreel__variant--web .project-detail-media,
 .home-showreel__variant--solo .project-detail-media { position: relative; aspect-ratio: 16 / 9; width: 100%; overflow: hidden; background: var(--surface); }
-.home-showreel__variant--mobile .project-detail-media { position: relative; width: 100%; height: min(calc(100vw * 16 / 9), 92vh, 52rem); overflow: hidden; background: var(--surface); }
+.home-showreel__variant--mobile .project-detail-media { position: relative; width: 100%; aspect-ratio: 9 / 16; max-height: min(92vh, 52rem); height: auto; overflow: hidden; background: var(--surface); }
 @media (min-width: 900px) {
   .home-showreel__variant--web { display: block; }
   .home-showreel__variant--mobile { display: none; }

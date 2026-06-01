@@ -28,21 +28,46 @@ function buildShowreelSlot(
   return { posterSrc, videoSrc };
 }
 
-/** Mobil video yoksa web showreel’i kullan (Supabase’te sık boş kalır). */
+/** Mobil: homeVideoMobile (9:16); yoksa web kaynağını portrait crop ile oynat. */
 function resolveMobileShowreelSlot(
   settings: SiteSettings,
   web: ShowreelSlot | null,
 ): ShowreelSlot | null {
-  const mobilePoster = settings.homeVideoPosterMobile ?? "";
-  const mobileVideo = settings.homeVideoMobile ?? "";
-  const dedicated = buildShowreelSlot(mobilePoster, mobileVideo, "portrait");
+  const mobilePosterRaw = (settings.homeVideoPosterMobile ?? "").trim();
+  const mobileVideoRaw = (settings.homeVideoMobile ?? "").trim();
+  const webPosterRaw = (settings.homeVideoPoster ?? "").trim();
+  const webVideoRaw = (settings.homeVideo ?? "").trim();
+
+  const mobilePosterSrc = mobilePosterRaw
+    ? resolveShowreelPosterUrl(mobilePosterRaw, "portrait")
+    : "";
+  const portraitPosterFallback =
+    mobilePosterSrc ||
+    (webPosterRaw ? resolveShowreelPosterUrl(webPosterRaw, "portrait") : "") ||
+    web?.posterSrc ||
+    "";
+
+  const mobileVideoSrc = mobileVideoRaw
+    ? resolveShowreelVideoUrl(mobileVideoRaw, "portrait") || null
+    : null;
+  if (mobileVideoSrc && portraitPosterFallback) {
+    return { posterSrc: portraitPosterFallback, videoSrc: mobileVideoSrc };
+  }
+
+  const dedicated = buildShowreelSlot(
+    settings.homeVideoPosterMobile ?? "",
+    settings.homeVideoMobile ?? "",
+    "portrait",
+  );
   if (dedicated?.videoSrc) return dedicated;
 
-  if (!web?.videoSrc) return dedicated;
+  if (!webVideoRaw) return dedicated;
 
-  const posterSrc =
-    resolveShowreelPosterUrl(mobilePoster.trim(), "portrait") || web.posterSrc;
-  return { posterSrc, videoSrc: web.videoSrc };
+  const portraitWebVideo =
+    resolveShowreelVideoUrl(webVideoRaw, "portrait") || null;
+  if (!portraitWebVideo || !portraitPosterFallback) return dedicated;
+
+  return { posterSrc: portraitPosterFallback, videoSrc: portraitWebVideo };
 }
 
 function ShowreelVariant({

@@ -4,8 +4,13 @@ function cloudName(): string {
   return String(process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME ?? "").trim();
 }
 
-const SHOWREEL_VIDEO_TRANSFORMS = "q_auto,f_mp4,w_1920,c_limit";
 const PROJECT_VIDEO_TRANSFORMS = "q_auto,f_auto:video,w_1920,c_limit";
+
+function showreelVideoTransforms(layout: ShowreelLayout): string {
+  const crop = showreelAspectCrop(layout);
+  const width = layout === "landscape" ? "w_1920" : "w_1080";
+  return `q_auto,f_mp4,${crop},${width}`;
+}
 
 /**
  * Supabase / admin: tam https URL veya Cloudinary public_id (örn. kruv-portfolio/abc).
@@ -142,9 +147,9 @@ export function resolveShowreelPosterUrl(raw: string, layout: ShowreelLayout): s
   return buildCloudinaryImageUrl(s, transforms);
 }
 
-/** Anasayfa showreel video — f_mp4, Safari uyumlu MP4 delivery. */
+/** Anasayfa showreel video — f_mp4; web 16:9, mobil 9:16 crop. */
 export function resolveShowreelVideoUrl(raw: string, layout: ShowreelLayout): string {
-  void layout;
+  const transforms = showreelVideoTransforms(layout);
   const s = raw.trim().replace(/\s+/g, "");
   if (!s) return "";
 
@@ -153,24 +158,24 @@ export function resolveShowreelVideoUrl(raw: string, layout: ShowreelLayout): st
     if (embed) {
       return buildCloudinaryVideoUrl(
         embed.publicId,
-        SHOWREEL_VIDEO_TRANSFORMS,
+        transforms,
         embed.cloud,
       );
     }
     if (s.includes("/image/upload/")) {
       const id = cloudinaryPublicIdFromUrl(s, "image") ?? cloudinaryPublicIdFromUrl(s, "video");
-      if (id) return buildCloudinaryVideoUrl(id, SHOWREEL_VIDEO_TRANSFORMS);
-      return s.replace("/image/upload/", `/video/upload/${SHOWREEL_VIDEO_TRANSFORMS}/`);
+      if (id) return buildCloudinaryVideoUrl(id, transforms);
+      return s.replace("/image/upload/", `/video/upload/${transforms}/`);
     }
     if (s.includes("res.cloudinary.com") && s.includes("/video/upload/")) {
-      if (/f_mp4/.test(s)) return s;
+      if (/f_mp4/.test(s) && /ar_\d+:\d+/.test(s)) return s;
       const id = cloudinaryPublicIdFromUrl(s, "video");
-      if (id) return buildCloudinaryVideoUrl(id, SHOWREEL_VIDEO_TRANSFORMS);
+      if (id) return buildCloudinaryVideoUrl(id, transforms);
     }
     return s;
   }
 
-  return buildCloudinaryVideoUrl(s, SHOWREEL_VIDEO_TRANSFORMS);
+  return buildCloudinaryVideoUrl(s, transforms);
 }
 
 /** @deprecated showreel için resolveShowreelPosterUrl / resolveShowreelVideoUrl kullanın */

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { ScrollToTopLink } from "./ScrollToTopLink";
 import type { Project } from "@/types";
 import { projectCover } from "@/lib/project-images";
 import { projectListPosition, projectMetaSubtitle } from "@/lib/next-project";
@@ -42,9 +42,8 @@ export function ProjectNextBanner({
       className="project-next-banner-wrap"
       aria-labelledby="project-next-banner-heading"
     >
-      <Link
+      <ScrollToTopLink
         href={href}
-        scroll
         className="project-next-banner"
         aria-label={ariaLabel}
       >
@@ -112,7 +111,7 @@ export function ProjectNextBanner({
             )}
           </div>
         </div>
-      </Link>
+      </ScrollToTopLink>
     </section>
   );
 }

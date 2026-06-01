@@ -307,6 +307,10 @@
   /* “share or it didn't happen” — süre JS ile px/s sabit hesaplanır (fallback) */
   --ideal-share-marquee-dur: 12.5s;
   --ideal-share-marquee-px-per-sec: 110;
+  /* Lets Talk kayan başlık — calc() zinciri yerine sabit süre (Opera uyumu) */
+  --lets-talk-marquee-dur: 19s;
+  /* Reduced-motion: globals.css 0.01ms !important üzerine okunabilir kayan bant */
+  --marquee-dur-reduced: 48s;
 
   /* Hero fan — özel portfolio imleci (daire); önceki 104px + %30 */
   --hero-portfolio-cursor-size: calc(104px * 1.3);
@@ -1684,10 +1688,14 @@ body:has(.card:hover) .ticker {
     transform: translate3d(-50%, 0, 0);
   }
 }
-/* Ticker ile uyumlu: Windows reduced-motion’da da kayar (yavaş) */
+/* Reduced-motion: globals.css tüm animasyonları 0.01ms yapar — kayan bantlar yavaş kalsın */
 @media (prefers-reduced-motion: reduce) {
-  .ideal-share-marquee-track {
-    animation-duration: 48s;
+  .ideal-share-marquee-track,
+  .ticker-track,
+  .lets-talk-marquee-track,
+  .testimonials-track {
+    animation-duration: var(--marquee-dur-reduced) !important;
+    animation-iteration-count: infinite !important;
   }
 }
 
@@ -3717,7 +3725,7 @@ body:has(.card:hover) .ticker {
   width: max-content;
   align-items: center;
   gap: 0;
-  animation: lets-talk-marquee-x calc(32s / 1.25 / 1.1 / 1.25) linear infinite;
+  animation: lets-talk-marquee-x var(--lets-talk-marquee-dur) linear infinite;
 }
 .lets-talk-marquee-group {
   display: inline-flex;

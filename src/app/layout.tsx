@@ -53,6 +53,7 @@ export const viewport: Viewport = {
 // If no saved choice, we leave the attribute unset so CSS
 // `prefers-color-scheme` media query takes over.
 const themeBootstrap = `(function(){try{var t=localStorage.getItem('kruv-theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();`;
+const scrollRestorationBootstrap = `(function(){try{if('scrollRestoration' in history){history.scrollRestoration='manual';}}catch(e){}})();`;
 
 export default function RootLayout({
   children,
@@ -67,6 +68,7 @@ export default function RootLayout({
       data-theme={ENABLE_THEME_TOGGLE ? undefined : FORCED_THEME}
     >
       <head>
+        <script dangerouslySetInnerHTML={{ __html: scrollRestorationBootstrap }} />
         {ENABLE_THEME_TOGGLE ? (
           <script dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
         ) : null}

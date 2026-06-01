@@ -1,37 +1,25 @@
 "use client";
 
-import { useLayoutEffect, useEffect } from "react";
-import { usePathname } from "next/navigation";
+import { useLayoutEffect } from "react";
+import { useParams, usePathname } from "next/navigation";
+import {
+  enableManualScrollRestoration,
+  scheduleScrollToTop,
+} from "@/lib/scroll-to-top";
 
-function scrollToTop() {
-  window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-  document.documentElement.scrollTop = 0;
-  document.body.scrollTop = 0;
-}
-
-/** Proje slug değişince sayfayı en üste al (paylaşılan layout scroll konumunu korur). */
+/** Proje slug / pathname değişince sayfayı en üste al. */
 export function ScrollToTopOnNavigate() {
   const pathname = usePathname();
+  const params = useParams();
+  const slug = typeof params?.slug === "string" ? params.slug : "";
 
   useLayoutEffect(() => {
-    if ("scrollRestoration" in history) {
-      history.scrollRestoration = "manual";
-    }
+    enableManualScrollRestoration();
   }, []);
 
   useLayoutEffect(() => {
-    scrollToTop();
-  }, [pathname]);
-
-  useEffect(() => {
-    scrollToTop();
-    const raf = requestAnimationFrame(scrollToTop);
-    const t = window.setTimeout(scrollToTop, 0);
-    return () => {
-      cancelAnimationFrame(raf);
-      window.clearTimeout(t);
-    };
-  }, [pathname]);
+    scheduleScrollToTop();
+  }, [pathname, slug]);
 
   return null;
 }

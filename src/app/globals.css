@@ -1323,7 +1323,9 @@ body {
 
 .home-showreel-player__hit {
   display: block;
-  position: relative;
+  position: absolute;
+  inset: 0;
+  z-index: 4;
   width: 100%;
   height: 100%;
   padding: 0;
@@ -1353,7 +1355,7 @@ body {
   position: absolute;
   left: 50%;
   top: 50%;
-  z-index: 3;
+  z-index: 5;
   transform: translate(-50%, -50%);
   display: inline-flex;
   align-items: center;
@@ -1364,7 +1366,7 @@ body {
   padding-inline: var(--space-5) var(--space-2);
   border: 1px solid var(--border);
   border-radius: 999px;
-  background: color-mix(in srgb, var(--surface) 78%, transparent);
+  background: var(--surface);
   color: var(--frost);
   box-shadow: 0 12px 40px color-mix(in srgb, var(--ink) 22%, transparent);
   backdrop-filter: blur(10px);
@@ -1424,6 +1426,8 @@ body {
 }
 
 .home-showreel-player__poster {
+  position: absolute;
+  inset: 0;
   pointer-events: auto;
   z-index: 2;
 }
@@ -1461,9 +1465,11 @@ body {
   pointer-events: none;
   z-index: 1;
   object-fit: cover;
+  visibility: hidden;
 }
 
 .home-showreel-player .project-detail-media__video.is-visible {
+  visibility: visible;
   pointer-events: auto;
   z-index: 3;
 }
@@ -1507,11 +1513,13 @@ body {
   z-index: 3;
 }
 
-/* Mobil: 9:16 — sabit yükseklik (aspect-ratio + max-height CLS yapıyordu) */
+/* Mobil: 9:16 — yükseklik = genişlik × 16/9 */
 .home-showreel__variant--mobile .project-detail-media {
   position: relative;
   width: 100%;
-  height: min(calc(100vw * 16 / 9), 92vh, 52rem);
+  aspect-ratio: 9 / 16;
+  max-height: min(92vh, 52rem);
+  height: auto;
   overflow: hidden;
   background: var(--surface);
 }
@@ -2263,13 +2271,15 @@ body {
   overflow: hidden;
 }
 
-/* Respect reduced motion */
+/* Respect reduced motion (admin/olly). Kayan bantlar: kruv.css --marquee-dur-reduced !important */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *:not(.ticker-track):not(.ideal-share-marquee-track):not(.lets-talk-marquee-track):not(.testimonials-track),
+  *:not(.ticker-track):not(.ideal-share-marquee-track):not(.lets-talk-marquee-track):not(.testimonials-track)::before,
+  *:not(.ticker-track):not(.ideal-share-marquee-track):not(.lets-talk-marquee-track):not(.testimonials-track)::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
+  }
+  html {
     scroll-behavior: auto !important;
   }
 }

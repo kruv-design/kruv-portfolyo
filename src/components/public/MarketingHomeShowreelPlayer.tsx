@@ -31,15 +31,6 @@ export function MarketingHomeShowreelPlayer({
   const videoRef = useRef<HTMLVideoElement>(null);
   const [activated, setActivated] = useState(false);
   const [playError, setPlayError] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setReducedMotion(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
 
   const tryPlay = useCallback((v: HTMLVideoElement) => {
     primeVideoElement(v);
@@ -53,19 +44,18 @@ export function MarketingHomeShowreelPlayer({
   }, []);
 
   const startPlayback = useCallback(() => {
-    if (!videoSrc || reducedMotion) return;
-
-    setActivated(true);
+    if (!videoSrc) return;
     setPlayError(false);
+    setActivated(true);
+  }, [videoSrc]);
+
+  useEffect(() => {
+    if (!activated || !videoSrc) return;
 
     const v = videoRef.current;
     if (!v) return;
 
     primeVideoElement(v);
-
-    if (!v.currentSrc && videoSrc) {
-      v.src = videoSrc;
-    }
 
     const attempt = () => {
       void tryPlay(v).catch(() => {});
@@ -81,12 +71,11 @@ export function MarketingHomeShowreelPlayer({
     v.addEventListener("loadeddata", onReady, { once: true });
     v.load();
     attempt();
-  }, [videoSrc, reducedMotion, tryPlay]);
+  }, [activated, videoSrc, tryPlay]);
 
   const posterHidden = activated;
-  const showVideo = Boolean(videoSrc) && !reducedMotion && activated;
-  const showPlayUi =
-    Boolean(videoSrc) && !reducedMotion && !activated;
+  const showVideo = Boolean(videoSrc) && activated;
+  const showPlayUi = Boolean(videoSrc) && !activated;
 
   return (
     <div className="project-detail-media project-detail-media--gallery home-showreel-player">
@@ -146,27 +135,25 @@ export function MarketingHomeShowreelPlayer({
         </div>
       ) : null}
 
-      {videoSrc && !reducedMotion ? (
+      {videoSrc && activated ? (
         <>
           <video
             ref={videoRef}
-            className={`project-detail-media__video${
-              activated ? " is-mounted" : ""
-            }${showVideo ? " is-visible" : ""}${
-              activated ? " has-controls" : ""
-            }`}
+            className={`project-detail-media__video is-mounted${
+              showVideo ? " is-visible" : ""
+            } has-controls`}
             poster={posterSrc || undefined}
-            src={activated ? videoSrc : undefined}
+            src={videoSrc}
             muted
             playsInline
             loop
-            preload={activated ? "auto" : "metadata"}
-            controls={activated}
-            tabIndex={activated ? 0 : -1}
+            preload="auto"
+            controls
+            tabIndex={0}
             onPlay={() => setPlayError(false)}
             onError={() => setPlayError(true)}
           />
-          {playError && activated ? (
+          {playError ? (
             <div className="home-showreel-player__error home-showreel-player__error--over-video" role="status">
               <p className="project-detail-media__play-error">{errorLabel}</p>
               <a
