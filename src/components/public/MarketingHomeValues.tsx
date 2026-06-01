@@ -2,7 +2,7 @@ import type { Locale } from "@/lib/i18n/config";
 import type { Messages } from "@/lib/i18n/get-messages";
 import { homeIllustrationSrc } from "@/lib/home-illustrations";
 
-/** Anasayfa showreel sonrası — hedef müşteri tipleri (journey focus-list: sıfır, ölçek, görünürlük, yenileme). */
+/** Anasayfa hero sonrası — hedef müşteri tipleri (journey focus-list: sıfır, ölçek, görünürlük, yenileme). */
 export function MarketingHomeValues({
   locale,
   messages,

@@ -1301,7 +1301,7 @@ body {
   aspect-ratio: auto;
 }
 
-/* Anasayfa hero altı showreel — tam genişlik (edge-to-edge) */
+/* Anasayfa üst showreel — tam genişlik (edge-to-edge), hero üstünde */
 .home-showreel {
   box-sizing: border-box;
   width: 100vw;

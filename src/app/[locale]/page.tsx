@@ -76,16 +76,16 @@ export default async function LocaleHomePage({
         />
       ) : null}
       <MarketingSiteNav settings={settings} locale={locale} messages={messages} />
+      <MarketingHomeShowreel
+        settings={settings}
+        locale={locale}
+        messages={messages}
+      />
       <MarketingHero
         locale={locale}
         messages={messages}
         ctaHref={withLocale("/works", locale)}
         scrollHref="#works"
-      />
-      <MarketingHomeShowreel
-        settings={settings}
-        locale={locale}
-        messages={messages}
       />
       <MarketingHomeValues locale={locale} messages={messages} />
       {ENABLE_CIFT_KAYAN_YAZI ? (

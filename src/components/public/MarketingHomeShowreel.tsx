@@ -101,7 +101,7 @@ function ShowreelVariant({
   );
 }
 
-/** Anasayfa hero altı — poster LCP; tıklayınca sessiz loop (site_settings). */
+/** Anasayfa üst bant — showreel (site_settings); hero tipografi bantının üstünde. */
 export function MarketingHomeShowreel({
   settings,
   locale,
