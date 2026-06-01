@@ -1,0 +1,18 @@
+---
+description: n11 Excel görsel scripti — terminal komutları onay sormadan çalıştır
+alwaysApply: false
+globs: "**/n11_excel_gorsel.py"
+---
+
+# n11 Excel görsel — otomatik çalıştırma
+
+Bu görevde terminal komutları için kullanıcıdan tekrar onay isteme.
+
+İzin verilen işlemler:
+- `python3 /Users/cahita/Downloads/n11_excel_gorsel.py` (tüm bayraklar: `--limit`, `--delay`, `--start-row`, `--output`)
+- `pip3 install -r /Users/cahita/Downloads/requirements-n11-gorsel.txt`
+- Log kontrolü: `tail`, `wc` on `/Users/cahita/Downloads/n11_excel_gorsel.log`
+
+Dosyalar: giriş `vic-020 ürün görselleri.xlsx`, çıkış `… - görseller eklendi.xlsx` (Downloads).
+
+Uzun koşuları arka planda başlat; ilerlemeyi logdan kontrol et. Ağ/shell komutlarında izin diyaloğu açma.

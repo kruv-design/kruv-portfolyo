@@ -9,7 +9,7 @@ import type { SiteSettings } from "@/types";
 import { MarketingHomeHeroShowreel } from "./MarketingHomeHeroShowreel";
 import { MarketingHeroMount } from "./MarketingHeroMount";
 
-/** Video arka plan + tipografi hero — tek `#hero` bölümü. */
+/** Üstte showreel, altta tipografi — tek `#hero` (üst üste bindirme yok). */
 export async function MarketingHomeHero({
   settings,
   locale,
@@ -56,7 +56,9 @@ export async function MarketingHomeHero({
           messages={messages}
         />
       ) : null}
-      <MarketingHeroMount innerHtml={innerHtml} locale={locale} />
+      <div className={hasShowreel ? "hero-v2-copy" : undefined}>
+        <MarketingHeroMount innerHtml={innerHtml} locale={locale} />
+      </div>
     </section>
   );
 }

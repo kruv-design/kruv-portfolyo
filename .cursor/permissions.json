@@ -1,0 +1,12 @@
+{
+  "autoRun": {
+    "allow_instructions": [
+      "Allow python3 and pip3 for n11 Excel görsel scripti: /Users/cahita/Downloads/n11_excel_gorsel.py, requirements-n11-gorsel.txt, vic-020 ürün görselleri.xlsx ve çıktı dosyaları.",
+      "Allow read-only shell: ls, wc, tail, head, cat, grep on Downloads ve proje dizini.",
+      "Allow network for cloudscraper/requests: n11.com, n11scdn.akamaized.net araması ve görsel indirme."
+    ],
+    "block_instructions": [
+      "Block rm -rf, git push, git reset --hard, sudo, and commands outside Downloads or this project unless clearly required."
+    ]
+  }
+}

@@ -3201,72 +3201,47 @@ body:has(.card:hover) .ticker {
   z-index: 1;
 }
 
-/* Showreel hero arka planı — video + üstte tipografi */
+/* Showreel üstte, tipografi altta — ayrı katmanlar */
 .hero-v2--has-showreel {
-  justify-content: center;
-  overflow: hidden;
-  padding-top: calc(env(safe-area-inset-top, 0px) + var(--nav-logo-slot-h) + var(--space-8));
-}
-
-.hero-v2__showreel.home-showreel {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  width: 100%;
-  max-width: none;
-  margin: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
   padding: 0;
-  overflow: hidden;
-  pointer-events: auto;
+  overflow: visible;
 }
 
-.hero-v2--has-showreel .hero-v2__showreel .home-showreel__variant {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.hero-v2--has-showreel .hero-v2__showreel .project-detail-media {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  max-height: none;
-  aspect-ratio: auto;
-}
-
-.hero-v2--has-showreel .hero-v2__showreel .project-detail-media-img,
-.hero-v2--has-showreel .hero-v2__showreel .project-detail-media__video {
-  object-fit: cover;
-}
-
-.hero-v2--has-showreel::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--midnight) 72%, transparent) 0%,
-    color-mix(in srgb, var(--midnight) 42%, transparent) 42%,
-    color-mix(in srgb, var(--midnight) 78%, transparent) 100%
-  );
-}
-
-.hero-v2--has-showreel .hero-v2-inner {
+.hero-v2--has-showreel .hero-v2__showreel.home-showreel {
   position: relative;
-  z-index: 2;
-  pointer-events: none;
+  flex: 0 0 auto;
+  order: 1;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
 }
 
-.hero-v2--has-showreel .hero-v2-inner a {
-  pointer-events: auto;
+.hero-v2-copy {
+  order: 2;
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: min(72svh, 40rem);
+  padding: calc(var(--section-pad-y) + var(--space-2)) var(--container-gutter)
+    var(--section-pad-y);
+  background: var(--midnight);
+  position: relative;
+  box-sizing: border-box;
 }
 
-.hero-v2--has-showreel .hero-v2-cursor {
-  z-index: 3;
+.hero-v2-copy .marketing-hero-mount {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 .hero-v2-inner {
   display: flex;
