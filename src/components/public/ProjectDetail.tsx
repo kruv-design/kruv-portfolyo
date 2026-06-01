@@ -139,7 +139,11 @@ export function ProjectDetail({
         />
       ) : null}
 
-      <LetsTalkMarquee headingId="project-lets-talk-heading" />
+      <LetsTalkMarquee
+        locale={locale}
+        messages={messages}
+        headingId="project-lets-talk-heading"
+      />
     </>
   );
 }

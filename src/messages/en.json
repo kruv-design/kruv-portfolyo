@@ -87,6 +87,11 @@
         { "label": "D2C brands" },
         { "label": "Istanbul" }
       ]
+    },
+    "letsTalk": {
+      "line1": "got a brand ",
+      "line2": "worth building?",
+      "cta": "Start a project"
     }
   },
   "nav": {

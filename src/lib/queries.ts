@@ -7,11 +7,12 @@ import {
   resolveNextProject,
   sortProjectsBySira,
 } from "@/lib/next-project";
+import { normalizeBrandName } from "@/lib/brand";
 import { DEMO_PROJECTS, isPlaceholderEnv } from "@/lib/demo-data";
 import type { Project, SiteSettings } from "@/types";
 
 export const DEFAULT_SITE_SETTINGS: SiteSettings = {
-  siteAdi: "kruv.",
+  siteAdi: "kruv",
   tagline: "Seçilmiş projeler & çalışmalar",
   footerYazi: "estd 2025",
   instagramUrl: "https://www.instagram.com/kruvsocial/",
@@ -132,7 +133,9 @@ export async function getSettings(): Promise<SiteSettings> {
     if (error) throw error;
     const row = data as Partial<SiteSettings> | null | undefined;
     return {
-      siteAdi: row?.siteAdi ?? DEFAULT_SITE_SETTINGS.siteAdi,
+      siteAdi: normalizeBrandName(
+        row?.siteAdi ?? DEFAULT_SITE_SETTINGS.siteAdi,
+      ),
       tagline: row?.tagline ?? DEFAULT_SITE_SETTINGS.tagline,
       footerYazi: normalizeFooterYazi(row?.footerYazi),
       instagramUrl: pickSettingsUrl(row?.instagramUrl, DEFAULT_SITE_SETTINGS.instagramUrl),

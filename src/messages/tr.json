@@ -87,6 +87,11 @@
         { "label": "D2C markalar" },
         { "label": "İstanbul" }
       ]
+    },
+    "letsTalk": {
+      "line1": "tasarlamaya değer ",
+      "line2": "markan mı var?",
+      "cta": "Projeye başla"
     }
   },
   "nav": {

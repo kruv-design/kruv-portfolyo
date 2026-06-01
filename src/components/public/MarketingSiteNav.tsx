@@ -8,6 +8,7 @@ import type { Locale } from "@/lib/i18n/config";
 import type { Messages } from "@/lib/i18n/get-messages";
 import { withLocale } from "@/lib/i18n/path";
 import { t } from "@/lib/i18n/t";
+import { normalizeBrandName } from "@/lib/brand";
 import { ENABLE_THEME_TOGGLE } from "@/lib/theme/flags";
 import { ThemeToggle } from "./ThemeToggle";
 import {
@@ -80,7 +81,7 @@ export function MarketingSiteNav({
     };
   }, [languageMenuOpen]);
 
-  const brandLabel = (settings.siteAdi || "kruv.").replace(/\.$/, "").toLowerCase() || "kruv";
+  const brandLabel = normalizeBrandName(settings.siteAdi).toLowerCase();
 
   const isProjectsActive = pathname?.includes("/works") || (pathname?.includes("/projects/") ?? false);
   const isContactActive = pathname?.includes("/contact");
@@ -131,6 +132,7 @@ export function MarketingSiteNav({
                   <span className="marketing-navbar-logo-wordmark" aria-hidden="true" />
                   <span className="marketing-navbar-logo-emblem" aria-hidden="true" />
                 </span>
+                <span className="marketing-navbar-brand-label">{brandLabel}</span>
               </Link>
             </div>
             <div className="marketing-navbar-col marketing-navbar-col--links">

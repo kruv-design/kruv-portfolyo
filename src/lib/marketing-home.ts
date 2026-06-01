@@ -78,6 +78,21 @@ export function rewriteMarketingHomeHtml(
   out = out.replace(/href="\/#hero"/g, `href="${withLocale("/", locale)}#hero"`);
   out = out.replace(/href="\/"/g, `href="${withLocale("/", locale)}"`);
 
+  const letsTalk = messages.home.letsTalk;
+  const letsTalkHeading = `<span class="lets-talk-heading-line1">${escapeHtml(letsTalk.line1)}</span><span class="lets-talk-heading-line2"><em>${escapeHtml(letsTalk.line2)}</em></span>`;
+  out = out.replace(
+    /<span class="lets-talk-heading-line1">[\s\S]*?<\/span><span class="lets-talk-heading-line2">[\s\S]*?<\/span>/g,
+    letsTalkHeading,
+  );
+  out = out.replace(
+    /<section class="lets-talk" lang="[^"]*"/g,
+    `<section class="lets-talk" lang="${locale}"`,
+  );
+  out = out.replace(
+    /(<a class="cta-ghost lets-talk-cta"[^>]*>)[^<]*(<\/a>)/g,
+    `$1${escapeHtml(letsTalk.cta)}$2`,
+  );
+
   return out;
 }
 

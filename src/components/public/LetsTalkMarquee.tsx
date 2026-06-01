@@ -1,6 +1,12 @@
 import Link from "next/link";
+import type { Locale } from "@/lib/i18n/config";
+import type { Messages } from "@/lib/i18n/get-messages";
+import { withLocale } from "@/lib/i18n/path";
+import { t } from "@/lib/i18n/t";
 
 type LetsTalkMarqueeProps = {
+  locale?: Locale;
+  messages?: Messages;
   contactHref?: string;
   headingId?: string;
 };
@@ -8,17 +14,23 @@ type LetsTalkMarqueeProps = {
 function MarqueeGroup({
   headingId,
   contactHref,
+  line1,
+  line2,
+  cta,
   hidden,
 }: {
   headingId?: string;
   contactHref: string;
+  line1: string;
+  line2: string;
+  cta: string;
   hidden?: boolean;
 }) {
   const heading = (
     <>
-      <span className="lets-talk-heading-line1">Got a brand</span>
+      <span className="lets-talk-heading-line1">{line1}</span>
       <span className="lets-talk-heading-line2">
-        <em>worth building?</em>
+        <em>{line2}</em>
       </span>
     </>
   );
@@ -37,7 +49,7 @@ function MarqueeGroup({
         className="cta-ghost lets-talk-cta"
         tabIndex={hidden ? -1 : undefined}
       >
-        Start a project
+        {cta}
       </Link>
     </div>
   );
@@ -45,18 +57,55 @@ function MarqueeGroup({
 
 /** Anasayfa ile aynı mor kayan bant CTA (`kruv.html` .lets-talk). */
 export function LetsTalkMarquee({
-  contactHref = "/contact",
+  locale = "en",
+  messages,
+  contactHref,
   headingId = "lets-talk-heading",
 }: LetsTalkMarqueeProps) {
+  const href = contactHref ?? withLocale("/contact", locale);
+  const line1 = messages
+    ? t(messages, "home.letsTalk.line1", "got a brand ")
+    : "got a brand ";
+  const line2 = messages
+    ? t(messages, "home.letsTalk.line2", "worth building?")
+    : "worth building?";
+  const cta = messages
+    ? t(messages, "home.letsTalk.cta", "Start a project")
+    : "Start a project";
+
   return (
-    <section className="lets-talk" lang="en" aria-labelledby={headingId}>
+    <section className="lets-talk" lang={locale} aria-labelledby={headingId}>
       <div className="lets-talk-marquee-bleed">
         <div className="lets-talk-marquee">
           <div className="lets-talk-marquee-track">
-            <MarqueeGroup headingId={headingId} contactHref={contactHref} />
-            <MarqueeGroup contactHref={contactHref} hidden />
-            <MarqueeGroup contactHref={contactHref} hidden />
-            <MarqueeGroup contactHref={contactHref} hidden />
+            <MarqueeGroup
+              headingId={headingId}
+              contactHref={href}
+              line1={line1}
+              line2={line2}
+              cta={cta}
+            />
+            <MarqueeGroup
+              contactHref={href}
+              line1={line1}
+              line2={line2}
+              cta={cta}
+              hidden
+            />
+            <MarqueeGroup
+              contactHref={href}
+              line1={line1}
+              line2={line2}
+              cta={cta}
+              hidden
+            />
+            <MarqueeGroup
+              contactHref={href}
+              line1={line1}
+              line2={line2}
+              cta={cta}
+              hidden
+            />
           </div>
         </div>
       </div>
