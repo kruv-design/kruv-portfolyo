@@ -16,5 +16,6 @@ alter table public.site_settings
 --   "homeVideo" = 'kruv-portfolio/home-showreel'
 -- where id = 1;
 --
--- Kontrol: homeVideo bir VIDEO public_id olmalı (image URL değil).
+-- Kontrol: homeVideo = video public_id veya res.cloudinary.com/.../video/upload/... MP4 URL.
+-- player.cloudinary.com/embed/... linki HTML5 video ile çalışmaz (kod embed’i MP4’e çevirir).
 -- NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME (.env / Vercel) tanımlı olmalı.

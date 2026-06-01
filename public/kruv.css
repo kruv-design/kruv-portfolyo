@@ -296,14 +296,11 @@
 
   /* ===== Component: ticker ===== */
 
-  /*
-    Ticker el SVG’leri farklı viewBox genişliklerinde (ör. asset-1 çok yatay).
-    Sabit height + scale bazılarını taşırıyordu; hepsi aynı slotta object-fit: contain ile eşitlenir.
-  */
-  --ticker-hand-art-h: 68px;
-  --ticker-hand-art-zoom: 1.5;
+  /* Ticker illüstrasyonları — dikey viewBox (~208×323); contain ile slot içinde hizalanır */
+  --ticker-hand-art-h: 72px;
+  --ticker-hand-art-zoom: 1.35;
   --ticker-hand-slot-h: calc(var(--ticker-hand-art-h) * var(--ticker-hand-art-zoom));
-  --ticker-hand-slot-w: calc(var(--ticker-hand-slot-h) * 64 / 34);
+  --ticker-hand-slot-w: calc(var(--ticker-hand-slot-h) * 208 / 323);
   --ticker-pad-y: var(--space-5);
   --ticker-height: calc(var(--ticker-hand-slot-h) + (2 * var(--ticker-pad-y)));
   --ticker-item-pad-x: 48px;
@@ -2267,7 +2264,7 @@ body:has(.card:hover) .ticker {
   list-style: none;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--space-4);
+  gap: var(--space-5);
   margin: 0;
   padding: 0;
 }
@@ -2276,30 +2273,31 @@ body:has(.card:hover) .ticker {
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
-  min-height: clamp(18rem, 34vh, 26rem);
-  padding: var(--space-8) var(--space-8) var(--space-10);
+  min-height: clamp(22rem, 42vh, 34rem);
+  padding: var(--space-10) var(--space-8) var(--space-12);
   border: 1px solid var(--border);
   border-radius: var(--card-radius);
   background: color-mix(in srgb, var(--surface) 36%, transparent);
 }
 
-.home-values__index {
-  font-family: var(--b3-font-family);
-  font-size: var(--b3-font-size);
-  font-weight: var(--b3-font-weight);
-  line-height: var(--b3-line-height);
-  letter-spacing: var(--b3-letter-spacing);
-  text-transform: var(--b3-text-transform);
-  color: var(--silver);
-}
-
 .home-values__icon {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  width: 48px;
-  height: 48px;
-  color: var(--frost);
+  justify-content: center;
+  flex-shrink: 0;
+  width: clamp(4rem, 6vw, 5rem);
+  height: clamp(5.5rem, 9vw, 7.5rem);
+  margin-bottom: var(--space-2);
+}
+
+.home-values__icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center center;
 }
 
 .home-values__card-title {
@@ -2308,18 +2306,18 @@ body:has(.card:hover) .ticker {
   font-weight: var(--h3-font-weight);
   line-height: var(--h3-line-height);
   letter-spacing: var(--h3-letter-spacing);
-  text-transform: var(--h3-text-transform);
+  text-transform: none;
   color: var(--frost);
 }
 
 .home-values__card-body {
-  font-family: var(--b2-font-family);
-  font-size: var(--b2-font-size);
-  font-weight: var(--b2-font-weight);
-  line-height: var(--b2-line-height);
-  letter-spacing: var(--b2-letter-spacing);
-  text-transform: var(--b2-text-transform);
-  color: var(--b2-color);
+  font-family: var(--b1-font-family);
+  font-size: var(--b1-font-size);
+  font-weight: var(--b1-font-weight);
+  line-height: var(--b1-line-height);
+  letter-spacing: var(--b1-letter-spacing);
+  text-transform: none;
+  color: var(--frost);
   margin-top: auto;
 }
 
@@ -2346,7 +2344,8 @@ body:has(.card:hover) .ticker {
   }
 
   .home-values__card {
-    padding: var(--space-6);
+    min-height: clamp(18rem, 36vh, 28rem);
+    padding: var(--space-8) var(--space-6) var(--space-10);
   }
 }
 

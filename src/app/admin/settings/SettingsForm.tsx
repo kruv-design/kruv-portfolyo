@@ -115,7 +115,7 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
               }
             />
           </Field>
-          <Field label="homeVideo (isteğe bağlı)">
+          <Field label="homeVideo (isteğe bağlı — video public_id veya MP4 delivery URL; embed linki değil)">
             <input
               type="text"
               className="form-input"

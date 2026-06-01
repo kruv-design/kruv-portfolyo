@@ -22,7 +22,6 @@ const markPaths = [...markSvg.matchAll(/<path[^>]*>/g)]
 function buildSquareIcon(size, padding) {
   const inner = size - padding * 2;
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" role="img" aria-label="kruv">
-  <rect width="${size}" height="${size}" fill="#FAFAFA"/>
   <svg x="${padding}" y="${padding}" width="${inner}" height="${inner}" viewBox="0 0 308 373" preserveAspectRatio="xMidYMid meet">
     ${shapePath}
     ${markPaths}

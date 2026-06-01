@@ -4,6 +4,9 @@ function cloudName(): string {
   return String(process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME ?? "").trim();
 }
 
+const SHOWREEL_VIDEO_TRANSFORMS = "q_auto,f_mp4,w_1920,c_limit";
+const PROJECT_VIDEO_TRANSFORMS = "q_auto,f_auto:video,w_1920,c_limit";
+
 /**
  * Supabase / admin: tam https URL veya Cloudinary public_id (örn. kruv-portfolio/abc).
  * Public_id tek başına tarayıcıda görüntülenemez — delivery URL üretilir.
@@ -25,31 +28,29 @@ export function resolveProjectVideoUrl(raw: string): string {
   const s = raw.trim().replace(/\s+/g, "");
   if (!s) return "";
   if (/^https?:\/\//i.test(s)) {
-    // Supabase’e yanlışlıkla image delivery URL yapıştırılmışsa düzelt
+    const embed = cloudinaryEmbedPlayerParams(s);
+    if (embed) {
+      return buildCloudinaryVideoUrl(
+        embed.publicId,
+        PROJECT_VIDEO_TRANSFORMS,
+        embed.cloud,
+      );
+    }
     if (s.includes("/image/upload/")) {
       return s.replace(
         "/image/upload/",
-        "/video/upload/q_auto,f_auto:video,w_1920,c_limit/",
+        `/video/upload/${PROJECT_VIDEO_TRANSFORMS}/`,
       );
     }
     return s;
   }
-  const cloud = cloudName();
-  if (!cloud) return s;
-  const id = s
-    .replace(/^\/+/, "")
-    .replace(/\.(mp4|webm|mov)$/i, "");
-  return `https://res.cloudinary.com/${cloud}/video/upload/q_auto,f_auto:video,w_1920,c_limit/${id}`;
+  return buildCloudinaryVideoUrl(s, PROJECT_VIDEO_TRANSFORMS);
 }
 
 export type ShowreelLayout = "landscape" | "portrait";
 
 function showreelAspectCrop(layout: ShowreelLayout): string {
   return layout === "landscape" ? "c_fill,ar_16:9" : "c_fill,ar_9:16";
-}
-
-function showreelVideoTransforms(layout: ShowreelLayout): string {
-  return `${showreelAspectCrop(layout)},f_mp4,q_auto,w_1920,c_limit`;
 }
 
 function showreelPosterTransforms(layout: ShowreelLayout): string {
@@ -82,11 +83,37 @@ function cloudinaryPublicIdFromUrl(url: string, resource: "video" | "image"): st
   return stripCloudinaryExtension(joined) || null;
 }
 
-function buildCloudinaryVideoUrl(publicId: string, transforms: string): string {
-  const cloud = cloudName();
+function buildCloudinaryVideoUrl(
+  publicId: string,
+  transforms: string,
+  cloudOverride?: string,
+): string {
+  const cloud = (cloudOverride ?? cloudName()).trim();
   if (!cloud) return publicId;
   const id = stripCloudinaryExtension(publicId.replace(/^\/+/, ""));
   return `https://res.cloudinary.com/${cloud}/video/upload/${transforms}/${id}`;
+}
+
+/** player.cloudinary.com/embed — HTML5 video src olamaz; public_id çıkarılır. */
+function cloudinaryEmbedPlayerParams(
+  url: string,
+): { cloud: string; publicId: string } | null {
+  try {
+    const u = new URL(url);
+    if (!/player\.cloudinary\.com$/i.test(u.hostname)) return null;
+    const cloud =
+      u.searchParams.get("cloud_name")?.trim() ||
+      u.searchParams.get("cloud")?.trim() ||
+      "";
+    const publicId =
+      u.searchParams.get("public_id")?.trim() ||
+      u.searchParams.get("publicId")?.trim() ||
+      "";
+    if (!cloud || !publicId) return null;
+    return { cloud, publicId: decodeURIComponent(publicId) };
+  } catch {
+    return null;
+  }
 }
 
 function buildCloudinaryImageUrl(publicId: string, transforms: string): string {
@@ -114,27 +141,35 @@ export function resolveShowreelPosterUrl(raw: string, layout: ShowreelLayout): s
   return buildCloudinaryImageUrl(s, transforms);
 }
 
-/** Anasayfa showreel video — f_mp4, crop, Safari uyumlu. */
+/** Anasayfa showreel video — f_mp4, Safari uyumlu MP4 delivery. */
 export function resolveShowreelVideoUrl(raw: string, layout: ShowreelLayout): string {
+  void layout;
   const s = raw.trim().replace(/\s+/g, "");
   if (!s) return "";
-  const transforms = showreelVideoTransforms(layout);
 
   if (/^https?:\/\//i.test(s)) {
+    const embed = cloudinaryEmbedPlayerParams(s);
+    if (embed) {
+      return buildCloudinaryVideoUrl(
+        embed.publicId,
+        SHOWREEL_VIDEO_TRANSFORMS,
+        embed.cloud,
+      );
+    }
     if (s.includes("/image/upload/")) {
       const id = cloudinaryPublicIdFromUrl(s, "image") ?? cloudinaryPublicIdFromUrl(s, "video");
-      if (id) return buildCloudinaryVideoUrl(id, transforms);
-      return s.replace("/image/upload/", `/video/upload/${transforms}/`);
+      if (id) return buildCloudinaryVideoUrl(id, SHOWREEL_VIDEO_TRANSFORMS);
+      return s.replace("/image/upload/", `/video/upload/${SHOWREEL_VIDEO_TRANSFORMS}/`);
     }
     if (s.includes("res.cloudinary.com") && s.includes("/video/upload/")) {
-      if (/ar_\d+:\d+/.test(s) && /f_mp4/.test(s)) return s;
+      if (/f_mp4/.test(s)) return s;
       const id = cloudinaryPublicIdFromUrl(s, "video");
-      if (id) return buildCloudinaryVideoUrl(id, transforms);
+      if (id) return buildCloudinaryVideoUrl(id, SHOWREEL_VIDEO_TRANSFORMS);
     }
     return s;
   }
 
-  return buildCloudinaryVideoUrl(s, transforms);
+  return buildCloudinaryVideoUrl(s, SHOWREEL_VIDEO_TRANSFORMS);
 }
 
 /** @deprecated showreel için resolveShowreelPosterUrl / resolveShowreelVideoUrl kullanın */

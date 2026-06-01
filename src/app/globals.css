@@ -1350,13 +1350,17 @@ body {
   position: absolute;
   left: 50%;
   bottom: 0.75rem;
-  z-index: 4;
+  z-index: 5;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--space-2);
   pointer-events: auto;
+}
+
+.home-showreel-player__error--over-video {
+  bottom: 3.25rem;
 }
 
 .home-showreel-player__open-link {

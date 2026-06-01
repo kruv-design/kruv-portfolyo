@@ -3,10 +3,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ProjectDetailImage } from "./ProjectDetailImage";
 
-type PlayerPhase = "idle" | "playing" | "failed";
-
-const CONTROLS_FALLBACK_MS = 2000;
-
 function primeVideoElement(v: HTMLVideoElement) {
   v.muted = true;
   v.defaultMuted = true;
@@ -16,7 +12,7 @@ function primeVideoElement(v: HTMLVideoElement) {
   v.setAttribute("webkit-playsinline", "");
 }
 
-/** Anasayfa showreel — basit oynatıcı (poster + play, native controls fallback). */
+/** Anasayfa showreel — poster + tıklayınca sessiz loop (native controls yedek). */
 export function MarketingHomeShowreelPlayer({
   posterSrc,
   videoSrc,
@@ -31,9 +27,8 @@ export function MarketingHomeShowreelPlayer({
   openVideoLabel: string;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const fallbackTimerRef = useRef<number | null>(null);
-  const [phase, setPhase] = useState<PlayerPhase>("idle");
-  const [showControls, setShowControls] = useState(false);
+  const [activated, setActivated] = useState(false);
+  const [playError, setPlayError] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
@@ -44,63 +39,61 @@ export function MarketingHomeShowreelPlayer({
     return () => mq.removeEventListener("change", update);
   }, []);
 
-  const clearFallbackTimer = useCallback(() => {
-    if (fallbackTimerRef.current !== null) {
-      window.clearTimeout(fallbackTimerRef.current);
-      fallbackTimerRef.current = null;
-    }
-  }, []);
-
-  useEffect(() => () => clearFallbackTimer(), [clearFallbackTimer]);
-
-  const enableControlsFallback = useCallback(() => {
-    setShowControls(true);
-    const v = videoRef.current;
-    if (v) void v.play().catch(() => setPhase("failed"));
+  const tryPlay = useCallback((v: HTMLVideoElement) => {
+    primeVideoElement(v);
+    return v.play().then(
+      () => setPlayError(false),
+      () => {
+        setPlayError(true);
+        return Promise.reject(new Error("play rejected"));
+      },
+    );
   }, []);
 
   const startPlayback = useCallback(() => {
     if (!videoSrc || reducedMotion) return;
 
-    clearFallbackTimer();
-    setPhase("playing");
-    setShowControls(false);
+    setActivated(true);
+    setPlayError(false);
 
     const v = videoRef.current;
     if (!v) return;
 
     primeVideoElement(v);
 
-    fallbackTimerRef.current = window.setTimeout(() => {
-      if (v.paused && !v.ended) {
-        enableControlsFallback();
-      }
-    }, CONTROLS_FALLBACK_MS);
+    if (!v.currentSrc && videoSrc) {
+      v.src = videoSrc;
+    }
 
-    void v.play().then(
-      () => {
-        clearFallbackTimer();
-        setPhase("playing");
-      },
-      () => {
-        enableControlsFallback();
-      },
-    );
-  }, [videoSrc, reducedMotion, clearFallbackTimer, enableControlsFallback]);
+    const attempt = () => {
+      void tryPlay(v).catch(() => {});
+    };
 
-  const showPoster = phase === "idle" || phase === "failed";
-  const showVideo = Boolean(videoSrc) && !reducedMotion && phase !== "idle";
+    if (v.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      attempt();
+      return;
+    }
+
+    const onReady = () => attempt();
+    v.addEventListener("canplay", onReady, { once: true });
+    v.addEventListener("loadeddata", onReady, { once: true });
+    v.load();
+    attempt();
+  }, [videoSrc, reducedMotion, tryPlay]);
+
+  const posterHidden = activated;
+  const showVideo = Boolean(videoSrc) && !reducedMotion && activated;
   const showPlayUi =
-    Boolean(videoSrc) && !reducedMotion && (phase === "idle" || phase === "failed");
+    Boolean(videoSrc) && !reducedMotion && !activated;
 
   return (
     <div className="project-detail-media project-detail-media--gallery home-showreel-player">
       {posterSrc ? (
         <div
           className={
-            showPoster
-              ? "project-detail-media__poster-wrap home-showreel-player__poster"
-              : "project-detail-media__poster-wrap is-under-video"
+            posterHidden
+              ? "project-detail-media__poster-wrap is-under-video"
+              : "project-detail-media__poster-wrap home-showreel-player__poster"
           }
         >
           {showPlayUi ? (
@@ -122,11 +115,11 @@ export function MarketingHomeShowreelPlayer({
                 <span className="project-detail-media__play-icon" />
               </span>
             </button>
-          ) : (
+          ) : !posterHidden ? (
             <ProjectDetailImage src={posterSrc} alt="" variant="gallery" />
-          )}
+          ) : null}
 
-          {phase === "failed" ? (
+          {playError && !activated ? (
             <div className="home-showreel-player__error" role="status">
               <p className="project-detail-media__play-error">{errorLabel}</p>
               {videoSrc ? (
@@ -145,29 +138,39 @@ export function MarketingHomeShowreelPlayer({
       ) : null}
 
       {videoSrc && !reducedMotion ? (
-        <video
-          ref={videoRef}
-          className={`project-detail-media__video is-mounted${
-            showVideo ? " is-visible" : ""
-          }${showControls ? " has-controls" : ""}`}
-          poster={posterSrc || undefined}
-          src={videoSrc}
-          muted
-          playsInline
-          loop
-          preload="auto"
-          controls={showControls}
-          tabIndex={showControls ? 0 : -1}
-          onPlay={() => {
-            clearFallbackTimer();
-            setPhase("playing");
-          }}
-          onError={() => {
-            clearFallbackTimer();
-            setPhase("failed");
-            setShowControls(true);
-          }}
-        />
+        <>
+          <video
+            ref={videoRef}
+            className={`project-detail-media__video${
+              activated ? " is-mounted" : ""
+            }${showVideo ? " is-visible" : ""}${
+              activated ? " has-controls" : ""
+            }`}
+            poster={posterSrc || undefined}
+            src={activated ? videoSrc : undefined}
+            muted
+            playsInline
+            loop
+            preload={activated ? "auto" : "metadata"}
+            controls={activated}
+            tabIndex={activated ? 0 : -1}
+            onPlay={() => setPlayError(false)}
+            onError={() => setPlayError(true)}
+          />
+          {playError && activated ? (
+            <div className="home-showreel-player__error home-showreel-player__error--over-video" role="status">
+              <p className="project-detail-media__play-error">{errorLabel}</p>
+              <a
+                className="home-showreel-player__open-link"
+                href={videoSrc}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {openVideoLabel}
+              </a>
+            </div>
+          ) : null}
+        </>
       ) : null}
     </div>
   );
