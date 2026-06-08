@@ -2349,13 +2349,28 @@ body:has(.card:hover) .ticker {
   .home-spotlight__card {
     flex-direction: column;
     align-items: stretch;
-    gap: var(--space-10);
+    gap: var(--space-8);
     padding: var(--space-10) var(--space-8);
   }
 
+  .home-spotlight__title {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0;
+  }
+
+  .home-spotlight__title-line {
+    display: inline;
+  }
+
   .home-spotlight__badges {
-    justify-content: flex-end;
-    padding-top: var(--space-2);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: var(--space-5);
+    padding-top: 0;
   }
 }
 

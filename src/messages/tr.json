@@ -28,12 +28,9 @@
       "tags": ["Marka kimliği", "InDesign"],
       "titleLines": [
         [
+          { "type": "text", "value": "Adobe " },
           { "type": "accent", "value": "Behance" },
-          { "type": "text", "value": " ve" }
-        ],
-        [
-          { "type": "accent", "value": "Adobe Creative Cloud" },
-          { "type": "text", "value": "'da öne çıkanlar" }
+          { "type": "text", "value": "'de öne çıkanlar" }
         ]
       ],
       "ribbons": [{ "variant": "gr" }, { "variant": "id" }]
