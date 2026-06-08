@@ -88,9 +88,9 @@
       "ariaLabel": "Öne çıkan projeler"
     },
     "shareMarquee": {
-      "line1": "Paylaşılmadıysa yaşanmamıştır",
-      "line2": "Yaşanmışsa paylaş",
-      "ariaLabel": "Paylaşılmadıysa yaşanmamıştır. Yaşanmışsa paylaş."
+      "line1": "Paylaşmaya değer markalar ",
+      "line2": "tasarlıyoruz",
+      "ariaLabel": "Paylaşmaya değer markalar tasarlıyoruz."
     },
     "ticker": {
       "items": [

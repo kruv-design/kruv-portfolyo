@@ -58,12 +58,9 @@ export function rewriteMarketingHomeHtml(
     `$1${escapeHtml(title)}$2`,
   );
 
-  const share = messages.home.shareMarquee;
-  const sharePiece = `<span class="ideal-share-marquee-piece">\n            ${escapeHtml(share.line1)}\n            <strong>${escapeHtml(share.line2)}</strong>\n          </span>`;
-  out = out.replace(/<span class="ideal-share-marquee-piece">[\s\S]*?<\/span>/g, sharePiece);
   out = out.replace(
-    /<section\s+class="ideal-share-marquee-band"[^>]*>/,
-    `<section\n  class="ideal-share-marquee-band"\n  lang="${locale}"\n  aria-label="${escapeHtml(share.ariaLabel)}"\n>`,
+    /<section[^>]*class="ideal-share-marquee-band"[\s\S]*?<\/section>\s*/g,
+    "",
   );
 
   out = out.replace(/\b(src|href)="assets\//g, '$1="/assets/');
@@ -224,7 +221,6 @@ function shouldIncludeHomeScript(content: string): boolean {
     content.includes("testimonialsMarquee") ||
     content.includes("scroll-theme-bridge") ||
     content.includes("hydrateFooterSocial") ||
-    content.includes("initIdealShareMarquee") ||
     content.includes("location.hash !== '#hero'")
   );
 }

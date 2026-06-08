@@ -21,20 +21,21 @@ export async function MarketingHomeHero({
   messages: Messages;
 }) {
   const hero = messages.home.hero;
-  const innerHtml = await loadHeroV2InnerHtml({
-    ...options,
-    copy: {
-      lang: locale,
-      line1: hero.line1,
-      line2: hero.line2,
-      line2Tail: hero.line2Tail,
-      lineOrder:
-        hero.lineOrder === "main-first" ? "main-first" : "accent-first",
-    },
-  });
-
   const { web, mobile } = resolveHomeShowreelSlots(settings);
   const hasShowreel = Boolean(web || mobile);
+  const innerHtml = hasShowreel
+    ? ""
+    : await loadHeroV2InnerHtml({
+        ...options,
+        copy: {
+          lang: locale,
+          line1: hero.line1,
+          line2: hero.line2,
+          line2Tail: hero.line2Tail,
+          lineOrder:
+            hero.lineOrder === "main-first" ? "main-first" : "accent-first",
+        },
+      });
 
   return (
     <section
@@ -52,10 +53,11 @@ export async function MarketingHomeHero({
           locale={locale}
           messages={messages}
         />
-      ) : null}
-      <div className={hasShowreel ? "hero-v2-copy" : undefined}>
-        <MarketingHeroMount innerHtml={innerHtml} locale={locale} />
-      </div>
+      ) : (
+        <div className="hero-v2-copy">
+          <MarketingHeroMount innerHtml={innerHtml} locale={locale} />
+        </div>
+      )}
     </section>
   );
 }

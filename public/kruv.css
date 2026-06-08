@@ -2227,13 +2227,14 @@ body:has(.card:hover) .ticker {
 }
 
 .home-spotlight__card {
-  --home-spotlight-card-pad: clamp(var(--space-8), 5vw, var(--space-12));
+  --home-spotlight-card-pad-x: clamp(var(--space-10), 6vw, var(--space-12));
+  --home-spotlight-card-pad-y: clamp(var(--space-10), 6vw, var(--space-12));
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: clamp(var(--space-8), 5vw, var(--space-12));
   box-sizing: border-box;
-  padding: var(--home-spotlight-card-pad);
+  padding: var(--home-spotlight-card-pad-y) var(--home-spotlight-card-pad-x);
   border: 1px solid var(--ideal-clients-border);
   border-radius: var(--card-radius);
   background: color-mix(in srgb, var(--surface) 24%, transparent);
@@ -2291,11 +2292,12 @@ body:has(.card:hover) .ticker {
 
 @media (max-width: 720px) {
   .home-spotlight__card {
-    --home-spotlight-card-pad: clamp(var(--space-8), 6vw, var(--space-10));
+    --home-spotlight-card-pad-x: clamp(var(--space-8), 6vw, var(--space-10));
+    --home-spotlight-card-pad-y: clamp(var(--space-10), 8vw, var(--space-12));
     flex-direction: row;
     align-items: center;
     gap: var(--space-5);
-    padding: var(--home-spotlight-card-pad);
+    padding: var(--home-spotlight-card-pad-y) var(--home-spotlight-card-pad-x);
   }
 
   .home-spotlight__content {
@@ -2324,12 +2326,13 @@ body:has(.card:hover) .ticker {
     flex-wrap: nowrap;
     flex-shrink: 0;
     justify-content: flex-end;
-    align-items: flex-end;
+    align-items: flex-start;
     gap: var(--space-4);
+    padding-block: var(--space-1);
   }
 
   .home-spotlight__badge {
-    width: clamp(2.5rem, 11vw, 3rem);
+    width: clamp(2.35rem, 10vw, 2.85rem);
   }
 }
 
@@ -3333,6 +3336,13 @@ body:has(.card:hover) .ticker {
   align-items: stretch;
   padding: 0;
   overflow: visible;
+}
+
+/* Mobil: showreel sabit navbar altından başlar (üstüne binmez) */
+@media (max-width: 768px) {
+  .hero-v2--has-showreel {
+    padding-top: var(--site-nav-clearance);
+  }
 }
 
 .hero-v2--has-showreel .hero-v2__showreel.home-showreel {

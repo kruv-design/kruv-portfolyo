@@ -14,7 +14,7 @@
   /* Mobil scroll pill — yatay dış boşluk */
   --site-nav-pill-gutter-x: clamp(10px, 2vw, 14px);
   /* Mobil üst bar (scroll yok) */
-  --site-nav-bar-bg: color-mix(in srgb, var(--surface, var(--midnight)) 92%, transparent);
+  --site-nav-bar-bg: var(--surface, var(--midnight));
   --site-nav-bar-border: 1px solid var(--border, var(--gray-100));
   /* Mobil oval pill (scroll var) */
   --site-nav-pill-bg: color-mix(in srgb, var(--midnight, var(--surface)) 82%, transparent);
