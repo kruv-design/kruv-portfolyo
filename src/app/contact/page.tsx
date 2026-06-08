@@ -24,7 +24,7 @@ export default async function ContactPage() {
       <main className="contact-page-main">
         <ContactForm locale={locale} messages={messages} />
       </main>
-      <SiteFooter settings={settings} />
+      <SiteFooter settings={settings} locale={locale} messages={messages} />
     </MarketingPageShell>
   );
 }

@@ -49,17 +49,17 @@ export function ProjectNextBanner({
       >
         <div className="project-next-banner__grid">
           <div className="project-next-banner__meta">
-            <p className="project-next-banner__eyebrow project-next-banner__eyebrow--desktop">
+            <p className="b2 project-next-banner__eyebrow project-next-banner__eyebrow--desktop">
               <span aria-hidden="true">↘ </span>
               {t(messages, "project.nextProject", "Next project")}
             </p>
-            <p className="project-next-banner__eyebrow project-next-banner__eyebrow--mobile">
+            <p className="b2 project-next-banner__eyebrow project-next-banner__eyebrow--mobile">
               {formatIndex(index, total)}
               <span className="project-next-banner__eyebrow-sep"> — </span>
               {t(messages, "project.nextProject", "Next project")}
             </p>
 
-            <h2 id="project-next-banner-heading" className="project-next-banner__title">
+            <h2 id="project-next-banner-heading" className="h3 project-next-banner__title">
               {nextProject.baslik}
             </h2>
 
@@ -68,7 +68,7 @@ export function ProjectNextBanner({
             ) : null}
 
             <div className="project-next-banner__progress" aria-hidden="true">
-              <span className="project-next-banner__progress-label">
+              <span className="b2 project-next-banner__progress-label">
                 {formatIndex(index, total)}
               </span>
               <span className="project-next-banner__progress-track">
@@ -79,15 +79,15 @@ export function ProjectNextBanner({
               </span>
             </div>
 
-            <p className="project-next-banner__cta project-next-banner__cta--desktop">
+            <p className="b1 project-next-banner__cta project-next-banner__cta--desktop">
               <span>{t(messages, "project.view", "View")}</span>
               <span className="project-next-banner__cta-arrow" aria-hidden="true">
                 →
               </span>
             </p>
 
-            <div className="project-next-banner__cta-row project-next-banner__cta-row--mobile">
-              <span>{t(messages, "project.seeProject", "See project")}</span>
+            <div className="b1 project-next-banner__cta-row project-next-banner__cta-row--mobile">
+              <span>{t(messages, "project.view", "View")}</span>
               <span className="project-next-banner__cta-arrow" aria-hidden="true">
                 →
               </span>

@@ -14,7 +14,7 @@ import type { Project, SiteSettings } from "@/types";
 export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   siteAdi: "kruv",
   tagline: "Seçilmiş projeler & çalışmalar",
-  footerYazi: "estd 2025",
+  footerYazi: "Estd 2025",
   instagramUrl: "https://www.instagram.com/kruvsocial/",
   xUrl: "",
   linkedinUrl: "https://www.linkedin.com/company/kruv/?viewAsMember=true",

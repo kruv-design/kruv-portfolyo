@@ -30,7 +30,7 @@ function MarqueeGroup({
     <>
       <span className="lets-talk-heading-line1">{line1}</span>
       <span className="lets-talk-heading-line2">
-        <em>{line2}</em>
+        <strong>{line2}</strong>
       </span>
     </>
   );

@@ -32,28 +32,58 @@ function isElementInViewport(el: Element): boolean {
   return r.bottom > 0 && r.top < window.innerHeight;
 }
 
+/** Evrensel medya kontrolü — Lucide VolumeX / Volume2 (YouTube, Instagram ile aynı dil). */
 function ShowreelSoundIcon({ muted }: { muted: boolean }) {
+  const speaker = (
+    <path
+      fill="currentColor"
+      d="M11 4.7a.7.7 0 0 0-1.2-.5L6.4 7.6A1.4 1.4 0 0 1 5.4 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.4a1.4 1.4 0 0 1 1 .4l3.4 3.4a.7.7 0 0 0 1.2-.5V4.7Z"
+    />
+  );
+
   if (muted) {
     return (
-      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+      <svg
+        className="home-showreel-player__sound-icon"
+        viewBox="0 0 24 24"
+        width="24"
+        height="24"
+        aria-hidden="true"
+      >
+        {speaker}
         <path
-          fill="currentColor"
-          d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.74 2.5-2.26 2.5-4.02zM5 9v6h4l5 5V4L9 9H5zm12.5 3c0-2.71-1.56-5.05-3.83-6.18v12.36c2.27-1.13 3.83-3.47 3.83-6.18z"
-        />
-        <path
-          fill="currentColor"
-          d="M3.27 3 2 4.27l4.74 4.74H3v6h3.73l5.27 5.27L14.73 21 21 14.73 3.27 3z"
-          opacity="0.9"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.25"
+          strokeLinecap="round"
+          d="M16 9l6 6M22 9l-6 6"
         />
       </svg>
     );
   }
 
   return (
-    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+    <svg
+      className="home-showreel-player__sound-icon"
+      viewBox="0 0 24 24"
+      width="24"
+      height="24"
+      aria-hidden="true"
+    >
+      {speaker}
       <path
-        fill="currentColor"
-        d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.74 2.5-2.26 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.25"
+        strokeLinecap="round"
+        d="M15.5 8.5a5 5 0 0 1 0 7"
+      />
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.25"
+        strokeLinecap="round"
+        d="M19 5a9 9 0 0 1 0 14"
       />
     </svg>
   );
@@ -69,6 +99,7 @@ export function MarketingHomeShowreelPlayer({
   openVideoLabel,
   muteLabel,
   unmuteLabel,
+  eager = false,
 }: {
   posterSrc: string;
   videoSrc: string | null;
@@ -78,11 +109,14 @@ export function MarketingHomeShowreelPlayer({
   openVideoLabel: string;
   muteLabel: string;
   unmuteLabel: string;
+  /** Hero gibi fold üstü — hemen yükle, IO bekleme. */
+  eager?: boolean;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const isMutedRef = useRef(true);
-  const [loadVideo, setLoadVideo] = useState(false);
+  const [loadVideo, setLoadVideo] = useState(() => Boolean(eager && videoSrc));
+  const [hasFrames, setHasFrames] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
   const [playError, setPlayError] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
@@ -125,7 +159,7 @@ export function MarketingHomeShowreelPlayer({
   }, []);
 
   useEffect(() => {
-    if (!videoSrc || reducedMotion) return;
+    if (eager || !videoSrc || reducedMotion) return;
 
     const container = containerRef.current;
     if (!container) return;
@@ -146,7 +180,7 @@ export function MarketingHomeShowreelPlayer({
     );
     observer.observe(container);
     return () => observer.disconnect();
-  }, [videoSrc, reducedMotion, beginLoad]);
+  }, [eager, videoSrc, reducedMotion, beginLoad]);
 
   useLayoutEffect(() => {
     const v = videoRef.current;
@@ -235,8 +269,9 @@ export function MarketingHomeShowreelPlayer({
 
   const showPlayUi =
     Boolean(videoSrc) && (playError || (reducedMotion && !videoReady));
-  const posterHidden = loadVideo && videoReady && !playError;
-  const showSoundToggle = loadVideo && videoReady && !playError;
+  const videoShowing = loadVideo && (hasFrames || videoReady) && !playError;
+  const posterHidden = videoShowing;
+  const showSoundToggle = loadVideo && (hasFrames || videoReady) && !playError;
 
   return (
     <div
@@ -278,7 +313,13 @@ export function MarketingHomeShowreelPlayer({
               </span>
             </button>
           ) : !posterHidden ? (
-            <ProjectDetailImage src={posterSrc} alt="" variant="gallery" />
+            <ProjectDetailImage
+              src={posterSrc}
+              alt=""
+              variant="gallery"
+              priority={eager}
+              sizes="100vw"
+            />
           ) : null}
 
           {playError && !loadVideo ? (
@@ -304,7 +345,7 @@ export function MarketingHomeShowreelPlayer({
           <video
             ref={videoRef}
             className={`project-detail-media__video is-mounted${
-              videoReady && !playError ? " is-visible" : ""
+              videoShowing ? " is-visible" : ""
             }`}
             poster={posterSrc || undefined}
             src={videoSrc}
@@ -312,10 +353,17 @@ export function MarketingHomeShowreelPlayer({
             autoPlay
             playsInline
             loop
-            preload="metadata"
+            preload={eager ? "auto" : "metadata"}
             tabIndex={-1}
             aria-hidden={showSoundToggle ? undefined : true}
+            onLoadedData={() => setHasFrames(true)}
+            onPlaying={() => {
+              setHasFrames(true);
+              setVideoReady(true);
+              setPlayError(false);
+            }}
             onPlay={() => {
+              setHasFrames(true);
               setVideoReady(true);
               setPlayError(false);
             }}

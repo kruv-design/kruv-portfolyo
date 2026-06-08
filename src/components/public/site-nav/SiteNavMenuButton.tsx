@@ -22,9 +22,11 @@ export function SiteNavMenuButton({
       aria-controls={controlsId}
       aria-haspopup="dialog"
       aria-label={open ? "Close menu" : "Open menu"}
-      onClick={onClick}
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick();
+      }}
     >
-      <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
       <span className="marketing-navbar-menu-btn__bars site-nav-menu-btn__bars" aria-hidden="true">
         <span />
         <span />

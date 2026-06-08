@@ -28,7 +28,7 @@ export function Sidebar() {
           className="h3 leading-none"
           style={{ color: "var(--gray-1000)", letterSpacing: "0.04em" }}
         >
-          kruv<em style={{ color: "var(--accent)", fontStyle: "italic" }}>.</em>
+          kruv<strong style={{ color: "var(--accent)", fontWeight: 600 }}>.</strong>
         </Link>
         <div
           className="b3 mt-2 lowercase"

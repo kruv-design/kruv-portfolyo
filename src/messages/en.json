@@ -5,7 +5,7 @@
       "title": "In Good Company"
     },
     "hero": {
-      "line1": "worth-sharing.",
+      "line1": "Worth-sharing.",
       "line2": "We build",
       "line2Tail": "brands",
       "lineOrder": "main-first",
@@ -16,16 +16,31 @@
     "showreel": {
       "ariaLabel": "Showreel video",
       "play": "Play showreel",
-      "playCta": "play showreel",
+      "playCta": "Play showreel",
       "playError": "Video failed to load — check the URL.",
       "openVideo": "Open video",
       "mute": "Mute sound",
       "unmute": "Unmute sound"
     },
+    "spotlight": {
+      "ariaLabel": "Featured on creative platforms",
+      "tagsAriaLabel": "Disciplines",
+      "tags": ["Branding", "InDesign"],
+      "titleSegments": [
+        { "type": "text", "value": "Features on " },
+        { "type": "accent", "value": "Behance" },
+        { "type": "text", "value": " and " },
+        { "type": "accent", "value": "Adobe Creative Cloud" }
+      ],
+      "ribbons": [
+        { "variant": "gr", "label": "Gr" },
+        { "variant": "id", "label": "Id" }
+      ]
+    },
     "values": {
       "ariaLabel": "Who we work with",
-      "title": "who we work with.",
-      "lead": "wherever your brand is today — from building identity from scratch to scaling, gaining visibility, or evolving what no longer fits.",
+      "title": "Who we work with.",
+      "lead": "Wherever your brand is today — from building identity from scratch to scaling, gaining visibility, or evolving what no longer fits.",
       "items": [
         {
           "index": "01",
@@ -53,18 +68,18 @@
       "ariaLabel": "What we focus on",
       "rows": [
         [
-          "feed-first design",
-          "social content",
-          "content management",
-          "reels",
-          "stories"
+          "Feed-first design",
+          "Social content",
+          "Content management",
+          "Reels",
+          "Stories"
         ],
         [
-          "interaction gets visible",
-          "motion design",
-          "brand identity",
-          "social native",
-          "feed-first strategy"
+          "Interaction gets visible",
+          "Motion design",
+          "Brand identity",
+          "Social native",
+          "Feed-first strategy"
         ]
       ]
     },
@@ -75,8 +90,8 @@
       "ariaLabel": "Featured works list"
     },
     "shareMarquee": {
-      "line1": "share or it didn't happen",
-      "line2": "we make sure it happens",
+      "line1": "Share or it didn't happen",
+      "line2": "We make sure it happens",
       "ariaLabel": "Share or it did not happen. We make sure it happens."
     },
     "ticker": {
@@ -91,8 +106,8 @@
       ]
     },
     "letsTalk": {
-      "line1": "got a brand ",
-      "line2": "worth building?",
+      "line1": "Got a brand ",
+      "line2": "Worth building?",
       "cta": "Start a project"
     }
   },
@@ -119,6 +134,27 @@
     "scrollUp": "Scroll up",
     "nextBadge": "Next"
   },
+  "footer": {
+    "services": "Services",
+    "sitemap": "Sitemap",
+    "sitemapAria": "Sitemap",
+    "follow": "Follow",
+    "socialAria": "Social links",
+    "socialOpen": "{platform} — open in new tab",
+    "socialMissing": "{platform} — link not yet added",
+    "followSr": "Social links — each icon opens in a new tab.",
+    "home": "Home",
+    "projects": "Projects",
+    "contact": "Contact us",
+    "projectCount": "{count} / {total} projects",
+    "serviceLinks": [
+      { "label": "Brand identity", "filter": "branding" },
+      { "label": "Packaging", "filter": "packaging" },
+      { "label": "Editorial", "filter": "editorial" },
+      { "label": "UI/UX", "filter": "web-design" },
+      { "label": "Illustration", "filter": "branding" }
+    ]
+  },
   "contact": {
     "metaTitle": "Contact",
     "metaDescription": "Contact form for project inquiries and collaborations.",
@@ -130,7 +166,7 @@
     "nameLabel": "Your name",
     "emailLabel": "Your email",
     "messageLabel": "Your message",
-    "namePlaceholder": "e.g. jane doe",
+    "namePlaceholder": "e.g. Jane Doe",
     "emailPlaceholder": "you@example.com",
     "messagePlaceholder": "Briefly describe your project or question.",
     "honeypotLabel": "Your website (leave empty)",

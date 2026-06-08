@@ -54,7 +54,7 @@ function buildLine2Html(copy: HeroV2Copy): string {
 
 const DEFAULT_COPY: HeroV2Copy = {
   lang: "en",
-  line1: "worth-sharing.",
+  line1: "Worth-sharing.",
   line2: "We build",
   line2Tail: "brands",
   lineOrder: "main-first",

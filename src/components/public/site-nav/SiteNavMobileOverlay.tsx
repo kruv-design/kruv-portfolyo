@@ -6,6 +6,7 @@ type SiteNavMobileOverlayProps = {
   id: string;
   titleId: string;
   open: boolean;
+  onClose?: () => void;
   children: ReactNode;
 };
 
@@ -14,10 +15,9 @@ export function SiteNavMobileOverlay({
   id,
   titleId,
   open,
+  onClose,
   children,
 }: SiteNavMobileOverlayProps) {
-  if (!open) return null;
-
   return (
     <div
       id={id}
@@ -25,6 +25,12 @@ export function SiteNavMobileOverlay({
       role="dialog"
       aria-modal="true"
       aria-labelledby={titleId}
+      aria-hidden={!open}
+      hidden={!open}
+      onClick={(e) => {
+        if (!open || !onClose) return;
+        if (e.target === e.currentTarget) onClose();
+      }}
     >
       <h2 id={titleId} className="sr-only">
         Menu

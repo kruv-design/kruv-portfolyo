@@ -79,7 +79,7 @@ export function ProjectDetail({
                   {project.etiketler.map((t) => (
                     <span
                       key={t}
-                      className="b3 rounded-full px-2.5 py-0.5 lowercase font-medium"
+                      className="b3 rounded-full px-2.5 py-0.5 font-medium"
                       style={{
                         background: "var(--accent-soft)",
                         color: "var(--accent)",
@@ -116,7 +116,7 @@ export function ProjectDetail({
             <div className="flex flex-col gap-8">
               {project.bolumler.map((b, i) => (
                 <section key={i}>
-                  {b.baslik && <h2 className="h4 mb-2 lowercase">{b.baslik}</h2>}
+                  {b.baslik && <h2 className="h4 mb-2">{b.baslik}</h2>}
                   {b.metin && (
                     <p className="b1 whitespace-pre-wrap" style={{ color: "var(--b1-color)" }}>
                       {b.metin}

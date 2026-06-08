@@ -1,35 +1,43 @@
 import Link from "next/link";
+import type { Locale } from "@/lib/i18n/config";
+import type { Messages } from "@/lib/i18n/get-messages";
+import { withLocale } from "@/lib/i18n/path";
 import type { SiteSettings } from "@/types";
-import {
-  FOOTER_SERVICE_LINKS,
-  HOME_HERO_HREF,
-  worksPageHref,
-} from "@/lib/work-filters";
 import { SocialFooterLinks } from "./SocialFooterLinks";
+
+function footerWorksHref(locale: Locale, filter?: string): string {
+  const base = withLocale("/works", locale);
+  return filter ? `${base}?filter=${filter}` : base;
+}
 
 export function SiteFooter({
   settings,
+  locale,
+  messages,
   count,
   total,
 }: {
   settings: SiteSettings;
+  locale: Locale;
+  messages: Messages;
   count?: number;
   total?: number;
 }) {
+  const copy = messages.footer;
   const showCount =
     typeof count === "number" && typeof total === "number";
 
   return (
-    <footer className="site-footer" id="contact" lang="en">
+    <footer className="site-footer" id="contact" lang={locale}>
       <div className="site-footer-inner">
         <div className="site-footer-grid">
           <div className="site-footer-col">
-            <h3 className="site-footer-heading">Services</h3>
+            <h3 className="site-footer-heading">{copy.services}</h3>
             <ul className="site-footer-list site-footer-services">
-              {FOOTER_SERVICE_LINKS.map(({ label, filter }) => (
-                <li key={label}>
+              {copy.serviceLinks.map(({ label, filter }) => (
+                <li key={`${filter}-${label}`}>
                   <Link
-                    href={worksPageHref(filter)}
+                    href={footerWorksHref(locale, filter)}
                     className="site-footer-service-link"
                   >
                     {label}
@@ -39,24 +47,24 @@ export function SiteFooter({
             </ul>
           </div>
 
-          <nav className="site-footer-col" aria-label="Sitemap">
-            <h3 className="site-footer-heading">Sitemap</h3>
+          <nav className="site-footer-col" aria-label={copy.sitemapAria}>
+            <h3 className="site-footer-heading">{copy.sitemap}</h3>
             <ul className="site-footer-list site-footer-links">
               <li>
-                <Link href={HOME_HERO_HREF}>Home</Link>
+                <Link href={`${withLocale("/", locale)}#hero`}>{copy.home}</Link>
               </li>
               <li>
-                <Link href={worksPageHref()}>Projects</Link>
+                <Link href={footerWorksHref(locale)}>{copy.projects}</Link>
               </li>
               <li>
-                <Link href="/contact">Contact us</Link>
+                <Link href={withLocale("/contact", locale)}>{copy.contact}</Link>
               </li>
             </ul>
           </nav>
 
           <div className="site-footer-col site-footer-col--follow">
-            <h3 className="site-footer-heading">Follow</h3>
-            <SocialFooterLinks settings={settings} />
+            <h3 className="site-footer-heading">{copy.follow}</h3>
+            <SocialFooterLinks settings={settings} messages={messages} />
           </div>
         </div>
 
@@ -67,7 +75,9 @@ export function SiteFooter({
         >
           {showCount ? (
             <p className="b2 site-footer-count">
-              {count} / {total} projects
+              {copy.projectCount
+                .replace("{count}", String(count))
+                .replace("{total}", String(total))}
             </p>
           ) : null}
           <p className="b2 site-footer-legal">{settings.footerYazi}</p>

@@ -4,6 +4,7 @@ import { DEFAULT_SITE_SETTINGS, getSettings } from "@/lib/queries";
 import { MarketingPageShell } from "@/components/public/MarketingPageShell";
 import { MarketingSiteNav } from "@/components/public/MarketingSiteNav";
 import { MarketingHero } from "@/components/public/MarketingHero";
+import { MarketingHomeSpotlight } from "@/components/public/MarketingHomeSpotlight";
 import { MarketingHomeValues } from "@/components/public/MarketingHomeValues";
 import { MarketingScrollMarquee } from "@/components/public/MarketingScrollMarquee";
 import { MarketingHomeBody } from "@/components/public/MarketingHomeBody";
@@ -43,8 +44,15 @@ export default async function LocaleHomePage({
     resolveHomeShowreelSlots(settings);
   const showreelPosterMobile = showreelMobile?.posterSrc ?? "";
   const showreelPosterWeb = showreelWeb?.posterSrc ?? "";
+  const showreelVideoMobile = showreelMobile?.videoSrc ?? "";
+  const showreelVideoWeb = showreelWeb?.videoSrc ?? "";
   return (
     <MarketingPageShell className="flex min-h-screen flex-col">
+      <link
+        rel="preconnect"
+        href="https://res.cloudinary.com"
+        crossOrigin="anonymous"
+      />
       {showreelPosterMobile ? (
         <link
           rel="preload"
@@ -70,6 +78,31 @@ export default async function LocaleHomePage({
           fetchPriority="high"
         />
       ) : null}
+      {showreelVideoMobile ? (
+        <link
+          rel="preload"
+          as="video"
+          href={showreelVideoMobile}
+          media="(max-width: 899px)"
+          fetchPriority="high"
+        />
+      ) : null}
+      {showreelVideoWeb && showreelVideoMobile ? (
+        <link
+          rel="preload"
+          as="video"
+          href={showreelVideoWeb}
+          media="(min-width: 900px)"
+          fetchPriority="high"
+        />
+      ) : showreelVideoWeb && !showreelVideoMobile ? (
+        <link
+          rel="preload"
+          as="video"
+          href={showreelVideoWeb}
+          fetchPriority="high"
+        />
+      ) : null}
       <MarketingSiteNav settings={settings} locale={locale} messages={messages} />
       <MarketingHero
         settings={settings}
@@ -78,6 +111,7 @@ export default async function LocaleHomePage({
         ctaHref={withLocale("/works", locale)}
         scrollHref="#works"
       />
+      <MarketingHomeSpotlight locale={locale} messages={messages} />
       <MarketingHomeValues locale={locale} messages={messages} />
       {ENABLE_CIFT_KAYAN_YAZI ? (
         <MarketingScrollMarquee locale={locale} messages={messages} />

@@ -50,6 +50,18 @@ export function MarketingSiteNav({
   }, [pathname]);
 
   useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)");
+    const onMqChange = () => {
+      if (!mq.matches) {
+        setLanguageMenuOpen(false);
+        setMobileMenuOpen(false);
+      }
+    };
+    mq.addEventListener("change", onMqChange);
+    return () => mq.removeEventListener("change", onMqChange);
+  }, []);
+
+  useEffect(() => {
     if (!mobileMenuOpen) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -87,7 +99,13 @@ export function MarketingSiteNav({
   const isContactActive = pathname?.includes("/contact");
 
   function closeMobileMenu() {
+    setLanguageMenuOpen(false);
     setMobileMenuOpen(false);
+  }
+
+  function toggleMobileMenu() {
+    setLanguageMenuOpen(false);
+    setMobileMenuOpen((open) => !open);
   }
 
   function onMobileSearch(ev: React.FormEvent<HTMLFormElement>) {
@@ -197,7 +215,7 @@ export function MarketingSiteNav({
                 <SiteNavMenuButton
                   open={mobileMenuOpen}
                   controlsId={SITE_NAV_MOBILE_MENU_ID}
-                  onClick={() => setMobileMenuOpen((open) => !open)}
+                  onClick={toggleMobileMenu}
                 />
               </div>
             </div>
@@ -209,6 +227,7 @@ export function MarketingSiteNav({
         id={SITE_NAV_MOBILE_MENU_ID}
         titleId={menuTitleId}
         open={mobileMenuOpen}
+        onClose={closeMobileMenu}
       >
         {ENABLE_THEME_TOGGLE ? (
           <ThemeToggle className="marketing-nav-mobile-theme-toggle site-nav-mobile-theme-toggle nav-theme-toggle" />

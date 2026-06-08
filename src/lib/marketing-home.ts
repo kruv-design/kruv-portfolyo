@@ -59,7 +59,7 @@ export function rewriteMarketingHomeHtml(
   );
 
   const share = messages.home.shareMarquee;
-  const sharePiece = `<span class="ideal-share-marquee-piece">\n            ${escapeHtml(share.line1)}\n            <em>${escapeHtml(share.line2)}</em>\n          </span>`;
+  const sharePiece = `<span class="ideal-share-marquee-piece">\n            ${escapeHtml(share.line1)}\n            <strong>${escapeHtml(share.line2)}</strong>\n          </span>`;
   out = out.replace(/<span class="ideal-share-marquee-piece">[\s\S]*?<\/span>/g, sharePiece);
   out = out.replace(
     /<section\s+class="ideal-share-marquee-band"[^>]*>/,
@@ -79,7 +79,7 @@ export function rewriteMarketingHomeHtml(
   out = out.replace(/href="\/"/g, `href="${withLocale("/", locale)}"`);
 
   const letsTalk = messages.home.letsTalk;
-  const letsTalkHeading = `<span class="lets-talk-heading-line1">${escapeHtml(letsTalk.line1)}</span><span class="lets-talk-heading-line2"><em>${escapeHtml(letsTalk.line2)}</em></span>`;
+  const letsTalkHeading = `<span class="lets-talk-heading-line1">${escapeHtml(letsTalk.line1)}</span><span class="lets-talk-heading-line2"><strong>${escapeHtml(letsTalk.line2)}</strong></span>`;
   out = out.replace(
     /<span class="lets-talk-heading-line1">[\s\S]*?<\/span><span class="lets-talk-heading-line2">[\s\S]*?<\/span>/g,
     letsTalkHeading,
@@ -91,6 +91,104 @@ export function rewriteMarketingHomeHtml(
   out = out.replace(
     /(<a class="cta-ghost lets-talk-cta"[^>]*>)[^<]*(<\/a>)/g,
     `$1${escapeHtml(letsTalk.cta)}$2`,
+  );
+
+  out = rewriteFooterInHtml(out, locale, messages);
+
+  return out;
+}
+
+function footerSocialAria(messages: Messages, platform: string): string {
+  return messages.footer.socialOpen.replace("{platform}", platform);
+}
+
+function buildFooterServiceLinksHtml(locale: Locale, messages: Messages): string {
+  const items = messages.footer.serviceLinks
+    .map(
+      ({ label, filter }) =>
+        `          <li><a class="site-footer-service-link" href="${withLocale("/works", locale)}?filter=${filter}">${escapeHtml(label)}</a></li>`,
+    )
+    .join("\n");
+  return `        <ul class="site-footer-list site-footer-services">\n${items}\n        </ul>`;
+}
+
+function buildFooterSitemapHtml(locale: Locale, messages: Messages): string {
+  const f = messages.footer;
+  return `        <ul class="site-footer-list site-footer-links">
+          <li><a href="${withLocale("/", locale)}#hero">${escapeHtml(f.home)}</a></li>
+          <li><a href="${withLocale("/works", locale)}">${escapeHtml(f.projects)}</a></li>
+          <li><a href="${withLocale("/contact", locale)}">${escapeHtml(f.contact)}</a></li>
+        </ul>`;
+}
+
+function rewriteFooterInHtml(
+  html: string,
+  locale: Locale,
+  messages: Messages,
+): string {
+  if (!html.includes('class="site-footer"')) return html;
+
+  let out = html;
+  const f = messages.footer;
+
+  out = out.replace(
+    /<footer class="site-footer" id="contact" lang="[^"]*">/,
+    `<footer class="site-footer" id="contact" lang="${locale}">`,
+  );
+
+  out = out.replace(
+    /(<h3 class="site-footer-heading">)[^<]*(<\/h3>\s*<ul class="site-footer-list site-footer-services">)/,
+    `$1${escapeHtml(f.services)}$2`,
+  );
+  out = out.replace(
+    /<ul class="site-footer-list site-footer-services">[\s\S]*?<\/ul>/,
+    buildFooterServiceLinksHtml(locale, messages),
+  );
+
+  out = out.replace(
+    /<nav class="site-footer-col" aria-label="[^"]*">/,
+    `<nav class="site-footer-col" aria-label="${escapeHtml(f.sitemapAria)}">`,
+  );
+  out = out.replace(
+    /(<nav class="site-footer-col" aria-label="[^"]*">\s*<h3 class="site-footer-heading">)[^<]*(<\/h3>)/,
+    `$1${escapeHtml(f.sitemap)}$2`,
+  );
+  out = out.replace(
+    /<ul class="site-footer-list site-footer-links">[\s\S]*?<\/ul>/,
+    buildFooterSitemapHtml(locale, messages),
+  );
+
+  out = out.replace(
+    /(<div class="site-footer-col site-footer-col--follow">\s*<h3 class="site-footer-heading">)[^<]*(<\/h3>)/,
+    `$1${escapeHtml(f.follow)}$2`,
+  );
+
+  out = out.replace(
+    /<p class="site-footer-follow-sr" lang="[^"]*">[\s\S]*?<\/p>/,
+    `<p class="site-footer-follow-sr" lang="${locale}">${escapeHtml(f.followSr)}</p>`,
+  );
+
+  const socialPlatforms = [
+    "LinkedIn",
+    "Behance",
+    "Instagram",
+    "Dribbble",
+    "Pinterest",
+    "YouTube",
+  ] as const;
+  for (const platform of socialPlatforms) {
+    out = out.replace(
+      new RegExp(
+        `aria-label="${platform} — [^"]*"`,
+        "g",
+      ),
+      `aria-label="${escapeHtml(footerSocialAria(messages, platform))}"`,
+    );
+  }
+
+  out = out.replace(
+    /(<ul class="site-footer-social site-footer-social--grid"[^>]*)(>)/,
+    `$1 aria-label="${escapeHtml(f.socialAria)}"$2`,
   );
 
   return out;

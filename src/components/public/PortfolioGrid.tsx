@@ -79,7 +79,7 @@ export function PortfolioGrid({
         <main className="portfolio-grid">
           {filtered.length === 0 ? (
             <div
-              className="b1 col-span-full py-20 text-center italic"
+              className="b1 col-span-full py-20 text-center font-semibold"
               style={{ color: "var(--b1-color)" }}
             >
               {emptyLabel}
@@ -92,7 +92,13 @@ export function PortfolioGrid({
         </main>
       </div>
 
-      <SiteFooter settings={settings} count={filtered.length} total={projects.length} />
+      <SiteFooter
+        settings={settings}
+        locale={locale}
+        messages={messages}
+        count={filtered.length}
+        total={projects.length}
+      />
     </div>
   );
 }

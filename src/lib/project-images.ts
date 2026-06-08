@@ -10,7 +10,7 @@ function showreelVideoTransforms(
   layout: ShowreelLayout,
   options?: { preserveAspect?: boolean },
 ): string {
-  const width = layout === "landscape" ? "w_1920" : "w_1080";
+  const width = layout === "landscape" ? "w_1920" : "w_720";
   if (options?.preserveAspect) {
     return `q_auto,f_mp4,${width},c_limit`;
   }

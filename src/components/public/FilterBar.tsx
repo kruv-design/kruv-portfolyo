@@ -37,7 +37,7 @@ export function FilterBar({
             key={key}
             type="button"
             onClick={() => onChange(key)}
-            className="b2 rounded-full border border-solid px-[15px] py-1.5 transition-colors duration-200 lowercase"
+            className="b2 rounded-full border border-solid px-[15px] py-1.5 transition-colors duration-200"
             style={{
               borderColor: isActive ? "var(--ink)" : "var(--border)",
               background: isActive ? "var(--ink)" : "transparent",

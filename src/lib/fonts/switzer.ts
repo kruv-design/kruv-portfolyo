@@ -8,11 +8,6 @@ export const switzer = localFont({
       weight: "100 900",
       style: "normal",
     },
-    {
-      path: "../../../public/fonts/switzer/Switzer-VariableItalic.woff2",
-      weight: "100 900",
-      style: "italic",
-    },
   ],
   variable: "--font-display",
   display: "swap",
@@ -26,11 +21,6 @@ export const switzerOlly = localFont({
       path: "../../../public/fonts/switzer/Switzer-Variable.woff2",
       weight: "100 900",
       style: "normal",
-    },
-    {
-      path: "../../../public/fonts/switzer/Switzer-VariableItalic.woff2",
-      weight: "100 900",
-      style: "italic",
     },
   ],
   variable: "--font-olly-sans",

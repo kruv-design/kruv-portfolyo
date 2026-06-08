@@ -22,7 +22,7 @@
 <style id="critical-lcp">
   .hero-v2 { background: #0e0e0e; min-height: 100svh; display: flex; align-items: center; justify-content: center; }
   .hero-v2-headline { opacity: 1; margin: 0; width: 100%; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.12em; }
-  .hero-v2-accent { font: italic 400 clamp(1.625rem, 7.7vw, 5.5rem)/1.1 Switzer, system-ui, sans-serif; color: #6366f1; text-align: center; width: 100%; }
+  .hero-v2-accent { font: 600 clamp(1.625rem, 7.7vw, 5.5rem)/1.1 Switzer, system-ui, sans-serif; color: #6366f1; text-align: center; width: 100%; }
   .hero-v2-main { font: 500 clamp(1.625rem, 7.7vw, 5.5rem)/1.1 Switzer, system-ui, sans-serif; color: #fafafa; text-align: center; width: 100%; }
 </style>
 <link rel="stylesheet" href="/site-nav.css">
@@ -419,7 +419,7 @@
 <section
   class="ideal-share-marquee-band"
   lang="tr"
-  aria-label="Paylaşılmadıysa yaşanmamıştır. yaşanmışsa paylaş."
+  aria-label="Paylaşılmadıysa yaşanmamıştır. Yaşanmışsa paylaş."
 >
   <div class="ideal-share-marquee-bleed">
     <div class="ideal-share-marquee">
@@ -427,13 +427,13 @@
         <div class="ideal-share-marquee-sequence">
           <span class="ideal-share-marquee-piece">
             Paylaşılmadıysa yaşanmamıştır
-            <em>yaşanmışsa paylaş</em>
+            <strong>Yaşanmışsa paylaş</strong>
           </span>
         </div>
         <div class="ideal-share-marquee-sequence" aria-hidden="true">
           <span class="ideal-share-marquee-piece">
             Paylaşılmadıysa yaşanmamıştır
-            <em>yaşanmışsa paylaş</em>
+            <strong>Yaşanmışsa paylaş</strong>
           </span>
         </div>
       </div>
@@ -708,7 +708,7 @@
 <section class="projects-belief" lang="tr" aria-labelledby="projects-belief-heading">
   <div class="projects-belief-inner">
     <p id="projects-belief-heading" class="tagline projects-belief-line">Bazı markalar görülür. Bazıları paylaşılır.</p>
-    <p class="subtext projects-belief-line">Her projede tek bir sorudan vazgeçmiyoruz;<br>bu içerik paylaşmaya değer mi?</p>
+    <p class="subtext projects-belief-line">Her projede tek bir sorudan vazgeçmiyoruz;<br>Bu içerik paylaşmaya değer mi?</p>
     <p class="subtext projects-belief-line">Amacımız insanların aklında kalan işler üretmek.<br>Vizyonumuz, tasarımın sadece güzel değil,<br>yayılmak için var olduğunu kanıtlamak.</p>
   </div>
 </section>
@@ -719,25 +719,25 @@
       <div class="lets-talk-marquee-track">
         <div class="lets-talk-marquee-group">
           <h2 id="lets-talk-heading" class="lets-talk-heading h2">
-            <span class="lets-talk-heading-line1">Got a brand</span><span class="lets-talk-heading-line2"><em>worth building?</em></span>
+            <span class="lets-talk-heading-line1">Got a brand</span><span class="lets-talk-heading-line2"><strong>worth building?</strong></span>
           </h2>
           <a class="cta-ghost lets-talk-cta" href="/contact">Start a project</a>
         </div>
         <div class="lets-talk-marquee-group" aria-hidden="true">
           <span class="lets-talk-heading h2">
-            <span class="lets-talk-heading-line1">Got a brand</span><span class="lets-talk-heading-line2"><em>worth building?</em></span>
+            <span class="lets-talk-heading-line1">Got a brand</span><span class="lets-talk-heading-line2"><strong>worth building?</strong></span>
           </span>
           <a class="cta-ghost lets-talk-cta" tabindex="-1" href="/contact">Start a project</a>
         </div>
         <div class="lets-talk-marquee-group" aria-hidden="true">
           <span class="lets-talk-heading h2">
-            <span class="lets-talk-heading-line1">Got a brand</span><span class="lets-talk-heading-line2"><em>worth building?</em></span>
+            <span class="lets-talk-heading-line1">Got a brand</span><span class="lets-talk-heading-line2"><strong>worth building?</strong></span>
           </span>
           <a class="cta-ghost lets-talk-cta" tabindex="-1" href="/contact">Start a project</a>
         </div>
         <div class="lets-talk-marquee-group" aria-hidden="true">
           <span class="lets-talk-heading h2">
-            <span class="lets-talk-heading-line1">Got a brand</span><span class="lets-talk-heading-line2"><em>worth building?</em></span>
+            <span class="lets-talk-heading-line1">Got a brand</span><span class="lets-talk-heading-line2"><strong>worth building?</strong></span>
           </span>
           <a class="cta-ghost lets-talk-cta" tabindex="-1" href="/contact">Start a project</a>
         </div>
@@ -805,7 +805,7 @@
       </div>
     </div>
     <div class="site-footer-bar">
-      <p class="b2 site-footer-legal">estd 2025</p>
+      <p class="b2 site-footer-legal">Estd 2025</p>
     </div>
   </div>
 </footer>
@@ -1362,7 +1362,7 @@
     if (host === 'localhost' || host === '127.0.0.1') {
       var localTest = proto + '//127.0.0.1:' + p + shortPath;
       body.innerHTML =
-        '<strong>Tek link ister misin?</strong> Terminal’de <code class="code-accent">./serve.sh</code> yazınca çıkan <code class="code-accent">http://192.168…:' + p + '/kruv.html</code> adresini <em>hem Mac’te hem telefonda</em> aynen kullan (dosya adı sadece harf; uzun başlıklı isimler bazen telefonda takılır).<br><br>' +
+        '<strong>Tek link ister misin?</strong> Terminal’de <code class="code-accent">./serve.sh</code> yazınca çıkan <code class="code-accent">http://192.168…:' + p + '/kruv.html</code> adresini <strong>hem Mac’te hem telefonda</strong> aynen kullan (dosya adı sadece harf; uzun başlıklı isimler bazen telefonda takılır).<br><br>' +
         '<code>localhost</code> / <code>127.0.0.1</code> = “sadece bu Mac”; telefonda aynı yazı telefonun kendisini gösterir, bu yüzden iki cihaz için ortak adres <strong>192.168…</strong> olur.<br><br>' +
         'Sadece bu Mac’te kısayol: <span class="lan-share-hint__url">' + linkHtml(localTest, localTest) + '</span>' +
         '<p class="lan-share-hint__tip">Sunucu kapalıysa veya misafir Wi‑Fi kullanıyorsan bağlanamazsın.</p>';

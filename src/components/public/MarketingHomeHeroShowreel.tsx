@@ -41,6 +41,7 @@ export function MarketingHomeHeroShowreel({
         openVideoLabel={openVideoLabel}
         muteLabel={muteLabel}
         unmuteLabel={unmuteLabel}
+        eager
       />
     </div>
   );

@@ -128,7 +128,7 @@ export default async function ProjectPage({
                 messages={messages}
               />
             </div>
-            <SiteFooter settings={settings} />
+            <SiteFooter settings={settings} locale={locale} messages={messages} />
           </div>
         </div>
       </ProjectDetailPageFrame>

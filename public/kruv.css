@@ -123,9 +123,9 @@
   --type-h4: clamp(16px, 5vw, 20px);
   --type-tagline: clamp(18px, 4vw, 24px);
   --type-text-lg: clamp(14px, 3vw, 18px);
-  --type-b1: 14px;
-  --type-b2: 13px;
-  --type-b3: 10px;
+  --type-b1: calc(14px + 2pt);
+  --type-b2: calc(13px + 2pt);
+  --type-b3: calc(10px + 2pt);
 
   /* ===== Typography tokens — yalnızca h1–h4 ve b1–b3 ===== */
 
@@ -134,28 +134,28 @@
   --h1-font-weight: 600;
   --h1-line-height: var(--lh-tight);
   --h1-letter-spacing: var(--ls-display);
-  --h1-text-transform: lowercase;
+  --h1-text-transform: none;
 
   --h2-font-family: var(--font-display);
   --h2-font-size: var(--type-h2);
   --h2-font-weight: 600;
   --h2-line-height: calc(var(--lh-tight) * 1.125);
   --h2-letter-spacing: var(--ls-display);
-  --h2-text-transform: lowercase;
+  --h2-text-transform: none;
 
   --h3-font-family: var(--font-display);
   --h3-font-size: var(--type-h3);
   --h3-font-weight: 600;
   --h3-line-height: var(--lh-tight);
-  --h3-letter-spacing: var(--ls-lg);
-  --h3-text-transform: lowercase;
+  --h3-letter-spacing: var(--ls-display);
+  --h3-text-transform: none;
 
   --h4-font-family: var(--font-display);
   --h4-font-size: var(--type-h4);
   --h4-font-weight: 500;
   --h4-line-height: var(--lh-tight);
-  --h4-letter-spacing: var(--ls-xl);
-  --h4-text-transform: lowercase;
+  --h4-letter-spacing: var(--ls-display);
+  --h4-text-transform: none;
 
   --tagline-font-size: var(--type-tagline);
   --text-lg-font-size: var(--type-text-lg);
@@ -164,25 +164,25 @@
   --b1-font-size: var(--type-b1);
   --b1-font-weight: 400;
   --b1-line-height: 1.66;
-  --b1-letter-spacing: var(--ls-2xs);
-  /* Metin gövdesi: sayfa boyunca tek ses — tüm yazılar küçük harf. */
-  --b1-text-transform: lowercase;
+  --b1-letter-spacing: var(--ls-body);
+  /* Metin gövdesi: cümle başları büyük harf (text-transform yok). */
+  --b1-text-transform: none;
   --b1-color: var(--silver);
 
   --b2-font-family: var(--font-display);
   --b2-font-size: var(--type-b2);
   --b2-font-weight: 300;
   --b2-line-height: var(--lh-body);
-  --b2-letter-spacing: 0;
-  --b2-text-transform: lowercase;
+  --b2-letter-spacing: var(--ls-body);
+  --b2-text-transform: none;
   --b2-color: var(--gray-400);
 
   --b3-font-family: var(--font-display);
   --b3-font-size: calc(var(--type-b3) + 2pt);
   --b3-font-weight: 500;
   --b3-line-height: var(--lh-tight);
-  --b3-letter-spacing: 0;
-  --b3-text-transform: lowercase;
+  --b3-letter-spacing: var(--ls-body);
+  --b3-text-transform: none;
 
 
   /* ===== Spacing ===== */
@@ -217,7 +217,8 @@
   --lh-quote: 1.35;
 
   /* ===== Typography: letter spacing ===== */
-  --ls-2xs: .01em;
+  --ls-body: 0.02em;
+  --ls-2xs: var(--ls-body);
   --ls-xs: .03em;
   --ls-sm: .04em;
   --ls-md: .06em;
@@ -231,7 +232,7 @@
   --ls-5xl: .22em;
   --ls-display: -0.02em;
   /* Kart / proje meta: başlık biraz açık, kategori etiketi sıkı */
-  --card-meta-title-ls: 0.027em;
+  --card-meta-title-ls: var(--ls-display);
   --card-meta-tag-ls: var(--b3-letter-spacing);
   --card-meta-tag-size-mobile: var(--b3-font-size);
   --ls-anim-start: .3em;
@@ -288,7 +289,7 @@
   --btn-font-weight: 600;
   --btn-line-height: 1;
   --btn-letter-spacing: 0.02em;
-  --btn-text-transform: lowercase;
+  --btn-text-transform: none;
   --btn-pad-y: 14px;
   --btn-pad-x: 28px;
   --btn-radius: var(--radius-btn-pill);
@@ -436,6 +437,21 @@
   --scroll-padding-top: calc(var(--space-6) + var(--nav-logo-slot-h) + var(--space-6));
 }
 
+/* Mobil tipografi merdiveni — hero (h1) > bölüm (h2) > kart (h3) > meta (h4) */
+@media (max-width: 768px) {
+  :root {
+    --type-h1: clamp(2rem, 8.5vw, 2.5rem);
+    --type-h2: clamp(1.5rem, 6vw, 1.75rem);
+    --type-h3: clamp(1.0625rem, 4.2vw, 1.25rem);
+    --type-h4: clamp(0.9375rem, 3.6vw, 1.0625rem);
+    --type-tagline: clamp(1.0625rem, 4vw, 1.25rem);
+    --type-text-lg: clamp(0.9375rem, 3.4vw, 1.0625rem);
+    --h1-line-height: 1.08;
+    --h2-line-height: 1.12;
+    --h3-line-height: 1.18;
+  }
+}
+
 /* ─────────────────────────────────────────────────────────
    LIGHT THEME — açık tema override.
    Sadece foundation tokenları (base/anti/tint) flip edilir;
@@ -488,7 +504,15 @@ html, body {
   color: var(--frost);
   font-family: var(--b1-font-family);
   font-weight: 300;
+  letter-spacing: var(--ls-body);
   overflow-x: hidden;
+}
+
+/* Site geneli: italik yok — vurgu bold */
+em,
+i {
+  font-style: normal;
+  font-weight: 600;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -565,15 +589,15 @@ html, body {
   font-size: var(--tagline-font-size);
   font-weight: var(--h3-font-weight);
   line-height: var(--h3-line-height);
-  letter-spacing: var(--h3-letter-spacing);
+  letter-spacing: var(--ls-display);
   text-transform: none;
 }
 .subtext {
   font-family: var(--h3-font-family);
   font-size: var(--text-lg-font-size);
   font-weight: 400;
-  line-height: calc(var(--h3-line-height) * 1.21 * 1.15 * 1.25 * 0.85);
-  letter-spacing: calc(var(--h3-letter-spacing) * 1.05);
+    line-height: calc(var(--h3-line-height) * 1.21 * 1.15 * 1.25 * 0.85);
+  letter-spacing: var(--ls-body);
   text-transform: none;
 }
 
@@ -1695,14 +1719,12 @@ body:has(.card:hover) .ticker {
   font-weight: 500;
   line-height: var(--lh-tight);
   letter-spacing: var(--ls-xl);
-  text-transform: lowercase;
   color: var(--silver);
   white-space: nowrap;
 }
-.ideal-share-marquee-piece em {
-  font-style: italic;
+.ideal-share-marquee-piece strong {
   color: var(--frost);
-  font-weight: 400;
+  font-weight: 600;
   padding-inline-start: clamp(var(--space-5), 4vw, var(--space-12));
 }
 @keyframes ideal-share-marquee-x {
@@ -1919,12 +1941,12 @@ body:has(.card:hover) .ticker {
   margin-bottom: var(--space-2);
 }
 .focus-list-heading {
-  font-family: var(--h3-font-family);
-  font-size: var(--h3-font-size);
-  font-weight: var(--h3-font-weight);
-  line-height: var(--h3-line-height);
-  letter-spacing: var(--h3-letter-spacing);
-  text-transform: var(--h3-text-transform);
+  font-family: var(--h2-font-family);
+  font-size: var(--h2-font-size);
+  font-weight: var(--h2-font-weight);
+  line-height: var(--h2-line-height);
+  letter-spacing: var(--h2-letter-spacing);
+  text-transform: var(--h2-text-transform);
   color: var(--frost);
   text-wrap: balance;
 }
@@ -2243,6 +2265,118 @@ body:has(.card:hover) .ticker {
 .scroll-theme-bridge {
   height: var(--section-bridge-height);
   pointer-events: none;
+}
+
+/* ── HOME SPOTLIGHT (showreel sonrası — platform öne çıkanları kartı) ── */
+.home-spotlight {
+  --home-spotlight-ribbon-gr-bg: color-mix(in srgb, var(--color-accent) 32%, var(--gray-600));
+  --home-spotlight-ribbon-gr-fg: var(--frost);
+  --home-spotlight-ribbon-id-bg: color-mix(in srgb, var(--purple) 58%, var(--gray-900));
+  --home-spotlight-ribbon-id-fg: color-mix(in srgb, var(--purple) 72%, var(--frost));
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+  padding: clamp(var(--space-4), 2.5vw, var(--space-8)) var(--section-pad-x)
+    clamp(var(--space-10), 6vw, var(--section-pad-y));
+  background-color: var(--midnight);
+}
+
+.home-spotlight__inner {
+  width: var(--grid-shell-width);
+  max-width: var(--grid-shell-width);
+  margin: 0 auto;
+}
+
+.home-spotlight__card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(var(--space-6), 4vw, var(--space-12));
+  padding: clamp(var(--space-8), 4vw, var(--space-12))
+    clamp(var(--space-8), 5vw, var(--space-14));
+  border: 1px solid var(--border);
+  border-radius: var(--card-radius);
+  background: color-mix(in srgb, var(--surface) 24%, transparent);
+}
+
+.home-spotlight__content {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.home-spotlight__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  list-style: none;
+  margin: 0 0 var(--space-4);
+  padding: 0;
+}
+
+.home-spotlight__tags .b2 {
+  color: var(--silver);
+}
+
+.home-spotlight__title {
+  margin: 0;
+  color: var(--frost);
+  text-transform: none;
+  max-width: 20ch;
+}
+
+.home-spotlight__accent {
+  color: var(--purple);
+  font-weight: 600;
+}
+
+.home-spotlight__ribbons {
+  display: flex;
+  flex-shrink: 0;
+  align-items: flex-end;
+  gap: clamp(var(--space-4), 2.5vw, var(--space-6));
+}
+
+.home-spotlight__ribbon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(3.25rem, 5vw, 4.25rem);
+  height: clamp(5.25rem, 8vw, 6.75rem);
+  clip-path: polygon(0 0, 100% 0, 100% 86%, 50% 100%, 0 86%);
+  font-family: var(--h4-font-family);
+  font-size: var(--h4-font-size);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: var(--h4-letter-spacing);
+  text-transform: none;
+}
+
+.home-spotlight__ribbon--gr {
+  background: var(--home-spotlight-ribbon-gr-bg);
+  color: var(--home-spotlight-ribbon-gr-fg);
+}
+
+.home-spotlight__ribbon--id {
+  background: var(--home-spotlight-ribbon-id-bg);
+  color: var(--home-spotlight-ribbon-id-fg);
+}
+
+@media (max-width: 720px) {
+  .home-spotlight__card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-8);
+    padding: var(--space-8) var(--space-6);
+  }
+
+  .home-spotlight__title {
+    max-width: none;
+  }
+
+  .home-spotlight__ribbons {
+    justify-content: flex-end;
+    padding-top: var(--space-2);
+  }
 }
 
 /* ── HOME AUDIENCE (showreel sonrası — journey focus-list müşteri tipleri) ── */
@@ -3123,7 +3257,6 @@ body:has(.card:hover) .ticker {
   font-weight: var(--b2-font-weight);
   line-height: var(--lh-snug);
   letter-spacing: var(--b2-letter-spacing);
-  text-transform: lowercase;
   color: color-mix(in srgb, var(--white-fixed) 82%, transparent);
 }
 .site-footer-links a {
@@ -3214,13 +3347,10 @@ body:has(.card:hover) .ticker {
 .site-footer-legal {
   margin: 0;
   color: color-mix(in srgb, var(--white-fixed) 75%, transparent);
-  text-transform: lowercase;
-  letter-spacing: 0;
 }
 .site-footer-count {
   margin: 0;
   color: color-mix(in srgb, var(--white-fixed) 75%, transparent);
-  text-transform: lowercase;
 }
 /* ── Hero arşivi: eski hero (fan + mobile carousel) görünmez tutuluyor.
    .hero-archive sınıfı kaldırılırsa ve sadece .hero kalırsa eski kompozisyon geri döner. ── */
@@ -3346,7 +3476,7 @@ body:has(.card:hover) .ticker {
   font-family: var(--font-display);
   font-weight: 500;
   color: var(--frost);
-  letter-spacing: -0.035em;
+  letter-spacing: var(--ls-display);
   line-height: 1.1;
   flex-shrink: 0;
 }
@@ -3373,7 +3503,7 @@ body:has(.card:hover) .ticker {
   font-family: var(--font-display);
   font-weight: 500;
   color: var(--frost);
-  letter-spacing: -0.035em;
+  letter-spacing: var(--ls-display);
   line-height: 1.1;
   white-space: nowrap;
   display: block;
@@ -3390,10 +3520,9 @@ body:has(.card:hover) .ticker {
 }
 .hero-v2-suffix {
   font-family: var(--font-display);
-  font-weight: 400;
-  font-style: italic;
+  font-weight: 600;
   color: var(--purple);
-  letter-spacing: -0.02em;
+  letter-spacing: var(--ls-display);
   white-space: nowrap;
   display: block;
   text-align: center;
@@ -3422,10 +3551,9 @@ body:has(.card:hover) .ticker {
 
 .hero-v2-accent {
   font-family: var(--font-display);
-  font-weight: 400;
-  font-style: italic;
+  font-weight: 600;
   color: var(--purple);
-  letter-spacing: -0.02em;
+  letter-spacing: var(--ls-display);
   white-space: nowrap;
   display: block;
   width: 100%;
@@ -3437,7 +3565,7 @@ body:has(.card:hover) .ticker {
   font-family: var(--font-display);
   font-weight: 500;
   color: var(--frost);
-  letter-spacing: -0.035em;
+  letter-spacing: var(--ls-display);
   white-space: nowrap;
   display: block;
   width: 100%;
@@ -3628,14 +3756,26 @@ body:has(.card:hover) .ticker {
   .hero-v2-cursor {
     display: none !important;
   }
-  .hero-v2 { min-height: 100vh; padding: var(--section-pad-y) var(--section-pad-x); }
+  .hero-v2:not(.hero-v2--has-showreel) {
+    min-height: 100vh;
+    padding: var(--section-pad-y) var(--section-pad-x);
+  }
+  .hero-v2--has-showreel {
+    min-height: 0;
+    padding: 0;
+    justify-content: flex-start;
+  }
+  .hero-v2--has-showreel .hero-v2__showreel.home-showreel {
+    margin-top: 0;
+  }
   .hero-v2-inner {
     gap: var(--space-6);
     align-items: center;
   }
   .hero-v2-headline {
-    font-size: var(--h2-font-size);
-    line-height: var(--h2-line-height);
+    font-size: var(--h1-font-size);
+    line-height: var(--h1-line-height);
+    letter-spacing: var(--h1-letter-spacing);
     width: 100%;
     max-width: 100%;
     align-items: center;
@@ -3656,24 +3796,23 @@ body:has(.card:hover) .ticker {
     display: none !important;
   }
   .hero-v2-word-box {
-    font-family: var(--h2-font-family);
-    font-size: var(--h2-font-size);
+    font-family: var(--h1-font-family);
+    font-size: var(--h1-font-size);
     font-weight: 500;
-    line-height: var(--h2-line-height);
-    letter-spacing: var(--h2-letter-spacing);
+    line-height: var(--h1-line-height);
+    letter-spacing: var(--h1-letter-spacing);
   }
   /* Mobil: iki satır — mor üst / siyah alt */
   .hero-v2-accent,
   .hero-v2-main {
-    font-family: var(--h2-font-family);
-    font-size: var(--h2-font-size);
-    line-height: var(--h2-line-height);
-    letter-spacing: var(--h2-letter-spacing);
+    font-family: var(--h1-font-family);
+    font-size: var(--h1-font-size);
+    line-height: var(--h1-line-height);
+    letter-spacing: var(--h1-letter-spacing);
     text-transform: none;
   }
   .hero-v2-accent {
-    font-weight: 400;
-    font-style: italic;
+    font-weight: 600;
   }
   .hero-v2-main {
     font-weight: 500;
@@ -3686,21 +3825,133 @@ body:has(.card:hover) .ticker {
   }
   .hero-v2-static,
   .hero-v2-word {
-    font-family: var(--h2-font-family);
-    font-size: var(--h2-font-size);
+    font-family: var(--h1-font-family);
+    font-size: var(--h1-font-size);
     font-weight: 500;
-    line-height: var(--h2-line-height);
-    letter-spacing: var(--h2-letter-spacing);
+    line-height: var(--h1-line-height);
+    letter-spacing: var(--h1-letter-spacing);
     text-transform: none;
   }
   .hero-v2-suffix {
-    font-family: var(--h2-font-family);
-    font-size: var(--h2-font-size);
-    font-weight: 400;
-    font-style: italic;
-    line-height: var(--h2-line-height);
-    letter-spacing: var(--h2-letter-spacing);
+    font-family: var(--h1-font-family);
+    font-size: var(--h1-font-size);
+    font-weight: 600;
+    line-height: var(--h1-line-height);
+    letter-spacing: var(--h1-letter-spacing);
     text-transform: none;
+  }
+}
+
+/* ── Mobil başlık ritmi (UX) ── */
+@media (max-width: 768px) {
+  .ideal-title {
+    white-space: normal;
+    text-wrap: balance;
+  }
+
+  .scene-section-title,
+  .ideal-title,
+  .home-values__title,
+  .testimonials-title,
+  .focus-list-heading {
+    text-wrap: balance;
+  }
+
+  .ideal-tag,
+  .scene-section-tag,
+  .focus-list-tag,
+  .testimonials-tag {
+    margin-bottom: var(--space-3);
+  }
+
+  .scene-section-title {
+    margin-top: var(--space-1);
+  }
+
+  .home-values {
+    padding-top: var(--space-10);
+  }
+
+  .home-values__header {
+    margin-bottom: var(--space-6);
+    gap: var(--space-4);
+  }
+
+  .home-values__title {
+    max-width: none;
+  }
+
+  .home-values__card-title {
+    font-weight: 600;
+  }
+
+  /* TR hero — mobil: tek h1 paragraf (accent inline + gövde) */
+  .hero-v2--static .hero-v2-headline[data-line-order="accent-first"] {
+    display: block;
+    font-family: var(--h1-font-family);
+    font-size: var(--h1-font-size);
+    font-weight: var(--h1-font-weight);
+    line-height: var(--h1-line-height);
+    letter-spacing: var(--h1-letter-spacing);
+    text-wrap: balance;
+    max-width: min(100%, 14em);
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .hero-v2--static .hero-v2-headline[data-line-order="accent-first"] .hero-v2-accent,
+  .hero-v2--static .hero-v2-headline[data-line-order="accent-first"] .hero-v2-main,
+  .hero-v2--static .hero-v2-headline[data-line-order="accent-first"] .hero-v2-main--split,
+  .hero-v2--static .hero-v2-headline[data-line-order="accent-first"] .hero-v2-main-part {
+    display: inline;
+    width: auto;
+    max-width: none;
+    white-space: normal;
+    font: inherit;
+    letter-spacing: inherit;
+    line-height: inherit;
+  }
+
+  .hero-v2--static .hero-v2-headline[data-line-order="accent-first"] .hero-v2-accent {
+    color: var(--purple);
+    font-weight: 600;
+  }
+
+  .hero-v2--static .hero-v2-headline[data-line-order="accent-first"] .hero-v2-accent::after {
+    content: " ";
+  }
+
+  .hero-v2--static .hero-v2-headline[data-line-order="accent-first"] .hero-v2-main,
+  .hero-v2--static .hero-v2-headline[data-line-order="accent-first"] .hero-v2-main-part {
+    color: var(--frost);
+    font-weight: var(--h1-font-weight);
+  }
+
+  .featured-work-title {
+    font-size: var(--h4-font-size);
+    line-height: var(--h4-line-height);
+    font-weight: 600;
+    text-transform: none;
+  }
+
+  .focus-title {
+    font-size: var(--h3-font-size);
+    font-weight: 600;
+    text-transform: none;
+  }
+
+  .hero-v2--has-showreel .hero-v2-copy {
+    min-height: min(52svh, 24rem);
+    padding: var(--space-8) var(--container-gutter) var(--space-10);
+  }
+
+  .hero-v2--has-showreel .hero-v2-inner {
+    width: min(88vw, 100%);
+    gap: var(--space-5);
+  }
+
+  .projects-belief-inner {
+    gap: var(--space-5);
   }
 }
 
@@ -3727,24 +3978,18 @@ body:has(.card:hover) .ticker {
   text-transform: none;
   font-weight: 400;
 }
-.projects-belief-line.tagline {
-  letter-spacing: var(--card-meta-title-ls);
-}
 .projects-belief-line.subtext {
   line-height: calc(var(--h3-line-height) * 1.21 * 1.15 * 1.25 * 0.85);
-  letter-spacing: calc(var(--h3-letter-spacing) * 1.05);
 }
 
 @media (max-width: 768px) {
   .projects-belief-line.tagline {
     font-size: var(--tagline-font-size);
     line-height: var(--h3-line-height);
-    letter-spacing: var(--card-meta-title-ls);
   }
   .projects-belief-line.subtext {
     font-size: var(--text-lg-font-size);
     line-height: calc(var(--h4-line-height) * 1.5);
-    letter-spacing: var(--h4-letter-spacing);
   }
 }
 
@@ -3810,10 +4055,9 @@ body:has(.card:hover) .ticker {
   line-height: calc(var(--lh-tight) + 0.22);
   padding-block: 0.1em 0.18em;
 }
-.lets-talk-marquee-group .lets-talk-heading em {
-  font-style: italic;
+.lets-talk-marquee-group .lets-talk-heading strong {
   color: var(--lets-talk-band-ink);
-  font-weight: inherit;
+  font-weight: 600;
 }
 .lets-talk-heading-line1::after {
   content: "\00a0";
@@ -3947,7 +4191,10 @@ body:has(.card:hover) .ticker {
     gap: var(--space-5);
   }
   .lets-talk-marquee-group .lets-talk-heading {
-    font-size: clamp(19px, 5.4vw, 35px);
+    font-size: var(--h2-font-size);
+    line-height: var(--h2-line-height);
+    letter-spacing: var(--h2-letter-spacing);
+    font-weight: var(--h2-font-weight);
   }
   .lets-talk-heading-line1::after {
     content: none;

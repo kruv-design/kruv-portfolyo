@@ -1,4 +1,5 @@
 import type { ReactElement, ReactNode } from "react";
+import type { Messages } from "@/lib/i18n/get-messages";
 import type { SiteSettings } from "@/types";
 
 const FOOTER_ICON_GLYPH = "var(--color-accent)";
@@ -156,11 +157,20 @@ function IconYoutube() {
   );
 }
 
+function footerSocialAria(messages: Messages, platform: string, hasUrl: boolean) {
+  const template = hasUrl
+    ? messages.footer.socialOpen
+    : messages.footer.socialMissing;
+  return template.replace("{platform}", platform);
+}
+
 export function SocialFooterLinks({
   settings,
+  messages,
   className,
 }: {
   settings: SiteSettings;
+  messages: Messages;
   className?: string;
 }) {
   const entries: Entry[] = FOOTER_PLATFORMS.map(({ key, label, Icon }) => {
@@ -176,12 +186,10 @@ export function SocialFooterLinks({
   return (
     <ul
       className={`site-footer-social site-footer-social--grid ${className ?? ""}`}
-      aria-label="Social links"
+      aria-label={messages.footer.socialAria}
     >
       {entries.map(({ href, label, Icon, hasUrl }) => {
-        const ariaLabel = hasUrl
-          ? `${label} — yeni sekmede aç`
-          : `${label} — bağlantı henüz eklenmedi`;
+        const ariaLabel = footerSocialAria(messages, label, hasUrl);
         const className = `${tileClass}${hasUrl ? "" : ` ${tileMuted}`}`;
 
         if (hasUrl) {

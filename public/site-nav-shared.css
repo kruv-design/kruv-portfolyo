@@ -21,13 +21,20 @@
     justify-content: center;
     flex-shrink: 0;
     box-sizing: border-box;
-    width: var(--nav-bar-ctrl-h);
-    height: var(--nav-bar-ctrl-h);
+    width: max(44px, var(--nav-bar-ctrl-h));
+    height: max(44px, var(--nav-bar-ctrl-h));
+    min-width: max(44px, var(--nav-bar-ctrl-h));
+    min-height: max(44px, var(--nav-bar-ctrl-h));
     padding: 0;
     margin: 0;
     border-radius: var(--btn-radius);
     background: transparent;
     cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    position: relative;
+    z-index: 3;
     transition:
       color var(--dur-fast) var(--ease-standard, var(--ease)),
       border-color var(--dur-fast) var(--ease-standard, var(--ease)),
@@ -52,6 +59,7 @@
     flex-shrink: 0;
     width: 18px;
     height: 18px;
+    pointer-events: none;
   }
 
   .marketing-navbar-menu-btn__bars span,
@@ -62,6 +70,7 @@
     height: 2px;
     border-radius: 1px;
     background: currentColor;
+    pointer-events: none;
     transform-origin: center;
     transition:
       top var(--dur-fast) var(--ease-standard, var(--ease)),
@@ -109,25 +118,47 @@
   /* ── Menü açık: nav üstte, çarpı kaymaz ── */
   .marketing-navbar.is-menu-open,
   nav.navbar.is-menu-open {
-    z-index: 201;
+    z-index: 210;
   }
 
   .marketing-navbar.is-menu-open .marketing-navbar-col--cta,
   .navbar.is-menu-open .nav-col--cta {
-    flex-shrink: 0;
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
   }
 
   .marketing-navbar.is-menu-open .marketing-navbar-actions,
   .navbar.is-menu-open .nav-actions {
-    flex-shrink: 0;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    gap: var(--space-3, 12px);
   }
 
   .marketing-navbar.is-menu-open .marketing-navbar-menu-btn,
   .navbar.is-menu-open .nav-menu-toggle {
     position: relative;
-    z-index: 2;
+    z-index: 4;
     flex-shrink: 0;
     margin: 0;
+    margin-left: auto;
+  }
+
+  .marketing-navbar.is-menu-open .lang-switch,
+  .navbar.is-menu-open .lang-switch {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    pointer-events: auto;
   }
 
   .marketing-navbar.is-menu-open .marketing-navbar-cta,
@@ -284,7 +315,7 @@
     font-weight: var(--h3-font-weight);
     line-height: var(--lh-tight);
     letter-spacing: var(--ls-xl);
-    text-transform: lowercase;
+    text-transform: none;
     text-decoration: none;
     transition: color var(--dur-fast) var(--ease-standard, var(--ease));
   }

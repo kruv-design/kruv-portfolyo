@@ -310,7 +310,7 @@ html {
   font-weight: var(--b3-font-weight);
   line-height: 1;
   letter-spacing: var(--ls-2xs);
-  text-transform: lowercase;
+  text-transform: none;
   cursor: pointer;
   transition:
     color var(--dur-fast, 0.15s) var(--ease, var(--ease-standard)),
@@ -464,7 +464,7 @@ html {
   font-weight: var(--btn-font-weight);
   line-height: 1;
   letter-spacing: var(--ls-2xs);
-  text-transform: lowercase;
+  text-transform: none;
   padding: 0 var(--btn-pad-x);
   background: transparent;
   border: var(--btn-border-width) solid var(--accent, var(--purple));
@@ -490,8 +490,10 @@ html {
   justify-content: center;
   flex-shrink: 0;
   box-sizing: border-box;
-  width: var(--nav-bar-ctrl-h);
-  height: var(--nav-bar-ctrl-h);
+  width: max(44px, var(--nav-bar-ctrl-h));
+  height: max(44px, var(--nav-bar-ctrl-h));
+  min-width: max(44px, var(--nav-bar-ctrl-h));
+  min-height: max(44px, var(--nav-bar-ctrl-h));
   padding: 0;
   margin: 0;
   border: 1px solid var(--border, var(--gray-100));
@@ -499,6 +501,8 @@ html {
   background: transparent;
   color: var(--ink-soft, var(--silver));
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   transition:
     color var(--dur-fast) var(--ease, var(--ease-standard)),
     border-color var(--dur-fast) var(--ease, var(--ease-standard)),
@@ -615,34 +619,18 @@ html {
     border-color: var(--border-md, var(--gray-180));
   }
 
-  /* Menü açık: logo ↔ X sabit; dil seçici ortada (pill genişliği değişmez) */
+  /* Menü açık: logo ↔ X sabit; dil seçici ortada (display:contents Safari’de tıklamayı kırar) */
   .marketing-navbar.is-menu-open .marketing-navbar-cols {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
+    display: flex;
     align-items: center;
+    justify-content: space-between;
     width: 100%;
     max-width: 100%;
     gap: var(--space-3, 12px);
   }
 
-  .marketing-navbar.is-menu-open .marketing-navbar-col--cta,
-  .marketing-navbar.is-menu-open .marketing-navbar-actions {
-    display: contents;
-  }
-
   .marketing-navbar.is-menu-open .marketing-navbar-col--brand {
-    grid-column: 1;
-    justify-self: start;
-  }
-
-  .marketing-navbar.is-menu-open .lang-switch {
-    grid-column: 2;
-    justify-self: center;
-  }
-
-  .marketing-navbar.is-menu-open .marketing-navbar-menu-btn {
-    grid-column: 3;
-    justify-self: end;
+    flex: 0 0 auto;
   }
 
   .marketing-navbar.is-menu-open .marketing-navbar-cta {
@@ -650,40 +638,31 @@ html {
   }
 
   .marketing-navbar-col--brand {
-    flex: 0 1 auto;
+    flex: 0 0 auto;
     min-width: 0;
-    max-width: 38%;
     overflow: visible;
   }
 
-  /* Wordmark: yüksekliğe sığdır, genişliği taşmasın (kesilme yok) */
-  .marketing-navbar:not(.is-scrolled) .marketing-navbar-logo,
-  .marketing-navbar:not(.is-scrolled) .marketing-navbar-logo-stack {
-    width: auto;
-    min-width: 0;
-    max-width: min(7.25rem, 36vw);
-    height: var(--nav-bar-ctrl-h);
-    max-height: var(--nav-bar-ctrl-h);
-    aspect-ratio: 150 / 53.01;
-    flex-shrink: 1;
-    overflow: visible;
+  /* Mobil: wordmark geçici kapalı — yalnızca bayrak amblem */
+  .marketing-navbar .marketing-navbar-logo-wordmark {
+    opacity: 0;
+    pointer-events: none;
   }
 
-  .marketing-navbar:not(.is-scrolled) .marketing-navbar-logo-wordmark {
-    -webkit-mask-size: contain;
-    mask-size: contain;
-    -webkit-mask-position: left center;
-    mask-position: left center;
+  .marketing-navbar .marketing-navbar-logo-emblem {
+    opacity: 1;
   }
 
-  .marketing-navbar.is-scrolled .marketing-navbar-logo,
-  .marketing-navbar.is-scrolled .marketing-navbar-logo-stack {
+  .marketing-navbar .marketing-navbar-logo,
+  .marketing-navbar .marketing-navbar-logo-stack {
     width: var(--nav-logo-emblem-w);
     min-width: var(--nav-logo-emblem-w);
     max-width: var(--nav-logo-emblem-w);
     height: var(--nav-bar-ctrl-h);
+    max-height: var(--nav-bar-ctrl-h);
     aspect-ratio: auto;
     flex-shrink: 0;
+    overflow: visible;
   }
 
   .marketing-navbar-logo-emblem::before,

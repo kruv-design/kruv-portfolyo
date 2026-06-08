@@ -5,9 +5,9 @@
       "title": "Birlikte Çalıştıklarımız"
     },
     "hero": {
-      "line1": "paylaşmaya değer",
-      "line2": "markalar",
-      "line2Tail": "tasarlıyoruz.",
+      "line1": "Paylaşmaya değer",
+      "line2": "Markalar tasarlıyoruz.",
+      "line2Tail": "",
       "lineOrder": "accent-first",
       "cursorLabel": "Projeleri gör",
       "mobileCta": "Projeleri gör",
@@ -16,15 +16,30 @@
     "showreel": {
       "ariaLabel": "Showreel videosu",
       "play": "Showreel'i oynat",
-      "playCta": "play showreel",
+      "playCta": "Play showreel",
       "playError": "Video yüklenemedi — URL adresini kontrol edin.",
       "openVideo": "Videoyu aç",
       "mute": "Sesi kapat",
       "unmute": "Sesi aç"
     },
+    "spotlight": {
+      "ariaLabel": "Yaratıcı platformlarda öne çıkanlar",
+      "tagsAriaLabel": "Disiplinler",
+      "tags": ["Marka kimliği", "InDesign"],
+      "titleSegments": [
+        { "type": "accent", "value": "Behance" },
+        { "type": "text", "value": " ve " },
+        { "type": "accent", "value": "Adobe Creative Cloud" },
+        { "type": "text", "value": "'da öne çıkanlar" }
+      ],
+      "ribbons": [
+        { "variant": "gr", "label": "Gr" },
+        { "variant": "id", "label": "Id" }
+      ]
+    },
     "values": {
       "ariaLabel": "Hedef müşteri tipleri",
-      "title": "kime hitap ediyoruz.",
+      "title": "Kime hitap ediyoruz.",
       "lead": "İster yeni başlıyor olun, ister büyüyor ya da değişime hazırlanıyor olun. Markanızın ihtiyaç duyduğu temelleri ve yönü birlikte şekillendirmenize yardımcı olalım.",
       "items": [
         {
@@ -53,18 +68,18 @@
       "ariaLabel": "Uzmanlık alanlarımız",
       "rows": [
         [
-          "feed-first tasarım",
-          "sosyal içerik",
-          "içerik yönetimi",
-          "reels",
-          "stories"
+          "Feed-first tasarım",
+          "Sosyal içerik",
+          "İçerik yönetimi",
+          "Reels",
+          "Stories"
         ],
         [
-          "etkileşim görünür olur",
-          "hareket tasarımı",
-          "marka kimliği",
-          "social native",
-          "feed-first strateji"
+          "Etkileşim görünür olur",
+          "Hareket tasarımı",
+          "Marka kimliği",
+          "Social native",
+          "Feed-first strateji"
         ]
       ]
     },
@@ -76,8 +91,8 @@
     },
     "shareMarquee": {
       "line1": "Paylaşılmadıysa yaşanmamıştır",
-      "line2": "yaşanmışsa paylaş",
-      "ariaLabel": "Paylaşılmadıysa yaşanmamıştır. yaşanmışsa paylaş."
+      "line2": "Yaşanmışsa paylaş",
+      "ariaLabel": "Paylaşılmadıysa yaşanmamıştır. Yaşanmışsa paylaş."
     },
     "ticker": {
       "items": [
@@ -91,8 +106,8 @@
       ]
     },
     "letsTalk": {
-      "line1": "tasarlanmaya değer",
-      "line2": "markan mı var?",
+      "line1": "Tasarlanmaya değer",
+      "line2": "Markan mı var?",
       "cta": "Projeye başla"
     }
   },
@@ -119,6 +134,27 @@
     "scrollUp": "Yukarı kaydır",
     "nextBadge": "Sonraki"
   },
+  "footer": {
+    "services": "Hizmetler",
+    "sitemap": "Site haritası",
+    "sitemapAria": "Site haritası",
+    "follow": "Takip et",
+    "socialAria": "Sosyal medya bağlantıları",
+    "socialOpen": "{platform} — yeni sekmede aç",
+    "socialMissing": "{platform} — bağlantı henüz eklenmedi",
+    "followSr": "Sosyal bağlantılar — her ikon yeni sekmede açılır.",
+    "home": "Ana sayfa",
+    "projects": "Projeler",
+    "contact": "İletişim",
+    "projectCount": "{count} / {total} proje",
+    "serviceLinks": [
+      { "label": "Marka kimliği", "filter": "branding" },
+      { "label": "Ambalaj", "filter": "packaging" },
+      { "label": "Editoryal", "filter": "editorial" },
+      { "label": "UI/UX", "filter": "web-design" },
+      { "label": "İllüstrasyon", "filter": "branding" }
+    ]
+  },
   "contact": {
     "metaTitle": "İletişim",
     "metaDescription": "Proje teklifi ve iş birliği talepleri için iletişim formu.",
@@ -130,7 +166,7 @@
     "nameLabel": "Adınız",
     "emailLabel": "Mailiniz",
     "messageLabel": "Mesajınız",
-    "namePlaceholder": "ör. ayşe yılmaz",
+    "namePlaceholder": "Örn. Ayşe Yılmaz",
     "emailPlaceholder": "siz@ornek.com",
     "messagePlaceholder": "Kısaca projenizi veya sorunuzu yazın.",
     "honeypotLabel": "Web siteniz (boş bırakın)",

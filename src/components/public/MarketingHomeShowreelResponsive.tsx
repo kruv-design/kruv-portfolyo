@@ -53,6 +53,7 @@ export function MarketingHomeShowreelResponsive({
   openVideoLabel,
   muteLabel,
   unmuteLabel,
+  eager = false,
 }: {
   web: HomeShowreelSlot | null;
   mobile: HomeShowreelSlot | null;
@@ -63,6 +64,7 @@ export function MarketingHomeShowreelResponsive({
   openVideoLabel: string;
   muteLabel: string;
   unmuteLabel: string;
+  eager?: boolean;
 }) {
   const isDesktop = useSyncExternalStore(
     subscribeDesktopMq,
@@ -92,6 +94,7 @@ export function MarketingHomeShowreelResponsive({
         openVideoLabel={openVideoLabel}
         muteLabel={muteLabel}
         unmuteLabel={unmuteLabel}
+        eager={eager}
       />
     </div>
   );
