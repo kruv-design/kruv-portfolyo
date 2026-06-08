@@ -1285,7 +1285,7 @@ body:has(.card:hover) .ticker {
     box-sizing: border-box;
     width: 100%;
     max-width: 100vw;
-    overflow-x: clip;
+    overflow-x: visible;
     overflow-y: visible;
     /* Dikey padding + safe-area: site-nav.css */
     padding-inline: max(var(--section-pad-x), env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
@@ -1323,7 +1323,12 @@ body:has(.card:hover) .ticker {
     margin: 0;
     overflow: visible;
   }
-  .marketing-navbar-col--brand,
+  .marketing-navbar-col--brand {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow: visible;
+  }
+
   .marketing-navbar-col--cta {
     flex: 0 0 auto;
     min-width: 0;
@@ -3040,8 +3045,9 @@ body:has(.card:hover) .ticker {
   position: relative;
   z-index: 2;
   box-sizing: border-box;
-  border-top: var(--border-soft);
-  background-color: var(--midnight);
+  border-top: 1px solid color-mix(in srgb, var(--white-fixed) 16%, transparent);
+  background-color: var(--color-accent);
+  color: var(--white-fixed);
   padding: var(--section-pad-y) var(--section-pad-x);
 }
 .site-footer-inner {
@@ -3076,7 +3082,7 @@ body:has(.card:hover) .ticker {
 }
 .site-footer-heading {
   margin: 0 0 var(--space-4);
-  color: var(--silver);
+  color: var(--white-fixed);
 }
 .site-footer-list {
   list-style: none;
@@ -3091,26 +3097,26 @@ body:has(.card:hover) .ticker {
   line-height: var(--lh-snug);
   letter-spacing: var(--b2-letter-spacing);
   text-transform: lowercase;
-  color: var(--gray-500);
+  color: color-mix(in srgb, var(--white-fixed) 82%, transparent);
 }
 .site-footer-links a {
-  color: var(--gray-500);
+  color: color-mix(in srgb, var(--white-fixed) 82%, transparent);
   text-decoration: none;
   transition: color 0.2s var(--ease-standard);
 }
 .site-footer-links a:hover {
-  color: var(--frost);
+  color: var(--white-fixed);
 }
 .site-footer-services .site-footer-service-link {
-  color: var(--gray-500);
+  color: color-mix(in srgb, var(--white-fixed) 82%, transparent);
   text-decoration: none;
   transition: color 0.2s var(--ease-standard);
 }
 .site-footer-services .site-footer-service-link:hover {
-  color: var(--frost);
+  color: var(--white-fixed);
 }
 .site-footer-services .site-footer-service-link:focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--white-fixed);
   outline-offset: 3px;
   border-radius: 2px;
 }
@@ -3143,24 +3149,20 @@ body:has(.card:hover) .ticker {
   border-radius: var(--radius-lg);
   box-sizing: border-box;
   background: transparent;
-  color: var(--ink);
+  color: var(--color-accent);
   text-decoration: none;
   padding: 0;
   overflow: hidden;
   transition:
-    background-color 0.2s var(--ease-standard),
-    color 0.2s var(--ease-standard),
     transform 0.2s var(--ease-standard),
     opacity 0.2s var(--ease-standard);
 }
 .site-footer-social-btn:hover {
-  background: transparent;
-  color: var(--frost);
   transform: translateY(-1px);
-  opacity: 0.92;
+  opacity: 0.9;
 }
 .site-footer-social-btn:focus-visible {
-  outline: 2px solid var(--purple);
+  outline: 2px solid var(--white-fixed);
   outline-offset: 2px;
 }
 .site-footer-social-btn svg {
@@ -3173,15 +3175,25 @@ body:has(.card:hover) .ticker {
 .site-footer-bar {
   margin-top: var(--space-12);
   padding-top: var(--space-8);
-  border-top: var(--border-soft);
+  border-top: 1px solid color-mix(in srgb, var(--white-fixed) 16%, transparent);
   display: flex;
   justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+.site-footer-bar--split {
+  justify-content: space-between;
 }
 .site-footer-legal {
   margin: 0;
-  color: var(--silver);
+  color: color-mix(in srgb, var(--white-fixed) 75%, transparent);
   text-transform: lowercase;
   letter-spacing: 0;
+}
+.site-footer-count {
+  margin: 0;
+  color: color-mix(in srgb, var(--white-fixed) 75%, transparent);
+  text-transform: lowercase;
 }
 /* ── Hero arşivi: eski hero (fan + mobile carousel) görünmez tutuluyor.
    .hero-archive sınıfı kaldırılırsa ve sadece .hero kalırsa eski kompozisyon geri döner. ── */

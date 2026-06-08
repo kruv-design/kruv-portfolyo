@@ -18,7 +18,9 @@
       "play": "Showreel'i oynat",
       "playCta": "play showreel",
       "playError": "Video yüklenemedi — URL adresini kontrol edin.",
-      "openVideo": "Videoyu aç"
+      "openVideo": "Videoyu aç",
+      "mute": "Sesi kapat",
+      "unmute": "Sesi aç"
     },
     "values": {
       "ariaLabel": "Hedef müşteri tipleri",

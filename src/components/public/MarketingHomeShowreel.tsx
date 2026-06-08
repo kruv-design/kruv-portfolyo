@@ -3,36 +3,7 @@ import type { Messages } from "@/lib/i18n/get-messages";
 import { resolveHomeShowreelSlots } from "@/lib/home-showreel";
 import { t } from "@/lib/i18n/t";
 import type { SiteSettings } from "@/types";
-import { MarketingHomeShowreelPlayer } from "./MarketingHomeShowreelPlayer";
-
-function ShowreelVariant({
-  slot,
-  className,
-  playLabel,
-  playCtaLabel,
-  errorLabel,
-  openVideoLabel,
-}: {
-  slot: { posterSrc: string; videoSrc: string | null };
-  className: string;
-  playLabel: string;
-  playCtaLabel: string;
-  errorLabel: string;
-  openVideoLabel: string;
-}) {
-  return (
-    <div className={className}>
-      <MarketingHomeShowreelPlayer
-        posterSrc={slot.posterSrc}
-        videoSrc={slot.videoSrc}
-        playLabel={playLabel}
-        playCtaLabel={playCtaLabel}
-        errorLabel={errorLabel}
-        openVideoLabel={openVideoLabel}
-      />
-    </div>
-  );
-}
+import { MarketingHomeShowreelResponsive } from "./MarketingHomeShowreelResponsive";
 
 /** @deprecated Ayrı bant — anasayfada `MarketingHomeHero` içinde kullanılıyor. */
 export function MarketingHomeShowreel({
@@ -56,6 +27,8 @@ export function MarketingHomeShowreel({
     "Video failed to load — check the URL.",
   );
   const openVideoLabel = t(messages, "home.showreel.openVideo", "Open video");
+  const muteLabel = t(messages, "home.showreel.mute", "Mute sound");
+  const unmuteLabel = t(messages, "home.showreel.unmute", "Unmute sound");
 
   return (
     <section
@@ -63,28 +36,17 @@ export function MarketingHomeShowreel({
       lang={locale}
       aria-label={t(messages, "home.showreel.ariaLabel", "Showreel video")}
     >
-      {web ? (
-        <ShowreelVariant
-          slot={web}
-          className={`home-showreel__variant home-showreel__variant--web${
-            webOnly ? " home-showreel__variant--solo" : ""
-          }`}
-          playLabel={playLabel}
-          playCtaLabel={playCtaLabel}
-          errorLabel={errorLabel}
-          openVideoLabel={openVideoLabel}
-        />
-      ) : null}
-      {mobile ? (
-        <ShowreelVariant
-          slot={mobile}
-          className="home-showreel__variant home-showreel__variant--mobile"
-          playLabel={playLabel}
-          playCtaLabel={playCtaLabel}
-          errorLabel={errorLabel}
-          openVideoLabel={openVideoLabel}
-        />
-      ) : null}
+      <MarketingHomeShowreelResponsive
+        web={web}
+        mobile={mobile}
+        webOnly={webOnly}
+        playLabel={playLabel}
+        playCtaLabel={playCtaLabel}
+        errorLabel={errorLabel}
+        openVideoLabel={openVideoLabel}
+        muteLabel={muteLabel}
+        unmuteLabel={unmuteLabel}
+      />
     </section>
   );
 }

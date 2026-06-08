@@ -649,9 +649,40 @@ html {
     display: none;
   }
 
-  .marketing-navbar-logo,
-  .marketing-navbar-logo-stack {
+  .marketing-navbar-col--brand {
+    flex: 0 1 auto;
+    min-width: 0;
+    max-width: 38%;
+    overflow: visible;
+  }
+
+  /* Wordmark: yüksekliğe sığdır, genişliği taşmasın (kesilme yok) */
+  .marketing-navbar:not(.is-scrolled) .marketing-navbar-logo,
+  .marketing-navbar:not(.is-scrolled) .marketing-navbar-logo-stack {
+    width: auto;
+    min-width: 0;
+    max-width: min(7.25rem, 36vw);
     height: var(--nav-bar-ctrl-h);
+    max-height: var(--nav-bar-ctrl-h);
+    aspect-ratio: 150 / 53.01;
+    flex-shrink: 1;
+    overflow: visible;
+  }
+
+  .marketing-navbar:not(.is-scrolled) .marketing-navbar-logo-wordmark {
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-position: left center;
+    mask-position: left center;
+  }
+
+  .marketing-navbar.is-scrolled .marketing-navbar-logo,
+  .marketing-navbar.is-scrolled .marketing-navbar-logo-stack {
+    width: var(--nav-logo-emblem-w);
+    min-width: var(--nav-logo-emblem-w);
+    max-width: var(--nav-logo-emblem-w);
+    height: var(--nav-bar-ctrl-h);
+    aspect-ratio: auto;
     flex-shrink: 0;
   }
 

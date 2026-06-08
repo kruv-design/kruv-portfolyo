@@ -18,7 +18,9 @@
       "play": "Play showreel",
       "playCta": "play showreel",
       "playError": "Video failed to load — check the URL.",
-      "openVideo": "Open video"
+      "openVideo": "Open video",
+      "mute": "Mute sound",
+      "unmute": "Unmute sound"
     },
     "values": {
       "ariaLabel": "Who we work with",

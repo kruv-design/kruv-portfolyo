@@ -7,9 +7,6 @@ import {
 } from "@/lib/work-filters";
 import { SocialFooterLinks } from "./SocialFooterLinks";
 
-const footerLinkClass =
-  "b2 block lowercase transition-colors duration-150 hover:text-[color:var(--ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bg)]";
-
 export function SiteFooter({
   settings,
   count,
@@ -19,105 +16,62 @@ export function SiteFooter({
   count?: number;
   total?: number;
 }) {
+  const showCount =
+    typeof count === "number" && typeof total === "number";
+
   return (
-    <footer
-      id="contact"
-      lang="en"
-      className="mt-auto border-t px-[4vw] pb-10 pt-14"
-      style={{
-        borderColor: "var(--border)",
-        background: "var(--bg)",
-        color: "var(--ink-soft)",
-      }}
-    >
-      <div className="mx-auto grid max-w-6xl grid-cols-2 gap-x-8 gap-y-10 md:gap-10 lg:grid-cols-3 lg:gap-x-14 lg:gap-y-14">
-        <div className="min-w-0">
-          <h2
-            className="b3 mb-4"
-            style={{ color: "var(--ink-faint)" }}
-          >
-            Services
-          </h2>
-          <ul className="flex flex-col gap-2.5">
-            {FOOTER_SERVICE_LINKS.map(({ label, filter }) => (
-              <li key={label}>
-                <Link
-                  href={worksPageHref(filter)}
-                  className={footerLinkClass}
-                  style={{ color: "var(--ink-soft)" }}
-                >
-                  {label}
-                </Link>
+    <footer className="site-footer" id="contact" lang="en">
+      <div className="site-footer-inner">
+        <div className="site-footer-grid">
+          <div className="site-footer-col">
+            <h2 className="h4 site-footer-heading">Services</h2>
+            <ul className="site-footer-list site-footer-services">
+              {FOOTER_SERVICE_LINKS.map(({ label, filter }) => (
+                <li key={label}>
+                  <Link
+                    href={worksPageHref(filter)}
+                    className="site-footer-service-link"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <nav className="site-footer-col" aria-label="Sitemap">
+            <h2 className="h4 site-footer-heading">Sitemap</h2>
+            <ul className="site-footer-list site-footer-links">
+              <li>
+                <Link href={HOME_HERO_HREF}>Home</Link>
               </li>
-            ))}
-          </ul>
+              <li>
+                <Link href={worksPageHref()}>Projects</Link>
+              </li>
+              <li>
+                <Link href="/contact">Contact us</Link>
+              </li>
+            </ul>
+          </nav>
+
+          <div className="site-footer-col site-footer-col--follow">
+            <h2 className="h4 site-footer-heading">Follow</h2>
+            <SocialFooterLinks settings={settings} />
+          </div>
         </div>
 
-        <nav aria-label="Sitemap" className="min-w-0">
-          <h2
-            className="b3 mb-4"
-            style={{ color: "var(--ink-faint)" }}
-          >
-            Sitemap
-          </h2>
-          <ul className="flex flex-col gap-2.5">
-            <li>
-              <Link
-                href={HOME_HERO_HREF}
-                className={footerLinkClass}
-                style={{ color: "var(--ink-soft)" }}
-              >
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                href={worksPageHref()}
-                className={footerLinkClass}
-                style={{ color: "var(--ink-soft)" }}
-              >
-                Projects
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/contact"
-                className={footerLinkClass}
-                style={{ color: "var(--ink-soft)" }}
-              >
-                Contact us
-              </Link>
-            </li>
-          </ul>
-        </nav>
-
-        <div className="col-span-2 min-w-0 lg:col-span-1">
-          <h2
-            className="b3 mb-4"
-            style={{ color: "var(--ink-faint)" }}
-          >
-            Follow
-          </h2>
-          <SocialFooterLinks settings={settings} />
+        <div
+          className={`site-footer-bar${
+            showCount ? " site-footer-bar--split" : ""
+          }`}
+        >
+          {showCount ? (
+            <p className="b2 site-footer-count">
+              {count} / {total} projects
+            </p>
+          ) : null}
+          <p className="b2 site-footer-legal">{settings.footerYazi}</p>
         </div>
-      </div>
-
-      <div
-        className={`mx-auto mt-12 flex max-w-6xl flex-wrap items-center gap-4 border-t pt-8 ${
-          typeof count === "number" && typeof total === "number"
-            ? "justify-between"
-            : "justify-end"
-        }`}
-        style={{ borderColor: "var(--border)" }}
-      >
-        <span className="b2 min-w-0 flex-shrink-0 lowercase" style={{ color: "var(--ink-faint)" }}>
-          {typeof count === "number" && typeof total === "number"
-            ? `${count} / ${total} projects`
-            : ""}
-        </span>
-        <p className="b2 min-w-0 flex-1 text-right lowercase" style={{ color: "var(--ink-faint)" }}>
-          {settings.footerYazi}
-        </p>
       </div>
     </footer>
   );

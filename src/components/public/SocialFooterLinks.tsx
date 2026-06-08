@@ -1,9 +1,10 @@
 import type { ReactElement, ReactNode } from "react";
 import type { SiteSettings } from "@/types";
 
-const FOOTER_ICON_GLYPH = "var(--black-fixed)";
+const FOOTER_ICON_GLYPH = "var(--color-accent)";
+const FOOTER_ICON_BG = "var(--white-fixed)";
 
-/** Behance / LinkedIn ile aynı: mor squircle + ortada siyah glyph */
+/** Beyaz squircle + mor glyph */
 function FooterSocialSquircle({ children }: { children: ReactNode }) {
   return (
     <svg
@@ -15,7 +16,7 @@ function FooterSocialSquircle({ children }: { children: ReactNode }) {
       aria-hidden="true"
       className="overflow-hidden rounded-[var(--radius-lg)]"
     >
-      <rect width="48" height="48" rx="12" fill="var(--color-accent)" />
+      <rect width="48" height="48" rx="12" fill={FOOTER_ICON_BG} />
       {children}
     </svg>
   );
@@ -50,7 +51,7 @@ const FOOTER_PLATFORMS: {
   { key: "youtubeUrl", label: "YouTube", Icon: IconYoutube },
 ];
 
-/** Aksan (indigo) squircle + siyah önplan — statik footer ile aynı dil */
+/** Beyaz squircle + mor önplan */
 function IconLinkedIn() {
   return (
     <FooterSocialSquircle>
@@ -150,7 +151,7 @@ function IconYoutube() {
   return (
     <FooterSocialSquircle>
       <rect x="10" y="15.5" width="28" height="17" rx="7" fill={FOOTER_ICON_GLYPH} />
-      <path d="M21 19.5v9l8-4.5-8-4.5z" fill="var(--color-accent)" />
+      <path d="M21 19.5v9l8-4.5-8-4.5z" fill={FOOTER_ICON_BG} />
     </FooterSocialSquircle>
   );
 }
@@ -167,15 +168,14 @@ export function SocialFooterLinks({
     return { href, label, Icon, hasUrl: Boolean(href) };
   });
 
-  const tileClass =
-    "inline-flex h-[3.25rem] w-[3.25rem] flex-shrink-0 items-center justify-center overflow-hidden rounded-[var(--radius-lg)] bg-transparent p-0 text-ink transition-all duration-200 hover:-translate-y-px hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--bg)]";
+  const tileClass = "site-footer-social-btn";
 
   const tileMuted =
     "pointer-events-none cursor-default opacity-70 hover:translate-y-0 hover:opacity-70";
 
   return (
-    <nav
-      className={`grid w-full max-w-[11.25rem] grid-cols-3 gap-3 ${className ?? ""}`}
+    <ul
+      className={`site-footer-social site-footer-social--grid ${className ?? ""}`}
       aria-label="Social links"
     >
       {entries.map(({ href, label, Icon, hasUrl }) => {
@@ -186,25 +186,28 @@ export function SocialFooterLinks({
 
         if (hasUrl) {
           return (
-            <a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={ariaLabel}
-              className={className}
-            >
-              <Icon />
-            </a>
+            <li key={label}>
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={ariaLabel}
+                className={className}
+              >
+                <Icon />
+              </a>
+            </li>
           );
         }
 
         return (
-          <span key={label} aria-disabled="true" aria-label={ariaLabel} className={className}>
-            <Icon />
-          </span>
+          <li key={label}>
+            <span aria-disabled="true" aria-label={ariaLabel} className={className}>
+              <Icon />
+            </span>
+          </li>
         );
       })}
-    </nav>
+    </ul>
   );
 }

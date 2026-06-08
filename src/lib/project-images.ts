@@ -58,6 +58,14 @@ function showreelAspectCrop(layout: ShowreelLayout): string {
   return layout === "landscape" ? "c_fill,ar_16:9" : "c_fill,ar_9:16";
 }
 
+function showreelAspectToken(layout: ShowreelLayout): string {
+  return layout === "landscape" ? "ar_16:9" : "ar_9:16";
+}
+
+function urlHasShowreelAspect(url: string, layout: ShowreelLayout): boolean {
+  return url.includes(showreelAspectToken(layout));
+}
+
 function showreelPosterTransforms(layout: ShowreelLayout): string {
   const width = layout === "landscape" ? "w_1280" : "w_720";
   return `${showreelAspectCrop(layout)},${width},f_auto,q_auto:good`;
@@ -137,7 +145,7 @@ export function resolveShowreelPosterUrl(raw: string, layout: ShowreelLayout): s
 
   if (/^https?:\/\//i.test(s)) {
     if (s.includes("res.cloudinary.com") && s.includes("/image/upload/")) {
-      if (/ar_\d+:\d+/.test(s)) return s;
+      if (urlHasShowreelAspect(s, layout)) return s;
       const id = cloudinaryPublicIdFromUrl(s, "image");
       if (id) return buildCloudinaryImageUrl(id, transforms);
     }
@@ -168,7 +176,7 @@ export function resolveShowreelVideoUrl(raw: string, layout: ShowreelLayout): st
       return s.replace("/image/upload/", `/video/upload/${transforms}/`);
     }
     if (s.includes("res.cloudinary.com") && s.includes("/video/upload/")) {
-      if (/f_mp4/.test(s) && /ar_\d+:\d+/.test(s)) return s;
+      if (/f_mp4/.test(s) && urlHasShowreelAspect(s, layout)) return s;
       const id = cloudinaryPublicIdFromUrl(s, "video");
       if (id) return buildCloudinaryVideoUrl(id, transforms);
     }
