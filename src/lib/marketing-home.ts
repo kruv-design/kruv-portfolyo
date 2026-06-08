@@ -8,6 +8,7 @@ const KRUV_HTML_PATH = path.join(process.cwd(), "public", "kruv.html");
 
 /** `kruv.html` içinde hero altı gövde başlangıcı (ticker React’te — ideal clients). */
 const HOME_BODY_START = '<section class="ideal-section"';
+const HOME_IDEAL_SECTION_END = "<!-- TESTIMONIALS -->";
 const HOME_SCENE_SECTION = '<section class="scene-section">';
 const HOME_PROJECTS_BELIEF = '<section class="projects-belief"';
 const HOME_FOOTER_START = '<footer class="site-footer"';
@@ -244,19 +245,29 @@ function extractHomeScripts(html: string, locale: Locale): string[] {
   return scripts;
 }
 
-function splitHomeBody(html: string): { beforeScene: string; afterScene: string } {
+function splitHomeBody(html: string): {
+  idealSection: string;
+  beforeScene: string;
+  afterScene: string;
+} {
+  const idealEnd = html.indexOf(HOME_IDEAL_SECTION_END);
   const sceneIdx = html.indexOf(HOME_SCENE_SECTION);
   const beliefIdx = html.indexOf(HOME_PROJECTS_BELIEF);
+  if (idealEnd === -1) {
+    throw new Error("marketing-home: ideal-section end marker not found");
+  }
   if (sceneIdx === -1 || beliefIdx === -1 || beliefIdx <= sceneIdx) {
     throw new Error("marketing-home: scene-section or projects-belief marker not found");
   }
   return {
-    beforeScene: html.slice(0, sceneIdx).trim(),
+    idealSection: html.slice(0, idealEnd).trim(),
+    beforeScene: html.slice(idealEnd, sceneIdx).trim(),
     afterScene: html.slice(beliefIdx).trim(),
   };
 }
 
 export type MarketingHomeContent = {
+  idealSectionHtml: string;
   bodyBeforeScene: string;
   bodyAfterScene: string;
   footerHtml: string;
@@ -278,10 +289,11 @@ export async function loadMarketingHomeContent(
   const html = await readKruvHtml();
   const messages = getMessages(locale);
   const bodyRaw = sliceBetween(html, HOME_BODY_START, HOME_FOOTER_START);
-  const { beforeScene, afterScene } = splitHomeBody(bodyRaw);
+  const { idealSection, beforeScene, afterScene } = splitHomeBody(bodyRaw);
   const footerRaw = sliceFooter(html);
 
   return {
+    idealSectionHtml: rewriteMarketingHomeHtml(idealSection, locale, messages),
     bodyBeforeScene: rewriteMarketingHomeHtml(beforeScene, locale, messages),
     bodyAfterScene: rewriteMarketingHomeHtml(afterScene, locale, messages),
     footerHtml: rewriteMarketingHomeHtml(footerRaw, locale, messages),

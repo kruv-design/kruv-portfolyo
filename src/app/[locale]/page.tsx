@@ -5,6 +5,7 @@ import { MarketingPageShell } from "@/components/public/MarketingPageShell";
 import { MarketingSiteNav } from "@/components/public/MarketingSiteNav";
 import { MarketingHero } from "@/components/public/MarketingHero";
 import { MarketingHomeSpotlight } from "@/components/public/MarketingHomeSpotlight";
+import { MarketingHomeIdealClients } from "@/components/public/MarketingHomeIdealClients";
 import { MarketingHomeValues } from "@/components/public/MarketingHomeValues";
 import { MarketingScrollMarquee } from "@/components/public/MarketingScrollMarquee";
 import { MarketingHomeBody } from "@/components/public/MarketingHomeBody";
@@ -112,6 +113,7 @@ export default async function LocaleHomePage({
         scrollHref="#works"
       />
       <MarketingHomeSpotlight locale={locale} messages={messages} />
+      <MarketingHomeIdealClients locale={locale} />
       <MarketingHomeValues locale={locale} messages={messages} />
       {ENABLE_CIFT_KAYAN_YAZI ? (
         <MarketingScrollMarquee locale={locale} messages={messages} />

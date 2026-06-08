@@ -1132,21 +1132,6 @@ body:has(.card:hover) .ticker {
 }
 .loc-sep { color: var(--shadow); }
 
-/* Ticker kapalıyken placeholder (ENABLE_KAYAN_IKONLU_YAZI) */
-.home-ticker-placeholder {
-  box-sizing: border-box;
-  width: 100%;
-  padding: var(--space-4) var(--section-pad-x);
-  border-top: var(--border-soft);
-  background: transparent;
-}
-
-.home-ticker-placeholder__title {
-  margin: 0;
-  color: var(--silver);
-  text-transform: none;
-}
-
 /* TICKER — tam viewport genişliği; taşan track kırpılır (iç scroll / garip kayma yok).
    overflow-y: visible + hidden x bazı motorlarda scrollport üretir; touch-action ile sayfa dikey kayar. */
 .ticker {
