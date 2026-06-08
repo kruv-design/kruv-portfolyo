@@ -134,12 +134,15 @@
   .navbar.is-menu-open .nav-actions {
     display: flex;
     flex: 1;
+    flex-wrap: wrap;
     align-items: center;
+    align-content: center;
     justify-content: flex-end;
     position: relative;
     width: 100%;
     min-width: 0;
-    gap: var(--space-3, 12px);
+    gap: var(--site-nav-pill-gap-mobile, var(--space-3, 12px));
+    row-gap: var(--site-nav-pill-gap-mobile, var(--space-3, 12px));
   }
 
   .marketing-navbar.is-menu-open .marketing-navbar-menu-btn,

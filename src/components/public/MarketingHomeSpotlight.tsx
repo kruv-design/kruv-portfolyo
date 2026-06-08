@@ -1,5 +1,9 @@
 import type { Locale } from "@/lib/i18n/config";
 import type { Messages } from "@/lib/i18n/get-messages";
+import {
+  HOME_SPOTLIGHT_BADGES,
+  type HomeSpotlightBadgeVariant,
+} from "@/lib/home-spotlight-badges";
 
 /** Anasayfa showreel sonrası — platform öne çıkanları kartı. */
 export function MarketingHomeSpotlight({
@@ -29,26 +33,36 @@ export function MarketingHomeSpotlight({
               ))}
             </ul>
             <h2 className="h3 home-spotlight__title">
-              {copy.titleSegments.map((segment, index) =>
-                segment.type === "accent" ? (
-                  <span key={index} className="home-spotlight__accent">
-                    {segment.value}
-                  </span>
-                ) : (
-                  <span key={index}>{segment.value}</span>
-                ),
-              )}
+              {copy.titleLines.map((line, lineIndex) => (
+                <span key={lineIndex} className="home-spotlight__title-line">
+                  {line.map((segment, index) =>
+                    segment.type === "accent" ? (
+                      <span key={index} className="home-spotlight__accent">
+                        {segment.value}
+                      </span>
+                    ) : (
+                      <span key={index}>{segment.value}</span>
+                    ),
+                  )}
+                </span>
+              ))}
             </h2>
           </div>
-          <div className="home-spotlight__ribbons" aria-hidden="true">
-            {copy.ribbons.map((ribbon) => (
-              <span
-                key={ribbon.variant}
-                className={`home-spotlight__ribbon home-spotlight__ribbon--${ribbon.variant}`}
-              >
-                {ribbon.label}
-              </span>
-            ))}
+          <div className="home-spotlight__badges" aria-hidden="true">
+            {copy.ribbons.map((ribbon) => {
+              const variant = ribbon.variant as HomeSpotlightBadgeVariant;
+              return (
+                <img
+                  key={variant}
+                  className="home-spotlight__badge"
+                  src={HOME_SPOTLIGHT_BADGES[variant]}
+                  width={58}
+                  height={99}
+                  alt=""
+                  decoding="async"
+                />
+              );
+            })}
           </div>
         </article>
       </div>

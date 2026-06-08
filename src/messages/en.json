@@ -26,16 +26,17 @@
       "ariaLabel": "Featured on creative platforms",
       "tagsAriaLabel": "Disciplines",
       "tags": ["Branding", "InDesign"],
-      "titleSegments": [
-        { "type": "text", "value": "Features on " },
-        { "type": "accent", "value": "Behance" },
-        { "type": "text", "value": " and " },
-        { "type": "accent", "value": "Adobe Creative Cloud" }
+      "titleLines": [
+        [
+          { "type": "text", "value": "Features on " },
+          { "type": "accent", "value": "Behance" }
+        ],
+        [
+          { "type": "text", "value": "and " },
+          { "type": "accent", "value": "Adobe Creative Cloud" }
+        ]
       ],
-      "ribbons": [
-        { "variant": "gr", "label": "Gr" },
-        { "variant": "id", "label": "Id" }
-      ]
+      "ribbons": [{ "variant": "gr" }, { "variant": "id" }]
     },
     "values": {
       "ariaLabel": "Who we work with",

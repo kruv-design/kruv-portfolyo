@@ -9,8 +9,9 @@
   --site-nav-links-gap: 36px;
   --site-nav-links-gap-compact: 24px;
   --site-nav-col-gap-scrolled: 16px;
-  /* Mobil pill iç boşluk — navbar genişliğini değil yalnızca inset’i ayarlar */
-  --site-nav-pill-inset-mobile: clamp(10px, 2.5vw, 16px);
+  /* Mobil pill — dört kenar eşit iç boşluk + wrap satır aralığı */
+  --site-nav-pill-inset-mobile: clamp(12px, 3vw, 16px);
+  --site-nav-pill-gap-mobile: var(--site-nav-pill-inset-mobile);
   /* Bayrak amblem (308×373) — yükseklik nav kontrolleriyle hizalı genişlik */
   --nav-logo-emblem-w: calc(var(--nav-bar-ctrl-h) * 308 / 373);
   /* Wordmark SVG viewBox 150×53 — biraz toleransla genişlik (sağdan kesilme yok) */
@@ -555,25 +556,30 @@ html {
 
 @media (max-width: 768px) {
   .marketing-navbar {
+    --site-nav-gutter-x: clamp(6px, 1.5vw, 12px);
     padding-top: max(var(--site-nav-pad-y), env(safe-area-inset-top, 0px));
     padding-bottom: var(--site-nav-pad-y);
+    padding-left: var(--site-nav-gutter-x);
+    padding-right: var(--site-nav-gutter-x);
   }
 
   /* Mobil: scroll (navbar 1↔2) ve menü açık/kapalı — aynı dış boşluk, konum kaymasın */
   .marketing-navbar.is-scrolled {
     padding-top: max(var(--site-nav-pad-y), env(safe-area-inset-top, 0px));
     padding-bottom: var(--site-nav-pad-y);
+    padding-left: var(--site-nav-gutter-x);
+    padding-right: var(--site-nav-gutter-x);
   }
 
-  /* Mobil: pill her zaman tam genişlik — fit-content ortalama scroll/menüde zıplama yapıyordu */
+  /* Mobil: pill tam genişlik, eşit iç padding, taşan öğeler wrap */
   .marketing-navbar-inner,
   .marketing-navbar.is-scrolled .marketing-navbar-inner,
   .marketing-navbar.is-menu-open .marketing-navbar-inner,
   .marketing-navbar.is-menu-open.is-scrolled .marketing-navbar-inner {
     width: 100%;
-    max-width: calc(100% - 2 * var(--site-nav-gutter-x));
+    max-width: 100%;
     margin-inline: auto;
-    padding: var(--site-nav-pill-inset-mobile, var(--nav-pill-inset, 16px));
+    padding: var(--site-nav-pill-inset-mobile);
     box-sizing: border-box;
     min-height: var(--nav-bar-ctrl-h);
   }
@@ -583,15 +589,22 @@ html {
     width: 100%;
     max-width: 100%;
     padding: 0;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: var(--space-3, 12px);
+    gap: var(--site-nav-pill-gap-mobile);
+    row-gap: var(--site-nav-pill-gap-mobile);
   }
 
   .marketing-navbar-col--brand,
   .marketing-navbar-col--cta {
     align-items: center;
+  }
+
+  .marketing-navbar-col--cta {
+    flex: 1 1 auto;
+    min-width: 0;
+    justify-content: flex-end;
   }
 
   .marketing-navbar-inner::before {
@@ -610,8 +623,14 @@ html {
   }
 
   .marketing-navbar-actions {
+    flex-wrap: wrap;
+    justify-content: flex-end;
     align-items: center;
-    gap: var(--space-3, 12px);
+    align-content: center;
+    gap: var(--site-nav-pill-gap-mobile);
+    row-gap: var(--site-nav-pill-gap-mobile);
+    width: 100%;
+    min-width: 0;
   }
 
   .marketing-navbar.is-menu-open .marketing-navbar-menu-btn {
@@ -672,9 +691,10 @@ html {
   }
 
   .marketing-navbar-cta {
-    padding-inline: var(--space-4, 16px);
+    padding-inline: clamp(var(--space-3), 3vw, var(--space-4));
     white-space: nowrap;
-    font-size: var(--b1-font-size, 14px);
+    font-size: var(--b2-font-size, var(--b1-font-size, 14px));
+    max-width: 100%;
   }
 
   .marketing-navbar-item {

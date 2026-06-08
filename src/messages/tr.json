@@ -26,20 +26,21 @@
       "ariaLabel": "Yaratıcı platformlarda öne çıkanlar",
       "tagsAriaLabel": "Disiplinler",
       "tags": ["Marka kimliği", "InDesign"],
-      "titleSegments": [
-        { "type": "accent", "value": "Behance" },
-        { "type": "text", "value": " ve " },
-        { "type": "accent", "value": "Adobe Creative Cloud" },
-        { "type": "text", "value": "'da öne çıkanlar" }
+      "titleLines": [
+        [
+          { "type": "accent", "value": "Behance" },
+          { "type": "text", "value": " ve" }
+        ],
+        [
+          { "type": "accent", "value": "Adobe Creative Cloud" },
+          { "type": "text", "value": "'da öne çıkanlar" }
+        ]
       ],
-      "ribbons": [
-        { "variant": "gr", "label": "Gr" },
-        { "variant": "id", "label": "Id" }
-      ]
+      "ribbons": [{ "variant": "gr" }, { "variant": "id" }]
     },
     "values": {
       "ariaLabel": "Hedef müşteri tipleri",
-      "title": "Kime hitap ediyoruz.",
+      "title": "Kime hitap ediyoruz",
       "lead": "İster yeni başlıyor olun, ister büyüyor ya da değişime hazırlanıyor olun. Markanızın ihtiyaç duyduğu temelleri ve yönü birlikte şekillendirmenize yardımcı olalım.",
       "items": [
         {

@@ -2269,15 +2269,11 @@ body:has(.card:hover) .ticker {
 
 /* ── HOME SPOTLIGHT (showreel sonrası — platform öne çıkanları kartı) ── */
 .home-spotlight {
-  --home-spotlight-ribbon-gr-bg: color-mix(in srgb, var(--color-accent) 32%, var(--gray-600));
-  --home-spotlight-ribbon-gr-fg: var(--frost);
-  --home-spotlight-ribbon-id-bg: color-mix(in srgb, var(--purple) 58%, var(--gray-900));
-  --home-spotlight-ribbon-id-fg: color-mix(in srgb, var(--purple) 72%, var(--frost));
   box-sizing: border-box;
   position: relative;
   z-index: 1;
-  padding: clamp(var(--space-4), 2.5vw, var(--space-8)) var(--section-pad-x)
-    clamp(var(--space-10), 6vw, var(--section-pad-y));
+  padding: clamp(var(--space-6), 3vw, var(--space-10)) var(--section-pad-x)
+    clamp(var(--space-12), 7vw, var(--section-pad-y));
   background-color: var(--midnight);
 }
 
@@ -2291,10 +2287,10 @@ body:has(.card:hover) .ticker {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: clamp(var(--space-6), 4vw, var(--space-12));
-  padding: clamp(var(--space-8), 4vw, var(--space-12))
-    clamp(var(--space-8), 5vw, var(--space-14));
-  border: 1px solid var(--border);
+  gap: clamp(var(--space-10), 6vw, var(--space-16));
+  padding: clamp(var(--space-10), 5vw, var(--space-14))
+    clamp(var(--space-10), 6vw, var(--space-16));
+  border: 1px solid var(--ideal-clients-border);
   border-radius: var(--card-radius);
   background: color-mix(in srgb, var(--surface) 24%, transparent);
 }
@@ -2307,9 +2303,9 @@ body:has(.card:hover) .ticker {
 .home-spotlight__tags {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-4);
+  gap: var(--space-5);
   list-style: none;
-  margin: 0 0 var(--space-4);
+  margin: 0 0 var(--space-6);
   padding: 0;
 }
 
@@ -2318,10 +2314,16 @@ body:has(.card:hover) .ticker {
 }
 
 .home-spotlight__title {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
   margin: 0;
   color: var(--frost);
   text-transform: none;
-  max-width: 20ch;
+}
+
+.home-spotlight__title-line {
+  display: block;
 }
 
 .home-spotlight__accent {
@@ -2329,51 +2331,29 @@ body:has(.card:hover) .ticker {
   font-weight: 600;
 }
 
-.home-spotlight__ribbons {
+.home-spotlight__badges {
   display: flex;
   flex-shrink: 0;
   align-items: flex-end;
-  gap: clamp(var(--space-4), 2.5vw, var(--space-6));
+  gap: clamp(var(--space-5), 3vw, var(--space-8));
 }
 
-.home-spotlight__ribbon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: clamp(3.25rem, 5vw, 4.25rem);
-  height: clamp(5.25rem, 8vw, 6.75rem);
-  clip-path: polygon(0 0, 100% 0, 100% 86%, 50% 100%, 0 86%);
-  font-family: var(--h4-font-family);
-  font-size: var(--h4-font-size);
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: var(--h4-letter-spacing);
-  text-transform: none;
-}
-
-.home-spotlight__ribbon--gr {
-  background: var(--home-spotlight-ribbon-gr-bg);
-  color: var(--home-spotlight-ribbon-gr-fg);
-}
-
-.home-spotlight__ribbon--id {
-  background: var(--home-spotlight-ribbon-id-bg);
-  color: var(--home-spotlight-ribbon-id-fg);
+.home-spotlight__badge {
+  display: block;
+  width: clamp(3.25rem, 5vw, 3.625rem);
+  height: auto;
+  flex-shrink: 0;
 }
 
 @media (max-width: 720px) {
   .home-spotlight__card {
     flex-direction: column;
     align-items: stretch;
-    gap: var(--space-8);
-    padding: var(--space-8) var(--space-6);
+    gap: var(--space-10);
+    padding: var(--space-10) var(--space-8);
   }
 
-  .home-spotlight__title {
-    max-width: none;
-  }
-
-  .home-spotlight__ribbons {
+  .home-spotlight__badges {
     justify-content: flex-end;
     padding-top: var(--space-2);
   }
