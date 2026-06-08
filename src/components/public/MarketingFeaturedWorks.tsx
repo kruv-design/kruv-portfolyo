@@ -34,7 +34,7 @@ export function MarketingFeaturedWorks({
     <section className="scene-section">
       <div className="scene-label" lang={locale}>
         <span className="scene-section-tag">{copy.tag}</span>
-        <h3 className="scene-section-title">{copy.title}</h3>
+        <h2 className="scene-section-title">{copy.title}</h2>
       </div>
 
       <div
@@ -77,7 +77,7 @@ export function MarketingFeaturedWorks({
                 ) : null}
               </div>
               <div className="featured-work-meta">
-                <h4 className="featured-work-title">{localized.baslik}</h4>
+                <h3 className="featured-work-title">{localized.baslik}</h3>
                 {category ? (
                   <p className="featured-work-category">{category}</p>
                 ) : null}

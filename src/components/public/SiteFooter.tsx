@@ -24,7 +24,7 @@ export function SiteFooter({
       <div className="site-footer-inner">
         <div className="site-footer-grid">
           <div className="site-footer-col">
-            <h2 className="h4 site-footer-heading">Services</h2>
+            <h3 className="site-footer-heading">Services</h3>
             <ul className="site-footer-list site-footer-services">
               {FOOTER_SERVICE_LINKS.map(({ label, filter }) => (
                 <li key={label}>
@@ -40,7 +40,7 @@ export function SiteFooter({
           </div>
 
           <nav className="site-footer-col" aria-label="Sitemap">
-            <h2 className="h4 site-footer-heading">Sitemap</h2>
+            <h3 className="site-footer-heading">Sitemap</h3>
             <ul className="site-footer-list site-footer-links">
               <li>
                 <Link href={HOME_HERO_HREF}>Home</Link>
@@ -55,7 +55,7 @@ export function SiteFooter({
           </nav>
 
           <div className="site-footer-col site-footer-col--follow">
-            <h2 className="h4 site-footer-heading">Follow</h2>
+            <h3 className="site-footer-heading">Follow</h3>
             <SocialFooterLinks settings={settings} />
           </div>
         </div>

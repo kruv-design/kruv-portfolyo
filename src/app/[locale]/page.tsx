@@ -8,10 +8,10 @@ import { MarketingHomeValues } from "@/components/public/MarketingHomeValues";
 import { MarketingScrollMarquee } from "@/components/public/MarketingScrollMarquee";
 import { MarketingHomeBody } from "@/components/public/MarketingHomeBody";
 import { ENABLE_CIFT_KAYAN_YAZI } from "@/lib/marketing-flags";
+import { resolveHomeShowreelSlots } from "@/lib/home-showreel";
 import { getMessages } from "@/lib/i18n/get-messages";
 import { withLocale } from "@/lib/i18n/path";
 import { env } from "@/lib/env";
-import { resolveShowreelPosterUrl } from "@/lib/project-images";
 
 export async function generateMetadata({
   params,
@@ -39,14 +39,10 @@ export default async function LocaleHomePage({
   const messages = getMessages(locale);
   const settings = await getSettings().catch(() => DEFAULT_SITE_SETTINGS);
 
-  const showreelPosterMobile = resolveShowreelPosterUrl(
-    settings.homeVideoPosterMobile ?? "",
-    "portrait",
-  );
-  const showreelPosterWeb = resolveShowreelPosterUrl(
-    settings.homeVideoPoster ?? "",
-    "landscape",
-  );
+  const { web: showreelWeb, mobile: showreelMobile } =
+    resolveHomeShowreelSlots(settings);
+  const showreelPosterMobile = showreelMobile?.posterSrc ?? "";
+  const showreelPosterWeb = showreelWeb?.posterSrc ?? "";
   return (
     <MarketingPageShell className="flex min-h-screen flex-col">
       {showreelPosterMobile ? (

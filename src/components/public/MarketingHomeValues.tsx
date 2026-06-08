@@ -39,7 +39,7 @@ export function MarketingHomeValues({
                   aria-hidden
                 />
               </span>
-              <h4 className="home-values__card-title">{item.title}</h4>
+              <h3 className="home-values__card-title">{item.title}</h3>
               <p className="home-values__card-body">{item.body}</p>
             </li>
           ))}

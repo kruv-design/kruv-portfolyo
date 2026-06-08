@@ -53,5 +53,7 @@ export async function PATCH(req: Request) {
   if (error) return NextResponse.json({ error: error.message }, { status: 400 });
 
   revalidatePath("/", "layout");
+  revalidatePath("/tr");
+  revalidatePath("/en");
   return NextResponse.json({ data });
 }

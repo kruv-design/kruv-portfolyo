@@ -120,7 +120,9 @@
   --type-h1: clamp(52px, 7vw, 96px);
   --type-h2: clamp(32px, 8vw, 44px);
   --type-h3: clamp(24px, 6vw, 30px);
-  --type-h4: 16px;
+  --type-h4: clamp(16px, 5vw, 20px);
+  --type-tagline: clamp(18px, 4vw, 24px);
+  --type-text-lg: clamp(14px, 3vw, 18px);
   --type-b1: 14px;
   --type-b2: 13px;
   --type-b3: 10px;
@@ -154,6 +156,9 @@
   --h4-line-height: var(--lh-tight);
   --h4-letter-spacing: var(--ls-xl);
   --h4-text-transform: lowercase;
+
+  --tagline-font-size: var(--type-tagline);
+  --text-lg-font-size: var(--type-text-lg);
 
   --b1-font-family: var(--font-display);
   --b1-font-size: var(--type-b1);
@@ -554,6 +559,22 @@ html, body {
   line-height: var(--h4-line-height);
   letter-spacing: var(--h4-letter-spacing);
   text-transform: var(--h4-text-transform);
+}
+.tagline {
+  font-family: var(--h3-font-family);
+  font-size: var(--tagline-font-size);
+  font-weight: var(--h3-font-weight);
+  line-height: var(--h3-line-height);
+  letter-spacing: var(--h3-letter-spacing);
+  text-transform: none;
+}
+.subtext {
+  font-family: var(--h3-font-family);
+  font-size: var(--text-lg-font-size);
+  font-weight: 400;
+  line-height: calc(var(--h3-line-height) * 1.21 * 1.15 * 1.25 * 0.85);
+  letter-spacing: calc(var(--h3-letter-spacing) * 1.05);
+  text-transform: none;
 }
 
 /* ambient glow kaldırıldı — zemin tek renk */
@@ -1549,12 +1570,12 @@ body:has(.card:hover) .ticker {
   margin-bottom: var(--space-2);
 }
 .ideal-title {
-  font-family: var(--h3-font-family);
-  font-size: var(--h3-font-size);
-  font-weight: var(--h3-font-weight);
-  line-height: var(--h3-line-height);
-  letter-spacing: var(--h3-letter-spacing);
-  text-transform: var(--h3-text-transform);
+  font-family: var(--h2-font-family);
+  font-size: var(--h2-font-size);
+  font-weight: var(--h2-font-weight);
+  line-height: var(--h2-line-height);
+  letter-spacing: var(--h2-letter-spacing);
+  text-transform: var(--h2-text-transform);
   color: var(--frost);
   white-space: nowrap;
 }
@@ -1782,7 +1803,7 @@ body:has(.card:hover) .ticker {
   border: 1px solid var(--gray-180);
   flex-shrink: 0;
 }
-.testimonial-name {
+.testimonial-author {
   font-family: var(--h3-font-family);
   font-size: var(--h3-font-size);
   font-weight: var(--h3-font-weight);
@@ -1790,7 +1811,7 @@ body:has(.card:hover) .ticker {
   letter-spacing: var(--h3-letter-spacing);
   text-transform: var(--h3-text-transform);
   color: var(--frost);
-  margin-bottom: var(--space-1);
+  margin: 0 0 var(--space-1);
 }
 .testimonial-role {
   font-family: var(--b3-font-family);
@@ -2313,11 +2334,11 @@ body:has(.card:hover) .ticker {
 }
 
 .home-values__card-title {
-  font-family: var(--h4-font-family);
-  font-size: var(--h4-font-size);
-  font-weight: var(--h4-font-weight);
-  line-height: var(--h4-line-height);
-  letter-spacing: var(--h4-letter-spacing);
+  font-family: var(--h3-font-family);
+  font-size: var(--h3-font-size);
+  font-weight: var(--h3-font-weight);
+  line-height: var(--h3-line-height);
+  letter-spacing: var(--h3-letter-spacing);
   text-transform: none;
   color: var(--frost);
 }
@@ -2540,12 +2561,12 @@ body:has(.card:hover) .ticker {
   );
 }
 .scene-section-title {
-  font-family: var(--h3-font-family);
-  font-size: var(--h3-font-size);
-  font-weight: var(--h3-font-weight);
-  line-height: var(--h3-line-height);
-  letter-spacing: var(--h3-letter-spacing);
-  text-transform: var(--h3-text-transform);
+  font-family: var(--h2-font-family);
+  font-size: var(--h2-font-size);
+  font-weight: var(--h2-font-weight);
+  line-height: var(--h2-line-height);
+  letter-spacing: var(--h2-letter-spacing);
+  text-transform: var(--h2-text-transform);
   color: color-mix(
     in oklab,
     var(--frost) calc((1 - var(--kruv-scene-theme-t)) * 100%),
@@ -2920,12 +2941,12 @@ body:has(.card:hover) .ticker {
   display: none !important;
 }
 .featured-work-title {
-  font-family: var(--h4-font-family);
-  font-size: calc(var(--h4-font-size) + 2pt);
-  font-weight: var(--h4-font-weight);
-  line-height: var(--h4-line-height);
+  font-family: var(--h3-font-family);
+  font-size: var(--h3-font-size);
+  font-weight: var(--h3-font-weight);
+  line-height: var(--h3-line-height);
   letter-spacing: var(--card-meta-title-ls);
-  text-transform: var(--h4-text-transform);
+  text-transform: var(--h3-text-transform);
   color: color-mix(
     in oklab,
     var(--frost) calc((1 - var(--kruv-scene-theme-t)) * 100%),
@@ -3082,6 +3103,12 @@ body:has(.card:hover) .ticker {
 }
 .site-footer-heading {
   margin: 0 0 var(--space-4);
+  font-family: var(--h4-font-family);
+  font-size: var(--h4-font-size);
+  font-weight: var(--h4-font-weight);
+  line-height: var(--h4-line-height);
+  letter-spacing: var(--h4-letter-spacing);
+  text-transform: var(--h4-text-transform);
   color: var(--white-fixed);
 }
 .site-footer-list {
@@ -3232,6 +3259,12 @@ body:has(.card:hover) .ticker {
   max-width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
+}
+
+@media (min-width: 900px) {
+  .hero-v2--has-showreel .hero-v2__showreel.home-showreel {
+    cursor: default;
+  }
 }
 
 .hero-v2-copy {
@@ -3693,36 +3726,36 @@ body:has(.card:hover) .ticker {
   color: var(--frost);
   text-transform: none;
   font-weight: 400;
-  /* Satır aralığı: h3 ×1.21 ×1.15 ×1.25 sonrası %15 sıkılaştırma (×0.85) */
-  line-height: calc(var(--h3-line-height) * 1.21 * 1.15 * 1.25 * 0.85);
-  /* h3 harf aralığına göre %5 sıkı (negatif ls → biraz daha negatif) */
-  letter-spacing: calc(var(--h3-letter-spacing) * 1.05);
 }
-#projects-belief-heading.projects-belief-line {
+.projects-belief-line.tagline {
   letter-spacing: var(--card-meta-title-ls);
+}
+.projects-belief-line.subtext {
+  line-height: calc(var(--h3-line-height) * 1.21 * 1.15 * 1.25 * 0.85);
+  letter-spacing: calc(var(--h3-letter-spacing) * 1.05);
 }
 
 @media (max-width: 768px) {
-  .projects-belief-line {
-    font-family: var(--h4-font-family);
-    font-size: var(--h4-font-size);
+  .projects-belief-line.tagline {
+    font-size: var(--tagline-font-size);
+    line-height: var(--h3-line-height);
+    letter-spacing: var(--card-meta-title-ls);
+  }
+  .projects-belief-line.subtext {
+    font-size: var(--text-lg-font-size);
     line-height: calc(var(--h4-line-height) * 1.5);
     letter-spacing: var(--h4-letter-spacing);
-    font-weight: 400;
-  }
-  #projects-belief-heading.projects-belief-line {
-    letter-spacing: var(--card-meta-title-ls);
   }
 }
 
 /* Tablet: satır aralığını %25 aç (mevcut lh × 1.25) */
 @media (min-width: 769px) and (max-width: 1024px) {
-  .projects-belief-line {
+  .projects-belief-line.subtext {
     line-height: calc(var(--h3-line-height) * 1.21 * 1.15 * 1.25 * 0.85 * 1.25);
   }
 }
 @media (min-width: 600px) and (max-width: 768px) {
-  .projects-belief-line {
+  .projects-belief-line.subtext {
     line-height: calc(var(--h4-line-height) * 1.5 * 1.25);
   }
 }

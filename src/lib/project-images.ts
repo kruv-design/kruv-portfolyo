@@ -6,9 +6,15 @@ function cloudName(): string {
 
 const PROJECT_VIDEO_TRANSFORMS = "q_auto,f_auto:video,w_1920,c_limit";
 
-function showreelVideoTransforms(layout: ShowreelLayout): string {
-  const crop = showreelAspectCrop(layout);
+function showreelVideoTransforms(
+  layout: ShowreelLayout,
+  options?: { preserveAspect?: boolean },
+): string {
   const width = layout === "landscape" ? "w_1920" : "w_1080";
+  if (options?.preserveAspect) {
+    return `q_auto,f_mp4,${width},c_limit`;
+  }
+  const crop = showreelAspectCrop(layout);
   return `q_auto,f_mp4,${crop},${width}`;
 }
 
@@ -137,6 +143,33 @@ function buildCloudinaryImageUrl(publicId: string, transforms: string): string {
   return `https://res.cloudinary.com/${cloud}/image/upload/${transforms}/${id}`;
 }
 
+function cloudinaryVideoPublicId(raw: string): string {
+  const s = raw.trim().replace(/\s+/g, "");
+  if (!s) return "";
+  if (/^https?:\/\//i.test(s)) {
+    const embed = cloudinaryEmbedPlayerParams(s);
+    if (embed) return embed.publicId;
+    return (
+      cloudinaryPublicIdFromUrl(s, "video") ??
+      cloudinaryPublicIdFromUrl(s, "image") ??
+      ""
+    );
+  }
+  return stripCloudinaryExtension(s.replace(/^\/+/, ""));
+}
+
+/** Cloudinary video public_id → 9:16 / 16:9 poster karesi (so_0). */
+export function resolveShowreelPosterFromVideo(
+  raw: string,
+  layout: ShowreelLayout,
+): string {
+  const cloud = cloudName();
+  const publicId = cloudinaryVideoPublicId(raw);
+  if (!cloud || !publicId) return "";
+  const transforms = showreelPosterTransforms(layout);
+  return `https://res.cloudinary.com/${cloud}/video/upload/${transforms},so_0/${publicId}.jpg`;
+}
+
 /** Anasayfa showreel poster — web 16:9, mobil 9:16. */
 export function resolveShowreelPosterUrl(raw: string, layout: ShowreelLayout): string {
   const s = raw.trim().replace(/\s+/g, "");
@@ -156,8 +189,12 @@ export function resolveShowreelPosterUrl(raw: string, layout: ShowreelLayout): s
 }
 
 /** Anasayfa showreel video — f_mp4; web 16:9, mobil 9:16 crop. */
-export function resolveShowreelVideoUrl(raw: string, layout: ShowreelLayout): string {
-  const transforms = showreelVideoTransforms(layout);
+export function resolveShowreelVideoUrl(
+  raw: string,
+  layout: ShowreelLayout,
+  options?: { preserveAspect?: boolean },
+): string {
+  const transforms = showreelVideoTransforms(layout, options);
   const s = raw.trim().replace(/\s+/g, "");
   if (!s) return "";
 
@@ -176,6 +213,11 @@ export function resolveShowreelVideoUrl(raw: string, layout: ShowreelLayout): st
       return s.replace("/image/upload/", `/video/upload/${transforms}/`);
     }
     if (s.includes("res.cloudinary.com") && s.includes("/video/upload/")) {
+      if (options?.preserveAspect) {
+        const id = cloudinaryPublicIdFromUrl(s, "video");
+        if (id) return buildCloudinaryVideoUrl(id, transforms);
+        return s;
+      }
       if (/f_mp4/.test(s) && urlHasShowreelAspect(s, layout)) return s;
       const id = cloudinaryPublicIdFromUrl(s, "video");
       if (id) return buildCloudinaryVideoUrl(id, transforms);

@@ -54,7 +54,7 @@ export function rewriteMarketingHomeHtml(
     `$1${escapeHtml(tag)}$2`,
   );
   out = out.replace(
-    /(<h3 class="ideal-title" id="ideal-heading">)[^<]*(<\/h3>)/,
+    /(<h2 class="ideal-title" id="ideal-heading">)[^<]*(<\/h2>)/,
     `$1${escapeHtml(title)}$2`,
   );
 

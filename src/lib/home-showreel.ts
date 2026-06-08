@@ -1,4 +1,5 @@
 import {
+  resolveShowreelPosterFromVideo,
   resolveShowreelPosterUrl,
   resolveShowreelVideoUrl,
   type ShowreelLayout,
@@ -14,13 +15,19 @@ function buildShowreelSlot(
   posterRaw: string,
   videoRaw: string,
   layout: ShowreelLayout,
+  videoOptions?: { preserveAspect?: boolean },
 ): HomeShowreelSlot | null {
-  const posterSrc = resolveShowreelPosterUrl(posterRaw.trim(), layout);
-  if (!posterSrc) return null;
   const video = videoRaw.trim();
   const videoSrc = video
-    ? resolveShowreelVideoUrl(video, layout) || null
+    ? resolveShowreelVideoUrl(video, layout, videoOptions) || null
     : null;
+  if (!videoSrc) return null;
+
+  const posterSrc =
+    resolveShowreelPosterUrl(posterRaw.trim(), layout) ||
+    resolveShowreelPosterFromVideo(video, layout) ||
+    "";
+
   return { posterSrc, videoSrc };
 }
 
@@ -33,34 +40,46 @@ function resolveMobileShowreelSlot(
   const webPosterRaw = (settings.homeVideoPoster ?? "").trim();
   const webVideoRaw = (settings.homeVideo ?? "").trim();
 
-  const mobilePosterSrc = mobilePosterRaw
-    ? resolveShowreelPosterUrl(mobilePosterRaw, "portrait")
-    : "";
-  const portraitPosterFallback =
-    mobilePosterSrc ||
-    (webPosterRaw ? resolveShowreelPosterUrl(webPosterRaw, "portrait") : "") ||
-    web?.posterSrc ||
-    "";
-
-  const mobileVideoSrc = mobileVideoRaw
-    ? resolveShowreelVideoUrl(mobileVideoRaw, "portrait") || null
-    : null;
-  if (mobileVideoSrc && portraitPosterFallback) {
-    return { posterSrc: portraitPosterFallback, videoSrc: mobileVideoSrc };
+  // homeVideoMobile — orijinal dikey video; zorla 9:16 crop yok
+  if (mobileVideoRaw) {
+    const mobileVideoSrc =
+      resolveShowreelVideoUrl(mobileVideoRaw, "portrait", {
+        preserveAspect: true,
+      }) || null;
+    if (mobileVideoSrc) {
+      const posterSrc =
+        resolveShowreelPosterUrl(mobilePosterRaw, "portrait") ||
+        resolveShowreelPosterFromVideo(mobileVideoRaw, "portrait") ||
+        (webPosterRaw
+          ? resolveShowreelPosterUrl(webPosterRaw, "portrait")
+          : "") ||
+        resolveShowreelPosterFromVideo(webVideoRaw, "portrait") ||
+        web?.posterSrc ||
+        "";
+      return { posterSrc, videoSrc: mobileVideoSrc };
+    }
   }
 
   const dedicated = buildShowreelSlot(
     settings.homeVideoPosterMobile ?? "",
     settings.homeVideoMobile ?? "",
     "portrait",
+    { preserveAspect: true },
   );
   if (dedicated?.videoSrc) return dedicated;
 
-  if (!webVideoRaw) return dedicated;
+  if (!webVideoRaw) return null;
 
   const portraitWebVideo =
     resolveShowreelVideoUrl(webVideoRaw, "portrait") || null;
-  if (!portraitWebVideo || !portraitPosterFallback) return dedicated;
+  const portraitPosterFallback =
+    resolveShowreelPosterUrl(mobilePosterRaw, "portrait") ||
+    (webPosterRaw ? resolveShowreelPosterUrl(webPosterRaw, "portrait") : "") ||
+    resolveShowreelPosterFromVideo(webVideoRaw, "portrait") ||
+    web?.posterSrc ||
+    "";
+
+  if (!portraitWebVideo || !portraitPosterFallback) return null;
 
   return { posterSrc: portraitPosterFallback, videoSrc: portraitWebVideo };
 }

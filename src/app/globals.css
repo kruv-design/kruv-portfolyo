@@ -108,7 +108,9 @@
   --type-h1: clamp(52px, 7vw, 96px);
   --type-h2: clamp(32px, 8vw, 44px);
   --type-h3: clamp(24px, 6vw, 30px);
-  --type-h4: 16px;
+  --type-h4: clamp(16px, 5vw, 20px);
+  --type-tagline: clamp(18px, 4vw, 24px);
+  --type-text-lg: clamp(14px, 3vw, 18px);
   --type-b1: 14px;
   --type-b2: 13px;
   --type-b3: 10px;
@@ -157,6 +159,9 @@
   --h4-line-height: var(--lh-tight);
   --h4-letter-spacing: var(--ls-xl);
   --h4-text-transform: lowercase;
+
+  --tagline-font-size: var(--type-tagline);
+  --text-lg-font-size: var(--type-text-lg);
 
   --b1-font-family: var(--font-display);
   --b1-font-size: var(--type-b1);
@@ -394,6 +399,24 @@ body {
     line-height: var(--h4-line-height);
     letter-spacing: var(--h4-letter-spacing);
     text-transform: var(--h4-text-transform);
+    color: var(--ink);
+  }
+  .tagline {
+    font-family: var(--h3-font-family);
+    font-size: var(--tagline-font-size);
+    font-weight: var(--h3-font-weight);
+    line-height: var(--h3-line-height);
+    letter-spacing: var(--h3-letter-spacing);
+    text-transform: none;
+    color: var(--ink);
+  }
+  .subtext {
+    font-family: var(--h3-font-family);
+    font-size: var(--text-lg-font-size);
+    font-weight: 400;
+    line-height: calc(var(--h3-line-height) * 1.21 * 1.15 * 1.25 * 0.85);
+    letter-spacing: calc(var(--h3-letter-spacing) * 1.05);
+    text-transform: none;
     color: var(--ink);
   }
   .b1 {
@@ -1309,6 +1332,29 @@ body {
   overflow: hidden;
 }
 
+/* Web: video bandında sistem imleci; yalnızca kontroller pointer */
+@media (min-width: 900px) {
+  .home-showreel,
+  .home-showreel-player {
+    cursor: default;
+  }
+
+  .home-showreel-player .project-detail-media__video.is-visible {
+    pointer-events: none;
+    cursor: default;
+  }
+
+  .home-showreel-player__hit {
+    cursor: default;
+  }
+
+  .home-showreel-player__cta,
+  .home-showreel-player__sound,
+  .home-showreel-player__open-link {
+    cursor: pointer;
+  }
+}
+
 .home-showreel .project-detail-media-img {
   width: 100%;
   height: 100%;
@@ -1431,8 +1477,8 @@ body {
 
 .home-showreel-player__sound {
   position: absolute;
-  top: var(--space-3);
   right: var(--space-3);
+  bottom: var(--space-3);
   z-index: 6;
   display: inline-flex;
   align-items: center;
