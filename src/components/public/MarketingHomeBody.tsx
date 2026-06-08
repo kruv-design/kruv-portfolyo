@@ -4,6 +4,7 @@ import { getProjects } from "@/lib/queries";
 import { loadMarketingHomeContent } from "@/lib/marketing-home";
 import { MarketingFeaturedWorks } from "./MarketingFeaturedWorks";
 import { MarketingHomeScripts } from "./MarketingHomeScripts";
+import { ENABLE_KAYAN_IKONLU_YAZI } from "@/lib/marketing-flags";
 import { MarketingTicker } from "./MarketingTicker";
 
 /** `kruv.html` ideal-section → lets-talk arası — anasayfa marketing bölümleri. */
@@ -23,7 +24,13 @@ export async function MarketingHomeBody({
 
   return (
     <>
-      <MarketingTicker locale={locale} messages={messages} />
+      {ENABLE_KAYAN_IKONLU_YAZI ? (
+        <MarketingTicker locale={locale} messages={messages} />
+      ) : (
+        <section className="home-ticker-placeholder" aria-label="kayanikonluyazı">
+          <h2 className="b2 home-ticker-placeholder__title">kayanikonluyazı</h2>
+        </section>
+      )}
       <div
         className="marketing-home-body"
         data-locale={locale}

@@ -11,6 +11,18 @@
   --site-nav-col-gap-scrolled: 16px;
   /* Mobil pill iç boşluk — navbar genişliğini değil yalnızca inset’i ayarlar */
   --site-nav-pill-inset-mobile: clamp(10px, 2.5vw, 16px);
+  /* Mobil scroll pill — yatay dış boşluk */
+  --site-nav-pill-gutter-x: clamp(10px, 2vw, 14px);
+  /* Mobil üst bar (scroll yok) */
+  --site-nav-bar-bg: color-mix(in srgb, var(--surface, var(--midnight)) 92%, transparent);
+  --site-nav-bar-border: 1px solid var(--border, var(--gray-100));
+  /* Mobil oval pill (scroll var) */
+  --site-nav-pill-bg: color-mix(in srgb, var(--midnight, var(--surface)) 82%, transparent);
+  --site-nav-pill-radius: 999px;
+  /* Sabit nav altı — tüm sayfa içerikleri (works, contact, proje detay) */
+  --site-nav-clearance: calc(
+    env(safe-area-inset-top, 0px) + var(--site-nav-pad-y) + var(--nav-bar-ctrl-h) + var(--site-nav-pad-y)
+  );
   /* Bayrak amblem (308×373) — yükseklik nav kontrolleriyle hizalı genişlik */
   --nav-logo-emblem-w: calc(var(--nav-bar-ctrl-h) * 308 / 373);
   /* Wordmark SVG viewBox 150×53 — biraz toleransla genişlik (sağdan kesilme yok) */
@@ -554,23 +566,53 @@ html {
 /* Hamburger / overlay / panel: public/site-nav-shared.css */
 
 @media (max-width: 768px) {
-  /* Pill yatayda biraz daha geniş — yükseklik / tek satır düzeni aynı */
+  /* ── Üst bar (scroll yok): tam genişlik, üst/sol/sağa yapışık ── */
   .marketing-navbar {
-    --site-nav-gutter-x: clamp(10px, 2vw, 14px);
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100vw;
     padding-top: max(var(--site-nav-pad-y), env(safe-area-inset-top, 0px));
     padding-bottom: var(--site-nav-pad-y);
+    padding-inline: 0;
+    background: var(--site-nav-bar-bg);
+    border-bottom: var(--site-nav-bar-border);
+    transition:
+      padding var(--nav-compact-dur) var(--nav-compact-ease),
+      background var(--nav-compact-dur) var(--nav-compact-ease),
+      border-color var(--nav-compact-dur) var(--nav-compact-ease);
   }
 
-  /* Mobil: scroll (navbar 1↔2) ve menü açık/kapalı — aynı dış boşluk, konum kaymasın */
+  .marketing-navbar:not(.is-scrolled) .marketing-navbar-inner {
+    width: 100%;
+    max-width: 100%;
+    margin-inline: auto;
+    padding: 0 var(--container-gutter, var(--section-pad-x));
+    box-sizing: border-box;
+    min-height: var(--nav-bar-ctrl-h);
+  }
+
+  .marketing-navbar:not(.is-scrolled) .marketing-navbar-inner::before {
+    opacity: 0;
+    background: transparent;
+    border-radius: 0;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  /* ── Oval pill (scroll var) ── */
   .marketing-navbar.is-scrolled {
-    padding-top: max(var(--site-nav-pad-y), env(safe-area-inset-top, 0px));
-    padding-bottom: var(--site-nav-pad-y);
+    padding-top: max(var(--site-nav-pad-y-compact), env(safe-area-inset-top, 0px));
+    padding-bottom: var(--site-nav-pad-y-compact);
+    padding-inline: max(
+      var(--site-nav-pill-gutter-x),
+      env(safe-area-inset-left, 0px),
+      env(safe-area-inset-right, 0px)
+    );
+    background: transparent;
+    border-bottom: none;
   }
 
-  /* Mobil: pill her zaman tam genişlik — fit-content ortalama scroll/menüde zıplama yapıyordu */
-  .marketing-navbar-inner,
   .marketing-navbar.is-scrolled .marketing-navbar-inner,
-  .marketing-navbar.is-menu-open .marketing-navbar-inner,
   .marketing-navbar.is-menu-open.is-scrolled .marketing-navbar-inner {
     width: 100%;
     max-width: 100%;
@@ -578,6 +620,33 @@ html {
     padding: var(--site-nav-pill-inset-mobile, var(--nav-pill-inset, 16px));
     box-sizing: border-box;
     min-height: var(--nav-bar-ctrl-h);
+  }
+
+  .marketing-navbar.is-scrolled .marketing-navbar-inner::before,
+  .marketing-navbar.is-menu-open.is-scrolled .marketing-navbar-inner::before {
+    inset: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    opacity: 1;
+    border-radius: var(--site-nav-pill-radius);
+    background: var(--site-nav-pill-bg);
+    backdrop-filter: blur(22px) saturate(1.2);
+    -webkit-backdrop-filter: blur(22px) saturate(1.2);
+  }
+
+  /* Menü açık + scroll yok: tam bar korunur */
+  .marketing-navbar.is-menu-open:not(.is-scrolled) .marketing-navbar-inner {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 var(--container-gutter, var(--section-pad-x));
+    min-height: var(--nav-bar-ctrl-h);
+  }
+
+  .marketing-navbar.is-menu-open:not(.is-scrolled) .marketing-navbar-inner::before {
+    opacity: 0;
+    background: transparent;
   }
 
   .marketing-navbar-cols,
@@ -589,6 +658,17 @@ html {
     align-items: center;
     justify-content: space-between;
     gap: var(--space-3, 12px);
+    box-sizing: border-box;
+  }
+
+  /* Orta sütun: tam ekran drawer; yatay yer kaplamasın */
+  .marketing-navbar-col--links {
+    flex: 0 0 0;
+    width: 0;
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
   }
 
   .marketing-navbar-col--brand,
@@ -596,24 +676,28 @@ html {
     align-items: center;
   }
 
-  .marketing-navbar-inner::before {
-    inset: 0;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    background: color-mix(in srgb, var(--surface, var(--midnight)) 92%, transparent);
+  .marketing-navbar-col--brand {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow: visible;
   }
 
-  .marketing-navbar.is-scrolled .marketing-navbar-inner::before {
-    background: color-mix(in srgb, var(--midnight, var(--surface)) 82%, transparent);
+  .marketing-navbar-col--cta {
+    flex: 0 0 auto;
+    min-width: 0;
+    margin-inline-start: auto;
+  }
+
+  .marketing-navbar-links a {
+    transition: color var(--dur-fast) var(--ease-standard);
   }
 
   .marketing-navbar-actions {
     align-items: center;
     gap: var(--space-3, 12px);
+    max-width: 100%;
+    min-width: 0;
+    margin-inline-end: 0;
   }
 
   .marketing-navbar.is-menu-open .marketing-navbar-menu-btn {
@@ -637,12 +721,6 @@ html {
 
   .marketing-navbar.is-menu-open .marketing-navbar-cta {
     display: none;
-  }
-
-  .marketing-navbar-col--brand {
-    flex: 0 0 auto;
-    min-width: 0;
-    overflow: visible;
   }
 
   /* Mobil: wordmark geçici kapalı — yalnızca bayrak amblem */
@@ -677,6 +755,10 @@ html {
     padding-inline: var(--space-4, 16px);
     white-space: nowrap;
     font-size: var(--b1-font-size, 14px);
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .marketing-navbar-item {

@@ -121,6 +121,14 @@
     z-index: 210;
   }
 
+  /* Scroll yokken menü açık: tam genişlik üst bar korunur */
+  .marketing-navbar.is-menu-open:not(.is-scrolled),
+  nav.navbar.is-menu-open:not(.is-scrolled) {
+    padding-inline: 0;
+    background: var(--site-nav-bar-bg);
+    border-bottom: var(--site-nav-bar-border);
+  }
+
   .marketing-navbar.is-menu-open .marketing-navbar-col--cta,
   .navbar.is-menu-open .nav-col--cta {
     flex: 1;

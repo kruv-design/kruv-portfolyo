@@ -4,3 +4,10 @@
  * Geri açmak için true yapın.
  */
 export const ENABLE_CIFT_KAYAN_YAZI = false;
+
+/**
+ * Kayan ikonlu yazı (ticker) — hero altı bant.
+ * Bileşen: MarketingTicker · CSS: .ticker · i18n: home.ticker
+ * Geri açmak için true yapın.
+ */
+export const ENABLE_KAYAN_IKONLU_YAZI = false;

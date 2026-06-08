@@ -282,11 +282,9 @@
   --nav-logo-slot-h: var(--nav-bar-ctrl-h);
   --nav-pill-pad-x: clamp(16px, 4vw, 22px);
   --nav-pill-inset: var(--nav-pill-pad-x);
-  --works-body-pad-top: calc(var(--space-6) + var(--nav-logo-slot-h) + var(--space-6));
+  --works-body-pad-top: var(--site-nav-clearance);
   /* Proje detay: nav altı — vw/clamp yok (resize’da kapak kaymasın) */
-  --project-detail-shell-pad-top: calc(
-    env(safe-area-inset-top, 0px) + var(--works-body-pad-top)
-  );
+  --project-detail-shell-pad-top: var(--site-nav-clearance);
   /* Works kartları; proje detay medyası orijinal oran */
   --project-media-aspect-ratio: 16 / 9;
   /* Proje detay galeri: viewport’a ufak inset */
@@ -1849,6 +1847,12 @@ i {
   padding-top: var(--works-body-pad-top);
   padding-inline: var(--container-gutter);
   padding-bottom: var(--space-12);
+}
+
+@media (max-width: 768px) {
+  .contact-page-main {
+    padding-top: calc(var(--works-body-pad-top) + var(--space-10));
+  }
 }
 
 .contact-form-shell {

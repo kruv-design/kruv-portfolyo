@@ -1132,6 +1132,21 @@ body:has(.card:hover) .ticker {
 }
 .loc-sep { color: var(--shadow); }
 
+/* Ticker kapalıyken placeholder (ENABLE_KAYAN_IKONLU_YAZI) */
+.home-ticker-placeholder {
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--space-4) var(--section-pad-x);
+  border-top: var(--border-soft);
+  background: transparent;
+}
+
+.home-ticker-placeholder__title {
+  margin: 0;
+  color: var(--silver);
+  text-transform: none;
+}
+
 /* TICKER — tam viewport genişliği; taşan track kırpılır (iç scroll / garip kayma yok).
    overflow-y: visible + hidden x bazı motorlarda scrollport üretir; touch-action ile sayfa dikey kayar. */
 .ticker {
@@ -1326,79 +1341,7 @@ body:has(.card:hover) .ticker {
   .card-2 { transform: rotate(-9deg) translateX(-110px) translateY(10px); }
   .card-4 { transform: rotate(9deg) translateX(110px) translateY(10px); }
   .card-5 { transform: rotate(18deg) translateX(210px) translateY(30px); }
-  .marketing-navbar {
-    box-sizing: border-box;
-    width: 100%;
-    max-width: 100vw;
-    overflow-x: visible;
-    overflow-y: visible;
-    /* Dikey padding + safe-area: site-nav.css */
-    padding-inline: max(var(--section-pad-x), env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
-  }
-  /* Mobil: font-size animasyonu + ağır blur her karede reflow/GPU — geçiş titrer */
-  .marketing-navbar-links a {
-    transition: color var(--dur-fast) var(--ease-standard);
-  }
-  .marketing-navbar-inner::before {
-    /* Yuvarlak zemin: kenarlardan nefes — öğeler çerçeveye yapışmasın */
-    inset: 0;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-  }
-  .marketing-navbar.is-scrolled .marketing-navbar-inner::before {
-    background: color-mix(in srgb, var(--midnight) 82%, transparent);
-  }
-  .marketing-navbar.is-scrolled {
-    padding-inline: max(var(--section-pad-x), env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
-  }
-  /* Mobil pill boyutu: site-nav.css (fit-content + tek padding) */
-  .marketing-navbar-cols {
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: var(--space-3);
-    box-sizing: border-box;
-  }
-  /* Orta sütun: tam ekran drawer fixed; yatay yer kaplamasın */
-  .marketing-navbar-col--links {
-    flex: 0 0 0;
-    width: 0;
-    min-width: 0;
-    padding: 0;
-    margin: 0;
-    overflow: visible;
-  }
-  .marketing-navbar-col--brand {
-    flex: 0 1 auto;
-    min-width: 0;
-    overflow: visible;
-  }
-
-  .marketing-navbar-col--cta {
-    flex: 0 0 auto;
-    min-width: 0;
-  }
-  .marketing-navbar-col--cta {
-    margin-inline-start: auto;
-  }
-  .marketing-navbar-actions {
-    max-width: 100%;
-    min-width: 0;
-    gap: var(--space-3);
-    margin-inline-end: 0;
-  }
-  .marketing-navbar-menu-btn {
-    display: inline-flex;
-    flex-shrink: 0;
-  }
-  .marketing-navbar-cta {
-    min-width: 0;
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    padding-inline: var(--space-4);
-  }
+  /* Navbar mobil: tek kaynak public/site-nav.css */
 }
 
 @media (min-width: 769px) {
@@ -2284,12 +2227,13 @@ body:has(.card:hover) .ticker {
 }
 
 .home-spotlight__card {
+  --home-spotlight-card-pad: clamp(var(--space-8), 5vw, var(--space-12));
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: clamp(var(--space-10), 6vw, var(--space-16));
-  padding: clamp(var(--space-10), 5vw, var(--space-14))
-    clamp(var(--space-10), 6vw, var(--space-16));
+  gap: clamp(var(--space-8), 5vw, var(--space-12));
+  box-sizing: border-box;
+  padding: var(--home-spotlight-card-pad);
   border: 1px solid var(--ideal-clients-border);
   border-radius: var(--card-radius);
   background: color-mix(in srgb, var(--surface) 24%, transparent);
@@ -2340,17 +2284,28 @@ body:has(.card:hover) .ticker {
 
 .home-spotlight__badge {
   display: block;
-  width: clamp(3.25rem, 5vw, 3.625rem);
+  width: clamp(2.75rem, 5vw, 3.625rem);
   height: auto;
   flex-shrink: 0;
 }
 
 @media (max-width: 720px) {
   .home-spotlight__card {
-    flex-direction: column;
-    align-items: stretch;
-    gap: var(--space-8);
-    padding: var(--space-10) var(--space-8);
+    --home-spotlight-card-pad: clamp(var(--space-8), 6vw, var(--space-10));
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-5);
+    padding: var(--home-spotlight-card-pad);
+  }
+
+  .home-spotlight__content {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .home-spotlight__tags {
+    margin-bottom: var(--space-4);
+    gap: var(--space-4);
   }
 
   .home-spotlight__title {
@@ -2364,13 +2319,17 @@ body:has(.card:hover) .ticker {
   }
 
   .home-spotlight__badges {
-    display: flex;
+    display: inline-flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: flex-start;
+    flex-shrink: 0;
+    justify-content: flex-end;
     align-items: flex-end;
-    gap: var(--space-5);
-    padding-top: 0;
+    gap: var(--space-4);
+  }
+
+  .home-spotlight__badge {
+    width: clamp(2.5rem, 11vw, 3rem);
   }
 }
 
