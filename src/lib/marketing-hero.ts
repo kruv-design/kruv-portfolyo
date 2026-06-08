@@ -20,9 +20,6 @@ export type HeroV2Copy = {
   line2Tail?: string;
   /** accent-first = mor üst (TR) | main-first = siyah üst (EN) */
   lineOrder?: "accent-first" | "main-first";
-  cursorLabel: string;
-  mobileCta: string;
-  mobileCtaA11y: string;
 };
 
 export type HeroV2Options = {
@@ -61,9 +58,6 @@ const DEFAULT_COPY: HeroV2Copy = {
   line2: "We build",
   line2Tail: "brands",
   lineOrder: "main-first",
-  cursorLabel: "See projects",
-  mobileCta: "See projects",
-  mobileCtaA11y: "See projects — open portfolio",
 };
 
 function applyHeroV2Replacements(html: string, options: HeroV2Options): string {
@@ -77,10 +71,7 @@ function applyHeroV2Replacements(html: string, options: HeroV2Options): string {
     .replace(/\{\{HERO_LANG\}\}/g, escapeAttr(copy.lang))
     .replace(/\{\{HERO_LINE_ORDER\}\}/g, escapeAttr(lineOrder))
     .replace(/\{\{HERO_LINE1\}\}/g, escapeHtml(copy.line1))
-    .replace(/\{\{HERO_LINE2_HTML\}\}/g, buildLine2Html(copy))
-    .replace(/\{\{CURSOR_LABEL\}\}/g, escapeHtml(copy.cursorLabel))
-    .replace(/\{\{MOBILE_CTA\}\}/g, escapeHtml(copy.mobileCta))
-    .replace(/\{\{MOBILE_CTA_A11Y\}\}/g, escapeHtml(copy.mobileCtaA11y));
+    .replace(/\{\{HERO_LINE2_HTML\}\}/g, buildLine2Html(copy));
 }
 
 /** Hero iç gövde — tipografi + imleç (`hero-v2-inner.html`). */

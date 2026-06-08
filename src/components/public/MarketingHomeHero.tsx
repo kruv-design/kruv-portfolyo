@@ -30,9 +30,6 @@ export async function MarketingHomeHero({
       line2Tail: hero.line2Tail,
       lineOrder:
         hero.lineOrder === "main-first" ? "main-first" : "accent-first",
-      cursorLabel: hero.cursorLabel,
-      mobileCta: hero.mobileCta,
-      mobileCtaA11y: hero.mobileCtaA11y,
     },
   });
 

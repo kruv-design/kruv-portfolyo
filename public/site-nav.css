@@ -13,8 +13,8 @@
   --site-nav-pill-inset-mobile: clamp(10px, 2.5vw, 16px);
   /* Bayrak amblem (308×373) — yükseklik nav kontrolleriyle hizalı genişlik */
   --nav-logo-emblem-w: calc(var(--nav-bar-ctrl-h) * 308 / 373);
-  /* Wordmark SVG viewBox 150×53 — yuvayı orana göre hesapla (kesilme önlenir) */
-  --nav-logo-wordmark-w: calc(var(--nav-logo-slot-h) * 150 / 53.01);
+  /* Wordmark SVG viewBox 150×53 — biraz toleransla genişlik (sağdan kesilme yok) */
+  --nav-logo-wordmark-w: calc(var(--nav-logo-slot-h) * 168 / 53.01);
   --nav-logo-slot-w: var(--nav-logo-wordmark-w);
 }
 

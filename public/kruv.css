@@ -3532,29 +3532,8 @@ body:has(.card:hover) .ticker {
   text-wrap: balance;
 }
 
-@media (min-width: 701px) and (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .hero-v2 {
-    cursor: none;
-  }
-}
-
-@media (min-width: 701px) and (any-pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .hero-v2 {
-    cursor: none;
-  }
-}
-
-/* JS etkinleştirince (Windows hibrit) sistem imlecini gizle */
-@media (min-width: 701px) and (prefers-reduced-motion: no-preference) {
-  .hero-v2.is-custom-cursor-active {
-    cursor: none;
-  }
-}
-
-@media (pointer: coarse) {
-  .hero-v2:not(.is-custom-cursor-active) {
-    cursor: pointer;
-  }
+.hero-v2 {
+  cursor: auto;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1360,8 +1360,7 @@ body {
   gap: var(--space-3);
   box-sizing: border-box;
   min-height: calc(2.75rem + 2 * var(--space-2));
-  padding-block: var(--space-2);
-  padding-inline: var(--space-5) var(--space-2);
+  padding: var(--space-2);
   border: 1px solid var(--border);
   border-radius: 999px;
   background: var(--surface);
@@ -1416,7 +1415,7 @@ body {
   font-family: var(--b2-font-family);
   font-size: var(--b2-font-size);
   font-weight: var(--b2-font-weight);
-  line-height: 1;
+  line-height: var(--lh-tight);
   letter-spacing: var(--b2-letter-spacing);
   text-transform: var(--b2-text-transform);
   color: var(--frost);

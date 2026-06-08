@@ -12,7 +12,7 @@ function primeVideoElement(v: HTMLVideoElement) {
   v.setAttribute("webkit-playsinline", "");
 }
 
-/** Anasayfa showreel — poster + tıklayınca sessiz loop (native controls yedek). */
+/** Anasayfa showreel — viewport'a girince sessiz autoplay; reduced-motion veya hata durumunda poster + play butonu. */
 export function MarketingHomeShowreelPlayer({
   posterSrc,
   videoSrc,
@@ -28,6 +28,7 @@ export function MarketingHomeShowreelPlayer({
   errorLabel: string;
   openVideoLabel: string;
 }) {
+  const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [activated, setActivated] = useState(false);
   const [playError, setPlayError] = useState(false);
@@ -49,6 +50,31 @@ export function MarketingHomeShowreelPlayer({
     setActivated(true);
   }, [videoSrc]);
 
+  // IntersectionObserver ile lazy autoplay — video verisi viewport dışında yüklenmez
+  useEffect(() => {
+    if (!videoSrc) return;
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (reducedMotion) return;
+
+    const container = containerRef.current;
+    if (!container) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          observer.disconnect();
+          startPlayback();
+        }
+      },
+      { threshold: 0.25 },
+    );
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, [videoSrc, startPlayback]);
+
+  // activated olunca video element mount edilir, ardından play tetiklenir
   useEffect(() => {
     if (!activated || !videoSrc) return;
 
@@ -73,12 +99,15 @@ export function MarketingHomeShowreelPlayer({
     attempt();
   }, [activated, videoSrc, tryPlay]);
 
-  const posterHidden = activated;
+  const posterHidden = activated && !playError;
   const showVideo = Boolean(videoSrc) && activated;
-  const showPlayUi = Boolean(videoSrc) && !activated;
+  const showPlayUi = Boolean(videoSrc) && (!activated || playError);
 
   return (
-    <div className="project-detail-media project-detail-media--gallery home-showreel-player">
+    <div
+      ref={containerRef}
+      className="project-detail-media project-detail-media--gallery home-showreel-player"
+    >
       {posterSrc ? (
         <div
           className={
@@ -93,6 +122,7 @@ export function MarketingHomeShowreelPlayer({
               className="home-showreel-player__hit"
               onClick={(e) => {
                 e.preventDefault();
+                setPlayError(false);
                 startPlayback();
               }}
               aria-label={playLabel}
@@ -140,21 +170,25 @@ export function MarketingHomeShowreelPlayer({
           <video
             ref={videoRef}
             className={`project-detail-media__video is-mounted${
-              showVideo ? " is-visible" : ""
-            } has-controls`}
+              showVideo && !playError ? " is-visible" : ""
+            }`}
             poster={posterSrc || undefined}
             src={videoSrc}
             muted
+            autoPlay
             playsInline
             loop
-            preload="auto"
-            controls
-            tabIndex={0}
+            preload="none"
+            tabIndex={-1}
+            aria-hidden="true"
             onPlay={() => setPlayError(false)}
             onError={() => setPlayError(true)}
           />
           {playError ? (
-            <div className="home-showreel-player__error home-showreel-player__error--over-video" role="status">
+            <div
+              className="home-showreel-player__error home-showreel-player__error--over-video"
+              role="status"
+            >
               <p className="project-detail-media__play-error">{errorLabel}</p>
               <a
                 className="home-showreel-player__open-link"
