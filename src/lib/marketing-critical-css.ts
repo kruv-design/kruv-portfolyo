@@ -2,7 +2,7 @@
 export const MARKETING_CRITICAL_CSS = `
 .marketing-page-shell { background: var(--midnight); color: var(--frost); min-height: 100vh; }
 .marketing-navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
-#nav-sentinel, .marketing-nav-sentinel { height: 1px; width: 100%; margin: 0; padding: 0; }
+#nav-sentinel, .marketing-nav-sentinel { height: 1px; width: 100%; margin: 0 0 -1px; padding: 0; }
 .hero-v2 { background: var(--midnight); min-height: 100svh; display: flex; align-items: center; justify-content: center; position: relative; }
 .hero-v2-headline { opacity: 1; margin: 0; width: 100%; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.12em; }
 .hero-v2-accent { font: 600 clamp(1.625rem, 7.7vw, 5.5rem)/1.1 var(--font-display), system-ui, sans-serif; color: var(--color-accent); text-align: center; width: 100%; }

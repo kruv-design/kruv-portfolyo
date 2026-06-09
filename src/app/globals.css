@@ -278,8 +278,8 @@
   --nav-bar-ctrl-h: calc(
     2 * var(--btn-pad-y) + var(--btn-font-size) + 2 * var(--btn-border-width)
   );
-  /* Genişlik: public/site-nav.css (--nav-logo-wordmark-w / scroll’da emblem) */
-  --nav-logo-slot-h: var(--nav-bar-ctrl-h);
+  /* Yükseklik/genişlik: public/site-nav.css (--nav-logo-scale) */
+  --nav-logo-slot-h: calc(var(--nav-bar-ctrl-h) * var(--nav-logo-scale, 0.8));
   --nav-pill-pad-x: clamp(16px, 4vw, 22px);
   --nav-pill-inset: var(--nav-pill-pad-x);
   --works-body-pad-top: var(--site-nav-clearance);
