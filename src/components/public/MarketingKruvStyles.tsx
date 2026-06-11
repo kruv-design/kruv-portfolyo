@@ -15,6 +15,7 @@ export function MarketingKruvStyles() {
       <style id="critical-marketing">{MARKETING_CRITICAL_CSS}</style>
       <link rel="preload" href="/kruv.css" as="style" />
       <link rel="stylesheet" href="/kruv.css" />
+      <link rel="stylesheet" href="/home-figma.css" />
     </>
   );
 }

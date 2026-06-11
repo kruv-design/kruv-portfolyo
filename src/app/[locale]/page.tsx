@@ -7,9 +7,9 @@ import { MarketingHero } from "@/components/public/MarketingHero";
 import { MarketingHomeSpotlight } from "@/components/public/MarketingHomeSpotlight";
 import { MarketingHomeIdealClients } from "@/components/public/MarketingHomeIdealClients";
 import { MarketingHomeValues } from "@/components/public/MarketingHomeValues";
-import { MarketingScrollMarquee } from "@/components/public/MarketingScrollMarquee";
+import { MarketingHomeKayanYazi } from "@/components/public/MarketingHomeKayanYazi";
+import { MarketingHomeFeatured } from "@/components/public/MarketingHomeFeatured";
 import { MarketingHomeBody } from "@/components/public/MarketingHomeBody";
-import { ENABLE_CIFT_KAYAN_YAZI } from "@/lib/marketing-flags";
 import { resolveHomeShowreelSlots } from "@/lib/home-showreel";
 import { getMessages } from "@/lib/i18n/get-messages";
 import { withLocale } from "@/lib/i18n/path";
@@ -48,7 +48,7 @@ export default async function LocaleHomePage({
   const showreelVideoMobile = showreelMobile?.videoSrc ?? "";
   const showreelVideoWeb = showreelWeb?.videoSrc ?? "";
   return (
-    <MarketingPageShell className="flex min-h-screen flex-col">
+    <MarketingPageShell className="marketing-home-figma flex min-h-screen flex-col">
       <link
         rel="preconnect"
         href="https://res.cloudinary.com"
@@ -114,10 +114,9 @@ export default async function LocaleHomePage({
       />
       <MarketingHomeSpotlight locale={locale} messages={messages} />
       <MarketingHomeIdealClients locale={locale} />
+      <MarketingHomeFeatured locale={locale} messages={messages} />
+      <MarketingHomeKayanYazi locale={locale} messages={messages} />
       <MarketingHomeValues locale={locale} messages={messages} />
-      {ENABLE_CIFT_KAYAN_YAZI ? (
-        <MarketingScrollMarquee locale={locale} messages={messages} />
-      ) : null}
       <MarketingHomeBody locale={locale} messages={messages} />
     </MarketingPageShell>
   );

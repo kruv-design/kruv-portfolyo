@@ -1,8 +1,9 @@
 import type { Locale } from "@/lib/i18n/config";
 import type { Messages } from "@/lib/i18n/get-messages";
 import { homeIllustrationSrc } from "@/lib/home-illustrations";
+import { MarketingHomeSectionTag } from "./MarketingHomeSectionTag";
 
-/** Anasayfa hero sonrası — hedef müşteri tipleri (journey focus-list: sıfır, ölçek, görünürlük, yenileme). */
+/** Figma “Kime hitap ediyoruz” — 2×2 bordered grid (mobil: stack). */
 export function MarketingHomeValues({
   locale,
   messages,
@@ -21,10 +22,9 @@ export function MarketingHomeValues({
     >
       <div className="home-values__inner">
         <header className="home-values__header">
-          <h2 id="home-values-heading" className="home-values__title">
-            {copy.title}
-          </h2>
-          <p className="home-values__lead">{copy.lead}</p>
+          <MarketingHomeSectionTag>
+            <span id="home-values-heading">{copy.tagLabel}</span>
+          </MarketingHomeSectionTag>
         </header>
 
         <ul className="home-values__grid" aria-label={copy.ariaLabel}>
@@ -33,14 +33,16 @@ export function MarketingHomeValues({
               <span className="home-values__icon">
                 <img
                   src={homeIllustrationSrc(index)}
-                  width={80}
-                  height={120}
+                  width={99}
+                  height={154}
                   alt=""
                   aria-hidden
                 />
               </span>
-              <h3 className="home-values__card-title">{item.title}</h3>
-              <p className="home-values__card-body">{item.body}</p>
+              <div className="home-values__card-copy">
+                <h3 className="home-values__card-title">{item.title}</h3>
+                <p className="home-values__card-body">{item.body}</p>
+              </div>
             </li>
           ))}
         </ul>

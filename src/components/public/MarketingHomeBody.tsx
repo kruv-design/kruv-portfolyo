@@ -1,8 +1,6 @@
 import type { Locale } from "@/lib/i18n/config";
 import type { Messages } from "@/lib/i18n/get-messages";
-import { getProjects } from "@/lib/queries";
 import { loadMarketingHomeContent } from "@/lib/marketing-home";
-import { MarketingFeaturedWorks } from "./MarketingFeaturedWorks";
 import { MarketingHomeScripts } from "./MarketingHomeScripts";
 import { ENABLE_KAYAN_IKONLU_YAZI } from "@/lib/marketing-flags";
 import { MarketingTicker } from "./MarketingTicker";
@@ -15,10 +13,7 @@ export async function MarketingHomeBody({
   locale: Locale;
   messages: Messages;
 }) {
-  const [content, projects] = await Promise.all([
-    loadMarketingHomeContent(locale),
-    getProjects().catch(() => []),
-  ]);
+  const content = await loadMarketingHomeContent(locale);
 
   const { bodyBeforeScene, bodyAfterScene, footerHtml, scripts } = content;
 
@@ -32,11 +27,6 @@ export async function MarketingHomeBody({
         data-locale={locale}
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: bodyBeforeScene }}
-      />
-      <MarketingFeaturedWorks
-        projects={projects}
-        locale={locale}
-        messages={messages}
       />
       <div
         className="marketing-home-body"

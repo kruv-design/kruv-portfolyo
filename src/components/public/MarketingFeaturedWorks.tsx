@@ -9,6 +9,7 @@ import {
 import { resolveProjectForLocale } from "@/lib/project-locale";
 import { projectCover } from "@/lib/project-images";
 import type { Project } from "@/types";
+import { MarketingHomeSectionTag } from "./MarketingHomeSectionTag";
 
 const FEATURED_COUNT = 5;
 
@@ -32,9 +33,8 @@ export function MarketingFeaturedWorks({
 
   return (
     <section className="scene-section">
-      <div className="scene-label" lang={locale}>
-        <span className="scene-section-tag">{copy.tag}</span>
-        <h2 className="scene-section-title">{copy.title}</h2>
+      <div className="scene-label scene-label--figma" lang={locale}>
+        <MarketingHomeSectionTag>{copy.tag}</MarketingHomeSectionTag>
       </div>
 
       <div

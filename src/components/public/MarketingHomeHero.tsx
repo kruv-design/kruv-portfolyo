@@ -6,6 +6,7 @@ import {
   type HeroV2Options,
 } from "@/lib/marketing-hero";
 import type { SiteSettings } from "@/types";
+import { MarketingHomeHeroHeadline } from "./MarketingHomeHeroHeadline";
 import { MarketingHomeHeroShowreel } from "./MarketingHomeHeroShowreel";
 import { MarketingHeroMount } from "./MarketingHeroMount";
 
@@ -48,11 +49,18 @@ export async function MarketingHomeHero({
       aria-labelledby="hero-v2-headline"
     >
       {hasShowreel ? (
-        <MarketingHomeHeroShowreel
-          settings={settings}
-          locale={locale}
-          messages={messages}
-        />
+        <>
+          <MarketingHomeHeroHeadline
+            locale={locale}
+            messages={messages}
+            scrollHref={options.scrollHref ?? options.ctaHref ?? "#works"}
+          />
+          <MarketingHomeHeroShowreel
+            settings={settings}
+            locale={locale}
+            messages={messages}
+          />
+        </>
       ) : (
         <div className="hero-v2-copy">
           <MarketingHeroMount innerHtml={innerHtml} locale={locale} />

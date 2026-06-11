@@ -1,12 +1,12 @@
 {
   "home": {
     "ideal": {
-      "tag": "Portföy",
+      "tag": "Birlikte çalıştıklarımız",
       "title": "Birlikte Çalıştıklarımız"
     },
     "hero": {
       "line1": "Paylaşmaya değer",
-      "line2": "Markalar tasarlıyoruz.",
+      "line2": "markalar tasarlıyoruz.",
       "line2Tail": "",
       "lineOrder": "accent-first",
       "cursorLabel": "Projeleri gör",
@@ -24,8 +24,9 @@
     },
     "spotlight": {
       "ariaLabel": "Yaratıcı platformlarda öne çıkanlar",
-      "tagsAriaLabel": "Disiplinler",
-      "tags": ["Marka kimliği", "InDesign"],
+      "tagLabel": "Branding and InDesign",
+      "ctaLabel": "Projeleri gör",
+      "ctaHref": "/works",
       "titleLines": [
         [
           { "type": "text", "value": "Adobe " },
@@ -37,29 +38,36 @@
     },
     "values": {
       "ariaLabel": "Hedef müşteri tipleri",
-      "title": "Kime hitap ediyoruz",
-      "lead": "İster yeni başlıyor olun, ister büyüyor ya da değişime hazırlanıyor olun. Markanızın ihtiyaç duyduğu temelleri ve yönü birlikte şekillendirmenize yardımcı olalım.",
+      "tagLabel": "Kime hitap ediyoruz?",
       "items": [
         {
           "index": "01",
           "title": "Kurulum aşamasındaki",
-          "body": "Harika bir fikrin var ama onu taşıyacak net bir marka yapısı henüz oluşmadı. İsmini, kimliğini ve temel sistemlerini birlikte kuruyoruz."
+          "body": "Harika fikriniz için güçlü bir marka yapısı, isim ve temel sistemleri birlikte inşa ediyoruz."
         },
         {
           "index": "02",
           "title": "Büyümeye hazır",
-          "body": "Ürünün ya da hizmetin karşılık buluyor. İşler büyüyor ancak marka aynı hızda ilerlemiyor. Daha net, daha tutarlı ve ölçeklenebilir bir yapı oluşturuyoruz."
+          "body": "Hızla büyüyen işiniz için ölçeklenebilir ve tutarlı bir marka yapısı kuruyoruz."
         },
         {
           "index": "03",
           "title": "Görünürlük arayan",
-          "body": "Yaptığın iş güçlü ama dışarıdan bakıldığında bunu hissettirmiyor. Markanı, kaliteni ve uzmanlığını doğru şekilde görünür kılıyoruz."
+          "body": "İşinizin kalitesini ve uzmanlığını dış dünyaya net bir şekilde yansıtıyoruz."
         },
         {
           "index": "04",
           "title": "Yenilenme ihtiyacı duyan",
-          "body": "Markan seni bugüne getirdi ama yarına taşımakta zorlanıyor. Güncel, tutarlı ve geleceğe hazır bir kimlikle yeniden konumlandırıyoruz."
+          "body": "Markanızı güncel ve geleceğe hazır bir kimlikle yeniden konumlandırıyoruz."
         }
+      ]
+    },
+    "kayanYazi": {
+      "ariaLabel": "Kayan slogan bandı",
+      "phrases": [
+        "Paylaşılmadıysa yaşanmamıştır",
+        "Bazı markalar görülür, bazıları paylaşılır",
+        "Yaşanmışsa paylaş"
       ]
     },
     "scrollMarquee": {
@@ -82,7 +90,7 @@
       ]
     },
     "featuredWorks": {
-      "tag": "Seçili işler",
+      "tag": "Projelerimiz",
       "title": "Projeler",
       "seeProject": "Projeyi gör",
       "ariaLabel": "Öne çıkan projeler"
