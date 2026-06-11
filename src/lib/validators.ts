@@ -310,6 +310,7 @@ export const contactSubmitBodySchema = z.object({
   sessionId: z.string().uuid("Oturum geçersiz."),
   /** Honeypot — boş kalmalı */
   hp: z.string().optional().default(""),
+  locale: z.enum(["tr", "en"]).optional().default("tr"),
   payload: contactPayloadSchema,
 });
 

@@ -78,9 +78,9 @@ export function MarketingFeaturedWorks({
                 ) : null}
               </div>
               <div className="featured-work-meta">
-                <h3 className="featured-work-title">{localized.baslik}</h3>
+                <h3 className="featured-work-title card-meta-title">{localized.baslik}</h3>
                 {category ? (
-                  <p className="featured-work-category">{category}</p>
+                  <p className="featured-work-category card-meta-category">{category}</p>
                 ) : null}
               </div>
             </article>

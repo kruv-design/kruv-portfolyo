@@ -6,7 +6,7 @@
    DESIGN TOKENS — kruv.html visual language
    Theme-aware: dark default, light via [data-theme="light"]
    or system `prefers-color-scheme: light`.
-   Accent #6366F1 (indigo) · Switzer + DM Mono.
+   Accent #6366F1 (indigo) · Switzer (local) + DM Mono.
    ───────────────────────────────────────────────────────── */
 :root {
   color-scheme: light dark;
@@ -78,6 +78,11 @@
   --accent-hover:    var(--color-accent-hover);
   --border:          var(--gray-80);
   --border-md:       var(--gray-180);
+  /* Kart / bölüm meta — anasayfa featured ile aynı */
+  --card-meta-title-ink: var(--ink);
+  --card-meta-category-ink: color-mix(in srgb, var(--gray-anti) 68%, var(--gray-base));
+  --section-label-gap: var(--space-6);
+  --card-meta-stack-gap: var(--space-1);
 
   /* ===== Semantic aliases (admin) ===== */
   --adm-bg:            var(--gray-solid-void);
@@ -98,11 +103,11 @@
   /* Portfolio kart overlay — kruv.html ile aynı mantık */
   --photo-card-overlay-dim: color-mix(in srgb, var(--black-fixed) 15%, transparent);
 
-  /* ===== Typography ===== */
-  --font-display: "Switzer", system-ui, sans-serif;
-  --font-body:    var(--font-display);
-  --font-mono:    "DM Mono", ui-monospace, monospace;
-  --font-sans:    var(--font-display);
+  /* ===== Typography =====
+     --font-display: next/font on <html> + switzer.css @font-face "Switzer" */
+  --font-body: var(--font-display, "Switzer"), system-ui, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, monospace;
+  --font-sans: var(--font-body);
 
   /* Type scale — Figma Typography (3763:2745 / 3763:2770); h1–h4 + b1–b3 */
   --type-h1: 72px;
@@ -293,6 +298,8 @@
   --project-gallery-inset-y: var(--space-4);
   /* Proje detay galeri — masaüstü %80; mobil %95 (aşağıdaki media) */
   --project-detail-gallery-width: 80vw;
+  /* Proje detay gövde — okunabilir satır (~52–58 karakter) */
+  --project-detail-prose-measure: 56ch;
 }
 
 @media (max-width: 768px) {
@@ -668,10 +675,43 @@ i {
   max-width: min(100%, var(--text-measure));
 }
 
-.project-detail-intro :is(p, .b1),
-.project-detail-copy :is(p, .b1) {
-  max-width: min(100%, calc(var(--text-measure) * 0.6));
+/* ── Site geneli bölüm etiketi + kart meta (anasayfa featured ile aynı sistem) ── */
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0;
+  font-family: var(--h4-font-family);
+  font-size: var(--h4-font-size);
+  font-weight: var(--h4-font-weight);
+  line-height: var(--h4-line-height);
+  letter-spacing: var(--h4-letter-spacing);
+  text-transform: uppercase;
+  color: var(--ink);
 }
+
+.card-meta-title {
+  margin: 0;
+  font-family: var(--h3-font-family);
+  font-size: var(--h3-font-size);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--card-meta-title-ink);
+}
+
+.card-meta-category {
+  margin: 0;
+  font-family: var(--b1-font-family);
+  font-size: var(--b1-font-size);
+  font-weight: 400;
+  line-height: 1.42;
+  letter-spacing: var(--b1-letter-spacing);
+  text-transform: none;
+  color: var(--card-meta-category-ink);
+}
+
 
 .about-section__body,
 .contact-form-lead,
@@ -702,6 +742,12 @@ i {
 .project-detail-page :is(.marketing-navbar, .marketing-nav-mobile-overlay, .project-detail-aside)
   :is(p, .b1, .b2) {
   max-width: none;
+}
+
+/* marketing-page-shell 120ch kuralının üstüne — intro + bölüm metinleri */
+.project-detail-page .project-detail-intro :is(p, .b1),
+.project-detail-page .project-detail-copy :is(p, .b1) {
+  max-width: min(100%, var(--project-detail-prose-measure));
 }
 
 .olly-landing :is(p, .b1, .b2) {
@@ -993,12 +1039,11 @@ i {
 }
 
 .project-next-banner__title {
-  margin: var(--space-6) 0 0;
-  color: var(--ink);
+  margin: var(--section-label-gap) 0 0;
 }
 
 .project-next-banner__subtitle {
-  margin: var(--space-xs) 0 0;
+  margin: var(--card-meta-stack-gap) 0 0;
 }
 
 .project-next-banner__progress {
@@ -1030,11 +1075,18 @@ i {
   transition: width var(--dur-base) var(--ease);
 }
 
-.project-next-banner__cta {
+.project-next-banner__cta,
+.project-next-banner__cta-row {
   display: inline-flex;
   align-items: center;
   gap: var(--space-3);
   margin: var(--space-6) 0 0;
+  font-family: var(--b1-font-family);
+  font-size: var(--b1-font-size);
+  font-weight: var(--b1-font-weight);
+  line-height: var(--b1-line-height);
+  letter-spacing: var(--b1-letter-spacing);
+  text-transform: none;
   color: var(--ink);
 }
 
@@ -1074,16 +1126,6 @@ i {
 
   .project-next-banner__eyebrow--desktop {
     display: block;
-  }
-
-  .project-next-banner__title {
-    margin-top: var(--space-6);
-    font-family: var(--h2-font-family);
-    font-size: var(--h2-font-size);
-    font-weight: var(--h2-font-weight);
-    line-height: var(--h2-line-height);
-    letter-spacing: var(--h2-letter-spacing);
-    text-transform: var(--h2-text-transform);
   }
 
   .project-next-banner__cta--desktop {
@@ -1134,10 +1176,10 @@ i {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
     margin-top: var(--space-8);
     padding-top: var(--space-5);
     border-top: 1px solid var(--border);
-    color: var(--ink);
   }
 }
 
@@ -1849,15 +1891,15 @@ i {
 /* ── Contact page / form ───────────────────────────────── */
 .contact-page-main {
   flex: 1;
-  /* Sabit compact nav — Works ile aynı üst ritim */
-  padding-top: var(--works-body-pad-top);
+  /* Nav altı: clearance + nefes (form başlığı nav’a yapışmasın) */
+  padding-top: calc(var(--works-body-pad-top) + var(--space-10));
   padding-inline: var(--container-gutter);
   padding-bottom: var(--space-12);
 }
 
 @media (max-width: 768px) {
   .contact-page-main {
-    padding-top: calc(var(--works-body-pad-top) + var(--space-10));
+    padding-top: calc(var(--works-body-pad-top) + var(--space-12));
   }
 }
 
@@ -1873,15 +1915,21 @@ i {
 
 .contact-form-eyebrow {
   margin: 0 0 var(--space-2);
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  letter-spacing: var(--h4-letter-spacing);
 }
 
 .contact-form-title {
   margin: 0 0 var(--space-3);
+  color: var(--ink);
+  text-transform: none;
 }
 
 .contact-form-lead {
   margin: 0;
   text-transform: none;
+  color: var(--b1-color);
 }
 
 .contact-form-progress-wrap {
@@ -1904,6 +1952,8 @@ i {
 
 .contact-form-progress-label {
   margin: var(--space-2) 0 0;
+  color: var(--ink-faint);
+  text-transform: none;
 }
 
 .contact-form-draft {
@@ -2092,27 +2142,65 @@ i {
 }
 
 .contact-form-success {
-  padding: var(--space-8) 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-8);
+  border: 1px solid color-mix(in srgb, var(--gray-anti) 42%, var(--gray-base));
+  border-radius: var(--card-radius);
+  background: color-mix(in srgb, var(--gray-anti) 3%, var(--gray-base));
+}
+
+.contact-form-success-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-10);
+  height: var(--space-10);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 14%, var(--gray-base));
+  color: var(--accent);
+  font-family: var(--h4-font-family);
+  font-size: var(--h4-font-size);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.contact-form-success-eyebrow {
+  margin: 0;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  letter-spacing: var(--h4-letter-spacing);
 }
 
 .contact-form-success-title {
-  margin: 0 0 var(--space-3);
+  margin: 0;
+  color: var(--ink);
   text-transform: none;
 }
 
 .contact-form-success-body {
   margin: 0;
   text-transform: none;
+  color: var(--b1-color);
+  line-height: var(--b1-line-height);
+  letter-spacing: var(--b1-letter-spacing);
 }
 
 .contact-form-inline-link {
   color: var(--accent);
+  font-weight: 500;
   text-decoration: underline;
   text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  transition: color var(--dur-fast) var(--ease);
 }
 
 .contact-form-inline-link:hover {
   color: var(--accent-hover);
+  text-decoration-color: color-mix(in srgb, var(--accent-hover) 70%, transparent);
 }
 
 /* ═══════════════════════════════════════════════════════════

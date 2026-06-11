@@ -5,10 +5,14 @@ import { sendContactEmails } from "@/lib/contact-email";
 import { submitContactToHubSpot } from "@/lib/contact-hubspot";
 import { supabaseAdmin } from "@/lib/supabase/server";
 import { env } from "@/lib/env";
+import { ENABLE_PUBLIC_CONTACT } from "@/lib/marketing-flags";
 
 export const runtime = "nodejs";
 
 export async function POST(req: Request) {
+  if (!ENABLE_PUBLIC_CONTACT) {
+    return NextResponse.json({ error: "İletişim formu şu an kapalı." }, { status: 404 });
+  }
   let json: unknown;
   try {
     json = await req.json();
@@ -79,7 +83,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Kayıt başarısız." }, { status: 503 });
   }
 
-  const emailResult = await sendContactEmails(payload);
+  const emailResult = await sendContactEmails(payload, parsed.data.locale);
 
   return NextResponse.json({
     ok: true,

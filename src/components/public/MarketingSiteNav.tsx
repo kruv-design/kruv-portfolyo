@@ -9,20 +9,19 @@ import type { Messages } from "@/lib/i18n/get-messages";
 import { withLocale } from "@/lib/i18n/path";
 import { t } from "@/lib/i18n/t";
 import { normalizeBrandName } from "@/lib/brand";
+import { ENABLE_PUBLIC_CONTACT } from "@/lib/marketing-flags";
 import { ENABLE_THEME_TOGGLE } from "@/lib/theme/flags";
 import { ThemeToggle } from "./ThemeToggle";
 import {
+  SiteNavLangSwitch,
   SiteNavMenuButton,
   SiteNavMobileOverlay,
   SITE_NAV_MOBILE_MENU_ID,
+  SITE_NAV_MOBILE_MQ,
   SITE_NAV_SENTINEL_ID,
+  useMobileMenuScrollLock,
   useSiteNavScroll,
 } from "./site-nav";
-
-const LANGUAGE_OPTIONS: Array<{ locale: Locale; label: string; flag: string }> = [
-  { locale: "tr", label: "TR", flag: "🇹🇷" },
-  { locale: "en", label: "EN", flag: "🇬🇧" },
-];
 
 /**
  * Site header — anasayfa (kruv.html) ile aynı markup + iki varyasyon:
@@ -43,7 +42,10 @@ export function MarketingSiteNav({
   const scrolled = useSiteNavScroll(SITE_NAV_SENTINEL_ID);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
-  const languageMenuRef = useRef<HTMLDivElement>(null);
+  const headerLangRef = useRef<HTMLDivElement>(null);
+  const drawerLangRef = useRef<HTMLDivElement>(null);
+
+  useMobileMenuScrollLock(mobileMenuOpen);
 
   useEffect(() => {
     setMobileMenuOpen(false);
@@ -63,24 +65,20 @@ export function MarketingSiteNav({
 
   useEffect(() => {
     if (!mobileMenuOpen) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
     const onKey = (ev: KeyboardEvent) => {
       if (ev.key === "Escape") setMobileMenuOpen(false);
     };
     window.addEventListener("keydown", onKey);
-    return () => {
-      document.body.style.overflow = prev;
-      window.removeEventListener("keydown", onKey);
-    };
+    return () => window.removeEventListener("keydown", onKey);
   }, [mobileMenuOpen]);
 
   useEffect(() => {
     if (!languageMenuOpen) return;
     const onPointerDown = (ev: MouseEvent) => {
-      const root = languageMenuRef.current;
-      if (!root) return;
-      if (!root.contains(ev.target as Node)) setLanguageMenuOpen(false);
+      const target = ev.target as Node;
+      const inHeader = headerLangRef.current?.contains(target);
+      const inDrawer = drawerLangRef.current?.contains(target);
+      if (!inHeader && !inDrawer) setLanguageMenuOpen(false);
     };
     const onKeyDown = (ev: KeyboardEvent) => {
       if (ev.key === "Escape") setLanguageMenuOpen(false);
@@ -104,6 +102,7 @@ export function MarketingSiteNav({
   }
 
   function toggleMobileMenu() {
+    if (typeof window !== "undefined" && !window.matchMedia(SITE_NAV_MOBILE_MQ).matches) return;
     setLanguageMenuOpen(false);
     setMobileMenuOpen((open) => !open);
   }
@@ -126,8 +125,6 @@ export function MarketingSiteNav({
     setLanguageMenuOpen(false);
     router.push(withLocale(base, nextLocale));
   }
-
-  const activeLanguage = LANGUAGE_OPTIONS.find((item) => item.locale === locale) ?? LANGUAGE_OPTIONS[0];
 
   return (
     <>
@@ -163,55 +160,37 @@ export function MarketingSiteNav({
                     {t(messages, "nav.projects", "Projects")}
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    href={withLocale("/contact", locale)}
-                    className="marketing-navbar-item"
-                    aria-current={isContactActive ? "page" : undefined}
-                  >
-                    {t(messages, "nav.contact", "Contact")}
-                  </Link>
-                </li>
+                {ENABLE_PUBLIC_CONTACT ? (
+                  <li>
+                    <Link
+                      href={withLocale("/contact", locale)}
+                      className="marketing-navbar-item"
+                      aria-current={isContactActive ? "page" : undefined}
+                    >
+                      {t(messages, "nav.contact", "Contact")}
+                    </Link>
+                  </li>
+                ) : null}
               </ul>
             </div>
             <div className="marketing-navbar-col marketing-navbar-col--cta">
               <div className="marketing-navbar-actions">
-                <div className="lang-switch" ref={languageMenuRef}>
-                  <button
-                    type="button"
-                    className="lang-switch__trigger"
-                    aria-haspopup="menu"
-                    aria-expanded={languageMenuOpen}
-                    onClick={() => setLanguageMenuOpen((prev) => !prev)}
-                  >
-                    <span aria-hidden="true">{activeLanguage.flag}</span>
-                    <span>{activeLanguage.label}</span>
-                    <span aria-hidden="true">▾</span>
-                  </button>
-                  {languageMenuOpen ? (
-                    <div role="menu" className="lang-switch__menu">
-                      {LANGUAGE_OPTIONS.map((item) => (
-                        <button
-                          key={item.locale}
-                          type="button"
-                          role="menuitemradio"
-                          aria-checked={locale === item.locale}
-                          className="lang-switch__item"
-                          onClick={() => switchLocale(item.locale)}
-                        >
-                          <span aria-hidden="true">{item.flag}</span>
-                          <span>{item.label}</span>
-                        </button>
-                      ))}
-                    </div>
-                  ) : null}
-                </div>
+                <SiteNavLangSwitch
+                  locale={locale}
+                  open={languageMenuOpen}
+                  onToggle={() => setLanguageMenuOpen((prev) => !prev)}
+                  onSelect={switchLocale}
+                  menuRef={headerLangRef}
+                  className="lang-switch marketing-navbar-lang--header"
+                />
                 {ENABLE_THEME_TOGGLE ? (
                   <ThemeToggle className="marketing-navbar-theme-toggle marketing-navbar-theme-toggle--dock nav-theme-toggle" />
                 ) : null}
-                <Link href={withLocale("/contact", locale)} className="marketing-navbar-cta">
-                  {t(messages, "nav.startProject", "Start a project")}
-                </Link>
+                {ENABLE_PUBLIC_CONTACT ? (
+                  <Link href={withLocale("/contact", locale)} className="marketing-navbar-cta">
+                    {t(messages, "nav.startProject", "Start a project")}
+                  </Link>
+                ) : null}
                 <SiteNavMenuButton
                   open={mobileMenuOpen}
                   controlsId={SITE_NAV_MOBILE_MENU_ID}
@@ -261,6 +240,29 @@ export function MarketingSiteNav({
             </li>
           </ul>
         </nav>
+
+        <div className="marketing-nav-mobile-footer site-nav-mobile-footer">
+          <SiteNavLangSwitch
+            locale={locale}
+            open={languageMenuOpen}
+            onToggle={() => setLanguageMenuOpen((prev) => !prev)}
+            onSelect={(nextLocale) => {
+              closeMobileMenu();
+              switchLocale(nextLocale);
+            }}
+            menuRef={drawerLangRef}
+            className="lang-switch marketing-navbar-lang--drawer"
+          />
+          {ENABLE_PUBLIC_CONTACT ? (
+            <Link
+              href={withLocale("/contact", locale)}
+              className="marketing-navbar-cta marketing-nav-mobile-cta"
+              onClick={closeMobileMenu}
+            >
+              {t(messages, "nav.startProject", "Start a project")}
+            </Link>
+          ) : null}
+        </div>
       </SiteNavMobileOverlay>
     </>
   );

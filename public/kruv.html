@@ -57,17 +57,12 @@
         <div class="marketing-navbar-actions">
           <div class="lang-switch" id="lang-switch">
             <button type="button" id="lang-switch-trigger" class="lang-switch__trigger" aria-haspopup="menu" aria-expanded="false">
-              <span id="lang-switch-flag" aria-hidden="true">🇹🇷</span>
               <span id="lang-switch-label">TR</span>
               <span aria-hidden="true">▾</span>
             </button>
             <div id="lang-switch-menu" class="lang-switch__menu" role="menu" hidden>
-              <button type="button" role="menuitemradio" aria-checked="true" class="lang-switch__item" data-locale="tr">
-                <span aria-hidden="true">🇹🇷</span><span>TR</span>
-              </button>
-              <button type="button" role="menuitemradio" aria-checked="false" class="lang-switch__item" data-locale="en">
-                <span aria-hidden="true">🇬🇧</span><span>EN</span>
-              </button>
+              <button type="button" role="menuitemradio" aria-checked="true" class="lang-switch__item" data-locale="tr">TR</button>
+              <button type="button" role="menuitemradio" aria-checked="false" class="lang-switch__item" data-locale="en">EN</button>
             </div>
           </div>
           <a class="marketing-navbar-cta" id="nav-cta-link" href="/tr/contact">Start a project</a>
@@ -1790,8 +1785,8 @@
 <script>
   (function () {
     var options = [
-      { locale: 'tr', label: 'TR', flag: '🇹🇷' },
-      { locale: 'en', label: 'EN', flag: '🇬🇧' }
+      { locale: 'tr', label: 'TR' },
+      { locale: 'en', label: 'EN' }
     ];
     function normLocale(raw) {
       var s = String(raw || '').toLowerCase().split('-')[0];
@@ -1815,9 +1810,8 @@
 
     var trigger = document.getElementById('lang-switch-trigger');
     var menu = document.getElementById('lang-switch-menu');
-    var flagEl = document.getElementById('lang-switch-flag');
     var labelEl = document.getElementById('lang-switch-label');
-    if (!trigger || !menu || !flagEl || !labelEl) return;
+    if (!trigger || !menu || !labelEl) return;
 
     var projectsDesktop = document.querySelector('.marketing-navbar-links a[href$="/works"]');
     var contactDesktop = document.querySelector('.marketing-navbar-links a[href$="/contact"]');
@@ -1827,7 +1821,6 @@
 
     function paint(locale) {
       var active = options.find(function (o) { return o.locale === locale; }) || options[0];
-      flagEl.textContent = active.flag;
       labelEl.textContent = active.label;
       menu.querySelectorAll('[data-locale]').forEach(function (el) {
         el.setAttribute('aria-checked', el.getAttribute('data-locale') === locale ? 'true' : 'false');

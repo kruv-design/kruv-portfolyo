@@ -12,8 +12,14 @@ import { MarketingHomeFeatured } from "@/components/public/MarketingHomeFeatured
 import { MarketingHomeBody } from "@/components/public/MarketingHomeBody";
 import { resolveHomeShowreelSlots } from "@/lib/home-showreel";
 import { getMessages } from "@/lib/i18n/get-messages";
+import { t } from "@/lib/i18n/t";
 import { withLocale } from "@/lib/i18n/path";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { env } from "@/lib/env";
+import {
+  buildLocalBusinessSchema,
+  buildWebSiteSchema,
+} from "@/lib/seo/structured-data";
 
 export async function generateMetadata({
   params,
@@ -21,13 +27,32 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const messages = getMessages(locale);
+  const title = t(messages, "home.metaTitle");
+  const description = t(messages, "home.metaDescription");
+
   return {
+    title: { absolute: title },
+    description,
     alternates: {
       canonical: `${env.SITE_URL}/${locale}`,
       languages: {
         "tr-TR": `${env.SITE_URL}/tr`,
         en: `${env.SITE_URL}/en`,
       },
+    },
+    openGraph: {
+      title,
+      description,
+      url: `${env.SITE_URL}/${locale}`,
+      locale: locale === "tr" ? "tr_TR" : "en_US",
+      siteName: "kruv.",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
     },
   };
 }
@@ -47,8 +72,22 @@ export default async function LocaleHomePage({
   const showreelPosterWeb = showreelWeb?.posterSrc ?? "";
   const showreelVideoMobile = showreelMobile?.videoSrc ?? "";
   const showreelVideoWeb = showreelWeb?.videoSrc ?? "";
+  const homeDescription = t(messages, "home.metaDescription");
+  const homeImage =
+    showreelPosterWeb || showreelPosterMobile || settings.homeVideoPoster || undefined;
+
   return (
     <MarketingPageShell className="marketing-home-figma flex min-h-screen flex-col">
+      <JsonLd
+        data={[
+          buildWebSiteSchema({ locale, description: homeDescription }),
+          buildLocalBusinessSchema({
+            locale,
+            description: homeDescription,
+            image: homeImage,
+          }),
+        ]}
+      />
       <link
         rel="preconnect"
         href="https://res.cloudinary.com"

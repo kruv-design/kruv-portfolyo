@@ -2,11 +2,12 @@ import type { MetadataRoute } from "next";
 import { getProjects } from "@/lib/queries";
 import { env } from "@/lib/env";
 import { LOCALES } from "@/lib/i18n/config";
+import { ENABLE_PUBLIC_CONTACT } from "@/lib/marketing-flags";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const projects = await getProjects().catch(() => []);
   const base = env.SITE_URL;
-  const staticPaths = ["/works", "/contact"];
+  const staticPaths = ENABLE_PUBLIC_CONTACT ? ["/works", "/contact"] : ["/works"];
 
   return [
     ...LOCALES.flatMap((locale) =>

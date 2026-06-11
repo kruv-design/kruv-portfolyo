@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Mcp(plugin-figma-figma, **)",
+      "CallMcpTool(plugin-figma-figma, **)",
+      "FetchMcpResource(plugin-figma-figma, **)",
+      "WebFetch(figma.com)",
+      "WebFetch(www.figma.com)",
+      "WebFetch(api.figma.com)",
+      "WebFetch(mcp.figma.com)",
+      "WebFetch(*.figma.com)",
+      "Shell(npm run build)",
+      "Shell(npm run dev)",
+      "Shell(npm run typecheck)",
+      "Shell(git status)",
+      "Shell(git diff)",
+      "Shell(git log*)",
+      "Shell(git push*)"
+    ]
+  },
+  "webFetchDomainAllowlist": [
+    "figma.com",
+    "*.figma.com",
+    "res.cloudinary.com"
+  ],
+  "sandbox": {
+    "networkAccess": "allow_all"
+  }
+}

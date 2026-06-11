@@ -14,6 +14,15 @@ import { MarketingKruvStyles } from "@/components/public/MarketingKruvStyles";
 import { MarketingSiteNav } from "@/components/public/MarketingSiteNav";
 import { env } from "@/lib/env";
 import { getMessages } from "@/lib/i18n/get-messages";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { GlobalOrganizationJsonLd } from "@/components/seo/GlobalOrganizationJsonLd";
+import { projectMetaDescription } from "@/lib/seo/project-meta-description";
+import {
+  buildBreadcrumbSchema,
+  buildCreativeWorkSchema,
+} from "@/lib/seo/structured-data";
+import { withLocale } from "@/lib/i18n/path";
+import { t } from "@/lib/i18n/t";
 
 export const revalidate = 60;
 /**
@@ -45,9 +54,7 @@ export async function generateMetadata({
   if (!project) return { title: "Bulunamadı" };
 
   const title = project.baslik;
-  const description =
-    project.aciklama?.slice(0, 160) ||
-    `${project.kategori} projesi · Kruv`;
+  const description = projectMetaDescription(project, "tr");
   const canonical = `${env.SITE_URL}/projects/${project.slug}`;
   const img = project.kapak || undefined;
 
@@ -89,25 +96,28 @@ export default async function ProjectPage({
     getSettings(),
   ]);
 
-  // JSON-LD structured data for SEO
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    name: project.baslik,
-    description: project.aciklama || undefined,
-    url: `${env.SITE_URL}/projects/${project.slug}`,
-    image: project.kapak || undefined,
-    keywords: project.etiketler?.join(", ") || undefined,
-    creator: { "@type": "Organization", name: settings.siteAdi },
-    about: project.kategori,
-  };
+  const projectDescription = projectMetaDescription(project, locale);
+  const worksTitle = t(messages, "works.metaTitle");
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      <GlobalOrganizationJsonLd locale={locale} />
+      <JsonLd
+        data={[
+          buildBreadcrumbSchema([
+            { name: messages.footer.home, path: withLocale("/", locale) },
+            { name: worksTitle, path: withLocale("/works", locale) },
+            {
+              name: project.baslik,
+              path: withLocale(`/projects/${project.slug}`, locale),
+            },
+          ]),
+          buildCreativeWorkSchema({
+            project,
+            locale,
+            description: projectDescription,
+          }),
+        ]}
       />
       <ProjectDetailPageFrame slug={project.slug}>
         <div

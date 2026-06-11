@@ -1,0 +1,18 @@
+# Cursor index dışı — IDE hızı
+node_modules/
+.next/
+out/
+Users/
+.git/
+coverage/
+.vercel/
+dist/
+build/
+
+# Build artefaktları
+*.tsbuildinfo
+package-lock.json
+
+# Legacy / test statik
+public/kruv_site_files/
+public/kruv-showcase-sections-test.html

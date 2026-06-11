@@ -75,7 +75,7 @@ const config: Config = {
         olly: "var(--olly-duration)",
       },
       fontFamily: {
-        display: ["var(--font-display)", "Impact", "sans-serif"],
+        display: ["var(--font-display, Switzer)", "system-ui", "sans-serif"],
         sans: ["var(--font-body)", "system-ui", "sans-serif"],
         body: ["var(--font-body)", "system-ui", "sans-serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],

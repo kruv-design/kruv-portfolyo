@@ -129,7 +129,7 @@ export function ContactForm({
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sessionId, hp, payload: values }),
+        body: JSON.stringify({ sessionId, hp, payload: values, locale }),
       });
       const data = (await res.json()) as { ok?: boolean; error?: string };
       if (!res.ok) {
@@ -152,11 +152,22 @@ export function ContactForm({
   if (done) {
     return (
       <div className="contact-form-shell" lang={locale}>
-        <div className="contact-form-success" role="status">
-          <p className="contact-form-success-title h3" style={{ color: "var(--ink)" }}>
-            {t(messages, "contact.successTitle")}
+        <div
+          className="contact-form-success"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          <span className="contact-form-success-mark" aria-hidden="true">
+            ✓
+          </span>
+          <p className="contact-form-success-eyebrow b3">
+            {t(messages, "contact.eyebrow")}
           </p>
-          <p className="contact-form-success-body b1" style={{ color: "var(--b1-color)" }}>
+          <h2 className="contact-form-success-title h3">
+            {t(messages, "contact.successTitle")}
+          </h2>
+          <p className="contact-form-success-body b1">
             {t(messages, "contact.successBodyPrefix")}{" "}
             <Link href={withLocale("/works", locale)} className="contact-form-inline-link">
               {t(messages, "contact.successBodyLink")}
@@ -171,13 +182,13 @@ export function ContactForm({
   return (
     <div className="contact-form-shell" lang={locale}>
       <header className="contact-form-header">
-        <p className="contact-form-eyebrow b3" style={{ color: "var(--ink-faint)" }}>
+        <p className="contact-form-eyebrow b3">
           {t(messages, "contact.eyebrow")}
         </p>
-        <h1 className="contact-form-title h2" style={{ color: "var(--ink)" }}>
+        <h1 className="contact-form-title h2">
           {t(messages, "contact.title")}
         </h1>
-        <p className="contact-form-lead b1" style={{ color: "var(--b1-color)" }}>
+        <p className="contact-form-lead b1">
           {t(messages, "contact.lead")}
         </p>
       </header>
@@ -189,7 +200,6 @@ export function ContactForm({
         <p
           id={`${formId}-step-label`}
           className="contact-form-progress-label b2"
-          style={{ color: "var(--ink-faint)" }}
         >
           {t(messages, "contact.step")} {step + 1} / {totalSteps} — {stepTitles[step]}
         </p>

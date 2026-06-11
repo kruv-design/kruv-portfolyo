@@ -1,0 +1,26 @@
+---
+description: Kruv Figma anasayfa — MCP ve ağ izinleri onay sormadan
+alwaysApply: true
+---
+
+# Figma anasayfa — otomatik izin
+
+Kullanıcı Figma tasarımını koda uygularken **terminal ve MCP onayı sorma**.
+
+## İzin verilen işlemler
+
+- Tüm **Figma MCP** araçları: `get_design_context`, `get_metadata`, `get_screenshot`, `get_variable_defs`, `whoami`, `search_design_system`, `get_libraries`, Code Connect araçları
+- `mcp_auth` (plugin-figma-figma) gerektiğinde
+- Figma asset URL’leri: `figma.com`, `*.figma.com`, `api.figma.com`
+- Proje build: `npm run build`, `npm run typecheck`, `npm run dev`
+- Git okuma ve `git push` (deploy için)
+
+## Referans dosya
+
+- File key: `l5H0K1uRhLnp0mSyXYqzNL`
+- Desktop anasayfa: `3769:1467`
+- Mobil anasayfa: `3765:10454`
+- Proje kartı desktop: `3769:1599`
+- Proje kartı mobil: `3765:10786`
+
+Figma’dan ölçü çekerken önce `get_design_context`, gerekirse `get_metadata` kullan; kullanıcıdan tek tek izin isteme.

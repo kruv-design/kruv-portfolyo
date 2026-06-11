@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { contactPartialBodySchema } from "@/lib/validators";
 import { supabaseAdmin } from "@/lib/supabase/server";
+import { ENABLE_PUBLIC_CONTACT } from "@/lib/marketing-flags";
 
 export const runtime = "nodejs";
 
@@ -9,6 +10,10 @@ function payloadHasContent(payload: Record<string, string>): boolean {
 }
 
 export async function POST(req: Request) {
+  if (!ENABLE_PUBLIC_CONTACT) {
+    return NextResponse.json({ error: "İletişim formu şu an kapalı." }, { status: 404 });
+  }
+
   let json: unknown;
   try {
     json = await req.json();

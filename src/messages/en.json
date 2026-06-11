@@ -1,5 +1,7 @@
 {
   "home": {
+    "metaTitle": "Kruv | Branding & Design Studio Istanbul",
+    "metaDescription": "We design brands worth sharing.",
     "ideal": {
       "tag": "Partners",
       "title": "In Good Company"
@@ -44,22 +46,22 @@
       "items": [
         {
           "index": "01",
-          "title": "Just getting started",
+          "title": "Just getting started brands",
           "body": "We build a strong brand structure, name, and core systems for your great idea."
         },
         {
           "index": "02",
-          "title": "Ready to grow",
+          "title": "Ready to grow brands",
           "body": "We create a scalable, consistent brand structure for your fast-growing business."
         },
         {
           "index": "03",
-          "title": "Seeking visibility",
+          "title": "Brands seeking visibility",
           "body": "We reflect your quality and expertise clearly to the outside world."
         },
         {
           "index": "04",
-          "title": "Ready for renewal",
+          "title": "Brands ready for renewal",
           "body": "We reposition your brand with an identity that's current and future-ready."
         }
       ]
@@ -127,6 +129,8 @@
     "searchPlaceholder": "Search"
   },
   "works": {
+    "metaTitle": "Portfolio",
+    "metaDescription": "Explore our portfolio: award-winning branding, packaging, editorial design, UI/UX, and illustration projects featured on Adobe Behance.",
     "all": "All",
     "empty": "No projects in this category.",
     "filterAria": "Project filters"
@@ -165,7 +169,7 @@
   },
   "contact": {
     "metaTitle": "Contact",
-    "metaDescription": "Contact form for project inquiries and collaborations.",
+    "metaDescription": "Start your project with Kruv. Get in touch with our creative team in Istanbul. Quick 3-step inquiry form.",
     "eyebrow": "Contact",
     "title": "Let's build together",
     "lead": "Three quick steps: your name, your email, and your message.",
@@ -186,7 +190,7 @@
     "networkError": "Network error. Please check your connection and try again.",
     "successTitle": "Your message has been sent.",
     "successBodyPrefix": "We will get back to you shortly. In the meantime, you can visit the",
-    "successBodyLink": "Work",
+    "successBodyLink": "Works",
     "successBodySuffix": "page."
   }
 }

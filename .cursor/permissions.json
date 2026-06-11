@@ -3,7 +3,10 @@
     "allow_instructions": [
       "Allow python3 and pip3 for n11 Excel görsel scripti: /Users/cahita/Downloads/n11_excel_gorsel.py, requirements-n11-gorsel.txt, vic-020 ürün görselleri.xlsx ve çıktı dosyaları.",
       "Allow read-only shell: ls, wc, tail, head, cat, grep on Downloads ve proje dizini.",
-      "Allow network for cloudscraper/requests: n11.com, n11scdn.akamaized.net araması ve görsel indirme."
+      "Allow network for cloudscraper/requests: n11.com, n11scdn.akamaized.net araması ve görsel indirme.",
+      "Allow all Figma MCP tools (plugin-figma-figma): get_design_context, get_metadata, get_screenshot, get_variable_defs, whoami, search_design_system, get_libraries, use_figma, generate_figma_design, Code Connect tools, mcp_auth.",
+      "Allow network to figma.com, *.figma.com, api.figma.com, mcp.figma.com and Figma MCP asset URLs without asking.",
+      "Allow npm run build, npm run typecheck, npm run dev, git status/diff/log/push for portfolyo-cms homepage Figma implementation."
     ],
     "block_instructions": [
       "Block rm -rf, git push, git reset --hard, sudo, and commands outside Downloads or this project unless clearly required."

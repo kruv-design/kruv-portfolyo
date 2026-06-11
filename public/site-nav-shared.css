@@ -27,6 +27,7 @@
     min-height: max(44px, var(--nav-bar-ctrl-h));
     padding: 0;
     margin: 0;
+    margin-left: auto;
     border-radius: var(--btn-radius);
     background: transparent;
     cursor: pointer;
@@ -34,7 +35,7 @@
     -webkit-tap-highlight-color: transparent;
     user-select: none;
     position: relative;
-    z-index: 3;
+    z-index: 6;
     transition:
       color var(--dur-fast) var(--ease-standard, var(--ease)),
       border-color var(--dur-fast) var(--ease-standard, var(--ease)),
@@ -131,21 +132,21 @@
 
   .marketing-navbar.is-menu-open .marketing-navbar-col--cta,
   .navbar.is-menu-open .nav-col--cta {
-    flex: 1;
+    flex: 0 0 auto;
     min-width: 0;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    margin-inline-start: auto;
   }
 
   .marketing-navbar.is-menu-open .marketing-navbar-actions,
   .navbar.is-menu-open .nav-actions {
     display: flex;
-    flex: 1;
     align-items: center;
     justify-content: flex-end;
-    position: relative;
-    width: 100%;
+    flex: 0 0 auto;
+    width: auto;
     min-width: 0;
     gap: var(--space-3, 12px);
   }
@@ -153,26 +154,21 @@
   .marketing-navbar.is-menu-open .marketing-navbar-menu-btn,
   .navbar.is-menu-open .nav-menu-toggle {
     position: relative;
-    z-index: 4;
+    z-index: 10;
     flex-shrink: 0;
     margin: 0;
     margin-left: auto;
-  }
-
-  .marketing-navbar.is-menu-open .lang-switch,
-  .navbar.is-menu-open .lang-switch {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-    pointer-events: auto;
   }
 
   .marketing-navbar.is-menu-open .marketing-navbar-cta,
   .navbar.is-menu-open .nav-cta {
     display: none;
     pointer-events: none;
+  }
+
+  /* Mobil şeritte dil seçici drawer’da — hamburger tıklanabilir kalsın */
+  .marketing-navbar-lang--header {
+    display: none !important;
   }
 
   .marketing-navbar-theme-toggle--dock,
@@ -185,22 +181,27 @@
     display: none !important;
   }
 
-  /* ── Tam ekran panel (yalnızca açıkken; kapalı = [hidden]) ── */
-  .marketing-nav-mobile-overlay:not([hidden]),
-  .site-nav-mobile-overlay:not([hidden]) {
+  /* ── Tam ekran panel — kapalı: display:none; açık: .is-open (React portal) ── */
+  .marketing-nav-mobile-overlay,
+  .site-nav-mobile-overlay {
+    display: none;
+  }
+
+  .marketing-nav-mobile-overlay.is-open,
+  .site-nav-mobile-overlay.is-open {
     position: fixed;
     inset: 0;
     z-index: 200;
     display: flex;
     flex-direction: column;
-    padding: var(--site-nav-pad-y, var(--space-6)) var(--site-nav-gutter-x, var(--container-gutter, var(--section-pad-x)));
-    padding-top: calc(
-      env(safe-area-inset-top, 0px) + var(--space-6) + var(--nav-bar-ctrl-h) + var(--space-4)
-    );
+    padding-inline: var(--container-gutter, var(--section-pad-x));
+    padding-top: var(--site-nav-clearance);
     padding-bottom: calc(var(--space-4) + env(safe-area-inset-bottom, 0px));
     background: var(--bg, var(--color-bg));
     color: var(--ink, var(--frost));
     overflow: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
     animation: site-nav-overlay-in 0.22s var(--ease-standard, var(--ease)) both;
   }
 
@@ -346,6 +347,32 @@
   .site-nav-mobile-links a:hover,
   .site-nav-mobile-links a:focus-visible {
     color: var(--purple);
+  }
+
+  .marketing-nav-mobile-footer,
+  .site-nav-mobile-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+    width: 100%;
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--border, var(--gray-100));
+  }
+
+  .marketing-navbar-lang--drawer .lang-switch__menu {
+    position: static;
+    margin-top: var(--space-2);
+    min-width: 132px;
+    box-shadow: none;
+  }
+
+  .marketing-nav-mobile-cta {
+    display: inline-flex !important;
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
   }
 
   /* Masaüstü link satırı mobilde gizli (panelde tekrar) */

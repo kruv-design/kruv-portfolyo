@@ -26,11 +26,16 @@ export const metadata: Metadata = {
     default: "kruv. — portfolyo",
     template: "%s · kruv.",
   },
-  description: "Seçilmiş projeler ve çalışmalar.",
+  description: "Paylaşmaya değer markalar tasarlıyoruz.",
   openGraph: {
     type: "website",
     locale: "tr_TR",
     siteName: "kruv.",
+    description: "Paylaşmaya değer markalar tasarlıyoruz.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    description: "Paylaşmaya değer markalar tasarlıyoruz.",
   },
   alternates: {
     languages: {
@@ -38,7 +43,6 @@ export const metadata: Metadata = {
       en: `${env.SITE_URL}/en/works`,
     },
   },
-  twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true },
 };
 
@@ -72,10 +76,18 @@ export default function RootLayout({
         {ENABLE_THEME_TOGGLE ? (
           <script dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
         ) : null}
+        <link
+          rel="preload"
+          href="/fonts/switzer/Switzer-Variable.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link rel="stylesheet" href="/fonts/switzer/switzer.css" />
         <link rel="stylesheet" href="/site-nav.css" />
         <link rel="stylesheet" href="/site-nav-shared.css" />
       </head>
-      <body className="min-h-screen">{children}</body>
+      <body className={`${switzer.className} min-h-screen`}>{children}</body>
     </html>
   );
 }

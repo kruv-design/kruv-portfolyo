@@ -1,5 +1,9 @@
+"use client";
+
+import { Fragment, useRef } from "react";
 import type { Locale } from "@/lib/i18n/config";
 import type { Messages } from "@/lib/i18n/get-messages";
+import { useConstantSpeedMarquee } from "./useConstantSpeedMarquee";
 
 const REPEAT = 2;
 
@@ -12,6 +16,13 @@ export function MarketingHomeKayanYazi({
   messages: Messages;
 }) {
   const copy = messages.home.kayanYazi;
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  useConstantSpeedMarquee(trackRef, {
+    pxPerSecVar: "--home-kayan-px-per-sec",
+    durationVar: "--home-kayan-dur",
+    loopSelector: ".home-kayan-yazi__sequence",
+  });
 
   return (
     <section
@@ -20,14 +31,16 @@ export function MarketingHomeKayanYazi({
       aria-label={copy.ariaLabel}
     >
       <div className="home-kayan-yazi__bleed">
-        <div className="home-kayan-yazi__track">
+        <div className="home-kayan-yazi__track" ref={trackRef}>
           {Array.from({ length: REPEAT }, (_, seq) => (
             <div key={seq} className="home-kayan-yazi__sequence" aria-hidden={seq > 0}>
               {copy.phrases.map((phrase) => (
-                <span key={`${seq}-${phrase}`} className="home-kayan-yazi__piece">
+                <Fragment key={`${seq}-${phrase}`}>
                   <span className="home-kayan-yazi__phrase">{phrase}</span>
-                  <span className="home-kayan-yazi__sep" aria-hidden="true" />
-                </span>
+                  <span className="home-kayan-yazi__sep" aria-hidden="true">
+                    <img src="/assets/kayan-yazi-star.svg" alt="" width={52} height={52} />
+                  </span>
+                </Fragment>
               ))}
             </div>
           ))}

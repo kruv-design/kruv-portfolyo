@@ -16,7 +16,15 @@ import { env } from "@/lib/env";
 import type { Locale } from "@/lib/i18n/config";
 import { LOCALES } from "@/lib/i18n/config";
 import { getMessages } from "@/lib/i18n/get-messages";
-import { projectIntroForLocale, projectTitleForLocale, resolveProjectForLocale } from "@/lib/project-locale";
+import { projectTitleForLocale, resolveProjectForLocale } from "@/lib/project-locale";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { projectMetaDescription } from "@/lib/seo/project-meta-description";
+import {
+  buildBreadcrumbSchema,
+  buildCreativeWorkSchema,
+} from "@/lib/seo/structured-data";
+import { withLocale } from "@/lib/i18n/path";
+import { t } from "@/lib/i18n/t";
 
 export const revalidate = 60;
 export const dynamicParams = true;
@@ -43,11 +51,8 @@ export async function generateMetadata({
   const project = await getProjectBySlug(slug);
   if (!project) return { title: "Not found" };
 
-  const localized = resolveProjectForLocale(project, locale);
   const title = projectTitleForLocale(project, locale);
-  const description =
-    projectIntroForLocale(project, locale).slice(0, 160) ||
-    `${localized.kategori} · Kruv`;
+  const description = projectMetaDescription(project, locale);
   const canonical = `${env.SITE_URL}/${locale}/projects/${project.slug}`;
   const img = project.kapak || undefined;
 
@@ -101,24 +106,28 @@ export default async function LocalizedProjectPage({
     resolveProjectForLocale(p, locale),
   );
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    name: projectTitleForLocale(project, locale),
-    description: projectIntroForLocale(project, locale) || undefined,
-    url: `${env.SITE_URL}/${locale}/projects/${project.slug}`,
-    image: project.kapak || undefined,
-    keywords: localized.etiketler?.join(", ") || undefined,
-    creator: { "@type": "Organization", name: settings.siteAdi },
-    about: localized.kategori,
-  };
+  const projectTitle = projectTitleForLocale(project, locale);
+  const projectDescription = projectMetaDescription(project, locale);
+  const worksTitle = t(messages, "works.metaTitle");
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      <JsonLd
+        data={[
+          buildBreadcrumbSchema([
+            { name: messages.footer.home, path: withLocale("/", locale) },
+            { name: worksTitle, path: withLocale("/works", locale) },
+            {
+              name: projectTitle,
+              path: withLocale(`/projects/${project.slug}`, locale),
+            },
+          ]),
+          buildCreativeWorkSchema({
+            project,
+            locale,
+            description: projectDescription,
+          }),
+        ]}
       />
       <ProjectDetailPageFrame slug={project.slug}>
         <div

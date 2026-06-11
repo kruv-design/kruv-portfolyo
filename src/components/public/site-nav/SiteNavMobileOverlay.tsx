@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import type { ReactNode } from "react";
 
 type SiteNavMobileOverlayProps = {
@@ -10,7 +12,7 @@ type SiteNavMobileOverlayProps = {
   children: ReactNode;
 };
 
-/** Tam ekran mobil menü paneli — overlay nav dışında, çarpı navbar’da kalır. */
+/** Tam ekran mobil menü — yalnızca açıkken `body` portal. */
 export function SiteNavMobileOverlay({
   id,
   titleId,
@@ -18,24 +20,30 @@ export function SiteNavMobileOverlay({
   onClose,
   children,
 }: SiteNavMobileOverlayProps) {
-  return (
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted || !open) return null;
+
+  return createPortal(
     <div
       id={id}
-      className="marketing-nav-mobile-overlay site-nav-mobile-overlay"
+      className="marketing-nav-mobile-overlay site-nav-mobile-overlay is-open"
       role="dialog"
       aria-modal="true"
       aria-labelledby={titleId}
-      aria-hidden={!open}
-      hidden={!open}
       onClick={(e) => {
-        if (!open || !onClose) return;
-        if (e.target === e.currentTarget) onClose();
+        if (e.target === e.currentTarget) onClose?.();
       }}
     >
       <h2 id={titleId} className="sr-only">
         Menu
       </h2>
       <div className="marketing-nav-mobile-body site-nav-mobile-body">{children}</div>
-    </div>
+    </div>,
+    document.body,
   );
 }

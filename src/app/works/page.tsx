@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import type { Metadata } from "next";
 import { DEFAULT_SITE_SETTINGS, getProjects, getSettings } from "@/lib/queries";
 import { MarketingSiteNav } from "@/components/public/MarketingSiteNav";
 import { MarketingPageShell } from "@/components/public/MarketingPageShell";
@@ -6,6 +7,13 @@ import { PortfolioGrid } from "@/components/public/PortfolioGrid";
 import { getMessages } from "@/lib/i18n/get-messages";
 
 export const revalidate = 60;
+
+const messages = getMessages("tr");
+
+export const metadata: Metadata = {
+  title: messages.works.metaTitle,
+  description: messages.works.metaDescription,
+};
 
 /** CMS Works — anasayfa ile aynı nav; hero yok, doğrudan proje ızgarası. */
 export default async function WorksPage() {

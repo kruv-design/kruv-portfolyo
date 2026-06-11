@@ -9,7 +9,7 @@ export function MarketingHomeSectionTag({
   className?: string;
 }) {
   return (
-    <p className={["home-section-tag", className].filter(Boolean).join(" ")}>
+    <p className={["section-tag", "home-section-tag", className].filter(Boolean).join(" ")}>
       <span className="home-section-tag__icon" aria-hidden="true" />
       <span className="home-section-tag__text">{children}</span>
     </p>

@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
-import { isLocale } from "@/lib/i18n/config";
+import { GlobalOrganizationJsonLd } from "@/components/seo/GlobalOrganizationJsonLd";
+import { isLocale, type Locale } from "@/lib/i18n/config";
 
 export default async function LocaleLayout({
   children,
@@ -11,5 +12,15 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  return <>{children}</>;
+  return (
+    <>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `document.documentElement.lang=${JSON.stringify(locale)};`,
+        }}
+      />
+      <GlobalOrganizationJsonLd locale={locale as Locale} />
+      {children}
+    </>
+  );
 }

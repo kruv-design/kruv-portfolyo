@@ -3,6 +3,7 @@ import type { Locale } from "@/lib/i18n/config";
 import type { Messages } from "@/lib/i18n/get-messages";
 import { withLocale } from "@/lib/i18n/path";
 import type { SiteSettings } from "@/types";
+import { ENABLE_PUBLIC_CONTACT } from "@/lib/marketing-flags";
 import { SocialFooterLinks } from "./SocialFooterLinks";
 
 function footerWorksHref(locale: Locale, filter?: string): string {
@@ -56,9 +57,11 @@ export function SiteFooter({
               <li>
                 <Link href={footerWorksHref(locale)}>{copy.projects}</Link>
               </li>
-              <li>
-                <Link href={withLocale("/contact", locale)}>{copy.contact}</Link>
-              </li>
+              {ENABLE_PUBLIC_CONTACT ? (
+                <li>
+                  <Link href={withLocale("/contact", locale)}>{copy.contact}</Link>
+                </li>
+              ) : null}
             </ul>
           </nav>
 

@@ -49,7 +49,7 @@ export function ProjectNextBanner({
       >
         <div className="project-next-banner__grid">
           <div className="project-next-banner__meta">
-            <p className="b2 project-next-banner__eyebrow project-next-banner__eyebrow--desktop">
+            <p className="section-tag project-next-banner__eyebrow project-next-banner__eyebrow--desktop">
               <span aria-hidden="true">↘ </span>
               {t(messages, "project.nextProject", "Next project")}
             </p>
@@ -59,12 +59,12 @@ export function ProjectNextBanner({
               {t(messages, "project.nextProject", "Next project")}
             </p>
 
-            <h2 id="project-next-banner-heading" className="h3 project-next-banner__title">
+            <h2 id="project-next-banner-heading" className="card-meta-title project-next-banner__title">
               {nextProject.baslik}
             </h2>
 
             {meta ? (
-              <p className="b2 project-next-banner__subtitle">{meta}</p>
+              <p className="card-meta-category project-next-banner__subtitle">{meta}</p>
             ) : null}
 
             <div className="project-next-banner__progress" aria-hidden="true">
@@ -79,14 +79,14 @@ export function ProjectNextBanner({
               </span>
             </div>
 
-            <p className="b1 project-next-banner__cta project-next-banner__cta--desktop">
+            <p className="project-next-banner__cta project-next-banner__cta--desktop">
               <span>{t(messages, "project.view", "View")}</span>
               <span className="project-next-banner__cta-arrow" aria-hidden="true">
                 →
               </span>
             </p>
 
-            <div className="b1 project-next-banner__cta-row project-next-banner__cta-row--mobile">
+            <div className="project-next-banner__cta-row project-next-banner__cta-row--mobile">
               <span>{t(messages, "project.view", "View")}</span>
               <span className="project-next-banner__cta-arrow" aria-hidden="true">
                 →

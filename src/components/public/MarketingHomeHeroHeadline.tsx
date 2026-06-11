@@ -1,5 +1,6 @@
 import type { Locale } from "@/lib/i18n/config";
 import type { Messages } from "@/lib/i18n/get-messages";
+import { HeroScrollCta } from "./HeroScrollCta";
 
 function HeroHeadlineLines({
   line1,
@@ -70,21 +71,7 @@ export function MarketingHomeHeroHeadline({
           />
         ) : null}
       </h1>
-      <a
-        className="hero-v2-scroll-cta"
-        href={scrollHref}
-        aria-label={hero.cursorLabel}
-      >
-        <img
-          className="hero-v2-scroll-cta__icon"
-          src="/assets/hero-scroll-arrow.svg"
-          width={66}
-          height={66}
-          alt=""
-          aria-hidden
-          decoding="async"
-        />
-      </a>
+      <HeroScrollCta href={scrollHref} ariaLabel={hero.cursorLabel} />
     </div>
   );
 }

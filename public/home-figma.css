@@ -10,8 +10,11 @@
   --home-surface: var(--gray-base);
   --home-surface-muted: color-mix(in srgb, var(--gray-anti) 3%, var(--gray-base));
   --home-border: color-mix(in srgb, var(--gray-anti) 42%, var(--gray-base));
-  --home-kayan-dur: 28s;
-  --home-section-pad-y: var(--space-8);
+  /* Kayan yazı — sabit px/s (JS ölçer); iOS ~28s hissi, Windows aynı hız */
+  --home-kayan-px-per-sec: 78;
+  --home-kayan-dur: 36s;
+  /* Bölümler arası eşit dikey boşluk (üst+alt padding; komşu bölümde 2×) */
+  --home-section-pad-y: var(--space-12);
   /* Etiket → içerik (Partners referans) */
   --home-section-label-gap: var(--space-6);
   --home-section-stack-gap: var(--space-6);
@@ -21,25 +24,29 @@
   --home-featured-media-radius: var(--space-sm);
   --home-featured-card-gap: calc(var(--space-3) + var(--space-0));
   --home-featured-meta-gap: var(--space-1);
-  --home-featured-meta-ink: color-mix(in srgb, var(--gray-anti) 32%, var(--gray-base));
-  /* Figma Body 18px — mobilde global --type-b1 küçülmesinden bağımsız */
-  --home-featured-category-size: 1.125rem;
   background: var(--home-surface);
   color: var(--home-ink);
 }
 
-/* ── Section tag (ikon + H4) ── */
+/* ── Anasayfa bölümleri — eşit section arası mesafe ── */
+.marketing-home-figma :is(
+  .home-spotlight,
+  .ideal-section,
+  .scene-section,
+  .home-kayan-yazi,
+  .home-values
+) {
+  box-sizing: border-box;
+  padding-block: var(--home-section-pad-y);
+  padding-inline: var(--section-pad-x);
+}
+
+.marketing-home-figma .hero-v2--has-showreel {
+  padding-bottom: var(--home-section-pad-y);
+}
+
+/* ── Section tag (ikon + H4) — tipografi: globals .section-tag ── */
 .home-section-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-3);
-  margin: 0;
-  font-family: var(--h4-font-family);
-  font-size: var(--h4-font-size);
-  font-weight: var(--h4-font-weight);
-  line-height: var(--h4-line-height);
-  letter-spacing: var(--h4-letter-spacing);
-  text-transform: uppercase;
   color: var(--home-ink);
 }
 
@@ -153,7 +160,8 @@
 
 .hero-v2--has-showreel .hero-v2__showreel.home-showreel {
   order: 1;
-  scroll-margin-top: var(--scroll-padding-top);
+  /* html scroll-padding-top ile çift offset oluşmasın; ok JS ile tam üste hizalar */
+  scroll-margin-top: 0;
 }
 
 @media (min-width: 769px) {
@@ -164,10 +172,13 @@
   .marketing-home-figma .hero-v2--has-showreel {
     padding-top: var(--site-nav-clearance);
   }
-
 }
 
 @media (max-width: 768px) {
+  .marketing-home-figma {
+    --home-section-pad-y: var(--space-10);
+  }
+
   .marketing-home-figma .hero-v2--has-showreel {
     padding-top: var(--site-nav-clearance);
   }
@@ -207,7 +218,6 @@
 
 /* ── Behance spotlight ── */
 .marketing-home-figma .home-spotlight {
-  padding: var(--home-section-pad-y) var(--section-pad-x);
   background: var(--home-surface);
 }
 
@@ -318,7 +328,6 @@
 .marketing-home-figma .ideal-section {
   background: var(--home-surface);
   border-top: none;
-  padding: var(--home-section-pad-y) var(--section-pad-x);
 }
 
 .marketing-home-figma .ideal-intro,
@@ -433,7 +442,6 @@
 .marketing-home-figma .scene-section {
   background: var(--home-surface);
   border-top: none;
-  padding: var(--home-section-pad-y) var(--section-pad-x) var(--section-pad-y);
   gap: 0 !important;
 }
 
@@ -478,16 +486,9 @@
   display: block;
   width: 100%;
   max-width: none;
-  margin: 0;
   padding: 0;
-  font-family: var(--h3-font-family);
-  font-size: var(--h3-font-size);
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: 0;
-  text-transform: none;
   text-align: left;
-  color: var(--home-featured-meta-ink);
+  color: var(--home-ink);
   word-break: break-word;
 }
 
@@ -495,25 +496,19 @@
   display: block;
   width: 100%;
   max-width: none;
-  margin: 0;
   padding: 0;
-  font-family: var(--b1-font-family);
-  font-size: var(--home-featured-category-size);
-  font-weight: 400;
-  line-height: 1.42;
-  letter-spacing: var(--b1-letter-spacing);
-  text-transform: none;
   text-align: left;
-  color: var(--home-featured-meta-ink);
+  color: var(--home-ink-muted);
 }
 
-/* ── Kayan yazı ── */
+/* ── Kayan yazı (Figma 3765:9351 desktop · 3765:10816 mobil) ── */
 .home-kayan-yazi {
   --home-kayan-ink: color-mix(in srgb, var(--white-fixed) 92%, var(--gray-200));
+  --home-kayan-gap: 80px;
+  --home-kayan-star: 52px;
   position: relative;
   z-index: 1;
   background: var(--home-surface);
-  padding-block: 0;
 }
 
 .home-kayan-yazi__bleed {
@@ -522,7 +517,7 @@
   overflow: hidden;
   background: var(--color-accent);
   border-block: 1px solid var(--home-border);
-  padding: var(--space-8) 0;
+  padding-block: var(--space-8);
 }
 
 .home-kayan-yazi__track {
@@ -530,38 +525,39 @@
   width: max-content;
   align-items: center;
   animation: home-kayan-yazi-x var(--home-kayan-dur) linear infinite;
+  animation-play-state: paused;
   will-change: transform;
 }
 
 .home-kayan-yazi__sequence {
   display: inline-flex;
   align-items: center;
-  flex-shrink: 0;
-}
-
-.home-kayan-yazi__piece {
-  display: inline-flex;
-  align-items: center;
+  gap: var(--home-kayan-gap);
   flex-shrink: 0;
 }
 
 .home-kayan-yazi__phrase {
-  padding-inline: var(--space-8);
   font-family: var(--h2-font-family);
   font-size: var(--h2-font-size);
   font-weight: 500;
-  line-height: var(--h2-line-height);
+  line-height: 1.2;
   color: var(--home-kayan-ink);
   white-space: nowrap;
 }
 
 .home-kayan-yazi__sep {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
-  width: 52px;
-  height: 52px;
-  background-color: var(--home-kayan-ink);
-  -webkit-mask: url("/assets/section-tag-icon.svg") center / contain no-repeat;
-  mask: url("/assets/section-tag-icon.svg") center / contain no-repeat;
+  width: var(--home-kayan-star);
+  height: var(--home-kayan-star);
+}
+
+.home-kayan-yazi__sep img {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 @keyframes home-kayan-yazi-x {
@@ -574,14 +570,18 @@
 }
 
 @media (max-width: 768px) {
-  .home-kayan-yazi__phrase {
-    padding-inline: var(--space-3);
-    font-size: var(--h3-font-size);
+  .home-kayan-yazi {
+    --home-kayan-gap: 40px;
+    --home-kayan-star: 24px;
   }
 
-  .home-kayan-yazi__sep {
-    width: 24px;
-    height: 24px;
+  .home-kayan-yazi__bleed {
+    padding-block: var(--space-3);
+  }
+
+  .home-kayan-yazi__phrase {
+    font-size: var(--h3-font-size);
+    line-height: 1.2;
   }
 }
 
@@ -595,7 +595,6 @@
 .marketing-home-figma .home-values {
   background: var(--home-surface-muted);
   border-top: none;
-  padding: var(--section-pad-y) var(--section-pad-x);
 }
 
 .marketing-home-figma .home-values__header {
@@ -717,22 +716,12 @@
 
   .marketing-home-figma .scene-section {
     gap: 0 !important;
-    padding-block: var(--home-section-pad-y);
-  }
-
-  .marketing-home-figma .ideal-section,
-  .marketing-home-figma .home-spotlight {
-    padding-block: var(--home-section-pad-y);
   }
 
   .marketing-home-figma .ideal-inner,
   .marketing-home-figma .home-values__inner {
     width: var(--featured-works-width);
     max-width: var(--featured-works-width);
-  }
-
-  .marketing-home-figma .home-values {
-    padding: var(--home-section-pad-y) var(--section-pad-x);
   }
 
   .marketing-home-figma .home-spotlight__content {
@@ -744,18 +733,5 @@
     --home-featured-meta-gap: var(--space-0);
   }
 
-  .marketing-home-figma .featured-work-title {
-    font-size: var(--h3-font-size);
-    line-height: 1.2;
-    font-weight: 500;
-    text-transform: none;
-  }
-
-  /* Figma mobil: kategori Body 18px (global --type-b1 küçülmesini geçersiz kıl) */
-  .marketing-home-figma .featured-work-category {
-    font-size: var(--home-featured-category-size);
-    line-height: 1.42;
-    letter-spacing: var(--b1-letter-spacing);
-  }
 }
 

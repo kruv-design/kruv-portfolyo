@@ -5,8 +5,12 @@ import { MarketingSiteNav } from "@/components/public/MarketingSiteNav";
 import { MarketingPageShell } from "@/components/public/MarketingPageShell";
 import { PortfolioGrid } from "@/components/public/PortfolioGrid";
 import { getMessages } from "@/lib/i18n/get-messages";
+import { t } from "@/lib/i18n/t";
 import type { Locale } from "@/lib/i18n/config";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { env } from "@/lib/env";
+import { withLocale } from "@/lib/i18n/path";
+import { buildBreadcrumbSchema } from "@/lib/seo/structured-data";
 
 export const revalidate = 60;
 
@@ -16,13 +20,24 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const messages = getMessages(locale);
+  const title = t(messages, "works.metaTitle");
+  const description = t(messages, "works.metaDescription");
+
   return {
+    title,
+    description,
     alternates: {
       canonical: `${env.SITE_URL}/${locale}/works`,
       languages: {
         "tr-TR": `${env.SITE_URL}/tr/works`,
         en: `${env.SITE_URL}/en/works`,
       },
+    },
+    openGraph: {
+      title,
+      description,
+      url: `${env.SITE_URL}/${locale}/works`,
     },
   };
 }
@@ -38,9 +53,16 @@ export default async function WorksPage({
     getSettings().catch(() => DEFAULT_SITE_SETTINGS),
   ]);
   const messages = getMessages(locale);
+  const worksTitle = t(messages, "works.metaTitle");
 
   return (
     <MarketingPageShell className="flex min-h-screen flex-col">
+      <JsonLd
+        data={buildBreadcrumbSchema([
+          { name: messages.footer.home, path: withLocale("/", locale) },
+          { name: worksTitle, path: withLocale("/works", locale) },
+        ])}
+      />
       <MarketingSiteNav settings={settings} locale={locale} messages={messages} />
       <Suspense fallback={null}>
         <PortfolioGrid

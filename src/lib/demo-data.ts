@@ -384,7 +384,7 @@ const social: Project[] = [
     etiketler: ["Instagram", "İçerik Sistemi", "Reels"],
     link: "",
     featured: false,
-    renk: "#FF8A5B",
+    renk: "#6366F1",
     sira: 110,
   }),
   make({
@@ -455,7 +455,7 @@ const social: Project[] = [
     etiketler: ["Festival", "Kampanya", "Template Sistemi"],
     link: "",
     featured: true,
-    renk: "#FF3D7F",
+    renk: "#818CF8",
     sira: 140,
   }),
   make({

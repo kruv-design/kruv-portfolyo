@@ -3,6 +3,7 @@ import path from "node:path";
 import type { Locale } from "@/lib/i18n/config";
 import { getMessages, type Messages } from "@/lib/i18n/get-messages";
 import { withLocale } from "@/lib/i18n/path";
+import { ENABLE_PUBLIC_CONTACT } from "@/lib/marketing-flags";
 
 const KRUV_HTML_PATH = path.join(process.cwd(), "public", "kruv.html");
 
@@ -116,10 +117,12 @@ function buildFooterServiceLinksHtml(locale: Locale, messages: Messages): string
 
 function buildFooterSitemapHtml(locale: Locale, messages: Messages): string {
   const f = messages.footer;
+  const contactLi = ENABLE_PUBLIC_CONTACT
+    ? `\n          <li><a href="${withLocale("/contact", locale)}">${escapeHtml(f.contact)}</a></li>`
+    : "";
   return `        <ul class="site-footer-list site-footer-links">
           <li><a href="${withLocale("/", locale)}#hero">${escapeHtml(f.home)}</a></li>
-          <li><a href="${withLocale("/works", locale)}">${escapeHtml(f.projects)}</a></li>
-          <li><a href="${withLocale("/contact", locale)}">${escapeHtml(f.contact)}</a></li>
+          <li><a href="${withLocale("/works", locale)}">${escapeHtml(f.projects)}</a></li>${contactLi}
         </ul>`;
 }
 
@@ -133,9 +136,10 @@ function rewriteFooterInHtml(
   let out = html;
   const f = messages.footer;
 
+  const footerId = ENABLE_PUBLIC_CONTACT ? "contact" : "footer";
   out = out.replace(
     /<footer class="site-footer" id="contact" lang="[^"]*">/,
-    `<footer class="site-footer" id="contact" lang="${locale}">`,
+    `<footer class="site-footer" id="${footerId}" lang="${locale}">`,
   );
 
   out = out.replace(
