@@ -38,6 +38,20 @@ export async function generateMetadata({
       title,
       description,
       url: `${env.SITE_URL}/${locale}/works`,
+      images: [
+        {
+          url: `/og/og-works-${locale}.png`,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [`/og/og-works-${locale}.png`],
     },
   };
 }

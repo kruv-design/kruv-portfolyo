@@ -13,6 +13,17 @@ const messages = getMessages("tr");
 export const metadata: Metadata = {
   title: messages.works.metaTitle,
   description: messages.works.metaDescription,
+  openGraph: {
+    title: messages.works.metaTitle,
+    description: messages.works.metaDescription,
+    images: [{ url: "/og/og-works-tr.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: messages.works.metaTitle,
+    description: messages.works.metaDescription,
+    images: ["/og/og-works-tr.png"],
+  },
 };
 
 /** CMS Works — anasayfa ile aynı nav; hero yok, doğrudan proje ızgarası. */

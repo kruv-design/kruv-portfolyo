@@ -1,9 +1,8 @@
-import Link from "next/link";
 import type { Locale } from "@/lib/i18n/config";
 import type { Messages } from "@/lib/i18n/get-messages";
-import { withLocale } from "@/lib/i18n/path";
+import { projectCtaHref } from "@/lib/contact-cta";
 import { t } from "@/lib/i18n/t";
-import { ENABLE_PUBLIC_CONTACT } from "@/lib/marketing-flags";
+import { ProjectCtaLink } from "./ProjectCtaLink";
 
 type LetsTalkMarqueeProps = {
   locale?: Locale;
@@ -45,13 +44,13 @@ function MarqueeGroup({
       ) : (
         <span className="lets-talk-heading h2">{heading}</span>
       )}
-      <Link
+      <ProjectCtaLink
         href={contactHref}
         className="cta-ghost lets-talk-cta"
         tabIndex={hidden ? -1 : undefined}
       >
         {cta}
-      </Link>
+      </ProjectCtaLink>
     </div>
   );
 }
@@ -63,9 +62,7 @@ export function LetsTalkMarquee({
   contactHref,
   headingId = "lets-talk-heading",
 }: LetsTalkMarqueeProps) {
-  if (!ENABLE_PUBLIC_CONTACT) return null;
-
-  const href = contactHref ?? withLocale("/contact", locale);
+  const href = contactHref ?? projectCtaHref(locale);
   const line1 = messages
     ? t(messages, "home.letsTalk.line1", "got a brand ")
     : "got a brand ";

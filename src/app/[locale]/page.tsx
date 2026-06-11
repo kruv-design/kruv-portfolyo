@@ -48,11 +48,20 @@ export async function generateMetadata({
       locale: locale === "tr" ? "tr_TR" : "en_US",
       siteName: "kruv.",
       type: "website",
+      images: [
+        {
+          url: `/og/og-home-${locale}.png`,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [`/og/og-home-${locale}.png`],
     },
   };
 }

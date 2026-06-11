@@ -32,10 +32,12 @@ export const metadata: Metadata = {
     locale: "tr_TR",
     siteName: "kruv.",
     description: "Paylaşmaya değer markalar tasarlıyoruz.",
+    images: [{ url: "/og/og-default.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     description: "Paylaşmaya değer markalar tasarlıyoruz.",
+    images: ["/og/og-default.png"],
   },
   alternates: {
     languages: {

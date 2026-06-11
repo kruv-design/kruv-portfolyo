@@ -22,6 +22,8 @@ export function MarketingHomeKayanYazi({
     pxPerSecVar: "--home-kayan-px-per-sec",
     durationVar: "--home-kayan-dur",
     loopSelector: ".home-kayan-yazi__sequence",
+    minDur: 32,
+    maxDur: 90,
   });
 
   return (

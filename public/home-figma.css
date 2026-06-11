@@ -10,8 +10,8 @@
   --home-surface: var(--gray-base);
   --home-surface-muted: color-mix(in srgb, var(--gray-anti) 3%, var(--gray-base));
   --home-border: color-mix(in srgb, var(--gray-anti) 42%, var(--gray-base));
-  /* Kayan yazı — sabit px/s (JS ölçer); iOS ~28s hissi, Windows aynı hız */
-  --home-kayan-px-per-sec: 78;
+  /* Kayan yazı — sabit px/s (JS ölçer); düşük değer = Windows/Linux dar font sorununu dengeler */
+  --home-kayan-px-per-sec: 52;
   --home-kayan-dur: 36s;
   /* Bölümler arası eşit dikey boşluk (üst+alt padding; komşu bölümde 2×) */
   --home-section-pad-y: var(--space-12);

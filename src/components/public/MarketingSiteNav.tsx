@@ -9,8 +9,10 @@ import type { Messages } from "@/lib/i18n/get-messages";
 import { withLocale } from "@/lib/i18n/path";
 import { t } from "@/lib/i18n/t";
 import { normalizeBrandName } from "@/lib/brand";
+import { projectCtaHref } from "@/lib/contact-cta";
 import { ENABLE_PUBLIC_CONTACT } from "@/lib/marketing-flags";
 import { ENABLE_THEME_TOGGLE } from "@/lib/theme/flags";
+import { ProjectCtaLink } from "./ProjectCtaLink";
 import { ThemeToggle } from "./ThemeToggle";
 import {
   SiteNavLangSwitch,
@@ -95,6 +97,7 @@ export function MarketingSiteNav({
 
   const isProjectsActive = pathname?.includes("/works") || (pathname?.includes("/projects/") ?? false);
   const isContactActive = pathname?.includes("/contact");
+  const projectCtaUrl = projectCtaHref(locale);
 
   function closeMobileMenu() {
     setLanguageMenuOpen(false);
@@ -253,15 +256,13 @@ export function MarketingSiteNav({
             menuRef={drawerLangRef}
             className="lang-switch marketing-navbar-lang--drawer"
           />
-          {ENABLE_PUBLIC_CONTACT ? (
-            <Link
-              href={withLocale("/contact", locale)}
-              className="marketing-navbar-cta marketing-nav-mobile-cta"
-              onClick={closeMobileMenu}
-            >
-              {t(messages, "nav.startProject", "Start a project")}
-            </Link>
-          ) : null}
+          <ProjectCtaLink
+            href={projectCtaUrl}
+            className="marketing-navbar-cta marketing-nav-mobile-cta"
+            onClick={closeMobileMenu}
+          >
+            {t(messages, "nav.startProject", "Start a project")}
+          </ProjectCtaLink>
         </div>
       </SiteNavMobileOverlay>
     </>

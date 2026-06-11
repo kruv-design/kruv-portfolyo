@@ -15,6 +15,17 @@ export const metadata: Metadata = ENABLE_PUBLIC_CONTACT
   ? {
       title: messages.contact.metaTitle,
       description: messages.contact.metaDescription,
+      openGraph: {
+        title: messages.contact.metaTitle,
+        description: messages.contact.metaDescription,
+        images: [{ url: "/og/og-contact-tr.png", width: 1200, height: 630 }],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: messages.contact.metaTitle,
+        description: messages.contact.metaDescription,
+        images: ["/og/og-contact-tr.png"],
+      },
     }
   : {};
 

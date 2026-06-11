@@ -3,6 +3,7 @@ import path from "node:path";
 import type { Locale } from "@/lib/i18n/config";
 import { getMessages, type Messages } from "@/lib/i18n/get-messages";
 import { withLocale } from "@/lib/i18n/path";
+import { projectCtaHref } from "@/lib/contact-cta";
 import { ENABLE_PUBLIC_CONTACT } from "@/lib/marketing-flags";
 
 const KRUV_HTML_PATH = path.join(process.cwd(), "public", "kruv.html");
@@ -72,7 +73,7 @@ export function rewriteMarketingHomeHtml(
   out = out.replace(/\b(src|href)="assets\//g, '$1="/assets/');
   out = out.replace(/'link\//g, "'/link/");
 
-  out = out.replace(/href="\/contact"/g, `href="${withLocale("/contact", locale)}"`);
+  out = out.replace(/href="\/contact"/g, `href="${projectCtaHref(locale)}"`);
   out = out.replace(/href="\/works([^"]*)"/g, (_, rest: string) => {
     const suffix = rest || "";
     return `href="${withLocale("/works", locale)}${suffix}"`;

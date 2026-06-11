@@ -1555,8 +1555,9 @@ body:has(.card:hover) .ticker {
 }
 .ideal-logo-cell:first-child { border-left: none; }
 .ideal-logo {
-  width: 48%;
-  height: 25%;
+  --ideal-logo-scale: 1;
+  width: calc(48% * var(--ideal-logo-scale));
+  height: calc(25% * var(--ideal-logo-scale));
   display: block;
   background-color: var(--gray-800);
   -webkit-mask-position: center;
@@ -1568,6 +1569,7 @@ body:has(.card:hover) .ticker {
   opacity: 1;
 }
 .ideal-logo-1 {
+  --ideal-logo-scale: 1.25;
   -webkit-mask-image: url("assets/clients/beyoglu.svg");
   mask-image: url("assets/clients/beyoglu.svg");
   /* İki-tonlu SVG: koyu BEYOĞLU yazısı luminance modunda silüetten "delik" olarak görünür */
@@ -1575,7 +1577,11 @@ body:has(.card:hover) .ticker {
   mask-mode: luminance;
 }
 .ideal-logo-2 { -webkit-mask-image: url("assets/clients/group-19.svg"); mask-image: url("assets/clients/group-19.svg"); }
-.ideal-logo-3 { -webkit-mask-image: url("assets/clients/group-297.svg"); mask-image: url("assets/clients/group-297.svg"); }
+.ideal-logo-3 {
+  --ideal-logo-scale: 1.1;
+  -webkit-mask-image: url("assets/clients/group-297.svg");
+  mask-image: url("assets/clients/group-297.svg");
+}
 .ideal-logo-4 { -webkit-mask-image: url("assets/clients/asset-18.svg"); mask-image: url("assets/clients/asset-18.svg"); }
 
 /* 4 logo: 3 sütun 3+1 kırılımı çizgileri bozuyordu — ≤980px doğrudan 2×2 */
@@ -2609,8 +2615,8 @@ body:has(.card:hover) .ticker {
     border-bottom: none;
   }
   .ideal-section .ideal-logo {
-    width: calc(48% * 1.1);
-    height: calc(25% * 1.1);
+    width: calc(48% * var(--ideal-logo-scale, 1) * 1.1);
+    height: calc(25% * var(--ideal-logo-scale, 1) * 1.1);
   }
   .scroll-theme-bridge {
     height: 0;

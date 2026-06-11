@@ -69,6 +69,10 @@ export function useConstantSpeedMarquee(
 
     schedule();
 
+    // Font yüklendiğinde yeniden ölç — Windows'ta font geç yüklenince
+    // dar fallback font ile hesaplanmış hatalı süreyi düzeltir.
+    document.fonts.ready.then(schedule);
+
     const ro = new ResizeObserver(schedule);
     ro.observe(track);
     window.addEventListener("resize", schedule);
