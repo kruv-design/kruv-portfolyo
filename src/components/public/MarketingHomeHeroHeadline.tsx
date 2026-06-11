@@ -39,8 +39,8 @@ export function MarketingHomeHeroHeadline({
 }) {
   const hero = messages.home.hero;
   const mainFirst = hero.lineOrder === "main-first";
-  const mobileLine1 = "mobileLine1" in hero ? hero.mobileLine1 : undefined;
-  const mobileLine2 = "mobileLine2" in hero ? hero.mobileLine2 : undefined;
+  const mobileLine1 = hero.mobileLine1;
+  const mobileLine2 = hero.mobileLine2;
   const hasMobileCopy = Boolean(mobileLine1 && mobileLine2);
 
   return (
