@@ -10,7 +10,7 @@ const KRUV_HTML_PATH = path.join(process.cwd(), "public", "kruv.html");
 const HOME_BODY_START = '<section class="ideal-section"';
 const HOME_IDEAL_SECTION_END = "<!-- TESTIMONIALS -->";
 const HOME_SCENE_SECTION = '<section class="scene-section">';
-const HOME_PROJECTS_BELIEF = '<section class="projects-belief"';
+const HOME_LETS_TALK = '<section class="lets-talk"';
 const HOME_FOOTER_START = '<footer class="site-footer"';
 
 function sliceBetween(html: string, start: string, end: string): string {
@@ -61,6 +61,10 @@ export function rewriteMarketingHomeHtml(
 
   out = out.replace(
     /<section[^>]*class="ideal-share-marquee-band"[\s\S]*?<\/section>\s*/g,
+    "",
+  );
+  out = out.replace(
+    /<section class="projects-belief"[\s\S]*?<\/section>\s*/g,
     "",
   );
 
@@ -252,17 +256,17 @@ function splitHomeBody(html: string): {
 } {
   const idealEnd = html.indexOf(HOME_IDEAL_SECTION_END);
   const sceneIdx = html.indexOf(HOME_SCENE_SECTION);
-  const beliefIdx = html.indexOf(HOME_PROJECTS_BELIEF);
+  const letsTalkIdx = html.indexOf(HOME_LETS_TALK);
   if (idealEnd === -1) {
     throw new Error("marketing-home: ideal-section end marker not found");
   }
-  if (sceneIdx === -1 || beliefIdx === -1 || beliefIdx <= sceneIdx) {
-    throw new Error("marketing-home: scene-section or projects-belief marker not found");
+  if (sceneIdx === -1 || letsTalkIdx === -1 || letsTalkIdx <= sceneIdx) {
+    throw new Error("marketing-home: scene-section or lets-talk marker not found");
   }
   return {
     idealSection: html.slice(0, idealEnd).trim(),
     beforeScene: html.slice(idealEnd, sceneIdx).trim(),
-    afterScene: html.slice(beliefIdx).trim(),
+    afterScene: html.slice(letsTalkIdx).trim(),
   };
 }
 

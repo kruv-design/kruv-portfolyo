@@ -14,7 +14,8 @@
   --home-section-pad-y: var(--space-8);
   --home-section-label-gap: var(--space-6);
   --home-section-stack-gap: var(--space-6);
-  --home-hero-video-gap: var(--space-10);
+  --home-hero-pad-top: var(--space-10);
+  --home-hero-video-gap: var(--space-12);
   background: var(--home-surface);
   color: var(--home-ink);
 }
@@ -58,7 +59,7 @@
   }
 }
 
-/* ── Hero başlık (showreel üstü) ── */
+/* ── Hero başlık (showreel üstü) — sol kenar = featured-works /works ── */
 .hero-v2--has-showreel .hero-v2-head--figma {
   order: 0;
   box-sizing: border-box;
@@ -66,10 +67,10 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: var(--home-section-stack-gap);
-  width: var(--grid-shell-width);
-  max-width: var(--grid-shell-width);
+  width: var(--featured-works-width);
+  max-width: var(--featured-works-width);
   margin-inline: auto;
-  padding: var(--home-section-pad-y) 0 var(--home-hero-video-gap);
+  padding: var(--home-hero-pad-top) 0 var(--home-hero-video-gap);
 }
 
 .hero-v2-headline--figma {
@@ -83,6 +84,10 @@
   text-align: left;
   text-transform: none;
   color: var(--home-ink);
+}
+
+.hero-v2-headline--figma .hero-v2-headline__line {
+  display: block;
 }
 
 .hero-v2-headline__accent {
@@ -135,9 +140,9 @@
   .hero-v2--has-showreel .hero-v2-head--figma {
     align-items: flex-start;
     flex-direction: column;
-    width: var(--grid-shell-width);
-    max-width: var(--grid-shell-width);
-    padding-top: var(--space-6);
+    width: var(--featured-works-width);
+    max-width: var(--featured-works-width);
+    padding-top: var(--space-8);
     padding-bottom: var(--home-hero-video-gap);
   }
 
@@ -158,6 +163,7 @@
 }
 
 .marketing-home-figma .home-spotlight__card {
+  --home-spotlight-ink: color-mix(in srgb, var(--white-fixed) 92%, var(--gray-200));
   padding: var(--space-8);
   border: none;
   border-radius: var(--card-radius);
@@ -166,24 +172,31 @@
 }
 
 .marketing-home-figma .home-spotlight .home-section-tag {
-  color: color-mix(in srgb, var(--gray-anti) 78%, var(--gray-base));
+  color: var(--home-spotlight-ink);
 }
 
 .marketing-home-figma .home-spotlight .home-section-tag__icon {
-  background-color: color-mix(in srgb, var(--gray-anti) 78%, var(--gray-base));
+  background-color: var(--home-spotlight-ink);
 }
 
 .marketing-home-figma .home-spotlight__title {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
   margin-top: var(--space-2);
   font-family: var(--h2-font-family);
   font-size: var(--h2-font-size);
   font-weight: 500;
   line-height: var(--h2-line-height);
-  color: var(--gray-anti);
+  color: var(--home-spotlight-ink);
+}
+
+.marketing-home-figma .home-spotlight__title-line {
+  display: block;
 }
 
 .marketing-home-figma .home-spotlight__accent {
-  color: var(--gray-anti);
+  color: var(--home-spotlight-ink);
   font-weight: 500;
 }
 
@@ -231,7 +244,15 @@
   .marketing-home-figma .home-spotlight__card {
     flex-direction: column;
     align-items: flex-start;
-    padding: 24px;
+    padding: var(--space-6);
+  }
+
+  .marketing-home-figma .home-spotlight__title {
+    flex-direction: column;
+  }
+
+  .marketing-home-figma .home-spotlight__title-line {
+    display: block;
   }
 
   .marketing-home-figma .home-spotlight__badges {
@@ -312,7 +333,7 @@
 }
 
 .marketing-home-figma .ideal-logo {
-  background-color: color-mix(in srgb, var(--gray-base) 55%, var(--gray-anti));
+  background-color: color-mix(in srgb, var(--gray-anti) 65%, var(--gray-base));
 }
 
 @media (max-width: 980px) {
@@ -366,8 +387,8 @@
 }
 
 .marketing-home-figma .scene-label--figma {
-  width: var(--grid-shell-width);
-  max-width: var(--grid-shell-width);
+  width: var(--featured-works-width);
+  max-width: var(--featured-works-width);
   margin-inline: auto;
   margin-bottom: var(--home-section-label-gap);
 }

@@ -5,10 +5,10 @@
       "title": "In Good Company"
     },
     "hero": {
-      "line1": "Worth-sharing",
-      "line2": "brands we build.",
+      "line1": "we build brand",
+      "line2": "worth-sharing",
       "line2Tail": "",
-      "lineOrder": "accent-first",
+      "lineOrder": "main-first",
       "cursorLabel": "See projects",
       "mobileCta": "See projects",
       "mobileCtaA11y": "See projects — open portfolio"
@@ -28,8 +28,9 @@
       "ctaLabel": "See projects",
       "ctaHref": "/works",
       "titleLines": [
+        [{ "type": "text", "value": "Featured on" }],
         [
-          { "type": "text", "value": "Featured on Adobe " },
+          { "type": "text", "value": "Adobe " },
           { "type": "accent", "value": "Behance" }
         ]
       ],

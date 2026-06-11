@@ -5,10 +5,10 @@
       "title": "Birlikte Çalıştıklarımız"
     },
     "hero": {
-      "line1": "Paylaşmaya değer",
-      "line2": "markalar tasarlıyoruz.",
+      "line1": "Paylaşmaya değer marka",
+      "line2": "tasarlıyoruz.",
       "line2Tail": "",
-      "lineOrder": "accent-first",
+      "lineOrder": "main-first",
       "cursorLabel": "Projeleri gör",
       "mobileCta": "Projeleri gör",
       "mobileCtaA11y": "Projeleri gör — portföyü aç"
@@ -31,8 +31,9 @@
         [
           { "type": "text", "value": "Adobe " },
           { "type": "accent", "value": "Behance" },
-          { "type": "text", "value": "'de öne çıkanlar" }
-        ]
+          { "type": "text", "value": "'de" }
+        ],
+        [{ "type": "text", "value": "öne çıkanlar" }]
       ],
       "ribbons": [{ "variant": "gr" }, { "variant": "id" }]
     },

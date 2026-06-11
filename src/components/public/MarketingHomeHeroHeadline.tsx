@@ -11,12 +11,21 @@ export function MarketingHomeHeroHeadline({
   scrollHref?: string;
 }) {
   const hero = messages.home.hero;
+  const mainFirst = hero.lineOrder === "main-first";
 
   return (
     <div className="hero-v2-head hero-v2-head--figma">
       <h1 id="hero-v2-headline" className="hero-v2-headline hero-v2-headline--figma">
-        <span className="hero-v2-headline__accent">{hero.line1}</span>{" "}
-        <span className="hero-v2-headline__main">{hero.line2}</span>
+        <span
+          className={`hero-v2-headline__line ${mainFirst ? "hero-v2-headline__main" : "hero-v2-headline__accent"}`}
+        >
+          {hero.line1}
+        </span>
+        <span
+          className={`hero-v2-headline__line ${mainFirst ? "hero-v2-headline__accent" : "hero-v2-headline__main"}`}
+        >
+          {hero.line2}
+        </span>
       </h1>
       <a
         className="hero-v2-scroll-cta"
