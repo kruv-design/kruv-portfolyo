@@ -28,11 +28,7 @@
       "ctaLabel": "Projeleri gör",
       "ctaHref": "/works",
       "titleLines": [
-        [
-          { "type": "text", "value": "Adobe " },
-          { "type": "accent", "value": "Behance" },
-          { "type": "text", "value": "'de" }
-        ],
+        [{ "type": "text", "value": "Adobe Behance'de" }],
         [{ "type": "text", "value": "öne çıkanlar" }]
       ],
       "ribbons": [{ "variant": "gr" }, { "variant": "id" }]
