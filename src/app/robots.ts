@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
-import { env } from "@/lib/env";
+
+const PRODUCTION_URL = "https://kruv.com";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -14,7 +15,7 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "SemrushBot", disallow: "/" },
       { userAgent: "DotBot", disallow: "/" },
     ],
-    sitemap: `${env.SITE_URL}/sitemap.xml`,
-    host: env.SITE_URL,
+    sitemap: `${PRODUCTION_URL}/sitemap.xml`,
+    host: PRODUCTION_URL,
   };
 }
