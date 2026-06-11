@@ -13,6 +13,8 @@
   --home-nav-glass: var(--gray-120);
   --home-nav-glass-scrolled: var(--gray-80);
   --home-kayan-dur: 28s;
+  --home-nav-pill-pad: 12px;
+  --home-hero-head-gap: 120px;
   --container-gutter: clamp(16px, 4.3vw, 62px);
   background: var(--home-surface);
   color: var(--home-ink);
@@ -68,7 +70,7 @@
   width: min(100%, var(--grid-shell-width));
   max-width: var(--grid-shell-width);
   margin-inline: auto;
-  padding: var(--space-10) var(--container-gutter) var(--space-6);
+  padding: var(--space-10) var(--container-gutter) var(--home-hero-head-gap);
 }
 
 .hero-v2-headline--figma {
@@ -99,27 +101,31 @@
   justify-content: center;
   width: 66px;
   height: 66px;
-  border-radius: 50%;
-  border: 1px solid var(--home-border);
+  border: none;
+  background: transparent;
   text-decoration: none;
-  transition: border-color var(--dur-fast) var(--ease);
+  transition: opacity var(--dur-fast) var(--ease);
 }
 
 .hero-v2-scroll-cta:hover {
-  border-color: var(--color-accent);
+  opacity: 0.88;
 }
 
 .hero-v2-scroll-cta__icon {
-  width: 24px;
-  height: 24px;
-  background-color: var(--color-accent);
-  -webkit-mask: url("/assets/logo-scroll.svg") center / contain no-repeat;
-  mask: url("/assets/logo-scroll.svg") center / contain no-repeat;
-  transform: rotate(90deg);
+  display: block;
+  width: 66px;
+  height: 66px;
+  transform: rotate(-90deg);
 }
 
 .hero-v2--has-showreel .hero-v2__showreel.home-showreel {
   order: 1;
+}
+
+@media (min-width: 769px) {
+  .marketing-home-figma .hero-v2--has-showreel {
+    padding-top: calc(var(--site-nav-clearance) + var(--space-8));
+  }
 }
 
 @media (max-width: 768px) {
@@ -131,7 +137,7 @@
     align-items: flex-start;
     flex-direction: column;
     padding-top: var(--space-6);
-    padding-bottom: var(--space-5);
+    padding-bottom: var(--space-8);
   }
 
   .hero-v2-scroll-cta {
@@ -183,7 +189,7 @@
 .marketing-home-figma .home-spotlight__cta {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: 6px;
   height: 44px;
   padding: 12px 24px;
   border-radius: 53px;
@@ -202,11 +208,10 @@
 }
 
 .marketing-home-figma .home-spotlight__cta-icon {
+  display: block;
   width: 18px;
   height: 18px;
-  background-color: currentColor;
-  -webkit-mask: url("/assets/logo-scroll.svg") center / contain no-repeat;
-  mask: url("/assets/logo-scroll.svg") center / contain no-repeat;
+  flex-shrink: 0;
   transform: rotate(180deg);
 }
 
@@ -272,18 +277,68 @@
 }
 
 .marketing-home-figma .ideal-clients-wrap {
-  border: 1px solid var(--home-border);
+  border: none;
   border-radius: 0;
+  overflow: visible;
+}
+
+.marketing-home-figma .ideal-clients-grid {
+  gap: 0;
 }
 
 .marketing-home-figma .ideal-logo-cell {
-  border-color: var(--home-border);
+  border: 1px solid var(--home-border);
+  border-radius: 0;
   aspect-ratio: auto;
   min-height: 210px;
 }
 
+.marketing-home-figma .ideal-logo-cell:first-child {
+  border-radius: 12px 0 0 12px;
+}
+
+.marketing-home-figma .ideal-logo-cell:nth-child(4) {
+  border-radius: 0 12px 12px 0;
+}
+
+.marketing-home-figma .ideal-logo-cell + .ideal-logo-cell {
+  border-left: none;
+}
+
 .marketing-home-figma .ideal-logo {
   background-color: color-mix(in srgb, var(--gray-base) 55%, var(--gray-anti));
+}
+
+@media (max-width: 980px) {
+  .marketing-home-figma .ideal-clients-grid::after {
+    display: none;
+  }
+
+  .marketing-home-figma .ideal-logo-cell {
+    border-left: 1px solid var(--home-border);
+    border-top: none;
+    border-radius: 0;
+  }
+
+  .marketing-home-figma .ideal-logo-cell:first-child {
+    border-radius: 12px 0 0 0;
+  }
+
+  .marketing-home-figma .ideal-logo-cell:nth-child(2) {
+    border-radius: 0 12px 0 0;
+    border-left: none;
+  }
+
+  .marketing-home-figma .ideal-logo-cell:nth-child(3) {
+    border-radius: 0 0 0 12px;
+    border-top: 1px solid var(--home-border);
+  }
+
+  .marketing-home-figma .ideal-logo-cell:nth-child(4) {
+    border-radius: 0 0 12px 0;
+    border-left: none;
+    border-top: 1px solid var(--home-border);
+  }
 }
 
 @media (max-width: 768px) {
@@ -322,16 +377,20 @@
 
 /* ── Kayan yazı ── */
 .home-kayan-yazi {
+  --home-kayan-ink: color-mix(in srgb, var(--white-fixed) 92%, var(--gray-200));
   position: relative;
   z-index: 1;
   background: var(--home-surface);
-  padding-block: var(--space-8);
+  padding-block: 0;
 }
 
 .home-kayan-yazi__bleed {
   width: 100vw;
   margin-left: calc(50% - 50vw);
   overflow: hidden;
+  background: var(--color-accent);
+  border-block: 1px solid var(--home-border);
+  padding: 32px 0;
 }
 
 .home-kayan-yazi__track {
@@ -360,7 +419,7 @@
   font-size: var(--h2-font-size);
   font-weight: 500;
   line-height: var(--h2-line-height);
-  color: var(--home-ink);
+  color: var(--home-kayan-ink);
   white-space: nowrap;
 }
 
@@ -368,7 +427,7 @@
   flex-shrink: 0;
   width: 52px;
   height: 52px;
-  background-color: var(--color-accent);
+  background-color: var(--home-kayan-ink);
   -webkit-mask: url("/assets/section-tag-icon.svg") center / contain no-repeat;
   mask: url("/assets/section-tag-icon.svg") center / contain no-repeat;
 }
@@ -521,13 +580,32 @@
   .marketing-home-figma .marketing-navbar {
     background: transparent;
     border-bottom: none;
+    padding: clamp(32px, 3.3vw, 48px) var(--container-gutter) var(--space-6);
+  }
+
+  .marketing-home-figma .marketing-navbar:not(.is-scrolled) .marketing-navbar-inner {
+    width: 100%;
+    max-width: var(--grid-shell-width);
+    margin-inline: auto;
   }
 
   .marketing-home-figma .marketing-navbar:not(.is-scrolled) .marketing-navbar-inner::before {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
     opacity: 1;
     background: var(--home-nav-glass);
     border: 1px solid var(--gray-150);
     border-radius: 84px;
+  }
+
+  .marketing-home-figma .marketing-navbar:not(.is-scrolled) .marketing-navbar-cols {
+    padding: var(--home-nav-pill-pad);
+  }
+
+  .marketing-home-figma .marketing-navbar.is-scrolled {
+    padding: var(--site-nav-pad-y-compact) var(--site-nav-gutter-x);
   }
 
   .marketing-home-figma .marketing-navbar.is-scrolled .marketing-navbar-inner::before {

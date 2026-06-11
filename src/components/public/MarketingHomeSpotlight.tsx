@@ -49,7 +49,15 @@ export function MarketingHomeSpotlight({
               className="home-spotlight__cta"
             >
               <span>{copy.ctaLabel}</span>
-              <span className="home-spotlight__cta-icon" aria-hidden="true" />
+              <img
+                className="home-spotlight__cta-icon"
+                src="/assets/behance-cta-arrow.svg"
+                width={18}
+                height={18}
+                alt=""
+                aria-hidden
+                decoding="async"
+              />
             </Link>
           </div>
           <div className="home-spotlight__badges" aria-hidden="true">

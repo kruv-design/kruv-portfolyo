@@ -23,7 +23,15 @@ export function MarketingHomeHeroHeadline({
         href={scrollHref}
         aria-label={hero.cursorLabel}
       >
-        <span className="hero-v2-scroll-cta__icon" aria-hidden="true" />
+        <img
+          className="hero-v2-scroll-cta__icon"
+          src="/assets/hero-scroll-arrow.svg"
+          width={66}
+          height={66}
+          alt=""
+          aria-hidden
+          decoding="async"
+        />
       </a>
     </div>
   );
