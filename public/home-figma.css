@@ -10,12 +10,11 @@
   --home-surface: var(--gray-base);
   --home-surface-muted: color-mix(in srgb, var(--gray-anti) 3%, var(--gray-base));
   --home-border: color-mix(in srgb, var(--gray-anti) 42%, var(--gray-base));
-  --home-nav-glass: var(--gray-120);
-  --home-nav-glass-scrolled: var(--gray-80);
   --home-kayan-dur: 28s;
-  --home-nav-pill-pad: 12px;
-  --home-hero-head-gap: 120px;
-  --container-gutter: clamp(16px, 4.3vw, 62px);
+  --home-section-pad-y: var(--space-8);
+  --home-section-label-gap: var(--space-6);
+  --home-section-stack-gap: var(--space-6);
+  --home-hero-video-gap: var(--space-10);
   background: var(--home-surface);
   color: var(--home-ink);
 }
@@ -66,11 +65,11 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: var(--space-6);
-  width: min(100%, var(--grid-shell-width));
+  gap: var(--home-section-stack-gap);
+  width: var(--grid-shell-width);
   max-width: var(--grid-shell-width);
   margin-inline: auto;
-  padding: var(--space-10) var(--container-gutter) var(--home-hero-head-gap);
+  padding: var(--home-section-pad-y) 0 var(--home-hero-video-gap);
 }
 
 .hero-v2-headline--figma {
@@ -124,7 +123,7 @@
 
 @media (min-width: 769px) {
   .marketing-home-figma .hero-v2--has-showreel {
-    padding-top: calc(var(--site-nav-clearance) + var(--space-8));
+    padding-top: var(--site-nav-clearance);
   }
 }
 
@@ -136,8 +135,10 @@
   .hero-v2--has-showreel .hero-v2-head--figma {
     align-items: flex-start;
     flex-direction: column;
+    width: var(--grid-shell-width);
+    max-width: var(--grid-shell-width);
     padding-top: var(--space-6);
-    padding-bottom: var(--space-8);
+    padding-bottom: var(--home-hero-video-gap);
   }
 
   .hero-v2-scroll-cta {
@@ -152,16 +153,16 @@
 
 /* ── Behance spotlight ── */
 .marketing-home-figma .home-spotlight {
-  padding: var(--space-8) var(--container-gutter) var(--space-10);
+  padding: var(--home-section-pad-y) var(--section-pad-x);
   background: var(--home-surface);
 }
 
 .marketing-home-figma .home-spotlight__card {
-  padding: 42px;
+  padding: var(--space-8);
   border: none;
-  border-radius: 12px;
+  border-radius: var(--card-radius);
   background: var(--color-accent);
-  gap: var(--space-8);
+  gap: var(--home-section-stack-gap);
 }
 
 .marketing-home-figma .home-spotlight .home-section-tag {
@@ -173,7 +174,7 @@
 }
 
 .marketing-home-figma .home-spotlight__title {
-  margin-top: var(--space-3);
+  margin-top: var(--space-2);
   font-family: var(--h2-font-family);
   font-size: var(--h2-font-size);
   font-weight: 500;
@@ -189,11 +190,15 @@
 .marketing-home-figma .home-spotlight__cta {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  height: 44px;
-  padding: 12px 24px;
-  border-radius: 53px;
-  background: var(--gray-anti);
+  align-self: flex-start;
+  width: fit-content;
+  max-width: 100%;
+  flex: 0 0 auto;
+  gap: var(--space-xs);
+  height: var(--nav-bar-ctrl-h);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--btn-radius);
+  background: var(--gray-base);
   color: var(--color-accent);
   font-family: var(--b2-font-family);
   font-size: var(--b2-font-size);
@@ -218,7 +223,8 @@
 .marketing-home-figma .home-spotlight__content {
   display: flex;
   flex-direction: column;
-  gap: var(--space-8);
+  align-items: flex-start;
+  gap: var(--home-section-stack-gap);
 }
 
 @media (max-width: 768px) {
@@ -241,18 +247,18 @@
 .marketing-home-figma .ideal-section {
   background: var(--home-surface);
   border-top: none;
-  padding: var(--space-8) var(--container-gutter);
+  padding: var(--home-section-pad-y) var(--section-pad-x);
 }
 
 .marketing-home-figma .ideal-intro {
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--home-section-label-gap);
 }
 
 .marketing-home-figma .ideal-tag {
   display: inline-flex;
   align-items: center;
   gap: var(--space-3);
-  margin: 0 0 var(--space-3);
+  margin: 0;
   font-family: var(--h4-font-family);
   font-size: var(--h4-font-size);
   font-weight: var(--h4-font-weight);
@@ -356,14 +362,27 @@
 .marketing-home-figma .scene-section {
   background: var(--home-surface);
   border-top: none;
-  padding: var(--space-8) var(--container-gutter) var(--section-pad-y);
+  padding: var(--home-section-pad-y) var(--section-pad-x) var(--section-pad-y);
 }
 
 .marketing-home-figma .scene-label--figma {
-  margin-bottom: var(--space-8);
+  width: var(--grid-shell-width);
+  max-width: var(--grid-shell-width);
+  margin-inline: auto;
+  margin-bottom: var(--home-section-label-gap);
+}
+
+.marketing-home-figma .featured-work-card {
+  gap: var(--space-3);
+}
+
+.marketing-home-figma .featured-work-meta {
+  gap: var(--space-2);
+  padding-inline: var(--space-3);
 }
 
 .marketing-home-figma .featured-work-title {
+  margin: 0;
   font-family: var(--h3-font-family);
   font-size: var(--h3-font-size);
   font-weight: var(--h3-font-weight);
@@ -372,6 +391,7 @@
 }
 
 .marketing-home-figma .featured-work-category {
+  margin: 0;
   color: var(--home-ink-soft);
 }
 
@@ -390,7 +410,7 @@
   overflow: hidden;
   background: var(--color-accent);
   border-block: 1px solid var(--home-border);
-  padding: 32px 0;
+  padding: var(--space-8) 0;
 }
 
 .home-kayan-yazi__track {
@@ -414,7 +434,7 @@
 }
 
 .home-kayan-yazi__phrase {
-  padding-inline: 32px;
+  padding-inline: var(--space-8);
   font-family: var(--h2-font-family);
   font-size: var(--h2-font-size);
   font-weight: 500;
@@ -443,7 +463,7 @@
 
 @media (max-width: 768px) {
   .home-kayan-yazi__phrase {
-    padding-inline: 12px;
+    padding-inline: var(--space-3);
     font-size: var(--h3-font-size);
   }
 
@@ -463,12 +483,12 @@
 .marketing-home-figma .home-values {
   background: var(--home-surface-muted);
   border-top: none;
-  padding: clamp(5rem, 14vw, 12.5rem) var(--container-gutter);
+  padding: var(--section-pad-y) var(--section-pad-x);
 }
 
 .marketing-home-figma .home-values__header {
   display: block;
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--home-section-label-gap);
 }
 
 .marketing-home-figma .home-values__grid {
@@ -575,70 +595,3 @@
   }
 }
 
-/* ── Navbar (desktop, Figma) ── */
-@media (min-width: 769px) {
-  .marketing-home-figma .marketing-navbar {
-    background: transparent;
-    border-bottom: none;
-    padding: clamp(32px, 3.3vw, 48px) var(--container-gutter) var(--space-6);
-  }
-
-  .marketing-home-figma .marketing-navbar:not(.is-scrolled) .marketing-navbar-inner {
-    width: 100%;
-    max-width: var(--grid-shell-width);
-    margin-inline: auto;
-  }
-
-  .marketing-home-figma .marketing-navbar:not(.is-scrolled) .marketing-navbar-inner::before {
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    opacity: 1;
-    background: var(--home-nav-glass);
-    border: 1px solid var(--gray-150);
-    border-radius: 84px;
-  }
-
-  .marketing-home-figma .marketing-navbar:not(.is-scrolled) .marketing-navbar-cols {
-    padding: var(--home-nav-pill-pad);
-  }
-
-  .marketing-home-figma .marketing-navbar.is-scrolled {
-    padding: var(--site-nav-pad-y-compact) var(--site-nav-gutter-x);
-  }
-
-  .marketing-home-figma .marketing-navbar.is-scrolled .marketing-navbar-inner::before {
-    background: var(--home-nav-glass-scrolled);
-    border: 1px solid var(--gray-100);
-    border-radius: 84px;
-  }
-
-  .marketing-home-figma .marketing-navbar:not(.is-scrolled) .marketing-navbar-links {
-    gap: 42px;
-  }
-
-  .marketing-home-figma .marketing-navbar.is-scrolled .marketing-navbar-links {
-    gap: 24px;
-  }
-
-  .marketing-home-figma .marketing-navbar-item {
-    color: var(--home-ink-soft);
-  }
-
-  .marketing-home-figma .marketing-navbar-item:hover,
-  .marketing-home-figma .marketing-navbar-item[aria-current="page"] {
-    color: var(--home-ink);
-  }
-
-  .marketing-home-figma .marketing-navbar-logo-wordmark {
-    background-color: var(--color-accent);
-  }
-}
-
-@media (max-width: 768px) {
-  .marketing-home-figma .marketing-navbar:not(.is-scrolled) {
-    background: var(--home-surface);
-    border-bottom: 1px solid var(--home-border);
-  }
-}
