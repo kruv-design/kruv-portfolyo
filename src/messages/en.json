@@ -7,6 +7,8 @@
     "hero": {
       "line1": "We build brands",
       "line2": "worth-sharing",
+      "mobileLine1": "We build brands",
+      "mobileLine2": "worth-sharing",
       "line2Tail": "",
       "lineOrder": "main-first",
       "cursorLabel": "See projects",

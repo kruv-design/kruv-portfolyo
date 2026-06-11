@@ -14,8 +14,9 @@ import { MarketingHomeSectionTag } from "./MarketingHomeSectionTag";
 const FEATURED_COUNT = 5;
 
 function categoryLabel(project: Project): string {
+  if (project.kategori?.trim()) return project.kategori;
   if (project.etiketler?.length) return project.etiketler.join(", ");
-  return project.kategori || "";
+  return "";
 }
 
 /** Anasayfa öne çıkan projeler — Supabase/CMS, sunucu tarafı. */

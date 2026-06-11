@@ -17,6 +17,13 @@
   --home-section-stack-gap: var(--space-6);
   --home-hero-pad-top: calc(var(--space-10) * 3);
   --home-hero-video-gap: var(--space-12);
+  /* Featured work kart — Figma Frame 1410097976 */
+  --home-featured-media-radius: var(--space-sm);
+  --home-featured-card-gap: calc(var(--space-3) + var(--space-0));
+  --home-featured-meta-gap: var(--space-1);
+  --home-featured-meta-ink: color-mix(in srgb, var(--gray-anti) 32%, var(--gray-base));
+  /* Figma Body 18px — mobilde global --type-b1 küçülmesinden bağımsız */
+  --home-featured-category-size: 1.125rem;
   background: var(--home-surface);
   color: var(--home-ink);
 }
@@ -441,26 +448,63 @@
 }
 
 .marketing-home-figma .featured-work-card {
-  gap: var(--space-3);
+  align-items: flex-start;
+  gap: var(--home-featured-card-gap);
 }
 
+.marketing-home-figma .featured-work-media,
+.marketing-home-figma .featured-work-media.featured-work-media--photo {
+  border-radius: var(--home-featured-media-radius);
+  overflow: hidden;
+}
+
+.marketing-home-figma .featured-work-media-img {
+  border-radius: var(--home-featured-media-radius);
+}
+
+/* Figma Frame 1410097964 — başlık + kategori aynı sol hizada */
 .marketing-home-figma .featured-work-meta {
-  gap: var(--space-2);
-  padding-inline: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--home-featured-meta-gap);
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 0 0 var(--space-3);
+  text-align: left;
 }
 
 .marketing-home-figma .featured-work-title {
+  display: block;
+  width: 100%;
+  max-width: none;
   margin: 0;
+  padding: 0;
   font-family: var(--h3-font-family);
   font-size: var(--h3-font-size);
-  font-weight: var(--h3-font-weight);
-  line-height: var(--h3-line-height);
-  color: var(--home-ink-muted);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-transform: none;
+  text-align: left;
+  color: var(--home-featured-meta-ink);
+  word-break: break-word;
 }
 
 .marketing-home-figma .featured-work-category {
+  display: block;
+  width: 100%;
+  max-width: none;
   margin: 0;
-  color: var(--home-ink-soft);
+  padding: 0;
+  font-family: var(--b1-font-family);
+  font-size: var(--home-featured-category-size);
+  font-weight: 400;
+  line-height: 1.42;
+  letter-spacing: var(--b1-letter-spacing);
+  text-transform: none;
+  text-align: left;
+  color: var(--home-featured-meta-ink);
 }
 
 /* ── Kayan yazı ── */
@@ -693,6 +737,25 @@
 
   .marketing-home-figma .home-spotlight__content {
     gap: var(--home-section-label-gap);
+  }
+
+  .marketing-home-figma {
+    --home-featured-media-radius: var(--space-xs);
+    --home-featured-meta-gap: var(--space-0);
+  }
+
+  .marketing-home-figma .featured-work-title {
+    font-size: var(--h3-font-size);
+    line-height: 1.2;
+    font-weight: 500;
+    text-transform: none;
+  }
+
+  /* Figma mobil: kategori Body 18px (global --type-b1 küçülmesini geçersiz kıl) */
+  .marketing-home-figma .featured-work-category {
+    font-size: var(--home-featured-category-size);
+    line-height: 1.42;
+    letter-spacing: var(--b1-letter-spacing);
   }
 }
 
