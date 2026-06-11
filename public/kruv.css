@@ -115,46 +115,45 @@
   --font-mono: 'DM Mono', monospace;
 
   /* ===== Typography: type scale =====
-     Tek kaynak: yalnızca h1..h4 + b1, b2, b3 kullanılır.
-     Tüm font-size tanımları bu 7 token'a referansla yapılmalı. */
-  --type-h1: clamp(52px, 7vw, 96px);
-  --type-h2: clamp(32px, 8vw, 44px);
-  --type-h3: clamp(24px, 6vw, 30px);
-  --type-h4: clamp(16px, 5vw, 20px);
-  --type-tagline: clamp(18px, 4vw, 24px);
-  --type-text-lg: clamp(14px, 3vw, 18px);
-  --type-b1: calc(14px + 2pt);
-  --type-b2: calc(13px + 2pt);
-  --type-b3: calc(10px + 2pt);
+     Figma Typography (3763:2745 / 3763:2770) — h1..h4 + b1, b2, b3 */
+  --type-h1: 72px;
+  --type-h2: 48px;
+  --type-h3: 32px;
+  --type-h4: 24px;
+  --type-tagline: 24px;
+  --type-text-lg: 18px;
+  --type-b1: 18px;
+  --type-b2: 14px;
+  --type-b3: 12px;
 
   /* ===== Typography tokens — yalnızca h1–h4 ve b1–b3 ===== */
 
   --h1-font-family: var(--font-display);
   --h1-font-size: var(--type-h1);
-  --h1-font-weight: 600;
-  --h1-line-height: var(--lh-tight);
+  --h1-font-weight: 700;
+  --h1-line-height: var(--lh-display);
   --h1-letter-spacing: var(--ls-display);
   --h1-text-transform: none;
 
   --h2-font-family: var(--font-display);
   --h2-font-size: var(--type-h2);
   --h2-font-weight: 600;
-  --h2-line-height: calc(var(--lh-tight) * 1.125);
+  --h2-line-height: var(--lh-display);
   --h2-letter-spacing: var(--ls-display);
   --h2-text-transform: none;
 
   --h3-font-family: var(--font-display);
   --h3-font-size: var(--type-h3);
-  --h3-font-weight: 600;
-  --h3-line-height: var(--lh-tight);
+  --h3-font-weight: 500;
+  --h3-line-height: var(--lh-display);
   --h3-letter-spacing: var(--ls-display);
   --h3-text-transform: none;
 
   --h4-font-family: var(--font-display);
   --h4-font-size: var(--type-h4);
   --h4-font-weight: 500;
-  --h4-line-height: var(--lh-tight);
-  --h4-letter-spacing: var(--ls-display);
+  --h4-line-height: var(--lh-display);
+  --h4-letter-spacing: var(--ls-body);
   --h4-text-transform: none;
 
   --tagline-font-size: var(--type-tagline);
@@ -163,7 +162,7 @@
   --b1-font-family: var(--font-display);
   --b1-font-size: var(--type-b1);
   --b1-font-weight: 400;
-  --b1-line-height: 1.66;
+  --b1-line-height: var(--lh-display);
   --b1-letter-spacing: var(--ls-body);
   /* Metin gövdesi: cümle başları büyük harf (text-transform yok). */
   --b1-text-transform: none;
@@ -171,16 +170,16 @@
 
   --b2-font-family: var(--font-display);
   --b2-font-size: var(--type-b2);
-  --b2-font-weight: 300;
-  --b2-line-height: var(--lh-body);
+  --b2-font-weight: 500;
+  --b2-line-height: var(--lh-display);
   --b2-letter-spacing: var(--ls-body);
   --b2-text-transform: none;
   --b2-color: var(--gray-400);
 
   --b3-font-family: var(--font-display);
-  --b3-font-size: calc(var(--type-b3) + 2pt);
+  --b3-font-size: var(--type-b3);
   --b3-font-weight: 500;
-  --b3-line-height: var(--lh-tight);
+  --b3-line-height: var(--lh-display);
   --b3-letter-spacing: var(--ls-body);
   --b3-text-transform: none;
 
@@ -210,6 +209,7 @@
   /* ===== Typography: line heights ===== */
   --lh-tightest: 1;
   --lh-tight: 1.05;
+  --lh-display: 1.2;
   --lh-snug: 1.4;
   --lh-note: 1.45;
   --lh-body: 1.55;
@@ -230,7 +230,7 @@
   --ls-3xl: .18em;
   --ls-4xl: .2em;
   --ls-5xl: .22em;
-  --ls-display: -0.02em;
+  --ls-display: 0;
   /* Kart / proje meta: başlık biraz açık, kategori etiketi sıkı */
   --card-meta-title-ls: var(--ls-display);
   --card-meta-tag-ls: var(--b3-letter-spacing);
@@ -437,18 +437,21 @@
   --scroll-padding-top: calc(var(--space-6) + var(--nav-logo-slot-h) + var(--space-6));
 }
 
-/* Mobil tipografi merdiveni — hero (h1) > bölüm (h2) > kart (h3) > meta (h4) */
+/* Mobil tipografi — Figma Typography mobil sütunu */
 @media (max-width: 768px) {
   :root {
-    --type-h1: clamp(2rem, 8.5vw, 2.5rem);
-    --type-h2: clamp(1.5rem, 6vw, 1.75rem);
-    --type-h3: clamp(1.0625rem, 4.2vw, 1.25rem);
-    --type-h4: clamp(0.9375rem, 3.6vw, 1.0625rem);
-    --type-tagline: clamp(1.0625rem, 4vw, 1.25rem);
-    --type-text-lg: clamp(0.9375rem, 3.4vw, 1.0625rem);
-    --h1-line-height: 1.08;
-    --h2-line-height: 1.12;
-    --h3-line-height: 1.18;
+    --type-h1: 32px;
+    --type-h2: 28px;
+    --type-h3: 22px;
+    --type-h4: 16px;
+    --type-tagline: 16px;
+    --type-text-lg: 16px;
+    --type-b1: 16px;
+    --h1-line-height: var(--lh-display);
+    --h2-line-height: var(--lh-display);
+    --h3-line-height: var(--lh-display);
+    --h4-line-height: var(--lh-display);
+    --b1-line-height: 1.6;
   }
 }
 
