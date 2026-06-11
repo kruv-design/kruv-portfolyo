@@ -53,7 +53,7 @@ export async function MarketingHomeHero({
           <MarketingHomeHeroHeadline
             locale={locale}
             messages={messages}
-            scrollHref={options.scrollHref ?? options.ctaHref ?? "#works"}
+            scrollHref="#hero-showreel"
           />
           <MarketingHomeHeroShowreel
             settings={settings}

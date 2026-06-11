@@ -7,6 +7,8 @@
     "hero": {
       "line1": "Paylaşmaya değer marka",
       "line2": "tasarlıyoruz.",
+      "mobileLine1": "Paylaşmaya değer",
+      "mobileLine2": "markalar tasarlıyoruz.",
       "line2Tail": "",
       "lineOrder": "main-first",
       "cursorLabel": "Projeleri gör",

@@ -30,7 +30,11 @@ export function MarketingHomeHeroShowreel({
   const unmuteLabel = t(messages, "home.showreel.unmute", "Unmute sound");
 
   return (
-    <div className="hero-v2__showreel home-showreel" lang={locale}>
+    <div
+      id="hero-showreel"
+      className="hero-v2__showreel home-showreel"
+      lang={locale}
+    >
       <MarketingHomeShowreelResponsive
         web={web}
         mobile={mobile}

@@ -12,6 +12,7 @@
   --home-border: color-mix(in srgb, var(--gray-anti) 42%, var(--gray-base));
   --home-kayan-dur: 28s;
   --home-section-pad-y: var(--space-8);
+  /* Etiket → içerik (Partners referans) */
   --home-section-label-gap: var(--space-6);
   --home-section-stack-gap: var(--space-6);
   --home-hero-pad-top: calc(var(--space-10) * 3);
@@ -86,6 +87,15 @@
   color: var(--home-ink);
 }
 
+.hero-v2-headline--figma .hero-v2-headline__set {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-v2-headline--figma .hero-v2-headline__set--mobile {
+  display: none;
+}
+
 .hero-v2-headline--figma .hero-v2-headline__line {
   display: block;
 }
@@ -124,6 +134,7 @@
 
 .hero-v2--has-showreel .hero-v2__showreel.home-showreel {
   order: 1;
+  scroll-margin-top: var(--scroll-padding-top);
 }
 
 @media (min-width: 769px) {
@@ -162,9 +173,19 @@
     display: none;
   }
 
+  .hero-v2-headline--figma.hero-v2-headline--has-mobile-copy
+    .hero-v2-headline__set--desktop {
+    display: none;
+  }
+
+  .hero-v2-headline--figma.hero-v2-headline--has-mobile-copy
+    .hero-v2-headline__set--mobile {
+    display: flex;
+  }
+
   .hero-v2-headline--figma {
     font-size: var(--h1-font-size);
-    max-width: 20ch;
+    max-width: none;
   }
 }
 
@@ -195,7 +216,7 @@
   display: flex;
   flex-direction: column;
   gap: 0;
-  margin-top: var(--space-2);
+  margin: 0;
   font-family: var(--h2-font-family);
   font-size: var(--h2-font-size);
   font-weight: 500;
@@ -284,7 +305,9 @@
   padding: var(--home-section-pad-y) var(--section-pad-x);
 }
 
-.marketing-home-figma .ideal-intro {
+.marketing-home-figma .ideal-intro,
+.marketing-home-figma .scene-label--figma,
+.marketing-home-figma .home-values__header {
   margin-bottom: var(--home-section-label-gap);
 }
 
@@ -386,13 +409,13 @@
   background: var(--home-surface);
   border-top: none;
   padding: var(--home-section-pad-y) var(--section-pad-x) var(--section-pad-y);
+  gap: 0;
 }
 
 .marketing-home-figma .scene-label--figma {
   width: var(--featured-works-width);
   max-width: var(--featured-works-width);
   margin-inline: auto;
-  margin-bottom: var(--home-section-label-gap);
 }
 
 .marketing-home-figma .featured-work-card {
@@ -511,7 +534,6 @@
 
 .marketing-home-figma .home-values__header {
   display: block;
-  margin-bottom: var(--home-section-label-gap);
 }
 
 .marketing-home-figma .home-values__grid {
@@ -588,10 +610,6 @@
 }
 
 @media (max-width: 768px) {
-  .marketing-home-figma .home-values {
-    padding: var(--space-10) var(--section-pad-x);
-  }
-
   .marketing-home-figma .home-values__grid {
     grid-template-columns: 1fr;
     border: 1px solid var(--home-border);
@@ -617,6 +635,45 @@
 
   .marketing-home-figma .home-values__icon img {
     max-height: 85px;
+  }
+}
+
+/* ── Mobil: etiket → içerik ritmi (Partners referans) ── */
+@media (max-width: 768px) {
+  .marketing-home-figma .ideal-tag,
+  .marketing-home-figma .home-section-tag {
+    margin: 0;
+  }
+
+  .marketing-home-figma .ideal-intro,
+  .marketing-home-figma .scene-label.scene-label--figma,
+  .marketing-home-figma .home-values__header {
+    margin-bottom: var(--home-section-label-gap);
+    gap: 0;
+  }
+
+  .marketing-home-figma .scene-section {
+    gap: 0;
+    padding-block: var(--home-section-pad-y);
+  }
+
+  .marketing-home-figma .ideal-section,
+  .marketing-home-figma .home-spotlight {
+    padding-block: var(--home-section-pad-y);
+  }
+
+  .marketing-home-figma .ideal-inner,
+  .marketing-home-figma .home-values__inner {
+    width: var(--featured-works-width);
+    max-width: var(--featured-works-width);
+  }
+
+  .marketing-home-figma .home-values {
+    padding: var(--home-section-pad-y) var(--section-pad-x);
+  }
+
+  .marketing-home-figma .home-spotlight__content {
+    gap: var(--home-section-label-gap);
   }
 }
 
