@@ -45,7 +45,7 @@ export function MarketingSiteNav({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
   const headerLangRef = useRef<HTMLDivElement>(null);
-  const drawerLangRef = useRef<HTMLDivElement>(null);
+  const mobileLangRef = useRef<HTMLDivElement>(null);
 
   useMobileMenuScrollLock(mobileMenuOpen);
 
@@ -79,8 +79,8 @@ export function MarketingSiteNav({
     const onPointerDown = (ev: MouseEvent) => {
       const target = ev.target as Node;
       const inHeader = headerLangRef.current?.contains(target);
-      const inDrawer = drawerLangRef.current?.contains(target);
-      if (!inHeader && !inDrawer) setLanguageMenuOpen(false);
+      const inMobile = mobileLangRef.current?.contains(target);
+      if (!inHeader && !inMobile) setLanguageMenuOpen(false);
     };
     const onKeyDown = (ev: KeyboardEvent) => {
       if (ev.key === "Escape") setLanguageMenuOpen(false);
@@ -159,7 +159,7 @@ export function MarketingSiteNav({
                 open={languageMenuOpen}
                 onToggle={() => setLanguageMenuOpen((prev) => !prev)}
                 onSelect={switchLocale}
-                menuRef={headerLangRef}
+                menuRef={mobileLangRef}
                 className="lang-switch marketing-navbar-lang--mobile-center"
               />
             </div>
