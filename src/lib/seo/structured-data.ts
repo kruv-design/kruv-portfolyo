@@ -1,5 +1,5 @@
-import { env } from "@/lib/env";
 import type { Locale } from "@/lib/i18n/config";
+import { SITE_CANONICAL_URL } from "@/lib/site";
 import { withLocale } from "@/lib/i18n/path";
 import {
   projectIntroForLocale,
@@ -21,7 +21,7 @@ const ISTANBUL_ADDRESS = {
 } as const;
 
 function absoluteUrl(path: string): string {
-  const base = env.SITE_URL.replace(/\/+$/, "");
+  const base = SITE_CANONICAL_URL.replace(/\/+$/, "");
   const normalized = path.startsWith("/") ? path : `/${path}`;
   return `${base}${normalized}`;
 }

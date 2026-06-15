@@ -12,7 +12,7 @@ import { ProjectDetailPageFrame } from "@/components/public/ProjectDetailPageFra
 import { SiteFooter } from "@/components/public/SiteFooter";
 import { MarketingKruvStyles } from "@/components/public/MarketingKruvStyles";
 import { MarketingSiteNav } from "@/components/public/MarketingSiteNav";
-import { env } from "@/lib/env";
+import { SITE_CANONICAL_URL } from "@/lib/site";
 import { getMessages } from "@/lib/i18n/get-messages";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { GlobalOrganizationJsonLd } from "@/components/seo/GlobalOrganizationJsonLd";
@@ -55,7 +55,7 @@ export async function generateMetadata({
 
   const title = project.baslik;
   const description = projectMetaDescription(project, "tr");
-  const canonical = `${env.SITE_URL}/projects/${project.slug}`;
+  const canonical = `${SITE_CANONICAL_URL}/projects/${project.slug}`;
   const img = project.kapak || undefined;
 
   return {

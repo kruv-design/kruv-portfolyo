@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Mono } from "next/font/google";
+import { Analytics } from "@/components/analytics/Analytics";
 import { env } from "@/lib/env";
+import { SITE_CANONICAL_URL } from "@/lib/site";
 import { switzer } from "@/lib/fonts/switzer";
 import { ENABLE_THEME_TOGGLE, FORCED_THEME } from "@/lib/theme/flags";
 import "./globals.css";
@@ -12,16 +14,8 @@ const mono = DM_Mono({
   weight: ["300", "400", "500"],
 });
 
-function metadataBaseUrl(): URL {
-  try {
-    return new URL(env.SITE_URL);
-  } catch {
-    return new URL("http://localhost:3000");
-  }
-}
-
 export const metadata: Metadata = {
-  metadataBase: metadataBaseUrl(),
+  metadataBase: new URL(SITE_CANONICAL_URL),
   title: {
     default: "kruv. — portfolyo",
     template: "%s · kruv.",
@@ -41,8 +35,8 @@ export const metadata: Metadata = {
   },
   alternates: {
     languages: {
-      "tr-TR": `${env.SITE_URL}/tr/works`,
-      en: `${env.SITE_URL}/en/works`,
+      "tr-TR": `${SITE_CANONICAL_URL}/tr/works`,
+      en: `${SITE_CANONICAL_URL}/en/works`,
     },
   },
   robots: { index: true, follow: true },
@@ -89,7 +83,10 @@ export default function RootLayout({
         <link rel="stylesheet" href="/site-nav.css" />
         <link rel="stylesheet" href="/site-nav-shared.css" />
       </head>
-      <body className={`${switzer.className} min-h-screen`}>{children}</body>
+      <body className={`${switzer.className} min-h-screen`}>
+        {children}
+        <Analytics gaId={env.GA_MEASUREMENT_ID} clarityId={env.CLARITY_PROJECT_ID} />
+      </body>
     </html>
   );
 }

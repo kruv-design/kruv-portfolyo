@@ -15,7 +15,7 @@ import { getMessages } from "@/lib/i18n/get-messages";
 import { t } from "@/lib/i18n/t";
 import { withLocale } from "@/lib/i18n/path";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { env } from "@/lib/env";
+import { SITE_CANONICAL_URL } from "@/lib/site";
 import {
   buildLocalBusinessSchema,
   buildWebSiteSchema,
@@ -35,16 +35,16 @@ export async function generateMetadata({
     title: { absolute: title },
     description,
     alternates: {
-      canonical: `${env.SITE_URL}/${locale}`,
+      canonical: `${SITE_CANONICAL_URL}/${locale}`,
       languages: {
-        "tr-TR": `${env.SITE_URL}/tr`,
-        en: `${env.SITE_URL}/en`,
+        "tr-TR": `${SITE_CANONICAL_URL}/tr`,
+        en: `${SITE_CANONICAL_URL}/en`,
       },
     },
     openGraph: {
       title,
       description,
-      url: `${env.SITE_URL}/${locale}`,
+      url: `${SITE_CANONICAL_URL}/${locale}`,
       locale: locale === "tr" ? "tr_TR" : "en_US",
       siteName: "kruv.",
       type: "website",
