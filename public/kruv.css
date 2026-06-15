@@ -3151,7 +3151,7 @@ body:has(.card:hover) .ticker {
   position: relative;
   z-index: 2;
   box-sizing: border-box;
-  border-top: 1px solid color-mix(in srgb, var(--white-fixed) 16%, transparent);
+  border-top: none;
   background-color: var(--color-accent);
   color: var(--white-fixed);
   padding: var(--section-pad-y) var(--section-pad-x);

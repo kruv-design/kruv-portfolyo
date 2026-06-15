@@ -217,25 +217,25 @@
   --spacing-2xl: var(--space-12);
   --spacing-3xl: clamp(56px, 8vw, 80px);
 
-  /* Proje detay — sonraki proje banner (inverted surface) */
-  --project-next-banner-surface: var(--gray-solid-deep);
-  --project-next-banner-ink: var(--gray-anti);
+  /* Proje detay — sonraki proje banner (accent surface) */
+  --project-next-banner-surface: var(--color-accent);
+  --project-next-banner-ink: var(--white-fixed);
   --project-next-banner-ink-muted: color-mix(
     in srgb,
-    var(--gray-anti) 62%,
+    var(--white-fixed) 75%,
     transparent
   );
   --project-next-banner-ink-faint: color-mix(
     in srgb,
-    var(--gray-anti) 42%,
+    var(--white-fixed) 50%,
     transparent
   );
   --project-next-banner-border: color-mix(
     in srgb,
-    var(--gray-anti) 14%,
+    var(--white-fixed) 22%,
     transparent
   );
-  --project-next-banner-accent: var(--color-accent);
+  --project-next-banner-accent: var(--white-fixed);
 
   /* Section / gutter scale */
   --container-gutter: clamp(16px, 5vw, 52px);
@@ -961,9 +961,9 @@ i {
   width: 100%;
   box-sizing: border-box;
   padding: var(--space-8);
-  background: var(--surface);
-  color: var(--ink);
-  border: 1px solid var(--border);
+  background: var(--project-next-banner-surface);
+  color: var(--project-next-banner-ink);
+  border: 1px solid var(--project-next-banner-border);
   border-radius: var(--radius-lg);
   overflow: hidden;
   text-decoration: none;
@@ -971,6 +971,12 @@ i {
   transition:
     color var(--dur-fast) var(--ease),
     border-color var(--dur-fast) var(--ease);
+  /* Shared kart token'larını banner yüzeyine göre override et */
+  --card-meta-title-ink: var(--project-next-banner-ink);
+  --card-meta-category-ink: var(--project-next-banner-ink-muted);
+  --ink: var(--project-next-banner-ink);
+  --ink-muted: var(--project-next-banner-ink-muted);
+  --ink-faint: var(--project-next-banner-ink-faint);
 }
 
 .project-next-banner:focus-visible {
@@ -1044,6 +1050,8 @@ i {
 
 .project-next-banner__subtitle {
   margin: var(--card-meta-stack-gap) 0 0;
+  font-size: var(--h4-font-size);
+  line-height: var(--h4-line-height, 1.3);
 }
 
 .project-next-banner__progress {
@@ -1062,7 +1070,7 @@ i {
   width: 100%;
   max-width: 12rem;
   height: 2px;
-  background: var(--border);
+  background: var(--project-next-banner-border);
   border-radius: var(--radius-pill);
   overflow: hidden;
 }
@@ -1070,7 +1078,7 @@ i {
 .project-next-banner__progress-fill {
   display: block;
   height: 100%;
-  background: var(--accent);
+  background: var(--project-next-banner-accent);
   border-radius: inherit;
   transition: width var(--dur-base) var(--ease);
 }
@@ -1087,7 +1095,7 @@ i {
   line-height: var(--b1-line-height);
   letter-spacing: var(--b1-letter-spacing);
   text-transform: none;
-  color: var(--ink);
+  color: var(--project-next-banner-ink);
 }
 
 .project-next-banner__cta-arrow {
@@ -1185,7 +1193,7 @@ i {
 
 @media (hover: hover) and (pointer: fine) {
   .project-next-banner:hover {
-    border-color: var(--border-md);
+    border-color: color-mix(in srgb, var(--white-fixed) 50%, transparent);
   }
 
   .project-next-banner:hover .project-next-banner__cta-arrow {

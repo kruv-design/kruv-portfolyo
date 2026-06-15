@@ -74,4 +74,13 @@ export const env = {
   get SITE_URL() {
     return safePublicSiteUrl();
   },
+
+  // ── Analytics (opsiyonel) ────────────────────────────────
+  // Ayarlanmazsa Analytics bileşeni hiçbir şey render etmez.
+  get GA_MEASUREMENT_ID(): string | undefined {
+    return process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || undefined;
+  },
+  get CLARITY_PROJECT_ID(): string | undefined {
+    return process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID || undefined;
+  },
 };

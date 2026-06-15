@@ -17,7 +17,7 @@
   --site-nav-bar-bg: var(--surface, var(--midnight));
   --site-nav-bar-border: 1px solid var(--border, var(--gray-100));
   /* Mobil oval pill (scroll var) */
-  --site-nav-pill-bg: color-mix(in srgb, var(--midnight, var(--surface)) 82%, transparent);
+  --site-nav-pill-bg: color-mix(in srgb, var(--midnight, var(--surface)) 95%, transparent);
   --site-nav-pill-radius: 999px;
   /* Sabit nav altı — tüm sayfa içerikleri (works, contact, proje detay) */
   --site-nav-clearance: calc(
@@ -93,7 +93,7 @@ html {
     transform var(--nav-compact-dur) var(--nav-compact-ease),
     top var(--nav-compact-dur) var(--nav-compact-ease),
     bottom var(--nav-compact-dur) var(--nav-compact-ease);
-  background: transparent;
+  background: color-mix(in srgb, var(--midnight, var(--surface)) 55%, transparent);
   backdrop-filter: blur(22px) saturate(1.2);
   -webkit-backdrop-filter: blur(22px) saturate(1.2);
   border: none;
@@ -110,6 +110,7 @@ html {
   top: calc(var(--site-nav-pad-y-compact) * -1);
   bottom: calc(var(--site-nav-pad-y-compact) * -1);
   opacity: 1;
+  background: var(--site-nav-pill-bg);
 }
 
 .marketing-navbar.is-scrolled {
@@ -155,6 +156,11 @@ html {
 .marketing-navbar-col--links {
   justify-content: center;
   min-width: 0;
+}
+
+/* Mobil-only orta sütun (dil seçici) — desktop'ta gizli */
+.marketing-navbar-col--mobile-lang {
+  display: none;
 }
 
 .marketing-navbar-col--cta {

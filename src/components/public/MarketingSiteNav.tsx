@@ -152,6 +152,18 @@ export function MarketingSiteNav({
                 </span>
               </Link>
             </div>
+            {/* Mobil: navbar ortasında dil seçici */}
+            <div className="marketing-navbar-col marketing-navbar-col--mobile-lang">
+              <SiteNavLangSwitch
+                locale={locale}
+                open={languageMenuOpen}
+                onToggle={() => setLanguageMenuOpen((prev) => !prev)}
+                onSelect={switchLocale}
+                menuRef={headerLangRef}
+                className="lang-switch marketing-navbar-lang--mobile-center"
+              />
+            </div>
+
             <div className="marketing-navbar-col marketing-navbar-col--links">
               <ul className="marketing-navbar-links">
                 <li>
@@ -236,26 +248,17 @@ export function MarketingSiteNav({
                 {t(messages, "nav.projects", "Projects")}
               </Link>
             </li>
-            <li>
-              <Link href={withLocale("/contact", locale)} onClick={closeMobileMenu}>
-                {t(messages, "nav.contact", "Contact")}
-              </Link>
-            </li>
+            {ENABLE_PUBLIC_CONTACT ? (
+              <li>
+                <Link href={withLocale("/contact", locale)} onClick={closeMobileMenu}>
+                  {t(messages, "nav.contact", "Contact")}
+                </Link>
+              </li>
+            ) : null}
           </ul>
         </nav>
 
         <div className="marketing-nav-mobile-footer site-nav-mobile-footer">
-          <SiteNavLangSwitch
-            locale={locale}
-            open={languageMenuOpen}
-            onToggle={() => setLanguageMenuOpen((prev) => !prev)}
-            onSelect={(nextLocale) => {
-              closeMobileMenu();
-              switchLocale(nextLocale);
-            }}
-            menuRef={drawerLangRef}
-            className="lang-switch marketing-navbar-lang--drawer"
-          />
           <ProjectCtaLink
             href={projectCtaUrl}
             className="marketing-navbar-cta marketing-nav-mobile-cta"

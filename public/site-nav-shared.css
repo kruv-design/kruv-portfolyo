@@ -166,9 +166,17 @@
     pointer-events: none;
   }
 
-  /* Mobil şeritte dil seçici drawer’da — hamburger tıklanabilir kalsın */
+  /* Mobil: dil seçici artık navbar ortasında — header varyantını gizle */
   .marketing-navbar-lang--header {
     display: none !important;
+  }
+
+  /* Mobil: ortadaki dil seçici sütunu göster */
+  .marketing-navbar-col--mobile-lang {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
   }
 
   .marketing-navbar-theme-toggle--dock,
