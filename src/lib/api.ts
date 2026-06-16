@@ -79,6 +79,11 @@ export const api = {
       method: "PATCH",
       body: JSON.stringify(input),
     }),
+  toggleVisibility: (id: string, yayinda: boolean) =>
+    request<Project>(`/api/projects/${encodeURIComponent(id)}/visibility`, {
+      method: "PATCH",
+      body: JSON.stringify({ yayinda }),
+    }),
   deleteProject: (id: string) =>
     request<{ ok: true }>(`/api/projects/${encodeURIComponent(id)}`, {
       method: "DELETE",

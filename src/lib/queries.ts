@@ -62,6 +62,7 @@ export async function getProjects(): Promise<Project[]> {
     const { data, error } = await sb
       .from("projects")
       .select("*")
+      .eq("yayinda", true)
       .order("sira", { ascending: true })
       .order("created_at", { ascending: false });
     if (error) throw error;

@@ -32,6 +32,7 @@ type FormState = {
   bolumler: ProjectSection[];
   etiketler: string[];
   featured: boolean;
+  yayinda: boolean;
   next_project_override: string;
   renk: string;
   slug: string;
@@ -52,6 +53,7 @@ const EMPTY: FormState = {
   bolumler: [],
   etiketler: [],
   featured: false,
+  yayinda: true,
   next_project_override: "",
   renk: "#C8B8A8",
   slug: "",
@@ -90,6 +92,7 @@ function fromProject(p: Project): FormState {
     bolumler: [...p.bolumler],
     etiketler: [...p.etiketler],
     featured: p.featured,
+    yayinda: p.yayinda,
     next_project_override: p.next_project_override ?? "",
     renk: p.renk || "#C8B8A8",
     slug: p.slug,
@@ -257,19 +260,44 @@ export function ProjectForm({
             />
           </Field>
 
-          <label
-            className="b2 flex cursor-pointer items-center gap-2"
-            style={{ color: "var(--ink-soft)" }}
-          >
-            <input
-              type="checkbox"
-              checked={form.featured}
-              onChange={(e) => patch("featured", e.target.checked)}
-              className="h-4 w-4"
-              style={{ accentColor: "var(--accent)" }}
-            />
-            Ana sayfada öne çıkar
-          </label>
+          <div className="flex flex-col gap-3">
+            <label
+              className="b2 flex cursor-pointer items-center gap-2"
+              style={{ color: "var(--ink-soft)" }}
+            >
+              <input
+                type="checkbox"
+                checked={form.yayinda}
+                onChange={(e) => patch("yayinda", e.target.checked)}
+                className="h-4 w-4"
+                style={{ accentColor: "var(--accent)" }}
+              />
+              <span>
+                Yayında
+                {!form.yayinda && (
+                  <span
+                    className="ml-2 rounded-full px-2 py-0.5 text-xs font-medium"
+                    style={{ background: "var(--gray-100)", color: "var(--ink-faint)" }}
+                  >
+                    Gizli — ziyaretçiler göremez
+                  </span>
+                )}
+              </span>
+            </label>
+            <label
+              className="b2 flex cursor-pointer items-center gap-2"
+              style={{ color: "var(--ink-soft)" }}
+            >
+              <input
+                type="checkbox"
+                checked={form.featured}
+                onChange={(e) => patch("featured", e.target.checked)}
+                className="h-4 w-4"
+                style={{ accentColor: "var(--accent)" }}
+              />
+              Ana sayfada öne çıkar
+            </label>
+          </div>
         </section>
 
         <section

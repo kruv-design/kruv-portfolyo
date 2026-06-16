@@ -54,6 +54,8 @@ export type Project = {
   bolumler: ProjectSection[];
   etiketler: string[];
   featured: boolean;
+  /** false → portfolyoda gizlenir (admin görür, public görmez) */
+  yayinda: boolean;
   /** Proje detay banner'ında manuel sonraki proje slug'ı (boş = otomatik) */
   next_project_override?: string;
   renk: string;

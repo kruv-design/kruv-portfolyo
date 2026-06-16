@@ -47,6 +47,19 @@ export function ProjectList({ initial }: { initial: Project[] }) {
     });
   }
 
+  async function handleToggleVisibility(id: string, current: boolean) {
+    try {
+      await api.toggleVisibility(id, !current);
+      setItems((xs) =>
+        xs.map((x) => (x.id === id ? { ...x, yayinda: !current } : x)),
+      );
+      toast(!current ? "Proje yayında." : "Proje gizlendi.");
+      router.refresh();
+    } catch (err) {
+      toast((err as Error).message, "error");
+    }
+  }
+
   async function handleDelete(id: string, name: string) {
     if (!confirm(`"${name}" silinsin mi?`)) return;
     try {
@@ -134,7 +147,28 @@ export function ProjectList({ initial }: { initial: Project[] }) {
               Öne Çıkar
             </span>
           )}
+          {!p.yayinda && (
+            <span
+              className="b3 flex-shrink-0 rounded-full px-2 py-0.5 lowercase font-medium"
+              style={{ background: "var(--gray-100)", color: "var(--ink-faint)" }}
+            >
+              Gizli
+            </span>
+          )}
           <div className="flex flex-shrink-0 gap-1.5">
+            <button
+              type="button"
+              title={p.yayinda ? "Gizle" : "Yayına al"}
+              onClick={() => handleToggleVisibility(p.id, p.yayinda)}
+              className="btn btn-ghost btn-sm"
+              style={
+                p.yayinda
+                  ? { color: "var(--ink-soft)" }
+                  : { color: "var(--accent)", fontWeight: 600 }
+              }
+            >
+              {p.yayinda ? "Gizle" : "Yayına Al"}
+            </button>
             <Link
               href={`/admin/projects/${p.id}/edit`}
               className="btn btn-ghost btn-sm"

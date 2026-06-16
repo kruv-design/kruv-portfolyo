@@ -34,6 +34,7 @@ type DemoInput = Omit<
   | "title"
   | "category"
   | "description"
+  | "yayinda"
   | GaleriKey
   | GaleriVideoKey
 > & {
@@ -48,6 +49,7 @@ function make(p: DemoInput): Project {
     title: "",
     category: "",
     description: "",
+    yayinda: true,
     ...p,
   } as unknown as Record<string, unknown>);
   return { ...row, created_at: now, updated_at: now };

@@ -139,6 +139,7 @@ export const projectSchema = z.object({
   bolumler: z.array(sectionSchema).max(20).default([]),
   etiketler: z.array(z.string().trim().min(1).max(40)).max(20).default([]),
   featured: z.boolean().default(false),
+  yayinda: z.boolean().default(true),
   next_project_override: z
     .string()
     .trim()
@@ -211,6 +212,7 @@ export function projectPayloadToDbRow(input: ProjectFormInput, slug: string) {
     bolumler: input.bolumler,
     etiketler: input.etiketler,
     featured: input.featured,
+    yayinda: input.yayinda,
     next_project_override: input.next_project_override ?? "",
     renk: input.renk,
   };

@@ -38,6 +38,7 @@ export function mapProjectRow(data: Record<string, unknown>): Project {
       : [],
     etiketler: Array.isArray(data.etiketler) ? (data.etiketler as string[]) : [],
     featured: Boolean(data.featured),
+    yayinda: data.yayinda !== false,
     next_project_override: String(data.next_project_override ?? ""),
     renk: String(data.renk ?? "#C8B8A8"),
     sira: Number(data.sira ?? 0),
