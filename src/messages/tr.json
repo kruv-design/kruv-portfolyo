@@ -28,12 +28,12 @@
     },
     "spotlight": {
       "ariaLabel": "Yaratıcı platformlarda öne çıkanlar",
-      "tagLabel": "Branding and InDesign",
+      "tagLabel": "Branding and İnDesign",
       "ctaLabel": "Projeleri gör",
       "ctaHref": "/works",
       "titleLines": [
         [{ "type": "text", "value": "Adobe Behance'de" }],
-        [{ "type": "text", "value": "öne çıkanlar" }]
+        [{ "type": "text", "value": "ödül alanlar" }]
       ],
       "ribbons": [{ "variant": "gr" }, { "variant": "id" }]
     },

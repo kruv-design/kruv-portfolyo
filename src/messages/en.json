@@ -28,13 +28,13 @@
     },
     "spotlight": {
       "ariaLabel": "Featured on creative platforms",
-      "tagLabel": "Branding and InDesign",
+      "tagLabel": "Branding and İnDesign",
       "ctaLabel": "See projects",
       "ctaHref": "/works",
       "titleLines": [
-        [{ "type": "text", "value": "Featured on" }],
+        [{ "type": "text", "value": "Award Winners" }],
         [
-          { "type": "text", "value": "Adobe " },
+          { "type": "text", "value": "on Adobe " },
           { "type": "accent", "value": "Behance" }
         ]
       ],
