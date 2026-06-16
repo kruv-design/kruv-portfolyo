@@ -10,18 +10,21 @@ import type { Project, SiteSettings } from "@/types";
 export type JsonLdNode = Record<string, unknown>;
 
 const DEFAULT_CONTACT_EMAIL = "hello@kruv.com";
+const DEFAULT_TELEPHONE = "+905323673866";
 
 const ORG_LOGO_PATH = "/assets/logo-white.svg";
 
 const ISTANBUL_ADDRESS = {
   "@type": "PostalAddress",
-  addressLocality: "Istanbul",
-  addressRegion: "Istanbul",
+  streetAddress: "Kadıköy",
+  addressLocality: "İstanbul",
+  addressRegion: "İstanbul",
   addressCountry: "TR",
 } as const;
 
 function absoluteUrl(path: string): string {
   const base = SITE_CANONICAL_URL.replace(/\/+$/, "");
+  if (/^https?:\/\//i.test(path)) return path;
   const normalized = path.startsWith("/") ? path : `/${path}`;
   return `${base}${normalized}`;
 }
@@ -57,7 +60,7 @@ export function buildOrganizationSchema({
   description: string;
 }): JsonLdNode {
   return compact({
-    "@type": "Organization",
+    "@type": ["Organization", "ProfessionalService"],
     "@id": `${absoluteUrl("/")}#organization`,
     name: "Kruv",
     alternateName: settings.siteAdi,
@@ -67,6 +70,7 @@ export function buildOrganizationSchema({
     inLanguage: locale,
     address: ISTANBUL_ADDRESS,
     email: contactEmail(),
+    telephone: DEFAULT_TELEPHONE,
     sameAs: collectSameAs(settings),
   });
 }
@@ -90,6 +94,8 @@ export function buildLocalBusinessSchema({
     url: absoluteUrl(withLocale("/", locale)),
     address: ISTANBUL_ADDRESS,
     email: contactEmail(),
+    telephone: DEFAULT_TELEPHONE,
+    areaServed: ["Turkey", "International"],
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: [
@@ -167,16 +173,35 @@ export function buildCreativeWorkSchema({
     "@type": "CreativeWork",
     name: title,
     description: intro || description,
-    image: project.kapak || undefined,
-    author: {
-      "@type": "Organization",
-      name: "Kruv",
-      url: absoluteUrl(withLocale("/", locale)),
+    image: project.kapak ? absoluteUrl(project.kapak) : undefined,
+    creator: {
+      "@id": `${absoluteUrl("/")}#organization`,
     },
     datePublished: published || undefined,
     keywords: project.etiketler?.length ? project.etiketler.join(", ") : undefined,
     url: absoluteUrl(withLocale(`/projects/${project.slug}`, locale)),
     inLanguage: locale,
+  });
+}
+
+export function buildPortfolioItemListSchema({
+  projects,
+  locale,
+}: {
+  projects: Project[];
+  locale: Locale;
+}): JsonLdNode {
+  return compact({
+    "@type": "ItemList",
+    name: locale === "tr" ? "Projeler" : "Projects",
+    url: absoluteUrl(withLocale("/works", locale)),
+    numberOfItems: projects.length,
+    itemListElement: projects.map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: absoluteUrl(withLocale(`/projects/${p.slug}`, locale)),
+      name: projectTitleForLocale(p, locale),
+    })),
   });
 }
 
@@ -194,6 +219,7 @@ export function buildContactPointSchema({
       "@type": "ContactPoint",
       contactType: "customer service",
       email: contactEmail(),
+      telephone: DEFAULT_TELEPHONE,
       areaServed: ["TR", "International"],
       availableLanguage: ["Turkish", "English"],
     },

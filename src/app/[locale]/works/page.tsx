@@ -10,7 +10,7 @@ import type { Locale } from "@/lib/i18n/config";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SITE_CANONICAL_URL } from "@/lib/site";
 import { withLocale } from "@/lib/i18n/path";
-import { buildBreadcrumbSchema } from "@/lib/seo/structured-data";
+import { buildBreadcrumbSchema, buildPortfolioItemListSchema } from "@/lib/seo/structured-data";
 
 export const revalidate = 60;
 
@@ -72,10 +72,13 @@ export default async function WorksPage({
   return (
     <MarketingPageShell className="flex min-h-screen flex-col">
       <JsonLd
-        data={buildBreadcrumbSchema([
-          { name: messages.footer.home, path: withLocale("/", locale) },
-          { name: worksTitle, path: withLocale("/works", locale) },
-        ])}
+        data={[
+          buildBreadcrumbSchema([
+            { name: messages.footer.home, path: withLocale("/", locale) },
+            { name: worksTitle, path: withLocale("/works", locale) },
+          ]),
+          buildPortfolioItemListSchema({ projects, locale }),
+        ]}
       />
       <MarketingSiteNav settings={settings} locale={locale} messages={messages} />
       <Suspense fallback={null}>
