@@ -24,6 +24,7 @@ export function MarketingHomeKayanYazi({
     loopSelector: ".home-kayan-yazi__sequence",
     minDur: 32,
     maxDur: 90,
+    minPlausibleWidth: 400,
   });
 
   return (
