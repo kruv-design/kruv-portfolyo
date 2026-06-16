@@ -64,9 +64,6 @@ export function ProjectDetail({
         <aside className="project-detail-aside animate-fadeUp">
           <div className="project-detail-aside-card">
             <MetaRow label={t(messages, "project.category", "Category")} value={project.kategori} />
-            {project.link?.trim() ? (
-              <MetaLinkRow href={project.link.trim()} messages={messages} />
-            ) : null}
             {project.etiketler?.length > 0 && (
               <div
                 className="flex flex-col gap-1 py-4"

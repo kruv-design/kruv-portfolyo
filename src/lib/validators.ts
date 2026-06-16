@@ -67,28 +67,6 @@ const videoUrlOrEmpty = z
     }
   }, "Video adresi geçerli görünmüyor.");
 
-/** Proje linki — `z.url()` bazı geçerli adresleri (boşluk, tarayıcı farkı) düşürüyordu */
-const linkUrlOrEmpty = z
-  .string()
-  .max(2048)
-  .transform((s) => compactUrlWhitespace(s))
-  .refine(
-    (s) => !s || /^https?:\/\//i.test(s),
-    "Link http(s) ile başlamalı veya boş bırakın.",
-  )
-  .refine(
-    (s) => {
-      if (!s) return true;
-      try {
-        return Boolean(new URL(s).hostname);
-      } catch {
-        return false;
-      }
-    },
-    "Geçerli bir adres girin veya boş bırakın.",
-  )
-  .optional()
-  .default("");
 
 /** #RGB → #RRGGBB; geçersiz / boş → varsayılan (kayıt 400 düşmesin) */
 function normalizeRenkHex(raw: string): string {
@@ -160,7 +138,6 @@ export const projectSchema = z.object({
   galeri_10_video: videoUrlOrEmpty.optional().default(""),
   bolumler: z.array(sectionSchema).max(20).default([]),
   etiketler: z.array(z.string().trim().min(1).max(40)).max(20).default([]),
-  link: linkUrlOrEmpty,
   featured: z.boolean().default(false),
   next_project_override: z
     .string()
@@ -233,7 +210,6 @@ export function projectPayloadToDbRow(input: ProjectFormInput, slug: string) {
     galeri_10_video: input.galeri_10_video,
     bolumler: input.bolumler,
     etiketler: input.etiketler,
-    link: input.link,
     featured: input.featured,
     next_project_override: input.next_project_override ?? "",
     renk: input.renk,

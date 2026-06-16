@@ -37,7 +37,6 @@ export function mapProjectRow(data: Record<string, unknown>): Project {
       ? data.bolumler.map(normalizeSection)
       : [],
     etiketler: Array.isArray(data.etiketler) ? (data.etiketler as string[]) : [],
-    link: String(data.link ?? ""),
     featured: Boolean(data.featured),
     next_project_override: String(data.next_project_override ?? ""),
     renk: String(data.renk ?? "#C8B8A8"),

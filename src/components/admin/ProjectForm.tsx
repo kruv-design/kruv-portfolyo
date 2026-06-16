@@ -31,7 +31,6 @@ type FormState = {
   kapak_video: string;
   bolumler: ProjectSection[];
   etiketler: string[];
-  link: string;
   featured: boolean;
   next_project_override: string;
   renk: string;
@@ -52,7 +51,6 @@ const EMPTY: FormState = {
   ...emptyGaleriVideoSlots(),
   bolumler: [],
   etiketler: [],
-  link: "",
   featured: false,
   next_project_override: "",
   renk: "#C8B8A8",
@@ -91,7 +89,6 @@ function fromProject(p: Project): FormState {
     galeri_10_video: p.galeri_10_video,
     bolumler: [...p.bolumler],
     etiketler: [...p.etiketler],
-    link: p.link,
     featured: p.featured,
     next_project_override: p.next_project_override ?? "",
     renk: p.renk || "#C8B8A8",
@@ -388,16 +385,6 @@ export function ProjectForm({
               className="flex flex-col gap-5 border-t px-5 pb-5 pt-4 sm:px-6"
               style={{ borderColor: "var(--adm-border)" }}
             >
-              <Field label="Dış link" hint="Behance, web sitesi vb.">
-                <input
-                  type="url"
-                  className="form-input"
-                  value={form.link}
-                  onChange={(e) => patch("link", e.target.value)}
-                  placeholder="https://…"
-                />
-              </Field>
-
               <Field label="Etiketler">
                 <TagInput
                   value={form.etiketler}

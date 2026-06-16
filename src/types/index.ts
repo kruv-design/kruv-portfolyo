@@ -53,7 +53,6 @@ export type Project = {
   galeri_10_video: string;
   bolumler: ProjectSection[];
   etiketler: string[];
-  link: string;
   featured: boolean;
   /** Proje detay banner'ında manuel sonraki proje slug'ı (boş = otomatik) */
   next_project_override?: string;
