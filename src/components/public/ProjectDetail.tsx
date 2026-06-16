@@ -161,21 +161,6 @@ function MetaRow({ label, value }: { label: string; value: string }) {
   );
 }
 
-function projectLinkHref(raw: string): string {
-  const t = raw.trim();
-  if (!t) return "";
-  return /^https?:\/\//i.test(t) ? t : `https://${t}`;
-}
-
-function projectLinkLabel(raw: string): string {
-  try {
-    const host = new URL(projectLinkHref(raw)).hostname.replace(/^www\./i, "");
-    return host || raw;
-  } catch {
-    return raw;
-  }
-}
-
 
 function NavArrow({
   slug,

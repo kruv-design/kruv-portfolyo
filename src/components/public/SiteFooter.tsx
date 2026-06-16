@@ -15,18 +15,12 @@ export function SiteFooter({
   settings,
   locale,
   messages,
-  count,
-  total,
 }: {
   settings: SiteSettings;
   locale: Locale;
   messages: Messages;
-  count?: number;
-  total?: number;
 }) {
   const copy = messages.footer;
-  const showCount =
-    typeof count === "number" && typeof total === "number";
 
   return (
     <footer className="site-footer" id="contact" lang={locale}>
@@ -71,18 +65,7 @@ export function SiteFooter({
           </div>
         </div>
 
-        <div
-          className={`site-footer-bar${
-            showCount ? " site-footer-bar--split" : ""
-          }`}
-        >
-          {showCount ? (
-            <p className="b2 site-footer-count">
-              {copy.projectCount
-                .replace("{count}", String(count))
-                .replace("{total}", String(total))}
-            </p>
-          ) : null}
+        <div className="site-footer-bar">
           <p className="b2 site-footer-legal">{settings.footerYazi}</p>
         </div>
       </div>

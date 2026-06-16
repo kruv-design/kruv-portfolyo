@@ -96,8 +96,6 @@ export function PortfolioGrid({
         settings={settings}
         locale={locale}
         messages={messages}
-        count={filtered.length}
-        total={projects.length}
       />
     </div>
   );
