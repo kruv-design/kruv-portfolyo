@@ -176,34 +176,6 @@ function projectLinkLabel(raw: string): string {
   }
 }
 
-function MetaLinkRow({
-  href,
-  messages,
-}: {
-  href: string;
-  messages: Messages;
-}) {
-  const url = projectLinkHref(href);
-  return (
-    <div
-      className="flex flex-col gap-1 py-4"
-      style={{ borderBottom: "1px solid var(--border)" }}
-    >
-      <span className="b3" style={{ color: "var(--ink-faint)" }}>
-        {t(messages, "project.link", "Link")}
-      </span>
-      <a
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="b1 break-all underline-offset-2 hover:underline"
-        style={{ color: "var(--accent)" }}
-      >
-        {projectLinkLabel(href)}
-      </a>
-    </div>
-  );
-}
 
 function NavArrow({
   slug,
