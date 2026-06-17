@@ -242,6 +242,12 @@ export async function sendContactEmails(
     });
     if (error) {
       console.error("[contact-email] auto-reply", error);
+      const msg = typeof error.message === "string" ? error.message : "";
+      if (msg.includes("verify a domain")) {
+        console.warn(
+          "[contact-email] Ziyaretçi onay maili için resend.com/domains üzerinden kruv.com doğrulayın ve RESEND_FROM=kruv <hello@kruv.com> kullanın.",
+        );
+      }
     } else {
       result.autoReplySent = true;
     }
