@@ -267,20 +267,15 @@ const emptyOrEmail = z
 export const contactPayloadSchema = z.object({
   name: z.string().trim().max(200).optional().default(""),
   email: emptyOrEmail.optional().default(""),
-  company: z.string().trim().max(200).optional().default(""),
-  phone: z.string().trim().max(40).optional().default(""),
-  projectType: z.string().trim().max(80).optional().default(""),
-  budget: z.string().trim().max(80).optional().default(""),
-  timeline: z.string().trim().max(80).optional().default(""),
   message: z.string().trim().max(5000).optional().default(""),
-  referrer: z.string().trim().max(80).optional().default(""),
 });
 
 export type ContactPayloadInput = z.infer<typeof contactPayloadSchema>;
 
 export const contactPartialBodySchema = z.object({
   sessionId: z.string().uuid("Oturum geçersiz."),
-  step: z.number().int().min(0).max(2).optional(),
+  /** Eski multi-step form ile uyumluluk; tek-sayfa formda gönderilmez. */
+  step: z.number().int().min(0).max(10).optional(),
   payload: contactPayloadSchema,
 });
 

@@ -6,6 +6,9 @@ import { withLocale } from "@/lib/i18n/path";
 import { MarketingSiteNav } from "@/components/public/MarketingSiteNav";
 import { MarketingPageShell } from "@/components/public/MarketingPageShell";
 import { ContactForm } from "@/components/public/ContactForm";
+import { ContactDetails } from "@/components/public/ContactDetails";
+import { ContactAddresses } from "@/components/public/ContactAddresses";
+import { ContactSocials } from "@/components/public/ContactSocials";
 import { SiteFooter } from "@/components/public/SiteFooter";
 import { getMessages } from "@/lib/i18n/get-messages";
 
@@ -45,6 +48,9 @@ export default async function ContactPage() {
       <MarketingSiteNav settings={settings} locale={locale} messages={messages} />
       <main className="contact-page-main">
         <ContactForm locale={locale} messages={messages} />
+        <ContactDetails locale={locale} messages={messages} />
+        <ContactAddresses locale={locale} messages={messages} />
+        <ContactSocials settings={settings} messages={messages} />
       </main>
       <SiteFooter settings={settings} locale={locale} messages={messages} />
     </MarketingPageShell>

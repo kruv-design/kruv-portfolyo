@@ -13,14 +13,11 @@ function escapeHtml(s: string): string {
 }
 
 function buildNotifyHtml(payload: ContactPayloadInput): string {
-  const rows = [
+  const rows: [string, string][] = [
     ["Ad", payload.name.trim()],
     ["E-posta", payload.email.trim()],
     ["Mesaj", payload.message.trim()],
   ];
-  if (payload.phone.trim()) rows.push(["Telefon", payload.phone.trim()]);
-  if (payload.budget.trim()) rows.push(["Bütçe", payload.budget.trim()]);
-  if (payload.timeline.trim()) rows.push(["Zaman", payload.timeline.trim()]);
 
   const body = rows
     .map(

@@ -169,28 +169,46 @@
   },
   "contact": {
     "metaTitle": "Contact",
-    "metaDescription": "Start your project with Kruv. Get in touch with our creative team in Istanbul. Quick 3-step inquiry form.",
-    "eyebrow": "Contact",
-    "title": "Let's build together",
-    "lead": "Three quick steps: your name, your email, and your message.",
-    "step": "Step",
-    "stepTitles": ["Your name", "Your email", "Your message"],
-    "nameLabel": "Your name",
-    "emailLabel": "Your email",
-    "messageLabel": "Your message",
-    "namePlaceholder": "e.g. Jane Doe",
-    "emailPlaceholder": "you@example.com",
-    "messagePlaceholder": "Briefly describe your project or question.",
+    "metaDescription": "Have an idea? Get in touch with the Kruv team in Istanbul and Izmir.",
+    "eyebrow": "GET IN TOUCH",
+    "title": "Have an idea?",
+    "lead": "",
+    "nameLabel": "NAME",
+    "emailLabel": "EMAIL",
+    "messageLabel": "YOUR MESSAGE",
+    "namePlaceholder": "YOUR NAME",
+    "emailPlaceholder": "MAIL@MAIL.COM",
+    "messagePlaceholder": "WHAT ARE YOU WORKING ON?",
     "honeypotLabel": "Your website (leave empty)",
-    "back": "Back",
-    "continue": "Continue",
-    "submit": "Submit",
+    "submit": "Start the project",
     "submitting": "Submitting…",
     "submitFailed": "Submission failed. Please try again in a moment.",
     "networkError": "Network error. Please check your connection and try again.",
     "successTitle": "Your message has been sent.",
     "successBodyPrefix": "We will get back to you shortly. In the meantime, you can visit the",
     "successBodyLink": "Works",
-    "successBodySuffix": "page."
+    "successBodySuffix": "page.",
+    "details": {
+      "title": "Let’s start",
+      "email": "hello@kruv.com",
+      "phone": "+90 532 367 38 66",
+      "whatsappCta": "Let’s talk on WhatsApp",
+      "whatsappUrl": "https://wa.me/905323673866",
+      "phoneTel": "+905323673866"
+    },
+    "address": {
+      "title": "Address",
+      "entries": [
+        {
+          "line": "Rasimpaşa Mah. Macit Erbudak Sok. No:52/B ",
+          "highlight": "Istanbul / TÜRKİYE"
+        },
+        {
+          "line": "Bayraklı Tower K:1 No:, D:011 ",
+          "highlight": "Izmir / TÜRKİYE"
+        }
+      ]
+    },
+    "socialsAria": "Social media"
   }
 }

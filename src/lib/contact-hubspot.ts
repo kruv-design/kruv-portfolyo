@@ -14,14 +14,7 @@ function splitName(full: string): { firstname: string; lastname: string } {
 }
 
 function buildMessageBody(p: ContactPayloadInput): string {
-  const lines = [
-    p.message.trim(),
-    p.phone.trim() ? `Telefon: ${p.phone.trim()}` : null,
-    p.budget.trim() ? `Bütçe (varsa): ${p.budget.trim()}` : null,
-    p.timeline.trim() ? `Zaman (varsa): ${p.timeline.trim()}` : null,
-    p.referrer.trim() ? `Kaynak: ${p.referrer.trim()}` : null,
-  ].filter(Boolean) as string[];
-  return lines.join("\n").trim().slice(0, 65000);
+  return p.message.trim().slice(0, 65000);
 }
 
 /**
@@ -44,12 +37,6 @@ export async function submitContactToHubSpot(options: {
     { name: "email", value: options.payload.email.trim() },
     { name: "message", value: message },
   ];
-  if (options.payload.phone.trim()) {
-    fields.push({ name: "phone", value: options.payload.phone.trim() });
-  }
-  if (options.payload.company.trim()) {
-    fields.push({ name: "company", value: options.payload.company.trim() });
-  }
 
   const url = `https://api.hsforms.com/submissions/v3/integration/submit/${options.portalId}/${options.formGuid}`;
   const controller = new AbortController();

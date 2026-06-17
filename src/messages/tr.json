@@ -166,28 +166,46 @@
   },
   "contact": {
     "metaTitle": "İletişim",
-    "metaDescription": "Kruv ile iletişime geçin. Projeniz için hızlı ve kolay iletişim formu. İstanbul'da yaratıcı ekibimizle tanışın.",
-    "eyebrow": "İletişim",
-    "title": "Birlikte üretelim",
-    "lead": "Üç kısa adım: adınız, e-postanız ve mesajınız.",
-    "step": "Adım",
-    "stepTitles": ["Adınız", "Mailiniz", "Mesajınız"],
-    "nameLabel": "Adınız",
-    "emailLabel": "Mailiniz",
-    "messageLabel": "Mesajınız",
-    "namePlaceholder": "Örn. Ayşe Yılmaz",
-    "emailPlaceholder": "siz@ornek.com",
-    "messagePlaceholder": "Kısaca projenizi veya sorunuzu yazın.",
+    "metaDescription": "Kruv ile iletişime geçin. Bir fikriniz mi var? İstanbul ve İzmir’deki yaratıcı ekibimize yazın.",
+    "eyebrow": "İLETİŞİME GEÇELİM",
+    "title": "Bir fikriniz mi var?",
+    "lead": "",
+    "nameLabel": "İSİM",
+    "emailLabel": "EMAIL",
+    "messageLabel": "MESAJINIZ",
+    "namePlaceholder": "ADINIZI YAZIN",
+    "emailPlaceholder": "MAIL@MAIL.COM",
+    "messagePlaceholder": "NE ÜZERİNE ÇALIŞIYORSUNUZ?",
     "honeypotLabel": "Web siteniz (boş bırakın)",
-    "back": "Geri",
-    "continue": "Devam",
-    "submit": "Gönder",
+    "submit": "Projeye başla",
     "submitting": "Gönderiliyor…",
     "submitFailed": "Gönderim başarısız. Biraz sonra tekrar deneyin.",
     "networkError": "Ağ hatası. Bağlantınızı kontrol edip tekrar deneyin.",
     "successTitle": "Mesajınız iletildi.",
     "successBodyPrefix": "Size en kısa zamanda ulaşacağız. Bu arada projelerimize göz atmak isterseniz",
     "successBodyLink": "Projeler",
-    "successBodySuffix": "sayfasına gidebilirsiniz."
+    "successBodySuffix": "sayfasına gidebilirsiniz.",
+    "details": {
+      "title": "Başlayalım",
+      "email": "hello@kruv.com",
+      "phone": "+90 532 367 38 66",
+      "whatsappCta": "Whatsapp üzerinden konuşalım",
+      "whatsappUrl": "https://wa.me/905323673866",
+      "phoneTel": "+905323673866"
+    },
+    "address": {
+      "title": "Adres",
+      "entries": [
+        {
+          "line": "Rasimpaşa Mah. Macit Erbudak Sok. No:52/B ",
+          "highlight": "İstanbul / TÜRKİYE"
+        },
+        {
+          "line": "Bayraklı Tower K:1 No:, D:011 ",
+          "highlight": "İzmir / TÜRKİYE"
+        }
+      ]
+    },
+    "socialsAria": "Sosyal medya"
   }
 }
