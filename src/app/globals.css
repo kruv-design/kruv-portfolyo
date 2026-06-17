@@ -2643,3 +2643,112 @@ i {
     scroll-behavior: auto !important;
   }
 }
+
+/* ── Çerez onay banner'ı (alt orta) ── */
+.cookie-consent {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: 10001;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: min(480px, calc(100vw - 32px));
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  border: 1px solid var(--border-md);
+  box-shadow: var(--shadow-lg);
+  color: var(--ink-soft);
+  font-family: var(--font-body);
+  font-size: var(--type-b2);
+  line-height: 1.45;
+  text-align: center;
+  pointer-events: auto;
+  transform: translateX(-50%);
+  animation: cookie-consent-in 0.35s var(--ease-standard, ease) both;
+}
+
+.cookie-consent__text {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--type-b1);
+}
+
+.cookie-consent__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.cookie-consent__yes,
+.cookie-consent__necessary,
+.cookie-consent__no {
+  font-family: inherit;
+  font-size: var(--type-b2);
+  line-height: 1.25;
+  cursor: pointer;
+  border-radius: var(--radius-btn-pill);
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.cookie-consent__yes {
+  padding: 8px 18px;
+  background: var(--accent);
+  color: var(--gray-anti);
+  border: none;
+  font-weight: 600;
+}
+
+.cookie-consent__yes:hover {
+  background: var(--accent-hover);
+}
+
+.cookie-consent__necessary {
+  padding: 8px 14px;
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--border-md);
+  font-weight: 500;
+}
+
+.cookie-consent__necessary:hover {
+  border-color: var(--gray-400);
+  background: var(--gray-50);
+}
+
+.cookie-consent__no {
+  padding: 8px 14px;
+  background: transparent;
+  color: var(--ink-faint);
+  border: none;
+  font-weight: 500;
+}
+
+.cookie-consent__no:hover {
+  color: var(--ink);
+}
+
+@keyframes cookie-consent-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cookie-consent {
+    animation: none;
+  }
+}

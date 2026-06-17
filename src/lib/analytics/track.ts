@@ -1,4 +1,4 @@
-import { hasAnalyticsConsent } from "@/lib/analytics/consent";
+import { canTrackFirstParty } from "@/lib/analytics/consent";
 
 const SESSION_KEY = "kruv-session-id";
 
@@ -16,7 +16,7 @@ function getSessionId(): string {
 }
 
 export function track(eventName: string, props?: Record<string, unknown>) {
-  if (!hasAnalyticsConsent()) return;
+  if (!canTrackFirstParty()) return;
 
   try {
     const payload = {

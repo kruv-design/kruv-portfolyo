@@ -6,21 +6,36 @@ import {
 } from "./helpers/analytics";
 
 test.describe("Site analitiği — consent & track", () => {
-  test("consent reddedildiğinde /api/track gitmez", async ({ page }) => {
-    await setAnalyticsConsent(page, "denied");
+  test("ilk ziyarette çerez banner'ı görünür", async ({ page }) => {
+    await setAnalyticsConsent(page, null);
+    await page.goto("/tr");
+    const banner = page.getByRole("dialog", { name: "Analitik izni" });
+    await expect(banner).toBeVisible();
+    await expect(banner.getByRole("button", { name: "evet" })).toBeVisible();
+  });
+
+  test("hayır seçilince /api/track gitmez", async ({ page }) => {
+    await setAnalyticsConsent(page, null);
     const tracker = watchTrackRequests(page);
 
-    await page.goto("/");
+    await page.goto("/tr");
+    await page.getByRole("button", { name: "hayır" }).click();
     await waitQuiet(2000);
 
-    const worksLink = page.locator('a[href*="/works"]').first();
-    if (await worksLink.isVisible()) {
-      await worksLink.click();
-      await page.waitForLoadState("networkidle");
-      await waitQuiet(1500);
-    }
-
     expect(tracker.payloads).toHaveLength(0);
+    tracker.stop();
+  });
+
+  test("sadece zorunlu seçilince page_view gider", async ({ page }) => {
+    await setAnalyticsConsent(page, null);
+    const tracker = watchTrackRequests(page);
+
+    await page.goto("/tr");
+    await page.getByRole("button", { name: "sadece zorunlu olanları" }).click();
+    const views = await tracker.waitForEvent("page_view");
+
+    expect(views.length).toBeGreaterThan(0);
+    expect(views[0]?.event_name).toBe("page_view");
     tracker.stop();
   });
 

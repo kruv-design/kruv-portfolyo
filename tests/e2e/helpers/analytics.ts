@@ -12,12 +12,12 @@ export type TrackPayload = {
 
 export async function setAnalyticsConsent(
   page: Page,
-  value: "granted" | "denied" | null,
+  value: "granted" | "necessary" | "rejected" | "denied" | null,
 ) {
   await page.addInitScript(
-    ([key, val]) => {
-      if (val) localStorage.setItem(key, val);
-      else localStorage.removeItem(key);
+    ([consentKey, val]) => {
+      if (val) localStorage.setItem(consentKey, val);
+      else localStorage.removeItem(consentKey);
     },
     [ANALYTICS_CONSENT_KEY, value] as const,
   );
@@ -44,7 +44,7 @@ export function watchTrackRequests(page: Page) {
     stop: () => page.off("request", onRequest),
     waitForEvent: async (eventName: string, timeout = 8000) => {
       const start = Date.now();
-      while Date.now() - start < timeout) {
+      while (Date.now() - start < timeout) {
         if (payloads.some((p) => p.event_name === eventName)) {
           return payloads.filter((p) => p.event_name === eventName);
         }

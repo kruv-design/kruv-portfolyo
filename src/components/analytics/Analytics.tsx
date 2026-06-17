@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
   ANALYTICS_CONSENT_KEY,
+  parseStoredConsent,
   type AnalyticsConsent,
 } from "@/lib/analytics/consent";
 import { track } from "@/lib/analytics/track";
@@ -12,11 +13,10 @@ import { track } from "@/lib/analytics/track";
 /**
  * GA4 + Microsoft Clarity yükleyici + birinci taraf olay takibi.
  *
- * - `gaId` / `clarityId` ayarlı değilse üçüncü taraf script yüklenmez;
- *   onay banner'ı ve Supabase `site_events` takibi yine çalışır.
- * - KVKK/GDPR uyumu için basit bir onay (consent) banner'ı gösterir;
- *   scriptler yalnızca kullanıcı "Kabul et" dedikten sonra yüklenir.
- * - Tercih `localStorage` (kruv-analytics-consent) içinde saklanır.
+ * Çerez tercihleri (KVKK / GDPR):
+ * - evet → birinci taraf + üçüncü taraf (GA/Clarity)
+ * - sadece zorunlu olanları → birinci taraf analitik (site_events)
+ * - hayır → takip yok
  */
 
 type Consent = AnalyticsConsent | null;
@@ -35,18 +35,16 @@ export function Analytics({
   useEffect(() => {
     setHydrated(true);
     try {
-      const stored = window.localStorage.getItem(ANALYTICS_CONSENT_KEY);
-      if (stored === "granted" || stored === "denied") {
-        setConsent(stored);
-      }
+      setConsent(
+        parseStoredConsent(window.localStorage.getItem(ANALYTICS_CONSENT_KEY)),
+      );
     } catch {
-      // localStorage erişilemiyor (gizli mod vb.) - banner gösterilmez,
-      // analytics yüklenmez.
+      // localStorage erişilemiyor — banner gösterilmez, takip yok.
     }
   }, []);
 
   useEffect(() => {
-    if (!hydrated || consent !== "granted") return;
+    if (!hydrated || consent === null || consent === "rejected") return;
     track("page_view");
   }, [hydrated, consent, pathname]);
 
@@ -58,6 +56,8 @@ export function Analytics({
     }
     setConsent(value);
   }
+
+  const showBanner = hydrated && consent === null;
 
   return (
     <>
@@ -86,65 +86,37 @@ gtag('config', '${gaId}', { anonymize_ip: true });`}
         </Script>
       ) : null}
 
-      {hydrated && consent === null ? (
+      {showBanner ? (
         <div
+          className="cookie-consent"
           role="dialog"
-          aria-label="Çerez ve analiz izni"
+          aria-label="Analitik izni"
           aria-live="polite"
-          style={{
-            position: "fixed",
-            bottom: 16,
-            left: 16,
-            right: 16,
-            zIndex: 9999,
-            maxWidth: 480,
-            margin: "0 auto",
-            background: "#111827",
-            color: "#F9FAFB",
-            borderRadius: 12,
-            padding: "16px 18px",
-            boxShadow: "0 8px 24px rgba(0,0,0,0.25)",
-            fontSize: 13,
-            lineHeight: 1.5,
-            fontFamily: "inherit",
-          }}
         >
-          <p style={{ margin: "0 0 12px" }}>
-            Siteyi nasıl kullandığınızı anlamak için Google Analytics ve
-            Microsoft Clarity ile anonim kullanım verisi topluyoruz. Kabul
-            ediyor musunuz?
+          <p className="cookie-consent__text">
+            Siteyi iyileştirmek için analitik verisi toplayalım mı?
           </p>
-          <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
+          <div className="cookie-consent__actions">
             <button
               type="button"
-              onClick={() => choose("denied")}
-              style={{
-                background: "transparent",
-                color: "#F9FAFB",
-                border: "1px solid #4B5563",
-                borderRadius: 8,
-                padding: "6px 14px",
-                fontSize: 13,
-                cursor: "pointer",
-              }}
+              className="cookie-consent__yes"
+              onClick={() => choose("granted")}
             >
-              Reddet
+              evet
             </button>
             <button
               type="button"
-              onClick={() => choose("granted")}
-              style={{
-                background: "#F9FAFB",
-                color: "#111827",
-                border: "none",
-                borderRadius: 8,
-                padding: "6px 14px",
-                fontSize: 13,
-                fontWeight: 600,
-                cursor: "pointer",
-              }}
+              className="cookie-consent__necessary"
+              onClick={() => choose("necessary")}
             >
-              Kabul et
+              sadece zorunlu olanları
+            </button>
+            <button
+              type="button"
+              className="cookie-consent__no"
+              onClick={() => choose("rejected")}
+            >
+              hayır
             </button>
           </div>
         </div>
