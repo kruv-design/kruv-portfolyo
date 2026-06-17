@@ -1,5 +1,8 @@
 export const ANALYTICS_CONSENT_KEY = "kruv-analytics-consent";
 
+/** Banner gösterildikten sonra seçim yapılmazsa otomatik "evet" (ms) */
+export const CONSENT_AUTO_GRANT_MS = 4_000;
+
 /** granted = tüm analitik; necessary = birinci taraf analitik; rejected = takip yok */
 export type AnalyticsConsent = "granted" | "necessary" | "rejected";
 

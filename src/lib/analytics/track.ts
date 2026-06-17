@@ -1,19 +1,5 @@
 import { canTrackFirstParty } from "@/lib/analytics/consent";
-
-const SESSION_KEY = "kruv-session-id";
-
-function getSessionId(): string {
-  try {
-    let id = sessionStorage.getItem(SESSION_KEY);
-    if (!id) {
-      id = crypto.randomUUID();
-      sessionStorage.setItem(SESSION_KEY, id);
-    }
-    return id;
-  } catch {
-    return "unknown";
-  }
-}
+import { getSessionId } from "@/lib/analytics/session";
 
 export function track(eventName: string, props?: Record<string, unknown>) {
   if (!canTrackFirstParty()) return;

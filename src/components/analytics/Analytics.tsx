@@ -5,10 +5,12 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
   ANALYTICS_CONSENT_KEY,
+  CONSENT_AUTO_GRANT_MS,
   parseStoredConsent,
   type AnalyticsConsent,
 } from "@/lib/analytics/consent";
 import { track } from "@/lib/analytics/track";
+import { pingPresence, PRESENCE_HEARTBEAT_MS } from "@/lib/analytics/presence";
 
 /**
  * GA4 + Microsoft Clarity yükleyici + birinci taraf olay takibi.
@@ -17,6 +19,7 @@ import { track } from "@/lib/analytics/track";
  * - evet → birinci taraf + üçüncü taraf (GA/Clarity)
  * - sadece zorunlu olanları → birinci taraf analitik (site_events)
  * - hayır → takip yok
+ * - Seçim yapılmazsa 4 sn sonra otomatik evet (granted)
  */
 
 type Consent = AnalyticsConsent | null;
@@ -32,6 +35,15 @@ export function Analytics({
   const [consent, setConsent] = useState<Consent>(null);
   const [hydrated, setHydrated] = useState(false);
 
+  function choose(value: AnalyticsConsent) {
+    try {
+      window.localStorage.setItem(ANALYTICS_CONSENT_KEY, value);
+    } catch {
+      /* yoksay */
+    }
+    setConsent(value);
+  }
+
   useEffect(() => {
     setHydrated(true);
     try {
@@ -44,18 +56,21 @@ export function Analytics({
   }, []);
 
   useEffect(() => {
+    if (!hydrated || consent !== null) return;
+    const id = window.setTimeout(() => choose("granted"), CONSENT_AUTO_GRANT_MS);
+    return () => window.clearTimeout(id);
+  }, [hydrated, consent]);
+
+  useEffect(() => {
     if (!hydrated || consent === null || consent === "rejected") return;
     track("page_view");
+    pingPresence(pathname);
+    const id = window.setInterval(
+      () => pingPresence(pathname),
+      PRESENCE_HEARTBEAT_MS,
+    );
+    return () => window.clearInterval(id);
   }, [hydrated, consent, pathname]);
-
-  function choose(value: AnalyticsConsent) {
-    try {
-      window.localStorage.setItem(ANALYTICS_CONSENT_KEY, value);
-    } catch {
-      /* yoksay */
-    }
-    setConsent(value);
-  }
 
   const showBanner = hydrated && consent === null;
 
