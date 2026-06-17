@@ -122,7 +122,7 @@ export function ContactForm({
           <p className="contact-form-success-eyebrow b3">
             {t(messages, "contact.eyebrow")}
           </p>
-          <h2 className="contact-form-success-title h3">
+          <h2 className="contact-form-success-title h2">
             {t(messages, "contact.successTitle")}
           </h2>
           <p className="contact-form-success-body b1">

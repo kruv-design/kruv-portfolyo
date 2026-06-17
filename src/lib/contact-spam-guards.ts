@@ -5,7 +5,6 @@ export type SpamCheckResult = { ok: true } | { ok: false; reason: string };
 
 const MIN_NAME = 2;
 const MAX_NAME = 120;
-const MIN_MESSAGE = 10;
 const MAX_MESSAGE = 5000;
 const MAX_LINKS = 3;
 /** Yalnızca harf sayan asgari eşik üstünde caps oranını dener. */
@@ -33,9 +32,6 @@ export function checkContactSpam(payload: ContactPayloadInput): SpamCheckResult 
   }
   if (name.length > MAX_NAME) {
     return { ok: false, reason: "İsim çok uzun." };
-  }
-  if (message.length < MIN_MESSAGE) {
-    return { ok: false, reason: "Mesaj en az 10 karakter olmalı." };
   }
   if (message.length > MAX_MESSAGE) {
     return { ok: false, reason: "Mesaj çok uzun." };
