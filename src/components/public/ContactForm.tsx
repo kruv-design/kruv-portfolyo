@@ -43,6 +43,17 @@ export function ContactForm({
 
   const snapshot = useMemo(() => JSON.stringify(values), [values]);
 
+  const isFormReady = useMemo(() => {
+    const name = values.name.trim();
+    const email = values.email.trim();
+    const message = values.message.trim();
+    return (
+      name.length >= 2 &&
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) &&
+      message.length > 0
+    );
+  }, [values]);
+
   useEffect(() => {
     if (!sessionId || done) return;
     const timer = window.setTimeout(async () => {
@@ -233,7 +244,7 @@ export function ContactForm({
 
         <button
           type="submit"
-          className="contact-form-btn contact-form-btn--block"
+          className={`contact-form-btn contact-form-btn--block${isFormReady ? " contact-form-btn--ready" : ""}`}
           disabled={submitting || !sessionId}
         >
           {submitting ? t(messages, "contact.submitting") : t(messages, "contact.submit")}

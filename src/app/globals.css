@@ -1971,7 +1971,7 @@ i {
 /* ── Contact page / form ─ Figma 3765:11022 ─────────────── */
 .contact-page-main {
   flex: 1;
-  padding-top: calc(var(--works-body-pad-top) + var(--space-12));
+  padding-top: calc(var(--works-body-pad-top) + var(--space-8));
   padding-inline: var(--container-gutter);
   padding-bottom: var(--space-14, 7rem);
   display: flex;
@@ -1982,7 +1982,7 @@ i {
 
 @media (max-width: 768px) {
   .contact-page-main {
-    padding-top: calc(var(--works-body-pad-top) + var(--space-10));
+    padding-top: calc(var(--works-body-pad-top) + var(--space-6));
     padding-bottom: var(--space-12);
     gap: var(--space-12);
   }
@@ -1994,7 +1994,7 @@ i {
   margin-inline: auto;
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-4);
 }
 
 .contact-form-header {
@@ -2188,6 +2188,14 @@ i {
 
 .contact-form-btn--block:hover:not(:disabled) {
   background: var(--gray-600);
+}
+
+.contact-form-btn--block.contact-form-btn--ready {
+  background: var(--accent);
+}
+
+.contact-form-btn--block.contact-form-btn--ready:hover:not(:disabled) {
+  background: var(--accent-hover);
 }
 
 /* ── Contact alt bölümler — Başlayalım / Adres / Sosyal ── */
