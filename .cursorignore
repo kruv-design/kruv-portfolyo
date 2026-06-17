@@ -16,3 +16,6 @@ package-lock.json
 # Legacy / test statik
 public/kruv_site_files/
 public/kruv-showcase-sections-test.html
+public/kruv.html
+public/kruv.css
+public/home-figma.css

@@ -16,4 +16,4 @@ export const ENABLE_KAYAN_IKONLU_YAZI = false;
  * İletişim sayfası + nav/footer CTA + Lets Talk bandı.
  * Altyapı (Supabase, Resend) hazır olunca true yapın ve yeniden deploy edin.
  */
-export const ENABLE_PUBLIC_CONTACT = false;
+export const ENABLE_PUBLIC_CONTACT = true;
