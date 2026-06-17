@@ -1,4 +1,5 @@
 import type { Locale } from "@/lib/i18n/config";
+import { BRAND_NAME } from "@/lib/brand";
 import {
   projectIntroForLocale,
   projectTitleForLocale,
@@ -27,14 +28,14 @@ export function projectMetaDescription(project: Project, locale: Locale): string
   if (locale === "en") {
     return (
       category
-        ? `${title} - ${category} project by Kruv.`
-        : `${title} - Creative project by Kruv.`
+        ? `${title} - ${category} project by ${BRAND_NAME}`
+        : `${title} - Creative project by ${BRAND_NAME}`
     ).slice(0, META_MAX);
   }
 
   return (
     category
-      ? `${title} - ${category} projesi. Kruv yaratıcı tasarım stüdyosu.`
-      : `${title} - Kruv yaratıcı tasarım stüdyosu projesi.`
+      ? `${title} - ${category} projesi. ${BRAND_NAME} yaratıcı tasarım stüdyosu.`
+      : `${title} - ${BRAND_NAME} yaratıcı tasarım stüdyosu projesi.`
   ).slice(0, META_MAX);
 }

@@ -1,4 +1,4 @@
-# kruv. — Portfolyo CMS
+# kruv — Portfolyo CMS
 
 Production-ready rebuild of the single-file `kruv.html` prototype.
 A premium, minimal portfolio CMS for a design agency.

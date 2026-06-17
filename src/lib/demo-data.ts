@@ -541,7 +541,7 @@ const motion: Project[] = [
   make({
     id: "demo-showreel-24",
     slug: "kruv-showreel-2024",
-    baslik: "Kruv. Showreel 2024",
+    baslik: "kruv Showreel 2024",
     kategori: "Motion",
     aciklama:
       "Yıl içinde yapılan motion, brand ve ürün projelerinden kesit sunan 52 saniyelik yıllık reel.",

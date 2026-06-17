@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { normalizeBrandName } from "@/lib/brand";
 import {
   GALERI_KEYS,
   GALERI_VIDEO_KEYS,
@@ -239,7 +240,7 @@ const optHttpUrl = z
   );
 
 export const settingsSchema = z.object({
-  siteAdi: nonEmpty.max(100),
+  siteAdi: nonEmpty.max(100).transform(normalizeBrandName),
   tagline: optStr,
   footerYazi: optStr,
   instagramUrl: optHttpUrl,

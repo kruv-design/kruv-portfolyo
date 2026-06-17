@@ -16,6 +16,7 @@ import { t } from "@/lib/i18n/t";
 import { withLocale } from "@/lib/i18n/path";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SITE_CANONICAL_URL } from "@/lib/site";
+import { BRAND_NAME } from "@/lib/brand";
 import {
   buildLocalBusinessSchema,
   buildWebSiteSchema,
@@ -46,7 +47,7 @@ export async function generateMetadata({
       description,
       url: `${SITE_CANONICAL_URL}/${locale}`,
       locale: locale === "tr" ? "tr_TR" : "en_US",
-      siteName: "kruv.",
+      siteName: BRAND_NAME,
       type: "website",
       images: [
         {

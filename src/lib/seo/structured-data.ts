@@ -1,4 +1,5 @@
 import type { Locale } from "@/lib/i18n/config";
+import { BRAND_NAME } from "@/lib/brand";
 import { SITE_CANONICAL_URL } from "@/lib/site";
 import { withLocale } from "@/lib/i18n/path";
 import {
@@ -62,7 +63,7 @@ export function buildOrganizationSchema({
   return compact({
     "@type": ["Organization", "ProfessionalService"],
     "@id": `${absoluteUrl("/")}#organization`,
-    name: "Kruv",
+    name: BRAND_NAME,
     alternateName: settings.siteAdi,
     url: absoluteUrl(withLocale("/", locale)),
     logo: absoluteUrl(ORG_LOGO_PATH),
@@ -87,7 +88,7 @@ export function buildLocalBusinessSchema({
   return compact({
     "@type": "LocalBusiness",
     "@id": `${absoluteUrl("/")}#localbusiness`,
-    name: "Kruv",
+    name: BRAND_NAME,
     image: image || absoluteUrl(ORG_LOGO_PATH),
     description,
     inLanguage: locale,
@@ -126,7 +127,7 @@ export function buildWebSiteSchema({
   return compact({
     "@type": "WebSite",
     "@id": `${absoluteUrl("/")}#website`,
-    name: "Kruv",
+    name: BRAND_NAME,
     url: absoluteUrl(withLocale("/", locale)),
     description,
     inLanguage: locale,

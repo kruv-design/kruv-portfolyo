@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { DM_Mono } from "next/font/google";
 import { Analytics } from "@/components/analytics/Analytics";
 import { env } from "@/lib/env";
+import { BRAND_NAME } from "@/lib/brand";
 import { SITE_CANONICAL_URL } from "@/lib/site";
 import { switzer } from "@/lib/fonts/switzer";
 import { ENABLE_THEME_TOGGLE, FORCED_THEME } from "@/lib/theme/flags";
@@ -17,14 +18,14 @@ const mono = DM_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_CANONICAL_URL),
   title: {
-    default: "kruv. — portfolyo",
-    template: "%s · kruv.",
+    default: `${BRAND_NAME} — portfolyo`,
+    template: `%s · ${BRAND_NAME}`,
   },
   description: "Paylaşmaya değer markalar tasarlıyoruz.",
   openGraph: {
     type: "website",
     locale: "tr_TR",
-    siteName: "kruv.",
+    siteName: BRAND_NAME,
     description: "Paylaşmaya değer markalar tasarlıyoruz.",
     images: [{ url: "/og/og-default.png", width: 1200, height: 630 }],
   },

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { logoutAction } from "@/app/login/actions";
+import { BRAND_NAME } from "@/lib/brand";
 
 const NAV = [
   { href: "/admin", label: "Projeler", icon: "▦" },
@@ -28,7 +29,7 @@ export function Sidebar() {
           className="h3 leading-none"
           style={{ color: "var(--gray-1000)", letterSpacing: "0.04em" }}
         >
-          kruv<strong style={{ color: "var(--accent)", fontWeight: 600 }}>.</strong>
+          {BRAND_NAME}
         </Link>
         <div
           className="b3 mt-2 lowercase"

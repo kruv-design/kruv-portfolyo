@@ -6,6 +6,8 @@ import { submitContactToHubSpot } from "@/lib/contact-hubspot";
 import { supabaseAdmin } from "@/lib/supabase/server";
 import { env } from "@/lib/env";
 import { ENABLE_PUBLIC_CONTACT } from "@/lib/marketing-flags";
+import { checkContactSpam } from "@/lib/contact-spam-guards";
+import { checkContactRateLimit, extractClientIp } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 
@@ -33,16 +35,24 @@ export async function POST(req: Request) {
   }
 
   const { sessionId, payload } = parsed.data;
-  const nameOk = payload.name.trim().length >= 2;
   const emailOk = z.string().email().safeParse(payload.email.trim()).success;
-  const messageOk = payload.message.trim().length >= 1;
-  if (!nameOk || !emailOk || !messageOk) {
+  if (!emailOk) {
     return NextResponse.json(
-      {
-        error:
-          "Ad (en az 2 karakter), geçerli e-posta ve mesaj zorunludur.",
-      },
+      { error: "Geçerli bir e-posta girin." },
       { status: 422 },
+    );
+  }
+
+  const spam = checkContactSpam(payload);
+  if (!spam.ok) {
+    return NextResponse.json({ error: spam.reason }, { status: 422 });
+  }
+
+  const rl = await checkContactRateLimit(extractClientIp(req));
+  if (!rl.ok) {
+    return NextResponse.json(
+      { error: rl.reason },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } },
     );
   }
 
