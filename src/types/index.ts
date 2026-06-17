@@ -101,6 +101,19 @@ export type ApiError = {
 
 export type ApiResult<T> = { data: T } | ApiError;
 
+/** `site_events` tablosu — birinci taraf analitik */
+export type SiteEventRow = {
+  id: number;
+  session_id: string;
+  event_name: string;
+  page: string | null;
+  props: Record<string, unknown> | null;
+  referrer: string | null;
+  ua: string | null;
+  ip_hash: string | null;
+  created_at: string;
+};
+
 /** `contact_inquiries` tablosu — Supabase */
 export type ContactInquiryRow = {
   id: string;

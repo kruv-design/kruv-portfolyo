@@ -5,6 +5,7 @@ import { useEffect, useId, useMemo, useRef, useState } from "react";
 import type { ContactPayloadInput } from "@/lib/validators";
 import type { Locale } from "@/lib/i18n/config";
 import type { Messages } from "@/lib/i18n/get-messages";
+import { track } from "@/lib/analytics/track";
 import { withLocale } from "@/lib/i18n/path";
 import { t } from "@/lib/i18n/t";
 
@@ -109,6 +110,7 @@ export function ContactForm({
         setFormError(data.error ?? t(messages, "contact.submitFailed"));
         return;
       }
+      track("contact_form_submit");
       setDone(true);
       sessionStorage.removeItem("kruv-contact-session");
     } catch {

@@ -1,20 +1,25 @@
 "use client";
 
 import Script from "next/script";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import {
+  ANALYTICS_CONSENT_KEY,
+  type AnalyticsConsent,
+} from "@/lib/analytics/consent";
+import { track } from "@/lib/analytics/track";
 
 /**
- * GA4 + Microsoft Clarity yükleyici.
+ * GA4 + Microsoft Clarity yükleyici + birinci taraf olay takibi.
  *
- * - `gaId` / `clarityId` ayarlı değilse hiçbir şey render etmez.
+ * - `gaId` / `clarityId` ayarlı değilse üçüncü taraf script yüklenmez;
+ *   onay banner'ı ve Supabase `site_events` takibi yine çalışır.
  * - KVKK/GDPR uyumu için basit bir onay (consent) banner'ı gösterir;
  *   scriptler yalnızca kullanıcı "Kabul et" dedikten sonra yüklenir.
  * - Tercih `localStorage` (kruv-analytics-consent) içinde saklanır.
  */
 
-const CONSENT_KEY = "kruv-analytics-consent";
-
-type Consent = "granted" | "denied" | null;
+type Consent = AnalyticsConsent | null;
 
 export function Analytics({
   gaId,
@@ -23,13 +28,14 @@ export function Analytics({
   gaId?: string;
   clarityId?: string;
 }) {
+  const pathname = usePathname();
   const [consent, setConsent] = useState<Consent>(null);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     setHydrated(true);
     try {
-      const stored = window.localStorage.getItem(CONSENT_KEY);
+      const stored = window.localStorage.getItem(ANALYTICS_CONSENT_KEY);
       if (stored === "granted" || stored === "denied") {
         setConsent(stored);
       }
@@ -39,17 +45,19 @@ export function Analytics({
     }
   }, []);
 
-  function choose(value: "granted" | "denied") {
+  useEffect(() => {
+    if (!hydrated || consent !== "granted") return;
+    track("page_view");
+  }, [hydrated, consent, pathname]);
+
+  function choose(value: AnalyticsConsent) {
     try {
-      window.localStorage.setItem(CONSENT_KEY, value);
+      window.localStorage.setItem(ANALYTICS_CONSENT_KEY, value);
     } catch {
       /* yoksay */
     }
     setConsent(value);
   }
-
-  const hasAnyId = Boolean(gaId || clarityId);
-  if (!hasAnyId) return null;
 
   return (
     <>

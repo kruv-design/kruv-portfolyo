@@ -1,7 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import type { Locale } from "@/lib/i18n/config";
 import { withLocale } from "@/lib/i18n/path";
+import { track } from "@/lib/analytics/track";
 import type { Project } from "@/types";
 import { projectCover } from "@/lib/project-images";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
@@ -32,6 +35,7 @@ export function PortfolioCard({
       className="pw-card group"
       style={{ animationDelay: `${index * 0.055}s` }}
       aria-label={project.baslik}
+      onClick={() => track("project_click", { slug: project.slug })}
     >
       <ProjectAwardBadges project={project} />
       <div className="pw-card-media">

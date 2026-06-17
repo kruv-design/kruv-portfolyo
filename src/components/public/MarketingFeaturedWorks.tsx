@@ -9,6 +9,7 @@ import {
 import { resolveProjectForLocale } from "@/lib/project-locale";
 import { projectCover } from "@/lib/project-images";
 import type { Project } from "@/types";
+import { FeaturedWorkClickLink } from "./FeaturedWorkClickLink";
 import { MarketingHomeSectionTag } from "./MarketingHomeSectionTag";
 import { ProjectAwardBadges } from "./ProjectAwardBadges";
 
@@ -62,10 +63,10 @@ export function MarketingFeaturedWorks({
               {...(tags ? { "data-work-tags": tags } : {})}
             >
               <ProjectAwardBadges project={project} />
-              <a
-                className="featured-work-hit"
+              <FeaturedWorkClickLink
                 href={href}
-                aria-label={`${copy.seeProject} — ${localized.baslik}`}
+                slug={project.slug}
+                ariaLabel={`${copy.seeProject} — ${localized.baslik}`}
               />
               <div className={mediaClass} aria-hidden="true">
                 {cover ? (
