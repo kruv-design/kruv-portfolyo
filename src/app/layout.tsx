@@ -21,17 +21,17 @@ export const metadata: Metadata = {
     default: `${BRAND_NAME} — portfolyo`,
     template: `%s · ${BRAND_NAME}`,
   },
-  description: "Paylaşmaya değer markalar tasarlıyoruz.",
+  description: "Kimlikten içeriğe, her strateji sosyal medyada nasıl görüneceği düşünülerek kurulur.",
   openGraph: {
     type: "website",
     locale: "tr_TR",
     siteName: BRAND_NAME,
-    description: "Paylaşmaya değer markalar tasarlıyoruz.",
+    description: "Kimlikten içeriğe, her strateji sosyal medyada nasıl görüneceği düşünülerek kurulur.",
     images: [{ url: "/og/og-default.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    description: "Paylaşmaya değer markalar tasarlıyoruz.",
+    description: "Kimlikten içeriğe, her strateji sosyal medyada nasıl görüneceği düşünülerek kurulur.",
     images: ["/og/og-default.png"],
   },
   alternates: {
