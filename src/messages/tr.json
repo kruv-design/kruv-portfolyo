@@ -3,7 +3,7 @@
     "metaTitle": "Kruv | Marka Tasarımı ve Yaratıcı Hizmetler",
     "metaDescription": "Paylaşmaya değer markalar tasarlıyoruz.",
     "ideal": {
-      "tag": "Birlikte çalıştıklarımız",
+      "tag": "BİRLİKTE ÇALIŞTIKLARIMIZ",
       "title": "Birlikte Çalıştıklarımız"
     },
     "hero": {
@@ -28,7 +28,7 @@
     },
     "spotlight": {
       "ariaLabel": "Yaratıcı platformlarda öne çıkanlar",
-      "tagLabel": "Branding & InDesign",
+      "tagLabel": "BRANDING & INDESIGN",
       "ctaLabel": "Projeleri gör",
       "ctaHref": "/works",
       "titleLines": [
@@ -39,7 +39,7 @@
     },
     "values": {
       "ariaLabel": "Hedef müşteri tipleri",
-      "tagLabel": "Kime hitap ediyoruz?",
+      "tagLabel": "KİME HİTAP EDİYORUZ?",
       "items": [
         {
           "index": "01",
@@ -91,7 +91,7 @@
       ]
     },
     "featuredWorks": {
-      "tag": "Projelerimiz",
+      "tag": "PROJELERİMİZ",
       "title": "Projeler",
       "seeProject": "Projeyi gör",
       "ariaLabel": "Öne çıkan projeler"
