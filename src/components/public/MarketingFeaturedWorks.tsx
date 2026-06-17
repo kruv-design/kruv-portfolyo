@@ -10,6 +10,7 @@ import { resolveProjectForLocale } from "@/lib/project-locale";
 import { projectCover } from "@/lib/project-images";
 import type { Project } from "@/types";
 import { MarketingHomeSectionTag } from "./MarketingHomeSectionTag";
+import { ProjectAwardBadges } from "./ProjectAwardBadges";
 
 const FEATURED_COUNT = 5;
 
@@ -60,6 +61,7 @@ export function MarketingFeaturedWorks({
               className="featured-work-card"
               {...(tags ? { "data-work-tags": tags } : {})}
             >
+              <ProjectAwardBadges project={project} />
               <a
                 className="featured-work-hit"
                 href={href}

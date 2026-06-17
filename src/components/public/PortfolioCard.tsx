@@ -5,6 +5,7 @@ import { withLocale } from "@/lib/i18n/path";
 import type { Project } from "@/types";
 import { projectCover } from "@/lib/project-images";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+import { ProjectAwardBadges } from "./ProjectAwardBadges";
 
 /**
  * Homepage `featured-work-*` kartları ile aynı yapı: görsel üstte, meta altta (hover overlay yok).
@@ -32,6 +33,7 @@ export function PortfolioCard({
       style={{ animationDelay: `${index * 0.055}s` }}
       aria-label={project.baslik}
     >
+      <ProjectAwardBadges project={project} />
       <div className="pw-card-media">
         {cover ? (
           <Image

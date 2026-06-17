@@ -1896,6 +1896,78 @@ i {
   border-radius: var(--space-sm);
 }
 
+/* Proje kartı Behance ödül rozetleri */
+.project-award-stack {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-2);
+  pointer-events: none;
+}
+
+.project-award-item {
+  position: relative;
+  display: inline-flex;
+  pointer-events: auto;
+}
+
+.project-award-badge {
+  display: block;
+  width: 2.75rem;
+  height: auto;
+  filter: drop-shadow(0 8px 16px var(--gray-300));
+}
+
+.project-award-tooltip {
+  position: absolute;
+  right: calc(100% + var(--space-2));
+  top: 0.25rem;
+  width: min(18rem, 62vw);
+  padding: var(--space-3);
+  border-radius: var(--space-sm);
+  border: 1px solid var(--gray-300);
+  background: var(--gray-950);
+  color: var(--white-fixed);
+  font-family: var(--b3-font-family);
+  font-size: var(--b3-font-size);
+  font-weight: var(--b3-font-weight);
+  line-height: 1.45;
+  letter-spacing: var(--b3-letter-spacing);
+  text-transform: none;
+  box-shadow: 0 10px 30px var(--gray-400);
+  opacity: 0;
+  transform: translateY(4px);
+  pointer-events: none;
+  transition:
+    opacity var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+
+.project-award-item:hover .project-award-tooltip,
+.project-award-item:focus-within .project-award-tooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 699px) {
+  .project-award-stack {
+    top: var(--space-2);
+    right: var(--space-2);
+  }
+  .project-award-badge {
+    width: 2.25rem;
+  }
+  .project-award-tooltip {
+    width: min(14rem, 70vw);
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--type-b3-mobile);
+  }
+}
+
 /* ── Contact page / form ─ Figma 3765:11022 ─────────────── */
 .contact-page-main {
   flex: 1;
