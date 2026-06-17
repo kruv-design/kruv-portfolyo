@@ -19,7 +19,7 @@ import { pingPresence, PRESENCE_HEARTBEAT_MS } from "@/lib/analytics/presence";
  * - evet → birinci taraf + üçüncü taraf (GA/Clarity)
  * - sadece zorunlu olanları → birinci taraf analitik (site_events)
  * - hayır → takip yok
- * - Seçim yapılmazsa 4 sn sonra otomatik evet (granted)
+ * - Seçim yapılmazsa 6 sn sonra otomatik evet (granted)
  */
 
 type Consent = AnalyticsConsent | null;
