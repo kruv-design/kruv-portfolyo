@@ -129,9 +129,9 @@
   --ls-2xs: var(--ls-body);
   --ls-display: 0;
   --card-meta-title-ls: var(--ls-display);
-  /* Kart kategori: b3 ile aynı */
-  --card-meta-tag-ls: var(--b3-letter-spacing);
-  --card-meta-tag-size-mobile: var(--b3-font-size);
+  /* Kart kategori: b2 ile aynı */
+  --card-meta-tag-ls: var(--b2-letter-spacing);
+  --card-meta-tag-size-mobile: var(--b2-font-size);
   --ls-lg: -0.015em;
   --ls-xl: -0.01em;
   --ls-2xl: 0.14em;
@@ -1869,12 +1869,12 @@ i {
 }
 
 .pw-card-category {
-  font-family: var(--b3-font-family);
-  font-size: var(--b3-font-size);
-  font-weight: var(--b3-font-weight);
-  line-height: var(--b3-line-height);
+  font-family: var(--b2-font-family);
+  font-size: var(--b2-font-size);
+  font-weight: var(--b2-font-weight);
+  line-height: var(--b2-line-height);
   letter-spacing: var(--card-meta-tag-ls);
-  text-transform: var(--b3-text-transform);
+  text-transform: var(--b2-text-transform);
   color: var(--ink-soft);
   text-align: left;
   margin: 0;
@@ -1884,7 +1884,7 @@ i {
 @media (max-width: 699px) {
   .portfolio-works-page .pw-card-category {
     font-size: var(--card-meta-tag-size-mobile);
-    letter-spacing: var(--b3-letter-spacing);
+    letter-spacing: var(--b2-letter-spacing);
   }
 }
 
