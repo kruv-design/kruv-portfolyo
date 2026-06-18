@@ -233,8 +233,8 @@
   --ls-display: 0;
   /* Kart / proje meta: başlık biraz açık, kategori etiketi sıkı */
   --card-meta-title-ls: var(--ls-display);
-  --card-meta-tag-ls: var(--b2-letter-spacing);
-  --card-meta-tag-size-mobile: var(--b2-font-size);
+  --card-meta-tag-ls: var(--b1-letter-spacing);
+  --card-meta-tag-size-mobile: var(--b1-font-size);
   --ls-anim-start: .3em;
   --ls-anim-end: .16em;
 
@@ -3041,12 +3041,12 @@ body:has(.card:hover) .ticker {
   min-width: 0;
 }
 .featured-work-category {
-  font-family: var(--b2-font-family);
-  font-size: var(--b2-font-size);
-  font-weight: var(--b2-font-weight);
-  line-height: var(--b2-line-height);
-  letter-spacing: var(--card-meta-tag-ls);
-  text-transform: var(--b2-text-transform);
+  font-family: var(--b1-font-family);
+  font-size: var(--b1-font-size);
+  font-weight: var(--b1-font-weight);
+  line-height: var(--b1-line-height);
+  letter-spacing: var(--b1-letter-spacing);
+  text-transform: var(--b1-text-transform);
   color: color-mix(
     in oklab,
     var(--scene-category-on-dark) calc((1 - var(--kruv-scene-theme-t)) * 100%),
