@@ -1083,28 +1083,19 @@ i {
   transition: width var(--dur-base) var(--ease);
 }
 
-.project-next-banner__cta,
-.project-next-banner__cta-row {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-3);
-  margin: var(--space-6) 0 0;
-  font-family: var(--b1-font-family);
-  font-size: var(--b1-font-size);
-  font-weight: var(--b1-font-weight);
-  line-height: var(--b1-line-height);
-  letter-spacing: var(--b1-letter-spacing);
-  text-transform: none;
+.project-next-banner__cta-btn {
+  align-self: flex-start;
+  margin-top: var(--space-6);
+  flex-shrink: 0;
+  border-color: var(--project-next-banner-ink);
   color: var(--project-next-banner-ink);
+  background: transparent;
 }
 
+.project-next-banner__cta-btn .project-next-banner__cta-arrow,
 .project-next-banner__cta-arrow {
   display: inline-block;
   transition: transform 0.35s var(--ease);
-}
-
-.project-next-banner__cta-row--mobile {
-  display: none;
 }
 
 @media (min-width: 900px) {
@@ -1134,10 +1125,6 @@ i {
 
   .project-next-banner__eyebrow--desktop {
     display: block;
-  }
-
-  .project-next-banner__cta--desktop {
-    display: inline-flex;
   }
 }
 
@@ -1176,18 +1163,10 @@ i {
     display: none;
   }
 
-  .project-next-banner__cta--desktop {
-    display: none;
-  }
-
-  .project-next-banner__cta-row--mobile {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  .project-next-banner__cta-btn {
+    align-self: stretch;
     width: 100%;
-    margin-top: var(--space-8);
-    padding-top: var(--space-5);
-    border-top: 1px solid var(--border);
+    margin-top: var(--space-5);
   }
 }
 
@@ -1200,8 +1179,10 @@ i {
     transform: translateX(7px);
   }
 
-  .project-next-banner:hover .project-next-banner__cta {
-    gap: var(--space-4);
+  .project-next-banner:hover .project-next-banner__cta-btn {
+    background: var(--project-next-banner-ink);
+    color: var(--project-next-banner-surface);
+    border-color: var(--project-next-banner-ink);
   }
 }
 
@@ -1268,6 +1249,11 @@ i {
   display: block;
   width: 100%;
   position: relative;
+}
+
+.project-detail-media__poster-wrap--video-only {
+  min-height: min(56vw, 28rem);
+  background: var(--gray-100);
 }
 
 .project-detail-media__play {

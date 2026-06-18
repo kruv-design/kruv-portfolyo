@@ -58,6 +58,40 @@ export function resolveProjectVideoUrl(raw: string): string {
   return buildCloudinaryVideoUrl(s, PROJECT_VIDEO_TRANSFORMS);
 }
 
+/** Görsel alanına yapıştırılmış video / embed URL (Görsel 1). */
+export function isVideoMediaRaw(raw: string): boolean {
+  const s = raw.trim();
+  if (!s) return false;
+  if (cloudinaryEmbedPlayerParams(s)) return true;
+  if (/\/video\/upload\//i.test(s)) return true;
+  if (/\.(mp4|webm|mov)(\?|#|$)/i.test(s)) return true;
+  return false;
+}
+
+function resolveGallerySlotMedia(
+  posterRaw: string,
+  videoRaw: string,
+  allowVideoInPosterField: boolean,
+): { posterSrc: string; videoSrc: string | null } {
+  const dedicatedVideo = videoRaw.trim();
+  if (dedicatedVideo) {
+    return {
+      posterSrc: resolveProjectImageUrl(posterRaw),
+      videoSrc: resolveProjectVideoUrl(dedicatedVideo) || null,
+    };
+  }
+  if (allowVideoInPosterField && isVideoMediaRaw(posterRaw)) {
+    return {
+      posterSrc: "",
+      videoSrc: resolveProjectVideoUrl(posterRaw) || null,
+    };
+  }
+  return {
+    posterSrc: resolveProjectImageUrl(posterRaw),
+    videoSrc: null,
+  };
+}
+
 export type ShowreelLayout = "landscape" | "portrait";
 
 function showreelAspectCrop(layout: ShowreelLayout): string {
@@ -337,10 +371,12 @@ export function projectMediaSlots(
 
   for (const key of GALERI_KEYS) {
     const videoKey = GALERI_VIDEO_BY_SLOT[key];
-    const posterSrc = resolveProjectImageUrl(project[key] ?? "");
-    const videoSrc = videoKey
-      ? resolveProjectVideoUrl(project[videoKey] ?? "") || null
-      : null;
+    const rule = GALERI_VIDEO_SLOT_RULES.find((r) => r.galeriKey === key);
+    const { posterSrc, videoSrc } = resolveGallerySlotMedia(
+      project[key] ?? "",
+      videoKey ? project[videoKey] ?? "" : "",
+      rule?.allowVideoOnly ?? false,
+    );
     if (posterSrc || videoSrc) {
       slots.push({ key, posterSrc, videoSrc });
     }
@@ -355,13 +391,13 @@ export function projectGallerySlots(
 ): { key: GaleriKey; posterSrc: string; videoSrc: string | null }[] {
   return GALERI_KEYS.map((key) => {
     const videoKey = GALERI_VIDEO_BY_SLOT[key];
-    return {
-      key,
-      posterSrc: resolveProjectImageUrl(project[key] ?? ""),
-      videoSrc: videoKey
-        ? resolveProjectVideoUrl(project[videoKey] ?? "") || null
-        : null,
-    };
+    const rule = GALERI_VIDEO_SLOT_RULES.find((r) => r.galeriKey === key);
+    const { posterSrc, videoSrc } = resolveGallerySlotMedia(
+      project[key] ?? "",
+      videoKey ? project[videoKey] ?? "" : "",
+      rule?.allowVideoOnly ?? false,
+    );
+    return { key, posterSrc, videoSrc };
   }).filter((item) => item.posterSrc.length > 0 || Boolean(item.videoSrc));
 }
 

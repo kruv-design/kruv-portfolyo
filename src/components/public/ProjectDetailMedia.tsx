@@ -229,6 +229,25 @@ export function ProjectDetailMedia({
             </p>
           ) : null}
         </div>
+      ) : showPlayButton ? (
+        <div className="project-detail-media__poster-wrap project-detail-media__poster-wrap--video-only">
+          <button
+            type="button"
+            className="project-detail-media__play"
+            onClick={(e) => {
+              e.preventDefault();
+              handlePlayClick();
+            }}
+            aria-label={playLabel}
+          >
+            <span className="project-detail-media__play-icon" aria-hidden="true" />
+          </button>
+          {playError ? (
+            <p className="project-detail-media__play-error" role="status">
+              Video yüklenemedi — URL adresini kontrol edin.
+            </p>
+          ) : null}
+        </div>
       ) : null}
 
       {videoSrc && !reducedMotion ? (

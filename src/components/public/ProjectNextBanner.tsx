@@ -79,19 +79,15 @@ export function ProjectNextBanner({
               </span>
             </div>
 
-            <p className="project-next-banner__cta project-next-banner__cta--desktop">
-              <span>{t(messages, "project.view", "View")}</span>
+            <span
+              className="marketing-navbar-cta project-next-banner__cta-btn"
+              aria-hidden="true"
+            >
+              {t(messages, "project.view", "View")}
               <span className="project-next-banner__cta-arrow" aria-hidden="true">
                 →
               </span>
-            </p>
-
-            <div className="project-next-banner__cta-row project-next-banner__cta-row--mobile">
-              <span>{t(messages, "project.view", "View")}</span>
-              <span className="project-next-banner__cta-arrow" aria-hidden="true">
-                →
-              </span>
-            </div>
+            </span>
           </div>
 
           <div className="project-next-banner__media">
