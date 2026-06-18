@@ -3,6 +3,7 @@ import { normalizeBrandName } from "@/lib/brand";
 import {
   GALERI_KEYS,
   GALERI_VIDEO_KEYS,
+  GALERI_VIDEO_SLOT_RULES,
   resolveProjectImageUrl,
   resolveProjectVideoUrl,
 } from "@/lib/project-images";
@@ -84,7 +85,17 @@ function normalizeRenkHex(raw: string): string {
   return "#C8B8A8";
 }
 
-export const projectSchema = z.object({
+const galeriZodObject = z.object({
+  ...Object.fromEntries(
+    GALERI_KEYS.map((k) => [k, imageUrlOrEmpty.optional().default("")]),
+  ),
+  ...Object.fromEntries(
+    GALERI_VIDEO_KEYS.map((k) => [k, videoUrlOrEmpty.optional().default("")]),
+  ),
+} as z.ZodRawShape);
+
+export const projectSchema = z
+  .object({
   /**
    * Slug: küçük harf, `_` → `-`, geçersiz karakter kalırsa `slugify` ile düzelt.
    * Aksi halde PATCH 400 oluyor; kullanıcı “hiç kaydetmiyor” sanıyordu.
@@ -116,27 +127,6 @@ export const projectSchema = z.object({
   aciklama: longStr,
   description: longStr,
   kapak: imageUrlOrEmpty.optional().default(""),
-  kapak_video: videoUrlOrEmpty.optional().default(""),
-  galeri_1: imageUrlOrEmpty.optional().default(""),
-  galeri_1_video: videoUrlOrEmpty.optional().default(""),
-  galeri_2: imageUrlOrEmpty.optional().default(""),
-  galeri_2_video: videoUrlOrEmpty.optional().default(""),
-  galeri_3: imageUrlOrEmpty.optional().default(""),
-  galeri_3_video: videoUrlOrEmpty.optional().default(""),
-  galeri_4: imageUrlOrEmpty.optional().default(""),
-  galeri_4_video: videoUrlOrEmpty.optional().default(""),
-  galeri_5: imageUrlOrEmpty.optional().default(""),
-  galeri_5_video: videoUrlOrEmpty.optional().default(""),
-  galeri_6: imageUrlOrEmpty.optional().default(""),
-  galeri_6_video: videoUrlOrEmpty.optional().default(""),
-  galeri_7: imageUrlOrEmpty.optional().default(""),
-  galeri_7_video: videoUrlOrEmpty.optional().default(""),
-  galeri_8: imageUrlOrEmpty.optional().default(""),
-  galeri_8_video: videoUrlOrEmpty.optional().default(""),
-  galeri_9: imageUrlOrEmpty.optional().default(""),
-  galeri_9_video: videoUrlOrEmpty.optional().default(""),
-  galeri_10: imageUrlOrEmpty.optional().default(""),
-  galeri_10_video: videoUrlOrEmpty.optional().default(""),
   bolumler: z.array(sectionSchema).max(20).default([]),
   etiketler: z.array(z.string().trim().min(1).max(40)).max(20).default([]),
   featured: z.boolean().default(false),
@@ -153,24 +143,20 @@ export const projectSchema = z.object({
       normalizeRenkHex(typeof v === "string" ? v : "#C8B8A8"),
     ),
 })
+  .merge(galeriZodObject)
   .superRefine((data, ctx) => {
-    const pairs: { posterKey: string; videoKey: string; label: string }[] = [
-      { posterKey: "kapak", videoKey: "kapak_video", label: "Kapak" },
-      ...GALERI_KEYS.map((k, i) => ({
-        posterKey: k,
-        videoKey: GALERI_VIDEO_KEYS[i]!,
-        label: k,
-      })),
-    ];
-    for (const { posterKey, videoKey, label } of pairs) {
+    for (const { galeriKey, videoKey, allowVideoOnly } of GALERI_VIDEO_SLOT_RULES) {
       const rec = data as Record<string, unknown>;
       const video = String(rec[videoKey] ?? "");
-      const poster = String(rec[posterKey] ?? "");
-      if (video && !poster) {
+      const poster = String(rec[galeriKey] ?? "");
+      if (video && !poster && !allowVideoOnly) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          path: [posterKey],
-          message: `${label}: video için poster görseli zorunlu (LCP).`,
+          path: [galeriKey],
+          message:
+            galeriKey === "galeri_5"
+              ? "Görsel 5: video için poster görseli zorunlu."
+              : "Görsel 1: video için poster görseli zorunlu.",
         });
       }
     }
@@ -180,6 +166,11 @@ export type ProjectFormInput = z.infer<typeof projectSchema>;
 
 /** PostgREST’e yalnızca tablo sütunları — spread ile fazla anahtar riski kalkar */
 export function projectPayloadToDbRow(input: ProjectFormInput, slug: string) {
+  const galeriRow = Object.fromEntries([
+    ...GALERI_KEYS.map((k) => [k, input[k]]),
+    ...GALERI_VIDEO_KEYS.map((k) => [k, input[k]]),
+  ]);
+
   return {
     slug,
     baslik: input.baslik,
@@ -189,27 +180,7 @@ export function projectPayloadToDbRow(input: ProjectFormInput, slug: string) {
     aciklama: input.aciklama,
     description: input.description,
     kapak: input.kapak,
-    kapak_video: input.kapak_video,
-    galeri_1: input.galeri_1,
-    galeri_1_video: input.galeri_1_video,
-    galeri_2: input.galeri_2,
-    galeri_2_video: input.galeri_2_video,
-    galeri_3: input.galeri_3,
-    galeri_3_video: input.galeri_3_video,
-    galeri_4: input.galeri_4,
-    galeri_4_video: input.galeri_4_video,
-    galeri_5: input.galeri_5,
-    galeri_5_video: input.galeri_5_video,
-    galeri_6: input.galeri_6,
-    galeri_6_video: input.galeri_6_video,
-    galeri_7: input.galeri_7,
-    galeri_7_video: input.galeri_7_video,
-    galeri_8: input.galeri_8,
-    galeri_8_video: input.galeri_8_video,
-    galeri_9: input.galeri_9,
-    galeri_9_video: input.galeri_9_video,
-    galeri_10: input.galeri_10,
-    galeri_10_video: input.galeri_10_video,
+    ...galeriRow,
     bolumler: input.bolumler,
     etiketler: input.etiketler,
     featured: input.featured,

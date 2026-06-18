@@ -30,7 +30,6 @@ type DemoInput = Omit<
   | "created_at"
   | "updated_at"
   | "kapak"
-  | "kapak_video"
   | "title"
   | "category"
   | "description"
@@ -41,7 +40,6 @@ type DemoInput = Omit<
   gorsel?: string;
   gorseller?: string[];
   kapak?: string | null;
-  kapak_video?: string;
 } & Partial<Record<GaleriKey | GaleriVideoKey, string>>;
 
 function make(p: DemoInput): Project {

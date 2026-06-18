@@ -3,7 +3,6 @@ import {
   galeriFieldsFromRow,
   galeriVideoFieldsFromRow,
   kapakFromRow,
-  kapakVideoFromRow,
 } from "@/lib/project-images";
 
 function normalizeSection(raw: unknown): ProjectSection {
@@ -30,7 +29,6 @@ export function mapProjectRow(data: Record<string, unknown>): Project {
     aciklama: String(data.aciklama ?? ""),
     description: String(data.description ?? ""),
     kapak: kapakFromRow(data),
-    kapak_video: kapakVideoFromRow(data),
     ...galeriFieldsFromRow(data),
     ...galeriVideoFieldsFromRow(data),
     bolumler: Array.isArray(data.bolumler)

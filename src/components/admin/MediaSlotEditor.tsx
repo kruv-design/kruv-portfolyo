@@ -13,20 +13,33 @@ export function MediaSlotEditor({
   videoOnChange,
   posterHint,
   posterError,
+  allowVideoWithoutPoster = false,
+  posterOptional = false,
 }: {
   label: string;
   posterValue: string;
   posterOnChange: (url: string) => void;
-  videoValue: string;
-  videoOnChange: (url: string) => void;
+  videoValue?: string;
+  videoOnChange?: (url: string) => void;
   posterHint?: string;
   posterError?: string;
+  /** Görsel 1: yalnızca video da yeterli */
+  allowVideoWithoutPoster?: boolean;
+  posterOptional?: boolean;
 }) {
-  const [showVideo, setShowVideo] = useState(Boolean(videoValue.trim()));
+  const hasVideo = Boolean(videoOnChange);
+  const resolvedVideo = videoValue ?? "";
+  const [showVideo, setShowVideo] = useState(Boolean(resolvedVideo.trim()));
+
+  const posterFieldHint =
+    posterHint ??
+    (posterOptional
+      ? "İsteğe bağlı — yalnızca video da kullanılabilir."
+      : undefined);
 
   return (
     <div className="flex flex-col gap-3">
-      <Field label={label} hint={posterHint} error={posterError}>
+      <Field label={label} hint={posterFieldHint} error={posterError}>
         <CoverUpload
           value={posterValue}
           onChange={posterOnChange}
@@ -34,7 +47,7 @@ export function MediaSlotEditor({
         />
       </Field>
 
-      {!showVideo && !videoValue.trim() ? (
+      {hasVideo && !showVideo && !resolvedVideo.trim() ? (
         <button
           type="button"
           className="b3 self-start text-left underline"
@@ -45,16 +58,20 @@ export function MediaSlotEditor({
         </button>
       ) : null}
 
-      {showVideo || videoValue.trim() ? (
+      {hasVideo && (showVideo || resolvedVideo.trim()) ? (
         <Field
           label="Video (sessiz loop)"
-          hint="Poster zorunlu; video yalnızca görünür alanda yüklenir."
+          hint={
+            allowVideoWithoutPoster
+              ? "Görsel veya video — ikisi de boş bırakılabilir."
+              : "Poster zorunlu; video yalnızca görünür alanda yüklenir."
+          }
         >
           <VideoUpload
-            value={videoValue}
-            onChange={videoOnChange}
+            value={resolvedVideo}
+            onChange={videoOnChange!}
             onRemove={() => {
-              videoOnChange("");
+              videoOnChange!("");
               setShowVideo(false);
             }}
           />

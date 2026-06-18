@@ -9,9 +9,12 @@ import { Field } from "@/components/ui/Field";
 import { TagInput } from "./TagInput";
 import { SectionEditor } from "./SectionEditor";
 import { MediaSlotEditor } from "./MediaSlotEditor";
+import { CoverUpload } from "./CoverUpload";
 import {
   GALERI_KEYS,
+  GALERI_VIDEO_BY_SLOT,
   GALERI_VIDEO_KEYS,
+  GALERI_VIDEO_SLOT_RULES,
   emptyGaleriSlots,
   emptyGaleriVideoSlots,
   type GaleriKey,
@@ -28,7 +31,6 @@ type FormState = {
   aciklama: string;
   description: string;
   kapak: string;
-  kapak_video: string;
   bolumler: ProjectSection[];
   etiketler: string[];
   featured: boolean;
@@ -47,7 +49,6 @@ const EMPTY: FormState = {
   aciklama: "",
   description: "",
   kapak: "",
-  kapak_video: "",
   ...emptyGaleriSlots(),
   ...emptyGaleriVideoSlots(),
   bolumler: [],
@@ -68,27 +69,12 @@ function fromProject(p: Project): FormState {
     aciklama: p.aciklama,
     description: p.description,
     kapak: p.kapak ?? "",
-    kapak_video: p.kapak_video ?? "",
-    galeri_1: p.galeri_1,
-    galeri_1_video: p.galeri_1_video,
-    galeri_2: p.galeri_2,
-    galeri_2_video: p.galeri_2_video,
-    galeri_3: p.galeri_3,
-    galeri_3_video: p.galeri_3_video,
-    galeri_4: p.galeri_4,
-    galeri_4_video: p.galeri_4_video,
-    galeri_5: p.galeri_5,
-    galeri_5_video: p.galeri_5_video,
-    galeri_6: p.galeri_6,
-    galeri_6_video: p.galeri_6_video,
-    galeri_7: p.galeri_7,
-    galeri_7_video: p.galeri_7_video,
-    galeri_8: p.galeri_8,
-    galeri_8_video: p.galeri_8_video,
-    galeri_9: p.galeri_9,
-    galeri_9_video: p.galeri_9_video,
-    galeri_10: p.galeri_10,
-    galeri_10_video: p.galeri_10_video,
+    ...(Object.fromEntries(
+      GALERI_KEYS.map((k) => [k, p[k] ?? ""]),
+    ) as Record<GaleriKey, string>),
+    ...(Object.fromEntries(
+      GALERI_VIDEO_KEYS.map((k) => [k, p[k] ?? ""]),
+    ) as Record<GaleriVideoKey, string>),
     bolumler: [...p.bolumler],
     etiketler: [...p.etiketler],
     featured: p.featured,
@@ -133,14 +119,9 @@ export function ProjectForm({
     const localErrors: Record<string, string> = {};
     if (!form.baslik.trim()) localErrors.baslik = "Başlık zorunlu.";
     if (!form.kategori.trim()) localErrors.kategori = "Kategori seçin.";
-    if (form.kapak_video.trim() && !form.kapak.trim()) {
-      localErrors.kapak = "Video için kapak görseli zorunlu.";
-    }
-    for (let i = 0; i < GALERI_KEYS.length; i++) {
-      const posterKey = GALERI_KEYS[i]!;
-      const videoKey = GALERI_VIDEO_KEYS[i]!;
-      if (form[videoKey].trim() && !form[posterKey].trim()) {
-        localErrors[posterKey] = "Video için poster görseli zorunlu.";
+    for (const { galeriKey, videoKey, allowVideoOnly } of GALERI_VIDEO_SLOT_RULES) {
+      if (form[videoKey].trim() && !form[galeriKey].trim() && !allowVideoOnly) {
+        localErrors[galeriKey] = "Video için poster görseli zorunlu.";
       }
     }
     setErrors(localErrors);
@@ -360,33 +341,43 @@ export function ProjectForm({
               Görseller
             </h2>
             <p className="b3 mt-2 max-w-2xl" style={{ color: "var(--ink-faint)" }}>
-              Kapak: anasayfa ve işler listesindeki kart. Galeri 1–10: proje detayında sırayla
-              (boş slotlar atlanır). Video isteğe bağlı; poster her zaman LCP için kullanılır.
+              Kapak: anasayfa ve işler listesindeki kart. Galeri 1–15: proje detayında sırayla
+              (boş slotlar atlanır). Video yalnızca Görsel 1 (görsel yerine) ve Görsel 5
+              (opsiyonel loop) için.
             </p>
           </div>
 
-          <MediaSlotEditor
+          <Field
             label="Kapak görseli"
-            posterHint="İsteğe bağlı — kart + detay üst banner (LCP)."
-            posterValue={form.kapak}
-            posterOnChange={(v) => patch("kapak", v)}
-            videoValue={form.kapak_video}
-            videoOnChange={(v) => patch("kapak_video", v)}
-            posterError={errors.kapak}
-          />
+            hint="İsteğe bağlı — kart + detay üst banner."
+            error={errors.kapak}
+          >
+            <CoverUpload
+              value={form.kapak}
+              onChange={(v) => patch("kapak", v)}
+              previewAlt="Kapak görseli"
+            />
+          </Field>
 
           <div className="grid gap-6 sm:grid-cols-2">
             {GALERI_KEYS.map((key, i) => {
-              const videoKey = GALERI_VIDEO_KEYS[i]!;
+              const videoKey = GALERI_VIDEO_BY_SLOT[key];
+              const videoRule = GALERI_VIDEO_SLOT_RULES.find(
+                (r) => r.galeriKey === key,
+              );
               return (
                 <MediaSlotEditor
                   key={key}
                   label={`Görsel ${i + 1}`}
                   posterValue={form[key]}
                   posterOnChange={(v) => patch(key, v)}
-                  videoValue={form[videoKey]}
-                  videoOnChange={(v) => patch(videoKey, v)}
                   posterError={errors[key]}
+                  videoValue={videoKey ? form[videoKey] : undefined}
+                  videoOnChange={
+                    videoKey ? (v) => patch(videoKey, v) : undefined
+                  }
+                  allowVideoWithoutPoster={videoRule?.allowVideoOnly}
+                  posterOptional={videoRule?.allowVideoOnly}
                 />
               );
             })}

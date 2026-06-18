@@ -8,6 +8,10 @@
 import { createClient } from "@supabase/supabase-js";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
+import {
+  emptyGaleriSlots,
+  emptyGaleriVideoSlots,
+} from "../src/lib/project-images";
 
 // Tiny .env.local loader (no extra deps)
 function loadEnv() {
@@ -126,27 +130,8 @@ async function main() {
     ...p,
     slug: slugify(p.baslik),
     kapak: "",
-    kapak_video: "",
-    galeri_1: "",
-    galeri_1_video: "",
-    galeri_2: "",
-    galeri_2_video: "",
-    galeri_3: "",
-    galeri_3_video: "",
-    galeri_4: "",
-    galeri_4_video: "",
-    galeri_5: "",
-    galeri_5_video: "",
-    galeri_6: "",
-    galeri_6_video: "",
-    galeri_7: "",
-    galeri_7_video: "",
-    galeri_8: "",
-    galeri_8_video: "",
-    galeri_9: "",
-    galeri_9_video: "",
-    galeri_10: "",
-    galeri_10_video: "",
+    ...emptyGaleriSlots(),
+    ...emptyGaleriVideoSlots(),
     sira: (i + 1) * 10,
   }));
 

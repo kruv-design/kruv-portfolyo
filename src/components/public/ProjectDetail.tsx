@@ -1,7 +1,7 @@
 import { ScrollToTopLink } from "./ScrollToTopLink";
 import type { Project } from "@/types";
 import { projectIntroForLocale, projectTitleForLocale } from "@/lib/project-locale";
-import { projectCover, projectCoverVideo, projectGallerySlots } from "@/lib/project-images";
+import { projectCover, projectGallerySlots } from "@/lib/project-images";
 import type { Locale } from "@/lib/i18n/config";
 import type { Messages } from "@/lib/i18n/get-messages";
 import { withLocale } from "@/lib/i18n/path";
@@ -28,7 +28,6 @@ export function ProjectDetail({
   messages: Messages;
 }) {
   const cover = projectCover(project);
-  const coverVideo = projectCoverVideo(project);
   const gallerySlots = projectGallerySlots(project);
   const title = projectTitleForLocale(project, locale);
   const intro = projectIntroForLocale(project, locale);
@@ -38,7 +37,7 @@ export function ProjectDetail({
       <div className="project-detail-cover animate-fadeUp">
         <ProjectDetailMedia
           posterSrc={cover ?? ""}
-          videoSrc={coverVideo}
+          videoSrc={null}
           alt={title}
           priority
           variant="cover"

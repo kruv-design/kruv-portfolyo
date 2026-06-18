@@ -254,28 +254,44 @@ export const GALERI_KEYS = [
   "galeri_8",
   "galeri_9",
   "galeri_10",
+  "galeri_11",
+  "galeri_12",
+  "galeri_13",
+  "galeri_14",
+  "galeri_15",
 ] as const;
 
 export type GaleriKey = (typeof GALERI_KEYS)[number];
 
 export const GALERI_VIDEO_KEYS = [
   "galeri_1_video",
-  "galeri_2_video",
-  "galeri_3_video",
-  "galeri_4_video",
   "galeri_5_video",
-  "galeri_6_video",
-  "galeri_7_video",
-  "galeri_8_video",
-  "galeri_9_video",
-  "galeri_10_video",
 ] as const;
 
 export type GaleriVideoKey = (typeof GALERI_VIDEO_KEYS)[number];
 
+/** Galeri slot → opsiyonel video (yalnızca 1. ve 5. görsel). */
+export const GALERI_VIDEO_BY_SLOT: Partial<Record<GaleriKey, GaleriVideoKey>> = {
+  galeri_1: "galeri_1_video",
+  galeri_5: "galeri_5_video",
+};
+
+export const GALERI_VIDEO_SLOT_RULES = [
+  {
+    galeriKey: "galeri_1" as const,
+    videoKey: "galeri_1_video" as const,
+    /** Görsel 1: yalnızca video da olabilir */
+    allowVideoOnly: true,
+  },
+  {
+    galeriKey: "galeri_5" as const,
+    videoKey: "galeri_5_video" as const,
+    allowVideoOnly: false,
+  },
+] as const;
+
 export type ProjectImageFields = {
   kapak: string | null;
-  kapak_video: string;
 } & Record<GaleriKey, string> &
   Record<GaleriVideoKey, string>;
 
@@ -294,13 +310,6 @@ export function projectCover(project: Pick<Project, "kapak">): string | null {
   return k || null;
 }
 
-export function projectCoverVideo(
-  project: Pick<Project, "kapak_video">,
-): string | null {
-  const v = resolveProjectVideoUrl(project.kapak_video ?? "");
-  return v || null;
-}
-
 export function projectGallery(project: Pick<Project, GaleriKey>): string[] {
   return GALERI_KEYS.map((k) => resolveProjectImageUrl(project[k] ?? "")).filter(Boolean);
 }
@@ -311,27 +320,27 @@ export type ProjectMediaSlot = {
   videoSrc: string | null;
 };
 
-/** Kapak + galeri — poster ve opsiyonel video URL */
+/** Kapak + galeri — poster ve opsiyonel video URL (yalnızca galeri 1 / 5). */
 export function projectMediaSlots(
-  project: Pick<Project, "kapak" | "kapak_video" | GaleriKey | GaleriVideoKey>,
+  project: Pick<Project, "kapak" | GaleriKey | GaleriVideoKey>,
 ): ProjectMediaSlot[] {
   const slots: ProjectMediaSlot[] = [];
 
   const coverPoster = resolveProjectImageUrl(project.kapak ?? "");
-  const coverVideo = resolveProjectVideoUrl(project.kapak_video ?? "");
-  if (coverPoster || coverVideo) {
+  if (coverPoster) {
     slots.push({
       key: "kapak",
       posterSrc: coverPoster,
-      videoSrc: coverVideo || null,
+      videoSrc: null,
     });
   }
 
-  for (let i = 0; i < GALERI_KEYS.length; i++) {
-    const key = GALERI_KEYS[i]!;
-    const videoKey = GALERI_VIDEO_KEYS[i]!;
+  for (const key of GALERI_KEYS) {
+    const videoKey = GALERI_VIDEO_BY_SLOT[key];
     const posterSrc = resolveProjectImageUrl(project[key] ?? "");
-    const videoSrc = resolveProjectVideoUrl(project[videoKey] ?? "") || null;
+    const videoSrc = videoKey
+      ? resolveProjectVideoUrl(project[videoKey] ?? "") || null
+      : null;
     if (posterSrc || videoSrc) {
       slots.push({ key, posterSrc, videoSrc });
     }
@@ -344,12 +353,14 @@ export function projectMediaSlots(
 export function projectGallerySlots(
   project: Pick<Project, GaleriKey | GaleriVideoKey>,
 ): { key: GaleriKey; posterSrc: string; videoSrc: string | null }[] {
-  return GALERI_KEYS.map((key, i) => {
-    const videoKey = GALERI_VIDEO_KEYS[i]!;
+  return GALERI_KEYS.map((key) => {
+    const videoKey = GALERI_VIDEO_BY_SLOT[key];
     return {
       key,
       posterSrc: resolveProjectImageUrl(project[key] ?? ""),
-      videoSrc: resolveProjectVideoUrl(project[videoKey] ?? "") || null,
+      videoSrc: videoKey
+        ? resolveProjectVideoUrl(project[videoKey] ?? "") || null
+        : null,
     };
   }).filter((item) => item.posterSrc.length > 0 || Boolean(item.videoSrc));
 }
@@ -378,10 +389,6 @@ export function galeriVideoFieldsFromRow(
 export function kapakFromRow(data: Record<string, unknown>): string | null {
   const k = String(data.kapak ?? data.gorsel ?? "").trim();
   return k || null;
-}
-
-export function kapakVideoFromRow(data: Record<string, unknown>): string {
-  return String(data.kapak_video ?? "").trim();
 }
 
 /** Poster veya video varsa slot dolu */
