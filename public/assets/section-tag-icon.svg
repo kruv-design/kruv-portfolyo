@@ -1,3 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -3.25 24 24" fill="currentColor" aria-hidden="true">
-  <path d="M12 2.5l1.55 4.77h5.02l-4.06 2.95 1.55 4.77L12 12.04 7.94 15l1.55-4.77-4.06-2.95h5.02L12 2.5z"/>
+<svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <filter id="kruv-star-glow" x="-35%" y="-35%" width="170%" height="170%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2.4" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <radialGradient id="kruv-star-fill" cx="50%" cy="50%" r="52%">
+      <stop offset="0%" stop-color="#9A9AFF" />
+      <stop offset="45%" stop-color="#5050FF" />
+      <stop offset="100%" stop-color="#5050FF" stop-opacity="0.55" />
+    </radialGradient>
+  </defs>
+  <path
+    filter="url(#kruv-star-glow)"
+    fill="url(#kruv-star-fill)"
+    d="M52 25.0492 30.8658 21.1423 26.9536 0H25.0464L21.1399 21.1365 0 25.0492v1.9074L21.1342 30.8635 25.0407 52h1.9071L30.8543 30.8635 51.9885 26.9566V25.0492H52Z"
+  />
 </svg>

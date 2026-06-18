@@ -3,6 +3,7 @@
 import { Fragment, useRef } from "react";
 import type { Locale } from "@/lib/i18n/config";
 import type { Messages } from "@/lib/i18n/get-messages";
+import { KruvStarIcon } from "./KruvStarIcon";
 import { useConstantSpeedMarquee } from "./useConstantSpeedMarquee";
 
 const REPEAT = 2;
@@ -41,7 +42,7 @@ export function MarketingHomeKayanYazi({
                 <Fragment key={`${seq}-${phrase}`}>
                   <span className="home-kayan-yazi__phrase">{phrase}</span>
                   <span className="home-kayan-yazi__sep" aria-hidden="true">
-                    <img src="/assets/kayan-yazi-star.svg" alt="" width={52} height={52} />
+                    <KruvStarIcon />
                   </span>
                 </Fragment>
               ))}

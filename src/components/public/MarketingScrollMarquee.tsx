@@ -8,6 +8,7 @@
 import { Fragment, useEffect, useRef } from "react";
 import type { Locale } from "@/lib/i18n/config";
 import type { Messages } from "@/lib/i18n/get-messages";
+import { KruvStarIcon } from "./KruvStarIcon";
 
 const REPEAT = 2;
 
@@ -27,7 +28,7 @@ function MarqueeTrack({
               <Fragment key={`${seq}-${phrase}`}>
                 <span className="home-scroll-marquee__phrase">{phrase}</span>
                 <span className="home-scroll-marquee__sep" aria-hidden="true">
-                  —
+                  <KruvStarIcon size={32} />
                 </span>
               </Fragment>
             ))}
