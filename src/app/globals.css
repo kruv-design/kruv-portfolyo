@@ -2029,6 +2029,13 @@ i {
   flex-shrink: 0;
 }
 
+.contact-form-eyebrow-icon svg,
+.contact-form-eyebrow-icon img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
 .contact-form-eyebrow-icon svg {
   width: 100%;
   height: 100%;
