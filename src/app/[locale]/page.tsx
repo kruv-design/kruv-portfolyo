@@ -15,7 +15,7 @@ import { getMessages } from "@/lib/i18n/get-messages";
 import { t } from "@/lib/i18n/t";
 import { withLocale } from "@/lib/i18n/path";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { SITE_CANONICAL_URL } from "@/lib/site";
+import { buildLocaleAlternates } from "@/lib/seo/locale-alternates";
 import { BRAND_NAME } from "@/lib/brand";
 import {
   buildLocalBusinessSchema,
@@ -32,20 +32,16 @@ export async function generateMetadata({
   const title = t(messages, "home.metaTitle");
   const description = t(messages, "home.metaDescription");
 
+  const alternates = buildLocaleAlternates("", locale);
+
   return {
     title: { absolute: title },
     description,
-    alternates: {
-      canonical: `${SITE_CANONICAL_URL}/${locale}`,
-      languages: {
-        "tr-TR": `${SITE_CANONICAL_URL}/tr`,
-        en: `${SITE_CANONICAL_URL}/en`,
-      },
-    },
+    alternates,
     openGraph: {
       title,
       description,
-      url: `${SITE_CANONICAL_URL}/${locale}`,
+      url: alternates.canonical,
       locale: locale === "tr" ? "tr_TR" : "en_US",
       siteName: BRAND_NAME,
       type: "website",

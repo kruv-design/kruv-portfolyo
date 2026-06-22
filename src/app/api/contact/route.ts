@@ -34,7 +34,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true });
   }
 
-  const { sessionId, payload } = parsed.data;
+  const { sessionId, payload, locale } = parsed.data;
   const emailOk = z.string().email().safeParse(payload.email.trim()).success;
   if (!emailOk) {
     return NextResponse.json(
@@ -65,8 +65,8 @@ export async function POST(req: Request) {
       portalId,
       formGuid,
       payload,
-      pageUri: `${env.SITE_URL}/contact`,
-      pageName: "İletişim",
+      pageUri: `${env.SITE_URL}/${locale}/contact`,
+      pageName: locale === "tr" ? "İletişim" : "Contact",
     });
     hubspotSynced = hs.ok;
     if (!hs.ok) {

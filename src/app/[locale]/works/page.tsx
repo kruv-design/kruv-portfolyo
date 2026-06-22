@@ -8,7 +8,7 @@ import { getMessages } from "@/lib/i18n/get-messages";
 import { t } from "@/lib/i18n/t";
 import type { Locale } from "@/lib/i18n/config";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { SITE_CANONICAL_URL } from "@/lib/site";
+import { buildLocaleAlternates } from "@/lib/seo/locale-alternates";
 import { withLocale } from "@/lib/i18n/path";
 import { buildBreadcrumbSchema, buildPortfolioItemListSchema } from "@/lib/seo/structured-data";
 
@@ -24,20 +24,17 @@ export async function generateMetadata({
   const title = t(messages, "works.metaTitle");
   const description = t(messages, "works.metaDescription");
 
+  const alternates = buildLocaleAlternates("/works", locale);
+
   return {
     title,
     description,
-    alternates: {
-      canonical: `${SITE_CANONICAL_URL}/${locale}/works`,
-      languages: {
-        "tr-TR": `${SITE_CANONICAL_URL}/tr/works`,
-        en: `${SITE_CANONICAL_URL}/en/works`,
-      },
-    },
+    alternates,
     openGraph: {
       title,
       description,
-      url: `${SITE_CANONICAL_URL}/${locale}/works`,
+      url: alternates.canonical,
+      locale: locale === "tr" ? "tr_TR" : "en_US",
       images: [
         {
           url: `/og/og-works-${locale}.png`,

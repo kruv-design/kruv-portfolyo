@@ -215,14 +215,15 @@ export function buildContactPointSchema({
     "@type": "ContactPage",
     "@id": absoluteUrl(withLocale("/contact", locale)),
     url: absoluteUrl(withLocale("/contact", locale)),
-    inLanguage: locale,
+    inLanguage: locale === "tr" ? "tr-TR" : "en",
+    name: locale === "tr" ? "İletişim" : "Contact",
     mainEntity: {
       "@type": "ContactPoint",
-      contactType: "customer service",
+      contactType: locale === "tr" ? "müşteri hizmetleri" : "customer service",
       email: contactEmail(),
       telephone: DEFAULT_TELEPHONE,
-      areaServed: ["TR", "International"],
-      availableLanguage: ["Turkish", "English"],
+      areaServed: locale === "tr" ? ["TR"] : ["TR", "International"],
+      availableLanguage: locale === "tr" ? ["Turkish"] : ["English"],
     },
   });
 }

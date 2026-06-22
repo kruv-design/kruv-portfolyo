@@ -24,11 +24,23 @@ export async function middleware(request: NextRequest) {
   if (!isAsset && pathname !== "/" && !hasLocalePrefix(pathname)) {
     const next = request.nextUrl.clone();
     next.pathname = `/${DEFAULT_LOCALE}${pathname}`;
-    return NextResponse.redirect(next);
+    const redirect = NextResponse.redirect(next);
+    redirect.headers.set("x-kruv-locale", DEFAULT_LOCALE);
+    return redirect;
   }
 
+  const activeLocale = LOCALES.find(
+    (locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`),
+  );
+
   try {
-    return await updateSession(request);
+    const response = await updateSession(request);
+    if (activeLocale) {
+      response.headers.set("x-kruv-locale", activeLocale);
+    } else if (pathname === "/") {
+      response.headers.set("x-kruv-locale", DEFAULT_LOCALE);
+    }
+    return response;
   } catch (err) {
     console.error("[middleware]", err);
     if (pathname.startsWith("/admin")) {
@@ -37,7 +49,11 @@ export async function middleware(request: NextRequest) {
       next.searchParams.set("next", pathname);
       return NextResponse.redirect(next);
     }
-    return NextResponse.next({ request });
+    const fallback = NextResponse.next({ request });
+    if (activeLocale) {
+      fallback.headers.set("x-kruv-locale", activeLocale);
+    }
+    return fallback;
   }
 }
 

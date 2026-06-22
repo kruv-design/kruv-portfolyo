@@ -18,17 +18,17 @@
       "mobileCtaA11y": "Projeleri gör — portföyü aç"
     },
     "showreel": {
-      "ariaLabel": "Showreel videosu",
-      "play": "Showreel'i oynat",
-      "playCta": "Showreel'i oynat",
-      "playError": "Video yüklenemedi — URL adresini kontrol edin.",
+      "ariaLabel": "Tanıtım videosu",
+      "play": "Tanıtım videosunu oynat",
+      "playCta": "Tanıtım videosunu oynat",
+      "playError": "Video yüklenemedi — adresi kontrol edin.",
       "openVideo": "Videoyu aç",
       "mute": "Sesi kapat",
       "unmute": "Sesi aç"
     },
     "spotlight": {
       "ariaLabel": "Yaratıcı platformlarda öne çıkanlar",
-      "tagLabel": "BRANDING & INDESIGN",
+      "tagLabel": "MARKA KİMLİĞİ & EDİTORYAL",
       "ctaLabel": "Projeleri gör",
       "ctaHref": "/works",
       "titleLines": [
@@ -75,10 +75,10 @@
       "ariaLabel": "Uzmanlık alanlarımız",
       "rows": [
         [
-          "Feed öncelikli tasarım",
+          "Akış odaklı tasarım",
           "Sosyal içerik",
           "İçerik yönetimi",
-          "Reels",
+          "Kısa videolar",
           "Hikâyeler"
         ],
         [
@@ -86,7 +86,7 @@
           "Hareket tasarımı",
           "Marka kimliği",
           "Sosyal odaklı",
-          "Feed öncelikli strateji"
+          "Akış odaklı strateji"
         ]
       ]
     },
@@ -106,9 +106,9 @@
         { "label": "Marka kimliği" },
         { "label": "Sosyal medya tasarımı" },
         { "label": "Hareket tasarımı" },
-        { "label": "Feed öncelikli strateji" },
+        { "label": "Akış odaklı strateji" },
         { "label": "Sosyal odaklı" },
-        { "label": "D2C markalar" },
+        { "label": "Doğrudan tüketiciye markalar" },
         { "label": "İstanbul" }
       ]
     },
@@ -160,7 +160,7 @@
       { "label": "Marka kimliği", "filter": "branding" },
       { "label": "Ambalaj", "filter": "packaging" },
       { "label": "Editoryal", "filter": "editorial" },
-      { "label": "UI/UX", "filter": "web-design" },
+      { "label": "Arayüz ve deneyim", "filter": "web-design" },
       { "label": "İllüstrasyon", "filter": "branding" }
     ]
   },
@@ -171,10 +171,10 @@
     "title": "Bir fikriniz mi var?",
     "lead": "",
     "nameLabel": "İSİM",
-    "emailLabel": "EMAIL",
+    "emailLabel": "E-POSTA",
     "messageLabel": "MESAJINIZ",
     "namePlaceholder": "ADINIZI YAZIN",
-    "emailPlaceholder": "MAIL@MAIL.COM",
+    "emailPlaceholder": "ornek@mail.com",
     "messagePlaceholder": "NE ÜZERİNE ÇALIŞIYORSUNUZ?",
     "honeypotLabel": "Web siteniz (boş bırakın)",
     "submit": "Projeye başla",
@@ -189,7 +189,7 @@
       "title": "Başlayalım",
       "email": "hello@kruv.com",
       "phone": "+90 532 367 38 66",
-      "whatsappCta": "Whatsapp üzerinden konuşalım",
+      "whatsappCta": "WhatsApp üzerinden konuşalım",
       "whatsappUrl": "https://wa.me/905323673866",
       "phoneTel": "+905323673866"
     },

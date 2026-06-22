@@ -172,7 +172,7 @@ export function MarketingSiteNav({
                     className="marketing-navbar-item"
                     aria-current={isProjectsActive ? "page" : undefined}
                   >
-                    {t(messages, "nav.projects", "Projects")}
+                    {t(messages, "nav.projects", locale === "tr" ? "Projeler" : "Projects")}
                   </Link>
                 </li>
                 {ENABLE_PUBLIC_CONTACT ? (
@@ -182,7 +182,7 @@ export function MarketingSiteNav({
                       className="marketing-navbar-item"
                       aria-current={isContactActive ? "page" : undefined}
                     >
-                      {t(messages, "nav.contact", "Contact")}
+                      {t(messages, "nav.contact", locale === "tr" ? "İletişim" : "Contact")}
                     </Link>
                   </li>
                 ) : null}
@@ -203,7 +203,7 @@ export function MarketingSiteNav({
                 ) : null}
                 {ENABLE_PUBLIC_CONTACT ? (
                   <Link href={withLocale("/contact", locale)} className="marketing-navbar-cta">
-                    {t(messages, "nav.startProject", "Start a project")}
+                    {t(messages, "nav.startProject", locale === "tr" ? "Projeye başla" : "Start a project")}
                   </Link>
                 ) : null}
                 <SiteNavMenuButton
@@ -229,13 +229,13 @@ export function MarketingSiteNav({
 
         <form className="marketing-nav-mobile-search" role="search" onSubmit={onMobileSearch}>
           <label htmlFor="marketing-nav-mobile-q" className="sr-only">
-            {t(messages, "nav.search", "Search")}
+            {t(messages, "nav.search", locale === "tr" ? "Ara" : "Search")}
           </label>
           <input
             id="marketing-nav-mobile-q"
             name="q"
             type="search"
-            placeholder={t(messages, "nav.searchPlaceholder", "Search")}
+            placeholder={t(messages, "nav.searchPlaceholder", locale === "tr" ? "Ara" : "Search")}
             autoComplete="off"
             enterKeyHint="search"
           />
@@ -245,13 +245,13 @@ export function MarketingSiteNav({
           <ul className="marketing-nav-mobile-links site-nav-mobile-links">
             <li>
               <Link href={withLocale("/works", locale)} onClick={closeMobileMenu}>
-                {t(messages, "nav.projects", "Projects")}
+                {t(messages, "nav.projects", locale === "tr" ? "Projeler" : "Projects")}
               </Link>
             </li>
             {ENABLE_PUBLIC_CONTACT ? (
               <li>
                 <Link href={withLocale("/contact", locale)} onClick={closeMobileMenu}>
-                  {t(messages, "nav.contact", "Contact")}
+                  {t(messages, "nav.contact", locale === "tr" ? "İletişim" : "Contact")}
                 </Link>
               </li>
             ) : null}
@@ -264,7 +264,7 @@ export function MarketingSiteNav({
             className="marketing-navbar-cta marketing-nav-mobile-cta"
             onClick={closeMobileMenu}
           >
-            {t(messages, "nav.startProject", "Start a project")}
+            {t(messages, "nav.startProject", locale === "tr" ? "Projeye başla" : "Start a project")}
           </ProjectCtaLink>
         </div>
       </SiteNavMobileOverlay>

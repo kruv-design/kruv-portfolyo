@@ -35,7 +35,7 @@ export function ProjectNextBanner({
   const progressPct = total > 0 ? Math.round((index / total) * 100) : 0;
   const meta = projectMetaSubtitle(nextProject);
   const href = withLocale(`/projects/${nextProject.slug}`, locale);
-  const ariaLabel = `${t(messages, "project.nextProject", "Next project")}: ${nextProject.baslik}`;
+  const ariaLabel = `${t(messages, "project.nextProject", locale === "tr" ? "Sonraki proje" : "Next project")}: ${nextProject.baslik}`;
 
   return (
     <section
@@ -83,7 +83,7 @@ export function ProjectNextBanner({
               className="marketing-navbar-cta project-next-banner__cta-btn"
               aria-hidden="true"
             >
-              {t(messages, "project.view", "View")}
+              {t(messages, "project.view", locale === "tr" ? "Görüntüle" : "View")}
               <span className="project-next-banner__cta-arrow" aria-hidden="true">
                 →
               </span>

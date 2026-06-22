@@ -12,7 +12,7 @@ import { ProjectDetailPageFrame } from "@/components/public/ProjectDetailPageFra
 import { SiteFooter } from "@/components/public/SiteFooter";
 import { MarketingKruvStyles } from "@/components/public/MarketingKruvStyles";
 import { MarketingSiteNav } from "@/components/public/MarketingSiteNav";
-import { SITE_CANONICAL_URL } from "@/lib/site";
+import { buildLocaleAlternates } from "@/lib/seo/locale-alternates";
 import type { Locale } from "@/lib/i18n/config";
 import { LOCALES } from "@/lib/i18n/config";
 import { getMessages } from "@/lib/i18n/get-messages";
@@ -53,23 +53,17 @@ export async function generateMetadata({
 
   const title = projectTitleForLocale(project, locale);
   const description = projectMetaDescription(project, locale);
-  const canonical = `${SITE_CANONICAL_URL}/${locale}/projects/${project.slug}`;
   const img = project.kapak || undefined;
+  const alternates = buildLocaleAlternates(`/projects/${project.slug}`, locale);
 
   return {
     title,
     description,
-    alternates: {
-      canonical,
-      languages: {
-        "tr-TR": `${SITE_CANONICAL_URL}/tr/projects/${project.slug}`,
-        en: `${SITE_CANONICAL_URL}/en/projects/${project.slug}`,
-      },
-    },
+    alternates,
     openGraph: {
       title,
       description,
-      url: canonical,
+      url: alternates.canonical,
       type: "article",
       images: img ? [{ url: img }] : undefined,
     },

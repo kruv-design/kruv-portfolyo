@@ -14,11 +14,6 @@ export default async function LocaleLayout({
   if (!isLocale(locale)) notFound();
   return (
     <>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `document.documentElement.lang=${JSON.stringify(locale)};`,
-        }}
-      />
       <GlobalOrganizationJsonLd locale={locale as Locale} />
       {children}
     </>

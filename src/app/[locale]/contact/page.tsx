@@ -14,7 +14,7 @@ import { getMessages } from "@/lib/i18n/get-messages";
 import { t } from "@/lib/i18n/t";
 import type { Locale } from "@/lib/i18n/config";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { SITE_CANONICAL_URL } from "@/lib/site";
+import { buildLocaleAlternates } from "@/lib/seo/locale-alternates";
 import { buildBreadcrumbSchema, buildContactPointSchema } from "@/lib/seo/structured-data";
 
 export const revalidate = 60;
@@ -31,20 +31,17 @@ export async function generateMetadata({
   const title = t(messages, "contact.metaTitle");
   const description = t(messages, "contact.metaDescription");
 
+  const alternates = buildLocaleAlternates("/contact", locale);
+
   return {
     title,
     description,
-    alternates: {
-      canonical: `${SITE_CANONICAL_URL}/${locale}/contact`,
-      languages: {
-        "tr-TR": `${SITE_CANONICAL_URL}/tr/contact`,
-        en: `${SITE_CANONICAL_URL}/en/contact`,
-      },
-    },
+    alternates,
     openGraph: {
       title,
       description,
-      url: `${SITE_CANONICAL_URL}/${locale}/contact`,
+      url: alternates.canonical,
+      locale: locale === "tr" ? "tr_TR" : "en_US",
       images: [
         {
           url: `/og/og-contact-${locale}.png`,

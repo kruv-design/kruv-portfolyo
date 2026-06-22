@@ -1,9 +1,12 @@
 import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
 import { DM_Mono } from "next/font/google";
 import { Analytics } from "@/components/analytics/Analytics";
 import { env } from "@/lib/env";
 import { BRAND_NAME } from "@/lib/brand";
 import { SITE_CANONICAL_URL } from "@/lib/site";
+import { normalizeLocale } from "@/lib/i18n/config";
+import { buildLocaleAlternates } from "@/lib/seo/locale-alternates";
 import { switzer } from "@/lib/fonts/switzer";
 import { ENABLE_THEME_TOGGLE, FORCED_THEME } from "@/lib/theme/flags";
 import "./globals.css";
@@ -34,12 +37,7 @@ export const metadata: Metadata = {
     description: "Kimlikten içeriğe, her strateji sosyal medyada nasıl görüneceği düşünülerek kurulur.",
     images: ["/og/og-default.png"],
   },
-  alternates: {
-    languages: {
-      "tr-TR": `${SITE_CANONICAL_URL}/tr/works`,
-      en: `${SITE_CANONICAL_URL}/en/works`,
-    },
-  },
+  alternates: buildLocaleAlternates("", "tr"),
   robots: { index: true, follow: true },
 };
 
@@ -56,14 +54,17 @@ export const viewport: Viewport = {
 const themeBootstrap = `(function(){try{var t=localStorage.getItem('kruv-theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();`;
 const scrollRestorationBootstrap = `(function(){try{if('scrollRestoration' in history){history.scrollRestoration='manual';}}catch(e){}})();`;
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const headerStore = await headers();
+  const htmlLang = normalizeLocale(headerStore.get("x-kruv-locale"));
+
   return (
     <html
-      lang="tr"
+      lang={htmlLang}
       className={`${switzer.variable} ${mono.variable}`}
       suppressHydrationWarning
       data-theme={ENABLE_THEME_TOGGLE ? undefined : FORCED_THEME}

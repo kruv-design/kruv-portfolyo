@@ -57,21 +57,27 @@ function MarqueeGroup({
 
 /** Anasayfa ile aynı mor kayan bant CTA (`kruv.html` .lets-talk). */
 export function LetsTalkMarquee({
-  locale = "en",
+  locale = "tr",
   messages,
   contactHref,
   headingId = "lets-talk-heading",
 }: LetsTalkMarqueeProps) {
   const href = contactHref ?? projectCtaHref(locale);
   const line1 = messages
-    ? t(messages, "home.letsTalk.line1", "got a brand ")
-    : "got a brand ";
+    ? t(messages, "home.letsTalk.line1", "Tasarlanmaya değer")
+    : locale === "tr"
+      ? "Tasarlanmaya değer"
+      : "got a brand ";
   const line2 = messages
-    ? t(messages, "home.letsTalk.line2", "worth building?")
-    : "worth building?";
+    ? t(messages, "home.letsTalk.line2", "markanız mı var?")
+    : locale === "tr"
+      ? "markanız mı var?"
+      : "worth building?";
   const cta = messages
-    ? t(messages, "home.letsTalk.cta", "Start a project")
-    : "Start a project";
+    ? t(messages, "home.letsTalk.cta", "Projeye başla")
+    : locale === "tr"
+      ? "Projeye başla"
+      : "Start a project";
 
   return (
     <section className="lets-talk" lang={locale} aria-labelledby={headingId}>
