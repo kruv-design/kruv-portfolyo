@@ -15,3 +15,15 @@ export function revalidateProjectPaths(slug: string) {
 
   revalidatePath(`/projects/${slug}`);
 }
+
+/** Blog güncellemesi sonrası TR/EN sayfalarını yenile. */
+export function revalidateBlogPaths(slug?: string) {
+  revalidatePath("/admin/blog");
+
+  for (const locale of LOCALES) {
+    revalidatePath(`/${locale}/blog`);
+    if (slug) revalidatePath(`/${locale}/blog/${slug}`);
+  }
+
+  if (slug) revalidatePath(`/blog/${slug}`);
+}

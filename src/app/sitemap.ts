@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getProjects } from "@/lib/queries";
+import { getBlogPosts } from "@/lib/blog-queries";
 import { DEFAULT_LOCALE, LOCALES, type Locale } from "@/lib/i18n/config";
 import { ENABLE_PUBLIC_CONTACT } from "@/lib/marketing-flags";
 
@@ -10,11 +11,16 @@ function localePriority(locale: Locale, trWeight: number, enWeight: number): num
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const projects = await getProjects().catch(() => []);
+  const [projects, blogPosts] = await Promise.all([
+    getProjects().catch(() => []),
+    getBlogPosts().catch(() => []),
+  ]);
   const base = PRODUCTION_URL;
   const now = new Date();
 
-  const staticPaths = ENABLE_PUBLIC_CONTACT ? ["/works", "/contact"] : ["/works"];
+  const staticPaths = ENABLE_PUBLIC_CONTACT
+    ? ["/works", "/blog", "/contact"]
+    : ["/works", "/blog"];
 
   return [
     // Anasayfalar — TR birincil
@@ -45,6 +51,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: new Date(p.updated_at || p.created_at),
         changeFrequency: "monthly" as const,
         priority: localePriority(locale, 0.8, 0.6),
+      })),
+    ),
+
+    // Blog yazıları
+    ...LOCALES.flatMap((locale) =>
+      blogPosts.map((p) => ({
+        url: `${base}/${locale}/blog/${p.slug}`,
+        lastModified: new Date(p.updated_at || p.created_at),
+        changeFrequency: "monthly" as const,
+        priority: localePriority(locale, 0.7, 0.55),
       })),
     ),
   ];

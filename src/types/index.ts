@@ -67,6 +67,47 @@ export type ProjectInput = Omit<
   slug?: string;
 };
 
+export type BlogSection = {
+  /** TR bölüm başlığı */
+  baslik: string;
+  /** TR bölüm metni */
+  metin: string;
+  /** EN bölüm başlığı (boşsa baslik) */
+  title?: string;
+  /** EN bölüm metni (boşsa metin) */
+  text?: string;
+  /** Bölüm görseli (opsiyonel) */
+  gorsel?: string;
+};
+
+/** `blog_posts` tablosu — Supabase */
+export type BlogPost = {
+  id: string;
+  slug: string;
+  /** TR başlık */
+  baslik: string;
+  /** EN başlık (boşsa baslik) */
+  title: string;
+  /** TR giriş metni */
+  aciklama: string;
+  /** EN giriş metni (boşsa aciklama) */
+  description: string;
+  /** Kapak görseli — liste kartı + og image */
+  kapak: string;
+  bolumler: BlogSection[];
+  /** false → blogda gizlenir (admin görür, public görmez) */
+  yayinda: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
+export type BlogPostInput = Omit<
+  BlogPost,
+  "id" | "slug" | "created_at" | "updated_at"
+> & {
+  slug?: string;
+};
+
 export type SiteSettings = {
   siteAdi: string;
   tagline: string;

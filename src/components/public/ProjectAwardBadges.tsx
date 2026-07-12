@@ -1,12 +1,23 @@
+import type { Locale } from "@/lib/i18n/config";
 import type { Project } from "@/types";
-import { projectAwardsBySlug } from "@/lib/project-awards";
+import {
+  AWARD_STACK_ARIA,
+  awardBadgeAlt,
+  projectAwardsBySlug,
+} from "@/lib/project-awards";
 
-export function ProjectAwardBadges({ project }: { project: Project }) {
-  const awards = projectAwardsBySlug(project.slug);
+export function ProjectAwardBadges({
+  project,
+  locale,
+}: {
+  project: Project;
+  locale: Locale;
+}) {
+  const awards = projectAwardsBySlug(project.slug, locale);
   if (awards.length === 0) return null;
 
   return (
-    <div className="project-award-stack" aria-label="Behance ödülleri">
+    <div className="project-award-stack" aria-label={AWARD_STACK_ARIA[locale]}>
       {awards.map((award) => (
         <span
           key={`${project.slug}-${award.key}`}
@@ -18,7 +29,7 @@ export function ProjectAwardBadges({ project }: { project: Project }) {
             src={award.badgeSrc}
             width={58}
             height={99}
-            alt={`${award.key.toUpperCase()} ödül rozeti`}
+            alt={awardBadgeAlt(award.key, locale)}
             loading="lazy"
             decoding="async"
           />
@@ -30,4 +41,3 @@ export function ProjectAwardBadges({ project }: { project: Project }) {
     </div>
   );
 }
-

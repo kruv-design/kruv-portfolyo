@@ -194,6 +194,59 @@ export const reorderSchema = z.object({
   order: z.array(z.string().uuid()).max(200),
 });
 
+// ── Blog ────────────────────────────────────────────────────
+
+export const blogSectionSchema = z.object({
+  baslik: z.string().trim().max(200).optional().default(""),
+  metin: z.string().trim().max(10000).optional().default(""),
+  title: z.string().trim().max(200).optional().default(""),
+  text: z.string().trim().max(10000).optional().default(""),
+  gorsel: imageUrlOrEmpty.optional().default(""),
+});
+
+export const blogPostSchema = z.object({
+  slug: z
+    .union([z.string(), z.undefined(), z.null()])
+    .transform((v) => {
+      const raw =
+        typeof v === "string" ? v.trim().toLowerCase().replace(/_/g, "-") : "";
+      if (raw === "") return "";
+      if (/^[a-z0-9-]+$/.test(raw)) return raw.slice(0, 96);
+      return slugify(raw).slice(0, 96);
+    })
+    .pipe(
+      z
+        .string()
+        .max(96)
+        .refine((s) => s === "" || /^[a-z0-9-]+$/.test(s), {
+          message: "Slug üretilemedi; başlıktan otomatik slug kullanılacak.",
+        }),
+    ),
+  baslik: nonEmpty.max(200, "Başlık çok uzun."),
+  title: z.string().trim().max(200).optional().default(""),
+  aciklama: z.string().trim().max(10000).optional().default(""),
+  description: z.string().trim().max(10000).optional().default(""),
+  kapak: imageUrlOrEmpty.optional().default(""),
+  bolumler: z.array(blogSectionSchema).max(40).default([]),
+  yayinda: z.boolean().default(true),
+});
+
+export type BlogPostFormInput = z.infer<typeof blogPostSchema>;
+
+/** PostgREST'e yalnızca `blog_posts` sütunları. */
+export function blogPayloadToDbRow(input: BlogPostFormInput, slug: string) {
+  return {
+    slug,
+    baslik: input.baslik,
+    title: input.title,
+    aciklama: input.aciklama,
+    description: input.description,
+    kapak: input.kapak,
+    bolumler: input.bolumler,
+    yayinda: input.yayinda,
+  };
+}
+
 export const loginSchema = z.object({
   email: z.string().trim().email("Geçerli bir e-posta girin."),
   password: z.string().min(8, "En az 8 karakter."),

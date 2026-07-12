@@ -96,6 +96,7 @@ export function MarketingSiteNav({
   const brandLabel = normalizeBrandName(settings.siteAdi).toLowerCase();
 
   const isProjectsActive = pathname?.includes("/works") || (pathname?.includes("/projects/") ?? false);
+  const isBlogActive = pathname?.includes("/blog") ?? false;
   const isContactActive = pathname?.includes("/contact");
   const projectCtaUrl = projectCtaHref(locale);
 
@@ -175,6 +176,15 @@ export function MarketingSiteNav({
                     {t(messages, "nav.projects", locale === "tr" ? "Projeler" : "Projects")}
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    href={withLocale("/blog", locale)}
+                    className="marketing-navbar-item"
+                    aria-current={isBlogActive ? "page" : undefined}
+                  >
+                    {t(messages, "nav.blog", "Blog")}
+                  </Link>
+                </li>
                 {ENABLE_PUBLIC_CONTACT ? (
                   <li>
                     <Link
@@ -246,6 +256,11 @@ export function MarketingSiteNav({
             <li>
               <Link href={withLocale("/works", locale)} onClick={closeMobileMenu}>
                 {t(messages, "nav.projects", locale === "tr" ? "Projeler" : "Projects")}
+              </Link>
+            </li>
+            <li>
+              <Link href={withLocale("/blog", locale)} onClick={closeMobileMenu}>
+                {t(messages, "nav.blog", "Blog")}
               </Link>
             </li>
             {ENABLE_PUBLIC_CONTACT ? (

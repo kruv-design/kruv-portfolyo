@@ -62,7 +62,7 @@ export function MarketingFeaturedWorks({
               className="featured-work-card"
               {...(tags ? { "data-work-tags": tags } : {})}
             >
-              <ProjectAwardBadges project={project} />
+              <ProjectAwardBadges project={project} locale={locale} />
               <FeaturedWorkClickLink
                 href={href}
                 slug={project.slug}

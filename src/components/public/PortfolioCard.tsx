@@ -37,7 +37,7 @@ export function PortfolioCard({
       aria-label={project.baslik}
       onClick={() => track("project_click", { slug: project.slug })}
     >
-      <ProjectAwardBadges project={project} />
+      <ProjectAwardBadges project={project} locale={locale} />
       <div className="pw-card-media">
         {cover ? (
           <Image

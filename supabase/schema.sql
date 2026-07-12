@@ -85,6 +85,32 @@ create trigger projects_touch
   before update on public.projects
   for each row execute function public.touch_updated_at();
 
+-- ── Blog yazıları ───────────────────────────────────────────
+create table if not exists public.blog_posts (
+  id          uuid primary key default uuid_generate_v4(),
+  slug        text unique not null,
+  baslik      text not null,
+  aciklama    text default '',
+  title       text default '',
+  description text default '',
+  kapak       text default '',
+  bolumler    jsonb not null default '[]'::jsonb,
+  yayinda     boolean not null default true,
+  created_at  timestamptz not null default now(),
+  updated_at  timestamptz not null default now()
+);
+
+create index if not exists blog_posts_created_idx
+  on public.blog_posts (created_at desc);
+
+create index if not exists blog_posts_yayinda_idx
+  on public.blog_posts (yayinda);
+
+drop trigger if exists blog_posts_touch on public.blog_posts;
+create trigger blog_posts_touch
+  before update on public.blog_posts
+  for each row execute function public.touch_updated_at();
+
 -- ── Settings (singleton row) ───────────────────────────────
 create table if not exists public.site_settings (
   id          int primary key default 1,
@@ -135,6 +161,18 @@ create trigger settings_touch
 alter table public.projects           enable row level security;
 alter table public.site_settings      enable row level security;
 alter table public.project_categories enable row level security;
+alter table public.blog_posts         enable row level security;
+
+drop policy if exists "blog_posts_public_read" on public.blog_posts;
+create policy "blog_posts_public_read"
+  on public.blog_posts for select
+  using (true);
+
+drop policy if exists "blog_posts_authed_write" on public.blog_posts;
+create policy "blog_posts_authed_write"
+  on public.blog_posts for all
+  to authenticated
+  using (true) with check (true);
 
 drop policy if exists "project_categories_public_read" on public.project_categories;
 create policy "project_categories_public_read"

@@ -6,7 +6,8 @@ import {
   projectIntroForLocale,
   projectTitleForLocale,
 } from "@/lib/project-locale";
-import type { Project, SiteSettings } from "@/types";
+import { blogIntroForLocale, blogTitleForLocale } from "@/lib/blog-locale";
+import type { BlogPost, Project, SiteSettings } from "@/types";
 
 export type JsonLdNode = Record<string, unknown>;
 
@@ -181,6 +182,37 @@ export function buildCreativeWorkSchema({
     datePublished: published || undefined,
     keywords: project.etiketler?.length ? project.etiketler.join(", ") : undefined,
     url: absoluteUrl(withLocale(`/projects/${project.slug}`, locale)),
+    inLanguage: locale,
+  });
+}
+
+export function buildBlogPostingSchema({
+  post,
+  locale,
+}: {
+  post: BlogPost;
+  locale: Locale;
+}): JsonLdNode {
+  const title = blogTitleForLocale(post, locale);
+  const intro = blogIntroForLocale(post, locale);
+  const published = post.created_at?.slice(0, 10);
+  const modified = post.updated_at?.slice(0, 10);
+
+  return compact({
+    "@type": "BlogPosting",
+    headline: title,
+    description: intro || undefined,
+    image: post.kapak ? absoluteUrl(post.kapak) : undefined,
+    author: {
+      "@id": `${absoluteUrl("/")}#organization`,
+    },
+    publisher: {
+      "@id": `${absoluteUrl("/")}#organization`,
+    },
+    datePublished: published || undefined,
+    dateModified: modified || undefined,
+    mainEntityOfPage: absoluteUrl(withLocale(`/blog/${post.slug}`, locale)),
+    url: absoluteUrl(withLocale(`/blog/${post.slug}`, locale)),
     inLanguage: locale,
   });
 }

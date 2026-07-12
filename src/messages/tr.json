@@ -116,14 +116,55 @@
       "line1": "Tasarlanmaya değer",
       "line2": "markanız mı var?",
       "cta": "Projeye başla"
+    },
+    "focus": {
+      "recognitionTag": "Tanıma",
+      "recognitionHeading": "Neredesin?",
+      "recognitionNote": "Markanın şu anki evresini tanımla. Sonraki adım, doğru sistemle kontrollü biçimde ilerlemek.",
+      "directionTag": "Yönlendirme",
+      "directionHeading": "Buradan nereye gidiyorsun?",
+      "items": [
+        {
+          "title": "Sıfırdan başlıyorsun",
+          "lede1": "Bir fikrin var ama her şey hâlâ dağınık. Ortada kimlik yok, sistem yok, üzerine inşa edilecek sağlam bir zemin yok.",
+          "lede2": "Net bir marka kimliği, tutarlı bir görsel dil ve göründüğün her yerde çalışan bir sistem.",
+          "cta": "Buradan başla →"
+        },
+        {
+          "title": "Büyümeye hazırsın",
+          "lede1": "Ürünün çalışıyor ama markan seni geride tutuyor. Büyüyorsun ama kontrollü hissettirmiyor.",
+          "lede2": "Geldiğin noktaya yakışan bir marka: tutarlı, bilinçli ve bir sonraki aşamaya hazır.",
+          "cta": "Kontrolü ele al →"
+        },
+        {
+          "title": "Görünür olman gerek",
+          "lede1": "Ciddi işler yapıyorsun ama öyle algılanmıyor. Algı, çalıştığın seviyeyle örtüşmüyor.",
+          "lede2": "Sen daha konuşmadan konuşan bir marka varlığı. Doğru insanlar seni bulduğunda seviyeni anında anlar.",
+          "cta": "Algıyı değiştir →"
+        },
+        {
+          "title": "Kimliğin eskidi",
+          "lede1": "Markan seni buraya kadar getirdi ama daha ileri taşımayacak. Eski, tutarsız ve uyumsuz hissettiriyor.",
+          "lede2": "Gideceğin yere göre yeniden kurulan bir marka: işe yarayan kalır, seni geride tutan değişir.",
+          "cta": "Markayı dönüştür →"
+        }
+      ]
     }
   },
   "nav": {
     "projects": "Projeler",
     "contact": "İletişim",
+    "blog": "Blog",
     "startProject": "Projeye başla",
     "search": "Ara",
     "searchPlaceholder": "Ara"
+  },
+  "blog": {
+    "metaTitle": "Blog",
+    "metaDescription": "kruv blog: marka kimliği, tasarım sistemleri, tipografi ve sosyal medya tasarımı üzerine yazılar.",
+    "eyebrow": "BLOG",
+    "empty": "Henüz yazı yok.",
+    "backToList": "Tüm yazılar"
   },
   "works": {
     "metaTitle": "Projeler",
@@ -154,6 +195,7 @@
     "followSr": "Sosyal bağlantılar — her ikon yeni sekmede açılır.",
     "home": "Ana sayfa",
     "projects": "Projeler",
+    "blog": "Blog",
     "contact": "İletişim",
     "projectCount": "{count} / {total} proje",
     "serviceLinks": [

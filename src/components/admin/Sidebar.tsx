@@ -8,6 +8,8 @@ import { BRAND_NAME } from "@/lib/brand";
 const NAV = [
   { href: "/admin", label: "Projeler", icon: "▦" },
   { href: "/admin/projects/new", label: "Yeni Proje", icon: "＋" },
+  { href: "/admin/blog", label: "Blog", icon: "✎" },
+  { href: "/admin/blog/new", label: "Yeni Yazı", icon: "＋" },
   { href: "/admin/contact-inquiries", label: "İletişim", icon: "✉" },
   { href: "/admin/settings", label: "Ayarlar", icon: "⚙" },
   { href: "/", label: "Siteye Git", icon: "◉", external: true },
@@ -44,7 +46,11 @@ export function Sidebar() {
           const isActive =
             item.href === "/admin"
               ? pathname === "/admin"
-              : pathname.startsWith(item.href) && item.href !== "/";
+              : item.href === "/admin/blog"
+                ? pathname === "/admin/blog" ||
+                  (pathname.startsWith("/admin/blog/") &&
+                    !pathname.startsWith("/admin/blog/new"))
+                : pathname.startsWith(item.href) && item.href !== "/";
           return (
             <Link
               key={item.href}

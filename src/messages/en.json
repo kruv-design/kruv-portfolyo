@@ -119,14 +119,55 @@
       "line1": "Got a brand ",
       "line2": "Worth building?",
       "cta": "Start a project"
+    },
+    "focus": {
+      "recognitionTag": "Recognition",
+      "recognitionHeading": "Where are you?",
+      "recognitionNote": "Identify where your brand stands today. The next step is moving forward with the right system, in control.",
+      "directionTag": "Direction",
+      "directionHeading": "Where do you go from here?",
+      "items": [
+        {
+          "title": "Starting from zero",
+          "lede1": "You have an idea, but everything still feels scattered. No identity, no system, nothing solid to build on.",
+          "lede2": "A clear brand identity, a consistent visual language, and a system that works across every place you show up.",
+          "cta": "Start here →"
+        },
+        {
+          "title": "Ready to scale",
+          "lede1": "Your product is working, but your brand is holding you back. You're growing, but it doesn't feel controlled.",
+          "lede2": "A brand that matches the business you've become. Consistent, intentional, and ready for the next stage.",
+          "cta": "Get in control →"
+        },
+        {
+          "title": "Need visibility",
+          "lede1": "You're doing serious work, but it's not seen that way. The perception doesn't match the level you operate at.",
+          "lede2": "A presence that speaks before you do. So when the right people find you, they immediately understand the level you're at.",
+          "cta": "Change perception →"
+        },
+        {
+          "title": "Outdated identity",
+          "lede1": "Your brand got you here, but it won't take you further. It feels dated, inconsistent, and out of sync.",
+          "lede2": "A brand rebuilt for where you're going. Keeping what still works, replacing what holds you back.",
+          "cta": "Evolve the brand →"
+        }
+      ]
     }
   },
   "nav": {
     "projects": "Projects",
     "contact": "Contact",
+    "blog": "Blog",
     "startProject": "Start a project",
     "search": "Search",
     "searchPlaceholder": "Search"
+  },
+  "blog": {
+    "metaTitle": "Blog",
+    "metaDescription": "The kruv blog: articles on brand identity, design systems, typography, and social media design.",
+    "eyebrow": "BLOG",
+    "empty": "No posts yet.",
+    "backToList": "All posts"
   },
   "works": {
     "metaTitle": "Portfolio",
@@ -157,6 +198,7 @@
     "followSr": "Social links — each icon opens in a new tab.",
     "home": "Home",
     "projects": "Projects",
+    "blog": "Blog",
     "contact": "Contact us",
     "projectCount": "{count} / {total} projects",
     "serviceLinks": [

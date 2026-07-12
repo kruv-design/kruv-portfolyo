@@ -69,6 +69,18 @@ export function rewriteMarketingHomeHtml(
     /<section class="projects-belief"[\s\S]*?<\/section>\s*/g,
     "",
   );
+  // Gizli (hidden) testimonial placeholder'ı — TR metinler EN sayfaya sızmasın.
+  out = out.replace(
+    /<section class="testimonials-section"[^>]*\bhidden[^>]*>[\s\S]*?<\/section>\s*/g,
+    "",
+  );
+
+  if (locale === "en") {
+    out = out.replace(
+      /aria-label="Beyoğlu Kültür Yolu Festivali"/g,
+      'aria-label="Beyoğlu Culture Route Festival"',
+    );
+  }
 
   out = out.replace(/\b(src|href)="assets\//g, '$1="/assets/');
   out = out.replace(/'link\//g, "'/link/");
@@ -97,7 +109,72 @@ export function rewriteMarketingHomeHtml(
     `$1${escapeHtml(letsTalk.cta)}$2`,
   );
 
+  out = rewriteFocusSectionInHtml(out, locale, messages);
   out = rewriteFooterInHtml(out, locale, messages);
+
+  return out;
+}
+
+/**
+ * `#journey-focus` bölümü — kruv.html'de etiket/başlıklar TR, madde metinleri EN
+ * karışık geliyor; iki locale'de de tamamı messages.home.focus'tan yazılır.
+ */
+function rewriteFocusSectionInHtml(
+  html: string,
+  locale: Locale,
+  messages: Messages,
+): string {
+  if (!html.includes('id="journey-focus"')) return html;
+
+  const focus = messages.home.focus;
+  let out = html;
+
+  out = out.replace(
+    /(<section class="focus-list-section[^"]*" id="journey-focus" lang=")[^"]*(")/,
+    `$1${locale}$2`,
+  );
+
+  out = out.replace(
+    /(<span class="focus-list-tag">)[^<]*(<\/span>\s*<h\d class="focus-list-heading" id="focus-heading-recognition">)[^<]*(<\/h\d>)/,
+    `$1${escapeHtml(focus.recognitionTag)}$2${escapeHtml(focus.recognitionHeading)}$3`,
+  );
+  out = out.replace(
+    /(<p class="focus-list-note">)[^<]*(<\/p>)/,
+    `$1${escapeHtml(focus.recognitionNote)}$2`,
+  );
+  out = out.replace(
+    /(<span class="focus-list-tag">)[^<]*(<\/span>\s*<h\d class="focus-list-heading" id="focus-heading-direction">)[^<]*(<\/h\d>)/,
+    `$1${escapeHtml(focus.directionTag)}$2${escapeHtml(focus.directionHeading)}$3`,
+  );
+
+  let titleIdx = 0;
+  out = out.replace(
+    /(<h\d class="focus-title">)[^<]*(<\/h\d>)/g,
+    (match, open: string, close: string) => {
+      const item = focus.items[titleIdx++];
+      return item ? `${open}${escapeHtml(item.title)}${close}` : match;
+    },
+  );
+
+  let ledeIdx = 0;
+  out = out.replace(
+    /(<div class="focus-lede">)[\s\S]*?(<\/div>)/g,
+    (match, open: string, close: string) => {
+      const item = focus.items[ledeIdx++];
+      if (!item) return match;
+      return `${open}\n                    <p>${escapeHtml(item.lede1)}</p>\n                    <p>${escapeHtml(item.lede2)}</p>\n                  ${close}`;
+    },
+  );
+
+  // Her maddede iki CTA var (dropdown + desktop) — sırayla aynı maddeye eşlenir.
+  let ctaIdx = 0;
+  out = out.replace(
+    /(<a class="focus-cta[^"]*"[^>]*>)[^<]*(<\/a>)/g,
+    (match, open: string, close: string) => {
+      const item = focus.items[Math.floor(ctaIdx++ / 2)];
+      return item ? `${open}${escapeHtml(item.cta)}${close}` : match;
+    },
+  );
 
   return out;
 }

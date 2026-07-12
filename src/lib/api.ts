@@ -1,4 +1,4 @@
-import type { Project, ProjectInput } from "@/types";
+import type { BlogPost, BlogPostInput, Project, ProjectInput } from "@/types";
 
 /** İstemci her zaman tam origin ile çağırır (proxy / alt path sapmalarını azaltır). */
 function resolveApiUrl(path: string): string {
@@ -92,6 +92,26 @@ export const api = {
     request<{ ok: true }>("/api/projects/reorder", {
       method: "POST",
       body: JSON.stringify({ order }),
+    }),
+  listBlogPosts: () => request<BlogPost[]>("/api/blog-posts"),
+  createBlogPost: (input: BlogPostInput) =>
+    request<BlogPost>("/api/blog-posts", {
+      method: "POST",
+      body: JSON.stringify(input),
+    }),
+  updateBlogPost: (id: string, input: BlogPostInput) =>
+    request<BlogPost>(`/api/blog-posts/${encodeURIComponent(id)}`, {
+      method: "PATCH",
+      body: JSON.stringify(input),
+    }),
+  toggleBlogVisibility: (id: string, yayinda: boolean) =>
+    request<BlogPost>(`/api/blog-posts/${encodeURIComponent(id)}/visibility`, {
+      method: "PATCH",
+      body: JSON.stringify({ yayinda }),
+    }),
+  deleteBlogPost: (id: string) =>
+    request<{ ok: true }>(`/api/blog-posts/${encodeURIComponent(id)}`, {
+      method: "DELETE",
     }),
   signUpload: () =>
     request<{
