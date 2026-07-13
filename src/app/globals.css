@@ -733,7 +733,8 @@ i {
     .featured-work-card,
     .portfolio-grid,
     .project-next-banner,
-    .contact-form
+    .contact-form,
+    .blog-article
   )
   :is(p, .b1, .b2) {
   max-width: none;
@@ -847,12 +848,11 @@ i {
   }
 }
 
-/* ── Blog — liste /blog + detay /blog/[slug] (Figma "Blog" / "Blog detay") ── */
+/* /blog — anasayfa bölümleriyle aynı yatay ritim (--grid-shell-width) */
 .blog-shell {
-  width: 100%;
+  width: var(--grid-shell-width);
   max-width: 100%;
   margin-inline: auto;
-  padding-inline: var(--container-gutter);
   padding-top: var(--works-body-pad-top);
   padding-bottom: calc(var(--space-12) + var(--space-8));
   box-sizing: border-box;
@@ -873,11 +873,11 @@ i {
   color: var(--ink-faint);
 }
 
-/* Liste kartları — Figma: 3 sütun, 20px gap, 12px radius, 32px başlık */
+/* Liste kartları — 3 sütun grid */
 .blog-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-8) 20px;
+  gap: var(--space-8) var(--space-5);
   width: 100%;
 }
 
@@ -896,7 +896,7 @@ i {
 .blog-card {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: var(--space-lg);
   text-decoration: none;
   color: inherit;
 }
@@ -905,7 +905,7 @@ i {
   position: relative;
   width: 100%;
   aspect-ratio: 425 / 287;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   background: var(--gray-80);
 }
@@ -925,22 +925,15 @@ i {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
 }
 
 .blog-card__title {
   margin: 0;
-  padding-inline: 12px;
-  font-family: var(--h3-font-family);
-  font-size: var(--h3-font-size);
-  font-weight: var(--h3-font-weight);
-  line-height: var(--h3-line-height);
-  letter-spacing: var(--h3-letter-spacing);
-  text-transform: none;
-  color: var(--ink);
+  padding-inline: var(--space-3);
 }
 
-/* Detay — Figma: 688px orta kolon, yıldız + 72px H1 + 18px gövde */
+/* Detay — dar orta kolon; tipografi: .h1 / .h2 / .b1 utility sınıfları */
 .blog-article {
   display: flex;
   flex-direction: column;
@@ -953,15 +946,9 @@ i {
   color: var(--accent);
 }
 
-.blog-article__title {
+.blog-article__title,
+.blog-article__heading {
   margin: 0;
-  font-family: var(--h1-font-family);
-  font-size: var(--h1-font-size);
-  /* Figma "Blog detay": 42dot Sans Medium — site H1 700 yerine bilinçli 500 */
-  font-weight: 500;
-  line-height: var(--h1-line-height);
-  letter-spacing: var(--h1-letter-spacing);
-  color: var(--ink);
 }
 
 .blog-article__intro,
@@ -974,12 +961,6 @@ i {
 .blog-article__intro p,
 .blog-article__text p {
   margin: 0;
-  font-size: var(--b1-font-size);
-  /* Figma gövde ritmi (1.42) — b1 display(1.2) için sıkı, lh-body(1.55) için gevşek */
-  line-height: 1.42;
-  letter-spacing: var(--ls-body);
-  color: var(--b1-color);
-  max-width: none;
 }
 
 .blog-article__section {
@@ -988,22 +969,11 @@ i {
   gap: var(--space-8);
 }
 
-.blog-article__heading {
-  margin: 0;
-  font-family: var(--h2-font-family);
-  font-size: var(--h2-font-size);
-  /* Figma "Blog detay": Medium — site H2 600 yerine bilinçli 500 */
-  font-weight: 500;
-  line-height: var(--h2-line-height);
-  letter-spacing: var(--h2-letter-spacing);
-  color: var(--ink);
-}
-
 .blog-article__image {
   display: block;
   width: 100%;
   height: auto;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
 }
 
 /* Project detail (/projects/[slug]) — Works shell + section / panel token */

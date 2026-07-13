@@ -38,7 +38,7 @@ export function BlogCard({
           />
         )}
       </div>
-      <h2 className="blog-card__title">{post.baslik}</h2>
+      <h2 className="h3 blog-card__title">{post.baslik}</h2>
     </Link>
   );
 }

@@ -9,7 +9,7 @@ function Paragraphs({ text, className }: { text: string; className?: string }) {
   return (
     <>
       {parts.map((p, i) => (
-        <p key={i} className={className}>
+        <p key={i} className={["b1", className].filter(Boolean).join(" ")}>
           {p}
         </p>
       ))}
@@ -25,7 +25,7 @@ export function BlogArticle({ post }: { post: BlogPost }) {
   return (
     <article className="blog-article">
       <KruvStarIcon className="blog-article__star" size={38} />
-      <h1 className="blog-article__title">{post.baslik}</h1>
+      <h1 className="h1 blog-article__title">{post.baslik}</h1>
       {post.aciklama ? (
         <div className="blog-article__intro">
           <Paragraphs text={post.aciklama} />
@@ -34,7 +34,7 @@ export function BlogArticle({ post }: { post: BlogPost }) {
       {post.bolumler.map((section, i) => (
         <section key={i} className="blog-article__section">
           {section.baslik ? (
-            <h2 className="blog-article__heading">{section.baslik}</h2>
+            <h2 className="h2 blog-article__heading">{section.baslik}</h2>
           ) : null}
           {section.metin ? (
             <div className="blog-article__text">

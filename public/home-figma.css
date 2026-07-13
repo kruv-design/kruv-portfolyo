@@ -33,12 +33,17 @@
   .home-spotlight,
   .ideal-section,
   .scene-section,
-  .home-kayan-yazi,
   .home-values
 ) {
   box-sizing: border-box;
   padding-block: var(--home-section-pad-y);
   padding-inline: var(--section-pad-x);
+}
+
+/* Tam genişlik mor bant — section padding yok (üst/alt beyaz şerit oluşmasın) */
+.marketing-home-figma .home-kayan-yazi {
+  padding: 0;
+  background: transparent;
 }
 
 .marketing-home-figma .hero-v2--has-showreel {
@@ -515,7 +520,7 @@
   --home-kayan-star: 52px;
   position: relative;
   z-index: 1;
-  background: var(--home-surface);
+  background: transparent;
 }
 
 .home-kayan-yazi__bleed {

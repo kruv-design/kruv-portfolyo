@@ -4,16 +4,16 @@ const STAR_PATH =
 /** Site geneli 4 uçlu yıldız — renk `currentColor` ile gelir (gradient yok). */
 export function KruvStarIcon({
   className,
-  size = 52,
+  size,
 }: {
   className?: string;
+  /** Verilmezse boyut CSS ile (--home-kayan-star vb.) kontrol edilir. */
   size?: number;
 }) {
   return (
     <svg
       viewBox="0 0 52 52"
-      width={size}
-      height={size}
+      {...(size != null ? { width: size, height: size } : {})}
       fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
