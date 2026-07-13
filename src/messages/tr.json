@@ -199,6 +199,7 @@
     "contact": "İletişim",
     "projectCount": "{count} / {total} proje",
     "serviceLinks": [
+      { "label": "Sosyal medya yönetimi", "filter": "social-media" },
       { "label": "Marka kimliği", "filter": "branding" },
       { "label": "Ambalaj", "filter": "packaging" },
       { "label": "Editoryal", "filter": "editorial" },

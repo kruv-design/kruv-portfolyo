@@ -202,6 +202,7 @@
     "contact": "Contact us",
     "projectCount": "{count} / {total} projects",
     "serviceLinks": [
+      { "label": "Social media management", "filter": "social-media" },
       { "label": "Brand identity", "filter": "branding" },
       { "label": "Packaging", "filter": "packaging" },
       { "label": "Editorial", "filter": "editorial" },

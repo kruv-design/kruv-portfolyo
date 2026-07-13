@@ -932,10 +932,10 @@ i {
   margin: 0;
   padding-inline: 12px;
   font-family: var(--h3-font-family);
-  font-size: clamp(1.375rem, 2.2vw, 2rem);
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: 0;
+  font-size: var(--h3-font-size);
+  font-weight: var(--h3-font-weight);
+  line-height: var(--h3-line-height);
+  letter-spacing: var(--h3-letter-spacing);
   text-transform: none;
   color: var(--ink);
 }
@@ -956,10 +956,11 @@ i {
 .blog-article__title {
   margin: 0;
   font-family: var(--h1-font-family);
-  font-size: clamp(2.25rem, 6vw, 4.5rem);
+  font-size: var(--h1-font-size);
+  /* Figma "Blog detay": 42dot Sans Medium — site H1 700 yerine bilinçli 500 */
   font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: 0;
+  line-height: var(--h1-line-height);
+  letter-spacing: var(--h1-letter-spacing);
   color: var(--ink);
 }
 
@@ -973,9 +974,10 @@ i {
 .blog-article__intro p,
 .blog-article__text p {
   margin: 0;
-  font-size: 1.125rem;
+  font-size: var(--b1-font-size);
+  /* Figma gövde ritmi (1.42) — b1 display(1.2) için sıkı, lh-body(1.55) için gevşek */
   line-height: 1.42;
-  letter-spacing: 0.02em;
+  letter-spacing: var(--ls-body);
   color: var(--b1-color);
   max-width: none;
 }
@@ -989,10 +991,11 @@ i {
 .blog-article__heading {
   margin: 0;
   font-family: var(--h2-font-family);
-  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-size: var(--h2-font-size);
+  /* Figma "Blog detay": Medium — site H2 600 yerine bilinçli 500 */
   font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: 0;
+  line-height: var(--h2-line-height);
+  letter-spacing: var(--h2-letter-spacing);
   color: var(--ink);
 }
 

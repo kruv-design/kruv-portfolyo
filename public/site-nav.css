@@ -59,6 +59,9 @@ html {
   padding: var(--site-nav-pad-y) var(--site-nav-gutter-x);
   overflow: visible;
   isolation: isolate;
+  /* Tam genişlik şeridin şeffaf yanları alttaki içeriğin tıklamasını yutmasın
+     (ör. works filtre butonları nav hizasına kaydığında) */
+  pointer-events: none;
   transition:
     filter var(--dur-slow) var(--ease, var(--ease-standard)),
     opacity var(--dur-slow) var(--ease, var(--ease-standard));
@@ -70,6 +73,7 @@ html {
   max-width: 100%;
   margin-inline: auto;
   overflow: visible;
+  pointer-events: auto;
 }
 
 .marketing-navbar-inner > * {
