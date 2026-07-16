@@ -5,7 +5,7 @@ import {
   mapProtelBrandRow,
   mapProtelSettingsRow,
 } from "@/lib/map-protel-row";
-import type { ProtelPitch, ProtelPitchSettings, ProtelBrand, ProtelAdminPitch } from "@/types";
+import type { ProtelPitch, ProtelPitchSettings, ProtelBrand, ProtelAdminPitch, ProtelSampleVideo } from "@/types";
 import { resolveProtelPassword } from "@/lib/protel-auth";
 
 export const DEFAULT_PROTEL_PROCESS_STEPS = [
@@ -31,6 +31,33 @@ export const DEFAULT_PROTEL_PROCESS_STEPS = [
   },
 ];
 
+export const DEFAULT_PROTEL_SAMPLE_VIDEOS: ProtelSampleVideo[] = [
+  {
+    title: "UI animasyon örneği",
+    videoUrl:
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=tten-2_fnwkmj",
+    aspectRatio: "9:16",
+  },
+  {
+    title: "UI animasyon örneği",
+    videoUrl:
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=tten_bj3iyd",
+    aspectRatio: "16:9",
+  },
+  {
+    title: "UI animasyon örneği",
+    videoUrl:
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Otter_v4_annlwz",
+    aspectRatio: "16:9",
+  },
+  {
+    title: "Otelinizin Gerçek Potansiyeli",
+    videoUrl:
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Otelinizin_Gerc%CC%A7ek_Potansiyeli_ukgccv",
+    aspectRatio: "16:9",
+  },
+];
+
 export const DEFAULT_PROTEL_SETTINGS: ProtelPitchSettings = {
   heroTitle: "Ürününüzün Potansiyelini\nSahneye Çıkarın",
   heroIntro:
@@ -40,7 +67,7 @@ export const DEFAULT_PROTEL_SETTINGS: ProtelPitchSettings = {
   proposalVideoUrl: "",
   proposalVideoAspect: "16:9",
   processDuration: "2/3 HAFTA",
-  sampleVideos: [],
+  sampleVideos: DEFAULT_PROTEL_SAMPLE_VIDEOS,
   processSteps: DEFAULT_PROTEL_PROCESS_STEPS,
   updatedAt: "",
 };
@@ -129,9 +156,17 @@ export async function getProtelPitch(): Promise<ProtelPitch> {
     if (settingsRes.error) throw settingsRes.error;
     if (brandsRes.error) throw brandsRes.error;
 
-    const settings = settingsRes.data
+    const settingsRow = settingsRes.data
       ? mapProtelSettingsRow(settingsRes.data as Record<string, unknown>)
       : DEFAULT_PROTEL_SETTINGS;
+
+    const settings: ProtelPitchSettings = {
+      ...settingsRow,
+      sampleVideos:
+        settingsRow.sampleVideos.length > 0
+          ? settingsRow.sampleVideos
+          : DEFAULT_PROTEL_SAMPLE_VIDEOS,
+    };
 
     const brands =
       brandsRes.data && brandsRes.data.length > 0

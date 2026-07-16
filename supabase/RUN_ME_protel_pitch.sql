@@ -16,16 +16,23 @@ create table if not exists public.protel_pitch_settings (
   updated_at            timestamptz not null default now()
 );
 
-insert into public.protel_pitch_settings (id, hero_intro, process_steps)
+insert into public.protel_pitch_settings (id, hero_intro, process_steps, sample_videos)
 values (
   1,
-  'Ürününüzü anlatan, kullanıcıyı yönlendiren UI animasyon videoları üretiyoruz.',
+  'Karmaşık özellikleri etkileyici bir deneyime dönüştürüyoruz.
+
+Ürününüzün nasıl çalıştığını, neden vazgeçilmez olduğunu ve yarattığı farkı görsel bir şölene dönüştürmeye hazır mısınız?',
   '[
-    {"title": "Brief & ürünü anlama", "description": "İyi bir brief alma ve ürünü tam olarak anlama."},
-    {"title": "Script + voice-over", "description": "Senaryo ve seslendirme metni yazımı."},
-    {"title": "Storyboard", "description": "Storyboard oluşturulması."},
-    {"title": "Animasyon sample", "description": "Örnek animasyon üretimi ve onay."},
-    {"title": "Teslim", "description": "Final animasyon teslimi."}
+    {"title": "Tanışma & Analiz", "description": "Toplantı ile markanızı ve ürününüzü detaylıca öğrenip analiz ediyoruz."},
+    {"title": "Üretim", "description": "Videonun temellerini atıyoruz. Görsel kurguyu, ekrandaki yazıları ve seslendirme metinlerini hazırlayıp onayınıza sunuyoruz."},
+    {"title": "Prodüksiyon & Seslendirme", "description": "Onayınızın ardından animasyonları hazırlayıp profesyonel seslendirme (voice-over) ile birleştiriyoruz."},
+    {"title": "Teslim", "description": "Final kontrollerin ardından videonuzu yayına hazır şekilde teslim ediyoruz."}
+  ]'::jsonb,
+  '[
+    {"title": "UI animasyon örneği", "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=tten-2_fnwkmj", "aspectRatio": "9:16"},
+    {"title": "UI animasyon örneği", "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=tten_bj3iyd", "aspectRatio": "16:9"},
+    {"title": "UI animasyon örneği", "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Otter_v4_annlwz", "aspectRatio": "16:9"},
+    {"title": "Otelinizin Gerçek Potansiyeli", "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Otelinizin_Gerc%CC%A7ek_Potansiyeli_ukgccv", "aspectRatio": "16:9"}
   ]'::jsonb
 )
 on conflict (id) do nothing;
