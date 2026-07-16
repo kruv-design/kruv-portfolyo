@@ -39,6 +39,12 @@ export const DEFAULT_PROTEL_SAMPLE_VIDEOS: ProtelSampleVideo[] = [
     aspectRatio: "9:16",
   },
   {
+    title: "Fiyat Parite Uyuşmazlığı",
+    videoUrl:
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Fiyat_Parite_Uyus%CC%A7mazl%C4%B1g%CC%86%C4%B1_-_9x16_yaxbkt",
+    aspectRatio: "9:16",
+  },
+  {
     title: "UI animasyon örneği",
     videoUrl:
       "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=tten-2_fnwkmj",
@@ -73,6 +79,23 @@ export const DEFAULT_PROTEL_SETTINGS: ProtelPitchSettings = {
 };
 
 export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
+  {
+    id: "",
+    slug: "pricing-coach",
+    name: "Pricing Coach",
+    sortOrder: 0,
+    metrics: [],
+    socialAccounts: [],
+    video1Title: "Pricing Coach Reel",
+    video1Url:
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=09-03_pc_reel_dto7xl",
+    video1Aspect: "9:16",
+    video2Title: "İnsanların elinden işini mi alıyor?",
+    video2Url:
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=insanlar%C4%B1n_elinden_isini_mi_aliyor-_en_pt6cl9",
+    video2Aspect: "9:16",
+    updatedAt: "",
+  },
   {
     id: "",
     slug: "ggpizza",
@@ -182,7 +205,11 @@ function normalizeSampleVideo(item: ProtelSampleVideo): ProtelSampleVideo {
     }
   })();
 
-  if (haystack.includes("otelinizin")) {
+  if (haystack.includes("otelinizin") || haystack.includes("fiyat_parite")) {
+    return { ...item, aspectRatio: "9:16" };
+  }
+
+  if (haystack.includes("9x16")) {
     return { ...item, aspectRatio: "9:16" };
   }
 

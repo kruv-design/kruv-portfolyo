@@ -3167,6 +3167,15 @@ i {
   }
 }
 
+.protel-bento__col--left {
+  align-items: center;
+}
+
+.protel-bento__col--left .protel-video--bento {
+  width: 70%;
+  max-width: 70%;
+}
+
 .protel-bento .protel-video--bento,
 .protel-bento .protel-video--natural {
   width: 100%;

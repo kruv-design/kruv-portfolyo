@@ -61,6 +61,7 @@ create table if not exists public.protel_brands (
 create index if not exists protel_brands_sort_idx on public.protel_brands (sort_order);
 
 insert into public.protel_brands (slug, name, sort_order) values
+  ('pricing-coach',       'Pricing Coach',        0),
   ('ggpizza',            'GG Pizza',             1),
   ('jungleous',          'Jungleous',            2),
   ('bulung-lojistik',    'Bulung Lojistik',      3),
