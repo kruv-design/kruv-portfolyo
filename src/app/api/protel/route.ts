@@ -33,8 +33,23 @@ export async function PATCH(req: Request) {
       );
     }
 
-    const { settings, brands } = parsed.data;
+    const { settings, brands, pagePassword } = parsed.data;
     const sb = supabaseAdmin();
+
+    if (pagePassword) {
+      const secretRes = await sb
+        .from("protel_page_secrets")
+        .upsert({ id: 1, page_password: pagePassword })
+        .select("id")
+        .single();
+
+      if (secretRes.error) {
+        return NextResponse.json(
+          { error: `Şifre kaydedilemedi: ${secretRes.error.message}` },
+          { status: 400 },
+        );
+      }
+    }
 
     const settingsRes = await sb
       .from("protel_pitch_settings")

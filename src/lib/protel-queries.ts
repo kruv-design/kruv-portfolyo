@@ -5,7 +5,8 @@ import {
   mapProtelBrandRow,
   mapProtelSettingsRow,
 } from "@/lib/map-protel-row";
-import type { ProtelPitch, ProtelPitchSettings, ProtelBrand } from "@/types";
+import type { ProtelPitch, ProtelPitchSettings, ProtelBrand, ProtelAdminPitch } from "@/types";
+import { resolveProtelPassword } from "@/lib/protel-auth";
 
 export const DEFAULT_PROTEL_PROCESS_STEPS = [
   {
@@ -144,4 +145,10 @@ export async function getProtelPitch(): Promise<ProtelPitch> {
       brands: DEFAULT_PROTEL_BRANDS,
     };
   }
+}
+
+export async function getProtelAdminPitch(): Promise<ProtelAdminPitch> {
+  const pitch = await getProtelPitch();
+  const pagePassword = await resolveProtelPassword();
+  return { ...pitch, pagePassword: pagePassword || "protelkruv" };
 }

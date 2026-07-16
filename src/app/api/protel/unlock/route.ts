@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import {
   PROTEL_AUTH_COOKIE,
-  getProtelPassword,
   protelAuthCookieOptions,
+  resolveProtelPassword,
   verifyProtelPassword,
 } from "@/lib/protel-auth";
 import { protelUnlockSchema } from "@/lib/validators";
@@ -19,14 +19,14 @@ export async function POST(req: Request) {
       );
     }
 
-    if (!getProtelPassword()) {
+    if (!(await resolveProtelPassword())) {
       return NextResponse.json(
-        { error: "Sayfa şifresi sunucuda tanımlı değil (PROTEL_PAGE_PASSWORD)." },
+        { error: "Sayfa şifresi tanımlı değil. Supabase'de protel_page_secrets tablosunu çalıştırın." },
         { status: 503 },
       );
     }
 
-    if (!verifyProtelPassword(parsed.data.password)) {
+    if (!(await verifyProtelPassword(parsed.data.password))) {
       return NextResponse.json({ error: "Şifre hatalı." }, { status: 401 });
     }
 

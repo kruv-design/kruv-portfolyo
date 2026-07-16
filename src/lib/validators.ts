@@ -373,10 +373,11 @@ export const protelBrandSchema = z.object({
 export const protelPitchSaveSchema = z.object({
   settings: protelPitchSettingsSchema,
   brands: z.array(protelBrandSchema).max(8),
+  pagePassword: z.string().trim().min(1).max(200).optional(),
 });
 
 export type ProtelPitchSaveInput = z.infer<typeof protelPitchSaveSchema>;
 
 export const protelUnlockSchema = z.object({
-  password: z.string().min(1, "Şifre gerekli."),
+  password: z.string().trim().min(1, "Şifre gerekli."),
 });

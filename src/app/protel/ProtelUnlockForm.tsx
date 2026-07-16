@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { ProtelBrandLogo } from "@/components/protel/ProtelBrandLogo";
 
 export function ProtelUnlockForm() {
   const [password, setPassword] = useState("");
@@ -29,7 +30,7 @@ export function ProtelUnlockForm() {
 
   return (
     <div className="protel-pitch protel-pitch--gate">
-      <p className="h3 protel-pitch__brand">kruv</p>
+      <ProtelBrandLogo />
       <form className="protel-unlock" onSubmit={onSubmit}>
         <p className="b1 protel-unlock__lead">Bu sayfa şifre korumalıdır.</p>
         <input

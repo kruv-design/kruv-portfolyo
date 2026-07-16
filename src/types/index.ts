@@ -220,5 +220,9 @@ export type ProtelPitch = {
   brands: ProtelBrand[];
 };
 
+export type ProtelAdminPitch = ProtelPitch & {
+  pagePassword: string;
+};
+
 export type ProtelBrandInput = Omit<ProtelBrand, "updatedAt">;
 export type ProtelPitchSettingsInput = Omit<ProtelPitchSettings, "updatedAt">;

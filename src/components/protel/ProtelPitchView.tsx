@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { ProtelPitch } from "@/types";
+import { ProtelBrandLogo } from "./ProtelBrandLogo";
 import { ProtelClientPanel } from "./ProtelClientPanel";
 import { ProtelProcessSteps } from "./ProtelProcessSteps";
 import { ProtelVideoEmbed, ProtelVideoStack } from "./ProtelVideoEmbed";
@@ -20,7 +21,7 @@ export function ProtelPitchView({ pitch }: { pitch: ProtelPitch }) {
 
   return (
     <div className="protel-pitch">
-      <p className="h3 protel-pitch__brand">kruv</p>
+      <ProtelBrandLogo />
 
       <header className="protel-pitch__hero">
         <h1 className="h1 protel-pitch__title">{settings.heroTitle}</h1>

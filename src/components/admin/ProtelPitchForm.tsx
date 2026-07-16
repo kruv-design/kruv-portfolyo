@@ -3,8 +3,8 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import type {
+  ProtelAdminPitch,
   ProtelBrand,
-  ProtelPitch,
   ProtelPitchSettings,
   ProtelVideoAspect,
 } from "@/types";
@@ -37,9 +37,10 @@ function AspectSelect({
   );
 }
 
-export function ProtelPitchForm({ initial }: { initial: ProtelPitch }) {
+export function ProtelPitchForm({ initial }: { initial: ProtelAdminPitch }) {
   const [settings, setSettings] = useState<ProtelPitchSettings>(initial.settings);
   const [brands, setBrands] = useState<ProtelBrand[]>(initial.brands);
+  const [pagePassword, setPagePassword] = useState(initial.pagePassword);
   const [pending, start] = useTransition();
   const router = useRouter();
 
@@ -55,7 +56,7 @@ export function ProtelPitchForm({ initial }: { initial: ProtelPitch }) {
       const res = await fetch("/api/protel", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ settings, brands }),
+        body: JSON.stringify({ settings, brands, pagePassword }),
       });
       const json = await res.json().catch(() => ({}));
       if (!res.ok) {
@@ -88,6 +89,27 @@ export function ProtelPitchForm({ initial }: { initial: ProtelPitch }) {
         >
           {pending ? "Kaydediliyor…" : "Kaydet"}
         </button>
+      </div>
+
+      <div className="adm-card mb-5 p-7">
+        <div
+          className="mb-5 border-b pb-3 b1 font-medium"
+          style={{ borderColor: "var(--adm-border)", color: "var(--ink)" }}
+        >
+          Sayfa şifresi
+        </div>
+        <Field label="Public /protel şifresi">
+          <input
+            type="text"
+            className="form-input"
+            value={pagePassword}
+            onChange={(e) => setPagePassword(e.target.value)}
+            autoComplete="off"
+          />
+        </Field>
+        <p className="b3 mt-2" style={{ color: "var(--ink-faint)" }}>
+          Protel&apos;e paylaşılacak şifre. Supabase&apos;de saklanır; Vercel env gerekmez.
+        </p>
       </div>
 
       <div className="adm-card mb-5 p-7">
