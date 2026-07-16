@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import {
   PROTEL_AUTH_COOKIE,
+  getProtelPassword,
   protelAuthCookieOptions,
   verifyProtelPassword,
 } from "@/lib/protel-auth";
@@ -15,6 +16,13 @@ export async function POST(req: Request) {
       return NextResponse.json(
         { error: "Geçersiz istek." },
         { status: 400 },
+      );
+    }
+
+    if (!getProtelPassword()) {
+      return NextResponse.json(
+        { error: "Sayfa şifresi sunucuda tanımlı değil (PROTEL_PAGE_PASSWORD)." },
+        { status: 503 },
       );
     }
 

@@ -19,7 +19,8 @@ export async function isProtelAuthed(): Promise<boolean> {
 export function verifyProtelPassword(input: string): boolean {
   const expected = getProtelPassword();
   if (!expected) return false;
-  const a = Buffer.from(input);
+  const provided = String(input ?? "").trim();
+  const a = Buffer.from(provided);
   const b = Buffer.from(expected);
   if (a.length !== b.length) return false;
   return timingSafeEqual(a, b);
