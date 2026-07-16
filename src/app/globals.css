@@ -2960,11 +2960,28 @@ i {
   }
 
   .protel-pitch__stack {
-    gap: clamp(28px, 6vw, 40px);
+    gap: clamp(16px, 3vw, 28px);
   }
 
   .protel-hero__intro-block {
-    gap: clamp(20px, 4vw, 28px);
+    gap: clamp(16px, 3vw, 24px);
+  }
+
+  .protel-hero .protel-section-heading {
+    margin-bottom: 0;
+  }
+
+  .protel-hero__row {
+    gap: clamp(16px, 3vw, 24px);
+  }
+
+  .protel-hero__title {
+    flex: 0 0 auto;
+  }
+
+  .protel-hero__copy {
+    flex: 0 0 auto;
+    max-width: none;
   }
 
   .protel-section-heading {
@@ -3055,7 +3072,7 @@ i {
 }
 
 .protel-hero .protel-section-heading__label {
-  text-transform: none;
+  text-transform: uppercase;
 }
 
 .protel-hero {
@@ -3226,13 +3243,20 @@ i {
   border-radius: 12px;
 }
 
-.protel-bento .protel-video--bento .protel-video__el,
-.protel-bento .protel-video--natural .protel-video__el {
+.protel-bento .protel-video--bento.protel-video--portrait {
+  aspect-ratio: 9 / 16;
+}
+
+.protel-bento .protel-video--bento.protel-video--landscape {
+  aspect-ratio: 16 / 9;
+}
+
+.protel-bento .protel-video--bento .protel-video__el {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
   max-width: 100%;
-  object-fit: unset;
+  object-fit: contain;
   background: transparent;
   border: 1px solid var(--border);
   border-radius: 12px;
