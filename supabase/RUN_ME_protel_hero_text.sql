@@ -4,7 +4,7 @@ set
   hero_eyebrow = 'Protel için örnek çalışmalar, üretim süreci ve teklif formu',
   hero_title = 'Ürününüzün Potansiyelini
 Sahneye Çıkarın',
-  hero_intro = 'Karmaşık özellikleri etkileyici bir deneyime dönüştürüyoruz.
+  hero_intro = 'Karmaşıklığı akıcı deneyimlere dönüştürüyoruz.
 
-Ürününüzün nasıl çalıştığını, neden vazgeçilmez olduğunu ve yarattığı farkı görsel bir şölene dönüştürmeye hazır mısınız?'
+Ürününüzün en gelişmiş özelliklerini; anlaşılır, etkileyici ve akılda kalıcı animasyonlarla görünür kılıyor, kullanıcıların değeri ilk saniyede hissetmesini sağlıyoruz.'
 where id = 1;

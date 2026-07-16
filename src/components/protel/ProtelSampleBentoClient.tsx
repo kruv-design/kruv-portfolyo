@@ -4,71 +4,25 @@ import { useMemo } from "react";
 import type { ProtelSampleVideo } from "@/types";
 import { ProtelBentoVideo } from "./ProtelBentoVideo";
 
-function videoHaystack(item: ProtelSampleVideo): string {
-  try {
-    return decodeURIComponent(`${item.title} ${item.videoUrl}`).toLowerCase();
-  } catch {
-    return `${item.title} ${item.videoUrl}`.toLowerCase();
-  }
-}
-
-function isPortraitVideo(item: ProtelSampleVideo): boolean {
+function isPortrait(item: ProtelSampleVideo): boolean {
   return item.aspectRatio === "9:16" || item.aspectRatio === "4:5";
-}
-
-function isLeftColumnVideo(item: ProtelSampleVideo): boolean {
-  const haystack = videoHaystack(item);
-
-  if (haystack.includes("fiyat_parite")) {
-    return false;
-  }
-
-  if (haystack.includes("otelinizin") || haystack.includes("tten-2")) {
-    return true;
-  }
-
-  return item.aspectRatio === "9:16" || item.aspectRatio === "4:5";
-}
-
-type ColumnEntry = { item: ProtelSampleVideo; index: number };
-
-function sortColumnItems(
-  entries: ColumnEntry[],
-  column: "left" | "right",
-): ColumnEntry[] {
-  return [...entries].sort((a, b) => {
-    const aPortrait = isPortraitVideo(a.item);
-    const bPortrait = isPortraitVideo(b.item);
-
-    if (aPortrait !== bPortrait) {
-      if (column === "left") {
-        return aPortrait ? -1 : 1;
-      }
-      return aPortrait ? 1 : -1;
-    }
-
-    return a.index - b.index;
-  });
 }
 
 export function ProtelSampleBentoClient({ items }: { items: ProtelSampleVideo[] }) {
   const { left, right } = useMemo(() => {
-    const leftItems: ColumnEntry[] = [];
-    const rightItems: ColumnEntry[] = [];
+    const leftItems: Array<{ item: ProtelSampleVideo; index: number }> = [];
+    const rightItems: Array<{ item: ProtelSampleVideo; index: number }> = [];
 
     items.forEach((item, index) => {
       const entry = { item, index };
-      if (isLeftColumnVideo(item)) {
+      if (isPortrait(item)) {
         leftItems.push(entry);
       } else {
         rightItems.push(entry);
       }
     });
 
-    return {
-      left: sortColumnItems(leftItems, "left"),
-      right: sortColumnItems(rightItems, "right"),
-    };
+    return { left: leftItems, right: rightItems };
   }, [items]);
 
   return (

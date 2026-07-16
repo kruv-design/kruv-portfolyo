@@ -71,7 +71,7 @@ export const DEFAULT_PROTEL_SETTINGS: ProtelPitchSettings = {
   heroEyebrow: DEFAULT_PROTEL_HERO_EYEBROW,
   heroTitle: "Ürününüzün Potansiyelini\nSahneye Çıkarın",
   heroIntro:
-    "Karmaşık özellikleri etkileyici bir deneyime dönüştürüyoruz.\n\nÜrününüzün nasıl çalıştığını, neden vazgeçilmez olduğunu ve yarattığı farkı görsel bir şölene dönüştürmeye hazır mısınız?",
+    "Karmaşıklığı akıcı deneyimlere dönüştürüyoruz.\n\nÜrününüzün en gelişmiş özelliklerini; anlaşılır, etkileyici ve akılda kalıcı animasyonlarla görünür kılıyor, kullanıcıların değeri ilk saniyede hissetmesini sağlıyoruz.",
   proposalTitle: "Demo",
   proposalPrice: "0.000 ₺",
   proposalVideoUrl: "",
@@ -267,6 +267,8 @@ function normalizeHeroSettings(
 
   const legacyIntro =
     !intro ||
+    intro.includes("Karmaşık özellikleri etkileyici bir deneyime") ||
+    intro.includes("Ürününüzün nasıl çalıştığını, neden vazgeçilmez") ||
     intro.includes("Ürününüzü anlatan, kullanıcıyı yönlendiren");
 
   return {

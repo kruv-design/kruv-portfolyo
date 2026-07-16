@@ -3146,10 +3146,18 @@ i {
   display: flex;
   flex: 1 1 0;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   gap: clamp(16px, 2vw, 20px);
   min-width: 0;
-  width: 0;
+}
+
+.protel-bento__col--left {
+  align-items: center;
+}
+
+.protel-bento__col--left .protel-video--bento.protel-video--portrait {
+  width: 70%;
+  max-width: 70%;
 }
 
 @media (max-width: 899px) {
@@ -3161,17 +3169,14 @@ i {
     flex: 1 1 auto;
     width: 100%;
   }
-}
 
-.protel-bento__col .protel-video--bento.protel-video--portrait {
-  width: 70%;
-  max-width: 70%;
-}
+  .protel-bento__col--left {
+    order: 1;
+  }
 
-.protel-bento__col .protel-video--bento.protel-video--landscape {
-  width: 100%;
-  max-width: 100%;
-  align-self: stretch;
+  .protel-bento__col--right {
+    order: 2;
+  }
 }
 
 .protel-bento .protel-video--bento,
