@@ -3263,6 +3263,18 @@ i {
   vertical-align: top;
 }
 
+.protel-bento .protel-video--natural .protel-video__el {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: unset;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  vertical-align: top;
+}
+
 .protel-bento .protel-video--bento.protel-video--placeholder,
 .protel-bento .protel-video--natural.protel-video--placeholder {
   display: flex;
