@@ -1,6 +1,11 @@
--- Protel örnek videoları — oran düzeltmesi (dikey sol, yatay sağ)
+-- Protel örnek videoları — dikey sol, yatay sağ
 update public.protel_pitch_settings
 set sample_videos = '[
+  {
+    "title": "Otelinizin Gerçek Potansiyeli",
+    "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Otelinizin_Gerc%CC%A7ek_Potansiyeli_ukgccv",
+    "aspectRatio": "9:16"
+  },
   {
     "title": "UI animasyon örneği",
     "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=tten-2_fnwkmj",
@@ -15,11 +20,6 @@ set sample_videos = '[
     "title": "UI animasyon örneği",
     "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Otter_v4_annlwz",
     "aspectRatio": "16:9"
-  },
-  {
-    "title": "Otelinizin Gerçek Potansiyeli",
-    "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Otelinizin_Gerc%CC%A7ek_Potansiyeli_ukgccv",
-    "aspectRatio": "9:16"
   }
 ]'::jsonb
 where id = 1;

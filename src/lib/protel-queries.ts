@@ -33,6 +33,12 @@ export const DEFAULT_PROTEL_PROCESS_STEPS = [
 
 export const DEFAULT_PROTEL_SAMPLE_VIDEOS: ProtelSampleVideo[] = [
   {
+    title: "Otelinizin Gerçek Potansiyeli",
+    videoUrl:
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Otelinizin_Gerc%CC%A7ek_Potansiyeli_ukgccv",
+    aspectRatio: "9:16",
+  },
+  {
     title: "UI animasyon örneği",
     videoUrl:
       "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=tten-2_fnwkmj",
@@ -49,12 +55,6 @@ export const DEFAULT_PROTEL_SAMPLE_VIDEOS: ProtelSampleVideo[] = [
     videoUrl:
       "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Otter_v4_annlwz",
     aspectRatio: "16:9",
-  },
-  {
-    title: "Otelinizin Gerçek Potansiyeli",
-    videoUrl:
-      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Otelinizin_Gerc%CC%A7ek_Potansiyeli_ukgccv",
-    aspectRatio: "9:16",
   },
 ];
 
@@ -173,6 +173,43 @@ function normalizeProposalTitle(title: string) {
   return t;
 }
 
+function normalizeSampleVideo(item: ProtelSampleVideo): ProtelSampleVideo {
+  const url = item.videoUrl.toLowerCase();
+  const title = item.title.toLowerCase();
+
+  if (url.includes("otelinizin_gerc") || title.includes("otelinizin")) {
+    return { ...item, aspectRatio: "9:16" };
+  }
+
+  return item;
+}
+
+function normalizeSampleVideos(items: ProtelSampleVideo[]): ProtelSampleVideo[] {
+  return items.map(normalizeSampleVideo);
+}
+
+function normalizeHeroSettings(
+  settings: ProtelPitchSettings,
+): ProtelPitchSettings {
+  const title = settings.heroTitle.trim();
+  const intro = settings.heroIntro.trim();
+
+  const legacyTitle =
+    !title ||
+    title === "Protel için" ||
+    title === "Protel icin";
+
+  const legacyIntro =
+    !intro ||
+    intro.includes("Ürününüzü anlatan, kullanıcıyı yönlendiren");
+
+  return {
+    ...settings,
+    heroTitle: legacyTitle ? DEFAULT_PROTEL_SETTINGS.heroTitle : settings.heroTitle,
+    heroIntro: legacyIntro ? DEFAULT_PROTEL_SETTINGS.heroIntro : settings.heroIntro,
+  };
+}
+
 function mergeBrandDefaults(brand: ProtelBrand): ProtelBrand {
   const fallback = DEFAULT_PROTEL_BRANDS.find((item) => item.slug === brand.slug);
   if (!fallback) return brand;
@@ -216,15 +253,16 @@ export async function getProtelPitch(): Promise<ProtelPitch> {
       ? mapProtelSettingsRow(settingsRes.data as Record<string, unknown>)
       : DEFAULT_PROTEL_SETTINGS;
 
-    const settings: ProtelPitchSettings = {
+    const settings: ProtelPitchSettings = normalizeHeroSettings({
       ...settingsRow,
-      sampleVideos:
+      sampleVideos: normalizeSampleVideos(
         settingsRow.sampleVideos.length > 0
           ? settingsRow.sampleVideos
           : DEFAULT_PROTEL_SAMPLE_VIDEOS,
+      ),
       proposalTitle: normalizeProposalTitle(settingsRow.proposalTitle),
       proposalPrice: settingsRow.proposalPrice.trim() || "0.000 ₺",
-    };
+    });
 
     const brands =
       brandsRes.data && brandsRes.data.length > 0
