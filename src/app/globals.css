@@ -3258,69 +3258,43 @@ i {
   border-radius: var(--radius-md);
 }
 
-.protel-bento .protel-video--bento.protel-video--portrait {
-  aspect-ratio: 9 / 16;
-}
-
-.protel-bento .protel-video--bento.protel-video--landscape {
-  aspect-ratio: 16 / 9;
+.protel-bento .protel-video--bento:not(.protel-video--placeholder) {
+  aspect-ratio: unset;
+  height: auto;
 }
 
 .protel-bento .protel-video--bento .protel-video__el {
   display: block;
   width: 100%;
-  height: 100%;
-  max-width: 100%;
-  object-fit: cover;
-  object-position: center center;
-  background: transparent;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  vertical-align: top;
-}
-
-@media (max-width: 899px) {
-  .protel-bento .protel-video--bento:not(.protel-video--placeholder) {
-    aspect-ratio: auto;
-    height: auto;
-    max-height: none;
-    overflow: visible;
-    display: block;
-  }
-
-  .protel-bento .protel-video--bento:not(.protel-video--placeholder) .protel-video__el {
-    width: 100%;
-    height: auto;
-    object-fit: unset;
-    object-position: unset;
-  }
-}
-
-.protel-bento .protel-video--natural .protel-video__el {
-  display: block;
-  width: 100%;
   height: auto;
   max-width: 100%;
   object-fit: unset;
+  object-position: unset;
   background: transparent;
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   vertical-align: top;
 }
 
-.protel-bento .protel-video--bento.protel-video--placeholder,
-.protel-bento .protel-video--natural.protel-video--placeholder {
+.protel-bento .protel-video--bento.protel-video--placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  aspect-ratio: 16 / 9;
   padding: var(--space-6);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   color: var(--ink-faint);
   text-align: center;
   background: transparent;
+}
+
+.protel-bento .protel-video--placeholder.protel-video--portrait {
+  aspect-ratio: 9 / 16;
+}
+
+.protel-bento .protel-video--placeholder.protel-video--landscape {
+  aspect-ratio: 16 / 9;
 }
 
 .protel-clients {
