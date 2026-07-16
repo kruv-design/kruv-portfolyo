@@ -294,7 +294,7 @@ function mergeBrandDefaults(brand: ProtelBrand): ProtelBrand {
   const fallback = DEFAULT_PROTEL_BRANDS.find((item) => item.slug === brand.slug);
   if (!fallback) return brand;
 
-  return {
+  const merged: ProtelBrand = {
     ...brand,
     socialAccounts: brand.socialAccounts.some((account) => account.url.trim())
       ? brand.socialAccounts
