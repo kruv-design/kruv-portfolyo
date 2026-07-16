@@ -208,8 +208,10 @@ export type ProtelPitchSettings = {
   heroTitle: string;
   heroIntro: string;
   proposalTitle: string;
+  proposalPrice: string;
   proposalVideoUrl: string;
   proposalVideoAspect: ProtelVideoAspect;
+  processDuration: string;
   sampleVideos: ProtelSampleVideo[];
   processSteps: ProtelProcessStep[];
   updatedAt: string;

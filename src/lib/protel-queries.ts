@@ -10,34 +10,36 @@ import { resolveProtelPassword } from "@/lib/protel-auth";
 
 export const DEFAULT_PROTEL_PROCESS_STEPS = [
   {
-    title: "Brief & ürünü anlama",
-    description: "İyi bir brief alma ve ürünü tam olarak anlama.",
+    title: "Tanışma & Analiz",
+    description:
+      "Toplantı ile markanızı ve ürününüzü detaylıca öğrenip analiz ediyoruz.",
   },
   {
-    title: "Script + voice-over",
-    description: "Senaryo ve seslendirme metni yazımı.",
+    title: "Üretim",
+    description:
+      "Videonun temellerini atıyoruz. Görsel kurguyu, ekrandaki yazıları ve seslendirme metinlerini hazırlayıp onayınıza sunuyoruz.",
   },
   {
-    title: "Storyboard",
-    description: "Storyboard oluşturulması.",
-  },
-  {
-    title: "Animasyon sample",
-    description: "Örnek animasyon üretimi ve onay.",
+    title: "Prodüksiyon & Seslendirme",
+    description:
+      "Onayınızın ardından animasyonları hazırlayıp profesyonel seslendirme (voice-over) ile birleştiriyoruz.",
   },
   {
     title: "Teslim",
-    description: "Final animasyon teslimi.",
+    description:
+      "Final kontrollerin ardından videonuzu yayına hazır şekilde teslim ediyoruz.",
   },
 ];
 
 export const DEFAULT_PROTEL_SETTINGS: ProtelPitchSettings = {
-  heroTitle: "Protel için",
+  heroTitle: "Ürününüzün Potansiyelini\nSahneye Çıkarın",
   heroIntro:
-    "Ürününüzü anlatan, kullanıcıyı yönlendiren UI animasyon videoları üretiyoruz.",
-  proposalTitle: "Ürün UI animasyon video",
+    "Karmaşık özellikleri etkileyici bir deneyime dönüştürüyoruz.\n\nÜrününüzün nasıl çalıştığını, neden vazgeçilmez olduğunu ve yarattığı farkı görsel bir şölene dönüştürmeye hazır mısınız?",
+  proposalTitle: "Demo Projesi",
+  proposalPrice: "",
   proposalVideoUrl: "",
   proposalVideoAspect: "16:9",
+  processDuration: "2/3 HAFTA",
   sampleVideos: [],
   processSteps: DEFAULT_PROTEL_PROCESS_STEPS,
   updatedAt: "",

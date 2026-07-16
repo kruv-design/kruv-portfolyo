@@ -120,19 +120,19 @@ export function ProtelPitchForm({ initial }: { initial: ProtelAdminPitch }) {
           Sayfa metinleri
         </div>
         <div className="flex flex-col gap-5">
-          <Field label="Başlık">
-            <input
-              type="text"
-              className="form-input"
+          <Field label="Başlık (son satır mor vurgu)">
+            <textarea
+              className="form-input min-h-[72px]"
               value={settings.heroTitle}
               onChange={(e) =>
                 setSettings((s) => ({ ...s, heroTitle: e.target.value }))
               }
+              placeholder={"Ürününüzün Potansiyelini\nSahneye Çıkarın"}
             />
           </Field>
-          <Field label="Intro">
+          <Field label="Intro (paragraflar arası boş satır)">
             <textarea
-              className="form-input min-h-[88px]"
+              className="form-input min-h-[120px]"
               value={settings.heroIntro}
               onChange={(e) =>
                 setSettings((s) => ({ ...s, heroIntro: e.target.value }))
@@ -147,7 +147,7 @@ export function ProtelPitchForm({ initial }: { initial: ProtelAdminPitch }) {
           className="mb-5 border-b pb-3 b1 font-medium"
           style={{ borderColor: "var(--adm-border)", color: "var(--ink)" }}
         >
-          Örnek videolar (sekme 1)
+          Örnek videolar (bento grid — max 5)
         </div>
         <div className="flex flex-col gap-6">
           {settings.sampleVideos.map((video, i) => (
@@ -250,7 +250,7 @@ export function ProtelPitchForm({ initial }: { initial: ProtelAdminPitch }) {
           className="mb-5 border-b pb-3 b1 font-medium"
           style={{ borderColor: "var(--adm-border)", color: "var(--ink)" }}
         >
-          Teklif videosu (sekme 3)
+          Teklif bölümü
         </div>
         <div className="flex flex-col gap-5">
           <Field label="Başlık">
@@ -261,6 +261,17 @@ export function ProtelPitchForm({ initial }: { initial: ProtelAdminPitch }) {
               onChange={(e) =>
                 setSettings((s) => ({ ...s, proposalTitle: e.target.value }))
               }
+            />
+          </Field>
+          <Field label="Fiyat (pill)">
+            <input
+              type="text"
+              className="form-input"
+              value={settings.proposalPrice}
+              onChange={(e) =>
+                setSettings((s) => ({ ...s, proposalPrice: e.target.value }))
+              }
+              placeholder="0.000 ₺"
             />
           </Field>
           <Field label="En-boy">
@@ -297,6 +308,19 @@ export function ProtelPitchForm({ initial }: { initial: ProtelAdminPitch }) {
           style={{ borderColor: "var(--adm-border)", color: "var(--ink)" }}
         >
           Süreç adımları
+        </div>
+        <div className="mb-5">
+          <Field label="Süre etiketi (sağ üst)">
+            <input
+              type="text"
+              className="form-input"
+              value={settings.processDuration}
+              onChange={(e) =>
+                setSettings((s) => ({ ...s, processDuration: e.target.value }))
+              }
+              placeholder="2/3 HAFTA"
+            />
+          </Field>
         </div>
         <div className="flex flex-col gap-4">
           {settings.processSteps.map((step, i) => (

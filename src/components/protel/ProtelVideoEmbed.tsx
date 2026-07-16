@@ -9,24 +9,30 @@ export function ProtelVideoEmbed({
   title,
   videoUrl,
   aspectRatio = "16:9",
+  framed = false,
 }: {
   title?: string;
   videoUrl: string;
   aspectRatio?: ProtelVideoAspect;
+  framed?: boolean;
 }) {
   const src = resolveProjectVideoUrl(videoUrl);
+  const frameClass = framed ? " protel-video--framed" : "";
+
   if (!src) {
     return (
       <div
-        className={`protel-video protel-video--placeholder ${protelAspectClass(aspectRatio)}`}
+        className={`protel-video protel-video--placeholder ${protelAspectClass(aspectRatio)}${frameClass}`}
       >
-        <span className="b2">{title || "Video yakında eklenecek"}</span>
+        <span className="protel-video__placeholder-text">
+          {title || "Video yakında eklenecek"}
+        </span>
       </div>
     );
   }
 
   return (
-    <figure className={`protel-video ${protelAspectClass(aspectRatio)}`}>
+    <figure className={`protel-video ${protelAspectClass(aspectRatio)}${frameClass}`}>
       <video
         src={src}
         controls
@@ -35,7 +41,7 @@ export function ProtelVideoEmbed({
         className="protel-video__el"
         aria-label={title || "Video"}
       />
-      {title ? <figcaption className="b2 protel-video__caption">{title}</figcaption> : null}
+      {title ? <figcaption className="protel-video__caption">{title}</figcaption> : null}
     </figure>
   );
 }
@@ -46,7 +52,7 @@ export function ProtelVideoStack({
   items: Array<{ title: string; videoUrl: string; aspectRatio: ProtelVideoAspect }>;
 }) {
   if (items.length === 0) {
-    return <p className="b1 protel-pitch__empty">Henüz video eklenmedi.</p>;
+    return <p className="protel-pitch__empty">Henüz video eklenmedi.</p>;
   }
   return (
     <div className="protel-video-stack">
@@ -56,6 +62,7 @@ export function ProtelVideoStack({
           title={item.title}
           videoUrl={item.videoUrl}
           aspectRatio={item.aspectRatio}
+          framed
         />
       ))}
     </div>

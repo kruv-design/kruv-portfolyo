@@ -346,11 +346,13 @@ export const protelProcessStepSchema = z.object({
 });
 
 export const protelPitchSettingsSchema = z.object({
-  heroTitle: z.string().trim().max(200).optional().default(""),
-  heroIntro: z.string().trim().max(2000).optional().default(""),
+  heroTitle: z.string().trim().max(400).optional().default(""),
+  heroIntro: z.string().trim().max(4000).optional().default(""),
   proposalTitle: z.string().trim().max(200).optional().default(""),
+  proposalPrice: z.string().trim().max(80).optional().default(""),
   proposalVideoUrl: z.string().trim().max(2000).optional().default(""),
   proposalVideoAspect: protelVideoAspectSchema.optional().default("16:9"),
+  processDuration: z.string().trim().max(80).optional().default("2/3 HAFTA"),
   sampleVideos: z.array(protelSampleVideoSchema).max(8).default([]),
   processSteps: z.array(protelProcessStepSchema).max(12).default([]),
 });

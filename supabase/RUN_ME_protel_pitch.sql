@@ -7,8 +7,10 @@ create table if not exists public.protel_pitch_settings (
   hero_title            text not null default 'Protel için',
   hero_intro            text not null default '',
   proposal_title        text not null default 'Ürün UI animasyon video',
+  proposal_price        text not null default '',
   proposal_video_url    text not null default '',
   proposal_video_aspect text not null default '16:9',
+  process_duration      text not null default '2/3 HAFTA',
   sample_videos         jsonb not null default '[]'::jsonb,
   process_steps         jsonb not null default '[]'::jsonb,
   updated_at            timestamptz not null default now()

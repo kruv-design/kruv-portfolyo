@@ -11,7 +11,7 @@ export default function ProtelLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="protel-pitch-shell min-h-screen" style={{ background: "var(--bg)" }}>
+    <div className="protel-pitch-shell min-h-screen">
       {children}
     </div>
   );
