@@ -5,37 +5,75 @@ import {
   mapProtelBrandRow,
   mapProtelSettingsRow,
 } from "@/lib/map-protel-row";
-import type { ProtelPitch, ProtelPitchSettings, ProtelBrand, ProtelAdminPitch, ProtelSampleVideo, ProtelSocialAccount } from "@/types";
+import type { ProtelPitch, ProtelPitchSettings, ProtelBrand, ProtelAdminPitch, ProtelSampleVideo, ProtelSocialAccount, ProtelProcessStep } from "@/types";
 import { resolveProtelPassword } from "@/lib/protel-auth";
 
 export const DEFAULT_PROTEL_PROCESS_STEPS = [
   {
-    title: "Tanışma & Analiz",
-    description:
-      "Toplantı ile markanızı ve ürününüzü detaylıca öğrenip analiz ediyoruz.",
+    title: "Brief & ürünü anlama",
+    description: "İyi bir brief alma ve ürünü tam olarak anlama.",
   },
   {
-    title: "Üretim",
-    description:
-      "Videonun temellerini atıyoruz. Görsel kurguyu, ekrandaki yazıları ve seslendirme metinlerini hazırlayıp onayınıza sunuyoruz.",
+    title: "Script + voice-over",
+    description: "Senaryo ve seslendirme metni yazımı.",
   },
   {
-    title: "Prodüksiyon & Seslendirme",
+    title: "Storyboard",
     description:
-      "Onayınızın ardından animasyonları hazırlayıp profesyonel seslendirme (voice-over) ile birleştiriyoruz.",
+      "Her sahneyi, geçişi ve kullanıcı akışını önceden planlayarak üretim sürecini netleştiriyoruz.",
+  },
+  {
+    title: "Animasyon sample",
+    description:
+      "Animasyonun görsel dili, ritmi ve hareket prensiplerini yansıtan örnek sahneyi hazırlayıp onayınıza sunuyoruz.",
   },
   {
     title: "Teslim",
     description:
-      "Final kontrollerin ardından videonuzu yayına hazır şekilde teslim ediyoruz.",
+      "Geri bildirimlerin ardından final animasyonu optimize edilmiş formatlarda teslim ediyoruz.",
   },
 ];
 
+function normalizeProcessStep(step: ProtelProcessStep): ProtelProcessStep {
+  const title = step.title.trim().toLocaleLowerCase("tr-TR");
+
+  if (title.includes("storyboard")) {
+    return {
+      ...step,
+      description:
+        "Her sahneyi, geçişi ve kullanıcı akışını önceden planlayarak üretim sürecini netleştiriyoruz.",
+    };
+  }
+
+  if (title.includes("animasyon sample") || title.includes("animation sample")) {
+    return {
+      ...step,
+      description:
+        "Animasyonun görsel dili, ritmi ve hareket prensiplerini yansıtan örnek sahneyi hazırlayıp onayınıza sunuyoruz.",
+    };
+  }
+
+  if (title.includes("teslim")) {
+    return {
+      ...step,
+      description:
+        "Geri bildirimlerin ardından final animasyonu optimize edilmiş formatlarda teslim ediyoruz.",
+    };
+  }
+
+  return step;
+}
+
+function normalizeProcessSteps(steps: ProtelProcessStep[]): ProtelProcessStep[] {
+  const source = steps.length > 0 ? steps : DEFAULT_PROTEL_PROCESS_STEPS;
+  return source.map(normalizeProcessStep);
+}
+
 export const DEFAULT_PROTEL_SAMPLE_VIDEOS: ProtelSampleVideo[] = [
   {
-    title: "Otelinizin Gerçek Potansiyeli",
+    title: "Rate Coach UI Ad",
     videoUrl:
-      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Otelinizin_Gerc%CC%A7ek_Potansiyeli_ukgccv",
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Rate_Coach_-_UI_Ad_-_9x16_vlpmqt",
     aspectRatio: "9:16",
   },
   {
@@ -45,9 +83,15 @@ export const DEFAULT_PROTEL_SAMPLE_VIDEOS: ProtelSampleVideo[] = [
     aspectRatio: "9:16",
   },
   {
-    title: "Rate Coach UI Ad",
+    title: "Karşında Olly",
     videoUrl:
-      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Rate_Coach_-_UI_Ad_-_9x16_vlpmqt",
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=karsinda_olly_-_1_rl9a6h",
+    aspectRatio: "9:16",
+  },
+  {
+    title: "Otelinizin Gerçek Potansiyeli",
+    videoUrl:
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Otelinizin_Gerc%CC%A7ek_Potansiyeli_ukgccv",
     aspectRatio: "9:16",
   },
   {
@@ -57,10 +101,10 @@ export const DEFAULT_PROTEL_SAMPLE_VIDEOS: ProtelSampleVideo[] = [
     aspectRatio: "9:16",
   },
   {
-    title: "Karşında Olly",
+    title: "UI animasyon örneği",
     videoUrl:
-      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=karsinda_olly_-_1_rl9a6h",
-    aspectRatio: "9:16",
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=tten-2_fnwkmj",
+    aspectRatio: "16:9",
   },
   {
     title: "CHP Dijital Kampüs",
@@ -71,13 +115,13 @@ export const DEFAULT_PROTEL_SAMPLE_VIDEOS: ProtelSampleVideo[] = [
   {
     title: "UI animasyon örneği",
     videoUrl:
-      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=tten-2_fnwkmj",
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=tten_bj3iyd",
     aspectRatio: "16:9",
   },
   {
-    title: "UI animasyon örneği",
+    title: "Trick Landing Page",
     videoUrl:
-      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=tten_bj3iyd",
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Trick_Landing_Page_v2_zutvtv",
     aspectRatio: "16:9",
   },
   {
@@ -90,12 +134,6 @@ export const DEFAULT_PROTEL_SAMPLE_VIDEOS: ProtelSampleVideo[] = [
     title: "BV Main",
     videoUrl:
       "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=BV_MAIN_onzybr",
-    aspectRatio: "16:9",
-  },
-  {
-    title: "Trick Landing Page",
-    videoUrl:
-      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Trick_Landing_Page_v2_zutvtv",
     aspectRatio: "16:9",
   },
 ];
@@ -280,17 +318,17 @@ function normalizeSampleVideo(item: ProtelSampleVideo): ProtelSampleVideo {
 }
 
 const SAMPLE_VIDEO_SORT_KEYS = [
-  "otelinizin",
-  "fiyat_parite",
   "rate_coach",
-  "rate_shopper",
+  "fiyat_parite",
   "karsinda_olly",
-  "chp_-_dijital",
+  "otelinizin",
+  "rate_shopper",
   "tten-2",
+  "chp_-_dijital",
   "tten_bj3iyd",
+  "trick_landing",
   "otter_v4",
   "bv_main",
-  "trick_landing",
 ] as const;
 
 function sampleVideoHaystack(item: ProtelSampleVideo): string {
@@ -458,6 +496,7 @@ export async function getProtelPitch(): Promise<ProtelPitch> {
           ? settingsRow.sampleVideos
           : DEFAULT_PROTEL_SAMPLE_VIDEOS,
       ),
+      processSteps: normalizeProcessSteps(settingsRow.processSteps),
       proposalTitle: normalizeProposalTitle(settingsRow.proposalTitle),
       proposalPrice: settingsRow.proposalPrice.trim() || "0.000 ₺",
     });

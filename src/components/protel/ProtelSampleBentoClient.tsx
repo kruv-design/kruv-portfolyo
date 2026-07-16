@@ -10,17 +10,17 @@ function isPortrait(item: ProtelSampleVideo): boolean {
 
 function portraitSortRank(item: ProtelSampleVideo): number {
   const haystack = `${item.title} ${item.videoUrl}`.toLowerCase();
-  if (haystack.includes("otelinizin")) return 0;
+  if (haystack.includes("rate_coach") || haystack.includes("rate coach")) {
+    return 0;
+  }
   if (haystack.includes("fiyat_parite") || haystack.includes("fiyat parite")) {
     return 1;
   }
-  if (haystack.includes("rate_coach") || haystack.includes("rate coach")) {
+  if (haystack.includes("karsinda_olly") || haystack.includes("karşında olly")) {
     return 2;
   }
+  if (haystack.includes("otelinizin")) return 3;
   if (haystack.includes("rate_shopper") || haystack.includes("rate shopper")) {
-    return 3;
-  }
-  if (haystack.includes("karsinda_olly") || haystack.includes("karşında olly")) {
     return 4;
   }
   return 99;
@@ -28,12 +28,12 @@ function portraitSortRank(item: ProtelSampleVideo): number {
 
 function landscapeSortRank(item: ProtelSampleVideo): number {
   const haystack = `${item.title} ${item.videoUrl}`.toLowerCase();
-  if (haystack.includes("chp") && haystack.includes("dijital")) return 0;
-  if (haystack.includes("tten-2")) return 1;
+  if (haystack.includes("tten-2")) return 0;
+  if (haystack.includes("chp") && haystack.includes("dijital")) return 1;
   if (haystack.includes("tten_bj3iyd")) return 2;
-  if (haystack.includes("otter_v4") || haystack.includes("otter")) return 3;
-  if (haystack.includes("bv_main")) return 4;
-  if (haystack.includes("trick_landing")) return 5;
+  if (haystack.includes("trick_landing")) return 3;
+  if (haystack.includes("otter_v4") || haystack.includes("otter")) return 4;
+  if (haystack.includes("bv_main")) return 5;
   return 99;
 }
 
