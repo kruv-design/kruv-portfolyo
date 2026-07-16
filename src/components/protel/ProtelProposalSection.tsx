@@ -3,7 +3,8 @@ import { ProtelSectionHeading } from "./ProtelSectionHeading";
 import { ProtelVideoEmbed } from "./ProtelVideoEmbed";
 
 export function ProtelProposalSection({ settings }: { settings: ProtelPitchSettings }) {
-  const price = settings.proposalPrice.trim();
+  const title = settings.proposalTitle.trim() || "Demo";
+  const price = settings.proposalPrice.trim() || "0.000 ₺";
 
   return (
     <section className="protel-section protel-section--proposal" aria-labelledby="protel-proposal">
@@ -12,14 +13,14 @@ export function ProtelProposalSection({ settings }: { settings: ProtelPitchSetti
         <div className="protel-proposal__divider" aria-hidden="true" />
         <div className="protel-proposal__row">
           <h2 id="protel-proposal" className="protel-proposal__title">
-            {settings.proposalTitle || "Demo Projesi"}
+            {title}
           </h2>
-          {price ? <span className="protel-proposal__price">{price}</span> : null}
+          <span className="protel-proposal__price">{price}</span>
         </div>
         {settings.proposalVideoUrl ? (
           <div className="protel-proposal__video">
             <ProtelVideoEmbed
-              title={settings.proposalTitle}
+              title={title}
               videoUrl={settings.proposalVideoUrl}
               aspectRatio={settings.proposalVideoAspect}
               framed

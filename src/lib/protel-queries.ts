@@ -62,8 +62,8 @@ export const DEFAULT_PROTEL_SETTINGS: ProtelPitchSettings = {
   heroTitle: "Ürününüzün Potansiyelini\nSahneye Çıkarın",
   heroIntro:
     "Karmaşık özellikleri etkileyici bir deneyime dönüştürüyoruz.\n\nÜrününüzün nasıl çalıştığını, neden vazgeçilmez olduğunu ve yarattığı farkı görsel bir şölene dönüştürmeye hazır mısınız?",
-  proposalTitle: "Demo Projesi",
-  proposalPrice: "",
+  proposalTitle: "Demo",
+  proposalPrice: "0.000 ₺",
   proposalVideoUrl: "",
   proposalVideoAspect: "16:9",
   processDuration: "2/3 HAFTA",
@@ -135,6 +135,18 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
   },
 ];
 
+function normalizeProposalTitle(title: string) {
+  const t = title.trim();
+  if (
+    !t ||
+    t === "Ürün UI animasyon video" ||
+    t === "Demo Projesi"
+  ) {
+    return "Demo";
+  }
+  return t;
+}
+
 export async function getProtelPitch(): Promise<ProtelPitch> {
   if (isPlaceholderEnv()) {
     return {
@@ -166,6 +178,8 @@ export async function getProtelPitch(): Promise<ProtelPitch> {
         settingsRow.sampleVideos.length > 0
           ? settingsRow.sampleVideos
           : DEFAULT_PROTEL_SAMPLE_VIDEOS,
+      proposalTitle: normalizeProposalTitle(settingsRow.proposalTitle),
+      proposalPrice: settingsRow.proposalPrice.trim() || "0.000 ₺",
     };
 
     const brands =

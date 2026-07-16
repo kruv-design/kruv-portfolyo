@@ -16,7 +16,7 @@ export function ProtelVideoEmbed({
   videoUrl: string;
   aspectRatio?: ProtelVideoAspect;
   framed?: boolean;
-  /** Bento: oran korunur, container içinde contain. */
+  /** Bento: videonun kendi boyutu; container zorlaması yok. */
   naturalSize?: boolean;
 }) {
   const src = resolveProjectVideoUrl(videoUrl);
@@ -38,7 +38,7 @@ export function ProtelVideoEmbed({
 
   return (
     <figure
-      className={`protel-video ${aspectClass}${frameClass}${naturalClass}`}
+      className={`protel-video${naturalSize ? "" : ` ${aspectClass}`}${frameClass}${naturalClass}`}
     >
       <video
         src={src}
