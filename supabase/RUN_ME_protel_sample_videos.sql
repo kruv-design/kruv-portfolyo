@@ -12,6 +12,26 @@ set sample_videos = '[
     "aspectRatio": "9:16"
   },
   {
+    "title": "Rate Coach UI Ad",
+    "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Rate_Coach_-_UI_Ad_-_9x16_vlpmqt",
+    "aspectRatio": "9:16"
+  },
+  {
+    "title": "Rate Shopper UI Ad",
+    "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Rate_Shopper_-_UI_Ad_-_9x16_mjlrfv",
+    "aspectRatio": "9:16"
+  },
+  {
+    "title": "Karşında Olly",
+    "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=karsinda_olly_-_1_rl9a6h",
+    "aspectRatio": "9:16"
+  },
+  {
+    "title": "CHP Dijital Kampüs",
+    "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=CHP_-_Dijital_Kampu%CC%88s_1_1_f3nbhu",
+    "aspectRatio": "16:9"
+  },
+  {
     "title": "UI animasyon örneği",
     "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=tten-2_fnwkmj",
     "aspectRatio": "16:9"
@@ -25,16 +45,6 @@ set sample_videos = '[
     "title": "UI animasyon örneği",
     "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Otter_v4_annlwz",
     "aspectRatio": "16:9"
-  },
-  {
-    "title": "Rate Coach UI Ad",
-    "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Rate_Coach_-_UI_Ad_-_9x16_vlpmqt",
-    "aspectRatio": "9:16"
-  },
-  {
-    "title": "Rate Shopper UI Ad",
-    "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Rate_Shopper_-_UI_Ad_-_9x16_mjlrfv",
-    "aspectRatio": "9:16"
   },
   {
     "title": "BV Main",

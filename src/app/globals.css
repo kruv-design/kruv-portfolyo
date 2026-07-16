@@ -2954,6 +2954,24 @@ i {
   gap: clamp(100px, 12vw, 160px);
 }
 
+@media (max-width: 899px) {
+  .protel-pitch {
+    padding-top: clamp(32px, 6vw, 48px);
+  }
+
+  .protel-pitch__stack {
+    gap: clamp(28px, 6vw, 40px);
+  }
+
+  .protel-hero__intro-block {
+    gap: clamp(20px, 4vw, 28px);
+  }
+
+  .protel-section-heading {
+    margin-bottom: clamp(16px, 3vw, 24px);
+  }
+}
+
 .protel-pitch--gate {
   min-height: 100vh;
   display: flex;
@@ -3604,10 +3622,18 @@ i {
 
 .protel-proposal__row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: var(--space-4);
   flex-wrap: wrap;
+}
+
+.protel-proposal__heading {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 1vw, 10px);
+  min-width: 0;
+  flex: 1 1 16rem;
 }
 
 .protel-proposal__title {
@@ -3617,6 +3643,17 @@ i {
   font-weight: 500;
   line-height: 1.2;
   color: var(--ink);
+}
+
+.protel-proposal__note {
+  margin: 0;
+  max-width: 38rem;
+  font-family: var(--font-body);
+  font-size: clamp(12px, 1.2vw, 14px);
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  color: var(--ink-soft);
 }
 
 .protel-proposal__price {
@@ -3633,6 +3670,7 @@ i {
   font-weight: 500;
   line-height: 1.2;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .protel-proposal__video {

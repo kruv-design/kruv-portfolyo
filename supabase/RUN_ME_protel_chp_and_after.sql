@@ -1,13 +1,15 @@
 -- ══════════════════════════════════════════════════════════════
--- PROTEL — SON EKLENEN VİDEOLAR (tek seferde çalıştır)
--- Supabase SQL Editor → Run
+-- PROTEL — CHP videosundan itibaren tüm güncellemeler
+-- Supabase SQL Editor → tek seferde Run
 -- ══════════════════════════════════════════════════════════════
 
 -- Hero eyebrow kolonu (yoksa ekle)
 alter table public.protel_pitch_settings
   add column if not exists hero_eyebrow text not null default 'Protel için örnek çalışmalar, üretim süreci ve teklif formu';
 
--- ── Hero bento örnek videoları (11 adet) ──────────────────────
+-- ── Hero bento örnek videoları (11 adet, güncel sıra) ─────────
+-- Sol kolon (9:16): Otelinizin → Fiyat Parite → Rate Coach → Rate Shopper → Olly
+-- Sağ kolon (16:9): CHP → tten-2 → tten_bj3iyd → Otter → BV Main → Trick
 update public.protel_pitch_settings
 set sample_videos = '[
   {
@@ -68,6 +70,14 @@ set sample_videos = '[
 ]'::jsonb
 where id = 1;
 
+-- ── Pricing Coach — 1. video (Butik Oteller) ───────────────────
+update public.protel_brands
+set
+  video_1_title = 'Butik Oteller',
+  video_1_url = 'https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Butik_Oteller_hykrwc',
+  video_1_aspect = '9:16'
+where slug = 'pricing-coach';
+
 -- ── Jungleous müşteri videoları ───────────────────────────────
 update public.protel_brands
 set
@@ -101,11 +111,3 @@ set
   video_2_url = 'https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=TSS-W2-THURSDAY_jg6m09',
   video_2_aspect = '9:16'
 where slug = 'the-scholar-school';
-
--- ── Pricing Coach — 1. video ───────────────────────────────────
-update public.protel_brands
-set
-  video_1_title = 'Butik Oteller',
-  video_1_url = 'https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Butik_Oteller_hykrwc',
-  video_1_aspect = '9:16'
-where slug = 'pricing-coach';

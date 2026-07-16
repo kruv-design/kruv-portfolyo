@@ -1,4 +1,5 @@
 import type { ProtelPitchSettings } from "@/types";
+import { DEFAULT_PROTEL_PROPOSAL_NOTE } from "@/lib/protel-queries";
 import { ProtelSectionHeading } from "./ProtelSectionHeading";
 import { ProtelVideoEmbed } from "./ProtelVideoEmbed";
 
@@ -12,9 +13,12 @@ export function ProtelProposalSection({ settings }: { settings: ProtelPitchSetti
       <div className="protel-proposal">
         <div className="protel-proposal__divider" aria-hidden="true" />
         <div className="protel-proposal__row">
-          <h2 id="protel-proposal" className="protel-proposal__title">
-            {title}
-          </h2>
+          <div className="protel-proposal__heading">
+            <h2 id="protel-proposal" className="protel-proposal__title">
+              {title}
+            </h2>
+            <p className="protel-proposal__note">{DEFAULT_PROTEL_PROPOSAL_NOTE}</p>
+          </div>
           <span className="protel-proposal__price">{price}</span>
         </div>
         {settings.proposalVideoUrl ? (

@@ -37,6 +37,26 @@ Sahneye Çıkarın',
       "aspectRatio": "9:16"
     },
     {
+      "title": "Rate Coach UI Ad",
+      "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Rate_Coach_-_UI_Ad_-_9x16_vlpmqt",
+      "aspectRatio": "9:16"
+    },
+    {
+      "title": "Rate Shopper UI Ad",
+      "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Rate_Shopper_-_UI_Ad_-_9x16_mjlrfv",
+      "aspectRatio": "9:16"
+    },
+    {
+      "title": "Karşında Olly",
+      "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=karsinda_olly_-_1_rl9a6h",
+      "aspectRatio": "9:16"
+    },
+    {
+      "title": "CHP Dijital Kampüs",
+      "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=CHP_-_Dijital_Kampu%CC%88s_1_1_f3nbhu",
+      "aspectRatio": "16:9"
+    },
+    {
       "title": "UI animasyon örneği",
       "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=tten-2_fnwkmj",
       "aspectRatio": "16:9"
@@ -50,16 +70,6 @@ Sahneye Çıkarın',
       "title": "UI animasyon örneği",
       "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Otter_v4_annlwz",
       "aspectRatio": "16:9"
-    },
-    {
-      "title": "Rate Coach UI Ad",
-      "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Rate_Coach_-_UI_Ad_-_9x16_vlpmqt",
-      "aspectRatio": "9:16"
-    },
-    {
-      "title": "Rate Shopper UI Ad",
-      "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Rate_Shopper_-_UI_Ad_-_9x16_mjlrfv",
-      "aspectRatio": "9:16"
     },
     {
       "title": "BV Main",
@@ -85,8 +95,8 @@ values (
   'pricing-coach',
   'Pricing Coach',
   0,
-  'Pricing Coach Reel',
-  'https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=09-03_pc_reel_dto7xl',
+  'Butik Oteller',
+  'https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Butik_Oteller_hykrwc',
   '9:16',
   'İnsanların elinden işini mi alıyor?',
   'https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=insanlar%C4%B1n_elinden_isini_mi_aliyor-_en_pt6cl9',

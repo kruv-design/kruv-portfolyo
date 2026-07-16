@@ -45,6 +45,30 @@ export const DEFAULT_PROTEL_SAMPLE_VIDEOS: ProtelSampleVideo[] = [
     aspectRatio: "9:16",
   },
   {
+    title: "Rate Coach UI Ad",
+    videoUrl:
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Rate_Coach_-_UI_Ad_-_9x16_vlpmqt",
+    aspectRatio: "9:16",
+  },
+  {
+    title: "Rate Shopper UI Ad",
+    videoUrl:
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Rate_Shopper_-_UI_Ad_-_9x16_mjlrfv",
+    aspectRatio: "9:16",
+  },
+  {
+    title: "Karşında Olly",
+    videoUrl:
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=karsinda_olly_-_1_rl9a6h",
+    aspectRatio: "9:16",
+  },
+  {
+    title: "CHP Dijital Kampüs",
+    videoUrl:
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=CHP_-_Dijital_Kampu%CC%88s_1_1_f3nbhu",
+    aspectRatio: "16:9",
+  },
+  {
     title: "UI animasyon örneği",
     videoUrl:
       "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=tten-2_fnwkmj",
@@ -63,18 +87,6 @@ export const DEFAULT_PROTEL_SAMPLE_VIDEOS: ProtelSampleVideo[] = [
     aspectRatio: "16:9",
   },
   {
-    title: "Rate Coach UI Ad",
-    videoUrl:
-      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Rate_Coach_-_UI_Ad_-_9x16_vlpmqt",
-    aspectRatio: "9:16",
-  },
-  {
-    title: "Rate Shopper UI Ad",
-    videoUrl:
-      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Rate_Shopper_-_UI_Ad_-_9x16_mjlrfv",
-    aspectRatio: "9:16",
-  },
-  {
     title: "BV Main",
     videoUrl:
       "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=BV_MAIN_onzybr",
@@ -90,6 +102,9 @@ export const DEFAULT_PROTEL_SAMPLE_VIDEOS: ProtelSampleVideo[] = [
 
 export const DEFAULT_PROTEL_HERO_EYEBROW =
   "Protel için örnek çalışmalar, üretim süreci ve teklif formu";
+
+export const DEFAULT_PROTEL_PROPOSAL_NOTE =
+  "İlk demo video, ürününüzü tanımamız ve çalışma biçimimizi deneyimlemeniz için tarafımızdan hazırlanır. Herhangi bir ücret talep etmiyoruz.";
 
 export const DEFAULT_PROTEL_SETTINGS: ProtelPitchSettings = {
   heroEyebrow: DEFAULT_PROTEL_HERO_EYEBROW,
@@ -120,9 +135,9 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
         url: "https://www.instagram.com/pricing_coach/",
       },
     ],
-    video1Title: "Pricing Coach Reel",
+    video1Title: "Butik Oteller",
     video1Url:
-      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=09-03_pc_reel_dto7xl",
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Butik_Oteller_hykrwc",
     video1Aspect: "9:16",
     video2Title: "İnsanların elinden işini mi alıyor?",
     video2Url:
@@ -253,6 +268,10 @@ function normalizeSampleVideo(item: ProtelSampleVideo): ProtelSampleVideo {
     return { ...item, aspectRatio: "16:9" };
   }
 
+  if (haystack.includes("chp") && haystack.includes("dijital")) {
+    return { ...item, aspectRatio: "16:9" };
+  }
+
   if (haystack.includes("9x16")) {
     return { ...item, aspectRatio: "9:16" };
   }
@@ -260,8 +279,38 @@ function normalizeSampleVideo(item: ProtelSampleVideo): ProtelSampleVideo {
   return item;
 }
 
+const SAMPLE_VIDEO_SORT_KEYS = [
+  "otelinizin",
+  "fiyat_parite",
+  "rate_coach",
+  "rate_shopper",
+  "karsinda_olly",
+  "chp_-_dijital",
+  "tten-2",
+  "tten_bj3iyd",
+  "otter_v4",
+  "bv_main",
+  "trick_landing",
+] as const;
+
+function sampleVideoHaystack(item: ProtelSampleVideo): string {
+  try {
+    return decodeURIComponent(`${item.title} ${item.videoUrl}`).toLowerCase();
+  } catch {
+    return `${item.title} ${item.videoUrl}`.toLowerCase();
+  }
+}
+
+function sampleVideoSortRank(item: ProtelSampleVideo): number {
+  const haystack = sampleVideoHaystack(item);
+  const index = SAMPLE_VIDEO_SORT_KEYS.findIndex((key) => haystack.includes(key));
+  return index === -1 ? SAMPLE_VIDEO_SORT_KEYS.length : index;
+}
+
 function normalizeSampleVideos(items: ProtelSampleVideo[]): ProtelSampleVideo[] {
-  return items.map(normalizeSampleVideo);
+  return items
+    .map(normalizeSampleVideo)
+    .sort((a, b) => sampleVideoSortRank(a) - sampleVideoSortRank(b));
 }
 
 function normalizeHeroEyebrow(eyebrow: string): string {
