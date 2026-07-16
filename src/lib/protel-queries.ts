@@ -174,12 +174,14 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
         url: "https://www.instagram.com/thescholarschool_official/",
       },
     ],
-    video1Title: "",
-    video1Url: "",
-    video1Aspect: "16:9",
-    video2Title: "",
-    video2Url: "",
-    video2Aspect: "16:9",
+    video1Title: "İnsanların elinden işini mi alıyor?",
+    video1Url:
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=insanlar%C4%B1n_elinden_isini_mi_aliyor-_en_pt6cl9",
+    video1Aspect: "9:16",
+    video2Title: "The Scholar School",
+    video2Url:
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=TSS-W2-THURSDAY_jg6m09",
+    video2Aspect: "9:16",
     updatedAt: "",
   },
 ];
