@@ -80,12 +80,14 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
     sortOrder: 1,
     metrics: [],
     socialAccounts: [],
-    video1Title: "",
-    video1Url: "",
-    video1Aspect: "16:9",
-    video2Title: "",
-    video2Url: "",
-    video2Aspect: "16:9",
+    video1Title: "GG Pizza",
+    video1Url:
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=GG_6_rdirzm",
+    video1Aspect: "9:16",
+    video2Title: "Food is Art",
+    video2Url:
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Food_is_art_yx3vep",
+    video2Aspect: "9:16",
     updatedAt: "",
   },
   {
@@ -147,6 +149,21 @@ function normalizeProposalTitle(title: string) {
   return t;
 }
 
+function mergeBrandDefaults(brand: ProtelBrand): ProtelBrand {
+  const fallback = DEFAULT_PROTEL_BRANDS.find((item) => item.slug === brand.slug);
+  if (!fallback) return brand;
+
+  return {
+    ...brand,
+    video1Title: brand.video1Title.trim() || fallback.video1Title,
+    video1Url: brand.video1Url.trim() || fallback.video1Url,
+    video1Aspect: brand.video1Aspect || fallback.video1Aspect,
+    video2Title: brand.video2Title.trim() || fallback.video2Title,
+    video2Url: brand.video2Url.trim() || fallback.video2Url,
+    video2Aspect: brand.video2Aspect || fallback.video2Aspect,
+  };
+}
+
 export async function getProtelPitch(): Promise<ProtelPitch> {
   if (isPlaceholderEnv()) {
     return {
@@ -185,7 +202,9 @@ export async function getProtelPitch(): Promise<ProtelPitch> {
     const brands =
       brandsRes.data && brandsRes.data.length > 0
         ? brandsRes.data.map((row) =>
-            mapProtelBrandRow(row as Record<string, unknown>),
+            mergeBrandDefaults(
+              mapProtelBrandRow(row as Record<string, unknown>),
+            ),
           )
         : DEFAULT_PROTEL_BRANDS;
 
