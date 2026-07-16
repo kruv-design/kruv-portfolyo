@@ -50,6 +50,26 @@ Sahneye Çıkarın',
       "title": "UI animasyon örneği",
       "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Otter_v4_annlwz",
       "aspectRatio": "16:9"
+    },
+    {
+      "title": "Rate Coach UI Ad",
+      "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Rate_Coach_-_UI_Ad_-_9x16_vlpmqt",
+      "aspectRatio": "9:16"
+    },
+    {
+      "title": "Rate Shopper UI Ad",
+      "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Rate_Shopper_-_UI_Ad_-_9x16_mjlrfv",
+      "aspectRatio": "9:16"
+    },
+    {
+      "title": "BV Main",
+      "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=BV_MAIN_onzybr",
+      "aspectRatio": "16:9"
+    },
+    {
+      "title": "Trick Landing Page",
+      "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Trick_Landing_Page_v2_zutvtv",
+      "aspectRatio": "16:9"
     }
   ]'::jsonb
 where id = 1;
@@ -105,6 +125,12 @@ where slug = 'ggpizza';
 update public.protel_brands
 set
   sort_order = 2,
+  video_1_title = 'Jungleous Kampanya',
+  video_1_url = 'https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Jungleous_Kampanya_nb7nue',
+  video_1_aspect = '9:16',
+  video_2_title = 'Jungleous Bitki Bakımı',
+  video_2_url = 'https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Jungleous_Bitki_Bak%C4%B1m-_lc7c7h',
+  video_2_aspect = '9:16',
   social_accounts = '[
     {"platform": "Instagram", "handle": "@jungleous", "url": "https://www.instagram.com/jungleous/"}
   ]'::jsonb
@@ -114,6 +140,12 @@ where slug = 'jungleous';
 update public.protel_brands
 set
   sort_order = 3,
+  video_1_title = 'Bulung Safety',
+  video_1_url = 'https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Bulung_Safety_ftvgc2',
+  video_1_aspect = '9:16',
+  video_2_title = 'İstanbul – Viyana',
+  video_2_url = 'https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Istanbul-Viyana_qcmftc',
+  video_2_aspect = '16:9',
   social_accounts = '[
     {"platform": "Instagram", "handle": "@bulunglogistics", "url": "https://www.instagram.com/bulunglogistics/"}
   ]'::jsonb

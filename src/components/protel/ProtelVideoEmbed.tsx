@@ -1,4 +1,4 @@
-import { resolveProjectVideoUrl } from "@/lib/project-images";
+import { resolveProjectVideoPosterUrl, resolveProjectVideoUrl } from "@/lib/project-images";
 import type { ProtelVideoAspect } from "@/types";
 
 export function protelAspectClass(aspect: ProtelVideoAspect): string {
@@ -20,6 +20,7 @@ export function ProtelVideoEmbed({
   naturalSize?: boolean;
 }) {
   const src = resolveProjectVideoUrl(videoUrl);
+  const poster = resolveProjectVideoPosterUrl(videoUrl);
   const frameClass = framed ? " protel-video--framed" : "";
   const naturalClass = naturalSize ? " protel-video--natural" : "";
   const aspectClass = protelAspectClass(aspectRatio);
@@ -42,6 +43,7 @@ export function ProtelVideoEmbed({
     >
       <video
         src={src}
+        poster={poster || undefined}
         controls
         playsInline
         preload="metadata"

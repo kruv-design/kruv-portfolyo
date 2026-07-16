@@ -58,6 +58,32 @@ export function resolveProjectVideoUrl(raw: string): string {
   return buildCloudinaryVideoUrl(s, PROJECT_VIDEO_TRANSFORMS);
 }
 
+function cloudinaryCloudFromDeliveryUrl(url: string): string {
+  const match = url.match(/res\.cloudinary\.com\/([^/]+)/i);
+  return match?.[1]?.trim() ?? "";
+}
+
+/** Cloudinary video URL / public_id → ilk kare poster (mobil önizleme). */
+export function resolveProjectVideoPosterUrl(raw: string): string {
+  const s = raw.trim().replace(/\s+/g, "");
+  if (!s) return "";
+
+  let cloud = "";
+  if (/^https?:\/\//i.test(s)) {
+    const embed = cloudinaryEmbedPlayerParams(s);
+    cloud = embed?.cloud ?? cloudinaryCloudFromDeliveryUrl(s);
+  }
+  if (!cloud) {
+    cloud = cloudName();
+  }
+
+  const publicId = cloudinaryVideoPublicId(s);
+  if (!cloud || !publicId) return "";
+
+  const id = stripCloudinaryExtension(publicId.replace(/^\/+/, ""));
+  return `https://res.cloudinary.com/${cloud}/video/upload/f_auto,q_auto,so_0/${id}.jpg`;
+}
+
 /** Görsel alanına yapıştırılmış video / embed URL (Görsel 1). */
 export function isVideoMediaRaw(raw: string): boolean {
   const s = raw.trim();

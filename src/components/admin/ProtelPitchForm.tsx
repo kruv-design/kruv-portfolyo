@@ -157,7 +157,7 @@ export function ProtelPitchForm({ initial }: { initial: ProtelAdminPitch }) {
           className="mb-5 border-b pb-3 b1 font-medium"
           style={{ borderColor: "var(--adm-border)", color: "var(--ink)" }}
         >
-          Örnek videolar (bento grid — max 5)
+          Örnek videolar (bento grid)
         </div>
         <div className="flex flex-col gap-6">
           {settings.sampleVideos.map((video, i) => (
@@ -235,7 +235,7 @@ export function ProtelPitchForm({ initial }: { initial: ProtelAdminPitch }) {
               </div>
             </div>
           ))}
-          {settings.sampleVideos.length < 8 ? (
+          {settings.sampleVideos.length < 12 ? (
             <button
               type="button"
               className="btn btn-secondary self-start"

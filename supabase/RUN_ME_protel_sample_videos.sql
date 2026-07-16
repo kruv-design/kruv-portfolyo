@@ -1,4 +1,4 @@
--- Protel örnek videoları — dikey sol, yatay sağ
+-- Protel örnek videoları — hero bento grid
 update public.protel_pitch_settings
 set sample_videos = '[
   {
@@ -24,6 +24,26 @@ set sample_videos = '[
   {
     "title": "UI animasyon örneği",
     "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Otter_v4_annlwz",
+    "aspectRatio": "16:9"
+  },
+  {
+    "title": "Rate Coach UI Ad",
+    "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Rate_Coach_-_UI_Ad_-_9x16_vlpmqt",
+    "aspectRatio": "9:16"
+  },
+  {
+    "title": "Rate Shopper UI Ad",
+    "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Rate_Shopper_-_UI_Ad_-_9x16_mjlrfv",
+    "aspectRatio": "9:16"
+  },
+  {
+    "title": "BV Main",
+    "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=BV_MAIN_onzybr",
+    "aspectRatio": "16:9"
+  },
+  {
+    "title": "Trick Landing Page",
+    "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Trick_Landing_Page_v2_zutvtv",
     "aspectRatio": "16:9"
   }
 ]'::jsonb

@@ -1,10 +1,11 @@
 "use client";
 
-import { resolveProjectVideoUrl } from "@/lib/project-images";
+import { resolveProjectVideoPosterUrl, resolveProjectVideoUrl } from "@/lib/project-images";
 import type { ProtelSampleVideo } from "@/types";
 
 export function ProtelBentoVideo({ item }: { item: ProtelSampleVideo }) {
   const src = resolveProjectVideoUrl(item.videoUrl);
+  const poster = resolveProjectVideoPosterUrl(item.videoUrl);
   const isPortrait =
     item.aspectRatio === "9:16" || item.aspectRatio === "4:5";
   const orientationClass = isPortrait
@@ -27,6 +28,7 @@ export function ProtelBentoVideo({ item }: { item: ProtelSampleVideo }) {
     <figure className={`protel-video protel-video--bento${orientationClass}`}>
       <video
         src={src}
+        poster={poster || undefined}
         controls
         playsInline
         preload="metadata"

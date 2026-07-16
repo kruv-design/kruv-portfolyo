@@ -354,7 +354,7 @@ export const protelPitchSettingsSchema = z.object({
   proposalVideoUrl: z.string().trim().max(2000).optional().default(""),
   proposalVideoAspect: protelVideoAspectSchema.optional().default("16:9"),
   processDuration: z.string().trim().max(80).optional().default("2/3 HAFTA"),
-  sampleVideos: z.array(protelSampleVideoSchema).max(8).default([]),
+  sampleVideos: z.array(protelSampleVideoSchema).max(12).default([]),
   processSteps: z.array(protelProcessStepSchema).max(12).default([]),
 });
 

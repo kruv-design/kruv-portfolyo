@@ -62,6 +62,30 @@ export const DEFAULT_PROTEL_SAMPLE_VIDEOS: ProtelSampleVideo[] = [
       "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Otter_v4_annlwz",
     aspectRatio: "16:9",
   },
+  {
+    title: "Rate Coach UI Ad",
+    videoUrl:
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Rate_Coach_-_UI_Ad_-_9x16_vlpmqt",
+    aspectRatio: "9:16",
+  },
+  {
+    title: "Rate Shopper UI Ad",
+    videoUrl:
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Rate_Shopper_-_UI_Ad_-_9x16_mjlrfv",
+    aspectRatio: "9:16",
+  },
+  {
+    title: "BV Main",
+    videoUrl:
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=BV_MAIN_onzybr",
+    aspectRatio: "16:9",
+  },
+  {
+    title: "Trick Landing Page",
+    videoUrl:
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Trick_Landing_Page_v2_zutvtv",
+    aspectRatio: "16:9",
+  },
 ];
 
 export const DEFAULT_PROTEL_HERO_EYEBROW =
@@ -142,12 +166,14 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
         url: "https://www.instagram.com/jungleous/",
       },
     ],
-    video1Title: "",
-    video1Url: "",
-    video1Aspect: "16:9",
-    video2Title: "",
-    video2Url: "",
-    video2Aspect: "16:9",
+    video1Title: "Jungleous Kampanya",
+    video1Url:
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Jungleous_Kampanya_nb7nue",
+    video1Aspect: "9:16",
+    video2Title: "Jungleous Bitki Bakımı",
+    video2Url:
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Jungleous_Bitki_Bak%C4%B1m-_lc7c7h",
+    video2Aspect: "9:16",
     updatedAt: "",
   },
   {
@@ -163,11 +189,13 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
         url: "https://www.instagram.com/bulunglogistics/",
       },
     ],
-    video1Title: "",
-    video1Url: "",
-    video1Aspect: "16:9",
-    video2Title: "",
-    video2Url: "",
+    video1Title: "Bulung Safety",
+    video1Url:
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Bulung_Safety_ftvgc2",
+    video1Aspect: "9:16",
+    video2Title: "İstanbul – Viyana",
+    video2Url:
+      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Istanbul-Viyana_qcmftc",
     video2Aspect: "16:9",
     updatedAt: "",
   },
