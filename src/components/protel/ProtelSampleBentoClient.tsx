@@ -12,6 +12,10 @@ function videoHaystack(item: ProtelSampleVideo): string {
   }
 }
 
+function isPortraitVideo(item: ProtelSampleVideo): boolean {
+  return item.aspectRatio === "9:16" || item.aspectRatio === "4:5";
+}
+
 function isLeftColumnVideo(item: ProtelSampleVideo): boolean {
   const haystack = videoHaystack(item);
 
@@ -26,10 +30,31 @@ function isLeftColumnVideo(item: ProtelSampleVideo): boolean {
   return item.aspectRatio === "9:16" || item.aspectRatio === "4:5";
 }
 
+type ColumnEntry = { item: ProtelSampleVideo; index: number };
+
+function sortColumnItems(
+  entries: ColumnEntry[],
+  column: "left" | "right",
+): ColumnEntry[] {
+  return [...entries].sort((a, b) => {
+    const aPortrait = isPortraitVideo(a.item);
+    const bPortrait = isPortraitVideo(b.item);
+
+    if (aPortrait !== bPortrait) {
+      if (column === "left") {
+        return aPortrait ? -1 : 1;
+      }
+      return aPortrait ? 1 : -1;
+    }
+
+    return a.index - b.index;
+  });
+}
+
 export function ProtelSampleBentoClient({ items }: { items: ProtelSampleVideo[] }) {
   const { left, right } = useMemo(() => {
-    const leftItems: Array<{ item: ProtelSampleVideo; index: number }> = [];
-    const rightItems: Array<{ item: ProtelSampleVideo; index: number }> = [];
+    const leftItems: ColumnEntry[] = [];
+    const rightItems: ColumnEntry[] = [];
 
     items.forEach((item, index) => {
       if (isLeftColumnVideo(item)) {
@@ -39,7 +64,10 @@ export function ProtelSampleBentoClient({ items }: { items: ProtelSampleVideo[] 
       }
     });
 
-    return { left: leftItems, right: rightItems };
+    return {
+      left: sortColumnItems(leftItems, "left"),
+      right: sortColumnItems(rightItems, "right"),
+    };
   }, [items]);
 
   return (
