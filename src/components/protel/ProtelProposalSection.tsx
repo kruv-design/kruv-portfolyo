@@ -1,7 +1,9 @@
 import type { ProtelPitchSettings } from "@/types";
-import { DEFAULT_PROTEL_PROPOSAL_NOTE } from "@/lib/protel-queries";
 import { ProtelSectionHeading } from "./ProtelSectionHeading";
 import { ProtelVideoEmbed } from "./ProtelVideoEmbed";
+
+const PROPOSAL_NOTE =
+  "İlk demo video, ürününüzü tanımamız ve çalışma biçimimizi deneyimlemeniz için tarafımızdan hazırlanır. Herhangi bir ücret talep etmiyoruz.";
 
 export function ProtelProposalSection({ settings }: { settings: ProtelPitchSettings }) {
   const title = settings.proposalTitle.trim() || "Demo";
@@ -17,7 +19,7 @@ export function ProtelProposalSection({ settings }: { settings: ProtelPitchSetti
             <h2 id="protel-proposal" className="protel-proposal__title">
               {title}
             </h2>
-            <p className="protel-proposal__note">{DEFAULT_PROTEL_PROPOSAL_NOTE}</p>
+            <p className="protel-proposal__note">{PROPOSAL_NOTE}</p>
           </div>
           <span className="protel-proposal__price">{price}</span>
         </div>
