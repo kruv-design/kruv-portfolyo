@@ -174,10 +174,15 @@ function normalizeProposalTitle(title: string) {
 }
 
 function normalizeSampleVideo(item: ProtelSampleVideo): ProtelSampleVideo {
-  const url = item.videoUrl.toLowerCase();
-  const title = item.title.toLowerCase();
+  const haystack = (() => {
+    try {
+      return decodeURIComponent(`${item.title} ${item.videoUrl}`).toLowerCase();
+    } catch {
+      return `${item.title} ${item.videoUrl}`.toLowerCase();
+    }
+  })();
 
-  if (url.includes("otelinizin_gerc") || title.includes("otelinizin")) {
+  if (haystack.includes("otelinizin")) {
     return { ...item, aspectRatio: "9:16" };
   }
 

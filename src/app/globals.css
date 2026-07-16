@@ -2943,7 +2943,7 @@ i {
   box-sizing: border-box;
   width: min(100%, 1317px);
   margin-inline: auto;
-  padding: clamp(48px, 6vw, 69px) clamp(8px, 2.4vw, 31px)
+  padding: clamp(48px, 6vw, 69px) clamp(6px, 1.7vw, 22px)
     clamp(64px, 10vw, 120px);
 }
 
@@ -3159,11 +3159,11 @@ i {
   }
 
   .protel-bento__col--left {
-    order: 2;
+    order: 1;
   }
 
   .protel-bento__col--right {
-    order: 1;
+    order: 2;
   }
 }
 
@@ -3257,15 +3257,33 @@ i {
   width: 100%;
 }
 
-.protel-clients__btn--social {
+.protel-clients__instagram-link {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(8px, 1vw, 12px);
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--color-accent);
+  font-family: var(--font-body);
+  font-size: clamp(14px, 1.2vw, 16px);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
   text-decoration: none;
+  cursor: pointer;
+  transition: opacity var(--dur-fast) var(--ease);
 }
 
-.protel-clients__btn--social:hover,
-.protel-clients__btn--social:focus-visible {
-  background: var(--color-accent);
-  color: var(--gray-base);
-  border-color: var(--color-accent);
+.protel-clients__instagram-link:hover,
+.protel-clients__instagram-link:focus-visible {
+  opacity: 0.72;
+}
+
+.protel-clients__instagram-icon {
+  flex-shrink: 0;
+  width: clamp(18px, 1.6vw, 22px);
+  height: clamp(18px, 1.6vw, 22px);
 }
 
 .protel-clients__videos {

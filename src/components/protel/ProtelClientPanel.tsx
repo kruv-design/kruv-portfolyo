@@ -12,10 +12,26 @@ function isInstagramAccount(account: ProtelSocialAccount): boolean {
   );
 }
 
-function instagramLabel(account: ProtelSocialAccount) {
-  const handle = account.handle.trim();
-  if (handle) return handle.startsWith("@") ? handle : `@${handle}`;
-  return "Instagram";
+function instagramVisitLabel(brandName: string) {
+  return `${brandName} instagramını ziyaret et`;
+}
+
+function ProtelInstagramIcon() {
+  return (
+    <svg
+      className="protel-clients__instagram-icon"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path
+        fill="currentColor"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M7.5 3h9A4.5 4.5 0 0 1 21 7.5v9a4.5 4.5 0 0 1-4.5 4.5h-9A4.5 4.5 0 0 1 3 16.5v-9A4.5 4.5 0 0 1 7.5 3Zm0 2A2.5 2.5 0 0 0 5 7.5v9A2.5 2.5 0 0 0 7.5 19h9a2.5 2.5 0 0 0 2.5-2.5v-9A2.5 2.5 0 0 0 16.5 5h-9Zm9.75 1.25a1 1 0 1 1 0 2 1 1 0 0 1 0-2ZM12 8.5A3.5 3.5 0 1 1 8.5 12 3.5 3.5 0 0 1 12 8.5Z"
+      />
+    </svg>
+  );
 }
 
 export function ProtelClientPanel({ brands }: { brands: ProtelBrand[] }) {
@@ -85,9 +101,10 @@ export function ProtelClientPanel({ brands }: { brands: ProtelBrand[] }) {
                 href={account.url.trim()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="protel-clients__btn protel-clients__btn--social"
+                className="protel-clients__instagram-link"
               >
-                {instagramLabel(account)}
+                <ProtelInstagramIcon />
+                <span>{instagramVisitLabel(active.name)}</span>
               </a>
             ))}
           </div>

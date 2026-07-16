@@ -1,11 +1,25 @@
 "use client";
 
 import { useMemo } from "react";
-import type { ProtelSampleVideo, ProtelVideoAspect } from "@/types";
+import type { ProtelSampleVideo } from "@/types";
 import { ProtelBentoVideo } from "./ProtelBentoVideo";
 
-function isPortrait(aspect: ProtelVideoAspect): boolean {
-  return aspect === "9:16" || aspect === "4:5";
+function videoHaystack(item: ProtelSampleVideo): string {
+  try {
+    return decodeURIComponent(`${item.title} ${item.videoUrl}`).toLowerCase();
+  } catch {
+    return `${item.title} ${item.videoUrl}`.toLowerCase();
+  }
+}
+
+function isLeftColumnVideo(item: ProtelSampleVideo): boolean {
+  const haystack = videoHaystack(item);
+
+  if (haystack.includes("otelinizin")) {
+    return true;
+  }
+
+  return item.aspectRatio === "9:16" || item.aspectRatio === "4:5";
 }
 
 export function ProtelSampleBentoClient({ items }: { items: ProtelSampleVideo[] }) {
@@ -14,7 +28,7 @@ export function ProtelSampleBentoClient({ items }: { items: ProtelSampleVideo[] 
     const rightItems: Array<{ item: ProtelSampleVideo; index: number }> = [];
 
     items.forEach((item, index) => {
-      if (isPortrait(item.aspectRatio)) {
+      if (isLeftColumnVideo(item)) {
         leftItems.push({ item, index });
       } else {
         rightItems.push({ item, index });
