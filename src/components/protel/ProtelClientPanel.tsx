@@ -63,7 +63,6 @@ export function ProtelClientPanel({ brands }: { brands: ProtelBrand[] }) {
                 title={video.title}
                 videoUrl={video.videoUrl}
                 aspectRatio={video.aspectRatio}
-                framed
               />
             </div>
           ))}

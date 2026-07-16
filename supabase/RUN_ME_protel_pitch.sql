@@ -29,10 +29,10 @@ values (
     {"title": "Teslim", "description": "Final kontrollerin ardından videonuzu yayına hazır şekilde teslim ediyoruz."}
   ]'::jsonb,
   '[
-    {"title": "UI animasyon örneği", "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=tten-2_fnwkmj", "aspectRatio": "9:16"},
+    {"title": "UI animasyon örneği", "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=tten-2_fnwkmj", "aspectRatio": "16:9"},
     {"title": "UI animasyon örneği", "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=tten_bj3iyd", "aspectRatio": "16:9"},
     {"title": "UI animasyon örneği", "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Otter_v4_annlwz", "aspectRatio": "16:9"},
-    {"title": "Otelinizin Gerçek Potansiyeli", "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Otelinizin_Gerc%CC%A7ek_Potansiyeli_ukgccv", "aspectRatio": "16:9"}
+    {"title": "Otelinizin Gerçek Potansiyeli", "videoUrl": "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Otelinizin_Gerc%CC%A7ek_Potansiyeli_ukgccv", "aspectRatio": "9:16"}
   ]'::jsonb
 )
 on conflict (id) do nothing;
