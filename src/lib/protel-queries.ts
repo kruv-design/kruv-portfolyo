@@ -36,7 +36,7 @@ export const DEFAULT_PROTEL_SAMPLE_VIDEOS: ProtelSampleVideo[] = [
     title: "UI animasyon örneği",
     videoUrl:
       "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=tten-2_fnwkmj",
-    aspectRatio: "9:16",
+    aspectRatio: "16:9",
   },
   {
     title: "UI animasyon örneği",
@@ -54,7 +54,7 @@ export const DEFAULT_PROTEL_SAMPLE_VIDEOS: ProtelSampleVideo[] = [
     title: "Otelinizin Gerçek Potansiyeli",
     videoUrl:
       "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Otelinizin_Gerc%CC%A7ek_Potansiyeli_ukgccv",
-    aspectRatio: "16:9",
+    aspectRatio: "9:16",
   },
 ];
 

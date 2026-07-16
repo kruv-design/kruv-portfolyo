@@ -8,12 +8,12 @@ function splitHeroTitle(title: string) {
     .filter(Boolean);
 
   if (lines.length <= 1) {
-    return { main: lines[0] ?? "", accent: "" };
+    return { leadLines: lines, accentLine: "" };
   }
 
   return {
-    main: lines.slice(0, -1).join(" "),
-    accent: lines[lines.length - 1] ?? "",
+    leadLines: lines.slice(0, -1),
+    accentLine: lines[lines.length - 1] ?? "",
   };
 }
 
@@ -30,19 +30,23 @@ function splitHeroIntro(intro: string) {
 }
 
 export function ProtelHero({ settings }: { settings: ProtelPitchSettings }) {
-  const { main, accent } = splitHeroTitle(settings.heroTitle);
+  const { leadLines, accentLine } = splitHeroTitle(settings.heroTitle);
   const { lead, body } = splitHeroIntro(settings.heroIntro);
 
   return (
     <header className="protel-hero">
       <div className="protel-hero__intro-block">
-        <ProtelSectionHeading label="UI/UX ANİMASYON PROJELERİ" />
-        <div className="protel-hero__title-wrap">
+        <ProtelSectionHeading label="UI ANİMASYON VİDEOLARI" />
+        <div className="protel-hero__row">
           <h1 className="protel-hero__title">
-            {main ? <span className="protel-hero__title-line">{main}</span> : null}
-            {accent ? (
+            {leadLines.map((line) => (
+              <span key={line} className="protel-hero__title-line">
+                {line}
+              </span>
+            ))}
+            {accentLine ? (
               <span className="protel-hero__title-line protel-hero__title-line--accent">
-                {accent}
+                {accentLine}
               </span>
             ) : null}
           </h1>

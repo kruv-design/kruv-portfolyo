@@ -16,12 +16,13 @@ export function ProtelVideoEmbed({
   videoUrl: string;
   aspectRatio?: ProtelVideoAspect;
   framed?: boolean;
-  /** Bento grid: videoyu kırpmadan kendi oranında göster. */
+  /** Bento: oran korunur, container içinde contain. */
   naturalSize?: boolean;
 }) {
   const src = resolveProjectVideoUrl(videoUrl);
   const frameClass = framed ? " protel-video--framed" : "";
   const naturalClass = naturalSize ? " protel-video--natural" : "";
+  const aspectClass = protelAspectClass(aspectRatio);
 
   if (!src) {
     return (
@@ -37,7 +38,7 @@ export function ProtelVideoEmbed({
 
   return (
     <figure
-      className={`protel-video ${naturalSize ? "" : protelAspectClass(aspectRatio)}${frameClass}${naturalClass}`}
+      className={`protel-video ${aspectClass}${frameClass}${naturalClass}`}
     >
       <video
         src={src}
