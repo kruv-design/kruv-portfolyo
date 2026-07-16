@@ -10,19 +10,23 @@ export function ProtelVideoEmbed({
   videoUrl,
   aspectRatio = "16:9",
   framed = false,
+  naturalSize = false,
 }: {
   title?: string;
   videoUrl: string;
   aspectRatio?: ProtelVideoAspect;
   framed?: boolean;
+  /** Bento grid: videoyu kırpmadan kendi oranında göster. */
+  naturalSize?: boolean;
 }) {
   const src = resolveProjectVideoUrl(videoUrl);
   const frameClass = framed ? " protel-video--framed" : "";
+  const naturalClass = naturalSize ? " protel-video--natural" : "";
 
   if (!src) {
     return (
       <div
-        className={`protel-video protel-video--placeholder ${protelAspectClass(aspectRatio)}${frameClass}`}
+        className={`protel-video protel-video--placeholder ${protelAspectClass(aspectRatio)}${frameClass}${naturalClass}`}
       >
         <span className="protel-video__placeholder-text">
           {title || "Video yakında eklenecek"}
@@ -32,7 +36,9 @@ export function ProtelVideoEmbed({
   }
 
   return (
-    <figure className={`protel-video ${protelAspectClass(aspectRatio)}${frameClass}`}>
+    <figure
+      className={`protel-video ${naturalSize ? "" : protelAspectClass(aspectRatio)}${frameClass}${naturalClass}`}
+    >
       <video
         src={src}
         controls
@@ -41,7 +47,9 @@ export function ProtelVideoEmbed({
         className="protel-video__el"
         aria-label={title || "Video"}
       />
-      {title ? <figcaption className="protel-video__caption">{title}</figcaption> : null}
+      {title && !naturalSize ? (
+        <figcaption className="protel-video__caption">{title}</figcaption>
+      ) : null}
     </figure>
   );
 }

@@ -1,13 +1,5 @@
-import type { ProtelSampleVideo, ProtelVideoAspect } from "@/types";
+import type { ProtelSampleVideo } from "@/types";
 import { ProtelVideoEmbed } from "./ProtelVideoEmbed";
-
-const BENTO_SLOTS: Array<{ key: string; aspect: ProtelVideoAspect; className: string }> = [
-  { key: "p1", aspect: "9:16", className: "protel-bento__cell--p1" },
-  { key: "l1", aspect: "16:9", className: "protel-bento__cell--l1" },
-  { key: "l2", aspect: "16:9", className: "protel-bento__cell--l2" },
-  { key: "l3", aspect: "16:9", className: "protel-bento__cell--l3" },
-  { key: "p2", aspect: "9:16", className: "protel-bento__cell--p2" },
-];
 
 export function ProtelSampleBento({ items }: { items: ProtelSampleVideo[] }) {
   if (items.length === 0) {
@@ -18,21 +10,35 @@ export function ProtelSampleBento({ items }: { items: ProtelSampleVideo[] }) {
     );
   }
 
+  const leftItems = [items[0], items[4]].filter(Boolean);
+  const rightItems = items.slice(1, 4).filter(Boolean);
+
   return (
     <div className="protel-bento">
-      {BENTO_SLOTS.map((slot, index) => {
-        const item = items[index];
-        return (
-          <div key={slot.key} className={`protel-bento__cell ${slot.className}`}>
-            <ProtelVideoEmbed
-              title={item?.title}
-              videoUrl={item?.videoUrl ?? ""}
-              aspectRatio={item?.aspectRatio ?? slot.aspect}
-              framed
-            />
-          </div>
-        );
-      })}
+      <div className="protel-bento__col protel-bento__col--left">
+        {leftItems.map((item, index) => (
+          <ProtelVideoEmbed
+            key={`left-${index}-${item.videoUrl}`}
+            title={item.title}
+            videoUrl={item.videoUrl}
+            aspectRatio={item.aspectRatio}
+            framed
+            naturalSize
+          />
+        ))}
+      </div>
+      <div className="protel-bento__col protel-bento__col--right">
+        {rightItems.map((item, index) => (
+          <ProtelVideoEmbed
+            key={`right-${index}-${item.videoUrl}`}
+            title={item.title}
+            videoUrl={item.videoUrl}
+            aspectRatio={item.aspectRatio}
+            framed
+            naturalSize
+          />
+        ))}
+      </div>
     </div>
   );
 }
