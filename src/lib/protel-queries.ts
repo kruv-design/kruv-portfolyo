@@ -79,7 +79,13 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
     name: "GG Pizza",
     sortOrder: 1,
     metrics: [],
-    socialAccounts: [],
+    socialAccounts: [
+      {
+        platform: "Instagram",
+        handle: "@ggpizzaa",
+        url: "https://www.instagram.com/ggpizzaa?igsh=Z2VnOXJqdjJnZ3Zl",
+      },
+    ],
     video1Title: "GG Pizza",
     video1Url:
       "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=GG_6_rdirzm",
@@ -96,7 +102,13 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
     name: "Jungleous",
     sortOrder: 2,
     metrics: [],
-    socialAccounts: [],
+    socialAccounts: [
+      {
+        platform: "Instagram",
+        handle: "@jungleous",
+        url: "https://www.instagram.com/jungleous/",
+      },
+    ],
     video1Title: "",
     video1Url: "",
     video1Aspect: "16:9",
@@ -111,7 +123,13 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
     name: "Bulung Lojistik",
     sortOrder: 3,
     metrics: [],
-    socialAccounts: [],
+    socialAccounts: [
+      {
+        platform: "Instagram",
+        handle: "@bulunglogistics",
+        url: "https://www.instagram.com/bulunglogistics/",
+      },
+    ],
     video1Title: "",
     video1Url: "",
     video1Aspect: "16:9",
@@ -126,7 +144,13 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
     name: "The Scholar School",
     sortOrder: 4,
     metrics: [],
-    socialAccounts: [],
+    socialAccounts: [
+      {
+        platform: "Instagram",
+        handle: "@thescholarschool_official",
+        url: "https://www.instagram.com/thescholarschool_official/",
+      },
+    ],
     video1Title: "",
     video1Url: "",
     video1Aspect: "16:9",
@@ -155,6 +179,9 @@ function mergeBrandDefaults(brand: ProtelBrand): ProtelBrand {
 
   return {
     ...brand,
+    socialAccounts: brand.socialAccounts.some((account) => account.url.trim())
+      ? brand.socialAccounts
+      : fallback.socialAccounts,
     video1Title: brand.video1Title.trim() || fallback.video1Title,
     video1Url: brand.video1Url.trim() || fallback.video1Url,
     video1Aspect: brand.video1Aspect || fallback.video1Aspect,

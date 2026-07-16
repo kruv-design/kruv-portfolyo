@@ -1,29 +1,10 @@
 "use client";
 
-import { useCallback } from "react";
 import { resolveProjectVideoUrl } from "@/lib/project-images";
 import type { ProtelSampleVideo } from "@/types";
 
-export function ProtelBentoVideo({
-  item,
-  videoKey,
-  onOrientation,
-}: {
-  item: ProtelSampleVideo;
-  videoKey: string;
-  onOrientation: (key: string, portrait: boolean) => void;
-}) {
+export function ProtelBentoVideo({ item }: { item: ProtelSampleVideo }) {
   const src = resolveProjectVideoUrl(item.videoUrl);
-
-  const handleLoadedMetadata = useCallback(
-    (e: React.SyntheticEvent<HTMLVideoElement>) => {
-      const { videoWidth, videoHeight } = e.currentTarget;
-      if (videoWidth > 0 && videoHeight > 0) {
-        onOrientation(videoKey, videoHeight > videoWidth);
-      }
-    },
-    [onOrientation, videoKey],
-  );
 
   if (!src) {
     return (
@@ -44,7 +25,6 @@ export function ProtelBentoVideo({
         preload="metadata"
         className="protel-video__el"
         aria-label={item.title || "Video"}
-        onLoadedMetadata={handleLoadedMetadata}
       />
     </figure>
   );

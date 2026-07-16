@@ -3257,6 +3257,25 @@ i {
   border-color: var(--color-accent);
 }
 
+.protel-clients__socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(8px, 1.2vw, 16px);
+  justify-content: center;
+  width: 100%;
+}
+
+.protel-clients__btn--social {
+  text-decoration: none;
+}
+
+.protel-clients__btn--social:hover,
+.protel-clients__btn--social:focus-visible {
+  background: var(--color-accent);
+  color: var(--gray-base);
+  border-color: var(--color-accent);
+}
+
 .protel-clients__videos {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
