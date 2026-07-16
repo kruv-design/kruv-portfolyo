@@ -1,7 +1,13 @@
 -- Marka Instagram hesapları
 update public.protel_brands
 set social_accounts = '[
-  {"platform": "Instagram", "handle": "@ggpizzaa", "url": "https://www.instagram.com/ggpizzaa?igsh=Z2VnOXJqdjJnZ3Zl"}
+  {"platform": "Instagram", "handle": "@pricing_coach", "url": "https://www.instagram.com/pricing_coach/"}
+]'::jsonb
+where slug = 'pricing-coach';
+
+update public.protel_brands
+set social_accounts = '[
+  {"platform": "Instagram", "handle": "@ggpizzaa", "url": "https://www.instagram.com/ggpizzaa/"}
 ]'::jsonb
 where slug = 'ggpizza';
 
@@ -18,7 +24,9 @@ set social_accounts = '[
 where slug = 'bulung-lojistik';
 
 update public.protel_brands
-set social_accounts = '[
-  {"platform": "Instagram", "handle": "@thescholarschool_official", "url": "https://www.instagram.com/thescholarschool_official/"}
-]'::jsonb
+set
+  name = 'The Scholars School',
+  social_accounts = '[
+    {"platform": "Instagram", "handle": "@the.scholarsschool", "url": "https://www.instagram.com/the.scholarsschool/"}
+  ]'::jsonb
 where slug = 'the-scholar-school';

@@ -85,7 +85,13 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
     name: "Pricing Coach",
     sortOrder: 0,
     metrics: [],
-    socialAccounts: [],
+    socialAccounts: [
+      {
+        platform: "Instagram",
+        handle: "@pricing_coach",
+        url: "https://www.instagram.com/pricing_coach/",
+      },
+    ],
     video1Title: "Pricing Coach Reel",
     video1Url:
       "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=09-03_pc_reel_dto7xl",
@@ -106,7 +112,7 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
       {
         platform: "Instagram",
         handle: "@ggpizzaa",
-        url: "https://www.instagram.com/ggpizzaa?igsh=Z2VnOXJqdjJnZ3Zl",
+        url: "https://www.instagram.com/ggpizzaa/",
       },
     ],
     video1Title: "GG Pizza",
@@ -164,21 +170,21 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
   {
     id: "",
     slug: "the-scholar-school",
-    name: "The Scholar School",
+    name: "The Scholars School",
     sortOrder: 4,
     metrics: [],
     socialAccounts: [
       {
         platform: "Instagram",
-        handle: "@thescholarschool_official",
-        url: "https://www.instagram.com/thescholarschool_official/",
+        handle: "@the.scholarsschool",
+        url: "https://www.instagram.com/the.scholarsschool/",
       },
     ],
-    video1Title: "The Scholar School",
+    video1Title: "The Scholars School",
     video1Url:
       "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=TSS-W1-THURSDAY_ryll1v",
     video1Aspect: "9:16",
-    video2Title: "The Scholar School",
+    video2Title: "The Scholars School",
     video2Url:
       "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=TSS-W2-THURSDAY_jg6m09",
     video2Aspect: "9:16",

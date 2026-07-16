@@ -65,7 +65,7 @@ insert into public.protel_brands (slug, name, sort_order) values
   ('ggpizza',            'GG Pizza',             1),
   ('jungleous',          'Jungleous',            2),
   ('bulung-lojistik',    'Bulung Lojistik',      3),
-  ('the-scholar-school', 'The Scholar School',   4)
+  ('the-scholar-school', 'The Scholars School',   4)
 on conflict (slug) do nothing;
 
 drop trigger if exists protel_brands_touch on public.protel_brands;

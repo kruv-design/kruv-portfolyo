@@ -70,7 +70,9 @@ values (
   'İnsanların elinden işini mi alıyor?',
   'https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=insanlar%C4%B1n_elinden_isini_mi_aliyor-_en_pt6cl9',
   '9:16',
-  '[]'::jsonb
+  '[
+    {"platform": "Instagram", "handle": "@pricing_coach", "url": "https://www.instagram.com/pricing_coach/"}
+  ]'::jsonb
 )
 on conflict (slug) do update set
   name = excluded.name,
@@ -80,7 +82,8 @@ on conflict (slug) do update set
   video_1_aspect = excluded.video_1_aspect,
   video_2_title = excluded.video_2_title,
   video_2_url = excluded.video_2_url,
-  video_2_aspect = excluded.video_2_aspect;
+  video_2_aspect = excluded.video_2_aspect,
+  social_accounts = excluded.social_accounts;
 
 -- ── GG Pizza ───────────────────────────────────────────────────
 update public.protel_brands
@@ -93,7 +96,7 @@ set
   video_2_url = 'https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Food_is_art_yx3vep',
   video_2_aspect = '9:16',
   social_accounts = '[
-    {"platform": "Instagram", "handle": "@ggpizzaa", "url": "https://www.instagram.com/ggpizzaa?igsh=Z2VnOXJqdjJnZ3Zl"}
+    {"platform": "Instagram", "handle": "@ggpizzaa", "url": "https://www.instagram.com/ggpizzaa/"}
   ]'::jsonb
 where slug = 'ggpizza';
 
@@ -115,17 +118,18 @@ set
   ]'::jsonb
 where slug = 'bulung-lojistik';
 
--- ── The Scholar School ─────────────────────────────────────────
+-- ── The Scholars School ────────────────────────────────────────
 update public.protel_brands
 set
+  name = 'The Scholars School',
   sort_order = 4,
-  video_1_title = 'The Scholar School',
+  video_1_title = 'The Scholars School',
   video_1_url = 'https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=TSS-W1-THURSDAY_ryll1v',
   video_1_aspect = '9:16',
-  video_2_title = 'The Scholar School',
+  video_2_title = 'The Scholars School',
   video_2_url = 'https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=TSS-W2-THURSDAY_jg6m09',
   video_2_aspect = '9:16',
   social_accounts = '[
-    {"platform": "Instagram", "handle": "@thescholarschool_official", "url": "https://www.instagram.com/thescholarschool_official/"}
+    {"platform": "Instagram", "handle": "@the.scholarsschool", "url": "https://www.instagram.com/the.scholarsschool/"}
   ]'::jsonb
 where slug = 'the-scholar-school';
