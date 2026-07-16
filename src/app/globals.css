@@ -3171,9 +3171,15 @@ i {
   align-items: center;
 }
 
-.protel-bento__col--left .protel-video--bento {
+.protel-bento__col--left .protel-video--bento.protel-video--portrait {
   width: 70%;
   max-width: 70%;
+}
+
+.protel-bento__col--left .protel-video--bento.protel-video--landscape {
+  width: 100%;
+  max-width: 100%;
+  align-self: stretch;
 }
 
 .protel-bento .protel-video--bento,
