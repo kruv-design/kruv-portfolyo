@@ -254,6 +254,42 @@ function normalizeHeroSettings(
   };
 }
 
+function normalizeBrand(brand: ProtelBrand): ProtelBrand {
+  const fallback = DEFAULT_PROTEL_BRANDS.find((item) => item.slug === brand.slug);
+  if (!fallback) return brand;
+
+  if (brand.slug !== "the-scholar-school") {
+    return brand;
+  }
+
+  const video1Haystack = (() => {
+    try {
+      return decodeURIComponent(brand.video1Url).toLowerCase();
+    } catch {
+      return brand.video1Url.toLowerCase();
+    }
+  })();
+
+  const hasWrongFirstVideo =
+    video1Haystack.includes("insanlar") ||
+    video1Haystack.includes("09-03_pc") ||
+    video1Haystack.includes("pricing_coach");
+
+  if (!hasWrongFirstVideo) {
+    return brand.name === fallback.name
+      ? brand
+      : { ...brand, name: fallback.name };
+  }
+
+  return {
+    ...brand,
+    name: fallback.name,
+    video1Title: fallback.video1Title,
+    video1Url: fallback.video1Url,
+    video1Aspect: fallback.video1Aspect,
+  };
+}
+
 function mergeBrandDefaults(brand: ProtelBrand): ProtelBrand {
   const fallback = DEFAULT_PROTEL_BRANDS.find((item) => item.slug === brand.slug);
   if (!fallback) return brand;
@@ -270,6 +306,8 @@ function mergeBrandDefaults(brand: ProtelBrand): ProtelBrand {
     video2Url: brand.video2Url.trim() || fallback.video2Url,
     video2Aspect: brand.video2Aspect || fallback.video2Aspect,
   };
+
+  return normalizeBrand(merged);
 }
 
 export async function getProtelPitch(): Promise<ProtelPitch> {
