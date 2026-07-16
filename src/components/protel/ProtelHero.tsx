@@ -36,7 +36,7 @@ export function ProtelHero({ settings }: { settings: ProtelPitchSettings }) {
   return (
     <header className="protel-hero">
       <div className="protel-hero__intro-block">
-        <ProtelSectionHeading label="UI ANİMASYON VİDEOLARI" />
+        <ProtelSectionHeading label="Protel için örnek çalışmalar, üretim süreci ve teklif formu" />
         <div className="protel-hero__row">
           <h1 className="protel-hero__title">
             {leadLines.map((line) => (

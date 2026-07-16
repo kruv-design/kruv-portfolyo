@@ -32,58 +32,104 @@ function isLeftColumnVideo(item: ProtelSampleVideo): boolean {
 
 type ColumnEntry = { item: ProtelSampleVideo; index: number };
 
-function sortColumnItems(
-  entries: ColumnEntry[],
-  column: "left" | "right",
-): ColumnEntry[] {
-  return [...entries].sort((a, b) => {
-    const aPortrait = isPortraitVideo(a.item);
-    const bPortrait = isPortraitVideo(b.item);
+type BentoRow = {
+  left?: ColumnEntry;
+  right?: ColumnEntry;
+};
 
-    if (aPortrait !== bPortrait) {
-      if (column === "left") {
-        return aPortrait ? -1 : 1;
-      }
-      return aPortrait ? 1 : -1;
+function pickLandscape(
+  landscapes: ColumnEntry[],
+  used: Set<number>,
+  preferLeft: boolean,
+): ColumnEntry | undefined {
+  const preferred = landscapes.find(
+    (entry) =>
+      !used.has(entry.index) &&
+      isLeftColumnVideo(entry.item) === preferLeft,
+  );
+  if (preferred) {
+    return preferred;
+  }
+
+  return landscapes.find((entry) => !used.has(entry.index));
+}
+
+function buildBentoRows(items: ProtelSampleVideo[]): BentoRow[] {
+  const indexed = items.map((item, index) => ({ item, index }));
+  const portraits = indexed
+    .filter(({ item }) => isPortraitVideo(item))
+    .sort((a, b) => a.index - b.index);
+  const landscapes = indexed
+    .filter(({ item }) => !isPortraitVideo(item))
+    .sort((a, b) => a.index - b.index);
+
+  const usedLandscapes = new Set<number>();
+  const rows: BentoRow[] = [];
+
+  for (const portrait of portraits) {
+    const portraitOnLeft = isLeftColumnVideo(portrait.item);
+    const landscape = pickLandscape(
+      landscapes,
+      usedLandscapes,
+      !portraitOnLeft,
+    );
+
+    if (landscape) {
+      usedLandscapes.add(landscape.index);
     }
 
-    return a.index - b.index;
-  });
+    rows.push(
+      portraitOnLeft
+        ? { left: portrait, right: landscape }
+        : { left: landscape, right: portrait },
+    );
+  }
+
+  for (const landscape of landscapes) {
+    if (usedLandscapes.has(landscape.index)) {
+      continue;
+    }
+
+    rows.push(
+      isLeftColumnVideo(landscape.item)
+        ? { left: landscape }
+        : { right: landscape },
+    );
+  }
+
+  return rows;
+}
+
+function BentoCell({ entry }: { entry?: ColumnEntry }) {
+  if (!entry) {
+    return <div className="protel-bento__cell protel-bento__cell--empty" aria-hidden="true" />;
+  }
+
+  return (
+    <div className="protel-bento__cell">
+      <ProtelBentoVideo item={entry.item} />
+    </div>
+  );
 }
 
 export function ProtelSampleBentoClient({ items }: { items: ProtelSampleVideo[] }) {
-  const { left, right } = useMemo(() => {
-    const leftItems: ColumnEntry[] = [];
-    const rightItems: ColumnEntry[] = [];
-
-    items.forEach((item, index) => {
-      if (isLeftColumnVideo(item)) {
-        leftItems.push({ item, index });
-      } else {
-        rightItems.push({ item, index });
-      }
-    });
-
-    return {
-      left: sortColumnItems(leftItems, "left"),
-      right: sortColumnItems(rightItems, "right"),
-    };
-  }, [items]);
+  const rows = useMemo(() => buildBentoRows(items), [items]);
 
   return (
     <div className="protel-bento">
-      <div className="protel-bento__col protel-bento__col--left">
-        {left.map(({ item, index }) => {
-          const key = `${index}-${item.videoUrl}`;
-          return <ProtelBentoVideo key={`left-${key}`} item={item} />;
-        })}
-      </div>
-      <div className="protel-bento__col protel-bento__col--right">
-        {right.map(({ item, index }) => {
-          const key = `${index}-${item.videoUrl}`;
-          return <ProtelBentoVideo key={`right-${key}`} item={item} />;
-        })}
-      </div>
+      {rows.map((row, rowIndex) => {
+        const rowKey = [
+          row.left ? `${row.left.index}-${row.left.item.videoUrl}` : "empty-left",
+          row.right ? `${row.right.index}-${row.right.item.videoUrl}` : "empty-right",
+        ].join("|");
+
+        return (
+          <div key={`row-${rowIndex}-${rowKey}`} className="protel-bento__row">
+            <BentoCell entry={row.left} />
+            <BentoCell entry={row.right} />
+          </div>
+        );
+      })}
     </div>
   );
 }
