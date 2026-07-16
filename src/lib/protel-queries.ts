@@ -5,7 +5,7 @@ import {
   mapProtelBrandRow,
   mapProtelSettingsRow,
 } from "@/lib/map-protel-row";
-import type { ProtelPitch, ProtelPitchSettings, ProtelBrand, ProtelAdminPitch, ProtelSampleVideo } from "@/types";
+import type { ProtelPitch, ProtelPitchSettings, ProtelBrand, ProtelAdminPitch, ProtelSampleVideo, ProtelSocialAccount } from "@/types";
 import { resolveProtelPassword } from "@/lib/protel-auth";
 
 export const DEFAULT_PROTEL_PROCESS_STEPS = [
@@ -254,12 +254,28 @@ function normalizeHeroSettings(
   };
 }
 
+function validSocialAccounts(accounts: ProtelSocialAccount[]): ProtelSocialAccount[] {
+  return accounts.filter((account) => account.url.trim());
+}
+
 function normalizeBrand(brand: ProtelBrand): ProtelBrand {
   const fallback = DEFAULT_PROTEL_BRANDS.find((item) => item.slug === brand.slug);
   if (!fallback) return brand;
 
+  let next: ProtelBrand = {
+    ...brand,
+    name: brand.name.trim() === fallback.name.trim() ? brand.name : fallback.name,
+  };
+
+  const socialAccounts = validSocialAccounts(next.socialAccounts);
+  if (socialAccounts.length === 0 && fallback.socialAccounts.length > 0) {
+    next = { ...next, socialAccounts: fallback.socialAccounts };
+  } else if (socialAccounts.length > 0) {
+    next = { ...next, socialAccounts };
+  }
+
   if (brand.slug !== "the-scholar-school") {
-    return brand;
+    return next;
   }
 
   const video1Haystack = (() => {
@@ -276,13 +292,11 @@ function normalizeBrand(brand: ProtelBrand): ProtelBrand {
     video1Haystack.includes("pricing_coach");
 
   if (!hasWrongFirstVideo) {
-    return brand.name === fallback.name
-      ? brand
-      : { ...brand, name: fallback.name };
+    return next;
   }
 
   return {
-    ...brand,
+    ...next,
     name: fallback.name,
     video1Title: fallback.video1Title,
     video1Url: fallback.video1Url,
@@ -296,8 +310,8 @@ function mergeBrandDefaults(brand: ProtelBrand): ProtelBrand {
 
   const merged: ProtelBrand = {
     ...brand,
-    socialAccounts: brand.socialAccounts.some((account) => account.url.trim())
-      ? brand.socialAccounts
+    socialAccounts: validSocialAccounts(brand.socialAccounts).length > 0
+      ? validSocialAccounts(brand.socialAccounts)
       : fallback.socialAccounts,
     video1Title: brand.video1Title.trim() || fallback.video1Title,
     video1Url: brand.video1Url.trim() || fallback.video1Url,
