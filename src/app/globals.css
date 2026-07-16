@@ -3137,54 +3137,38 @@ i {
 
 .protel-bento {
   display: flex;
-  flex-direction: column;
+  align-items: flex-start;
   gap: clamp(16px, 2vw, 20px);
   width: 100%;
 }
 
-.protel-bento__row {
-  display: flex;
-  align-items: center;
-  gap: clamp(16px, 2vw, 20px);
-  width: 100%;
-}
-
-.protel-bento__cell {
+.protel-bento__col {
   display: flex;
   flex: 1 1 0;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  gap: clamp(16px, 2vw, 20px);
   min-width: 0;
   width: 0;
 }
 
-.protel-bento__cell--empty {
-  visibility: hidden;
-  pointer-events: none;
-}
-
 @media (max-width: 899px) {
-  .protel-bento__row {
+  .protel-bento {
     flex-direction: column;
-    align-items: stretch;
   }
 
-  .protel-bento__cell {
+  .protel-bento__col {
     flex: 1 1 auto;
     width: 100%;
   }
-
-  .protel-bento__cell--empty {
-    display: none;
-  }
 }
 
-.protel-bento__cell .protel-video--bento.protel-video--portrait {
+.protel-bento__col .protel-video--bento.protel-video--portrait {
   width: 70%;
   max-width: 70%;
 }
 
-.protel-bento__cell .protel-video--bento.protel-video--landscape {
+.protel-bento__col .protel-video--bento.protel-video--landscape {
   width: 100%;
   max-width: 100%;
   align-self: stretch;
