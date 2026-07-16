@@ -2943,7 +2943,7 @@ i {
   box-sizing: border-box;
   width: min(100%, 1317px);
   margin-inline: auto;
-  padding: clamp(48px, 6vw, 69px) clamp(16px, 4.8vw, 62px)
+  padding: clamp(48px, 6vw, 69px) clamp(8px, 2.4vw, 31px)
     clamp(64px, 10vw, 120px);
 }
 
@@ -3322,11 +3322,12 @@ i {
   width: 100%;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 768px) {
   .protel-process {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: clamp(24px, 3vw, 40px);
-    align-items: stretch;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    gap: clamp(12px, 1.6vw, 28px);
   }
 }
 
@@ -3341,9 +3342,10 @@ i {
   min-width: 0;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 768px) {
   .protel-process__step {
-    padding-top: calc(var(--protel-step-offset, 0) * 100px);
+    flex: 1 1 0;
+    padding-top: calc(var(--protel-step-offset, 0) * clamp(40px, 5vw, 72px));
   }
 }
 
@@ -3354,7 +3356,7 @@ i {
   background: var(--border);
 }
 
-@media (max-width: 899px) {
+@media (max-width: 767px) {
   .protel-process__step + .protel-process__step {
     border-top: 1px solid var(--border);
     margin-top: 24px;
@@ -3366,18 +3368,24 @@ i {
   }
 }
 
+@media (min-width: 768px) {
+  .protel-process__rail {
+    display: block;
+  }
+}
+
 .protel-process__content {
   display: flex;
   flex: 1;
   flex-direction: column;
   justify-content: space-between;
-  gap: var(--space-4);
-  min-height: clamp(178px, 24vw, 584px);
+  gap: var(--space-3);
+  min-height: clamp(178px, 20vw, 420px);
   padding-block: 12px;
   min-width: 0;
 }
 
-@media (max-width: 899px) {
+@media (max-width: 767px) {
   .protel-process__content {
     min-height: 0;
   }
@@ -3386,7 +3394,7 @@ i {
 .protel-process__heading {
   margin: 0;
   font-family: var(--font-body);
-  font-size: clamp(22px, 2.4vw, 32px);
+  font-size: clamp(18px, 1.8vw, 28px);
   font-weight: 500;
   line-height: 1.2;
   color: var(--ink);
@@ -3396,7 +3404,7 @@ i {
   margin: 0;
   max-width: none;
   font-family: var(--font-body);
-  font-size: clamp(14px, 1.4vw, 18px);
+  font-size: clamp(13px, 1.2vw, 16px);
   font-weight: 400;
   line-height: 1.42;
   letter-spacing: 0.02em;
@@ -3420,7 +3428,8 @@ i {
 
 .protel-process__bar {
   height: 8px;
-  width: min(100%, 287px);
+  width: 100%;
+  max-width: 100%;
   border-radius: 50px;
   background: color-mix(in srgb, var(--gray-anti) 12%, var(--gray-base));
   overflow: hidden;
@@ -3444,14 +3453,15 @@ i {
 .protel-process__hand {
   display: none;
   position: absolute;
-  right: 0;
-  top: 38%;
-  width: clamp(80px, 10vw, 100px);
-  height: clamp(120px, 14vw, 156px);
+  right: -4px;
+  top: 28%;
+  width: clamp(56px, 6vw, 80px);
+  height: clamp(84px, 9vw, 120px);
   pointer-events: none;
+  z-index: 1;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 768px) {
   .protel-process__step--last .protel-process__hand {
     display: block;
   }
