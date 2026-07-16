@@ -77,6 +77,7 @@ function asProcessSteps(v: unknown): ProtelProcessStep[] {
 
 export function mapProtelSettingsRow(row: Record<string, unknown>): ProtelPitchSettings {
   return {
+    heroEyebrow: String(row.hero_eyebrow ?? ""),
     heroTitle: String(row.hero_title ?? ""),
     heroIntro: String(row.hero_intro ?? ""),
     proposalTitle: String(row.proposal_title ?? ""),
@@ -110,6 +111,7 @@ export function mapProtelBrandRow(row: Record<string, unknown>): ProtelBrand {
 
 export function settingsInputToDbRow(input: Omit<ProtelPitchSettings, "updatedAt">) {
   return {
+    hero_eyebrow: input.heroEyebrow,
     hero_title: input.heroTitle,
     hero_intro: input.heroIntro,
     proposal_title: input.proposalTitle,

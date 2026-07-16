@@ -346,6 +346,7 @@ export const protelProcessStepSchema = z.object({
 });
 
 export const protelPitchSettingsSchema = z.object({
+  heroEyebrow: z.string().trim().max(200).optional().default(""),
   heroTitle: z.string().trim().max(400).optional().default(""),
   heroIntro: z.string().trim().max(4000).optional().default(""),
   proposalTitle: z.string().trim().max(200).optional().default(""),

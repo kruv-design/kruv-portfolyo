@@ -64,7 +64,11 @@ export const DEFAULT_PROTEL_SAMPLE_VIDEOS: ProtelSampleVideo[] = [
   },
 ];
 
+export const DEFAULT_PROTEL_HERO_EYEBROW =
+  "Protel için örnek çalışmalar, üretim süreci ve teklif formu";
+
 export const DEFAULT_PROTEL_SETTINGS: ProtelPitchSettings = {
+  heroEyebrow: DEFAULT_PROTEL_HERO_EYEBROW,
   heroTitle: "Ürününüzün Potansiyelini\nSahneye Çıkarın",
   heroIntro:
     "Karmaşık özellikleri etkileyici bir deneyime dönüştürüyoruz.\n\nÜrününüzün nasıl çalıştığını, neden vazgeçilmez olduğunu ve yarattığı farkı görsel bir şölene dönüştürmeye hazır mısınız?",
@@ -232,6 +236,24 @@ function normalizeSampleVideos(items: ProtelSampleVideo[]): ProtelSampleVideo[] 
   return items.map(normalizeSampleVideo);
 }
 
+function normalizeHeroEyebrow(eyebrow: string): string {
+  const trimmed = eyebrow.trim();
+  if (!trimmed) {
+    return DEFAULT_PROTEL_HERO_EYEBROW;
+  }
+
+  const normalized = trimmed.toLocaleLowerCase("tr-TR");
+  if (
+    normalized === "ui animasyon videoları" ||
+    normalized === "ui animasyon videolari" ||
+    normalized.startsWith("ui animasyon")
+  ) {
+    return DEFAULT_PROTEL_HERO_EYEBROW;
+  }
+
+  return trimmed;
+}
+
 function normalizeHeroSettings(
   settings: ProtelPitchSettings,
 ): ProtelPitchSettings {
@@ -249,6 +271,7 @@ function normalizeHeroSettings(
 
   return {
     ...settings,
+    heroEyebrow: normalizeHeroEyebrow(settings.heroEyebrow),
     heroTitle: legacyTitle ? DEFAULT_PROTEL_SETTINGS.heroTitle : settings.heroTitle,
     heroIntro: legacyIntro ? DEFAULT_PROTEL_SETTINGS.heroIntro : settings.heroIntro,
   };

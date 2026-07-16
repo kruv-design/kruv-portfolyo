@@ -120,6 +120,16 @@ export function ProtelPitchForm({ initial }: { initial: ProtelAdminPitch }) {
           Sayfa metinleri
         </div>
         <div className="flex flex-col gap-5">
+          <Field label="Üst etiket (plus ikonlu satır)">
+            <input
+              className="form-input"
+              value={settings.heroEyebrow}
+              onChange={(e) =>
+                setSettings((s) => ({ ...s, heroEyebrow: e.target.value }))
+              }
+              placeholder="Protel için örnek çalışmalar, üretim süreci ve teklif formu"
+            />
+          </Field>
           <Field label="Başlık (son satır mor vurgu)">
             <textarea
               className="form-input min-h-[72px]"

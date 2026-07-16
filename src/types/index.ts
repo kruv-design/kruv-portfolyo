@@ -205,6 +205,7 @@ export type ProtelProcessStep = {
 };
 
 export type ProtelPitchSettings = {
+  heroEyebrow: string;
   heroTitle: string;
   heroIntro: string;
   proposalTitle: string;

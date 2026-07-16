@@ -1,4 +1,12 @@
--- Protel pitch — yeni alanlar (mevcut tabloya ek)
+-- Protel pitch — hero eyebrow (plus ikonlu üst satır)
 alter table public.protel_pitch_settings
-  add column if not exists proposal_price text not null default '',
-  add column if not exists process_duration text not null default '2/3 HAFTA';
+  add column if not exists hero_eyebrow text not null default 'Protel için örnek çalışmalar, üretim süreci ve teklif formu';
+
+update public.protel_pitch_settings
+set hero_eyebrow = 'Protel için örnek çalışmalar, üretim süreci ve teklif formu'
+where id = 1
+  and (
+    hero_eyebrow = ''
+    or hero_eyebrow ilike 'UI AN%'
+    or hero_eyebrow ilike 'ui animasyon%'
+  );
