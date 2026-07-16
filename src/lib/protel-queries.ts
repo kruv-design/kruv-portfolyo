@@ -211,6 +211,10 @@ function normalizeSampleVideo(item: ProtelSampleVideo): ProtelSampleVideo {
     return { ...item, aspectRatio: "9:16" };
   }
 
+  if (haystack.includes("tten-2")) {
+    return { ...item, aspectRatio: "16:9" };
+  }
+
   if (haystack.includes("9x16")) {
     return { ...item, aspectRatio: "9:16" };
   }

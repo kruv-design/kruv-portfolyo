@@ -15,7 +15,11 @@ function videoHaystack(item: ProtelSampleVideo): string {
 function isLeftColumnVideo(item: ProtelSampleVideo): boolean {
   const haystack = videoHaystack(item);
 
-  if (haystack.includes("otelinizin")) {
+  if (haystack.includes("fiyat_parite")) {
+    return false;
+  }
+
+  if (haystack.includes("otelinizin") || haystack.includes("tten-2")) {
     return true;
   }
 
