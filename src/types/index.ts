@@ -162,3 +162,63 @@ export type ContactInquiryRow = {
   created_at: string;
   updated_at: string;
 };
+
+/** Protel pitch — video en-boy oranı */
+export type ProtelVideoAspect = "16:9" | "9:16" | "4:5" | "1:1";
+
+export type ProtelSampleVideo = {
+  title: string;
+  videoUrl: string;
+  aspectRatio: ProtelVideoAspect;
+};
+
+export type ProtelMetric = {
+  label: string;
+  value: string;
+};
+
+export type ProtelSocialAccount = {
+  platform: string;
+  handle: string;
+  url: string;
+};
+
+export type ProtelBrand = {
+  id: string;
+  slug: string;
+  name: string;
+  sortOrder: number;
+  metrics: ProtelMetric[];
+  socialAccounts: ProtelSocialAccount[];
+  video1Title: string;
+  video1Url: string;
+  video1Aspect: ProtelVideoAspect;
+  video2Title: string;
+  video2Url: string;
+  video2Aspect: ProtelVideoAspect;
+  updatedAt: string;
+};
+
+export type ProtelProcessStep = {
+  title: string;
+  description: string;
+};
+
+export type ProtelPitchSettings = {
+  heroTitle: string;
+  heroIntro: string;
+  proposalTitle: string;
+  proposalVideoUrl: string;
+  proposalVideoAspect: ProtelVideoAspect;
+  sampleVideos: ProtelSampleVideo[];
+  processSteps: ProtelProcessStep[];
+  updatedAt: string;
+};
+
+export type ProtelPitch = {
+  settings: ProtelPitchSettings;
+  brands: ProtelBrand[];
+};
+
+export type ProtelBrandInput = Omit<ProtelBrand, "updatedAt">;
+export type ProtelPitchSettingsInput = Omit<ProtelPitchSettings, "updatedAt">;

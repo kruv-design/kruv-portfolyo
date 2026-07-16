@@ -10,6 +10,7 @@ const NAV = [
   { href: "/admin/projects/new", label: "Yeni Proje", icon: "＋" },
   { href: "/admin/blog", label: "Blog", icon: "✎" },
   { href: "/admin/blog/new", label: "Yeni Yazı", icon: "＋" },
+  { href: "/admin/protel", label: "Protel", icon: "◆" },
   { href: "/admin/contact-inquiries", label: "İletişim", icon: "✉" },
   { href: "/admin/settings", label: "Ayarlar", icon: "⚙" },
   { href: "/", label: "Siteye Git", icon: "◉", external: true },

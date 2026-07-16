@@ -8,7 +8,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin", "/api", "/login", "/olly"],
+        disallow: ["/admin", "/api", "/login", "/olly", "/protel"],
       },
       { userAgent: "MJ12bot", disallow: "/" },
       { userAgent: "AhrefsBot", disallow: "/" },

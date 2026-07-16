@@ -2932,3 +2932,328 @@ i {
     animation: none;
   }
 }
+
+/* ── Protel gizli pitch (/protel) ── */
+.protel-pitch-shell {
+  color: var(--ink);
+}
+
+.protel-pitch {
+  box-sizing: border-box;
+  width: min(100%, 720px);
+  margin-inline: auto;
+  padding: clamp(32px, 6vw, 64px) var(--container-gutter) clamp(48px, 8vw, 96px);
+}
+
+.protel-pitch--gate {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+}
+
+.protel-pitch__brand {
+  margin: 0;
+  color: var(--color-accent);
+  letter-spacing: var(--ls-display);
+  text-transform: lowercase;
+}
+
+.protel-pitch__hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-bottom: var(--space-10);
+}
+
+.protel-pitch__title {
+  margin: 0;
+}
+
+.protel-pitch__intro {
+  margin: 0;
+  max-width: none;
+  color: var(--b1-color);
+}
+
+.protel-pitch__empty {
+  margin: 0;
+  color: var(--ink-faint);
+}
+
+.protel-unlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: min(100%, 360px);
+}
+
+.protel-unlock__lead {
+  margin: 0;
+  color: var(--b1-color);
+  text-align: center;
+}
+
+.protel-unlock__input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+}
+
+.protel-unlock__error {
+  margin: 0;
+  color: var(--color-accent);
+}
+
+.protel-unlock__btn {
+  padding: var(--btn-pad-y) var(--btn-pad-x);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--btn-radius);
+  background: transparent;
+  color: var(--color-accent);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.protel-unlock__btn:hover {
+  background: var(--color-accent-soft);
+}
+
+.protel-tabs__list,
+.protel-clients__picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+
+.protel-tabs__btn,
+.protel-clients__btn {
+  appearance: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--ink-soft);
+  padding: 10px 18px;
+  font: inherit;
+  font-size: var(--type-b2);
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    background var(--dur-fast) var(--ease);
+}
+
+.protel-tabs__btn.is-active,
+.protel-clients__btn.is-active {
+  border-color: var(--color-accent);
+  color: var(--ink);
+  background: var(--color-accent-soft);
+}
+
+.protel-tabs__panel {
+  margin-bottom: var(--space-12);
+}
+
+.protel-clients__detail {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  background: var(--surface);
+}
+
+.protel-clients__name {
+  margin: 0 0 var(--space-6);
+}
+
+.protel-clients__label {
+  margin: 0 0 var(--space-3);
+  color: var(--ink-soft);
+}
+
+.protel-clients__metrics,
+.protel-clients__social,
+.protel-clients__videos {
+  margin-bottom: var(--space-6);
+}
+
+.protel-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--space-3);
+  margin: 0;
+}
+
+.protel-metrics__row {
+  margin: 0;
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--gray-anti) 4%, var(--gray-base));
+}
+
+.protel-metrics__row dt {
+  margin: 0 0 var(--space-1);
+  color: var(--ink-faint);
+}
+
+.protel-metrics__row dd {
+  margin: 0;
+  color: var(--ink);
+}
+
+.protel-social {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.protel-social__item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  align-items: baseline;
+}
+
+.protel-social__platform {
+  color: var(--ink-faint);
+  min-width: 5.5rem;
+}
+
+.protel-social__handle {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.protel-social__handle:hover {
+  color: var(--color-accent);
+}
+
+.protel-video-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.protel-video {
+  margin: 0;
+  width: 100%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: color-mix(in srgb, var(--gray-anti) 6%, var(--gray-base));
+}
+
+.protel-video__el {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: color-mix(in srgb, var(--gray-anti) 8%, var(--gray-base));
+}
+
+.protel-video__caption {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  color: var(--ink-soft);
+}
+
+.protel-video--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+  padding: var(--space-6);
+  color: var(--ink-faint);
+  text-align: center;
+}
+
+.protel-video--16-9 {
+  aspect-ratio: 16 / 9;
+}
+
+.protel-video--9-16 {
+  aspect-ratio: 9 / 16;
+  max-width: 360px;
+  margin-inline: auto;
+}
+
+.protel-video--4-5 {
+  aspect-ratio: 4 / 5;
+  max-width: 420px;
+}
+
+.protel-video--1-1 {
+  aspect-ratio: 1 / 1;
+  max-width: 420px;
+}
+
+.protel-proposal__title {
+  margin: 0 0 var(--space-5);
+}
+
+.protel-process {
+  border-top: 1px solid var(--border);
+  padding-top: var(--space-10);
+}
+
+.protel-process__title {
+  margin: 0 0 var(--space-6);
+}
+
+.protel-process__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.protel-process__item {
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-start;
+}
+
+.protel-process__num {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  font-weight: 600;
+  font-size: var(--type-b2);
+}
+
+.protel-process__body {
+  min-width: 0;
+}
+
+.protel-process__heading {
+  margin: 0 0 var(--space-1);
+}
+
+.protel-process__text {
+  margin: 0;
+  max-width: none;
+  color: var(--b1-color);
+}
+
+.protel-pitch-shell :is(p, .b1, .b2, .h1, .h2, .h3, .h4) {
+  max-width: none;
+}

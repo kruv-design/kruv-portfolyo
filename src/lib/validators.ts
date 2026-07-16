@@ -314,3 +314,69 @@ export const contactSubmitBodySchema = z.object({
 
 export type ContactPartialBody = z.infer<typeof contactPartialBodySchema>;
 export type ContactSubmitBody = z.infer<typeof contactSubmitBodySchema>;
+
+// ── Protel pitch ────────────────────────────────────────────
+
+export const protelVideoAspectSchema = z.enum(["16:9", "9:16", "4:5", "1:1"]);
+
+export const protelSampleVideoSchema = z.object({
+  title: z.string().trim().max(200).optional().default(""),
+  videoUrl: z.string().trim().max(2000).optional().default(""),
+  aspectRatio: protelVideoAspectSchema.optional().default("16:9"),
+});
+
+export const protelMetricSchema = z.object({
+  label: z.string().trim().max(120).optional().default(""),
+  value: z.string().trim().max(120).optional().default(""),
+});
+
+export const protelSocialSchema = z
+  .object({
+    platform: z.string().trim().max(80).optional().default(""),
+    handle: z.string().trim().max(200).optional().default(""),
+    url: z.string().trim().max(500).optional().default(""),
+  })
+  .refine((s) => s.platform.toLowerCase() !== "tiktok", {
+    message: "TikTok desteklenmiyor.",
+  });
+
+export const protelProcessStepSchema = z.object({
+  title: z.string().trim().max(200).optional().default(""),
+  description: z.string().trim().max(1000).optional().default(""),
+});
+
+export const protelPitchSettingsSchema = z.object({
+  heroTitle: z.string().trim().max(200).optional().default(""),
+  heroIntro: z.string().trim().max(2000).optional().default(""),
+  proposalTitle: z.string().trim().max(200).optional().default(""),
+  proposalVideoUrl: z.string().trim().max(2000).optional().default(""),
+  proposalVideoAspect: protelVideoAspectSchema.optional().default("16:9"),
+  sampleVideos: z.array(protelSampleVideoSchema).max(8).default([]),
+  processSteps: z.array(protelProcessStepSchema).max(12).default([]),
+});
+
+export const protelBrandSchema = z.object({
+  id: z.string().uuid(),
+  slug: z.string().trim().max(96).optional(),
+  name: z.string().trim().max(200).optional().default(""),
+  sortOrder: z.number().int().min(0).max(99).optional().default(0),
+  metrics: z.array(protelMetricSchema).max(12).default([]),
+  socialAccounts: z.array(protelSocialSchema).max(12).default([]),
+  video1Title: z.string().trim().max(200).optional().default(""),
+  video1Url: z.string().trim().max(2000).optional().default(""),
+  video1Aspect: protelVideoAspectSchema.optional().default("16:9"),
+  video2Title: z.string().trim().max(200).optional().default(""),
+  video2Url: z.string().trim().max(2000).optional().default(""),
+  video2Aspect: protelVideoAspectSchema.optional().default("16:9"),
+});
+
+export const protelPitchSaveSchema = z.object({
+  settings: protelPitchSettingsSchema,
+  brands: z.array(protelBrandSchema).max(8),
+});
+
+export type ProtelPitchSaveInput = z.infer<typeof protelPitchSaveSchema>;
+
+export const protelUnlockSchema = z.object({
+  password: z.string().min(1, "Şifre gerekli."),
+});

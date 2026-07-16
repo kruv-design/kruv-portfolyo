@@ -19,6 +19,8 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith("/api") ||
     pathname.startsWith("/admin") ||
     pathname.startsWith("/login") ||
+    pathname.startsWith("/protel") ||
+    pathname.startsWith("/olly") ||
     PUBLIC_FILE.test(pathname);
 
   if (!isAsset && pathname !== "/" && !hasLocalePrefix(pathname)) {
