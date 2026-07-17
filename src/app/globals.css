@@ -3488,6 +3488,25 @@ i {
   aspect-ratio: 1 / 1;
 }
 
+/* Bento: videonun kendi oranı; global aspect utility + cover ezmesin */
+.protel-bento .protel-video--bento:is(
+    .protel-video--16-9,
+    .protel-video--9-16,
+    .protel-video--4-5,
+    .protel-video--1-1
+  ):not(.protel-video--placeholder) {
+  aspect-ratio: unset;
+  height: auto;
+  overflow: visible;
+}
+
+.protel-bento .protel-video--bento .protel-video__el {
+  height: auto;
+  max-height: none;
+  object-fit: unset;
+  object-position: unset;
+}
+
 .protel-process {
   display: grid;
   grid-template-columns: 1fr;
