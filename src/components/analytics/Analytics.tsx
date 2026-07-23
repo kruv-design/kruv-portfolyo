@@ -9,6 +9,7 @@ import {
   parseStoredConsent,
   type AnalyticsConsent,
 } from "@/lib/analytics/consent";
+import { sendGaPageView } from "@/lib/analytics/ga4";
 import { track } from "@/lib/analytics/track";
 import { pingPresence, PRESENCE_HEARTBEAT_MS } from "@/lib/analytics/presence";
 
@@ -72,22 +73,27 @@ export function Analytics({
     return () => window.clearInterval(id);
   }, [hydrated, consent, pathname]);
 
+  useEffect(() => {
+    if (!hydrated || consent !== "granted" || !gaId) return;
+    sendGaPageView(pathname);
+  }, [hydrated, consent, gaId, pathname]);
+
   const showBanner = hydrated && consent === null;
 
   return (
     <>
       {consent === "granted" && gaId ? (
         <>
-          <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-            strategy="afterInteractive"
-          />
           <Script id="ga4-init" strategy="afterInteractive">
             {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', '${gaId}', { anonymize_ip: true });`}
+gtag('config', '${gaId}', { send_page_view: false });`}
           </Script>
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+            strategy="afterInteractive"
+          />
         </>
       ) : null}
 

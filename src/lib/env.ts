@@ -76,11 +76,24 @@ export const env = {
   },
 
   // ── Analytics (opsiyonel) ────────────────────────────────
-  // Ayarlanmazsa Analytics bileşeni hiçbir şey render etmez.
+  // GA_MEASUREMENT_ID: sunucu env — Vercel'de redeploy gerekmez (layout SSR prop).
+  // NEXT_PUBLIC_GA_MEASUREMENT_ID: build-time; client bundle için yedek.
   get GA_MEASUREMENT_ID(): string | undefined {
-    return process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || undefined;
+    const raw =
+      process.env.GA_MEASUREMENT_ID?.trim() ||
+      process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim() ||
+      "";
+    if (!raw || !/^G-[A-Z0-9]+$/.test(raw) || /X{2,}/i.test(raw)) {
+      return undefined;
+    }
+    return raw;
   },
   get CLARITY_PROJECT_ID(): string | undefined {
-    return process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID || undefined;
+    const raw =
+      process.env.CLARITY_PROJECT_ID?.trim() ||
+      process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID?.trim() ||
+      "";
+    if (!raw || /X{2,}/i.test(raw)) return undefined;
+    return raw;
   },
 };
