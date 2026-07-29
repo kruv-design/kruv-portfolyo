@@ -384,3 +384,126 @@ export type ProtelPitchSaveInput = z.infer<typeof protelPitchSaveSchema>;
 export const protelUnlockSchema = z.object({
   password: z.string().trim().min(1, "Şifre gerekli."),
 });
+
+// ── Drops (font freebies) ───────────────────────────────────
+
+const dropSlugField = z
+  .union([z.string(), z.undefined(), z.null()])
+  .transform((v) => {
+    const raw =
+      typeof v === "string" ? v.trim().toLowerCase().replace(/_/g, "-") : "";
+    if (raw === "") return "";
+    if (/^[a-z0-9-]+$/.test(raw)) return raw.slice(0, 96);
+    return slugify(raw).slice(0, 96);
+  })
+  .pipe(z.string().max(96));
+
+const fileUrlOrEmpty = z
+  .string()
+  .trim()
+  .max(2048)
+  .optional()
+  .default("")
+  .refine(
+    (s) => !s || /^https?:\/\//i.test(s),
+    "Dosya: https://… URL girin.",
+  );
+
+export const dropSpecimenBlockSchema = z.union([
+  z.object({
+    type: z.literal("text"),
+    text: z.string().trim().max(500).default(""),
+    style: z.string().trim().max(80).optional(),
+  }),
+  z.object({
+    type: z.literal("alphabet"),
+    includeNumbers: z.boolean().optional(),
+  }),
+  z.object({
+    type: z.literal("image"),
+    gorsel: imageUrlOrEmpty,
+    alt: z.string().trim().max(200).optional(),
+  }),
+  z.object({
+    type: z.literal("split"),
+    left: z.record(z.string(), z.unknown()),
+    right: z.record(z.string(), z.unknown()),
+  }),
+]);
+
+export const dropPackSchema = z.object({
+  slug: dropSlugField,
+  baslik: nonEmpty.max(200),
+  title: z.string().trim().max(200).optional().default(""),
+  aciklama: z.string().trim().max(5000).optional().default(""),
+  description: z.string().trim().max(5000).optional().default(""),
+  kapak: imageUrlOrEmpty.optional().default(""),
+  pack_zip_url: fileUrlOrEmpty,
+  sort_order: z.number().int().min(0).max(999).optional().default(0),
+  yayinda: z.boolean().default(true),
+});
+
+export const dropFontSchema = z.object({
+  pack_id: z.string().uuid("Paket seçin."),
+  slug: dropSlugField,
+  name: nonEmpty.max(120),
+  aciklama: z.string().trim().max(5000).optional().default(""),
+  description: z.string().trim().max(5000).optional().default(""),
+  preview_text: z.string().trim().max(500).optional().default(""),
+  tester_default_text: z.string().trim().max(500).optional().default(""),
+  tester_placeholder: z.string().trim().max(200).optional().default(""),
+  hero_image: imageUrlOrEmpty.optional().default(""),
+  font_file_url: fileUrlOrEmpty,
+  font_preview_url: fileUrlOrEmpty,
+  specimen_blocks: z.array(dropSpecimenBlockSchema).max(30).default([]),
+  sort_order: z.number().int().min(0).max(999).optional().default(0),
+  yayinda: z.boolean().default(true),
+});
+
+export type DropPackFormInput = z.infer<typeof dropPackSchema>;
+export type DropFontFormInput = z.infer<typeof dropFontSchema>;
+
+export function dropPackPayloadToDbRow(input: DropPackFormInput, slug: string) {
+  return {
+    slug,
+    baslik: input.baslik,
+    title: input.title,
+    aciklama: input.aciklama,
+    description: input.description,
+    kapak: input.kapak,
+    pack_zip_url: input.pack_zip_url,
+    sort_order: input.sort_order,
+    yayinda: input.yayinda,
+  };
+}
+
+export function dropFontPayloadToDbRow(input: DropFontFormInput, slug: string) {
+  return {
+    pack_id: input.pack_id,
+    slug,
+    name: input.name,
+    aciklama: input.aciklama,
+    description: input.description,
+    preview_text: input.preview_text,
+    tester_default_text: input.tester_default_text,
+    tester_placeholder: input.tester_placeholder,
+    hero_image: input.hero_image,
+    font_file_url: input.font_file_url,
+    font_preview_url: input.font_preview_url,
+    specimen_blocks: input.specimen_blocks,
+    sort_order: input.sort_order,
+    yayinda: input.yayinda,
+  };
+}
+
+export const dropDownloadBodySchema = z.object({
+  name: z.string().trim().min(1, "İsim gerekli.").max(200),
+  email: z.string().trim().email("Geçerli e-posta girin.").max(320),
+  packSlug: z.string().trim().min(1).max(96),
+  fontSlug: z.string().trim().max(96).optional(),
+  type: z.enum(["font", "pack"]),
+  locale: z.enum(["tr", "en"]).optional().default("tr"),
+  hp: z.string().optional().default(""),
+});
+
+export type DropDownloadBody = z.infer<typeof dropDownloadBodySchema>;

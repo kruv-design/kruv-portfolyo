@@ -54,6 +54,9 @@ export function SiteFooter({
               <li>
                 <Link href={withLocale("/blog", locale)}>{copy.blog}</Link>
               </li>
+              <li>
+                <Link href={withLocale("/drops", locale)}>{copy.drops}</Link>
+              </li>
               {ENABLE_PUBLIC_CONTACT ? (
                 <li>
                   <Link href={withLocale("/contact", locale)}>{copy.contact}</Link>

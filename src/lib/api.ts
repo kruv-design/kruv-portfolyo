@@ -1,4 +1,4 @@
-import type { BlogPost, BlogPostInput, Project, ProjectInput } from "@/types";
+import type { BlogPost, BlogPostInput, DropFont, DropFontInput, DropPack, DropPackInput, Project, ProjectInput } from "@/types";
 
 /** İstemci her zaman tam origin ile çağırır (proxy / alt path sapmalarını azaltır). */
 function resolveApiUrl(path: string): string {
@@ -122,4 +122,39 @@ export const api = {
       folder: string;
       uploadPreset: string;
     }>("/api/upload/sign", { method: "POST" }),
+  listDropPacks: () => request<DropPack[]>("/api/drop-packs"),
+  createDropPack: (input: DropPackInput) =>
+    request<DropPack>("/api/drop-packs", {
+      method: "POST",
+      body: JSON.stringify(input),
+    }),
+  updateDropPack: (id: string, input: DropPackInput) =>
+    request<DropPack>(`/api/drop-packs/${encodeURIComponent(id)}`, {
+      method: "PATCH",
+      body: JSON.stringify(input),
+    }),
+  deleteDropPack: (id: string) =>
+    request<{ ok: true }>(`/api/drop-packs/${encodeURIComponent(id)}`, {
+      method: "DELETE",
+    }),
+  listDropFonts: (packId?: string) =>
+    request<DropFont[]>(
+      packId
+        ? `/api/drop-fonts?packId=${encodeURIComponent(packId)}`
+        : "/api/drop-fonts",
+    ),
+  createDropFont: (input: DropFontInput) =>
+    request<DropFont>("/api/drop-fonts", {
+      method: "POST",
+      body: JSON.stringify(input),
+    }),
+  updateDropFont: (id: string, input: DropFontInput) =>
+    request<DropFont>(`/api/drop-fonts/${encodeURIComponent(id)}`, {
+      method: "PATCH",
+      body: JSON.stringify(input),
+    }),
+  deleteDropFont: (id: string) =>
+    request<{ ok: true }>(`/api/drop-fonts/${encodeURIComponent(id)}`, {
+      method: "DELETE",
+    }),
 };

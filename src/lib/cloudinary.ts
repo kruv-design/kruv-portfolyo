@@ -81,3 +81,10 @@ export function cldVideoUrl(
   const transforms = ["q_auto", "f_mp4", `w_${w}`, "c_limit"].join(",");
   return `https://res.cloudinary.com/${env.CLOUDINARY_CLOUD_NAME}/video/upload/${transforms}/${publicIdOrUrl}`;
 }
+
+/** Raw asset delivery URL (woff2 preview, zip download base). */
+export function cldRawUrl(publicIdOrUrl: string): string {
+  if (!publicIdOrUrl) return "";
+  if (/^https?:\/\//i.test(publicIdOrUrl)) return publicIdOrUrl;
+  return `https://res.cloudinary.com/${env.CLOUDINARY_CLOUD_NAME}/raw/upload/${publicIdOrUrl}`;
+}

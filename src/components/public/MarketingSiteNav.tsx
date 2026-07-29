@@ -97,6 +97,7 @@ export function MarketingSiteNav({
 
   const isProjectsActive = pathname?.includes("/works") || (pathname?.includes("/projects/") ?? false);
   const isBlogActive = pathname?.includes("/blog") ?? false;
+  const isDropsActive = pathname?.includes("/drops") ?? false;
   const isContactActive = pathname?.includes("/contact");
   const projectCtaUrl = projectCtaHref(locale);
 
@@ -185,6 +186,15 @@ export function MarketingSiteNav({
                     {t(messages, "nav.blog", "Blog")}
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    href={withLocale("/drops", locale)}
+                    className="marketing-navbar-item"
+                    aria-current={isDropsActive ? "page" : undefined}
+                  >
+                    {t(messages, "nav.drops", "Drops")}
+                  </Link>
+                </li>
                 {ENABLE_PUBLIC_CONTACT ? (
                   <li>
                     <Link
@@ -261,6 +271,11 @@ export function MarketingSiteNav({
             <li>
               <Link href={withLocale("/blog", locale)} onClick={closeMobileMenu}>
                 {t(messages, "nav.blog", "Blog")}
+              </Link>
+            </li>
+            <li>
+              <Link href={withLocale("/drops", locale)} onClick={closeMobileMenu}>
+                {t(messages, "nav.drops", "Drops")}
               </Link>
             </li>
             {ENABLE_PUBLIC_CONTACT ? (

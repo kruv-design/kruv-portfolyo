@@ -229,3 +229,75 @@ export type ProtelAdminPitch = ProtelPitch & {
 
 export type ProtelBrandInput = Omit<ProtelBrand, "updatedAt">;
 export type ProtelPitchSettingsInput = Omit<ProtelPitchSettings, "updatedAt">;
+
+/** Specimen galeri blokları — drop_fonts.specimen_blocks */
+export type DropSpecimenBlock =
+  | { type: "text"; text: string; style?: string }
+  | { type: "alphabet"; includeNumbers?: boolean }
+  | { type: "image"; gorsel: string; alt?: string }
+  | {
+      type: "split";
+      left: DropSpecimenBlock;
+      right: DropSpecimenBlock;
+    };
+
+export type DropPack = {
+  id: string;
+  slug: string;
+  baslik: string;
+  title: string;
+  aciklama: string;
+  description: string;
+  kapak: string;
+  pack_zip_url: string;
+  sort_order: number;
+  yayinda: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
+export type DropFont = {
+  id: string;
+  pack_id: string;
+  slug: string;
+  name: string;
+  aciklama: string;
+  description: string;
+  preview_text: string;
+  tester_default_text: string;
+  tester_placeholder: string;
+  hero_image: string;
+  font_file_url: string;
+  font_preview_url: string;
+  specimen_blocks: DropSpecimenBlock[];
+  sort_order: number;
+  yayinda: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
+/** Pack + nested fonts — public liste/detay */
+export type DropPackWithFonts = DropPack & { fonts: DropFont[] };
+
+export type DropPackInput = Omit<
+  DropPack,
+  "id" | "created_at" | "updated_at"
+> & { slug?: string };
+
+export type DropFontInput = Omit<
+  DropFont,
+  "id" | "created_at" | "updated_at"
+> & { slug?: string };
+
+export type DropDownloadRow = {
+  id: string;
+  name: string;
+  email: string;
+  pack_id: string | null;
+  font_id: string | null;
+  download_type: "font" | "pack";
+  ip_hash: string;
+  user_agent: string;
+  locale: string;
+  created_at: string;
+};

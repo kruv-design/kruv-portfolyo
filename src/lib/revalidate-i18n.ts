@@ -27,3 +27,17 @@ export function revalidateBlogPaths(slug?: string) {
 
   if (slug) revalidatePath(`/blog/${slug}`);
 }
+
+/** Drops güncellemesi sonrası TR/EN sayfalarını yenile. */
+export function revalidateDropsPaths(packSlug?: string, fontSlug?: string) {
+  revalidatePath("/admin/drops");
+  revalidatePath("/admin/drops/downloads");
+
+  for (const locale of LOCALES) {
+    revalidatePath(`/${locale}/drops`);
+    if (packSlug) {
+      revalidatePath(`/${locale}/drops/${packSlug}`);
+      if (fontSlug) revalidatePath(`/${locale}/drops/${packSlug}/${fontSlug}`);
+    }
+  }
+}

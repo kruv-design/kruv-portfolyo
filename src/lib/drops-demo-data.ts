@@ -1,0 +1,128 @@
+import type { DropFont, DropPack, DropPackWithFonts } from "@/types";
+import { DROP_FONT_FILES } from "@/lib/drops-font-assets";
+
+const NOW = new Date().toISOString();
+
+const DEMO_PACK: DropPack = {
+  id: "demo-summer-pack",
+  slug: "summer-pack",
+  baslik: "Summer Pack",
+  title: "Summer Pack",
+  aciklama: "Seçilmiş font ve tasarım kaynaklarına erişin.",
+  description: "Access our curated collection of fonts and design resources.",
+  kapak: "",
+  pack_zip_url: "",
+  sort_order: 0,
+  yayinda: true,
+  created_at: NOW,
+  updated_at: NOW,
+};
+
+const DEMO_FONTS: DropFont[] = [
+  {
+    id: "demo-marzano",
+    pack_id: DEMO_PACK.id,
+    slug: "marzano",
+    name: "Marzano",
+    aciklama:
+      "Akıcı formlar ve ikonik domates dokunuşlarıyla tasarlanan Marzano fontu, markalara lüks, cesur ve oyuncu bir karakter kazandırır.",
+    description:
+      "Designed with fluid forms and iconic tomato touches, our Marzano font offers a timeless typographic experience that gives brands a luxurious, bold, and playful character.",
+    preview_text: "Designed, baked, and served.",
+    tester_default_text: "Designed, baked, and served.",
+    tester_placeholder: "",
+    hero_image:
+      "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=1600&q=80",
+    font_file_url: DROP_FONT_FILES.marzano,
+    font_preview_url: DROP_FONT_FILES.marzano,
+    specimen_blocks: [
+      { type: "text", text: "TOMATO", style: "hero" },
+      { type: "alphabet", includeNumbers: true },
+    ],
+    sort_order: 0,
+    yayinda: true,
+    created_at: NOW,
+    updated_at: NOW,
+  },
+  {
+    id: "demo-local",
+    pack_id: DEMO_PACK.id,
+    slug: "local",
+    name: "Local",
+    aciklama:
+      "Köklerinin otantik kültürünü modern ve sofistike bir estetikle harmanlayan Local fontu, markalara hem yerel bir sıcaklık hem de üst düzey bir karakter kazandırır.",
+    description:
+      "Blending the authentic culture of its roots with a modern and sophisticated aesthetic, the Local font gives brands both a local warmth and an upscale, premium character.",
+    preview_text: "the story of roots",
+    tester_default_text: "cool without effort",
+    tester_placeholder: "",
+    hero_image:
+      "https://images.unsplash.com/photo-1509316785289-025f5b846b7e?w=1600&q=80",
+    font_file_url: DROP_FONT_FILES.local,
+    font_preview_url: DROP_FONT_FILES.local,
+    specimen_blocks: [
+      {
+        type: "text",
+        text: "A B C Ç D E F G Ğ H ı İ J K L M N O Ö P R S Ş T U Ü V Y Z",
+        style: "alphabet-row",
+      },
+    ],
+    sort_order: 1,
+    yayinda: true,
+    created_at: NOW,
+    updated_at: NOW,
+  },
+  {
+    id: "demo-cove",
+    pack_id: DEMO_PACK.id,
+    slug: "cove",
+    name: "Cove",
+    aciklama:
+      "Doğanın en yumuşak formlarından ilham alan Cove, sade ve cool bir display karakter sunar.",
+    description:
+      "Born from pebbles, simple and cool — Cove brings the softest forms of nature to display typography.",
+    preview_text: "The softest form of nature",
+    tester_default_text: "Born from pebbles, simple and cool.",
+    tester_placeholder: "",
+    hero_image:
+      "https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=1600&q=80",
+    font_file_url: DROP_FONT_FILES.cove,
+    font_preview_url: DROP_FONT_FILES.cove,
+    specimen_blocks: [
+      {
+        type: "text",
+        text: "Born from pebbles, simple and cool.",
+        style: "hero",
+      },
+    ],
+    sort_order: 2,
+    yayinda: true,
+    created_at: NOW,
+    updated_at: NOW,
+  },
+];
+
+export function getDemoDropPacks(): DropPackWithFonts[] {
+  return [
+    {
+      ...DEMO_PACK,
+      fonts: DEMO_FONTS.filter((f) => f.yayinda),
+    },
+  ];
+}
+
+export function getDemoDropPackBySlug(slug: string): DropPackWithFonts | null {
+  const pack = getDemoDropPacks().find((p) => p.slug === slug);
+  return pack ?? null;
+}
+
+export function getDemoDropFont(
+  packSlug: string,
+  fontSlug: string,
+): { pack: DropPackWithFonts; font: DropFont } | null {
+  const pack = getDemoDropPackBySlug(packSlug);
+  if (!pack) return null;
+  const font = pack.fonts.find((f) => f.slug === fontSlug && f.yayinda);
+  if (!font) return null;
+  return { pack, font };
+}

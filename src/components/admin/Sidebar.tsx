@@ -9,6 +9,7 @@ const NAV = [
   { href: "/admin", label: "Projeler", icon: "▦" },
   { href: "/admin/projects/new", label: "Yeni Proje", icon: "＋" },
   { href: "/admin/blog", label: "Blog", icon: "✎" },
+  { href: "/admin/drops", label: "Drops", icon: "⬇" },
   { href: "/admin/blog/new", label: "Yeni Yazı", icon: "＋" },
   { href: "/admin/protel", label: "Protel", icon: "◆" },
   { href: "/admin/contact-inquiries", label: "İletişim", icon: "✉" },
@@ -51,7 +52,10 @@ export function Sidebar() {
                 ? pathname === "/admin/blog" ||
                   (pathname.startsWith("/admin/blog/") &&
                     !pathname.startsWith("/admin/blog/new"))
-                : pathname.startsWith(item.href) && item.href !== "/";
+                : item.href === "/admin/drops"
+                  ? pathname === "/admin/drops" ||
+                    pathname.startsWith("/admin/drops/")
+                  : pathname.startsWith(item.href) && item.href !== "/";
           return (
             <Link
               key={item.href}
