@@ -31,8 +31,25 @@ type PresenceRow = {
   last_seen_at: string | null;
 };
 
+const CORS_HEADERS = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+};
+
+function withCors(init: ResponseInit = {}): ResponseInit {
+  return {
+    ...init,
+    headers: { ...CORS_HEADERS, ...(init.headers as Record<string, string> | undefined) },
+  };
+}
+
 function unauthorized() {
-  return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  return NextResponse.json({ error: "unauthorized" }, withCors({ status: 401 }));
+}
+
+export async function OPTIONS() {
+  return new NextResponse(null, withCors({ status: 204 }));
 }
 
 export async function GET(req: NextRequest) {
@@ -40,7 +57,7 @@ export async function GET(req: NextRequest) {
   if (!expectedToken) {
     return NextResponse.json(
       { error: "AUDIT_SUMMARY_TOKEN sunucuda tanımlı değil" },
-      { status: 500 },
+      withCors({ status: 500 }),
     );
   }
 
@@ -82,11 +99,14 @@ export async function GET(req: NextRequest) {
   if (eventsError && (eventsError.code === "42P01" || /site_events/.test(eventsError.message))) {
     return NextResponse.json(
       { error: "site_events tablosu yok — Supabase SQL migration çalıştırın" },
-      { status: 500 },
+      withCors({ status: 500 }),
     );
   }
   if (eventsError) {
-    return NextResponse.json({ error: `Supabase hatası: ${eventsError.message}` }, { status: 500 });
+    return NextResponse.json(
+      { error: `Supabase hatası: ${eventsError.message}` },
+      withCors({ status: 500 }),
+    );
   }
 
   const events = (eventsRes.data ?? []) as EventRow[];
@@ -137,7 +157,7 @@ export async function GET(req: NextRequest) {
     if (row.page) presenceByPage.set(row.page, (presenceByPage.get(row.page) ?? 0) + 1);
   }
 
-  return NextResponse.json({
+  const payload = {
     generated_at: new Date().toISOString(),
     range_days: days,
     error: null,
@@ -157,6 +177,25 @@ export async function GET(req: NextRequest) {
       active_count: presenceRows.length,
       window_seconds: presenceWindowSeconds,
       by_page: sortedEntries(presenceByPage).map((e) => ({ page: e.key, count: e.count })),
+      recent: presenceRows.slice(0, 20).map((r) => ({
+        page: r.page,
+        last_seen_at: r.last_seen_at,
+      })),
     },
-  });
+  };
+
+  // ?format=text → text/plain gövdede aynı JSON. Cowork'teki web_fetch aracı
+  // application/json yanıtlarını boş gösterdiği için otomasyon bu formatı kullanır.
+  if (req.nextUrl.searchParams.get("format") === "text") {
+    return new NextResponse(JSON.stringify(payload), {
+      status: 200,
+      headers: {
+        ...CORS_HEADERS,
+        "content-type": "text/plain; charset=utf-8",
+        "cache-control": "private, max-age=5",
+      },
+    });
+  }
+
+  return NextResponse.json(payload, withCors({ headers: { "cache-control": "private, max-age=5" } }));
 }
