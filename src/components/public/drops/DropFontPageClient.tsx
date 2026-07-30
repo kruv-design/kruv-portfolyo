@@ -7,9 +7,10 @@ import type { Messages } from "@/lib/i18n/get-messages";
 import type { SiteSettings } from "@/types";
 import { t } from "@/lib/i18n/t";
 import { DropFontFace } from "./DropFontFace";
+import { dropFontFamily } from "@/lib/drops-font-assets";
 import { DropPackSwitcher } from "./DropPackSwitcher";
 import { DropFontTester } from "./DropFontTester";
-import { DropSpecimenGallery } from "./DropSpecimenGallery";
+import { DropSpecimenImages } from "./DropSpecimenImages";
 import { DownloadModal, type DownloadRequest } from "./DownloadModal";
 
 type Props = {
@@ -35,7 +36,10 @@ export function DropFontPageClient({
     font.tester_default_text.trim() || font.preview_text.trim() || font.name;
 
   return (
-    <>
+    <div
+      className="drops-font-scope"
+      style={{ ["--font-drop-active" as string]: dropFontFamily(font.slug) }}
+    >
       <DropFontFace slug={font.slug} previewUrl={font.font_preview_url} />
 
       <header className="drops-specimen-header">
@@ -94,6 +98,8 @@ export function DropFontPageClient({
         </div>
       </section>
 
+      <DropSpecimenImages slug={font.slug} variant="hero" blocks={font.specimen_blocks} />
+
       <DropFontTester
         defaultText={testerDefault}
         placeholder={font.tester_placeholder || testerDefault}
@@ -110,7 +116,7 @@ export function DropFontPageClient({
         }}
       />
 
-      <DropSpecimenGallery blocks={font.specimen_blocks} />
+      <DropSpecimenImages slug={font.slug} variant="gallery" blocks={font.specimen_blocks} />
 
       <DownloadModal
         open={downloadReq !== null}
@@ -132,6 +138,6 @@ export function DropFontPageClient({
         }}
         onClose={closeDownload}
       />
-    </>
+    </div>
   );
 }

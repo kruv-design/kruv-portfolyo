@@ -1,3 +1,7 @@
+export function dropFontFamily(slug: string): string {
+  return `"DropFont-${slug}"`;
+}
+
 /** Summer Pack — Cloudinary raw font dosyaları */
 export const DROP_FONT_FILES = {
   marzano:

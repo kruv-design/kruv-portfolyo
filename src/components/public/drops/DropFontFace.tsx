@@ -2,14 +2,14 @@
 
 import { useEffect } from "react";
 import { publicCldRawUrl } from "@/lib/cld-public";
-import { dropFontFormat } from "@/lib/drops-font-assets";
+import { dropFontFamily, dropFontFormat } from "@/lib/drops-font-assets";
 
 type Props = {
   slug: string;
   previewUrl: string;
 };
 
-/** Aktif drop fontunu @font-face ile yükler — CSS variable: --font-drop-active */
+/** Drop fontunu @font-face ile yükler — her kart/sayfa kendi font-family değerini kullanır. */
 export function DropFontFace({ slug, previewUrl }: Props) {
   useEffect(() => {
     const url = previewUrl.startsWith("http")
@@ -19,8 +19,8 @@ export function DropFontFace({ slug, previewUrl }: Props) {
         : "";
     const styleId = `drop-font-face-${slug}`;
     if (!url) {
-      document.documentElement.style.removeProperty("--font-drop-active");
       document.getElementById(styleId)?.remove();
+      document.getElementById(`drop-font-preload-${slug}`)?.remove();
       return;
     }
 
@@ -31,7 +31,7 @@ export function DropFontFace({ slug, previewUrl }: Props) {
       document.head.appendChild(style);
     }
 
-    const family = `DropFont-${slug}`;
+    const family = dropFontFamily(slug).slice(1, -1);
     const { cssFormat, mimeType } = dropFontFormat(url);
     style.textContent = `
       @font-face {
@@ -42,7 +42,6 @@ export function DropFontFace({ slug, previewUrl }: Props) {
         font-display: swap;
       }
     `;
-    document.documentElement.style.setProperty("--font-drop-active", `"${family}", var(--font-display)`);
 
     const preloadId = `drop-font-preload-${slug}`;
     let link = document.getElementById(preloadId) as HTMLLinkElement | null;

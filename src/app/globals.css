@@ -3892,6 +3892,19 @@ i {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+}
+
+.drops-font-card__hit {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+.drops-font-card__hit:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -4px;
 }
 
 .drops-font-card__overlay {
@@ -3902,7 +3915,7 @@ i {
 
 .drops-font-card__preview {
   position: relative;
-  z-index: 1;
+  z-index: 0;
   margin: 0;
   padding: var(--space-8);
   text-align: center;
@@ -3910,6 +3923,35 @@ i {
   font-size: clamp(2rem, 6vw, 4.5rem);
   line-height: 1.05;
   text-wrap: balance;
+  white-space: pre-line;
+  pointer-events: none;
+}
+
+.drops-font-card__preview--marzano {
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  line-height: 0.62;
+  font-size: clamp(2.5rem, 8vw, 6.25rem);
+}
+
+.drops-font-card__preview--local {
+  text-transform: lowercase;
+  line-height: 1.04;
+  font-size: clamp(1.75rem, 5vw, 4.5rem);
+  color: color-mix(in srgb, var(--white-fixed) 98%, transparent);
+}
+
+.drops-font-card__preview--cove {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 0.76;
+  font-size: clamp(2rem, 6vw, 5.5rem);
+  max-width: 14ch;
+  margin-inline: auto;
+}
+
+.drops-font-scope .drops-drop-type {
+  font-family: var(--font-drop-active, var(--font-display));
 }
 
 .drops-font-card__actions {
@@ -3920,6 +3962,11 @@ i {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
+  pointer-events: none;
+}
+
+.drops-font-card__actions .drops-font-card__btn--ghost {
+  pointer-events: auto;
 }
 
 .drops-font-card__btn {
@@ -4149,6 +4196,30 @@ i {
   line-height: 1.1;
   text-wrap: balance;
   word-break: break-word;
+}
+
+.drops-specimen-hero,
+.drops-specimen-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(var(--space-4), 2.5vw, var(--space-7));
+  margin-bottom: clamp(var(--space-6), 4vw, var(--space-10));
+}
+
+.drops-specimen-hero {
+  margin-top: clamp(var(--space-4), 2vw, var(--space-6));
+}
+
+.drops-specimen-figure {
+  margin: 0;
+  border-radius: clamp(12px, 3.2vw, 46px);
+  overflow: hidden;
+}
+
+.drops-specimen-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .drops-specimen {
