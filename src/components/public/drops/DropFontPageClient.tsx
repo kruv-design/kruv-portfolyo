@@ -7,7 +7,7 @@ import type { Messages } from "@/lib/i18n/get-messages";
 import type { SiteSettings } from "@/types";
 import { t } from "@/lib/i18n/t";
 import { DropFontFace } from "./DropFontFace";
-import { dropFontFamily } from "@/lib/drops-font-assets";
+import { dropFontFamily, normalizeDropFontText } from "@/lib/drops-font-assets";
 import { DropPackSwitcher } from "./DropPackSwitcher";
 import { DropFontTester } from "./DropFontTester";
 import { DropSpecimenImages } from "./DropSpecimenImages";
@@ -37,7 +37,7 @@ export function DropFontPageClient({
 
   return (
     <div
-      className="drops-font-scope"
+      className={`drops-font-scope drops-font-scope--${font.slug}`}
       style={{ ["--font-drop-active" as string]: dropFontFamily(font.slug) }}
     >
       <DropFontFace slug={font.slug} previewUrl={font.font_preview_url} />
@@ -62,7 +62,9 @@ export function DropFontPageClient({
 
       <section className="drops-specimen-intro">
         <div className="drops-specimen-intro__copy">
-          <h1 className="drops-specimen-intro__name">{font.name}</h1>
+          <h1 className="drops-specimen-intro__name">
+            {normalizeDropFontText(font.name, font.slug, locale)}
+          </h1>
           <p className="drops-specimen-intro__desc">{font.aciklama}</p>
         </div>
         <div className="drops-specimen-intro__cta-wrap">
@@ -101,6 +103,8 @@ export function DropFontPageClient({
       <DropSpecimenImages slug={font.slug} variant="hero" blocks={font.specimen_blocks} />
 
       <DropFontTester
+        fontSlug={font.slug}
+        locale={locale}
         defaultText={testerDefault}
         placeholder={font.tester_placeholder || testerDefault}
         samplePhrases={

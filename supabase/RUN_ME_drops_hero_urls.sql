@@ -1,17 +1,16 @@
--- Drops hero görselleri + preview metinleri — Supabase SQL Editor'da bir kez çalıştırın.
--- (Figma tasarımından export; dosyalar public/drops/heroes/ altında)
+-- Drops hero görselleri — Cloudinary kruv-drops/heroes public_id
+-- Supabase SQL Editor'da bir kez çalıştırın.
 
 update public.drop_fonts f
 set
   hero_image = v.hero_image,
-  preview_text = v.preview_text,
   updated_at = now()
 from public.drop_packs p,
 (values
-  ('marzano', '/drops/heroes/marzano.jpg', E'Designed,\nbaked,\nand served.'),
-  ('local', '/drops/heroes/local.jpg', 'the story of roots'),
-  ('cove', '/drops/heroes/cove.jpg', E'The softest form\nof nature')
-) as v(slug, hero_image, preview_text)
+  ('marzano', 'kruv-drops/heroes/marzano'),
+  ('local', 'kruv-drops/heroes/local'),
+  ('cove', 'kruv-drops/heroes/cove')
+) as v(slug, hero_image)
 where f.pack_id = p.id
   and p.slug = 'summer-pack'
   and f.slug = v.slug;

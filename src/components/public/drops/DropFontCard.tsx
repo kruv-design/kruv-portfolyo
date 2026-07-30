@@ -4,9 +4,10 @@ import Link from "next/link";
 import type { DropFont } from "@/types";
 import type { Locale } from "@/lib/i18n/config";
 import { withLocale } from "@/lib/i18n/path";
-import { publicCldImageUrl } from "@/lib/cld-public";
-import { dropFontFamily } from "@/lib/drops-font-assets";
+import { publicCldImageUrlBest } from "@/lib/cld-public";
+import { dropFontFamily, normalizeDropFontText } from "@/lib/drops-font-assets";
 import { dropHeroImage } from "@/lib/drops-hero-assets";
+import { resolveDropImageUrl } from "@/lib/drops-specimen-assets";
 import { DropFontFace } from "./DropFontFace";
 
 type Props = {
@@ -23,14 +24,17 @@ type Props = {
 
 function resolveHeroUrl(font: DropFont): string {
   const fallback = dropHeroImage(font.slug);
-  if (!font.hero_image) return fallback;
-  if (font.hero_image.startsWith("/")) return font.hero_image;
+  if (!font.hero_image) {
+    return fallback ? resolveDropImageUrl(fallback) : "";
+  }
   if (font.hero_image.startsWith("http")) {
-    if (font.hero_image.includes("unsplash.com") && fallback) return fallback;
+    if (font.hero_image.includes("unsplash.com") && fallback) {
+      return resolveDropImageUrl(fallback);
+    }
     return font.hero_image;
   }
-  const cld = publicCldImageUrl(font.hero_image, { w: 1600, h: 900, crop: "fill" });
-  return cld || fallback;
+  if (font.hero_image.startsWith("/")) return font.hero_image;
+  return publicCldImageUrlBest(font.hero_image) || (fallback ? resolveDropImageUrl(fallback) : "");
 }
 
 export function DropFontCard({
@@ -66,7 +70,7 @@ export function DropFontCard({
           className={`drops-font-card__preview drops-drop-type drops-font-card__preview--${font.slug}`}
           style={{ fontFamily: dropFontFamily(font.slug) }}
         >
-          {previewText}
+          {normalizeDropFontText(previewText, font.slug, locale)}
         </p>
         <div className="drops-font-card__actions">
           <button

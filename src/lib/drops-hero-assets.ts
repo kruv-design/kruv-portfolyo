@@ -1,8 +1,8 @@
-/** Summer Pack kart hero görselleri — Figma tasarımından, `/public/drops/heroes/` */
+/** Summer Pack kart hero — Cloudinary kruv-drops/heroes/ */
 export const DROP_HERO_IMAGES = {
-  marzano: "/drops/heroes/marzano.jpg",
-  local: "/drops/heroes/local.jpg",
-  cove: "/drops/heroes/cove.jpg",
+  marzano: "kruv-drops/heroes/marzano",
+  local: "kruv-drops/heroes/local",
+  cove: "kruv-drops/heroes/cove",
 } as const;
 
 export function dropHeroImage(slug: string): string {

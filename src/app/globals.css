@@ -3927,27 +3927,52 @@ i {
   pointer-events: none;
 }
 
-.drops-font-card__preview--marzano {
+.drops-font-card__preview--marzano,
+.drops-tester__preview--marzano {
   text-transform: uppercase;
   letter-spacing: -0.04em;
   line-height: 0.62;
+}
+
+.drops-font-card__preview--marzano {
   font-size: clamp(2.5rem, 8vw, 6.25rem);
 }
 
-.drops-font-card__preview--local {
+.drops-font-card__preview--local,
+.drops-tester__preview--local {
   text-transform: lowercase;
   line-height: 1.04;
+}
+
+.drops-font-card__preview--local {
   font-size: clamp(1.75rem, 5vw, 4.5rem);
   color: color-mix(in srgb, var(--white-fixed) 98%, transparent);
 }
 
-.drops-font-card__preview--cove {
+.drops-tester__preview--local {
+  color: var(--ink);
+}
+
+.drops-font-card__preview--cove,
+.drops-tester__preview--cove {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   line-height: 0.76;
+}
+
+.drops-font-card__preview--cove {
   font-size: clamp(2rem, 6vw, 5.5rem);
   max-width: 14ch;
   margin-inline: auto;
+}
+
+.drops-font-scope--marzano .drops-specimen-intro__name,
+.drops-font-scope--cove .drops-specimen-intro__name {
+  text-transform: uppercase;
+}
+
+.drops-font-scope--local .drops-specimen-intro__name {
+  text-transform: lowercase;
 }
 
 .drops-font-scope .drops-drop-type {
@@ -4063,7 +4088,6 @@ i {
   line-height: 0.62;
   letter-spacing: 0.02em;
   color: var(--accent);
-  text-transform: uppercase;
 }
 
 .drops-specimen-intro__desc {

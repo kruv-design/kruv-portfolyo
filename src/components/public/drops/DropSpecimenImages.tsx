@@ -6,15 +6,29 @@ import {
 type Props = {
   slug: string;
   variant: "hero" | "gallery";
-  /** CMS specimen_blocks — boşsa Figma fallback */
+  /** CMS specimen_blocks — boşsa Cloudinary fallback */
   blocks?: { type: string; gorsel?: string; alt?: string; style?: string }[];
 };
 
-function SpecimenImage({ src, alt, priority }: { src: string; alt: string; priority?: boolean }) {
+function SpecimenImage({
+  src,
+  alt,
+  priority,
+}: {
+  src: string;
+  alt: string;
+  priority?: boolean;
+}) {
   return (
     <figure className="drops-specimen-figure">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt={alt} loading={priority ? "eager" : "lazy"} decoding="async" />
+      <img
+        src={src}
+        alt={alt}
+        loading={priority ? "eager" : "lazy"}
+        decoding="async"
+        fetchPriority={priority ? "high" : undefined}
+      />
     </figure>
   );
 }

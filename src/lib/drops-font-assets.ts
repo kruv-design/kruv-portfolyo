@@ -1,5 +1,20 @@
+import type { Locale } from "@/lib/i18n/config";
+
 export function dropFontFamily(slug: string): string {
   return `"DropFont-${slug}"`;
+}
+
+/** Marzano / Cove yalnızca majuskül glif — minuskül girişi majusküle map et */
+export function normalizeDropFontText(
+  text: string,
+  slug: string,
+  locale: Locale = "tr",
+): string {
+  if (!text) return text;
+  const loc = locale === "tr" ? "tr-TR" : "en-US";
+  if (slug === "marzano" || slug === "cove") return text.toLocaleUpperCase(loc);
+  if (slug === "local") return text.toLocaleLowerCase(loc);
+  return text;
 }
 
 /** Summer Pack — Cloudinary raw font dosyaları */

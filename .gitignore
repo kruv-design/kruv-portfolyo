@@ -4,6 +4,7 @@ out/
 
 # Next distDir (Google Drive workaround) — never commit build cache
 Users/
+.cache/
 **/.cache/next-dist/
 .env
 .env.local

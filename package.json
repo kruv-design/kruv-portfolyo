@@ -13,6 +13,7 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "seed": "tsx scripts/seed.ts",
+    "upload:drops": "node scripts/upload-drops-to-cloudinary.mjs",
     "test:e2e": "playwright test",
     "test:e2e:live": "PLAYWRIGHT_BASE_URL=https://kruvtest-test.online playwright test",
     "test:e2e:ui": "playwright test --ui"

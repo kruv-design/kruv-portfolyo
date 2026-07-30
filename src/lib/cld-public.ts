@@ -32,3 +32,13 @@ export function publicCldRawUrl(publicIdOrUrl: string): string {
   if (!cn) return publicIdOrUrl;
   return `https://res.cloudinary.com/${cn}/raw/upload/${publicIdOrUrl}`;
 }
+
+/** Drops / specimen — orijinal çözünürlük, en iyi kalite delivery */
+export function publicCldImageUrlBest(publicIdOrUrl: string): string {
+  if (!publicIdOrUrl) return "";
+  if (/^https?:\/\//i.test(publicIdOrUrl)) return publicIdOrUrl;
+  if (publicIdOrUrl.startsWith("/")) return publicIdOrUrl;
+  const cn = cloudName();
+  if (!cn) return publicIdOrUrl;
+  return `https://res.cloudinary.com/${cn}/image/upload/f_auto,q_auto:best/${publicIdOrUrl}`;
+}

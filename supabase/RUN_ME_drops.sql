@@ -103,19 +103,19 @@ cross join (values
    'Akıcı formlar ve ikonik domates dokunuşlarıyla tasarlanan Marzano fontu, markalara lüks, cesur ve oyuncu bir karakter kazandırır.',
    'Designed with fluid forms and iconic tomato touches, our Marzano font offers a timeless typographic experience.',
    E'Designed,\nbaked,\nand served.', 'Designed, baked, and served.',
-   '/drops/heroes/marzano.jpg',
+   'kruv-drops/heroes/marzano',
    'https://res.cloudinary.com/di0qbhh46/raw/upload/v1785337257/MARZANO-Regular_ogmtz8.ttf', 0),
   ('local', 'Local',
    'Köklerinin otantik kültürünü modern ve sofistike bir estetikle harmanlayan Local fontu.',
    'Blending authentic culture with a modern aesthetic, Local gives brands local warmth and premium character.',
    'the story of roots', 'cool without effort',
-   '/drops/heroes/local.jpg',
+   'kruv-drops/heroes/local',
    'https://res.cloudinary.com/di0qbhh46/raw/upload/v1785337240/Local-Regular_ce75fi.ttf', 1),
   ('cove', 'Cove',
    'Doğanın en yumuşak formlarından ilham alan Cove, sade ve cool bir display karakter sunar.',
    'Born from pebbles, simple and cool — Cove brings the softest forms of nature.',
    E'The softest form\nof nature', 'Born from pebbles, simple and cool.',
-   '/drops/heroes/cove.jpg',
+   'kruv-drops/heroes/cove',
    'https://res.cloudinary.com/di0qbhh46/raw/upload/v1785337238/Cove-Regular_a7jne9.ttf', 2)
 ) as v(slug, name, aciklama, description, preview_text, tester_default_text, hero_image, font_url, sort_order)
 where p.slug = 'summer-pack'

@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import type { Locale } from "@/lib/i18n/config";
+import { normalizeDropFontText } from "@/lib/drops-font-assets";
 
 const STORAGE_KEY = "kruv-drops-tester-text";
 const MIN_SIZE = 24;
@@ -8,6 +10,8 @@ const MAX_SIZE = 160;
 const DEFAULT_SIZE = 72;
 
 type Props = {
+  fontSlug: string;
+  locale: Locale;
   defaultText: string;
   placeholder: string;
   samplePhrases: string[];
@@ -20,6 +24,8 @@ type Props = {
 };
 
 export function DropFontTester({
+  fontSlug,
+  locale,
   defaultText,
   placeholder,
   samplePhrases,
@@ -44,6 +50,9 @@ export function DropFontTester({
   function clamp(n: number) {
     return Math.min(MAX_SIZE, Math.max(MIN_SIZE, n));
   }
+
+  const previewRaw = text || placeholder;
+  const previewText = normalizeDropFontText(previewRaw, fontSlug, locale);
 
   return (
     <section className="drops-tester" aria-label={labels.input}>
@@ -107,11 +116,11 @@ export function DropFontTester({
         ) : null}
       </div>
       <div
-        className="drops-tester__preview"
+        className={`drops-tester__preview drops-drop-type drops-tester__preview--${fontSlug}`}
         style={{ fontSize: `${size}px` }}
         aria-live="polite"
       >
-        {text || placeholder}
+        {previewText}
       </div>
     </section>
   );
