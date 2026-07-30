@@ -41,32 +41,6 @@ function dropsDeliveryTransforms(dpr: 1 | 2): string {
   return [`c_limit`, `w_${w}`, `q_95`, `f_auto`].join(",");
 }
 
-/** Figma drops kart — 1316×651 yatay banner */
-const DROPS_CARD_WIDTH = 1316;
-const DROPS_CARD_HEIGHT = 651;
-
-function dropsCardDeliveryTransforms(dpr: 1 | 2): string {
-  const w = DROPS_CARD_WIDTH * dpr;
-  const h = DROPS_CARD_HEIGHT * dpr;
-  return [`c_fill`, `w_${w}`, `h_${h}`, `q_95`, `f_auto`].join(",");
-}
-
-export function publicCldCardImageUrl(publicIdOrUrl: string, dpr: 1 | 2 = 2): string {
-  if (!publicIdOrUrl) return "";
-  if (/^https?:\/\//i.test(publicIdOrUrl)) return publicIdOrUrl;
-  if (publicIdOrUrl.startsWith("/")) return publicIdOrUrl;
-  const cn = cloudName();
-  if (!cn) return publicIdOrUrl;
-  return `https://res.cloudinary.com/${cn}/image/upload/${dropsCardDeliveryTransforms(dpr)}/${publicIdOrUrl}`;
-}
-
-export function publicCldCardImageSrcSet(publicIdOrUrl: string): string {
-  const oneX = publicCldCardImageUrl(publicIdOrUrl, 1);
-  const twoX = publicCldCardImageUrl(publicIdOrUrl, 2);
-  if (!oneX || oneX === publicIdOrUrl) return "";
-  return `${oneX} 1x, ${twoX} 2x`;
-}
-
 export function publicCldImageUrlBest(publicIdOrUrl: string, dpr: 1 | 2 = 2): string {
   if (!publicIdOrUrl) return "";
   if (/^https?:\/\//i.test(publicIdOrUrl)) return publicIdOrUrl;

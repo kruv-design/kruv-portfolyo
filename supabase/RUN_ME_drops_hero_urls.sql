@@ -7,9 +7,9 @@ set
   updated_at = now()
 from public.drop_packs p,
 (values
-  ('marzano', 'kruv-drops/photos/marzano/phone-bg'),
+  ('marzano', 'kruv-drops/photos/marzano/card-bg'),
   ('local', 'kruv-drops/photos/local/card-bg'),
-  ('cove', 'kruv-drops/photos/cove/hero-water')
+  ('cove', 'kruv-drops/photos/cove/card-bg')
 ) as v(slug, hero_image)
 where f.pack_id = p.id
   and p.slug = 'summer-pack'

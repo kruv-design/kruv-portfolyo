@@ -5,7 +5,7 @@ import type { DropFont } from "@/types";
 import type { Locale } from "@/lib/i18n/config";
 import { withLocale } from "@/lib/i18n/path";
 import { resolveDropCardHeroPublicId } from "@/lib/drops-card-hero-assets";
-import { publicCldCardImageSrcSet, publicCldCardImageUrl } from "@/lib/cld-public";
+import { resolveDropImageSrcSet, resolveDropImageUrl } from "@/lib/drops-specimen-assets";
 import { dropFontFamily, normalizeDropFontText } from "@/lib/drops-font-assets";
 import { DropFontFace } from "./DropFontFace";
 
@@ -26,13 +26,13 @@ function resolveHeroUrl(font: DropFont): string {
   if (!publicId) return "";
   if (publicId.startsWith("http")) return publicId;
   if (publicId.startsWith("/")) return publicId;
-  return publicCldCardImageUrl(publicId);
+  return resolveDropImageUrl(publicId);
 }
 
 function resolveHeroSrcSet(font: DropFont): string {
   const publicId = resolveDropCardHeroPublicId(font);
   if (!publicId || publicId.startsWith("http") || publicId.startsWith("/")) return "";
-  return publicCldCardImageSrcSet(publicId);
+  return resolveDropImageSrcSet(publicId);
 }
 
 export function DropFontCard({

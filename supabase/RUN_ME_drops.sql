@@ -103,7 +103,7 @@ cross join (values
    'Akıcı formlar ve ikonik domates dokunuşlarıyla tasarlanan Marzano fontu, markalara lüks, cesur ve oyuncu bir karakter kazandırır.',
    'Designed with fluid forms and iconic tomato touches, our Marzano font offers a timeless typographic experience.',
    E'Designed,\nbaked,\nand served.', 'Designed, baked, and served.',
-   'kruv-drops/photos/marzano/phone-bg',
+   'kruv-drops/photos/marzano/card-bg',
    'https://res.cloudinary.com/di0qbhh46/raw/upload/v1785337257/MARZANO-Regular_ogmtz8.ttf', 0),
   ('local', 'Local',
    'Köklerinin otantik kültürünü modern ve sofistike bir estetikle harmanlayan Local fontu.',
@@ -115,7 +115,7 @@ cross join (values
    'Doğanın en yumuşak formlarından ilham alan Cove, sade ve cool bir display karakter sunar.',
    'Born from pebbles, simple and cool — Cove brings the softest forms of nature.',
    E'The softest form\nof nature', 'Born from pebbles, simple and cool.',
-   'kruv-drops/photos/cove/hero-water',
+   'kruv-drops/photos/cove/card-bg',
    'https://res.cloudinary.com/di0qbhh46/raw/upload/v1785337238/Cove-Regular_a7jne9.ttf', 2)
 ) as v(slug, name, aciklama, description, preview_text, tester_default_text, hero_image, font_url, sort_order)
 where p.slug = 'summer-pack'

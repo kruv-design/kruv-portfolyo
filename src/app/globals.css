@@ -3937,28 +3937,13 @@ i {
   display: block;
   overflow: hidden;
   border-radius: var(--radius-md);
-  aspect-ratio: 1316 / 651;
   line-height: 0;
 }
 
 .drops-font-card__bg {
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center center;
-}
-
-.drops-font-card--marzano .drops-font-card__bg {
-  object-position: center 22%;
-}
-
-.drops-font-card--local .drops-font-card__bg {
-  object-position: center 28%;
-}
-
-.drops-font-card--cove .drops-font-card__bg {
-  object-position: center 15%;
+  height: auto;
 }
 
 .drops-font-card__hit {
