@@ -51,6 +51,7 @@ export function DropsIndexClient({ packs, locale, messages, settings }: Props) {
                 packSlug={pack.slug}
                 font={font}
                 locale={locale}
+                previewText={font.preview_text}
                 labels={{
                   download: t(messages, "drops.downloadFont"),
                   details: t(messages, "drops.viewDetails"),

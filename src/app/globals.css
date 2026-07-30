@@ -3935,8 +3935,10 @@ i {
 }
 
 .drops-font-card__media {
-  display: block;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-height: clamp(18rem, 52vw, 40rem);
   border-radius: var(--radius-md);
   overflow: hidden;
@@ -3945,9 +3947,26 @@ i {
   color: inherit;
 }
 
-.drops-font-card__overlay,
+.drops-font-card__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: color-mix(in srgb, var(--black-fixed) 46%, transparent);
+}
+
 .drops-font-card__preview {
-  display: none;
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  padding: var(--space-8);
+  text-align: center;
+  color: var(--white-fixed);
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  line-height: 1.05;
+  text-wrap: balance;
+  white-space: pre-line;
+  pointer-events: none;
 }
 
 .drops-font-card__preview--marzano,
