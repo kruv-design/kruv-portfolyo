@@ -78,8 +78,8 @@
   --accent-hover:    var(--color-accent-hover);
   --border:          var(--gray-80);
   --border-md:       var(--gray-180);
-  /* Drops specimen — Figma zemin (~#F0F0F0 light) */
-  --drops-bg:        color-mix(in srgb, var(--gray-base) 94.12%, var(--gray-anti) 5.88%);
+  /* Drops — site zemini ile aynı */
+  --drops-bg:        var(--bg);
   --drops-marzano-ink: #ff0004;
   --drops-cove-ink:  #617363;
   --drops-cove-gold: #8c6928;
@@ -3833,6 +3833,13 @@ i {
   display: none;
 }
 
+/* Videolar — yarı boyut, oran korunur (width:100% + height:auto) */
+.marketing-home-figma .home-social-clients .protel-clients__videos {
+  width: 50%;
+  max-width: 100%;
+  margin-inline: auto;
+}
+
 @media (min-width: 900px) {
   .marketing-home-figma .home-social-clients {
     padding-block: clamp(var(--space-12), 8vw, calc(var(--space-12) * 2));
@@ -3841,7 +3848,7 @@ i {
 
 /* ── /drops — font freebies ─────────────────────────────────── */
 .marketing-page-shell--drops {
-  background: var(--drops-bg);
+  background: var(--bg);
 }
 
 .drops-shell {
@@ -4220,7 +4227,7 @@ i {
   margin-bottom: var(--space-10);
   padding: var(--space-8);
   border-radius: var(--radius-md);
-  background: color-mix(in srgb, var(--gray-anti) 8%, var(--drops-bg));
+  background: color-mix(in srgb, var(--gray-anti) 8%, var(--bg));
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
@@ -4380,7 +4387,7 @@ i {
 .drops-live-block {
   border-radius: clamp(12px, 3.2vw, 46px);
   overflow: hidden;
-  background: var(--drops-bg);
+  background: transparent;
 }
 
 .drops-live-block--fluid {
@@ -4898,7 +4905,6 @@ i {
   flex-direction: column;
   gap: clamp(var(--space-6), 4vw, var(--space-10));
   padding: clamp(var(--space-4), 3vw, var(--space-8));
-  background: var(--drops-bg);
   box-sizing: border-box;
 }
 
