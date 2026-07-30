@@ -1,4 +1,4 @@
-import { resolveDropImageUrl } from "@/lib/drops-specimen-assets";
+import { resolveDropImageSrcSet, resolveDropImageUrl } from "@/lib/drops-specimen-assets";
 import { DROP_LIVE_PHOTOS, DROP_LIVE_VECTORS } from "@/lib/drops-live-assets";
 import {
   DROP_ALPHABET_COVE,
@@ -8,6 +8,7 @@ import {
 } from "@/lib/drops-alphabet";
 import { normalizeDropFontText } from "@/lib/drops-font-assets";
 import { DropSpecimenOverlay } from "./DropSpecimenOverlay";
+import { MarzanoPhoneMockup } from "./MarzanoPhoneMockup";
 import type { Locale } from "@/lib/i18n/config";
 
 type Props = {
@@ -27,7 +28,13 @@ function LivePhoto({
   return (
     <figure className={`drops-live-photo ${className ?? ""}`.trim()}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={resolveDropImageUrl(publicId)} alt={alt} loading="lazy" decoding="async" />
+      <img
+        src={resolveDropImageUrl(publicId)}
+        srcSet={resolveDropImageSrcSet(publicId) || undefined}
+        alt={alt}
+        loading="lazy"
+        decoding="async"
+      />
     </figure>
   );
 }
@@ -106,35 +113,16 @@ function MarzanoFluidBlock() {
 }
 
 function MarzanoPhoneLive({ locale = "tr" }: { locale?: Locale }) {
-  const lines = ["Designed,", "baked,", "and served."];
-  return (
-    <DropSpecimenOverlay
-      photoId={DROP_LIVE_PHOTOS.marzano.phoneBg}
-      alt="Marzano phone mockup"
-      className="drops-live-overlay--marzano-phone"
-      scrim="dark"
-    >
-      <div className="drops-live-phone-text drops-live-display drops-live-display--marzano drops-live-display--on-photo">
-        {lines.map((line) => (
-          <p key={line}>{normalizeDropFontText(line, "marzano", locale)}</p>
-        ))}
-      </div>
-    </DropSpecimenOverlay>
-  );
+  return <MarzanoPhoneMockup locale={locale} />;
 }
 
-function MarzanoBagLive({ locale = "tr" }: { locale?: Locale }) {
+function MarzanoBagLive() {
   return (
-    <DropSpecimenOverlay
-      photoId={DROP_LIVE_PHOTOS.marzano.bag}
-      alt="Marzano bag mockup"
-      className="drops-live-overlay--marzano-bag"
-    >
-      <div className="drops-live-bag-text drops-live-display drops-live-display--marzano" aria-label="Something Saucy">
-        <p>{normalizeDropFontText("something", "marzano", locale)}</p>
-        <p>{normalizeDropFontText("saucy", "marzano", locale)}</p>
-      </div>
-    </DropSpecimenOverlay>
+    <LivePhoto
+      publicId={DROP_LIVE_PHOTOS.marzano.bag}
+      alt="Marzano — Something Saucy bag mockup"
+      className="drops-live-photo drops-live-photo--bag"
+    />
   );
 }
 
@@ -147,7 +135,7 @@ function MarzanoHomemadeBlock() {
           alt="Homemade pasta"
           className="drops-live-block__photo"
         />
-        <div className="drops-live-stagger drops-live-display drops-live-display--marzano" aria-label="homemade pasta with olive">
+        <div className="drops-live-stagger drops-live-display drops-live-display--marzano drops-live-stagger--homemade" aria-label="homemade pasta with olive">
           <p>homemade</p>
           <p>pasta</p>
           <p>with</p>
@@ -262,7 +250,7 @@ export function DropSpecimenLiveBlock({
   if (slug === "marzano") {
     if (index === 0) return <MarzanoFluidBlock />;
     if (index === 1) return <MarzanoPhoneLive locale={locale} />;
-    if (index === 2) return <MarzanoBagLive locale={locale} />;
+    if (index === 2) return <MarzanoBagLive />;
     if (index === 3) return <MarzanoHomemadeBlock />;
   }
   if (slug === "local") {

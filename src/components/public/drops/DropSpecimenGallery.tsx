@@ -1,5 +1,5 @@
 import type { DropSpecimenBlock } from "@/types";
-import { publicCldImageUrl } from "@/lib/cld-public";
+import { resolveDropImageSrcSet, resolveDropImageUrl } from "@/lib/drops-specimen-assets";
 
 const ALPHABET_TR =
   "A B C Ç D E F G Ğ H ı İ J K L M N O Ö P R S Ş T U Ü V Y Z";
@@ -31,12 +31,15 @@ function renderBlock(block: DropSpecimenBlock, key: string) {
   if (block.type === "image") {
     const src = block.gorsel.startsWith("http")
       ? block.gorsel
-      : publicCldImageUrl(block.gorsel, { w: 1400, crop: "fit" });
+      : resolveDropImageUrl(block.gorsel);
+    const srcSet = block.gorsel.startsWith("http")
+      ? undefined
+      : resolveDropImageSrcSet(block.gorsel) || undefined;
     if (!src) return null;
     return (
       <figure key={key} className="drops-specimen__figure">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={src} alt={block.alt ?? ""} loading="lazy" />
+        <img src={src} srcSet={srcSet} alt={block.alt ?? ""} loading="lazy" />
       </figure>
     );
   }

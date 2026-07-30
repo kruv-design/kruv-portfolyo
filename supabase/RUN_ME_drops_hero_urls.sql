@@ -8,7 +8,7 @@ set
 from public.drop_packs p,
 (values
   ('marzano', 'kruv-drops/photos/marzano/phone-bg'),
-  ('local', 'kruv-drops/photos/local/hero'),
+  ('local', 'kruv-drops/photos/local/card-bg'),
   ('cove', 'kruv-drops/photos/cove/hero-water')
 ) as v(slug, hero_image)
 where f.pack_id = p.id

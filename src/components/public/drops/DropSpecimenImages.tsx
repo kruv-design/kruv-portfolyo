@@ -23,10 +23,12 @@ type Props = {
 
 function SpecimenImage({
   src,
+  srcSet,
   alt,
   priority,
 }: {
   src: string;
+  srcSet?: string;
   alt: string;
   priority?: boolean;
 }) {
@@ -35,6 +37,7 @@ function SpecimenImage({
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={src}
+        srcSet={srcSet || undefined}
         alt={alt}
         loading={priority ? "eager" : "lazy"}
         decoding="async"
@@ -71,7 +74,7 @@ export function DropSpecimenImages({
     if (!hero) return null;
     return (
       <section className="drops-specimen-hero" aria-label="Specimen hero">
-        <SpecimenImage src={hero.src} alt={hero.alt} priority />
+        <SpecimenImage src={hero.src} srcSet={hero.srcSet} alt={hero.alt} priority />
       </section>
     );
   }
@@ -90,7 +93,7 @@ export function DropSpecimenImages({
             locale={locale}
           />
         ) : (
-          <SpecimenImage key={item.src} src={item.src} alt={item.alt} />
+          <SpecimenImage key={item.src} src={item.src} srcSet={item.srcSet} alt={item.alt} />
         ),
       )}
     </section>

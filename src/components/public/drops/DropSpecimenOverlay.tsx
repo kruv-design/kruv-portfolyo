@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { resolveDropImageUrl } from "@/lib/drops-specimen-assets";
+import { resolveDropImageSrcSet, resolveDropImageUrl } from "@/lib/drops-specimen-assets";
 
 type Props = {
   photoId: string;
@@ -24,25 +24,28 @@ export function DropSpecimenOverlay({
 
   return (
     <article className={rootClass}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        className="drops-live-overlay__bg"
-        src={resolveDropImageUrl(photoId)}
-        alt={alt}
-        loading="lazy"
-        decoding="async"
-      />
-      {tint ? (
-        <div className="drops-live-overlay__tint" style={{ background: tint }} aria-hidden />
-      ) : null}
-      {scrim !== "none" ? (
-        <div
-          className={`drops-live-overlay__scrim drops-live-overlay__scrim--${scrim}`}
-          aria-hidden
+      <div className="drops-live-overlay__frame">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          className="drops-live-overlay__bg"
+          src={resolveDropImageUrl(photoId)}
+          srcSet={resolveDropImageSrcSet(photoId) || undefined}
+          alt={alt}
+          loading="lazy"
+          decoding="async"
         />
-      ) : null}
-      {beforeContent}
-      {children ? <div className="drops-live-overlay__content">{children}</div> : null}
+        {tint ? (
+          <div className="drops-live-overlay__tint" style={{ background: tint }} aria-hidden />
+        ) : null}
+        {scrim !== "none" ? (
+          <div
+            className={`drops-live-overlay__scrim drops-live-overlay__scrim--${scrim}`}
+            aria-hidden
+          />
+        ) : null}
+        {beforeContent}
+        {children ? <div className="drops-live-overlay__content">{children}</div> : null}
+      </div>
     </article>
   );
 }

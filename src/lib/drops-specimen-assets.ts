@@ -1,5 +1,5 @@
 /** Cloudinary kruv-drops/ — Figma @2x export (1316–1321px genişlik) */
-import { publicCldImageUrlBest } from "@/lib/cld-public";
+import { publicCldImageSrcSet, publicCldImageUrlBest } from "@/lib/cld-public";
 
 export type DropSpecimenSet = {
   hero: string;
@@ -40,7 +40,11 @@ export const DROP_SPECIMEN_ASSETS: Record<string, DropSpecimenSet> = {
 };
 
 export function resolveDropImageUrl(src: string): string {
-  return publicCldImageUrlBest(src);
+  return publicCldImageUrlBest(src, 2);
+}
+
+export function resolveDropImageSrcSet(src: string): string {
+  return publicCldImageSrcSet(src);
 }
 
 export function getDropSpecimenAssets(slug: string): DropSpecimenSet | null {
@@ -51,11 +55,12 @@ export function getDropSpecimenAssets(slug: string): DropSpecimenSet | null {
 export function resolveDropSpecimenGallery(
   slug: string,
   blocks: { type: string; gorsel?: string; alt?: string }[],
-): { src: string; alt: string }[] {
+): { src: string; srcSet: string; alt: string }[] {
   const fromBlocks = blocks
     .filter((b) => b.type === "image" && b.gorsel)
     .map((b) => ({
       src: resolveDropImageUrl(b.gorsel!),
+      srcSet: resolveDropImageSrcSet(b.gorsel!),
       alt: b.alt ?? "",
     }));
 
@@ -64,6 +69,7 @@ export function resolveDropSpecimenGallery(
   const assets = getDropSpecimenAssets(slug)?.gallery ?? [];
   return assets.map((item) => ({
     src: resolveDropImageUrl(item.src),
+    srcSet: resolveDropImageSrcSet(item.src),
     alt: item.alt,
   }));
 }
@@ -71,18 +77,23 @@ export function resolveDropSpecimenGallery(
 export function resolveDropSpecimenHero(
   slug: string,
   blocks: { type: string; gorsel?: string; alt?: string; style?: string }[],
-): { src: string; alt: string } | null {
+): { src: string; srcSet: string; alt: string } | null {
   const heroBlock = blocks.find(
     (b) => b.type === "image" && (b.style === "hero" || b.style === "specimen-hero"),
   );
   if (heroBlock?.gorsel) {
     return {
       src: resolveDropImageUrl(heroBlock.gorsel),
+      srcSet: resolveDropImageSrcSet(heroBlock.gorsel),
       alt: heroBlock.alt ?? "",
     };
   }
 
   const assets = getDropSpecimenAssets(slug);
   if (!assets) return null;
-  return { src: resolveDropImageUrl(assets.hero), alt: assets.heroAlt };
+  return {
+    src: resolveDropImageUrl(assets.hero),
+    srcSet: resolveDropImageSrcSet(assets.hero),
+    alt: assets.heroAlt,
+  };
 }

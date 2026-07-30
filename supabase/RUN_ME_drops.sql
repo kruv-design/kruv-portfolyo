@@ -109,7 +109,7 @@ cross join (values
    'Köklerinin otantik kültürünü modern ve sofistike bir estetikle harmanlayan Local fontu.',
    'Blending authentic culture with a modern aesthetic, Local gives brands local warmth and premium character.',
    'the story of roots', 'cool without effort',
-   'kruv-drops/photos/local/hero',
+   'kruv-drops/photos/local/card-bg',
    'https://res.cloudinary.com/di0qbhh46/raw/upload/v1785337240/Local-Regular_ce75fi.ttf', 1),
   ('cove', 'Cove',
    'Doğanın en yumuşak formlarından ilham alan Cove, sade ve cool bir display karakter sunar.',
