@@ -59,7 +59,7 @@ export default async function DropsPage({
   const dropsTitle = t(messages, "drops.metaTitle");
 
   return (
-    <MarketingPageShell className="flex min-h-screen flex-col">
+    <MarketingPageShell className="marketing-page-shell--drops flex min-h-screen flex-col">
       <JsonLd
         data={[
           buildBreadcrumbSchema([

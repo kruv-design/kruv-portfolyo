@@ -100,7 +100,12 @@ export function DropFontPageClient({
         </div>
       </section>
 
-      <DropSpecimenImages slug={font.slug} variant="hero" blocks={font.specimen_blocks} />
+      <DropSpecimenImages
+        slug={font.slug}
+        variant="hero"
+        locale={locale}
+        blocks={font.specimen_blocks}
+      />
 
       <DropFontTester
         fontSlug={font.slug}
@@ -120,7 +125,12 @@ export function DropFontPageClient({
         }}
       />
 
-      <DropSpecimenImages slug={font.slug} variant="gallery" blocks={font.specimen_blocks} />
+      <DropSpecimenImages
+        slug={font.slug}
+        variant="gallery"
+        locale={locale}
+        blocks={font.specimen_blocks}
+      />
 
       <DownloadModal
         open={downloadReq !== null}
