@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import type { ProtelBrand, ProtelSocialAccount } from "@/types";
 import { ProtelSectionHeading } from "./ProtelSectionHeading";
 import { ProtelVideoEmbed } from "./ProtelVideoEmbed";
@@ -12,9 +12,18 @@ function isInstagramAccount(account: ProtelSocialAccount): boolean {
   );
 }
 
-function instagramVisitLabel(brandName: string) {
+function defaultInstagramVisitLabel(brandName: string) {
   return `${brandName} instagramını ziyaret et`;
 }
+
+type Props = {
+  brands: ProtelBrand[];
+  heading?: ReactNode;
+  headingLabel?: string;
+  sectionClassName?: string;
+  tabListAriaLabel?: string;
+  instagramVisitLabel?: (brandName: string) => string;
+};
 
 function ProtelInstagramIcon() {
   return (
@@ -34,7 +43,14 @@ function ProtelInstagramIcon() {
   );
 }
 
-export function ProtelClientPanel({ brands }: { brands: ProtelBrand[] }) {
+export function ProtelClientPanel({
+  brands,
+  heading,
+  headingLabel = "AKTİF OLARAK YÖNETTİĞİMİZ SOSYAL MEDYA HESAPLARIMIZ",
+  sectionClassName,
+  tabListAriaLabel = "Müşteriler",
+  instagramVisitLabel = defaultInstagramVisitLabel,
+}: Props) {
   const [activeId, setActiveId] = useState(brands[0]?.id ?? "");
 
   const active = brands.find((b) => b.id === activeId) ?? brands[0];
@@ -43,6 +59,9 @@ export function ProtelClientPanel({ brands }: { brands: ProtelBrand[] }) {
   }
 
   const instagramAccounts = active.socialAccounts.filter(isInstagramAccount);
+  const sectionClass = ["protel-section", "protel-section--clients", sectionClassName]
+    .filter(Boolean)
+    .join(" ");
 
   const videos = [
     {
@@ -58,17 +77,20 @@ export function ProtelClientPanel({ brands }: { brands: ProtelBrand[] }) {
   ];
 
   return (
-    <section className="protel-section protel-section--clients" aria-labelledby="protel-clients">
-      <ProtelSectionHeading
-        label="AKTİF OLARAK YÖNETTİĞİMİZ SOSYAL MEDYA HESAPLARIMIZ"
-      />
+    <section className={sectionClass} aria-labelledby="protel-clients-heading">
+      {heading ?? (
+        <ProtelSectionHeading
+          label={headingLabel}
+          labelId="protel-clients-heading"
+        />
+      )}
 
       <div className="protel-clients">
         <div
           id="protel-clients"
           className="protel-clients__picker"
           role="tablist"
-          aria-label="Müşteriler"
+          aria-label={tabListAriaLabel}
         >
           {brands.map((brand) => {
             const selected = brand.id === active.id;

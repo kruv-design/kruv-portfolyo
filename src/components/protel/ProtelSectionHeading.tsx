@@ -2,9 +2,11 @@ import type { ReactNode } from "react";
 
 export function ProtelSectionHeading({
   label,
+  labelId,
   aside,
 }: {
   label: string;
+  labelId?: string;
   aside?: ReactNode;
 }) {
   return (
@@ -18,7 +20,9 @@ export function ProtelSectionHeading({
           width={24}
           height={24}
         />
-        <p className="protel-section-heading__label">{label}</p>
+        <p id={labelId} className="protel-section-heading__label">
+          {label}
+        </p>
       </div>
       {aside ? <div className="protel-section-heading__aside">{aside}</div> : null}
     </div>

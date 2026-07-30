@@ -74,6 +74,12 @@
         "If it happened, share it"
       ]
     },
+    "socialClients": {
+      "ariaLabel": "Social media accounts we manage",
+      "tagLabel": "SOCIAL MEDIA ACCOUNTS WE ACTIVELY MANAGE",
+      "tabListLabel": "Clients",
+      "instagramVisit": "Visit {brand} on Instagram"
+    },
     "scrollMarquee": {
       "ariaLabel": "What we focus on",
       "rows": [

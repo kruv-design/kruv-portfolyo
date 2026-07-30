@@ -3804,6 +3804,41 @@ i {
   }
 }
 
+/* ── Anasayfa — sosyal medya yönetimi (Protel clients panel) ── */
+.marketing-home-figma .home-social-clients {
+  --protel-content-gap: var(--space-6);
+  --protel-tight-gap: var(--space-4);
+  --protel-media-gap: var(--space-5);
+  --protel-heading-gap: var(--section-label-gap);
+  box-sizing: border-box;
+  padding-block: var(--space-12);
+  padding-inline: var(--container-gutter);
+}
+
+.marketing-home-figma .home-social-clients__inner {
+  width: var(--grid-shell-width);
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+.marketing-home-figma .home-social-clients__panel {
+  width: 100%;
+}
+
+.marketing-home-figma .home-social-clients__header {
+  margin-bottom: var(--protel-heading-gap);
+}
+
+.marketing-home-figma .home-social-clients__panel .protel-section-heading {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .marketing-home-figma .home-social-clients {
+    padding-block: clamp(var(--space-12), 8vw, calc(var(--space-12) * 2));
+  }
+}
+
 /* ── /drops — font freebies ─────────────────────────────────── */
 .marketing-page-shell--drops {
   background: var(--drops-bg);
@@ -3893,48 +3928,26 @@ i {
   gap: var(--space-6);
 }
 
+.drops-font-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
 .drops-font-card__media {
+  display: block;
   position: relative;
   min-height: clamp(18rem, 52vw, 40rem);
   border-radius: var(--radius-md);
   overflow: hidden;
   background: var(--gray-80) center / cover no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
 }
 
-.drops-font-card__hit {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  border-radius: inherit;
-}
-
-.drops-font-card__hit:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: -4px;
-}
-
-.drops-font-card__overlay {
-  position: absolute;
-  inset: 0;
-  background: color-mix(in srgb, var(--gray-1000) 46%, transparent);
-}
-
+.drops-font-card__overlay,
 .drops-font-card__preview {
-  position: relative;
-  z-index: 0;
-  margin: 0;
-  padding: var(--space-8);
-  text-align: center;
-  color: var(--white-fixed);
-  font-size: clamp(2rem, 6vw, 4.5rem);
-  line-height: 1.05;
-  text-wrap: balance;
-  white-space: pre-line;
-  pointer-events: none;
+  display: none;
 }
 
 .drops-font-card__preview--marzano,
@@ -4002,19 +4015,15 @@ i {
   font-family: var(--font-drop-active, var(--font-display));
 }
 
-.drops-font-card__actions {
-  position: absolute;
-  z-index: 2;
-  right: var(--space-6);
-  bottom: var(--space-6);
+.drops-font-card__footer {
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-end;
   gap: var(--space-3);
-  pointer-events: none;
 }
 
-.drops-font-card__actions .drops-font-card__btn--ghost {
-  pointer-events: auto;
+.drops-font-card__actions {
+  display: none;
 }
 
 .drops-font-card__btn {
@@ -4035,13 +4044,18 @@ i {
 
 .drops-font-card__btn--ghost {
   background: transparent;
-  border-color: var(--white-fixed);
-  color: var(--white-fixed);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .drops-font-card__btn--primary {
   background: var(--accent);
   color: var(--white-fixed);
+}
+
+.drops-font-card__media:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .drops-specimen-header {

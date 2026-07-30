@@ -71,6 +71,12 @@
         "Yaşanmışsa paylaş"
       ]
     },
+    "socialClients": {
+      "ariaLabel": "Yönettiğimiz sosyal medya hesapları",
+      "tagLabel": "AKTİF OLARAK YÖNETTİĞİMİZ SOSYAL MEDYA HESAPLARIMIZ",
+      "tabListLabel": "Müşteriler",
+      "instagramVisit": "{brand} instagramını ziyaret et"
+    },
     "scrollMarquee": {
       "ariaLabel": "Uzmanlık alanlarımız",
       "rows": [
