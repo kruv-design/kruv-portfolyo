@@ -33,12 +33,15 @@ export function publicCldRawUrl(publicIdOrUrl: string): string {
   return `https://res.cloudinary.com/${cn}/raw/upload/${publicIdOrUrl}`;
 }
 
-/** Figma drops genişliği — retina için 2× delivery */
+/**
+ * Figma drops genişliği — PNG + şeffaf köşe (radius).
+ * f_auto JPEG’e düşüp yuvarlatılmış PNG köşelerini dolduruyordu.
+ */
 const DROPS_DISPLAY_WIDTH = 1320;
 
 function dropsDeliveryTransforms(dpr: 1 | 2): string {
   const w = DROPS_DISPLAY_WIDTH * dpr;
-  return [`c_limit`, `w_${w}`, `q_95`, `f_auto`].join(",");
+  return [`c_limit`, `w_${w}`, `f_png`].join(",");
 }
 
 export function publicCldImageUrlBest(publicIdOrUrl: string, dpr: 1 | 2 = 2): string {

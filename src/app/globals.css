@@ -3932,25 +3932,36 @@ i {
 .drops-pack-section__cards {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-6); /* Figma 24px */
 }
 
 .drops-font-card {
   display: block;
 }
 
+/* Figma font card: 1316×651, radius 12 */
 .drops-font-card__media {
+  --drops-card-w: 1316;
+  --drops-card-h: 651;
   position: relative;
   display: block;
   overflow: hidden;
   border-radius: var(--radius-md);
+  aspect-ratio: var(--drops-card-w) / var(--drops-card-h);
+  container-type: inline-size;
+  container-name: drops-font-card;
   line-height: 0;
+  background: color-mix(in srgb, var(--black-fixed) 12%, transparent);
 }
 
 .drops-font-card__bg {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .drops-font-card__hit {
@@ -3970,7 +3981,7 @@ i {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: color-mix(in srgb, var(--black-fixed) 46%, transparent);
+  background: color-mix(in srgb, var(--black-fixed) 40%, transparent);
 }
 
 .drops-font-card__preview {
@@ -3983,10 +3994,10 @@ i {
   justify-content: center;
   gap: 0;
   margin: 0;
-  padding: var(--space-8);
+  padding: clamp(var(--space-4), 4cqi, var(--space-8));
   text-align: center;
   color: var(--white-fixed);
-  font-size: clamp(2rem, 6vw, 4.5rem);
+  font-size: clamp(1.75rem, 6cqi, 4.5rem);
   line-height: 1.05;
   pointer-events: none;
 }
@@ -3999,12 +4010,13 @@ i {
 .drops-font-card__preview--marzano,
 .drops-tester__preview--marzano {
   text-transform: uppercase;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.04em; /* -6.488 / 162.2 */
   line-height: 0.62;
 }
 
 .drops-font-card__preview--marzano {
-  font-size: clamp(2.5rem, 8vw, 6.25rem);
+  /* Figma 162.2px @ 1316 card width */
+  font-size: clamp(2.25rem, 12.325cqi, 10.1375rem);
 }
 
 .drops-font-card__preview--local,
@@ -4014,12 +4026,13 @@ i {
 }
 
 .drops-font-card__preview--local {
-  font-size: clamp(1.75rem, 5vw, 4.5rem);
-  color: color-mix(in srgb, var(--white-fixed) 98%, transparent);
+  /* Figma 73.311px @ 1316 card width */
+  font-size: clamp(1.5rem, 5.571cqi, 4.582rem);
+  color: #fffdfa;
 }
 
 .drops-font-card__preview--local .drops-font-card__preview-line {
-  white-space: normal;
+  white-space: nowrap;
 }
 
 .drops-tester__preview--local {
@@ -4029,13 +4042,14 @@ i {
 .drops-font-card__preview--cove,
 .drops-tester__preview--cove {
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.05em; /* 5.4869 / 109.738 */
   line-height: 0.76;
 }
 
 .drops-font-card__preview--cove {
-  font-size: clamp(1.75rem, 5.5vw, 6.875rem);
-  width: min(92%, 23rem);
+  /* Figma 109.738px @ 1316, text block ~368px wide */
+  font-size: clamp(1.5rem, 8.339cqi, 6.859rem);
+  width: clamp(14rem, 28%, 23rem);
   letter-spacing: 0.05em;
   line-height: 0.76;
 }
@@ -4082,8 +4096,9 @@ i {
 .drops-font-card__actions {
   position: absolute;
   z-index: 3;
-  right: var(--space-6);
-  bottom: var(--space-6);
+  /* Figma: inset ≈ 28px from right/bottom of 651 card */
+  right: var(--space-7);
+  bottom: var(--space-7);
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
@@ -4095,9 +4110,9 @@ i {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2.75rem;
+  min-height: 2.75rem; /* 44px */
   padding: 0.75rem 1.5rem;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-btn-pill);
   font-family: var(--font-display);
   font-size: 0.875rem;
   font-weight: 500;
@@ -4801,7 +4816,7 @@ i {
   font-size: 22.3cqi;
   line-height: 0.62;
   letter-spacing: -0.04em;
-  text-transform: uppercase;
+  text-transform: none; /* Latin DESIGNED — tr uppercase İ üretmesin */
   color: var(--white-fixed);
   white-space: nowrap;
 }
@@ -4861,22 +4876,57 @@ i {
   height: auto;
 }
 
+.drops-live-overlay--local-alphabet .drops-live-overlay__frame {
+  /* Figma specimen: 1316×501 — portrait foto landscape kırpılır */
+  aspect-ratio: 1316 / 501;
+  container-type: inline-size;
+}
+
+.drops-live-overlay--local-alphabet .drops-live-overlay__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+}
+
 .drops-live-overlay--local-alphabet .drops-live-overlay__content {
   align-items: center;
   justify-content: center;
+  padding-inline: clamp(var(--space-4), 4vw, var(--space-10));
 }
 
 .drops-live-local-alphabet {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.12em;
   margin: 0;
-  max-width: 100%;
+  width: min(100%, 56rem);
   font-family: var(--font-drop-active, var(--font-display));
-  font-size: clamp(1.5rem, 5vw, 4rem);
-  line-height: 1.04;
-  letter-spacing: -0.05em;
+  font-size: clamp(1.15rem, 3.4cqi + 0.4rem, 3.25rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
   text-transform: lowercase;
   text-align: center;
   color: var(--drops-local-on-photo);
-  text-wrap: balance;
+}
+
+.drops-live-local-alphabet__row {
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+}
+
+@media (max-width: 480px) {
+  .drops-live-local-alphabet {
+    font-size: clamp(0.7rem, 3.6vw, 1rem);
+    letter-spacing: -0.04em;
+  }
 }
 
 .drops-live-overlay--local-wine .drops-live-overlay__content {
@@ -4897,7 +4947,27 @@ i {
 }
 
 .drops-live-overlay--cove-hero .drops-live-overlay__content {
-  padding: 0;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(var(--space-6), 5vw, var(--space-12));
+}
+
+.drops-live-cove-hero__title {
+  margin: 0;
+  max-width: 18ch;
+  font-family: var(--font-drop-active, var(--font-display));
+  font-size: clamp(1.35rem, 4.2cqi + 0.5rem, 3.75rem);
+  line-height: 0.82;
+  letter-spacing: 0.06em;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--white-fixed);
+  text-wrap: balance;
+  text-shadow: 0 1px 18px color-mix(in srgb, var(--black-fixed) 45%, transparent);
+}
+
+.drops-live-overlay--cove-hero .drops-live-overlay__frame {
+  container-type: inline-size;
 }
 
 .drops-live-block--cove-cap {

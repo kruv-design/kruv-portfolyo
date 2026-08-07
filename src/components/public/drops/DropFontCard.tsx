@@ -55,6 +55,7 @@ export function DropFontCard({
     <article
       className={`drops-font-card drops-font-card--${font.slug}`}
       style={{ ["--font-drop-active" as string]: dropFontFamily(font.slug) }}
+      lang={font.slug === "local" ? undefined : "en"}
     >
       {font.font_preview_url ? (
         <DropFontFace slug={font.slug} previewUrl={font.font_preview_url} />

@@ -47,9 +47,9 @@ const DEMO_FONTS: DropFont[] = [
     slug: "local",
     name: "Local",
     aciklama:
-      "Köklerinin otantik kültürünü modern ve sofistike bir estetikle harmanlayan Local fontu, markalara hem yerel bir sıcaklık hem de üst düzey bir karakter kazandırır.",
+      "El yazısının ritmini koruyan Local — bireysel, sıcak ve yapmacıksız.",
     description:
-      "Blending the authentic culture of its roots with a modern and sophisticated aesthetic, the Local font gives brands both a local warmth and an upscale, premium character.",
+      "Local keeps the rhythm of handwriting — personal, warm, and unforced.",
     preview_text: "the story of roots",
     tester_default_text: "cool without effort",
     tester_placeholder: "",

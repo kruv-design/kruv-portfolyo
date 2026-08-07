@@ -4,7 +4,9 @@ export function dropFontFamily(slug: string): string {
   return `"DropFont-${slug}"`;
 }
 
-/** Marzano / Cove yalnızca majuskül glif — minuskül girişi majusküle map et */
+/** Marzano / Cove yalnızca majuskül glif — minuskül girişi majusküle map et.
+ *  Marzano İngilizce brand metinleri: tr-TR uppercase "i"→"İ" yapar (FLUİD);
+ *  bu yüzden Marzano her zaman en-US ile büyütülür. Cove TR pangram için locale kullanır. */
 export function normalizeDropFontText(
   text: string,
   slug: string,
@@ -12,7 +14,8 @@ export function normalizeDropFontText(
 ): string {
   if (!text) return text;
   const loc = locale === "tr" ? "tr-TR" : "en-US";
-  if (slug === "marzano" || slug === "cove") return text.toLocaleUpperCase(loc);
+  if (slug === "marzano") return text.toLocaleUpperCase("en-US");
+  if (slug === "cove") return text.toLocaleUpperCase(loc);
   if (slug === "local") return text.toLocaleLowerCase(loc);
   return text;
 }
@@ -22,7 +25,7 @@ export const DROP_FONT_FILES = {
   marzano:
     "https://res.cloudinary.com/di0qbhh46/raw/upload/v1785337257/MARZANO-Regular_ogmtz8.ttf",
   local:
-    "https://res.cloudinary.com/di0qbhh46/raw/upload/v1785337240/Local-Regular_ce75fi.ttf",
+    "https://res.cloudinary.com/di0qbhh46/raw/upload/v1786107930/Local-Regular_ce75fi.ttf",
   cove:
     "https://res.cloudinary.com/di0qbhh46/raw/upload/v1785337238/Cove-Regular_a7jne9.ttf",
 } as const;

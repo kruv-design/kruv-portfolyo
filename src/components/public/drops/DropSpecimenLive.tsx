@@ -76,23 +76,31 @@ function LocalHeroLive({ locale = "tr" }: { locale?: Locale }) {
   );
 }
 
-function CoveHeroLive() {
+function CoveHeroLive({ locale = "tr" }: { locale?: Locale }) {
+  const title = normalizeDropFontText(
+    "Pijamalı hasta yağız şoföre çabucak güvendi.",
+    "cove",
+    locale,
+  );
   return (
     <DropSpecimenOverlay
       photoId={DROP_LIVE_PHOTOS.cove.heroWater}
       alt="Cove — water ripple"
       className="drops-live-overlay--cove-hero"
-    />
+      scrim="dark"
+    >
+      <p className="drops-live-cove-hero__title drops-drop-type">{title}</p>
+    </DropSpecimenOverlay>
   );
 }
 
 function MarzanoFluidBlock() {
   return (
-    <article className="drops-live-block drops-live-block--fluid">
+    <article className="drops-live-block drops-live-block--fluid" lang="en">
       <div className="drops-live-block__copy">
         <div className="drops-live-display drops-live-display--marzano" aria-label="fluid moments">
-          <p className="drops-live-display__line">fluid </p>
-          <p className="drops-live-display__line drops-live-display__line--tight">moments.</p>
+          <p className="drops-live-display__line">FLUID </p>
+          <p className="drops-live-display__line drops-live-display__line--tight">MOMENTS.</p>
         </div>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -128,7 +136,7 @@ function MarzanoBagLive() {
 
 function MarzanoHomemadeBlock() {
   return (
-    <article className="drops-live-block drops-live-block--homemade">
+    <article className="drops-live-block drops-live-block--homemade" lang="en">
       <div className="drops-live-block__row">
         <LivePhoto
           publicId={DROP_LIVE_PHOTOS.marzano.homemadePasta}
@@ -162,7 +170,16 @@ function MarzanoHomemadeBlock() {
 }
 
 function LocalAlphabetLive({ locale = "tr" }: { locale?: Locale }) {
-  const alphabet = normalizeDropFontText(DROP_ALPHABET_UPPER, "local", locale);
+  const row1 = normalizeDropFontText(
+    "A B C Ç D E F G Ğ H I İ J K L M N",
+    "local",
+    locale,
+  );
+  const row2 = normalizeDropFontText(
+    "O Ö P R S Ş T U Ü V Y Z",
+    "local",
+    locale,
+  );
   return (
     <DropSpecimenOverlay
       photoId={DROP_LIVE_PHOTOS.local.alphabetBg}
@@ -170,7 +187,10 @@ function LocalAlphabetLive({ locale = "tr" }: { locale?: Locale }) {
       className="drops-live-overlay--local-alphabet"
       scrim="dark"
     >
-      <p className="drops-live-local-alphabet">{alphabet}</p>
+      <p className="drops-live-local-alphabet" aria-label={`${row1} ${row2}`}>
+        <span className="drops-live-local-alphabet__row">{row1}</span>
+        <span className="drops-live-local-alphabet__row">{row2}</span>
+      </p>
     </DropSpecimenOverlay>
   );
 }
@@ -230,6 +250,7 @@ export function hasDropSpecimenLiveHero(slug: string): boolean {
 /** Galeri indeksine göre canlı blok mu, statik görsel mi */
 export function isLiveGalleryIndex(slug: string, index: number): boolean {
   if (slug === "marzano") return index === 0 || index === 1 || index === 2 || index === 3;
+  /* Local alphabet: landscape canlı bloğu (portre bg kırpılır) */
   if (slug === "local") return index === 1 || index === 3;
   if (slug === "cove") return index === 0 || index === 2;
   return false;
@@ -238,7 +259,7 @@ export function isLiveGalleryIndex(slug: string, index: number): boolean {
 export function DropSpecimenLiveHero({ slug, locale = "tr" }: Props) {
   if (slug === "marzano") return <MarzanoHeroLive locale={locale} />;
   if (slug === "local") return <LocalHeroLive locale={locale} />;
-  if (slug === "cove") return <CoveHeroLive />;
+  if (slug === "cove") return <CoveHeroLive locale={locale} />;
   return null;
 }
 

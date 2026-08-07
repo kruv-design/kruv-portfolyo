@@ -1,6 +1,6 @@
 import { resolveDropImageSrcSet, resolveDropImageUrl } from "@/lib/drops-specimen-assets";
 import { DROP_LIVE_PHOTOS, DROP_LIVE_VECTORS } from "@/lib/drops-live-assets";
-import { dropFontFamily, normalizeDropFontText } from "@/lib/drops-font-assets";
+import { dropFontFamily } from "@/lib/drops-font-assets";
 import type { Locale } from "@/lib/i18n/config";
 
 type Props = {
@@ -10,10 +10,12 @@ type Props = {
 const PHONE = DROP_LIVE_VECTORS.marzano.phone;
 
 export function MarzanoPhoneMockup({ locale = "tr" }: Props) {
-  const lines = ["Designed,", "baked,", "and served."];
+  void locale;
+  /* Latin I — tr uppercase "Designed"→"DESİGNED" yapmasın */
+  const lines = ["DESIGNED,", "BAKED,", "AND SERVED."];
 
   return (
-    <article className="drops-live-overlay drops-live-overlay--marzano-phone">
+    <article className="drops-live-overlay drops-live-overlay--marzano-phone" lang="en">
       <div className="drops-live-overlay__frame">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -68,7 +70,7 @@ export function MarzanoPhoneMockup({ locale = "tr" }: Props) {
                 style={{ fontFamily: dropFontFamily("marzano") }}
               >
                 {lines.map((line) => (
-                  <p key={line}>{normalizeDropFontText(line, "marzano", locale)}</p>
+                  <p key={line}>{line}</p>
                 ))}
               </div>
 
