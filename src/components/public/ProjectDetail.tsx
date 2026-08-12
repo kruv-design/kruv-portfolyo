@@ -93,12 +93,12 @@ export function ProjectDetail({
         {gallerySlots.length > 0 && (
           <div className="project-detail-gallery-wrap animate-fadeUp">
             <div className="project-detail-gallery">
-              {gallerySlots.map(({ key, posterSrc, videoSrc }) => (
+              {gallerySlots.map(({ key, posterSrc, videoSrc }, i) => (
                 <figure key={key} className="project-detail-gallery__item">
                   <ProjectDetailMedia
                     posterSrc={posterSrc}
                     videoSrc={videoSrc}
-                    alt=""
+                    alt={`${title} — galeri görseli ${i + 1}`}
                     variant="gallery"
                   />
                 </figure>

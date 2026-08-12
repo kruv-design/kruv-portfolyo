@@ -72,7 +72,7 @@ export function MarketingFeaturedWorks({
                 {cover ? (
                   <Image
                     src={cover}
-                    alt=""
+                    alt={localized.baslik}
                     width={0}
                     height={0}
                     sizes="(max-width: 899px) 100vw, 80vw"

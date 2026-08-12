@@ -298,7 +298,7 @@ export function MarketingHomeShowreelPlayer({
             >
               <ProjectDetailImage
                 src={posterSrc}
-                alt=""
+                alt="Kruv showreel"
                 variant="gallery"
                 priority
                 sizes="100vw"
