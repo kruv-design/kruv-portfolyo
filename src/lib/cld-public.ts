@@ -39,9 +39,9 @@ export function publicCldRawUrl(publicIdOrUrl: string): string {
  */
 const DROPS_DISPLAY_WIDTH = 1320;
 
-function dropsDeliveryTransforms(dpr: 1 | 2): string {
+function dropsDeliveryTransforms(dpr: 1 | 2, extra: string[] = []): string {
   const w = DROPS_DISPLAY_WIDTH * dpr;
-  return [`c_limit`, `w_${w}`, `f_png`].join(",");
+  return [`c_limit`, `w_${w}`, `f_png`, ...extra].join(",");
 }
 
 export function publicCldImageUrlBest(publicIdOrUrl: string, dpr: 1 | 2 = 2): string {
@@ -51,6 +51,26 @@ export function publicCldImageUrlBest(publicIdOrUrl: string, dpr: 1 | 2 = 2): st
   const cn = cloudName();
   if (!cn) return publicIdOrUrl;
   return `https://res.cloudinary.com/${cn}/image/upload/${dropsDeliveryTransforms(dpr)}/${publicIdOrUrl}`;
+}
+
+/** Beyaz Figma zeminini siler; CSS `background: var(--bg)` gösterir. */
+export function publicCldImageUrlKnockoutWhite(
+  publicIdOrUrl: string,
+  dpr: 1 | 2 = 2,
+): string {
+  if (!publicIdOrUrl) return "";
+  if (/^https?:\/\//i.test(publicIdOrUrl)) return publicIdOrUrl;
+  if (publicIdOrUrl.startsWith("/")) return publicIdOrUrl;
+  const cn = cloudName();
+  if (!cn) return publicIdOrUrl;
+  return `https://res.cloudinary.com/${cn}/image/upload/${dropsDeliveryTransforms(dpr, ["e_make_transparent:12"])}/${publicIdOrUrl}`;
+}
+
+export function publicCldImageSrcSetKnockoutWhite(publicIdOrUrl: string): string {
+  const oneX = publicCldImageUrlKnockoutWhite(publicIdOrUrl, 1);
+  const twoX = publicCldImageUrlKnockoutWhite(publicIdOrUrl, 2);
+  if (!oneX || oneX === publicIdOrUrl) return "";
+  return `${oneX} 1x, ${twoX} 2x`;
 }
 
 /** Retina ekranlar için 1x / 2x srcset */

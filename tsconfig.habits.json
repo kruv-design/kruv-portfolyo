@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "incremental": false
+  },
+  "include": [
+    "next-env.d.ts",
+    "src/components/public/MarketingFeaturedWorks.tsx",
+    "src/components/public/ProjectDetail.tsx",
+    "src/components/public/MarketingHomeShowreelPlayer.tsx"
+  ]
+}

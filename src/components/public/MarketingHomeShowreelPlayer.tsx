@@ -315,7 +315,7 @@ export function MarketingHomeShowreelPlayer({
           ) : !posterHidden ? (
             <ProjectDetailImage
               src={posterSrc}
-              alt=""
+              alt="Kruv showreel"
               variant="gallery"
               priority={eager}
               sizes="100vw"

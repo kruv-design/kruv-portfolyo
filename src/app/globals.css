@@ -4372,14 +4372,24 @@ i {
 .drops-live-stagger--homemade {
   word-break: keep-all;
   overflow-wrap: normal;
-  font-size: clamp(3.5rem, 12vw, 10.6rem);
+  font-size: clamp(2.25rem, 9vw, 10.6rem);
   letter-spacing: -0.03em;
+  line-height: 0.82;
   flex: 1 1 38%;
-  min-width: min(100%, 30rem);
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .drops-live-stagger--homemade p {
   white-space: nowrap;
+  padding-left: 0;
+}
+
+.drops-live-stagger--homemade p + p {
+  margin-top: 0.08em;
 }
 
 .drops-live-display--marzano {
@@ -4407,19 +4417,27 @@ i {
 
 .drops-live-block--fluid {
   display: flex;
-  flex-direction: column;
-  gap: clamp(var(--space-6), 4vw, var(--space-10));
-  padding: clamp(var(--space-6), 4vw, var(--space-10));
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: clamp(var(--space-3), 4vw, var(--space-12));
+  padding: clamp(var(--space-4), 4vw, var(--space-10));
   box-sizing: border-box;
+  container-type: inline-size;
 }
 
-@media (min-width: 900px) {
-  .drops-live-block--fluid {
-    flex-direction: row;
-    align-items: stretch;
-    justify-content: space-between;
-    gap: clamp(var(--space-6), 5vw, var(--space-12));
-  }
+.drops-live-block--fluid .drops-live-block__copy {
+  flex: 0 1 32%;
+  min-width: 0;
+  gap: 0;
+}
+
+.drops-live-block--fluid .drops-live-display {
+  font-size: clamp(1.35rem, 11.9cqi, 9.85rem);
+}
+
+.drops-live-block--fluid .drops-live-ampersand {
+  width: min(52%, 14rem);
 }
 
 .drops-live-block__copy {
@@ -4455,6 +4473,16 @@ i {
   line-height: 0;
 }
 
+.drops-live-collage {
+  background: var(--bg);
+  border-radius: clamp(12px, 3.2vw, 46px);
+  overflow: hidden;
+}
+
+.drops-live-collage img {
+  background: transparent;
+}
+
 .drops-live-photo img {
   display: block;
   width: 100%;
@@ -4480,7 +4508,7 @@ i {
   display: flex;
   flex-direction: column;
   gap: clamp(var(--space-6), 4vw, var(--space-10));
-  padding: clamp(var(--space-6), 4vw, var(--space-10));
+  padding: clamp(var(--space-4), 4vw, var(--space-10));
   box-sizing: border-box;
 }
 
@@ -4489,6 +4517,13 @@ i {
   flex-direction: column;
   gap: clamp(var(--space-6), 4vw, var(--space-10));
   align-items: center;
+}
+
+.drops-live-block__row--bottom {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(var(--space-3), 4vw, var(--space-10));
 }
 
 @media (min-width: 900px) {
@@ -4517,7 +4552,7 @@ i {
 }
 
 .drops-live-stagger--homemade p:nth-child(2) {
-  padding-left: clamp(2rem, 20%, 6.25rem);
+  padding-left: 0;
 }
 
 .drops-live-stagger p:nth-child(3) {
@@ -4525,7 +4560,7 @@ i {
 }
 
 .drops-live-stagger--homemade p:nth-child(3) {
-  padding-left: clamp(2.5rem, 29%, 8.75rem);
+  padding-left: 0;
 }
 
 .drops-live-stagger p:nth-child(4) {
@@ -4533,14 +4568,20 @@ i {
 }
 
 .drops-live-stagger--homemade p:nth-child(4) {
-  padding-left: clamp(2rem, 24.5%, 7.5rem);
+  padding-left: 0;
 }
 
 .drops-live-olives {
   display: block;
-  width: min(100%, 18rem);
+  width: min(36%, 18rem);
   height: auto;
-  flex-shrink: 0;
+  flex: 0 1 36%;
+  min-width: 0;
+}
+
+.drops-live-block__photo--pin {
+  flex: 1 1 52%;
+  min-width: 0;
 }
 
 .drops-live-block--pebbles {
@@ -4553,7 +4594,7 @@ i {
 }
 
 .drops-live-pebbles {
-  max-width: 14ch;
+  max-width: 18ch;
   text-wrap: balance;
 }
 
@@ -4561,7 +4602,7 @@ i {
 .drops-live-overlay {
   position: relative;
   border-radius: clamp(12px, 3.2vw, 46px);
-  isolation: isolate;
+  overflow: hidden;
 }
 
 .drops-live-overlay__frame {
@@ -4570,6 +4611,7 @@ i {
   line-height: 0;
   border-radius: inherit;
   overflow: hidden;
+  isolation: isolate;
 }
 
 .drops-live-overlay__bg {
@@ -4585,7 +4627,7 @@ i {
   pointer-events: none;
 }
 
-.drops-live-overlay--local-hero::after {
+.drops-live-overlay--local-hero .drops-live-overlay__frame::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -4594,17 +4636,17 @@ i {
   pointer-events: none;
 }
 
-.drops-live-overlay--local-alphabet::after {
+.drops-live-overlay--local-alphabet .drops-live-overlay__frame::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: #4e3e2d;
+  z-index: 1;
+  background: color-mix(in srgb, #4e3e2d 27%, transparent);
   mix-blend-mode: overlay;
-  opacity: 0.27;
   pointer-events: none;
 }
 
-.drops-live-overlay--local-wine::after {
+.drops-live-overlay--local-wine .drops-live-overlay__frame::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -4638,16 +4680,32 @@ i {
   pointer-events: none;
 }
 
+/* Figma 4496:2866 — 1321×1500 slide; portrait foto kırpılır */
+.drops-live-overlay--marzano-hero .drops-live-overlay__frame {
+  aspect-ratio: 1321 / 1500;
+  container-type: inline-size;
+}
+
+.drops-live-overlay--marzano-hero .drops-live-overlay__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+}
+
 .drops-live-overlay--marzano-hero .drops-live-overlay__content {
   align-items: center;
   justify-content: space-between;
-  gap: clamp(var(--space-10), 20vw, 14rem);
+  gap: 0;
+  padding: 3.64cqi;
 }
 
 .drops-live-marzano-hero__title {
   margin: 0;
   font-family: var(--font-drop-active, var(--font-display));
-  font-size: clamp(5rem, 40vw, 33.125rem);
+  font-size: 40.1cqi;
   line-height: 0.62;
   letter-spacing: 0.02em;
   text-transform: uppercase;
@@ -4659,16 +4717,20 @@ i {
 .drops-live-marzano-hero__numbers {
   position: absolute;
   z-index: 2;
-  top: clamp(14%, 20vw, 23%);
-  right: clamp(var(--space-4), 6vw, var(--space-12));
-  max-width: min(100%, 31rem);
+  left: 76.07%;
+  top: 22.97%;
+  right: auto;
+  width: 37.86%;
+  max-width: none;
   margin: 0;
+  transform: translate(-50%, -50%);
   font-family: var(--font-drop-active, var(--font-display));
-  font-size: clamp(2rem, 13vw, 10.6rem);
+  font-size: 12.84cqi;
   line-height: 0.62;
   letter-spacing: -0.03em;
   text-transform: uppercase;
   text-align: center;
+  white-space: nowrap;
   color: var(--drops-marzano-ink);
   text-shadow: 0 0 10px color-mix(in srgb, var(--gray-1000) 25%, transparent);
 }
@@ -4676,15 +4738,48 @@ i {
 .drops-live-marzano-hero__alphabet {
   margin: 0;
   font-family: var(--font-drop-active, var(--font-display));
-  font-size: clamp(2rem, 13vw, 10.6rem);
+  font-size: 12.84cqi;
   line-height: 0.62;
   letter-spacing: -0.03em;
   text-transform: uppercase;
   text-align: center;
   color: var(--drops-marzano-ink);
-  max-width: 88%;
+  max-width: 86.7%;
   text-wrap: balance;
   text-shadow: 0 0 10px color-mix(in srgb, var(--gray-1000) 25%, transparent);
+}
+
+@container (max-width: 700px) {
+  .drops-live-marzano-hero__title {
+    font-size: 28cqi;
+  }
+
+  .drops-live-marzano-hero__numbers {
+    top: 26%;
+    width: 52%;
+    font-size: 7.2cqi;
+  }
+
+  .drops-live-marzano-hero__alphabet {
+    font-size: 7.2cqi;
+  }
+}
+
+.drops-live-overlay--local-hero {
+  background: var(--bg);
+}
+
+.drops-live-overlay--local-hero .drops-live-overlay__frame {
+  aspect-ratio: 1316 / 1470;
+}
+
+.drops-live-overlay--local-hero .drops-live-overlay__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
 }
 
 .drops-live-overlay--local-hero .drops-live-overlay__content {
@@ -4708,6 +4803,26 @@ i {
 
 .drops-live-overlay--marzano-phone .drops-live-overlay__frame {
   position: relative;
+}
+
+@media (max-width: 767px) {
+  .drops-live-overlay--marzano-phone .drops-live-overlay__frame {
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+  }
+
+  .drops-live-overlay--marzano-phone .drops-live-overlay__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .drops-live-phone-stage {
+    padding: 6% 20%;
+  }
 }
 
 .drops-live-overlay__scrim--phone {
@@ -4880,70 +4995,104 @@ i {
   /* Figma specimen: 1316×501 — portrait foto landscape kırpılır */
   aspect-ratio: 1316 / 501;
   container-type: inline-size;
+  z-index: 1;
 }
 
 .drops-live-overlay--local-alphabet .drops-live-overlay__bg {
   position: absolute;
   inset: 0;
+  z-index: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center 35%;
 }
 
+.drops-live-overlay--local-alphabet .drops-live-overlay__scrim {
+  z-index: 1;
+}
+
 .drops-live-overlay--local-alphabet .drops-live-overlay__content {
+  z-index: 2;
   align-items: center;
   justify-content: center;
-  padding-inline: clamp(var(--space-4), 4vw, var(--space-10));
+  padding: clamp(var(--space-3), 3vw, var(--space-10));
 }
 
 .drops-live-local-alphabet {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.12em;
+  gap: 0.18em;
   margin: 0;
-  width: min(100%, 56rem);
+  width: 100%;
+  max-width: 56rem;
   font-family: var(--font-drop-active, var(--font-display));
-  font-size: clamp(1.15rem, 3.4cqi + 0.4rem, 3.25rem);
-  line-height: 1.08;
+  font-size: clamp(1.05rem, 5.8cqi, 3.25rem);
+  line-height: 1.15;
   letter-spacing: -0.02em;
   text-transform: lowercase;
   text-align: center;
   color: var(--drops-local-on-photo);
+  text-shadow: 0 1px 10px color-mix(in srgb, var(--black-fixed) 40%, transparent);
 }
 
 .drops-live-local-alphabet__row {
   display: block;
   width: 100%;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: clip;
+  overflow: visible;
 }
 
-@media (max-width: 480px) {
-  .drops-live-local-alphabet {
-    font-size: clamp(0.7rem, 3.6vw, 1rem);
-    letter-spacing: -0.04em;
-  }
+.drops-live-overlay--local-wine .drops-live-overlay__frame {
+  container-type: inline-size;
 }
 
 .drops-live-overlay--local-wine .drops-live-overlay__content {
   align-items: flex-end;
   justify-content: flex-start;
-  padding: clamp(var(--space-6), 4vw, var(--space-10));
+  padding: clamp(var(--space-5), 4cqi, var(--space-10));
 }
 
 .drops-live-wine-caption {
-  max-width: 14ch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  min-width: 0;
+  max-width: 100%;
   margin: 0;
   font-family: var(--font-drop-active, var(--font-display));
-  font-size: clamp(1rem, 2.5vw, 1.75rem);
-  line-height: 1.04;
+  font-size: clamp(1.15rem, 3.4cqi + 0.35rem, 1.85rem);
+  line-height: 1.12;
   letter-spacing: 0.01em;
+  text-align: right;
   text-transform: lowercase;
   color: var(--drops-local-on-photo);
+}
+
+.drops-live-wine-caption span {
+  display: block;
+  max-width: 100%;
+}
+
+@media (max-width: 767px) {
+  .drops-live-overlay--local-wine .drops-live-overlay__content {
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: var(--space-5) var(--space-4);
+  }
+
+  .drops-live-wine-caption {
+    font-size: clamp(1.28rem, 6.8cqi, 1.7rem);
+    line-height: 1.16;
+  }
+
+  .drops-live-wine-caption span {
+    white-space: nowrap;
+  }
 }
 
 .drops-live-overlay--cove-hero .drops-live-overlay__content {

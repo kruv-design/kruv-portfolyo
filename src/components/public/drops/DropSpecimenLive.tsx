@@ -1,3 +1,7 @@
+import {
+  publicCldImageSrcSetKnockoutWhite,
+  publicCldImageUrlKnockoutWhite,
+} from "@/lib/cld-public";
 import { resolveDropImageSrcSet, resolveDropImageUrl } from "@/lib/drops-specimen-assets";
 import { DROP_LIVE_PHOTOS, DROP_LIVE_VECTORS } from "@/lib/drops-live-assets";
 import {
@@ -78,7 +82,7 @@ function LocalHeroLive({ locale = "tr" }: { locale?: Locale }) {
 
 function CoveHeroLive({ locale = "tr" }: { locale?: Locale }) {
   const title = normalizeDropFontText(
-    "Pijamalı hasta yağız şoföre çabucak güvendi.",
+    "Born from pebbles, simple and cool.",
     "cove",
     locale,
   );
@@ -196,24 +200,48 @@ function LocalAlphabetLive({ locale = "tr" }: { locale?: Locale }) {
 }
 
 function LocalWineLive({ locale = "tr" }: { locale?: Locale }) {
+  const line1 = normalizeDropFontText("The silent melody", "local", locale);
+  const line2 = normalizeDropFontText("of the earth", "local", locale);
   return (
     <DropSpecimenOverlay
       photoId={DROP_LIVE_PHOTOS.local.wineBox}
       alt="Local wine box mockup"
       className="drops-live-overlay--local-wine"
     >
-      <p className="drops-live-wine-caption">
-        {normalizeDropFontText("The silent melody of the earth", "local", locale)}
+      <p className="drops-live-wine-caption" aria-label={`${line1} ${line2}`}>
+        <span>{line1}</span>
+        <span>{line2}</span>
       </p>
     </DropSpecimenOverlay>
   );
 }
 
-function CovePebblesBlock() {
+function CoveCollageLive() {
+  const publicId = "kruv-drops/specimens/cove/02-collage";
+  return (
+    <figure className="drops-live-photo drops-live-collage">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={publicCldImageUrlKnockoutWhite(publicId, 2)}
+        srcSet={publicCldImageSrcSetKnockoutWhite(publicId) || undefined}
+        alt="Cove — softest form of nature"
+        loading="lazy"
+        decoding="async"
+      />
+    </figure>
+  );
+}
+
+function CovePebblesBlock({ locale = "tr" }: { locale?: Locale }) {
+  const pangram = normalizeDropFontText(
+    "Pijamalı hasta yağız şoföre çabucak güvendi.",
+    "cove",
+    locale,
+  );
   return (
     <article className="drops-live-block drops-live-block--pebbles">
       <p className="drops-live-display drops-live-display--cove drops-live-pebbles">
-        Born from pebbles, simple and cool.
+        {pangram}
       </p>
     </article>
   );
@@ -252,7 +280,7 @@ export function isLiveGalleryIndex(slug: string, index: number): boolean {
   if (slug === "marzano") return index === 0 || index === 1 || index === 2 || index === 3;
   /* Local alphabet: landscape canlı bloğu (portre bg kırpılır) */
   if (slug === "local") return index === 1 || index === 3;
-  if (slug === "cove") return index === 0 || index === 2;
+  if (slug === "cove") return index === 0 || index === 1 || index === 2;
   return false;
 }
 
@@ -279,7 +307,8 @@ export function DropSpecimenLiveBlock({
     if (index === 3) return <LocalWineLive locale={locale} />;
   }
   if (slug === "cove") {
-    if (index === 0) return <CovePebblesBlock />;
+    if (index === 0) return <CovePebblesBlock locale={locale} />;
+    if (index === 1) return <CoveCollageLive />;
     if (index === 2) return <CoveCapAlphabetLive locale={locale} />;
   }
   return null;
