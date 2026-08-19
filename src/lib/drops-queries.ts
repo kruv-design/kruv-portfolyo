@@ -6,13 +6,31 @@ import {
   getDemoDropFont,
   getDemoDropPacks,
 } from "@/lib/drops-demo-data";
+import type {
+  DropDownloadRow,
+  DropFont,
+  DropFontEventRow,
+  DropPack,
+  DropPackWithFonts,
+} from "@/types";
 
 function downloadFilename(slug: string, url: string, fallbackExt: string): string {
   const path = url.split("?")[0]?.toLowerCase() ?? "";
   const match = path.match(/\.(ttf|otf|woff2|zip)$/);
   return `${slug}.${match?.[1] ?? fallbackExt}`;
 }
-import type { DropDownloadRow, DropFont, DropPack, DropPackWithFonts } from "@/types";
+
+function nestedName(
+  value: unknown,
+): { name: string; slug: string } {
+  const row = Array.isArray(value) ? value[0] : value;
+  if (!row || typeof row !== "object") return { name: "", slug: "" };
+  const rec = row as { name?: unknown; slug?: unknown; baslik?: unknown };
+  return {
+    name: String(rec.name ?? rec.baslik ?? ""),
+    slug: String(rec.slug ?? ""),
+  };
+}
 
 function attachFonts(
   packs: DropPack[],
@@ -107,24 +125,82 @@ export async function getDropDownloadsAdmin(): Promise<DropDownloadRow[]> {
 
   try {
     const sb = supabaseAdmin();
-    const { data, error } = await sb
+    const withJoin = await sb
       .from("drop_downloads")
-      .select("*")
+      .select("*, drop_fonts(name, slug), drop_packs(baslik, slug)")
       .order("created_at", { ascending: false })
-      .limit(500);
+      .limit(2000);
+    const result = withJoin.error
+      ? await sb
+          .from("drop_downloads")
+          .select("*")
+          .order("created_at", { ascending: false })
+          .limit(2000)
+      : withJoin;
+    if (result.error) throw result.error;
+    return (result.data ?? []).map((row) => {
+      const font = nestedName(row.drop_fonts);
+      const pack = nestedName(row.drop_packs);
+      return {
+        id: String(row.id),
+        name: String(row.name ?? ""),
+        email: String(row.email ?? ""),
+        pack_id: row.pack_id ? String(row.pack_id) : null,
+        font_id: row.font_id ? String(row.font_id) : null,
+        download_type: row.download_type as "font" | "pack",
+        ip_hash: String(row.ip_hash ?? ""),
+        user_agent: String(row.user_agent ?? ""),
+        locale: String(row.locale ?? "tr"),
+        created_at: String(row.created_at ?? ""),
+        referrer: String(row.referrer ?? ""),
+        page: String(row.page ?? ""),
+        source: String(row.source ?? ""),
+        country: String(row.country ?? ""),
+        session_id: String(row.session_id ?? ""),
+        font_name: font.name,
+        font_slug: font.slug,
+        pack_name: pack.name,
+        pack_slug: pack.slug,
+      };
+    });
+  } catch {
+    return [];
+  }
+}
+
+export async function getDropFontEventsAdmin(): Promise<DropFontEventRow[]> {
+  if (isPlaceholderEnv()) return [];
+
+  try {
+    const sb = supabaseAdmin();
+    const { data, error } = await sb
+      .from("site_events")
+      .select("id, event_name, page, props, referrer, created_at")
+      .in("event_name", [
+        "drop_font_click",
+        "drop_font_view",
+        "drop_download_open",
+        "drop_download",
+      ])
+      .order("created_at", { ascending: false })
+      .limit(2000);
     if (error) throw error;
-    return (data ?? []).map((row) => ({
-      id: String(row.id),
-      name: String(row.name ?? ""),
-      email: String(row.email ?? ""),
-      pack_id: row.pack_id ? String(row.pack_id) : null,
-      font_id: row.font_id ? String(row.font_id) : null,
-      download_type: row.download_type as "font" | "pack",
-      ip_hash: String(row.ip_hash ?? ""),
-      user_agent: String(row.user_agent ?? ""),
-      locale: String(row.locale ?? "tr"),
-      created_at: String(row.created_at ?? ""),
-    }));
+    return (data ?? []).map((row) => {
+      const props =
+        row.props && typeof row.props === "object"
+          ? (row.props as Record<string, unknown>)
+          : {};
+      return {
+        id: Number(row.id),
+        event_name: String(row.event_name ?? ""),
+        page: String(row.page ?? ""),
+        referrer: String(row.referrer ?? ""),
+        font: String(props.font ?? ""),
+        pack: String(props.pack ?? ""),
+        action: String(props.action ?? props.source ?? ""),
+        created_at: String(row.created_at ?? ""),
+      };
+    });
   } catch {
     return [];
   }

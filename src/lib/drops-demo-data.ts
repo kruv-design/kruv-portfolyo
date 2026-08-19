@@ -47,7 +47,7 @@ const DEMO_FONTS: DropFont[] = [
     slug: "local",
     name: "Local",
     aciklama:
-      "El yazısının ritmini koruyan Local — bireysel, sıcak ve yapmacıksız.",
+      "tasarımcının el yazısından oluşan yapmacıksız ve bireysel.",
     description:
       "Local keeps the rhythm of handwriting — personal, warm, and unforced.",
     preview_text: "the story of roots",

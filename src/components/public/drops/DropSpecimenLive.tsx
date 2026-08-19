@@ -141,18 +141,11 @@ function MarzanoBagLive() {
 function MarzanoHomemadeBlock() {
   return (
     <article className="drops-live-block drops-live-block--homemade" lang="en">
-      <div className="drops-live-block__row">
-        <LivePhoto
-          publicId={DROP_LIVE_PHOTOS.marzano.homemadePasta}
-          alt="Homemade pasta"
-          className="drops-live-block__photo"
-        />
-        <div className="drops-live-stagger drops-live-display drops-live-display--marzano drops-live-stagger--homemade" aria-label="homemade pasta with olive">
-          <p>homemade</p>
-          <p>pasta</p>
-          <p>with</p>
-          <p>olive</p>
-        </div>
+      <div className="drops-live-stagger drops-live-display drops-live-display--marzano drops-live-stagger--homemade" aria-label="homemade pasta with olive">
+        <p>homemade</p>
+        <p>pasta</p>
+        <p>with</p>
+        <p>olive</p>
       </div>
       <div className="drops-live-block__row drops-live-block__row--bottom">
         {/* eslint-disable-next-line @next/next/no-img-element */}

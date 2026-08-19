@@ -504,6 +504,10 @@ export const dropDownloadBodySchema = z.object({
   type: z.enum(["font", "pack"]),
   locale: z.enum(["tr", "en"]).optional().default("tr"),
   hp: z.string().optional().default(""),
+  referrer: z.string().max(500).optional().default(""),
+  page: z.string().max(512).optional().default(""),
+  source: z.enum(["listing", "detail"]).optional().default("listing"),
+  session_id: z.string().max(128).optional().default(""),
 });
 
 export type DropDownloadBody = z.infer<typeof dropDownloadBodySchema>;

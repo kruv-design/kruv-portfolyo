@@ -6,12 +6,15 @@ import { KruvStarIcon } from "@/components/public/KruvStarIcon";
 import { SocialFooterLinks } from "@/components/public/SocialFooterLinks";
 import type { Messages } from "@/lib/i18n/get-messages";
 import type { SiteSettings } from "@/types";
+import { getDropTrafficContext, type DropDownloadUiSource } from "@/lib/drops-traffic";
+import { track } from "@/lib/analytics/track";
 
 export type DownloadRequest = {
   packSlug: string;
   fontSlug?: string;
   type: "font" | "pack";
   label: string;
+  source: DropDownloadUiSource;
 };
 
 type Props = {
@@ -88,6 +91,7 @@ export function DownloadModal({
 
     start(async () => {
       try {
+        const traffic = getDropTrafficContext(request.source);
         const res = await fetch("/api/drops/download", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -99,6 +103,10 @@ export function DownloadModal({
             type: request.type,
             locale,
             hp: "",
+            referrer: traffic.referrer,
+            page: traffic.page,
+            source: traffic.source,
+            session_id: traffic.session_id,
           }),
         });
         const json = (await res.json()) as {
@@ -112,6 +120,12 @@ export function DownloadModal({
           return;
         }
         sessionStorage.setItem(LEAD_KEY, JSON.stringify({ name, email }));
+        track("drop_download", {
+          pack: request.packSlug,
+          font: request.fontSlug ?? "",
+          type: request.type,
+          source: request.source,
+        });
         if (json.url) {
           const a = document.createElement("a");
           a.href = json.url;

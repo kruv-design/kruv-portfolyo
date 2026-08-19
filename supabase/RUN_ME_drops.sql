@@ -47,6 +47,11 @@ create table if not exists public.drop_downloads (
   ip_hash       text default '',
   user_agent    text default '',
   locale        text default 'tr',
+  referrer      text default '',
+  page          text default '',
+  source        text default '',
+  country       text default '',
+  session_id    text default '',
   created_at    timestamptz not null default now()
 );
 
@@ -106,7 +111,7 @@ cross join (values
    'kruv-drops/photos/marzano/card-bg',
    'https://res.cloudinary.com/di0qbhh46/raw/upload/v1785337257/MARZANO-Regular_ogmtz8.ttf', 0),
   ('local', 'Local',
-   'El yazısının ritmini koruyan Local — bireysel, sıcak ve yapmacıksız.',
+   'tasarımcının el yazısından oluşan yapmacıksız ve bireysel.',
    'Local keeps the rhythm of handwriting — personal, warm, and unforced.',
    'the story of roots', 'cool without effort',
    'kruv-drops/photos/local/card-bg',
@@ -120,3 +125,14 @@ cross join (values
 ) as v(slug, name, aciklama, description, preview_text, tester_default_text, hero_image, font_url, sort_order)
 where p.slug = 'summer-pack'
 on conflict (pack_id, slug) do nothing;
+
+alter table public.drop_downloads
+  add column if not exists referrer text default '',
+  add column if not exists page text default '',
+  add column if not exists source text default '',
+  add column if not exists country text default '',
+  add column if not exists session_id text default '';
+
+create index if not exists drop_downloads_font_idx on public.drop_downloads (font_id);
+create index if not exists drop_downloads_pack_idx on public.drop_downloads (pack_id);
+create index if not exists drop_downloads_session_idx on public.drop_downloads (session_id);

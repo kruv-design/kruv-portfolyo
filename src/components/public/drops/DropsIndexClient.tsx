@@ -62,6 +62,7 @@ export function DropsIndexClient({ packs, locale, messages, settings }: Props) {
                     fontSlug: font.slug,
                     type: "font",
                     label: t(messages, "drops.downloadFont"),
+                    source: "listing",
                   })
                 }
               />

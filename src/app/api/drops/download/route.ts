@@ -5,6 +5,7 @@ import { dropDownloadBodySchema } from "@/lib/validators";
 import { extractClientIp, checkContactRateLimit } from "@/lib/rate-limit";
 import { resolveDownloadTarget } from "@/lib/drops-queries";
 import { cldRawUrl } from "@/lib/cloudinary";
+import { sendDropDownloadNotify } from "@/lib/drops-email";
 
 export const dynamic = "force-dynamic";
 
@@ -24,7 +25,19 @@ export async function POST(req: Request) {
     );
   }
 
-  const { name, email, packSlug, fontSlug, type, locale, hp } = parsed.data;
+  const {
+    name,
+    email,
+    packSlug,
+    fontSlug,
+    type,
+    locale,
+    hp,
+    referrer,
+    page,
+    source,
+    session_id,
+  } = parsed.data;
   if (hp.trim()) {
     return NextResponse.json({ ok: true, url: "" });
   }
@@ -55,6 +68,13 @@ export async function POST(req: Request) {
   const salt = process.env.WAITLIST_IP_SALT ?? "dev";
   const ip_hash = createHash("sha256").update(`${ip}:${salt}`).digest("hex");
   const user_agent = req.headers.get("user-agent") ?? "";
+  const country = (
+    req.headers.get("x-vercel-ip-country") ??
+    req.headers.get("cf-ipcountry") ??
+    ""
+  )
+    .toUpperCase()
+    .slice(0, 8);
 
   let downloadUrl = target.downloadUrl;
   if (!/^https?:\/\//i.test(downloadUrl)) {
@@ -63,7 +83,7 @@ export async function POST(req: Request) {
 
   try {
     const sb = supabaseAdmin();
-    const { error } = await sb.from("drop_downloads").insert({
+    const baseRow = {
       name: name.trim(),
       email: email.trim().toLowerCase(),
       pack_id: target.pack.id.startsWith("demo-") ? null : target.pack.id,
@@ -75,12 +95,45 @@ export async function POST(req: Request) {
       ip_hash,
       user_agent: user_agent.slice(0, 500),
       locale,
-    });
+    };
+    const trafficRow = {
+      ...baseRow,
+      referrer: referrer.slice(0, 500),
+      page: page.slice(0, 512),
+      source,
+      country,
+      session_id: session_id.slice(0, 128),
+    };
+    const { error } = await sb.from("drop_downloads").insert(trafficRow);
     if (error) {
-      console.error("[drops/download] db", error);
+      const { error: fallbackError } = await sb
+        .from("drop_downloads")
+        .insert(baseRow);
+      if (fallbackError) {
+        console.error("[drops/download] db", fallbackError);
+      } else {
+        console.error("[drops/download] traffic columns missing — ran fallback insert", error.message);
+      }
     }
   } catch (e) {
     console.error("[drops/download] db", e);
+  }
+
+  try {
+    await sendDropDownloadNotify({
+      name: name.trim(),
+      email: email.trim().toLowerCase(),
+      packTitle: target.pack.baslik || target.pack.slug,
+      fontName: target.font?.name || target.font?.slug || "",
+      downloadType: type,
+      source,
+      page,
+      referrer,
+      country,
+      locale,
+    });
+  } catch (e) {
+    console.error("[drops/download] email", e);
   }
 
   return NextResponse.json({

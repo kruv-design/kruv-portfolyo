@@ -300,4 +300,24 @@ export type DropDownloadRow = {
   user_agent: string;
   locale: string;
   created_at: string;
+  referrer: string;
+  page: string;
+  source: string;
+  country: string;
+  session_id: string;
+  font_name: string;
+  font_slug: string;
+  pack_name: string;
+  pack_slug: string;
+};
+
+export type DropFontEventRow = {
+  id: number;
+  event_name: string;
+  page: string;
+  referrer: string;
+  font: string;
+  pack: string;
+  action: string;
+  created_at: string;
 };

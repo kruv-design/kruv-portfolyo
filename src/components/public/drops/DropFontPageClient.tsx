@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { track } from "@/lib/analytics/track";
 import type { DropFont, DropPackWithFonts } from "@/types";
 import type { Locale } from "@/lib/i18n/config";
 import type { Messages } from "@/lib/i18n/get-messages";
@@ -31,6 +32,10 @@ export function DropFontPageClient({
   const [downloadReq, setDownloadReq] = useState<DownloadRequest | null>(null);
   const openDownload = useCallback((req: DownloadRequest) => setDownloadReq(req), []);
   const closeDownload = useCallback(() => setDownloadReq(null), []);
+
+  useEffect(() => {
+    track("drop_font_view", { pack: pack.slug, font: font.slug, source: "detail" });
+  }, [pack.slug, font.slug]);
 
   const testerDefault =
     font.tester_default_text.trim() || font.preview_text.trim() || font.name;
@@ -71,14 +76,21 @@ export function DropFontPageClient({
           <button
             type="button"
             className="drops-specimen-intro__cta"
-            onClick={() =>
+            onClick={() => {
+              track("drop_download_open", {
+                pack: pack.slug,
+                font: font.slug,
+                source: "detail",
+                action: "download",
+              });
               openDownload({
                 packSlug: pack.slug,
                 fontSlug: font.slug,
                 type: "font",
                 label: t(messages, "drops.downloadFont"),
-              })
-            }
+                source: "detail",
+              });
+            }}
           >
             {t(messages, "drops.downloadFont")}
           </button>
@@ -86,13 +98,20 @@ export function DropFontPageClient({
             <button
               type="button"
               className="drops-specimen-intro__cta drops-specimen-intro__cta--secondary"
-              onClick={() =>
+              onClick={() => {
+                track("drop_download_open", {
+                  pack: pack.slug,
+                  font: font.slug,
+                  source: "detail",
+                  action: "pack",
+                });
                 openDownload({
                   packSlug: pack.slug,
                   type: "pack",
                   label: t(messages, "drops.downloadPack"),
-                })
-              }
+                  source: "detail",
+                });
+              }}
             >
               {t(messages, "drops.downloadPack")}
             </button>

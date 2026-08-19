@@ -8,6 +8,7 @@ import { resolveDropCardHeroPublicId } from "@/lib/drops-card-hero-assets";
 import { resolveDropImageSrcSet, resolveDropImageUrl } from "@/lib/drops-specimen-assets";
 import { dropFontFamily, normalizeDropFontText } from "@/lib/drops-font-assets";
 import { DropFontFace } from "./DropFontFace";
+import { track } from "@/lib/analytics/track";
 
 type Props = {
   packSlug: string;
@@ -51,6 +52,8 @@ export function DropFontCard({
     .map((line) => line.trim())
     .filter(Boolean);
 
+  const clickProps = { pack: packSlug, font: font.slug, source: "listing" as const };
+
   return (
     <article
       className={`drops-font-card drops-font-card--${font.slug}`}
@@ -73,7 +76,12 @@ export function DropFontCard({
             decoding="async"
           />
         ) : null}
-        <Link href={detailHref} className="drops-font-card__hit" aria-label={`${font.name} — ${labels.details}`} />
+        <Link
+          href={detailHref}
+          className="drops-font-card__hit"
+          aria-label={`${font.name} — ${labels.details}`}
+          onClick={() => track("drop_font_click", { ...clickProps, action: "card" })}
+        />
         <div className="drops-font-card__overlay" aria-hidden />
         <div
           className={`drops-font-card__preview drops-drop-type drops-font-card__preview--${font.slug}`}
@@ -89,11 +97,18 @@ export function DropFontCard({
           <button
             type="button"
             className="drops-font-card__btn drops-font-card__btn--ghost"
-            onClick={onDownload}
+            onClick={() => {
+              track("drop_download_open", { ...clickProps, action: "download" });
+              onDownload();
+            }}
           >
             {labels.download}
           </button>
-          <Link href={detailHref} className="drops-font-card__btn drops-font-card__btn--primary">
+          <Link
+            href={detailHref}
+            className="drops-font-card__btn drops-font-card__btn--primary"
+            onClick={() => track("drop_font_click", { ...clickProps, action: "details" })}
+          >
             {labels.details}
           </Link>
         </div>
