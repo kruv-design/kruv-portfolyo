@@ -3951,7 +3951,7 @@ i {
   container-type: inline-size;
   container-name: drops-font-card;
   line-height: 0;
-  background: color-mix(in srgb, var(--black-fixed) 12%, transparent);
+  background: var(--bg);
 }
 
 .drops-font-card__bg {
@@ -4348,14 +4348,18 @@ i {
 
 .drops-specimen-figure {
   margin: 0;
+  background: var(--bg);
   border-radius: clamp(12px, 3.2vw, 46px);
   overflow: hidden;
+  -webkit-mask-image: linear-gradient(#fff 0 0);
+  mask-image: linear-gradient(#fff 0 0);
 }
 
 .drops-specimen-figure img {
   display: block;
   width: 100%;
   height: auto;
+  border-radius: inherit;
 }
 
 /* Canlı specimen — @font-face + SVG vektörler */
@@ -4491,6 +4495,7 @@ i {
 
 .drops-live-photo--bag {
   margin: 0;
+  background: var(--bg);
   border-radius: clamp(12px, 3.2vw, 46px);
   overflow: hidden;
   line-height: 0;
@@ -4601,6 +4606,7 @@ i {
 /* Görsel üstü canlı katmanlar — foto doğal oranında, kırpma yok */
 .drops-live-overlay {
   position: relative;
+  background: var(--bg);
   border-radius: clamp(12px, 3.2vw, 46px);
   overflow: hidden;
 }
@@ -4609,20 +4615,26 @@ i {
   position: relative;
   display: block;
   line-height: 0;
+  background: var(--bg);
   border-radius: inherit;
   overflow: hidden;
   isolation: isolate;
+  /* mix-blend köşeyi kare kutuda bırakmasın */
+  -webkit-mask-image: linear-gradient(#fff 0 0);
+  mask-image: linear-gradient(#fff 0 0);
 }
 
 .drops-live-overlay__bg {
   display: block;
   width: 100%;
   height: auto;
+  border-radius: inherit;
 }
 
 .drops-live-overlay__tint {
   position: absolute;
   inset: 0;
+  border-radius: inherit;
   mix-blend-mode: hue;
   pointer-events: none;
 }
@@ -4658,6 +4670,7 @@ i {
 .drops-live-overlay__scrim {
   position: absolute;
   inset: 0;
+  border-radius: inherit;
   pointer-events: none;
 }
 
@@ -4763,10 +4776,6 @@ i {
   .drops-live-marzano-hero__alphabet {
     font-size: 7.2cqi;
   }
-}
-
-.drops-live-overlay--local-hero {
-  background: var(--bg);
 }
 
 .drops-live-overlay--local-hero .drops-live-overlay__frame {
@@ -5048,13 +5057,23 @@ i {
 }
 
 .drops-live-overlay--local-wine .drops-live-overlay__frame {
+  aspect-ratio: 1316 / 1020;
   container-type: inline-size;
+}
+
+.drops-live-overlay--local-wine .drops-live-overlay__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .drops-live-overlay--local-wine .drops-live-overlay__content {
   align-items: flex-end;
   justify-content: flex-start;
-  padding: clamp(var(--space-5), 4cqi, var(--space-10));
+  padding: 4.1cqi 4.1cqi 0;
 }
 
 .drops-live-wine-caption {
@@ -5062,11 +5081,10 @@ i {
   flex-direction: column;
   align-items: flex-end;
   min-width: 0;
-  max-width: 100%;
   margin: 0;
   font-family: var(--font-drop-active, var(--font-display));
-  font-size: clamp(1.15rem, 3.4cqi + 0.35rem, 1.85rem);
-  line-height: 1.12;
+  font-size: clamp(0.95rem, 2.35cqi, 1.85rem);
+  line-height: 1.06;
   letter-spacing: 0.01em;
   text-align: right;
   text-transform: lowercase;
@@ -5075,23 +5093,16 @@ i {
 
 .drops-live-wine-caption span {
   display: block;
-  max-width: 100%;
+  white-space: nowrap;
 }
 
 @media (max-width: 767px) {
   .drops-live-overlay--local-wine .drops-live-overlay__content {
-    align-items: flex-end;
-    justify-content: flex-start;
-    padding: var(--space-5) var(--space-4);
+    padding: var(--space-4);
   }
 
   .drops-live-wine-caption {
-    font-size: clamp(1.28rem, 6.8cqi, 1.7rem);
-    line-height: 1.16;
-  }
-
-  .drops-live-wine-caption span {
-    white-space: nowrap;
+    font-size: clamp(0.9rem, 4.4cqi, 1.25rem);
   }
 }
 
