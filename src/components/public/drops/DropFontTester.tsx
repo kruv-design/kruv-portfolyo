@@ -31,21 +31,26 @@ export function DropFontTester({
   samplePhrases,
   labels,
 }: Props) {
+  const storageKey = `${STORAGE_KEY}:${fontSlug}`;
   const [text, setText] = useState(defaultText);
   const [size, setSize] = useState(DEFAULT_SIZE);
 
   useEffect(() => {
     try {
-      const saved = sessionStorage.getItem(STORAGE_KEY);
-      if (saved) setText(saved);
+      const saved = sessionStorage.getItem(storageKey);
+      setText(saved && saved.trim() ? saved : defaultText);
+    } catch {
+      setText(defaultText);
+    }
+  }, [storageKey, defaultText]);
+
+  useEffect(() => {
+    try {
+      sessionStorage.setItem(storageKey, text);
     } catch {
       /* ignore */
     }
-  }, []);
-
-  useEffect(() => {
-    sessionStorage.setItem(STORAGE_KEY, text);
-  }, [text]);
+  }, [storageKey, text]);
 
   function clamp(n: number) {
     return Math.min(MAX_SIZE, Math.max(MIN_SIZE, n));
@@ -64,7 +69,7 @@ export function DropFontTester({
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder={placeholder}
-            rows={2}
+            rows={3}
           />
         </label>
         <div className="drops-tester__size-row">

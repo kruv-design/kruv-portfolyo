@@ -51,7 +51,8 @@ const DEMO_FONTS: DropFont[] = [
     description:
       "Local keeps the rhythm of handwriting — personal, warm, and unforced.",
     preview_text: "the story of roots",
-    tester_default_text: "cool without effort",
+    tester_default_text:
+      "A tribute to the designer's handwriting. Tasarımcının defterinden geldi, kusurlu kalsın. Samimi, ours — still from the hand.",
     tester_placeholder: "",
     hero_image: DROP_HERO_IMAGES.local,
     font_file_url: DROP_FONT_FILES.local,
@@ -72,7 +73,8 @@ const DEMO_FONTS: DropFont[] = [
     description:
       "Born from pebbles, simple and cool — Cove brings the softest forms of nature to display typography.",
     preview_text: "The softest form\nof nature",
-    tester_default_text: "Born from pebbles, simple and cool.",
+    tester_default_text:
+      "Born from pebbles, held by denge. Doğa sakin, form soft. Simple and cool — a quiet balance.",
     tester_placeholder: "",
     hero_image: DROP_HERO_IMAGES.cove,
     font_file_url: DROP_FONT_FILES.cove,

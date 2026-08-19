@@ -14,6 +14,24 @@ import { DropFontTester } from "./DropFontTester";
 import { DropSpecimenImages } from "./DropSpecimenImages";
 import { DownloadModal, type DownloadRequest } from "./DownloadModal";
 
+const LOCAL_TESTER_DEFAULT =
+  "A tribute to the designer's handwriting. Tasarımcının defterinden geldi, kusurlu kalsın. Samimi, ours — still from the hand.";
+
+const LOCAL_TESTER_SAMPLES = [
+  "a tribute to el yazısı",
+  "kusurlu, samimi, ours",
+  "from the hand, defterden",
+];
+
+const COVE_TESTER_DEFAULT =
+  "Born from pebbles, held by denge. Doğa sakin, form soft. Simple and cool — a quiet balance.";
+
+const COVE_TESTER_SAMPLES = [
+  "doğa ve denge",
+  "born from pebbles, still cool",
+  "sakin form, in balance",
+];
+
 type Props = {
   pack: DropPackWithFonts;
   font: DropFont;
@@ -38,7 +56,20 @@ export function DropFontPageClient({
   }, [pack.slug, font.slug]);
 
   const testerDefault =
-    font.tester_default_text.trim() || font.preview_text.trim() || font.name;
+    font.slug === "local"
+      ? LOCAL_TESTER_DEFAULT
+      : font.slug === "cove"
+        ? COVE_TESTER_DEFAULT
+        : font.tester_default_text.trim() || font.preview_text.trim() || font.name;
+
+  const testerSamples =
+    font.slug === "local"
+      ? LOCAL_TESTER_SAMPLES
+      : font.slug === "cove"
+        ? COVE_TESTER_SAMPLES
+        : locale === "tr"
+          ? [font.preview_text, "Paylaşmaya değer markalar"]
+          : [font.preview_text, "Brands worth sharing"];
 
   return (
     <div
@@ -131,11 +162,7 @@ export function DropFontPageClient({
         locale={locale}
         defaultText={testerDefault}
         placeholder={font.tester_placeholder || testerDefault}
-        samplePhrases={
-          locale === "tr"
-            ? [font.preview_text, "Paylaşmaya değer markalar"]
-            : [font.preview_text, "Brands worth sharing"]
-        }
+        samplePhrases={testerSamples}
         labels={{
           input: t(messages, "drops.testerInput"),
           size: t(messages, "drops.testerSize"),

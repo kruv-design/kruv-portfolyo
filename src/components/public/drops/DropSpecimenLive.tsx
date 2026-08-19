@@ -52,13 +52,13 @@ function MarzanoHeroLive({ locale = "tr" }: { locale?: Locale }) {
       alt="Marzano pizza specimen"
       className="drops-live-overlay--marzano-hero"
       scrim="dark"
-      beforeContent={
-        <p className="drops-live-marzano-hero__numbers">{DROP_ALPHABET_NUMBERS}</p>
-      }
     >
-      <p className="drops-live-marzano-hero__title">
-        {normalizeDropFontText("TOMATO", "marzano", locale)}
-      </p>
+      <div className="drops-live-marzano-hero__top">
+        <p className="drops-live-marzano-hero__title">
+          {normalizeDropFontText("TOMATO", "marzano", locale)}
+        </p>
+        <p className="drops-live-marzano-hero__numbers">{DROP_ALPHABET_NUMBERS}</p>
+      </div>
       <p className="drops-live-marzano-hero__alphabet">{alphabet}</p>
     </DropSpecimenOverlay>
   );

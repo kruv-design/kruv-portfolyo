@@ -3943,6 +3943,12 @@ i {
   gap: var(--space-6); /* Figma 24px */
 }
 
+@media (max-width: 767px) {
+  .drops-pack-section__cards {
+    gap: var(--space-2); /* Figma ~7px */
+  }
+}
+
 .drops-font-card {
   display: block;
 }
@@ -4115,11 +4121,41 @@ i {
 }
 
 @media (max-width: 767px) {
+  /* Figma drops mobil kart: 361×270 — masaüstü 1316×651 basık kalıyordu */
+  .drops-font-card__media {
+    --drops-card-w: 361;
+    --drops-card-h: 270;
+    aspect-ratio: 361 / 270;
+  }
+
+  .drops-font-card__preview {
+    justify-content: center;
+    padding-inline: var(--space-4);
+    padding-top: var(--space-4);
+    padding-bottom: 4.5rem; /* buton sırası için yer */
+  }
+
+  .drops-font-card__preview--marzano {
+    font-size: clamp(2rem, 14.96cqi, 3.375rem); /* Figma 54px @ 361 */
+  }
+
+  .drops-font-card__preview--local {
+    font-size: clamp(1.5rem, 9.02cqi, 2.05rem); /* Figma 32.56px @ 361 */
+  }
+
+  .drops-font-card__preview--cove {
+    font-size: clamp(1.5rem, 10.34cqi, 2.35rem); /* Figma 37.3px @ 361 */
+    width: 34.7cqi; /* Figma 125 / 361 */
+    max-width: 8.5rem;
+  }
+
   .drops-font-card__actions {
     right: 0;
     left: 0;
     bottom: 18px;
     justify-content: center;
+    flex-wrap: nowrap;
+    gap: var(--space-3);
   }
 }
 
@@ -4148,6 +4184,14 @@ i {
 .drops-font-card__btn--primary {
   background: var(--accent);
   color: var(--white-fixed);
+}
+
+@media (max-width: 767px) {
+  .drops-font-card__btn {
+    min-height: 2.5rem; /* Figma 40px */
+    padding: 0.75rem 1.25rem;
+    white-space: nowrap;
+  }
 }
 
 .drops-specimen-header {
@@ -4715,7 +4759,7 @@ i {
   pointer-events: none;
 }
 
-/* Figma 4496:2866 — 1321×1500 slide; üstten biraz daha kırpılır */
+/* Figma 4496:2866 — pizza yukarı, alfabe yeşil zeminde kalsın */
 .drops-live-overlay--marzano-hero .drops-live-overlay__frame {
   aspect-ratio: 1321 / 1380;
   container-type: inline-size;
@@ -4727,14 +4771,21 @@ i {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 40%;
+  object-position: center 68%;
 }
 
 .drops-live-overlay--marzano-hero .drops-live-overlay__content {
   align-items: center;
   justify-content: space-between;
   gap: 0;
-  padding: 7.5cqi 6.5cqi 5.5cqi;
+  padding: 7.5cqi 6.5cqi 7cqi;
+}
+
+.drops-live-marzano-hero__top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .drops-live-marzano-hero__title {
@@ -4752,17 +4803,11 @@ i {
 }
 
 .drops-live-marzano-hero__numbers {
-  position: absolute;
-  z-index: 2;
-  left: 76.07%;
-  top: 24%;
-  right: auto;
-  width: 37.86%;
-  max-width: none;
-  margin: 0;
-  transform: translate(-50%, -50%);
+  margin: 0.12em 0 0;
+  width: 100%;
+  max-width: 100%;
   font-family: var(--font-drop-active, var(--font-display));
-  font-size: 8.2cqi;
+  font-size: 13.5cqi;
   line-height: 0.84;
   letter-spacing: -0.03em;
   text-transform: uppercase;
@@ -4792,9 +4837,7 @@ i {
   }
 
   .drops-live-marzano-hero__numbers {
-    top: 26%;
-    width: 52%;
-    font-size: 6.4cqi;
+    font-size: 11cqi;
   }
 
   .drops-live-marzano-hero__alphabet {
@@ -4818,7 +4861,7 @@ i {
 .drops-live-overlay--local-hero .drops-live-overlay__content {
   align-items: center;
   justify-content: center;
-  padding: 6cqi;
+  padding: 8cqi 6cqi 28%;
 }
 
 .drops-live-local-hero__stack {
@@ -5153,6 +5196,16 @@ i {
 
 .drops-live-overlay--cove-hero .drops-live-overlay__frame {
   container-type: inline-size;
+  aspect-ratio: 3 / 2;
+}
+
+.drops-live-overlay--cove-hero .drops-live-overlay__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .drops-live-block--cove-cap {
