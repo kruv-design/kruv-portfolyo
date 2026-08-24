@@ -109,20 +109,20 @@ cross join (values
    'Designed with fluid forms and iconic tomato touches, our Marzano font offers a timeless typographic experience.',
    E'Designed,\nbaked,\nand served.', 'Designed, baked, and served.',
    'kruv-drops/photos/marzano/card-bg',
-   'https://res.cloudinary.com/di0qbhh46/raw/upload/v1785337257/MARZANO-Regular_ogmtz8.ttf', 0),
+   '/drops/fonts/MARZANO-Regular.ttf', 0),
   ('local', 'Local',
    'yapmacıksız. olduğu gibi. ham. premium.',
    'yapmacıksız. olduğu gibi. ham. premium.',
    'the story of roots',
    'A tribute to the designer''s handwriting.',
    'kruv-drops/photos/local/card-bg',
-   'https://res.cloudinary.com/di0qbhh46/raw/upload/v1785337240/Local-Regular_ce75fi.ttf', 1),
+   '/drops/fonts/Local-Regular.ttf', 1),
   ('cove', 'Cove',
    'Doğanın en yumuşak formlarından ilham alan Cove, sade ve cool bir display karakter sunar.',
    'Born from pebbles, simple and cool — Cove brings the softest forms of nature.',
    'The softest form of nature', 'Born from pebbles, simple and cool.',
    'kruv-drops/photos/cove/card-bg',
-   'https://res.cloudinary.com/di0qbhh46/raw/upload/v1785337238/Cove-Regular_a7jne9.ttf', 2)
+   '/drops/fonts/Cove-Regular.ttf', 2)
 ) as v(slug, name, aciklama, description, preview_text, tester_default_text, hero_image, font_url, sort_order)
 where p.slug = 'summer-pack'
 on conflict (pack_id, slug) do nothing;

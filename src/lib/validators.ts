@@ -405,8 +405,8 @@ const fileUrlOrEmpty = z
   .optional()
   .default("")
   .refine(
-    (s) => !s || /^https?:\/\//i.test(s),
-    "Dosya: https://… URL girin.",
+    (s) => !s || /^https?:\/\//i.test(s) || s.startsWith("/drops/"),
+    "Dosya: https://… URL veya /drops/… yolu girin.",
   );
 
 export const dropSpecimenBlockSchema = z.union([

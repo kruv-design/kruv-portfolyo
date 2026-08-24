@@ -4067,7 +4067,7 @@ i {
   max-width: 100%;
   box-sizing: border-box;
   margin-inline: auto;
-  font-size: clamp(1rem, 4.5cqi, 3.75rem);
+  font-size: clamp(1.175rem, 4.85cqi, 4rem); /* web ~+2pt */
   letter-spacing: 0.04em;
   line-height: 1;
   text-align: center;
@@ -4145,7 +4145,7 @@ i {
   }
 
   .drops-font-card__preview--marzano {
-    font-size: clamp(1.75rem, 14.1cqi, 3.1875rem); /* ~51px @ 361; 54px’den ~3pt */
+    font-size: clamp(1.625rem, 13.55cqi, 3.0625rem); /* ~49px @ 361, ~2pt küçük */
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
@@ -4159,7 +4159,7 @@ i {
   }
 
   .drops-font-card__preview--cove {
-    font-size: clamp(0.75rem, 5.3cqi, 1.25rem); /* ~19px @ 361 */
+    font-size: clamp(0.85rem, 5.85cqi, 1.375rem); /* ~21px @ 361, ~2pt büyük */
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
@@ -4358,28 +4358,40 @@ i {
 }
 
 .drops-download-stick__name {
+  display: flex;
+  align-items: center;
   margin: 0;
   min-width: 0;
+  min-height: 2.75rem;
   color: var(--white-fixed);
-  line-height: 0.62;
+  line-height: 1;
   letter-spacing: 0.02em;
   white-space: nowrap;
-  overflow: hidden;
 }
 
 .drops-font-scope--marzano .drops-download-stick__name {
   font-size: clamp(2rem, 7.42vw, 6.1rem);
   text-transform: uppercase;
+  line-height: 0.72;
+  overflow: hidden;
+  text-box-trim: trim-both;
+  text-box-edge: cap alphabetic;
+  transform: translateY(0.08em);
 }
 
 .drops-font-scope--local .drops-download-stick__name {
   font-size: clamp(1.75rem, 4.1vw, 3.37rem);
-  text-transform: lowercase;
+  text-transform: none;
+  line-height: 1;
+  overflow: visible;
+  text-box-trim: none;
+  transform: none;
 }
 
 .drops-font-scope--cove .drops-download-stick__name {
   font-size: clamp(2rem, 6.08vw, 5rem);
   text-transform: uppercase;
+  overflow: hidden;
 }
 
 .drops-download-stick__btn {
@@ -4410,8 +4422,13 @@ i {
     padding: 0.625rem 0.75rem;
   }
 
+  .drops-download-stick__name {
+    min-height: 2.25rem;
+  }
+
   .drops-font-scope--marzano .drops-download-stick__name {
     font-size: clamp(1.5rem, 12.9cqi, 3rem);
+    transform: translateY(0.06em);
   }
 
   .drops-font-scope--local .drops-download-stick__name {

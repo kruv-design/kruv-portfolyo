@@ -12,7 +12,7 @@ type Props = {
 /** Drop fontunu @font-face ile yükler — her kart/sayfa kendi font-family değerini kullanır. */
 export function DropFontFace({ slug, previewUrl }: Props) {
   useEffect(() => {
-    const url = previewUrl.startsWith("http")
+    const url = previewUrl.startsWith("http") || previewUrl.startsWith("/")
       ? previewUrl
       : previewUrl
         ? publicCldRawUrl(previewUrl)

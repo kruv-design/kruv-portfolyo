@@ -27,7 +27,9 @@ export function publicCldImageUrl(
 
 export function publicCldRawUrl(publicIdOrUrl: string): string {
   if (!publicIdOrUrl) return "";
-  if (/^https?:\/\//i.test(publicIdOrUrl)) return publicIdOrUrl;
+  if (/^https?:\/\//i.test(publicIdOrUrl) || publicIdOrUrl.startsWith("/")) {
+    return publicIdOrUrl;
+  }
   const cn = cloudName();
   if (!cn) return publicIdOrUrl;
   return `https://res.cloudinary.com/${cn}/raw/upload/${publicIdOrUrl}`;

@@ -77,7 +77,7 @@ export async function POST(req: Request) {
     .slice(0, 8);
 
   let downloadUrl = target.downloadUrl;
-  if (!/^https?:\/\//i.test(downloadUrl)) {
+  if (!/^https?:\/\//i.test(downloadUrl) && !downloadUrl.startsWith("/")) {
     downloadUrl = cldRawUrl(downloadUrl);
   }
 

@@ -1,3 +1,4 @@
+import { bundledDropFontUrl } from "@/lib/drops-font-assets";
 import type { DropFont, DropPack, DropSpecimenBlock } from "@/types";
 
 function normalizeSpecimenBlock(raw: unknown): DropSpecimenBlock | null {
@@ -69,8 +70,9 @@ export function mapDropFontRow(data: Record<string, unknown>): DropFont {
     tester_default_text: String(data.tester_default_text ?? ""),
     tester_placeholder: String(data.tester_placeholder ?? ""),
     hero_image: String(data.hero_image ?? ""),
-    font_file_url: String(data.font_file_url ?? ""),
-    font_preview_url: String(data.font_preview_url ?? ""),
+    font_file_url: bundledDropFontUrl(String(data.slug ?? "")) || String(data.font_file_url ?? ""),
+    font_preview_url:
+      bundledDropFontUrl(String(data.slug ?? "")) || String(data.font_preview_url ?? ""),
     specimen_blocks: blocks,
     sort_order: Number(data.sort_order ?? 0),
     yayinda: data.yayinda !== false,

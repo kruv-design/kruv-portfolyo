@@ -20,15 +20,19 @@ export function normalizeDropFontText(
   return text;
 }
 
-/** Summer Pack — Cloudinary raw font dosyaları */
+/** Summer Pack — siteden indirilen / önizlenen TTF’ler (`public/drops/fonts`). */
 export const DROP_FONT_FILES = {
-  marzano:
-    "https://res.cloudinary.com/di0qbhh46/raw/upload/v1785337257/MARZANO-Regular_ogmtz8.ttf",
-  local:
-    "https://res.cloudinary.com/di0qbhh46/raw/upload/v1786107930/Local-Regular_ce75fi.ttf",
-  cove:
-    "https://res.cloudinary.com/di0qbhh46/raw/upload/v1785337238/Cove-Regular_a7jne9.ttf",
+  marzano: "/drops/fonts/MARZANO-Regular.ttf",
+  local: "/drops/fonts/Local-Regular.ttf",
+  cove: "/drops/fonts/Cove-Regular.ttf",
 } as const;
+
+export function bundledDropFontUrl(slug: string): string | undefined {
+  if (slug === "marzano" || slug === "local" || slug === "cove") {
+    return DROP_FONT_FILES[slug];
+  }
+  return undefined;
+}
 
 export function dropFontFormat(url: string): {
   cssFormat: "woff2" | "truetype" | "opentype";
