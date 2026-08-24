@@ -4067,7 +4067,7 @@ i {
   max-width: 100%;
   box-sizing: border-box;
   margin-inline: auto;
-  font-size: clamp(0.95rem, 4.2cqi, 3.5rem);
+  font-size: clamp(1rem, 4.5cqi, 3.75rem);
   letter-spacing: 0.04em;
   line-height: 1;
   text-align: center;
@@ -4159,7 +4159,7 @@ i {
   }
 
   .drops-font-card__preview--cove {
-    font-size: clamp(0.7rem, 4.85cqi, 1.125rem); /* ~17.5px @ 361, 1–2pt küçük */
+    font-size: clamp(0.75rem, 5.3cqi, 1.25rem); /* ~19px @ 361 */
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
@@ -4534,7 +4534,7 @@ i {
 
 .drops-live-block--fluid .drops-live-display {
   max-width: 100%;
-  font-size: clamp(1.15rem, 22.5cqi, 6.15rem);
+  font-size: clamp(1.25rem, 24cqi, 6.55rem);
 }
 
 .drops-live-block--fluid .drops-live-display__line {
@@ -4813,7 +4813,7 @@ i {
   align-items: center;
   justify-content: space-between;
   gap: 0;
-  padding: 7.5cqi 6.5cqi 7cqi;
+  padding: 4.2cqi 6.5cqi 3cqi;
 }
 
 .drops-live-marzano-hero__top {
