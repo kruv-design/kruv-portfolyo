@@ -4029,8 +4029,8 @@ i {
 }
 
 .drops-font-card__preview--marzano {
-  /* Figma 162.2px @ 1316 card width; web −3pt */
-  font-size: clamp(2.0625rem, 12.1cqi, 9.95rem);
+  /* Figma 162.2px @ 1316; −6pt toplam */
+  font-size: clamp(1.875rem, 11.87cqi, 9.7625rem);
 }
 
 .drops-font-card__preview--local,
@@ -4067,7 +4067,7 @@ i {
   max-width: 100%;
   box-sizing: border-box;
   margin-inline: auto;
-  font-size: clamp(1.425rem, 5.17cqi, 4.25rem); /* web ~+4pt */
+  font-size: clamp(1.6125rem, 5.4cqi, 4.4375rem); /* web +3pt */
   letter-spacing: 0.04em;
   line-height: 1;
   text-align: center;
@@ -4145,7 +4145,7 @@ i {
   }
 
   .drops-font-card__preview--marzano {
-    font-size: clamp(1.4375rem, 12.74cqi, 2.875rem); /* ~46px @ 361, −3pt */
+    font-size: clamp(1.25rem, 11.91cqi, 2.6875rem); /* ~43px @ 361, −3pt */
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
@@ -4159,7 +4159,7 @@ i {
   }
 
   .drops-font-card__preview--cove {
-    font-size: clamp(1.1rem, 6.93cqi, 1.5625rem); /* ~25px @ 361, +4pt */
+    font-size: clamp(1.2875rem, 7.76cqi, 1.75rem); /* ~28px @ 361, +3pt */
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
