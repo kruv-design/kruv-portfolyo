@@ -70,7 +70,7 @@ const DEMO_FONTS: DropFont[] = [
     description:
       "Born from pebbles, simple and cool — Cove brings the softest forms of nature to display typography.",
     preview_text: "The softest form of nature",
-    tester_default_text: "Born from pebbles, held by denge.",
+    tester_default_text: "Born from pebbles.",
     tester_placeholder: "",
     hero_image: DROP_HERO_IMAGES.cove,
     font_file_url: DROP_FONT_FILES.cove,

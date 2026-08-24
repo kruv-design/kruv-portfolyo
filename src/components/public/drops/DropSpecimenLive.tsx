@@ -81,10 +81,11 @@ function LocalHeroLive({ locale = "tr" }: { locale?: Locale }) {
 }
 
 function CoveHeroLive({ locale = "tr" }: { locale?: Locale }) {
+  void locale;
   const title = normalizeDropFontText(
     "Born from pebbles, simple and cool.",
     "cove",
-    locale,
+    "en",
   );
   return (
     <DropSpecimenOverlay
@@ -93,7 +94,9 @@ function CoveHeroLive({ locale = "tr" }: { locale?: Locale }) {
       className="drops-live-overlay--cove-hero"
       scrim="dark"
     >
-      <p className="drops-live-cove-hero__title drops-drop-type">{title}</p>
+      <p className="drops-live-cove-hero__title drops-drop-type" lang="en">
+        {title}
+      </p>
     </DropSpecimenOverlay>
   );
 }

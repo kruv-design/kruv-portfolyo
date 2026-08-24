@@ -21,7 +21,7 @@ const LOCAL_TESTER_SAMPLES = [
   "Samimi, ours — still from the hand.",
 ];
 
-const COVE_TESTER_DEFAULT = "Born from pebbles, held by denge.";
+const COVE_TESTER_DEFAULT = "Born from pebbles.";
 
 const COVE_TESTER_SAMPLES = [
   "Doğa sakin, form soft.",

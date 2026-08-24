@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import type { Locale } from "@/lib/i18n/config";
 import { normalizeDropFontText } from "@/lib/drops-font-assets";
 
-const STORAGE_KEY = "kruv-drops-tester-text:v3";
+const STORAGE_KEY = "kruv-drops-tester-text:v4";
 const MIN_SIZE = 24;
 const MAX_SIZE = 160;
 const DEFAULT_SIZE = 32;
@@ -123,6 +123,7 @@ export function DropFontTester({
       <div
         className={`drops-tester__preview drops-drop-type drops-tester__preview--${fontSlug}`}
         style={{ fontSize: `${size}px` }}
+        lang={fontSlug === "cove" || fontSlug === "marzano" ? "en" : undefined}
         aria-live="polite"
       >
         {previewText}

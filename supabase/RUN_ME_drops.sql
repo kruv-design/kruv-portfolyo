@@ -135,7 +135,7 @@ set
 where slug = 'local';
 
 update public.drop_fonts
-set tester_default_text = 'Born from pebbles, held by denge.'
+set tester_default_text = 'Born from pebbles.'
 where slug = 'cove';
 
 alter table public.drop_downloads
