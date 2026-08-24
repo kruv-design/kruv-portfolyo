@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { track } from "@/lib/analytics/track";
 import type { DropFont, DropPackWithFonts } from "@/types";
 import type { Locale } from "@/lib/i18n/config";
@@ -13,6 +13,7 @@ import { DropPackSwitcher } from "./DropPackSwitcher";
 import { DropFontTester } from "./DropFontTester";
 import { DropSpecimenImages } from "./DropSpecimenImages";
 import { DownloadModal, type DownloadRequest } from "./DownloadModal";
+import { DropFontStickyDownload } from "./DropFontStickyDownload";
 
 const LOCAL_TESTER_DEFAULT = "A tribute to the designer's handwriting.";
 
@@ -44,8 +45,24 @@ export function DropFontPageClient({
   settings,
 }: Props) {
   const [downloadReq, setDownloadReq] = useState<DownloadRequest | null>(null);
+  const introCtaRef = useRef<HTMLDivElement>(null);
   const openDownload = useCallback((req: DownloadRequest) => setDownloadReq(req), []);
   const closeDownload = useCallback(() => setDownloadReq(null), []);
+  const openFontDownload = useCallback(() => {
+    track("drop_download_open", {
+      pack: pack.slug,
+      font: font.slug,
+      source: "detail",
+      action: "download",
+    });
+    openDownload({
+      packSlug: pack.slug,
+      fontSlug: font.slug,
+      type: "font",
+      label: t(messages, "drops.downloadFont"),
+      source: "detail",
+    });
+  }, [openDownload, pack.slug, font.slug, messages]);
 
   useEffect(() => {
     track("drop_font_view", { pack: pack.slug, font: font.slug, source: "detail" });
@@ -99,25 +116,11 @@ export function DropFontPageClient({
           </h1>
           <p className="drops-specimen-intro__desc">{font.aciklama}</p>
         </div>
-        <div className="drops-specimen-intro__cta-wrap">
+        <div className="drops-specimen-intro__cta-wrap" ref={introCtaRef}>
           <button
             type="button"
             className="drops-specimen-intro__cta"
-            onClick={() => {
-              track("drop_download_open", {
-                pack: pack.slug,
-                font: font.slug,
-                source: "detail",
-                action: "download",
-              });
-              openDownload({
-                packSlug: pack.slug,
-                fontSlug: font.slug,
-                type: "font",
-                label: t(messages, "drops.downloadFont"),
-                source: "detail",
-              });
-            }}
+            onClick={openFontDownload}
           >
             {t(messages, "drops.downloadFont")}
           </button>
@@ -172,6 +175,16 @@ export function DropFontPageClient({
         variant="gallery"
         locale={locale}
         blocks={font.specimen_blocks}
+      />
+
+      <DropFontStickyDownload
+        fontName={font.name}
+        fontSlug={font.slug}
+        locale={locale}
+        label={t(messages, "drops.downloadFont")}
+        sentinelRef={introCtaRef}
+        hidden={downloadReq !== null}
+        onDownload={openFontDownload}
       />
 
       <DownloadModal
