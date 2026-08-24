@@ -1,6 +1,8 @@
 import type { Locale } from "@/lib/i18n/config";
 import type { DropFont, DropPack } from "@/types";
 
+const LOCAL_INTRO = "yapmacıksız. olduğu gibi. ham. premium.";
+
 export function resolveDropPackForLocale(pack: DropPack, locale: Locale): DropPack {
   if (locale === "en") {
     return {
@@ -13,11 +15,15 @@ export function resolveDropPackForLocale(pack: DropPack, locale: Locale): DropPa
 }
 
 export function resolveDropFontForLocale(font: DropFont, locale: Locale): DropFont {
+  const resolved =
+    font.slug === "local"
+      ? { ...font, aciklama: LOCAL_INTRO, description: LOCAL_INTRO }
+      : font;
   if (locale === "en") {
     return {
-      ...font,
-      aciklama: font.description.trim() || font.aciklama,
+      ...resolved,
+      aciklama: resolved.description.trim() || resolved.aciklama,
     };
   }
-  return font;
+  return resolved;
 }

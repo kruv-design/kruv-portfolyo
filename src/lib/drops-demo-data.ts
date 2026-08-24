@@ -46,13 +46,10 @@ const DEMO_FONTS: DropFont[] = [
     pack_id: DEMO_PACK.id,
     slug: "local",
     name: "Local",
-    aciklama:
-      "tasarımcının el yazısından oluşan yapmacıksız ve bireysel.",
-    description:
-      "Local keeps the rhythm of handwriting — personal, warm, and unforced.",
+    aciklama: "yapmacıksız. olduğu gibi. ham. premium.",
+    description: "yapmacıksız. olduğu gibi. ham. premium.",
     preview_text: "the story of roots",
-    tester_default_text:
-      "A tribute to the designer's handwriting. Tasarımcının defterinden geldi, kusurlu kalsın. Samimi, ours — still from the hand.",
+    tester_default_text: "A tribute to the designer's handwriting.",
     tester_placeholder: "",
     hero_image: DROP_HERO_IMAGES.local,
     font_file_url: DROP_FONT_FILES.local,
@@ -72,9 +69,8 @@ const DEMO_FONTS: DropFont[] = [
       "Doğanın en yumuşak formlarından ilham alan Cove, sade ve cool bir display karakter sunar.",
     description:
       "Born from pebbles, simple and cool — Cove brings the softest forms of nature to display typography.",
-    preview_text: "The softest form\nof nature",
-    tester_default_text:
-      "Born from pebbles, held by denge. Doğa sakin, form soft. Simple and cool — a quiet balance.",
+    preview_text: "The softest form of nature",
+    tester_default_text: "Born from pebbles, held by denge.",
     tester_placeholder: "",
     hero_image: DROP_HERO_IMAGES.cove,
     font_file_url: DROP_FONT_FILES.cove,

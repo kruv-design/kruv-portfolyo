@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import type { Locale } from "@/lib/i18n/config";
 import { normalizeDropFontText } from "@/lib/drops-font-assets";
 
-const STORAGE_KEY = "kruv-drops-tester-text";
+const STORAGE_KEY = "kruv-drops-tester-text:v3";
 const MIN_SIZE = 24;
 const MAX_SIZE = 160;
-const DEFAULT_SIZE = 72;
+const DEFAULT_SIZE = 32;
 
 type Props = {
   fontSlug: string;

@@ -47,10 +47,12 @@ export function DropFontCard({
   const hero = resolveHeroUrl(font);
   const heroSrcSet = resolveHeroSrcSet(font);
   const detailHref = withLocale(`/drops/${packSlug}/${font.slug}`, locale);
-  const previewLines = normalizeDropFontText(previewText, font.slug, locale)
+  const previewLinesRaw = normalizeDropFontText(previewText, font.slug, locale)
     .split(/\n/)
     .map((line) => line.trim())
     .filter(Boolean);
+  const previewLines =
+    font.slug === "cove" ? [previewLinesRaw.join(" ")] : previewLinesRaw;
 
   const clickProps = { pack: packSlug, font: font.slug, source: "listing" as const };
 

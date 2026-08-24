@@ -111,16 +111,16 @@ cross join (values
    'kruv-drops/photos/marzano/card-bg',
    'https://res.cloudinary.com/di0qbhh46/raw/upload/v1785337257/MARZANO-Regular_ogmtz8.ttf', 0),
   ('local', 'Local',
-   'tasarımcının el yazısından oluşan yapmacıksız ve bireysel.',
-   'Local keeps the rhythm of handwriting — personal, warm, and unforced.',
+   'yapmacıksız. olduğu gibi. ham. premium.',
+   'yapmacıksız. olduğu gibi. ham. premium.',
    'the story of roots',
-   'A tribute to the designer''s handwriting. Tasarımcının defterinden geldi, kusurlu kalsın. Samimi, ours — still from the hand.',
+   'A tribute to the designer''s handwriting.',
    'kruv-drops/photos/local/card-bg',
    'https://res.cloudinary.com/di0qbhh46/raw/upload/v1785337240/Local-Regular_ce75fi.ttf', 1),
   ('cove', 'Cove',
    'Doğanın en yumuşak formlarından ilham alan Cove, sade ve cool bir display karakter sunar.',
    'Born from pebbles, simple and cool — Cove brings the softest forms of nature.',
-   E'The softest form\nof nature', 'Born from pebbles, simple and cool.',
+   'The softest form of nature', 'Born from pebbles, simple and cool.',
    'kruv-drops/photos/cove/card-bg',
    'https://res.cloudinary.com/di0qbhh46/raw/upload/v1785337238/Cove-Regular_a7jne9.ttf', 2)
 ) as v(slug, name, aciklama, description, preview_text, tester_default_text, hero_image, font_url, sort_order)
@@ -128,11 +128,14 @@ where p.slug = 'summer-pack'
 on conflict (pack_id, slug) do nothing;
 
 update public.drop_fonts
-set tester_default_text = 'A tribute to the designer''s handwriting. Tasarımcının defterinden geldi, kusurlu kalsın. Samimi, ours — still from the hand.'
+set
+  tester_default_text = 'A tribute to the designer''s handwriting.',
+  aciklama = 'yapmacıksız. olduğu gibi. ham. premium.',
+  description = 'yapmacıksız. olduğu gibi. ham. premium.'
 where slug = 'local';
 
 update public.drop_fonts
-set tester_default_text = 'Born from pebbles, held by denge. Doğa sakin, form soft. Simple and cool — a quiet balance.'
+set tester_default_text = 'Born from pebbles, held by denge.'
 where slug = 'cove';
 
 alter table public.drop_downloads

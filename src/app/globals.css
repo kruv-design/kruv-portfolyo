@@ -4061,19 +4061,28 @@ i {
 }
 
 .drops-font-card__preview--cove {
-  /* Figma 109.738px @ 1316, text block ~368px wide */
-  font-size: clamp(1.5rem, 8.339cqi, 6.859rem);
-  width: clamp(14rem, 28%, 23rem);
-  letter-spacing: 0.05em;
-  line-height: 0.76;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin-inline: auto;
+  font-size: clamp(0.95rem, 4.2cqi, 3.5rem);
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .drops-font-card__preview--cove .drops-font-card__preview-line + .drops-font-card__preview-line {
-  margin-top: 0.06em;
+  margin-top: 0;
 }
 
 .drops-font-card__preview--cove .drops-font-card__preview-line {
-  white-space: normal;
+  white-space: nowrap;
+  width: 100%;
+  text-align: center;
   letter-spacing: inherit;
 }
 
@@ -4136,7 +4145,13 @@ i {
   }
 
   .drops-font-card__preview--marzano {
-    font-size: clamp(2rem, 14.96cqi, 3.375rem); /* Figma 54px @ 361 */
+    font-size: clamp(1.75rem, 14.1cqi, 3.1875rem); /* ~51px @ 361; 54px’den ~3pt */
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding-inline: var(--space-5);
+    text-align: center;
+    align-items: center;
   }
 
   .drops-font-card__preview--local {
@@ -4144,9 +4159,17 @@ i {
   }
 
   .drops-font-card__preview--cove {
-    font-size: clamp(1.5rem, 10.34cqi, 2.35rem); /* Figma 37.3px @ 361 */
-    width: 34.7cqi; /* Figma 125 / 361 */
-    max-width: 8.5rem;
+    font-size: clamp(0.7rem, 4.85cqi, 1.125rem); /* ~17.5px @ 361, 1–2pt küçük */
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding-inline: var(--space-5);
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    right: 0;
+    margin-inline: auto;
   }
 
   .drops-font-card__actions {
@@ -4390,9 +4413,21 @@ i {
   background: var(--surface);
   color: var(--ink);
   font-family: var(--font-drop-active, var(--font-display));
-  line-height: 1.1;
+  line-height: 0.92;
   text-wrap: balance;
   word-break: break-word;
+}
+
+.drops-tester__preview--marzano {
+  line-height: 0.78;
+}
+
+.drops-tester__preview--local {
+  line-height: 0.88;
+}
+
+.drops-tester__preview--cove {
+  line-height: 0.82;
 }
 
 .drops-specimen-hero,
@@ -4785,6 +4820,7 @@ i {
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex: 0 0 auto;
   width: 100%;
 }
 
@@ -4803,11 +4839,11 @@ i {
 }
 
 .drops-live-marzano-hero__numbers {
-  margin: 0.12em 0 0;
+  margin: -0.32em 0 0;
   width: 100%;
   max-width: 100%;
   font-family: var(--font-drop-active, var(--font-display));
-  font-size: 13.5cqi;
+  font-size: 11cqi;
   line-height: 0.84;
   letter-spacing: -0.03em;
   text-transform: uppercase;
@@ -4837,7 +4873,8 @@ i {
   }
 
   .drops-live-marzano-hero__numbers {
-    font-size: 11cqi;
+    margin-top: -0.28em;
+    font-size: 9.2cqi;
   }
 
   .drops-live-marzano-hero__alphabet {
