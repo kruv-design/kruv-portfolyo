@@ -5438,12 +5438,14 @@ i {
   margin: 0;
 }
 
-/* ── Lanky specimens (Figma 5209:108) ─────────────────────── */
+/* ── Lanky specimens (Figma 5209:108) — yazı baked görseller ─ */
+.drops-live-block--lanky-figure,
 .drops-live-block--lanky-raw,
 .drops-live-block--lanky-craft,
 .drops-live-block--lanky-silhouette {
   position: relative;
   overflow: hidden;
+  margin: 0;
   border-radius: clamp(12px, 3.2vw, 46px);
   aspect-ratio: 1316 / 835;
   container-type: inline-size;
@@ -5469,56 +5471,6 @@ i {
   object-position: center;
 }
 
-.drops-live-block--lanky-craft .drops-live-lanky__art--camera {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: min(76%, 62rem);
-  height: auto;
-  max-height: 74%;
-  object-fit: contain;
-  opacity: 0.95;
-  pointer-events: none;
-}
-
-.drops-live-lanky__word {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  font-family: var(--font-drop-active, var(--font-display));
-  pointer-events: none;
-}
-
-.drops-live-lanky__word--raw {
-  color: var(--drops-lanky-ink);
-  font-size: clamp(4rem, 28cqi, 18rem);
-  line-height: 0.62;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-}
-
-.drops-live-lanky__word--tall {
-  color: var(--drops-lanky-ink);
-  font-size: clamp(3rem, 22cqi, 12rem);
-  line-height: 0.7;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-}
-
-.drops-live-lanky__word--craft {
-  color: var(--drops-lanky-gold);
-  font-size: clamp(4rem, 36cqi, 22rem);
-  line-height: 0.85;
-  text-transform: lowercase;
-}
-
 .drops-live-block--lanky-tall {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
@@ -5529,6 +5481,7 @@ i {
 .drops-live-lanky-tall__media {
   position: relative;
   overflow: hidden;
+  margin: 0;
   border-radius: clamp(12px, 3.2vw, 46px);
   aspect-ratio: 603 / 835;
   background: var(--drops-lanky-mustard);
@@ -5600,30 +5553,6 @@ i {
   letter-spacing: 0.02em;
   text-transform: uppercase;
   text-wrap: balance;
-}
-
-.drops-live-lanky__silhouette-copy {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.15em;
-  padding: clamp(var(--space-6), 4vw, var(--space-10));
-  pointer-events: none;
-}
-
-.drops-live-lanky__silhouette-copy p {
-  margin: 0;
-  color: var(--drops-lanky-ink);
-  font-family: var(--font-drop-active, var(--font-display));
-  font-size: clamp(1.5rem, 6.5cqi, 5rem);
-  line-height: 0.62;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  text-align: center;
 }
 
 .drops-font-scope--lanky .drops-download-stick__name {

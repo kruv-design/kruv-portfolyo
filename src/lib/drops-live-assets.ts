@@ -35,10 +35,11 @@ export const DROP_LIVE_VECTORS = {
     },
   },
   lanky: {
-    cupRaw: "/drops/vectors/lanky/cup-raw.svg",
-    plantTall: "/drops/vectors/lanky/plant-tall.svg",
-    cameraCraft: "/drops/vectors/lanky/camera-craft.svg",
+    /** Yazılı hali baked — RAW/TALL vektör; craft/silhouette @2x PNG */
+    rawSpecimen: "/drops/vectors/lanky/cup-raw.svg",
+    tallSpecimen: "/drops/vectors/lanky/plant-tall.svg",
+    craftSpecimen: "/drops/specimens/lanky/03-craft.png",
+    silhouetteSpecimen: "/drops/specimens/lanky/04-silhouette.png",
     glasses: "/drops/vectors/lanky/glasses.svg",
-    yellowFooter: "/drops/vectors/lanky/yellow-footer.svg",
   },
 } as const;

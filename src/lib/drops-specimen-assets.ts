@@ -42,9 +42,9 @@ export const DROP_SPECIMEN_ASSETS: Record<string, DropSpecimenSet> = {
     heroAlt: "Lanky — RAW",
     gallery: [
       { src: "/drops/vectors/lanky/plant-tall.svg", alt: "Lanky — TALL" },
-      { src: "/drops/vectors/lanky/camera-craft.svg", alt: "Lanky — craft" },
+      { src: "/drops/specimens/lanky/03-craft.png", alt: "Lanky — craft" },
       { src: "/drops/vectors/lanky/glasses.svg", alt: "Lanky — alphabet" },
-      { src: "/drops/vectors/lanky/yellow-footer.svg", alt: "Lanky — narrow silhouette" },
+      { src: "/drops/specimens/lanky/04-silhouette.png", alt: "Lanky — narrow silhouette" },
     ],
   },
 };

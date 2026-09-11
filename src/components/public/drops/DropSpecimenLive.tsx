@@ -262,17 +262,15 @@ function CoveCapAlphabetLive({ locale = "tr" }: { locale?: Locale }) {
 
 function LankyRawHero() {
   return (
-    <article className="drops-live-block drops-live-block--lanky-raw" lang="en">
+    <figure className="drops-live-block drops-live-block--lanky-figure drops-live-block--lanky-raw">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={DROP_LIVE_VECTORS.lanky.cupRaw}
-        alt=""
-        aria-hidden
+        src={DROP_LIVE_VECTORS.lanky.rawSpecimen}
+        alt="Lanky — RAW"
         className="drops-live-lanky__art"
         decoding="async"
       />
-      <p className="drops-live-lanky__word drops-live-lanky__word--raw drops-drop-type">RAW</p>
-    </article>
+    </figure>
   );
 }
 
@@ -280,17 +278,15 @@ function LankyTallBlock({ locale = "tr" }: { locale?: Locale }) {
   void locale;
   return (
     <article className="drops-live-block drops-live-block--lanky-tall" lang="en">
-      <div className="drops-live-lanky-tall__media">
+      <figure className="drops-live-lanky-tall__media">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={DROP_LIVE_VECTORS.lanky.plantTall}
-          alt=""
-          aria-hidden
+          src={DROP_LIVE_VECTORS.lanky.tallSpecimen}
+          alt="Lanky — TALL"
           className="drops-live-lanky__art"
           decoding="async"
         />
-        <p className="drops-live-lanky__word drops-live-lanky__word--tall drops-drop-type">TALL</p>
-      </div>
+      </figure>
       <p className="drops-live-lanky__blurb drops-drop-type">
         Lanky is a handcrafted display typeface that trades rigid digital geometry for the warmth,
         rhythm, and honest imperfection of freehand lettering.
@@ -301,17 +297,15 @@ function LankyTallBlock({ locale = "tr" }: { locale?: Locale }) {
 
 function LankyCraftBlock() {
   return (
-    <article className="drops-live-block drops-live-block--lanky-craft" lang="en">
+    <figure className="drops-live-block drops-live-block--lanky-figure drops-live-block--lanky-craft">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={DROP_LIVE_VECTORS.lanky.cameraCraft}
-        alt=""
-        aria-hidden
-        className="drops-live-lanky__art drops-live-lanky__art--camera"
+        src={DROP_LIVE_VECTORS.lanky.craftSpecimen}
+        alt="Lanky — craft"
+        className="drops-live-lanky__art"
         decoding="async"
       />
-      <p className="drops-live-lanky__word drops-live-lanky__word--craft drops-drop-type">craft</p>
-    </article>
+    </figure>
   );
 }
 
@@ -352,20 +346,15 @@ function LankyAlphabetBlock({ locale = "tr" }: { locale?: Locale }) {
 
 function LankySilhouetteBlock() {
   return (
-    <article className="drops-live-block drops-live-block--lanky-silhouette" lang="en">
+    <figure className="drops-live-block drops-live-block--lanky-figure drops-live-block--lanky-silhouette">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={DROP_LIVE_VECTORS.lanky.yellowFooter}
-        alt=""
-        aria-hidden
+        src={DROP_LIVE_VECTORS.lanky.silhouetteSpecimen}
+        alt="Lanky — A narrow silhouette with natural rhythm"
         className="drops-live-lanky__art"
         decoding="async"
       />
-      <div className="drops-live-lanky__silhouette-copy drops-drop-type">
-        <p>A narrow silhouette</p>
-        <p>with natural rhythm.</p>
-      </div>
-    </article>
+    </figure>
   );
 }
 
