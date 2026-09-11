@@ -122,7 +122,13 @@ cross join (values
    'Born from pebbles, simple and cool — Cove brings the softest forms of nature.',
    'The softest form of nature', 'Born from pebbles, simple and cool.',
    'kruv-drops/photos/cove/card-bg',
-   '/drops/fonts/Cove-Regular.ttf', 2)
+   '/drops/fonts/Cove-Regular.ttf', 2),
+  ('lanky', 'Lanky',
+   'Lanky, katı dijital geometriyi bırakıp el yazısının sıcaklığını, ritmini ve dürüst kusurunu taşıyan el yapımı bir display karakter.',
+   'Lanky is a handcrafted display typeface that trades rigid digital geometry for the warmth, rhythm, and honest imperfection of freehand lettering.',
+   'RAW', 'Tall, slender, and full of character.',
+   '',
+   '/drops/fonts/Lanky-Regular.ttf', 3)
 ) as v(slug, name, aciklama, description, preview_text, tester_default_text, hero_image, font_url, sort_order)
 where p.slug = 'summer-pack'
 on conflict (pack_id, slug) do nothing;

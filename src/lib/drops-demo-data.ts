@@ -81,6 +81,27 @@ const DEMO_FONTS: DropFont[] = [
     created_at: NOW,
     updated_at: NOW,
   },
+  {
+    id: "demo-lanky",
+    pack_id: DEMO_PACK.id,
+    slug: "lanky",
+    name: "Lanky",
+    aciklama:
+      "Lanky, katı dijital geometriyi bırakıp el yazısının sıcaklığını, ritmini ve dürüst kusurunu taşıyan el yapımı bir display karakter.",
+    description:
+      "Lanky is a handcrafted display typeface that trades rigid digital geometry for the warmth, rhythm, and honest imperfection of freehand lettering.",
+    preview_text: "RAW",
+    tester_default_text: "Tall, slender, and full of character.",
+    tester_placeholder: "",
+    hero_image: "",
+    font_file_url: DROP_FONT_FILES.lanky,
+    font_preview_url: DROP_FONT_FILES.lanky,
+    specimen_blocks: [],
+    sort_order: 3,
+    yayinda: true,
+    created_at: NOW,
+    updated_at: NOW,
+  },
 ];
 
 export function getDemoDropPacks(): DropPackWithFonts[] {

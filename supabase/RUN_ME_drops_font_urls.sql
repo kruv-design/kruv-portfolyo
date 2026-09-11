@@ -11,7 +11,8 @@ join (
   values
     ('marzano', '/drops/fonts/MARZANO-Regular.ttf'),
     ('local', '/drops/fonts/Local-Regular.ttf'),
-    ('cove', '/drops/fonts/Cove-Regular.ttf')
+    ('cove', '/drops/fonts/Cove-Regular.ttf'),
+    ('lanky', '/drops/fonts/Lanky-Regular.ttf')
 ) as v(slug, url) on true
 where f.pack_id = p.id
   and p.slug = 'summer-pack'

@@ -37,6 +37,16 @@ export const DROP_SPECIMEN_ASSETS: Record<string, DropSpecimenSet> = {
       { src: "kruv-drops/specimens/cove/03-cap-alphabet", alt: "Cove — cap mockup and alphabet" },
     ],
   },
+  lanky: {
+    hero: "/drops/vectors/lanky/cup-raw.svg",
+    heroAlt: "Lanky — RAW",
+    gallery: [
+      { src: "/drops/vectors/lanky/plant-tall.svg", alt: "Lanky — TALL" },
+      { src: "/drops/vectors/lanky/camera-craft.svg", alt: "Lanky — craft" },
+      { src: "/drops/vectors/lanky/glasses.svg", alt: "Lanky — alphabet" },
+      { src: "/drops/vectors/lanky/yellow-footer.svg", alt: "Lanky — narrow silhouette" },
+    ],
+  },
 };
 
 export function resolveDropImageUrl(src: string): string {

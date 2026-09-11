@@ -260,7 +260,116 @@ function CoveCapAlphabetLive({ locale = "tr" }: { locale?: Locale }) {
   );
 }
 
-const LIVE_FONT_SLUGS = new Set(["marzano", "local", "cove"]);
+function LankyRawHero() {
+  return (
+    <article className="drops-live-block drops-live-block--lanky-raw" lang="en">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={DROP_LIVE_VECTORS.lanky.cupRaw}
+        alt=""
+        aria-hidden
+        className="drops-live-lanky__art"
+        decoding="async"
+      />
+      <p className="drops-live-lanky__word drops-live-lanky__word--raw drops-drop-type">RAW</p>
+    </article>
+  );
+}
+
+function LankyTallBlock({ locale = "tr" }: { locale?: Locale }) {
+  void locale;
+  return (
+    <article className="drops-live-block drops-live-block--lanky-tall" lang="en">
+      <div className="drops-live-lanky-tall__media">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={DROP_LIVE_VECTORS.lanky.plantTall}
+          alt=""
+          aria-hidden
+          className="drops-live-lanky__art"
+          decoding="async"
+        />
+        <p className="drops-live-lanky__word drops-live-lanky__word--tall drops-drop-type">TALL</p>
+      </div>
+      <p className="drops-live-lanky__blurb drops-drop-type">
+        Lanky is a handcrafted display typeface that trades rigid digital geometry for the warmth,
+        rhythm, and honest imperfection of freehand lettering.
+      </p>
+    </article>
+  );
+}
+
+function LankyCraftBlock() {
+  return (
+    <article className="drops-live-block drops-live-block--lanky-craft" lang="en">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={DROP_LIVE_VECTORS.lanky.cameraCraft}
+        alt=""
+        aria-hidden
+        className="drops-live-lanky__art drops-live-lanky__art--camera"
+        decoding="async"
+      />
+      <p className="drops-live-lanky__word drops-live-lanky__word--craft drops-drop-type">craft</p>
+    </article>
+  );
+}
+
+function LankyAlphabetBlock({ locale = "tr" }: { locale?: Locale }) {
+  const upper = normalizeDropFontText(
+    "ABCçDEFGğHLMNOPRSşTUüVYZ",
+    "lanky",
+    locale,
+  );
+  const lower = normalizeDropFontText(
+    "abcçdefgğhıijklmnoöprsştuüvyz",
+    "lanky",
+    locale,
+  );
+  return (
+    <article className="drops-live-block drops-live-block--lanky-alphabet" lang="en">
+      <div className="drops-live-lanky-alphabet__rows drops-drop-type">
+        <p className="drops-live-lanky-alphabet__row drops-live-lanky-alphabet__row--upper">{upper}</p>
+        <p className="drops-live-lanky-alphabet__row drops-live-lanky-alphabet__row--lower">{lower}</p>
+        <p className="drops-live-lanky-alphabet__row drops-live-lanky-alphabet__row--nums">
+          0123456789 ?!.:&amp;%#
+        </p>
+      </div>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={DROP_LIVE_VECTORS.lanky.glasses}
+        alt=""
+        aria-hidden
+        className="drops-live-lanky__glasses"
+        decoding="async"
+      />
+      <p className="drops-live-lanky__tagline drops-drop-type">
+        Tall, slender, and full of character.
+      </p>
+    </article>
+  );
+}
+
+function LankySilhouetteBlock() {
+  return (
+    <article className="drops-live-block drops-live-block--lanky-silhouette" lang="en">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={DROP_LIVE_VECTORS.lanky.yellowFooter}
+        alt=""
+        aria-hidden
+        className="drops-live-lanky__art"
+        decoding="async"
+      />
+      <div className="drops-live-lanky__silhouette-copy drops-drop-type">
+        <p>A narrow silhouette</p>
+        <p>with natural rhythm.</p>
+      </div>
+    </article>
+  );
+}
+
+const LIVE_FONT_SLUGS = new Set(["marzano", "local", "cove", "lanky"]);
 
 /** Canlı tipografi + vektör kullanan font slug'ları */
 export function hasDropSpecimenLive(slug: string): boolean {
@@ -277,6 +386,7 @@ export function isLiveGalleryIndex(slug: string, index: number): boolean {
   /* Local alphabet: landscape canlı bloğu (portre bg kırpılır) */
   if (slug === "local") return index === 1 || index === 3;
   if (slug === "cove") return index === 0 || index === 1 || index === 2;
+  if (slug === "lanky") return index === 0 || index === 1 || index === 2 || index === 3;
   return false;
 }
 
@@ -284,6 +394,7 @@ export function DropSpecimenLiveHero({ slug, locale = "tr" }: Props) {
   if (slug === "marzano") return <MarzanoHeroLive locale={locale} />;
   if (slug === "local") return <LocalHeroLive locale={locale} />;
   if (slug === "cove") return <CoveHeroLive locale={locale} />;
+  if (slug === "lanky") return <LankyRawHero />;
   return null;
 }
 
@@ -306,6 +417,12 @@ export function DropSpecimenLiveBlock({
     if (index === 0) return <CovePebblesBlock locale={locale} />;
     if (index === 1) return <CoveCollageLive />;
     if (index === 2) return <CoveCapAlphabetLive locale={locale} />;
+  }
+  if (slug === "lanky") {
+    if (index === 0) return <LankyTallBlock locale={locale} />;
+    if (index === 1) return <LankyCraftBlock />;
+    if (index === 2) return <LankyAlphabetBlock locale={locale} />;
+    if (index === 3) return <LankySilhouetteBlock />;
   }
   return null;
 }

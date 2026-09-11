@@ -34,4 +34,11 @@ export const DROP_LIVE_VECTORS = {
       send: "/drops/vectors/marzano-phone-send.svg",
     },
   },
+  lanky: {
+    cupRaw: "/drops/vectors/lanky/cup-raw.svg",
+    plantTall: "/drops/vectors/lanky/plant-tall.svg",
+    cameraCraft: "/drops/vectors/lanky/camera-craft.svg",
+    glasses: "/drops/vectors/lanky/glasses.svg",
+    yellowFooter: "/drops/vectors/lanky/yellow-footer.svg",
+  },
 } as const;
