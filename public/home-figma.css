@@ -135,6 +135,27 @@
   color: var(--color-accent);
 }
 
+/* Hero başlık + alt metin sütunu */
+.marketing-home-figma .hero-v2-head__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--home-section-stack-gap);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.marketing-home-figma .hero-v2-subtitle {
+  margin: 0;
+  max-width: 60ch;
+  font-family: var(--b1-font-family);
+  font-size: var(--b1-font-size);
+  font-weight: var(--b1-font-weight);
+  line-height: var(--b1-line-height);
+  letter-spacing: var(--b1-letter-spacing);
+  color: var(--home-ink-muted);
+}
+
 .hero-v2-headline__main {
   color: var(--home-ink);
 }

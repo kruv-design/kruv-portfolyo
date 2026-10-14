@@ -8,9 +8,10 @@
     },
     "hero": {
       "line1": "Paylaşmaya değer",
-      "line2": "markalar tasarlıyoruz.",
+      "line2": "konaklama ve gastronomi hikâyeleri.",
       "mobileLine1": "Paylaşmaya değer",
-      "mobileLine2": "markalar tasarlıyoruz.",
+      "mobileLine2": "konaklama ve gastronomi hikâyeleri.",
+      "subtitle": "Otel ve restoranları strateji, fotoğraf, video ve sosyal medyayla anlatıyor, görünürlüğü rezervasyona dönüştürüyoruz.",
       "line2Tail": "",
       "lineOrder": "main-first",
       "cursorLabel": "Projeleri gör",

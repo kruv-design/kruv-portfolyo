@@ -46,31 +46,36 @@ export function MarketingHomeHeroHeadline({
 
   return (
     <div className="hero-v2-head hero-v2-head--figma">
-      <h1
-        id="hero-v2-headline"
-        className={[
-          "hero-v2-headline",
-          "hero-v2-headline--figma",
-          hasMobileCopy ? "hero-v2-headline--has-mobile-copy" : "",
-        ]
-          .filter(Boolean)
-          .join(" ")}
-      >
-        <HeroHeadlineLines
-          line1={hero.line1}
-          line2={hero.line2}
-          mainFirst={mainFirst}
-          variant="desktop"
-        />
-        {hasMobileCopy ? (
+      <div className="hero-v2-head__copy">
+        <h1
+          id="hero-v2-headline"
+          className={[
+            "hero-v2-headline",
+            "hero-v2-headline--figma",
+            hasMobileCopy ? "hero-v2-headline--has-mobile-copy" : "",
+          ]
+            .filter(Boolean)
+            .join(" ")}
+        >
           <HeroHeadlineLines
-            line1={mobileLine1!}
-            line2={mobileLine2!}
+            line1={hero.line1}
+            line2={hero.line2}
             mainFirst={mainFirst}
-            variant="mobile"
+            variant="desktop"
           />
+          {hasMobileCopy ? (
+            <HeroHeadlineLines
+              line1={mobileLine1!}
+              line2={mobileLine2!}
+              mainFirst={mainFirst}
+              variant="mobile"
+            />
+          ) : null}
+        </h1>
+        {hero.subtitle ? (
+          <p className="hero-v2-subtitle">{hero.subtitle}</p>
         ) : null}
-      </h1>
+      </div>
       <HeroScrollCta href={scrollHref} ariaLabel={hero.cursorLabel} />
     </div>
   );
