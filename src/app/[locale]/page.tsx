@@ -8,8 +8,7 @@ import { MarketingHomeSpotlight } from "@/components/public/MarketingHomeSpotlig
 import { MarketingHomeIdealClients } from "@/components/public/MarketingHomeIdealClients";
 import { MarketingHomeValues } from "@/components/public/MarketingHomeValues";
 import { MarketingHomeKayanYazi } from "@/components/public/MarketingHomeKayanYazi";
-// Geçici: sosyal medya hesapları paneli siteden kapalı
-// import { MarketingHomeSocialClients } from "@/components/public/MarketingHomeSocialClients";
+import { MarketingHomeSocialClients } from "@/components/public/MarketingHomeSocialClients";
 import { MarketingHomeFeatured } from "@/components/public/MarketingHomeFeatured";
 import { MarketingHomeBody } from "@/components/public/MarketingHomeBody";
 import { resolveHomeShowreelSlots } from "@/lib/home-showreel";
@@ -163,9 +162,7 @@ export default async function LocaleHomePage({
       <MarketingHomeIdealClients locale={locale} />
       <MarketingHomeFeatured locale={locale} messages={messages} />
       <MarketingHomeKayanYazi locale={locale} messages={messages} />
-      {/* Geçici deaktif: AKTİF OLARAK YÖNETTİĞİMİZ SOSYAL MEDYA HESAPLARIMIZ
       <MarketingHomeSocialClients locale={locale} messages={messages} />
-      */}
       <MarketingHomeValues locale={locale} messages={messages} />
       <MarketingHomeBody locale={locale} messages={messages} />
     </MarketingPageShell>
