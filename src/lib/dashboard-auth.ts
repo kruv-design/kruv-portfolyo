@@ -1,4 +1,5 @@
-import { timingSafeEqual } from "node:crypto";
+import { createHash, timingSafeEqual } from "node:crypto";
+import { DASHBOARD_TOKEN_SALT } from "@/lib/dashboard-auth-edge";
 
 /** kruvtest dashboard ile aynı çerez adı ve Vercel env. */
 export const DASHBOARD_AUTH_COOKIE = "dashboard_access";
@@ -31,9 +32,19 @@ export function verifyDashboardPassword(input: string): boolean {
   return timingSafeEqual(a, b);
 }
 
+/** Çerez değeri: şifreden türetilen token (sabit "1" yerine — taklit edilemez). */
+export function dashboardSessionToken(): string {
+  return createHash("sha256")
+    .update(`${DASHBOARD_TOKEN_SALT}${getDashboardPassword()}`, "utf8")
+    .digest("hex");
+}
+
 export function isDashboardCookieAuthed(getCookie: (name: string) => string | undefined): boolean {
   if (!isDashboardPasswordConfigured()) return false;
-  return getCookie(DASHBOARD_AUTH_COOKIE) === "1";
+  const provided = Buffer.from(String(getCookie(DASHBOARD_AUTH_COOKIE) ?? ""), "utf8");
+  const expected = Buffer.from(dashboardSessionToken(), "utf8");
+  if (provided.length !== expected.length) return false;
+  return timingSafeEqual(provided, expected);
 }
 
 /** Oturum çerezi — tarayıcı kapanınca silinir; Max-Age yok. */

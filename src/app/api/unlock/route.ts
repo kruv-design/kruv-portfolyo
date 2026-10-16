@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import {
   DASHBOARD_AUTH_COOKIE,
   dashboardAuthCookieOptions,
+  dashboardSessionToken,
   isDashboardPasswordConfigured,
   verifyDashboardPassword,
 } from "@/lib/dashboard-auth";
@@ -34,6 +35,6 @@ export async function POST(req: Request) {
   }
 
   const jar = await cookies();
-  jar.set(DASHBOARD_AUTH_COOKIE, "1", dashboardAuthCookieOptions());
+  jar.set(DASHBOARD_AUTH_COOKIE, dashboardSessionToken(), dashboardAuthCookieOptions());
   return NextResponse.json({ ok: true });
 }

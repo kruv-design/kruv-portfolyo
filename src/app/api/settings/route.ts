@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
-import { supabaseServer } from "@/lib/supabase/server";
+import { supabaseServer, supabaseAdmin } from "@/lib/supabase/server";
 import { getSettings } from "@/lib/queries";
 import { settingsSchema } from "@/lib/validators";
 import { requireUser, isAuthFailureResponse } from "@/lib/auth-guard";
@@ -43,7 +43,7 @@ export async function PATCH(req: Request) {
     );
   }
 
-  const sb = await supabaseServer();
+  const sb = supabaseAdmin();
   const { data, error } = await sb
     .from("site_settings")
     .update(parsed.data)

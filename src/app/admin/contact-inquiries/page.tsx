@@ -1,10 +1,11 @@
-import { supabaseServer } from "@/lib/supabase/server";
+import { supabaseAdmin } from "@/lib/supabase/server";
 import type { ContactInquiryRow } from "@/types";
 
 export const dynamic = "force-dynamic";
 
 export default async function ContactInquiriesAdminPage() {
-  const supabase = await supabaseServer();
+  // /admin middleware şifre kapısının arkasında — servis anahtarıyla okunur.
+  const supabase = supabaseAdmin();
   const { data, error } = await supabase
     .from("contact_inquiries")
     .select("*")
