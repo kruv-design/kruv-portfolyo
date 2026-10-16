@@ -85,7 +85,11 @@ export async function PATCH(req: Request) {
       );
     }
 
+    // Ana sayfa da aynı Protel videolarını gösterir — sadece /protel yetmez.
     revalidatePath("/protel");
+    revalidatePath("/", "layout");
+    revalidatePath("/tr");
+    revalidatePath("/en");
 
     return NextResponse.json({
       data: {
