@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
-import { supabaseServer, supabaseAdmin } from "@/lib/supabase/server";
+import { supabaseAdmin } from "@/lib/supabase/server";
 import { getSettings } from "@/lib/queries";
 import { settingsSchema } from "@/lib/validators";
 import { requireUser, isAuthFailureResponse } from "@/lib/auth-guard";
