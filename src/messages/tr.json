@@ -160,6 +160,7 @@
   },
   "nav": {
     "projects": "Projeler",
+    "hospitality": "Hospitality",
     "contact": "İletişim",
     "blog": "Blog",
     "drops": "Drops",
@@ -281,5 +282,110 @@
       ]
     },
     "socialsAria": "Sosyal medya"
+  },
+  "hospitality": {
+    "metaTitle": "Otel ve Restoranlar için Sosyal Medya & İçerik | Kruv",
+    "metaDescription": "Otel ve restoranlar için fotoğraf, video, sosyal medya yönetimi, menü ve marka kimliği. Görünürlüğü rezervasyona dönüştürüyoruz.",
+    "hero": {
+      "tag": "HOSPITALITY / KONAKLAMA",
+      "titleBefore": "Otelinizin ve restoranınızın",
+      "titleAccent": "potansiyelini sahneye çıkarın",
+      "lead": "Hikâyesi olan lifestyle kareler ve videolarla dijital vitrininizi canlandırın; takipçilerinizi misafiriniz olmaya davet edin."
+    },
+    "filters": {
+      "aria": "İçerik filtreleri",
+      "all": "Tümü",
+      "hotel": "Otel",
+      "menu": "Menü",
+      "social": "Sosyal"
+    },
+    "marquee": {
+      "aria": "Hizmet bandı",
+      "phrases": [
+        "Fotoğraf ve video çekimi",
+        "Sosyal medya",
+        "Web sitesi",
+        "Menü tasarımı",
+        "Logo"
+      ]
+    },
+    "services": {
+      "tag": "NELER YAPIYORUZ?",
+      "title": "Geleneksel hizmetler",
+      "items": [
+        {
+          "index": "01",
+          "title": "Fotoğraf ve video çekimi",
+          "body": "Masadan lobiye, feed’den rezervasyona — mekânınızın atmosferini paylaşılmaya değer karelerle kuruyoruz."
+        },
+        {
+          "index": "02",
+          "title": "Web sitesi",
+          "body": "Rezervasyon odaklı, hızlı ve markanıza uygun dijital vitrinler tasarlıyoruz."
+        },
+        {
+          "index": "03",
+          "title": "Sosyal medya yönetimi",
+          "body": "İçerik planı, yayın, etkileşim ve reklam — hesabınızı büyüten düzenli bir ritim."
+        },
+        {
+          "index": "04",
+          "title": "Menü ve branding",
+          "body": "Menü, stand, ambalaj ve kimlik dokunuşlarıyla markayı masada da tutarlı kılıyoruz."
+        }
+      ]
+    },
+    "feedback": {
+      "tag": "MÜŞTERİ GERİ BİLDİRİMİ",
+      "title": "Clients feedback",
+      "prev": "Önceki yorum",
+      "next": "Sonraki yorum",
+      "items": [
+        { "name": "Mehmet Temim", "role": "Opera Hotel Bosphorus" },
+        { "name": "Ergin K.", "role": "Pricing Coach" },
+        { "name": "Burak Gedik", "role": "GG Pizza" }
+      ]
+    },
+    "process": {
+      "tag": "SÜREÇ NASIL İLERLİYOR?",
+      "title": "4–6 haftalık akış",
+      "duration": "4/6 HAFTA",
+      "steps": [
+        {
+          "pct": "%25",
+          "title": "Tanışma & analiz",
+          "body": "Mekân, hedef kitle ve mevcut içerik durumunu birlikte okuyoruz."
+        },
+        {
+          "pct": "%50",
+          "title": "Strateji ve anlaşma",
+          "body": "Çekim planı, kanal stratejisi ve teslim takvimini netleştiriyoruz."
+        },
+        {
+          "pct": "%80",
+          "title": "Üretim ve uygulama",
+          "body": "Çekim, kurgu, yayın ve gerekli tasarım işlerini hayata geçiriyoruz."
+        },
+        {
+          "pct": "%100",
+          "title": "Onay ve teslimat",
+          "body": "Son kontroller, varlık teslimi ve sonraki büyüme adımları."
+        }
+      ]
+    },
+    "growth": {
+      "tag": "GELİŞİM",
+      "title": "Sosyal medya başarımız.",
+      "body": "Organik erişim ve etkileşimde ölçülebilir büyümeler — örnek vakalarımızda görüldüğü gibi.",
+      "cta": "Projeleri gör",
+      "stat": "+615%",
+      "statLabel": "Reactions"
+    },
+    "contact": {
+      "tag": "İLETİŞİME GEÇELİM",
+      "title": "Hadi başlayalım",
+      "lead": "Otel veya restoranınız için ücretsiz bir ön analiz konuşması ayarlayalım.",
+      "whatsapp": "WhatsApp üzerinden konuşalım"
+    }
   }
 }

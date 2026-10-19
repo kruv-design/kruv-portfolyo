@@ -20,7 +20,10 @@ const config: NextConfig = {
   distDir,
   outputFileTracingRoot: path.join(__dirname),
   async redirects() {
-    return [{ source: "/portfolio", destination: "/works", permanent: true }];
+    return [
+      { source: "/portfolio", destination: "/works", permanent: true },
+      { source: "/hospitality", destination: "/tr/hospitality", permanent: false },
+    ];
   },
   images: {
     remotePatterns: [

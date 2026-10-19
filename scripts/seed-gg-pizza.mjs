@@ -14,7 +14,7 @@ const payload = {
     "GG Pizza için marka kimliği, menü ve stand tasarımı, etkinlik branding’i, sosyal medya yönetimi, çekim ve performans pazarlamasını tek bir görsel sistemde birleştirdik. Masadan feed’e, feed’den rezervasyona uzanan bir hikâye.",
   description:
     "For GG Pizza we built brand identity, menu and stand design, event branding, social media management, photography, and performance marketing as one visual system — from the table to the feed, and from the feed to bookings.",
-  kapak: `${BASE}/kapak.png`,
+  kapak: "https://res.cloudinary.com/di0qbhh46/image/upload/v1792410123/kruv-portfolio/projects/gg-pizza/kapak.jpg",
   galeri_1: `${BASE}/g01.png`,
   galeri_2: `${BASE}/g02.png`,
   galeri_3: `${BASE}/g03.png`,

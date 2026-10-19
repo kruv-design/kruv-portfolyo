@@ -19,8 +19,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
   const staticPaths = ENABLE_PUBLIC_CONTACT
-    ? ["/works", "/blog", "/contact"]
-    : ["/works", "/blog"];
+    ? ["/works", "/blog", "/contact", "/hospitality"]
+    : ["/works", "/blog", "/hospitality"];
 
   return [
     // Anasayfalar — TR birincil
@@ -38,7 +38,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: now,
         changeFrequency: path === "/works" ? ("weekly" as const) : ("monthly" as const),
         priority:
-          path === "/works"
+          path === "/works" || path === "/hospitality"
             ? localePriority(locale, 0.9, 0.7)
             : localePriority(locale, 0.85, 0.65),
       })),

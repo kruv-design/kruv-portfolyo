@@ -96,6 +96,7 @@ export function MarketingSiteNav({
   const brandLabel = normalizeBrandName(settings.siteAdi).toLowerCase();
 
   const isProjectsActive = pathname?.includes("/works") || (pathname?.includes("/projects/") ?? false);
+  const isHospitalityActive = pathname?.includes("/hospitality") ?? false;
   const isBlogActive = pathname?.includes("/blog") ?? false;
   const isDropsActive = pathname?.includes("/drops") ?? false;
   const isContactActive = pathname?.includes("/contact");
@@ -175,6 +176,15 @@ export function MarketingSiteNav({
                     aria-current={isProjectsActive ? "page" : undefined}
                   >
                     {t(messages, "nav.projects", locale === "tr" ? "Projeler" : "Projects")}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href={withLocale("/hospitality", locale)}
+                    className="marketing-navbar-item"
+                    aria-current={isHospitalityActive ? "page" : undefined}
+                  >
+                    {t(messages, "nav.hospitality", "Hospitality")}
                   </Link>
                 </li>
                 <li>
@@ -266,6 +276,11 @@ export function MarketingSiteNav({
             <li>
               <Link href={withLocale("/works", locale)} onClick={closeMobileMenu}>
                 {t(messages, "nav.projects", locale === "tr" ? "Projeler" : "Projects")}
+              </Link>
+            </li>
+            <li>
+              <Link href={withLocale("/hospitality", locale)} onClick={closeMobileMenu}>
+                {t(messages, "nav.hospitality", "Hospitality")}
               </Link>
             </li>
             <li>

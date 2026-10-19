@@ -163,6 +163,7 @@
   },
   "nav": {
     "projects": "Projects",
+    "hospitality": "Hospitality",
     "contact": "Contact",
     "blog": "Blog",
     "drops": "Drops",
@@ -284,5 +285,110 @@
       ]
     },
     "socialsAria": "Social media"
+  },
+  "hospitality": {
+    "metaTitle": "Hospitality Social Media & Content for Hotels & Restaurants | Kruv",
+    "metaDescription": "Photography, video, social media management, menus and brand identity for hotels and restaurants — turning visibility into bookings.",
+    "hero": {
+      "tag": "HOSPITALITY",
+      "titleBefore": "Bring your hotel and restaurant’s",
+      "titleAccent": "potential to the stage",
+      "lead": "Lifestyle stills and videos with a story — wake up your digital storefront and invite followers to become guests."
+    },
+    "filters": {
+      "aria": "Content filters",
+      "all": "All",
+      "hotel": "Hotel",
+      "menu": "Menu",
+      "social": "Social"
+    },
+    "marquee": {
+      "aria": "Services marquee",
+      "phrases": [
+        "Photo & video production",
+        "Social media",
+        "Website",
+        "Menu design",
+        "Logo"
+      ]
+    },
+    "services": {
+      "tag": "WHAT WE DO",
+      "title": "Core services",
+      "items": [
+        {
+          "index": "01",
+          "title": "Photo & video production",
+          "body": "From the table to the lobby — we craft frames worth sharing that turn attention into bookings."
+        },
+        {
+          "index": "02",
+          "title": "Website",
+          "body": "Fast, on-brand digital storefronts designed around reservations."
+        },
+        {
+          "index": "03",
+          "title": "Social media management",
+          "body": "Planning, publishing, engagement and ads — a steady rhythm that grows the account."
+        },
+        {
+          "index": "04",
+          "title": "Menu & branding",
+          "body": "Menus, stands, packaging and identity touches that keep the brand consistent at the table."
+        }
+      ]
+    },
+    "feedback": {
+      "tag": "CLIENT FEEDBACK",
+      "title": "Clients feedback",
+      "prev": "Previous testimonial",
+      "next": "Next testimonial",
+      "items": [
+        { "name": "Mehmet Temim", "role": "Opera Hotel Bosphorus" },
+        { "name": "Ergin K.", "role": "Pricing Coach" },
+        { "name": "Burak Gedik", "role": "GG Pizza" }
+      ]
+    },
+    "process": {
+      "tag": "HOW THE PROCESS WORKS",
+      "title": "A 4–6 week flow",
+      "duration": "4/6 WEEKS",
+      "steps": [
+        {
+          "pct": "25%",
+          "title": "Intro & analysis",
+          "body": "We read the venue, audience and current content together."
+        },
+        {
+          "pct": "50%",
+          "title": "Strategy & agreement",
+          "body": "We lock the shoot plan, channel strategy and delivery calendar."
+        },
+        {
+          "pct": "80%",
+          "title": "Production & rollout",
+          "body": "Shoot, edit, publish and the design work that supports them."
+        },
+        {
+          "pct": "100%",
+          "title": "Approval & delivery",
+          "body": "Final checks, asset handoff and next growth steps."
+        }
+      ]
+    },
+    "growth": {
+      "tag": "GROWTH",
+      "title": "Our social media results.",
+      "body": "Measurable gains in organic reach and engagement — as seen in our case studies.",
+      "cta": "View projects",
+      "stat": "+615%",
+      "statLabel": "Reactions"
+    },
+    "contact": {
+      "tag": "LET’S TALK",
+      "title": "Let’s get started",
+      "lead": "Book a free discovery call for your hotel or restaurant.",
+      "whatsapp": "Let’s talk on WhatsApp"
+    }
   }
 }
