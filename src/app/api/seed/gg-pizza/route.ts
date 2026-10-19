@@ -54,11 +54,32 @@ export async function POST(req: NextRequest) {
 
   const sb = supabaseAdmin();
 
-  const { data, error } = await sb
+  const { data: existing, error: findErr } = await sb
     .from("projects")
-    .upsert(PAYLOAD, { onConflict: "slug" })
-    .select("*")
-    .single();
+    .select("id")
+    .eq("slug", "gg-pizza")
+    .maybeSingle();
+
+  if (findErr) {
+    return NextResponse.json({ error: findErr.message }, { status: 500 });
+  }
+
+  let data;
+  let error;
+  if (existing?.id) {
+    ({ data, error } = await sb
+      .from("projects")
+      .update(PAYLOAD)
+      .eq("id", existing.id)
+      .select("*")
+      .single());
+  } else {
+    ({ data, error } = await sb
+      .from("projects")
+      .insert(PAYLOAD)
+      .select("*")
+      .single());
+  }
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
