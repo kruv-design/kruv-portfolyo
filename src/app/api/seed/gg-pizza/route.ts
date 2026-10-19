@@ -32,8 +32,6 @@ const PAYLOAD = {
   galeri_13: `${BASE}/g13.png`,
   galeri_14: `${BASE}/g14.png`,
   galeri_15: "",
-  galeri_1_video: "",
-  galeri_5_video: "",
   bolumler: [],
   etiketler: ["brand-identity", "packaging"],
   featured: true,
@@ -56,31 +54,6 @@ export async function POST(req: NextRequest) {
   }
 
   const sb = supabaseAdmin();
-
-  const { data: existing, error: listErr } = await sb
-    .from("projects")
-    .select("id, slug, sira")
-    .order("sira", { ascending: true });
-
-  if (listErr) {
-    return NextResponse.json({ error: listErr.message }, { status: 500 });
-  }
-
-  const hasGg = (existing ?? []).some((p) => p.slug === "gg-pizza");
-  if (!hasGg) {
-    for (const p of existing ?? []) {
-      const { error } = await sb
-        .from("projects")
-        .update({ sira: (Number(p.sira) || 0) + 10 })
-        .eq("id", p.id);
-      if (error) {
-        return NextResponse.json(
-          { error: `sira bump failed: ${error.message}` },
-          { status: 500 },
-        );
-      }
-    }
-  }
 
   const { data, error } = await sb
     .from("projects")
