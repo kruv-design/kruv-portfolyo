@@ -6,6 +6,7 @@ export const dynamic = "force-dynamic";
 
 const BASE = "https://kruv.com/projects/gg-pizza";
 
+/** Production DB’de olmayan sütunları gönderme (schema cache hatası). */
 const PAYLOAD = {
   slug: "gg-pizza",
   baslik: "GG Pizza",
@@ -35,8 +36,6 @@ const PAYLOAD = {
   bolumler: [],
   etiketler: ["brand-identity", "packaging"],
   featured: true,
-  yayinda: true,
-  next_project_override: "",
   renk: "#E10600",
   sira: 0,
 };
