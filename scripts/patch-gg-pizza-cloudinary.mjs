@@ -21,10 +21,6 @@ const patch = {
   galeri_12: `${CLD}/v1792473773/${FOLDER}/g12.png`,
   galeri_13: `${CLD}/v1792473774/${FOLDER}/g13.png`,
   galeri_14: `${CLD}/v1792473774/${FOLDER}/g14.png`,
-  galeri_1_video:
-    "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=kruv-portfolio%2Ftjuplhh3fvinklogpqi4",
-  galeri_5_video:
-    "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=kruv-portfolio%2Fnit0n7q4q4u0dgbn2j2q",
 };
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
