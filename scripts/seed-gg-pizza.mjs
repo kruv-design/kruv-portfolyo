@@ -1,8 +1,9 @@
 /**
  * GG Pizza projesini Supabase'e ekler / günceller (anasayfa 1. sıra).
- * Kullanım: node --env-file=.env.local scripts/seed-gg-pizza.mjs
+ * Kullanım: npx vercel env run -e production -- node scripts/seed-gg-pizza.mjs
  */
-const BASE = "https://kruv.com/projects/gg-pizza";
+const CLD = "https://res.cloudinary.com/di0qbhh46/image/upload";
+const FOLDER = "kruv-portfolio/projects/gg-pizza";
 
 const payload = {
   slug: "gg-pizza",
@@ -14,24 +15,26 @@ const payload = {
     "GG Pizza için marka kimliği, menü ve stand tasarımı, etkinlik branding’i, sosyal medya yönetimi, çekim ve performans pazarlamasını tek bir görsel sistemde birleştirdik. Masadan feed’e, feed’den rezervasyona uzanan bir hikâye.",
   description:
     "For GG Pizza we built brand identity, menu and stand design, event branding, social media management, photography, and performance marketing as one visual system — from the table to the feed, and from the feed to bookings.",
-  kapak: "https://res.cloudinary.com/di0qbhh46/image/upload/v1792410123/kruv-portfolio/projects/gg-pizza/kapak.jpg",
-  galeri_1: `${BASE}/g01.png`,
-  galeri_2: `${BASE}/g02.png`,
-  galeri_3: `${BASE}/g03.png`,
-  galeri_4: `${BASE}/g04.png`,
-  galeri_5: `${BASE}/g05.png`,
-  galeri_6: `${BASE}/g06.png`,
-  galeri_7: `${BASE}/g07.png`,
-  galeri_8: `${BASE}/g08.png`,
-  galeri_9: `${BASE}/g09.png`,
-  galeri_10: `${BASE}/g10.png`,
-  galeri_11: `${BASE}/g11.png`,
-  galeri_12: `${BASE}/g12.png`,
-  galeri_13: `${BASE}/g13.png`,
-  galeri_14: `${BASE}/g14.png`,
+  kapak: `${CLD}/v1792473758/${FOLDER}/kapak.png`,
+  galeri_1: `${CLD}/v1792473757/${FOLDER}/g01.png`,
+  galeri_2: `${CLD}/v1792473767/${FOLDER}/g02.png`,
+  galeri_3: `${CLD}/v1792473756/${FOLDER}/g03.png`,
+  galeri_4: `${CLD}/v1792473756/${FOLDER}/g04.png`,
+  galeri_5: `${CLD}/v1792473768/${FOLDER}/g05.png`,
+  galeri_6: `${CLD}/v1792473768/${FOLDER}/g06.png`,
+  galeri_7: `${CLD}/v1792473768/${FOLDER}/g07.png`,
+  galeri_8: `${CLD}/v1792473769/${FOLDER}/g08.png`,
+  galeri_9: `${CLD}/v1792473769/${FOLDER}/g09.png`,
+  galeri_10: `${CLD}/v1792473773/${FOLDER}/g10.png`,
+  galeri_11: `${CLD}/v1792473774/${FOLDER}/g11.png`,
+  galeri_12: `${CLD}/v1792473773/${FOLDER}/g12.png`,
+  galeri_13: `${CLD}/v1792473774/${FOLDER}/g13.png`,
+  galeri_14: `${CLD}/v1792473774/${FOLDER}/g14.png`,
   galeri_15: "",
-  galeri_1_video: "",
-  galeri_5_video: "",
+  galeri_1_video:
+    "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=kruv-portfolio%2Ftjuplhh3fvinklogpqi4",
+  galeri_5_video:
+    "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=kruv-portfolio%2Fnit0n7q4q4u0dgbn2j2q",
   bolumler: [],
   etiketler: ["brand-identity", "packaging"],
   featured: true,

@@ -31,6 +31,11 @@ export function ProjectDetail({
   const gallerySlots = projectGallerySlots(project);
   const title = projectTitleForLocale(project, locale);
   const intro = projectIntroForLocale(project, locale);
+  /** İki video slotu (1 + 5) doluysa yan yana; aksi halde normal galeri akışı. */
+  const videoSlots = gallerySlots.filter((s) => s.videoSrc);
+  const imageSlots = gallerySlots.filter((s) => !s.videoSrc);
+  const showVideoPair = videoSlots.length >= 2;
+  const galleryForList = showVideoPair ? imageSlots : gallerySlots;
 
   return (
     <>
@@ -90,20 +95,36 @@ export function ProjectDetail({
           </div>
         </aside>
 
-        {gallerySlots.length > 0 && (
+        {(showVideoPair || galleryForList.length > 0) && (
           <div className="project-detail-gallery-wrap animate-fadeUp">
-            <div className="project-detail-gallery">
-              {gallerySlots.map(({ key, posterSrc, videoSrc }, i) => (
-                <figure key={key} className="project-detail-gallery__item">
-                  <ProjectDetailMedia
-                    posterSrc={posterSrc}
-                    videoSrc={videoSrc}
-                    alt={`${title} — galeri görseli ${i + 1}`}
-                    variant="gallery"
-                  />
-                </figure>
-              ))}
-            </div>
+            {showVideoPair ? (
+              <div className="project-detail-video-pair" role="group" aria-label={`${title} — videolar`}>
+                {videoSlots.map((slot, i) => (
+                  <figure key={slot.key} className="project-detail-video-pair__item">
+                    <ProjectDetailMedia
+                      posterSrc={slot.posterSrc}
+                      videoSrc={slot.videoSrc}
+                      alt={`${title} — video ${i + 1}`}
+                      variant="gallery"
+                    />
+                  </figure>
+                ))}
+              </div>
+            ) : null}
+            {galleryForList.length > 0 ? (
+              <div className="project-detail-gallery">
+                {galleryForList.map(({ key, posterSrc, videoSrc }, i) => (
+                  <figure key={key} className="project-detail-gallery__item">
+                    <ProjectDetailMedia
+                      posterSrc={posterSrc}
+                      videoSrc={videoSrc}
+                      alt={`${title} — galeri görseli ${i + 1}`}
+                      variant="gallery"
+                    />
+                  </figure>
+                ))}
+              </div>
+            ) : null}
           </div>
         )}
 

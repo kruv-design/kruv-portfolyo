@@ -1908,6 +1908,40 @@ i {
   box-sizing: border-box;
 }
 
+/* Galeri video çifti (slot 1 + 5): masaüstü yan yana, mobilde alt alta */
+.project-detail-video-pair {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--project-gallery-inset-y);
+  width: 100%;
+  margin: 0 0 var(--project-gallery-inset-y);
+}
+@media (min-width: 700px) {
+  .project-detail-video-pair {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+  }
+}
+.project-detail-video-pair__item {
+  margin: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--surface);
+}
+.project-detail-video-pair__item .project-detail-media {
+  position: relative;
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+}
+.project-detail-video-pair__item .project-detail-media__poster-wrap,
+.project-detail-video-pair__item .project-detail-media__video {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+}
+
 /* Homepage featured-work kart tipografisi (kruv.html) */
 .pw-card {
   position: relative;
