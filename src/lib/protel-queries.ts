@@ -202,7 +202,7 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
     video1Aspect: "9:16",
     video2Title: "Food is Art",
     video2Url:
-      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Food_is_art_yx3vep",
+      "https://res.cloudinary.com/di0qbhh46/video/upload/v1792754148/Bal%C4%B1k_editv6_a2zcrh.mp4",
     video2Aspect: "9:16",
     updatedAt: "",
   },
@@ -412,6 +412,28 @@ function normalizeBrand(brand: ProtelBrand): ProtelBrand {
     next = { ...next, socialAccounts: fallback.socialAccounts };
   } else if (socialAccounts.length > 0) {
     next = { ...next, socialAccounts };
+  }
+
+  if (brand.slug === "ggpizza") {
+    const video2Haystack = (() => {
+      try {
+        return decodeURIComponent(next.video2Url).toLowerCase();
+      } catch {
+        return next.video2Url.toLowerCase();
+      }
+    })();
+    const hasStaleFoodIsArt =
+      video2Haystack.includes("food_is_art") ||
+      video2Haystack.includes("tjuplhh3fvinklogpqi4");
+    if (hasStaleFoodIsArt) {
+      next = {
+        ...next,
+        video2Title: fallback.video2Title,
+        video2Url: fallback.video2Url,
+        video2Aspect: fallback.video2Aspect,
+      };
+    }
+    return next;
   }
 
   if (brand.slug !== "the-scholar-school") {
