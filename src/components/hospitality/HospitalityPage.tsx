@@ -17,6 +17,8 @@ import { ContactForm } from "@/components/public/ContactForm";
 import { ContactSocials } from "@/components/public/ContactSocials";
 import type { SiteSettings } from "@/types";
 
+const FILTERS: HospitalityFilter[] = ["opera", "gg-pizza", "borden"];
+
 export function HospitalityPage({
   locale,
   messages,
@@ -27,13 +29,13 @@ export function HospitalityPage({
   settings: SiteSettings;
 }) {
   const copy = messages.hospitality;
-  const [filter, setFilter] = useState<HospitalityFilter>("all");
+  const [filter, setFilter] = useState<HospitalityFilter>("opera");
   const [feedbackIndex, setFeedbackIndex] = useState(0);
 
-  const items = useMemo(() => {
-    if (filter === "all") return HOSPITALITY_GALLERY;
-    return HOSPITALITY_GALLERY.filter((item) => item.filter === filter);
-  }, [filter]);
+  const items = useMemo(
+    () => HOSPITALITY_GALLERY.filter((item) => item.filter === filter),
+    [filter],
+  );
 
   const feedback = copy.feedback.items;
   const feedbackSafe = feedback[feedbackIndex % Math.max(feedback.length, 1)];
@@ -42,6 +44,12 @@ export function HospitalityPage({
     if (feedback.length === 0) return;
     setFeedbackIndex((i) => (i + delta + feedback.length) % feedback.length);
   }
+
+  const filterLabels: Record<HospitalityFilter, string> = {
+    opera: copy.filters.opera,
+    "gg-pizza": copy.filters.ggPizza,
+    borden: copy.filters.borden,
+  };
 
   return (
     <div className="hosp-page">
@@ -54,14 +62,7 @@ export function HospitalityPage({
         <p className="hosp-hero__lead">{copy.hero.lead}</p>
 
         <div className="hosp-filters" role="tablist" aria-label={copy.filters.aria}>
-          {(
-            [
-              ["all", copy.filters.all],
-              ["hotel", copy.filters.hotel],
-              ["menu", copy.filters.menu],
-              ["social", copy.filters.social],
-            ] as const
-          ).map(([key, label]) => (
+          {FILTERS.map((key) => (
             <button
               key={key}
               type="button"
@@ -70,7 +71,7 @@ export function HospitalityPage({
               className={`hosp-filter${filter === key ? " is-active" : ""}`}
               onClick={() => setFilter(key)}
             >
-              {label}
+              {filterLabels[key]}
             </button>
           ))}
         </div>
@@ -108,15 +109,11 @@ export function HospitalityPage({
         />
       </div>
 
-      <section className="hosp-section" aria-labelledby="hosp-services-title">
+      <section className="hosp-section hosp-services" aria-label={copy.services.tag}>
         <MarketingHomeSectionTag>{copy.services.tag}</MarketingHomeSectionTag>
-        <h2 id="hosp-services-title" className="h2" style={{ marginTop: "var(--space-4)" }}>
-          {copy.services.title}
-        </h2>
         <div className="hosp-services__grid">
           {copy.services.items.map((item) => (
-            <article key={item.index} className="hosp-service">
-              <div className="hosp-service__index">{item.index}</div>
+            <article key={item.title} className="hosp-service">
               <h3 className="h4 hosp-service__title">{item.title}</h3>
               <p className="b1 hosp-service__body">{item.body}</p>
             </article>
@@ -124,14 +121,9 @@ export function HospitalityPage({
         </div>
       </section>
 
-      <section className="hosp-section" aria-labelledby="hosp-feedback-title">
+      <section className="hosp-section" aria-label={copy.feedback.tag}>
         <div className="hosp-feedback__head">
-          <div>
-            <MarketingHomeSectionTag>{copy.feedback.tag}</MarketingHomeSectionTag>
-            <h2 id="hosp-feedback-title" className="h2" style={{ marginTop: "var(--space-4)" }}>
-              {copy.feedback.title}
-            </h2>
-          </div>
+          <MarketingHomeSectionTag>{copy.feedback.tag}</MarketingHomeSectionTag>
           <div className="hosp-feedback__nav">
             <button
               type="button"
@@ -173,22 +165,24 @@ export function HospitalityPage({
         ) : null}
       </section>
 
-      <section className="hosp-section" aria-labelledby="hosp-process-title">
+      <section className="hosp-section" aria-label={copy.process.tag}>
         <div className="hosp-process__head">
-          <div>
-            <MarketingHomeSectionTag>{copy.process.tag}</MarketingHomeSectionTag>
-            <h2 id="hosp-process-title" className="h2" style={{ marginTop: "var(--space-4)" }}>
-              {copy.process.title}
-            </h2>
-          </div>
+          <MarketingHomeSectionTag>{copy.process.tag}</MarketingHomeSectionTag>
           <p className="hosp-process__duration">{copy.process.duration}</p>
         </div>
         <div className="hosp-process__grid">
           {copy.process.steps.map((step) => (
             <article key={step.pct} className="hosp-process__step">
-              <div className="hosp-process__pct">{step.pct}</div>
               <h3 className="h4 hosp-process__title">{step.title}</h3>
               <p className="b1 hosp-process__body">{step.body}</p>
+              <div className="hosp-process__meter">
+                <div className="hosp-process__pct">{step.pct}</div>
+                <div
+                  className="hosp-process__bar"
+                  style={{ width: `${step.bar}%` }}
+                  aria-hidden="true"
+                />
+              </div>
             </article>
           ))}
         </div>
@@ -207,8 +201,9 @@ export function HospitalityPage({
             </Link>
           </div>
           <div className="hosp-growth__stat">
-            <p className="hosp-growth__stat-value">{copy.growth.stat}</p>
             <p className="hosp-growth__stat-label">{copy.growth.statLabel}</p>
+            <p className="hosp-growth__stat-value">{copy.growth.stat}</p>
+            <p className="hosp-growth__organic">{copy.growth.organic}</p>
           </div>
         </div>
       </section>
@@ -220,9 +215,11 @@ export function HospitalityPage({
         </h2>
         <div className="hosp-contact__grid">
           <div>
-            <p className="b1" style={{ color: "var(--ink-soft)", maxWidth: "36ch" }}>
-              {copy.contact.lead}
-            </p>
+            {copy.contact.lead ? (
+              <p className="b1" style={{ color: "var(--ink-soft)", maxWidth: "36ch" }}>
+                {copy.contact.lead}
+              </p>
+            ) : null}
             <a
               href={t(messages, "contact.details.whatsappUrl")}
               className="hosp-contact__whatsapp"

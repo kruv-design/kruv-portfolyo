@@ -76,7 +76,13 @@
       "ariaLabel": "Yönettiğimiz sosyal medya hesapları",
       "tagLabel": "AKTİF OLARAK YÖNETTİĞİMİZ SOSYAL MEDYA HESAPLARIMIZ",
       "tabListLabel": "Müşteriler",
-      "instagramVisit": "{brand} instagramını ziyaret et"
+      "instagramVisit": "{brand} instagramını ziyaret et",
+      "videoTitles": {
+        "ggpizza": {
+          "video1": "Bira & Pizza",
+          "video2": "Winter menü, yakında"
+        }
+      }
     },
     "scrollMarquee": {
       "ariaLabel": "Uzmanlık alanlarımız",
@@ -287,105 +293,102 @@
     "metaTitle": "Otel ve Restoranlar için Sosyal Medya & İçerik | Kruv",
     "metaDescription": "Otel ve restoranlar için fotoğraf, video, sosyal medya yönetimi, menü ve marka kimliği. Görünürlüğü rezervasyona dönüştürüyoruz.",
     "hero": {
-      "tag": "HOSPITALITY / KONAKLAMA",
-      "titleBefore": "Otelinizin ve restoranınızın",
-      "titleAccent": "potansiyelini sahneye çıkarın",
-      "lead": "Hikâyesi olan lifestyle kareler ve videolarla dijital vitrininizi canlandırın; takipçilerinizi misafiriniz olmaya davet edin."
+      "tag": "Hospıtaly works",
+      "titleBefore": "Otelinizin ve Restoranınızın",
+      "titleAccent": "Potansiyelini Sahneye Çıkarın",
+      "lead": "Hikayesi olan lifestyle kareler ve videolarla dijital vitrininizi canlandırın; takipçilerinizi misafiriniz olmaya davet edin."
     },
     "filters": {
-      "aria": "İçerik filtreleri",
-      "all": "Tümü",
-      "hotel": "Otel",
-      "menu": "Menü",
-      "social": "Sosyal"
+      "aria": "Proje filtreleri",
+      "opera": "OPERA HOTEL BOSPHORUS",
+      "ggPizza": "GG PİZZA",
+      "borden": "BORDEN"
     },
     "marquee": {
       "aria": "Hizmet bandı",
       "phrases": [
         "Fotoğraf ve video çekimi",
-        "Sosyal medya",
+        "Sosyal Medya",
         "Web sitesi",
-        "Menü tasarımı",
-        "Logo"
+        "Menü",
+        "LOGO"
       ]
     },
     "services": {
       "tag": "NELER YAPIYORUZ?",
-      "title": "Geleneksel hizmetler",
       "items": [
         {
-          "index": "01",
-          "title": "Fotoğraf ve video çekimi",
-          "body": "Masadan lobiye, feed’den rezervasyona — mekânınızın atmosferini paylaşılmaya değer karelerle kuruyoruz."
+          "title": "Fotoğraf ve Video Çekimi",
+          "body": "Otelinizin sunduğu eşsiz atmosferi ve yaşam tarzını, estetik görsel içeriklerle potansiyel misafirlerinizde orada olma arzusu uyandırıyoruz."
         },
         {
-          "index": "02",
-          "title": "Web sitesi",
-          "body": "Rezervasyon odaklı, hızlı ve markanıza uygun dijital vitrinler tasarlıyoruz."
+          "title": "Web Sitesi",
+          "body": "Otelinizin prestijini yansıtan, kullanıcı dostu ve doğrudan rezervasyon oranlarınızı artırmaya odaklı modern dijital platformlar tasarlıyoruz."
         },
         {
-          "index": "03",
-          "title": "Sosyal medya yönetimi",
-          "body": "İçerik planı, yayın, etkileşim ve reklam — hesabınızı büyüten düzenli bir ritim."
+          "title": "Sosyal Medya Yönetimi",
+          "body": "Dijital vitrininizi trendlere uygun ve markanıza özel stratejilerle yöneterek, sosyal medyadaki takipçilerinizi sadık misafirlere dönüştürüyoruz."
         },
         {
-          "index": "04",
-          "title": "Menü ve branding",
-          "body": "Menü, stand, ambalaj ve kimlik dokunuşlarıyla markayı masada da tutarlı kılıyoruz."
+          "title": "Menü ve Branding",
+          "body": "Markanızın ruhunu yansıtan özgün menü tasarımları ve kurumsal kimlik çalışmalarıyla, misafirlerinizin yeme-içme deneyimini her detayıyla estetik bir şölene dönüştürüyoruz."
         }
       ]
     },
     "feedback": {
-      "tag": "MÜŞTERİ GERİ BİLDİRİMİ",
-      "title": "Clients feedback",
+      "tag": "CLIENTS FEEDBACK",
       "prev": "Önceki yorum",
       "next": "Sonraki yorum",
       "items": [
-        { "name": "Mehmet Temim", "role": "Opera Hotel Bosphorus" },
-        { "name": "Ergin K.", "role": "Pricing Coach" },
-        { "name": "Burak Gedik", "role": "GG Pizza" }
+        { "name": "Mehmet Temim", "role": "OPERA HOTEL BOSPHORUS" },
+        { "name": "Ergin k", "role": "PRİCİNG COACH" },
+        { "name": "Burak Gedik", "role": "GG PİZZA" }
       ]
     },
     "process": {
       "tag": "SÜREÇ NASIL İLERLİYOR?",
-      "title": "4–6 haftalık akış",
       "duration": "4/6 HAFTA",
       "steps": [
         {
           "pct": "%25",
-          "title": "Tanışma & analiz",
-          "body": "Mekân, hedef kitle ve mevcut içerik durumunu birlikte okuyoruz."
+          "bar": 25,
+          "title": "Tanışma & Analiz",
+          "body": "Otelinizle tanışıp hedeflerinizi dinliyor, markanızın dijitaldeki eksiklerini ve geliştirilecek noktalarını birlikte belirliyoruz."
         },
         {
           "pct": "%50",
-          "title": "Strateji ve anlaşma",
-          "body": "Çekim planı, kanal stratejisi ve teslim takvimini netleştiriyoruz."
+          "bar": 50,
+          "title": "Strateji ve Anlaşma",
+          "body": "Belirlenen eksiklere yönelik bir yol haritası çiziyor, hizmet kapsamı ve fiyatlandırma üzerinde karşılıklı anlaşma sağlıyoruz."
         },
         {
           "pct": "%80",
-          "title": "Üretim ve uygulama",
-          "body": "Çekim, kurgu, yayın ve gerekli tasarım işlerini hayata geçiriyoruz."
+          "bar": 80,
+          "title": "Üretim ve Uygulama (İhtiyacı Karşılama)",
+          "body": "Fotoğraf ve video çekimleri, sosyal medya yönetimi ve branding çalışmalarımızla planlanan stratejiyi hayata geçiriyoruz."
         },
         {
           "pct": "%100",
-          "title": "Onay ve teslimat",
-          "body": "Son kontroller, varlık teslimi ve sonraki büyüme adımları."
+          "bar": 100,
+          "title": "Onay ve Teslimat",
+          "body": "Hazırlanan tüm kreatif içerik, tasarım ve materyalleri onayınıza sunarak projemizi eksiksiz bir şekilde teslim ediyoruz."
         }
       ]
     },
     "growth": {
       "tag": "GELİŞİM",
-      "title": "Sosyal medya başarımız.",
-      "body": "Organik erişim ve etkileşimde ölçülebilir büyümeler — örnek vakalarımızda görüldüğü gibi.",
+      "title": "Sosyal Medya Başarımız.",
+      "body": "Kruv Ajans olarak, sosyal medya varlığınızı stratejik analizlerle büyütüyor, topluluk yönetiminizi profesyonel bir seviyeye taşıyoruz.",
       "cta": "Projeleri gör",
       "stat": "+615%",
-      "statLabel": "Reactions"
+      "statLabel": "reactions",
+      "organic": "Organıc"
     },
     "contact": {
       "tag": "İLETİŞİME GEÇELİM",
-      "title": "Hadi başlayalım",
-      "lead": "Otel veya restoranınız için ücretsiz bir ön analiz konuşması ayarlayalım.",
-      "whatsapp": "WhatsApp üzerinden konuşalım"
+      "title": "Hadi Başlayalım",
+      "lead": "",
+      "whatsapp": "Whatapp üzerinden konuşalım"
     }
   }
 }

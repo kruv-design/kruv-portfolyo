@@ -196,11 +196,11 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
         url: "https://www.instagram.com/ggpizzaa/",
       },
     ],
-    video1Title: "GG Pizza",
+    video1Title: "Bira & Pizza",
     video1Url:
       "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=GG_6_rdirzm",
     video1Aspect: "9:16",
-    video2Title: "Food is Art",
+    video2Title: "Winter menü, yakında",
     video2Url:
       "https://res.cloudinary.com/di0qbhh46/video/upload/v1792754148/Bal%C4%B1k_editv6_a2zcrh.mp4",
     video2Aspect: "9:16",
@@ -425,14 +425,24 @@ function normalizeBrand(brand: ProtelBrand): ProtelBrand {
     const hasStaleFoodIsArt =
       video2Haystack.includes("food_is_art") ||
       video2Haystack.includes("tjuplhh3fvinklogpqi4");
-    if (hasStaleFoodIsArt) {
-      next = {
-        ...next,
-        video2Title: fallback.video2Title,
-        video2Url: fallback.video2Url,
-        video2Aspect: fallback.video2Aspect,
-      };
-    }
+    const title1 = next.video1Title.trim().toLowerCase();
+    const title2 = next.video2Title.trim().toLowerCase();
+    const hasStaleTitles =
+      title1 === "gg pizza" ||
+      title2 === "food is art" ||
+      !title1 ||
+      !title2;
+    next = {
+      ...next,
+      video1Title: hasStaleTitles ? fallback.video1Title : next.video1Title,
+      video2Title: hasStaleTitles ? fallback.video2Title : next.video2Title,
+      ...(hasStaleFoodIsArt
+        ? {
+            video2Url: fallback.video2Url,
+            video2Aspect: fallback.video2Aspect,
+          }
+        : {}),
+    };
     return next;
   }
 

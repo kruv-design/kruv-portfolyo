@@ -1,6 +1,6 @@
 -- GG Pizza: kapak + galeri → Cloudinary (Supabase SQL Editor)
 update projects set
-  kapak = 'https://res.cloudinary.com/di0qbhh46/image/upload/v1792473758/kruv-portfolio/projects/gg-pizza/kapak.png',
+  kapak = 'https://res.cloudinary.com/di0qbhh46/image/upload/v1793313787/kruv-portfolio/projects/gg-pizza/kapak.png',
   galeri_1 = 'https://res.cloudinary.com/di0qbhh46/image/upload/v1792473757/kruv-portfolio/projects/gg-pizza/g01.png',
   galeri_2 = 'https://res.cloudinary.com/di0qbhh46/image/upload/v1792473767/kruv-portfolio/projects/gg-pizza/g02.png',
   galeri_3 = 'https://res.cloudinary.com/di0qbhh46/image/upload/v1792473756/kruv-portfolio/projects/gg-pizza/g03.png',

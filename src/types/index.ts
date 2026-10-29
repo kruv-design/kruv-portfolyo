@@ -47,6 +47,15 @@ export type Project = {
   galeri_13: string;
   galeri_14: string;
   galeri_15: string;
+  galeri_16: string;
+  galeri_17: string;
+  galeri_18: string;
+  galeri_19: string;
+  galeri_20: string;
+  galeri_21: string;
+  galeri_22: string;
+  galeri_23: string;
+  galeri_24: string;
   bolumler: ProjectSection[];
   etiketler: string[];
   featured: boolean;

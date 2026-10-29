@@ -6,7 +6,7 @@ const CLD = "https://res.cloudinary.com/di0qbhh46/image/upload";
 const FOLDER = "kruv-portfolio/projects/gg-pizza";
 
 const patch = {
-  kapak: `${CLD}/v1792473758/${FOLDER}/kapak.png`,
+  kapak: `${CLD}/v1793313787/${FOLDER}/kapak.png`,
   galeri_1: `${CLD}/v1792473757/${FOLDER}/g01.png`,
   galeri_2: `${CLD}/v1792473767/${FOLDER}/g02.png`,
   galeri_3: `${CLD}/v1792473756/${FOLDER}/g03.png`,

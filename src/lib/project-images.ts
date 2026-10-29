@@ -319,6 +319,15 @@ export const GALERI_KEYS = [
   "galeri_13",
   "galeri_14",
   "galeri_15",
+  "galeri_16",
+  "galeri_17",
+  "galeri_18",
+  "galeri_19",
+  "galeri_20",
+  "galeri_21",
+  "galeri_22",
+  "galeri_23",
+  "galeri_24",
 ] as const;
 
 export type GaleriKey = (typeof GALERI_KEYS)[number];

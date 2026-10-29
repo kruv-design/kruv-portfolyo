@@ -79,7 +79,13 @@
       "ariaLabel": "Social media accounts we manage",
       "tagLabel": "SOCIAL MEDIA ACCOUNTS WE ACTIVELY MANAGE",
       "tabListLabel": "Clients",
-      "instagramVisit": "Visit {brand} on Instagram"
+      "instagramVisit": "Visit {brand} on Instagram",
+      "videoTitles": {
+        "ggpizza": {
+          "video1": "Beer & Pizza",
+          "video2": "Winter menu, soon"
+        }
+      }
     },
     "scrollMarquee": {
       "ariaLabel": "What we focus on",
@@ -290,104 +296,101 @@
     "metaTitle": "Hospitality Social Media & Content for Hotels & Restaurants | Kruv",
     "metaDescription": "Photography, video, social media management, menus and brand identity for hotels and restaurants — turning visibility into bookings.",
     "hero": {
-      "tag": "HOSPITALITY",
+      "tag": "Hospitality works",
       "titleBefore": "Bring your hotel and restaurant’s",
-      "titleAccent": "potential to the stage",
+      "titleAccent": "Potential to the Stage",
       "lead": "Lifestyle stills and videos with a story — wake up your digital storefront and invite followers to become guests."
     },
     "filters": {
-      "aria": "Content filters",
-      "all": "All",
-      "hotel": "Hotel",
-      "menu": "Menu",
-      "social": "Social"
+      "aria": "Project filters",
+      "opera": "OPERA HOTEL BOSPHORUS",
+      "ggPizza": "GG PIZZA",
+      "borden": "BORDEN"
     },
     "marquee": {
       "aria": "Services marquee",
       "phrases": [
         "Photo & video production",
-        "Social media",
+        "Social Media",
         "Website",
-        "Menu design",
-        "Logo"
+        "Menu",
+        "LOGO"
       ]
     },
     "services": {
       "tag": "WHAT WE DO",
-      "title": "Core services",
       "items": [
         {
-          "index": "01",
-          "title": "Photo & video production",
-          "body": "From the table to the lobby — we craft frames worth sharing that turn attention into bookings."
+          "title": "Photo & Video Production",
+          "body": "We awaken the desire to be there — turning your hotel’s unique atmosphere and lifestyle into aesthetic visual content for potential guests."
         },
         {
-          "index": "02",
           "title": "Website",
-          "body": "Fast, on-brand digital storefronts designed around reservations."
+          "body": "We design modern digital platforms that reflect your hotel’s prestige, stay user-friendly, and focus on increasing direct reservation rates."
         },
         {
-          "index": "03",
-          "title": "Social media management",
-          "body": "Planning, publishing, engagement and ads — a steady rhythm that grows the account."
+          "title": "Social Media Management",
+          "body": "We manage your digital storefront with trend-aware, brand-specific strategies — turning social followers into loyal guests."
         },
         {
-          "index": "04",
-          "title": "Menu & branding",
-          "body": "Menus, stands, packaging and identity touches that keep the brand consistent at the table."
+          "title": "Menu & Branding",
+          "body": "With original menu designs and corporate identity work that reflect your brand’s spirit, we turn the dining experience into an aesthetic feast in every detail."
         }
       ]
     },
     "feedback": {
-      "tag": "CLIENT FEEDBACK",
-      "title": "Clients feedback",
+      "tag": "CLIENTS FEEDBACK",
       "prev": "Previous testimonial",
       "next": "Next testimonial",
       "items": [
-        { "name": "Mehmet Temim", "role": "Opera Hotel Bosphorus" },
-        { "name": "Ergin K.", "role": "Pricing Coach" },
-        { "name": "Burak Gedik", "role": "GG Pizza" }
+        { "name": "Mehmet Temim", "role": "OPERA HOTEL BOSPHORUS" },
+        { "name": "Ergin k", "role": "PRICING COACH" },
+        { "name": "Burak Gedik", "role": "GG PIZZA" }
       ]
     },
     "process": {
       "tag": "HOW THE PROCESS WORKS",
-      "title": "A 4–6 week flow",
       "duration": "4/6 WEEKS",
       "steps": [
         {
           "pct": "25%",
-          "title": "Intro & analysis",
-          "body": "We read the venue, audience and current content together."
+          "bar": 25,
+          "title": "Intro & Analysis",
+          "body": "We meet your hotel, listen to your goals, and together identify digital gaps and opportunities for your brand."
         },
         {
           "pct": "50%",
-          "title": "Strategy & agreement",
-          "body": "We lock the shoot plan, channel strategy and delivery calendar."
+          "bar": 50,
+          "title": "Strategy & Agreement",
+          "body": "We draw a roadmap for the gaps we found and reach mutual agreement on scope and pricing."
         },
         {
           "pct": "80%",
-          "title": "Production & rollout",
-          "body": "Shoot, edit, publish and the design work that supports them."
+          "bar": 80,
+          "title": "Production & Implementation",
+          "body": "We bring the planned strategy to life through photo and video production, social media management, and branding work."
         },
         {
           "pct": "100%",
-          "title": "Approval & delivery",
-          "body": "Final checks, asset handoff and next growth steps."
+          "bar": 100,
+          "title": "Approval & Delivery",
+          "body": "We present all creative content, design, and materials for your approval and deliver the project complete."
         }
       ]
     },
     "growth": {
       "tag": "GROWTH",
-      "title": "Our social media results.",
-      "body": "Measurable gains in organic reach and engagement — as seen in our case studies.",
+      "title": "Our Social Media Success.",
+      "body": "As Kruv Agency, we grow your social presence with strategic analysis and elevate community management to a professional level.",
       "cta": "View projects",
       "stat": "+615%",
-      "statLabel": "Reactions"
+      "statLabel": "reactions",
+      "organic": "Organic"
     },
     "contact": {
       "tag": "LET’S TALK",
-      "title": "Let’s get started",
-      "lead": "Book a free discovery call for your hotel or restaurant.",
+      "title": "Let’s Get Started",
+      "lead": "",
       "whatsapp": "Let’s talk on WhatsApp"
     }
   }
