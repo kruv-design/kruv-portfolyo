@@ -48,6 +48,7 @@
 
 .marketing-home-figma .hero-v2--has-showreel {
   padding-bottom: var(--home-section-pad-y);
+  text-align: left;
 }
 
 /* ── Section tag (ikon + H4) — tipografi: globals .section-tag ── */
@@ -148,12 +149,14 @@
 .marketing-home-figma .hero-v2-subtitle {
   margin: 0;
   max-width: 60ch;
+  width: 100%;
   font-family: var(--b1-font-family);
   font-size: var(--b1-font-size);
   font-weight: var(--b1-font-weight);
   line-height: var(--b1-line-height);
   letter-spacing: var(--b1-letter-spacing);
   color: var(--home-ink-muted);
+  text-align: left;
 }
 
 .hero-v2-headline__main {
@@ -429,7 +432,13 @@
 }
 
 @media (min-width: 981px) {
+  /* 2×4: yatay çizgi yalnız üst sıra altında; dikey çizgi her 4. hücrede yok */
   .marketing-home-figma .ideal-logo-cell {
+    border-bottom: 1px solid var(--home-border);
+    border-radius: 0;
+  }
+
+  .marketing-home-figma .ideal-logo-cell:nth-child(n + 5) {
     border-bottom: none;
   }
 
@@ -442,13 +451,14 @@
   .marketing-home-figma .ideal-logo-cell {
     border-top: none !important;
     border-left: none !important;
+    border-radius: 0;
   }
 
   .marketing-home-figma .ideal-logo-cell:nth-child(2n) {
     border-right: none;
   }
 
-  .marketing-home-figma .ideal-logo-cell:nth-child(n + 3) {
+  .marketing-home-figma .ideal-logo-cell:nth-child(n + 7) {
     border-bottom: none;
   }
 }

@@ -299,7 +299,7 @@
       "tag": "Hospitality works",
       "titleBefore": "Bring your hotel and restaurant’s",
       "titleAccent": "Potential to the Stage",
-      "lead": "Lifestyle stills and videos with a story — wake up your digital storefront and invite followers to become guests."
+      "lead": "Lifestyle stills and videos with a story — wake up your digital storefront;\ninvite followers to become guests."
     },
     "filters": {
       "aria": "Project filters",
@@ -344,7 +344,11 @@
       "next": "Next testimonial",
       "items": [
         { "name": "Mehmet Temim", "role": "OPERA HOTEL BOSPHORUS" },
-        { "name": "Ergin k", "role": "PRICING COACH" },
+        {
+          "name": "Ergin k",
+          "role": "PRICING COACH",
+          "video": "https://res.cloudinary.com/di0qbhh46/video/upload/v1793315286/testimonal_pricing_coach_p0t5sd.mp4"
+        },
         { "name": "Burak Gedik", "role": "GG PIZZA" }
       ]
     },

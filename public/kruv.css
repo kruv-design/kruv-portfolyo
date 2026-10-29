@@ -1578,11 +1578,31 @@ body:has(.card:hover) .ticker {
 }
 .ideal-logo-2 { -webkit-mask-image: url("assets/clients/group-19.svg"); mask-image: url("assets/clients/group-19.svg"); }
 .ideal-logo-3 {
-  --ideal-logo-scale: 1.1;
-  -webkit-mask-image: url("assets/clients/group-297.svg");
-  mask-image: url("assets/clients/group-297.svg");
+  --ideal-logo-scale: 1.15;
+  -webkit-mask-image: url("assets/clients/jungleous.png");
+  mask-image: url("assets/clients/jungleous.png");
 }
 .ideal-logo-4 { -webkit-mask-image: url("assets/clients/asset-18.svg"); mask-image: url("assets/clients/asset-18.svg"); }
+.ideal-logo-5 {
+  --ideal-logo-scale: 1.15;
+  -webkit-mask-image: url("assets/clients/protel.png");
+  mask-image: url("assets/clients/protel.png");
+}
+.ideal-logo-6 {
+  --ideal-logo-scale: 1.15;
+  -webkit-mask-image: url("assets/clients/gg-pizza.png");
+  mask-image: url("assets/clients/gg-pizza.png");
+}
+.ideal-logo-7 {
+  --ideal-logo-scale: 1.35;
+  -webkit-mask-image: url("assets/clients/opera-hotel.png");
+  mask-image: url("assets/clients/opera-hotel.png");
+}
+.ideal-logo-8 {
+  --ideal-logo-scale: 1.2;
+  -webkit-mask-image: url("assets/clients/pricing-coach.png");
+  mask-image: url("assets/clients/pricing-coach.png");
+}
 
 /* 4 logo: 3 sütun 3+1 kırılımı çizgileri bozuyordu — ≤980px doğrudan 2×2 */
 @media (max-width: 980px) {

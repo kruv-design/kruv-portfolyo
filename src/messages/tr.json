@@ -296,7 +296,7 @@
       "tag": "Hospıtaly works",
       "titleBefore": "Otelinizin ve Restoranınızın",
       "titleAccent": "Potansiyelini Sahneye Çıkarın",
-      "lead": "Hikayesi olan lifestyle kareler ve videolarla dijital vitrininizi canlandırın; takipçilerinizi misafiriniz olmaya davet edin."
+      "lead": "Hikayesi olan lifestyle kareler ve videolarla dijital vitrininizi canlandırın;\ntakipçilerinizi misafiriniz olmaya davet edin."
     },
     "filters": {
       "aria": "Proje filtreleri",
@@ -341,7 +341,11 @@
       "next": "Sonraki yorum",
       "items": [
         { "name": "Mehmet Temim", "role": "OPERA HOTEL BOSPHORUS" },
-        { "name": "Ergin k", "role": "PRİCİNG COACH" },
+        {
+          "name": "Ergin k",
+          "role": "PRİCİNG COACH",
+          "video": "https://res.cloudinary.com/di0qbhh46/video/upload/v1793315286/testimonal_pricing_coach_p0t5sd.mp4"
+        },
         { "name": "Burak Gedik", "role": "GG PİZZA" }
       ]
     },

@@ -54,9 +54,11 @@ export function HospitalityPage({
   return (
     <div className="hosp-page">
       <section className="hosp-section hosp-hero" aria-labelledby="hosp-hero-title">
-        <MarketingHomeSectionTag>{copy.hero.tag}</MarketingHomeSectionTag>
+        <MarketingHomeSectionTag className="hosp-hero__tag">
+          {copy.hero.tag}
+        </MarketingHomeSectionTag>
         <h1 id="hosp-hero-title" className="h1 hosp-hero__title">
-          {copy.hero.titleBefore}{" "}
+          <span className="hosp-hero__title-line">{copy.hero.titleBefore}</span>
           <span className="hosp-hero__title-accent">{copy.hero.titleAccent}</span>
         </h1>
         <p className="hosp-hero__lead">{copy.hero.lead}</p>
@@ -144,19 +146,40 @@ export function HospitalityPage({
           </div>
         </div>
         <div className="hosp-feedback__track">
-          {copy.feedback.items.map((item, i) => (
-            <article
-              key={`${item.name}-${i}`}
-              className="hosp-feedback__card"
-              data-active={i === feedbackIndex ? "true" : undefined}
-            >
-              <div className="hosp-feedback__media" aria-hidden="true" />
-              <div className="hosp-feedback__meta">
-                <p className="hosp-feedback__name">{item.name}</p>
-                <p className="hosp-feedback__role">{item.role}</p>
-              </div>
-            </article>
-          ))}
+          {copy.feedback.items.map((item, i) => {
+            const videoSrc =
+              "video" in item && typeof item.video === "string"
+                ? item.video.trim()
+                : "";
+            return (
+              <article
+                key={`${item.name}-${i}`}
+                className="hosp-feedback__card"
+                data-active={i === feedbackIndex ? "true" : undefined}
+              >
+                <div className="hosp-feedback__media">
+                  {videoSrc ? (
+                    <video
+                      className="hosp-feedback__video"
+                      src={videoSrc}
+                      poster={`${videoSrc.replace(
+                        /\/upload\//,
+                        "/upload/so_0,f_jpg,q_auto/",
+                      ).replace(/\.mp4$/i, ".jpg")}`}
+                      controls
+                      playsInline
+                      preload="metadata"
+                      aria-label={`${item.name} — ${item.role}`}
+                    />
+                  ) : null}
+                </div>
+                <div className="hosp-feedback__meta">
+                  <p className="hosp-feedback__name">{item.name}</p>
+                  <p className="hosp-feedback__role">{item.role}</p>
+                </div>
+              </article>
+            );
+          })}
         </div>
         {feedbackSafe ? (
           <p className="sr-only">
