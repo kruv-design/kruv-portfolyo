@@ -49,7 +49,7 @@ const cloud =
 const kapak = `https://res.cloudinary.com/${cloud}/image/upload/kruv-portfolio/blog/premium-whitespace.png`;
 
 const post = {
-  slug: "first-8-seconds",
+  slug: "lobide-ilk-8-saniye",
   baslik: "Lobide ilk 8 saniye neden her şeyi belirler",
   title: "Why the first 8 seconds in the lobby decide everything",
   aciklama:

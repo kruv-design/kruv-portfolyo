@@ -1,0 +1,35 @@
+---
+description: Blog TR/EN içerik ve slug kuralları — her zaman geçerli
+alwaysApply: true
+---
+
+# Blog i18n ve slug
+
+## Dil
+
+- `/tr/...` → tüm kullanıcıya görünen metin **Türkçe** (`baslik`, `aciklama`, `bolumler.baslik` / `metin`).
+- `/en/...` → tüm kullanıcıya görünen metin **English** (`title`, `description`, `bolumler.title` / `text`).
+- Alanları karıştırma: TR alanına İngilizce, EN alanına Türkçe yazma.
+- Em dash (`—`) kullanma.
+
+## Slug (URL ismi)
+
+- Blog `slug` **Türkçe** olmalı (ASCII, tireli): örn. `lobide-ilk-8-saniye`.
+- İngilizce slug kullanma (`first-8-seconds` yasak).
+- TR ve EN aynı slug’ı paylaşır: `/tr/blog/<slug>` ve `/en/blog/<slug>`.
+
+## Yayın
+
+- Onay olmadan Supabase’e yazma / deploy etme.
+- Kapak ve bölüm görselleri mevcut Cloudinary blog klasörü düzenine uy.
+
+## Örnek
+
+```text
+✅ slug: lobide-ilk-8-saniye
+✅ baslik (TR): Lobide ilk 8 saniye neden her şeyi belirler
+✅ title (EN): Why the first 8 seconds in the lobby decide everything
+
+❌ slug: first-8-seconds
+❌ TR sayfada İngilizce başlık / EN sayfada Türkçe gövde
+```

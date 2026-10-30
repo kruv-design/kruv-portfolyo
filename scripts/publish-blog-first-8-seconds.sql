@@ -4,7 +4,7 @@
 insert into public.blog_posts (
   slug, baslik, title, aciklama, description, kapak, yayinda, bolumler
 ) values (
-  'first-8-seconds',
+  'lobide-ilk-8-saniye',
   'Lobide ilk 8 saniye neden her şeyi belirler',
   'Why the first 8 seconds in the lobby decide everything',
   $tr_intro$Misafir kapıdan girer. Henüz check-in yok, henüz oda yok. Ama karar çoktan oluşmaya başlamıştır: “Burada kendimi önemli hissediyor muyum, yoksa sıraya mı girdim?”
