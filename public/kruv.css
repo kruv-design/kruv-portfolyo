@@ -2983,10 +2983,9 @@ body:has(.card:hover) .ticker {
   background-color: var(--color-surface);
   transition: background-color 0.8s ease;
 }
-/* CMS kapak: kendi oranında, cover kırpma yok */
+/* CMS kapak: tüm kartlar aynı oran (16:9), object-fit cover */
 .featured-work-media--photo {
-  aspect-ratio: auto;
-  height: auto;
+  aspect-ratio: 16 / 9;
   background-color: transparent;
 }
 .featured-work-media--photo::before {
@@ -2999,6 +2998,15 @@ body:has(.card:hover) .ticker {
   max-width: 100%;
   border-radius: inherit;
   vertical-align: top;
+}
+.featured-work-media--photo .featured-work-media-img {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
 }
 /* Görsel pseudo elementte tutulur ki sadece o yavaşça zoom yapsın */
 .featured-work-media::before {

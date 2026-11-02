@@ -2,7 +2,7 @@ import Image from "next/image";
 
 type ProjectDetailImageVariant = "cover" | "gallery";
 
-/** Proje detay: orijinal en-boy; kırpma / sabit çerçeve yok. */
+/** Proje detay: sabit çerçeve (16:9), object-fit cover. */
 export function ProjectDetailImage({
   src,
   alt,
@@ -26,8 +26,7 @@ export function ProjectDetailImage({
     <Image
       src={src}
       alt={alt}
-      width={0}
-      height={0}
+      fill
       sizes={resolvedSizes}
       priority={priority}
       className={className}

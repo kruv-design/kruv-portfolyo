@@ -2,59 +2,132 @@
 
 import { useCallback, useEffect } from "react";
 
+export type LightboxItem = {
+  src: string;
+  alt: string;
+};
+
 export function Lightbox({
-  src,
+  items,
+  index,
   onClose,
+  onChangeIndex,
+  closeLabel = "Kapat",
+  prevLabel = "Önceki görsel",
+  nextLabel = "Sonraki görsel",
 }: {
-  src: string | null;
+  items: LightboxItem[];
+  /** Açık değilse null */
+  index: number | null;
   onClose: () => void;
+  onChangeIndex: (next: number) => void;
+  closeLabel?: string;
+  prevLabel?: string;
+  nextLabel?: string;
 }) {
+  const open = index !== null && items.length > 0;
+  const current = open ? items[((index % items.length) + items.length) % items.length] : null;
+  const multi = items.length > 1;
+
+  const go = useCallback(
+    (delta: number) => {
+      if (index === null || items.length === 0) return;
+      const next = (index + delta + items.length) % items.length;
+      onChangeIndex(next);
+    },
+    [index, items.length, onChangeIndex],
+  );
+
   const handleKey = useCallback(
     (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (!open) return;
+      if (e.key === "Escape") {
+        e.preventDefault();
+        onClose();
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        go(-1);
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        go(1);
+      }
     },
-    [onClose],
+    [open, onClose, go],
   );
 
   useEffect(() => {
-    if (!src) return;
+    if (!open) return;
+    const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", handleKey);
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = prevOverflow;
       window.removeEventListener("keydown", handleKey);
     };
-  }, [src, handleKey]);
+  }, [open, handleKey]);
 
-  if (!src) return null;
+  if (!open || !current) return null;
 
   return (
     <div
-      className="fixed inset-0 z-[900] flex items-center justify-center p-8 transition-opacity"
-      style={{ background: "rgba(0, 0, 0, 0.93)" }}
+      className="project-lightbox"
+      style={{ background: "color-mix(in srgb, var(--black-fixed) 92%, transparent)" }}
       onClick={onClose}
       role="dialog"
       aria-modal="true"
+      aria-label={current.alt || "Görsel"}
     >
       <button
         type="button"
+        className="project-lightbox__close"
         onClick={onClose}
-        aria-label="Kapat"
-        className="fixed right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full text-lg transition-colors"
-        style={{
-          background: "rgba(255, 255, 255, 0.12)",
-          color: "var(--white-fixed)",
-        }}
+        aria-label={closeLabel}
       >
-        ✕
+        <span aria-hidden="true">✕</span>
       </button>
+
+      {multi ? (
+        <button
+          type="button"
+          className="project-lightbox__nav project-lightbox__nav--prev"
+          onClick={(e) => {
+            e.stopPropagation();
+            go(-1);
+          }}
+          aria-label={prevLabel}
+        >
+          <span aria-hidden="true">←</span>
+        </button>
+      ) : null}
+
+      {multi ? (
+        <button
+          type="button"
+          className="project-lightbox__nav project-lightbox__nav--next"
+          onClick={(e) => {
+            e.stopPropagation();
+            go(1);
+          }}
+          aria-label={nextLabel}
+        >
+          <span aria-hidden="true">→</span>
+        </button>
+      ) : null}
+
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={src}
-        alt=""
-        className="max-h-[88vh] max-w-[90vw] rounded-sm object-contain"
+        src={current.src}
+        alt={current.alt}
+        className="project-lightbox__img"
         onClick={(e) => e.stopPropagation()}
+        draggable={false}
       />
+
+      {multi ? (
+        <p className="project-lightbox__count" aria-hidden="true">
+          {(index ?? 0) + 1} / {items.length}
+        </p>
+      ) : null}
     </div>
   );
 }

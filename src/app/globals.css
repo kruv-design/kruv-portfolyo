@@ -1370,10 +1370,12 @@ i {
 .project-detail-media-img {
   display: block;
   width: 100% !important;
-  height: auto !important;
-  max-width: 100%;
-  position: static !important;
-  inset: auto !important;
+  height: 100% !important;
+  max-width: none;
+  position: absolute !important;
+  inset: 0 !important;
+  object-fit: cover;
+  object-position: center;
   vertical-align: top;
 }
 
@@ -1383,12 +1385,15 @@ i {
   display: block;
   width: 100%;
   overflow: hidden;
+  aspect-ratio: var(--project-media-aspect-ratio);
 }
 
 .project-detail-media__poster-wrap {
   display: block;
   width: 100%;
-  position: relative;
+  height: 100%;
+  position: absolute;
+  inset: 0;
 }
 
 .project-detail-media__poster-wrap--video-only {
@@ -1482,12 +1487,22 @@ i {
 }
 
 .project-detail-media--cover .project-detail-media__video {
-  object-fit: contain;
-  width: 100%;
-  height: auto;
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  width: 100% !important;
+  height: 100% !important;
   min-height: 0;
-  aspect-ratio: auto;
 }
+
+.project-detail-media--gallery .project-detail-media__video {
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  width: 100% !important;
+  height: 100% !important;
+}
+
 
 /* Anasayfa üst showreel — tam genişlik (edge-to-edge), hero üstünde */
 .home-showreel {
@@ -1854,6 +1869,7 @@ i {
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  gap: var(--project-gallery-inset-y);
   width: 100%;
   max-width: 100%;
   margin-inline: 0;
@@ -1888,7 +1904,7 @@ i {
   border: 1px solid var(--border);
   box-sizing: border-box;
 }
-/* Galeri: kolon genişliğinde, kendi oranında */
+/* Galeri: kolon genişliğinde, sabit 16:9 */
 .project-detail-gallery {
   display: flex;
   flex-direction: column;
@@ -1922,6 +1938,11 @@ i {
     gap: var(--space-4);
   }
 }
+/* 3–4 video: her zaman 2×2 */
+.project-detail-video-pair--grid {
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
 .project-detail-video-pair__item {
   margin: 0;
   border-radius: var(--radius-md);
@@ -1941,6 +1962,118 @@ i {
   height: 100% !important;
   object-fit: cover;
 }
+/* Proje detay — görsel lightbox */
+.project-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+  box-sizing: border-box;
+}
+.project-lightbox__close {
+  position: fixed;
+  top: var(--space-5);
+  right: var(--space-5);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  background: color-mix(in srgb, var(--white-fixed) 14%, transparent);
+  color: var(--white-fixed);
+  font-size: 1.15rem;
+  line-height: 1;
+  transition: background 0.2s ease;
+}
+.project-lightbox__close:hover,
+.project-lightbox__close:focus-visible {
+  background: color-mix(in srgb, var(--white-fixed) 28%, transparent);
+  outline: none;
+}
+.project-lightbox__nav {
+  position: fixed;
+  top: 50%;
+  z-index: 2;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  background: color-mix(in srgb, var(--white-fixed) 14%, transparent);
+  color: var(--white-fixed);
+  font-size: 1.25rem;
+  line-height: 1;
+  transition: background 0.2s ease;
+}
+.project-lightbox__nav:hover,
+.project-lightbox__nav:focus-visible {
+  background: color-mix(in srgb, var(--white-fixed) 28%, transparent);
+  outline: none;
+}
+.project-lightbox__nav--prev {
+  left: var(--space-5);
+}
+.project-lightbox__nav--next {
+  right: var(--space-5);
+}
+.project-lightbox__img {
+  max-height: 88vh;
+  max-width: min(92vw, 1400px);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--radius-sm, 4px);
+  user-select: none;
+}
+.project-lightbox__count {
+  position: fixed;
+  bottom: var(--space-5);
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--black-fixed) 45%, transparent);
+  color: var(--white-fixed);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+}
+@media (max-width: 699px) {
+  .project-lightbox {
+    padding: var(--space-4);
+  }
+  .project-lightbox__nav--prev {
+    left: var(--space-3);
+  }
+  .project-lightbox__nav--next {
+    right: var(--space-3);
+  }
+  .project-lightbox__close {
+    top: var(--space-3);
+    right: var(--space-3);
+  }
+}
+.project-detail-media--lightboxable {
+  cursor: zoom-in;
+}
+.project-detail-media--lightboxable:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
 
 /* Homepage featured-work kart tipografisi (kruv.html) */
 .pw-card {
@@ -1961,17 +2094,19 @@ i {
   background: var(--surface);
   isolation: isolate;
   line-height: 0;
+  aspect-ratio: var(--project-media-aspect-ratio);
 }
 
 .pw-card-media-img,
 .pw-card-media img {
   display: block;
   width: 100% !important;
-  height: auto !important;
-  max-width: 100%;
-  position: static !important;
-  inset: auto !important;
-  object-fit: unset;
+  height: 100% !important;
+  max-width: none;
+  position: absolute !important;
+  inset: 0 !important;
+  object-fit: cover;
+  object-position: center;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }

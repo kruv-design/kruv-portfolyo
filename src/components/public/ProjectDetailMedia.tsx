@@ -27,6 +27,7 @@ export function ProjectDetailMedia({
   playback = "auto",
   loadEagerly = false,
   playLabel = "Play video",
+  onLightboxOpen,
 }: {
   posterSrc: string;
   videoSrc: string | null;
@@ -40,6 +41,8 @@ export function ProjectDetailMedia({
   /** Viewport beklemeden yükle (showreel); click modunda preload=auto */
   loadEagerly?: boolean;
   playLabel?: string;
+  /** Görsele tıklanınca lightbox (yalnızca video yokken) */
+  onLightboxOpen?: () => void;
 }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -187,14 +190,37 @@ export function ProjectDetailMedia({
     );
   }
 
+  const lightboxable = Boolean(onLightboxOpen && posterSrc && !videoSrc);
+
   return (
     <div
       ref={rootRef}
       className={
-        variant === "cover"
+        (variant === "cover"
           ? "project-detail-media project-detail-media--cover"
-          : "project-detail-media project-detail-media--gallery"
+          : "project-detail-media project-detail-media--gallery") +
+        (lightboxable ? " project-detail-media--lightboxable" : "")
       }
+      role={lightboxable ? "button" : undefined}
+      tabIndex={lightboxable ? 0 : undefined}
+      onClick={
+        lightboxable
+          ? () => {
+              onLightboxOpen?.();
+            }
+          : undefined
+      }
+      onKeyDown={
+        lightboxable
+          ? (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onLightboxOpen?.();
+              }
+            }
+          : undefined
+      }
+      aria-label={lightboxable ? `${alt} — büyüt` : undefined}
     >
       {posterSrc ? (
         <div

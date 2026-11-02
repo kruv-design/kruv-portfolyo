@@ -1,11 +1,15 @@
+"use client";
+
 import { ScrollToTopLink } from "./ScrollToTopLink";
 import type { Project } from "@/types";
 import { projectIntroForLocale, projectTitleForLocale } from "@/lib/project-locale";
-import { projectCover, projectGallerySlots } from "@/lib/project-images";
+import { ggPizzaSocialVideoSlots, projectCover, projectGallerySlots } from "@/lib/project-images";
 import type { Locale } from "@/lib/i18n/config";
 import type { Messages } from "@/lib/i18n/get-messages";
 import { withLocale } from "@/lib/i18n/path";
 import { t } from "@/lib/i18n/t";
+import { useMemo, useState } from "react";
+import { Lightbox, type LightboxItem } from "./Lightbox";
 import { ProjectDetailMedia } from "./ProjectDetailMedia";
 import { LetsTalkMarquee } from "./LetsTalkMarquee";
 import { ProjectNextBanner } from "./ProjectNextBanner";
@@ -31,11 +35,52 @@ export function ProjectDetail({
   const gallerySlots = projectGallerySlots(project);
   const title = projectTitleForLocale(project, locale);
   const intro = projectIntroForLocale(project, locale);
-  /** İki video slotu (1 + 5) doluysa yan yana; aksi halde normal galeri akışı. */
-  const videoSlots = gallerySlots.filter((s) => s.videoSrc);
+  const cmsVideoSlots = gallerySlots.filter((s) => s.videoSrc);
   const imageSlots = gallerySlots.filter((s) => !s.videoSrc);
-  const showVideoPair = videoSlots.length >= 2;
-  const galleryForList = showVideoPair ? imageSlots : gallerySlots;
+  const socialVideos =
+    project.slug === "gg-pizza" ? ggPizzaSocialVideoSlots() : [];
+  const videoSlots =
+    socialVideos.length > 0
+      ? socialVideos
+      : cmsVideoSlots.map((s) => ({
+          key: s.key,
+          posterSrc: s.posterSrc,
+          videoSrc: s.videoSrc!,
+        }));
+  const showVideoGrid = videoSlots.length >= 2;
+  /** GG Pizza: ilk görsel → videolar → kalan görseller; diğerleri: videolar üstte. */
+  const firstImage = showVideoGrid && socialVideos.length > 0 ? imageSlots[0] : null;
+  const restImages =
+    showVideoGrid && socialVideos.length > 0
+      ? imageSlots.slice(1)
+      : showVideoGrid
+        ? imageSlots
+        : gallerySlots;
+  const galleryForList = showVideoGrid ? restImages : gallerySlots;
+
+  const lightboxItems: LightboxItem[] = useMemo(() => {
+    const items: LightboxItem[] = [];
+    if (cover) {
+      items.push({ src: cover, alt: title });
+    }
+    for (const slot of imageSlots) {
+      if (!slot.posterSrc) continue;
+      // cover ile aynı URL ise tekrar etme
+      if (cover && slot.posterSrc === cover) continue;
+      items.push({
+        src: slot.posterSrc,
+        alt: `${title} — ${slot.key}`,
+      });
+    }
+    return items;
+  }, [cover, imageSlots, title]);
+
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+  const openLightboxAt = (src: string) => {
+    const i = lightboxItems.findIndex((item) => item.src === src);
+    if (i >= 0) setLightboxIndex(i);
+  };
 
   return (
     <>
@@ -48,6 +93,7 @@ export function ProjectDetail({
           variant="cover"
           placeholderLabel={project.baslik[0] ?? "•"}
           placeholderColor={project.renk}
+          onLightboxOpen={cover ? () => openLightboxAt(cover) : undefined}
         />
         <div className="project-detail-toolbar">
           <div className="project-detail-nav-arrows">
@@ -95,10 +141,31 @@ export function ProjectDetail({
           </div>
         </aside>
 
-        {(showVideoPair || galleryForList.length > 0) && (
+        {(showVideoGrid || firstImage || galleryForList.length > 0) && (
           <div className="project-detail-gallery-wrap animate-fadeUp">
-            {showVideoPair ? (
-              <div className="project-detail-video-pair" role="group" aria-label={`${title} — videolar`}>
+            {firstImage ? (
+              <div className="project-detail-gallery">
+                <figure className="project-detail-gallery__item">
+                  <ProjectDetailMedia
+                    posterSrc={firstImage.posterSrc}
+                    videoSrc={firstImage.videoSrc}
+                    alt={`${title} — galeri görseli 1`}
+                    variant="gallery"
+                    onLightboxOpen={
+                      firstImage.posterSrc && !firstImage.videoSrc
+                        ? () => openLightboxAt(firstImage.posterSrc)
+                        : undefined
+                    }
+                  />
+                </figure>
+              </div>
+            ) : null}
+            {showVideoGrid ? (
+              <div
+                className={`project-detail-video-pair${videoSlots.length >= 3 ? " project-detail-video-pair--grid" : ""}`}
+                role="group"
+                aria-label={`${title} — videolar`}
+              >
                 {videoSlots.map((slot, i) => (
                   <figure key={slot.key} className="project-detail-video-pair__item">
                     <ProjectDetailMedia
@@ -118,8 +185,13 @@ export function ProjectDetail({
                     <ProjectDetailMedia
                       posterSrc={posterSrc}
                       videoSrc={videoSrc}
-                      alt={`${title} — galeri görseli ${i + 1}`}
+                      alt={`${title} — galeri görseli ${i + (firstImage ? 2 : 1)}`}
                       variant="gallery"
+                      onLightboxOpen={
+                        posterSrc && !videoSrc
+                          ? () => openLightboxAt(posterSrc)
+                          : undefined
+                      }
                     />
                   </figure>
                 ))}
@@ -160,6 +232,16 @@ export function ProjectDetail({
         locale={locale}
         messages={messages}
         headingId="project-lets-talk-heading"
+      />
+
+      <Lightbox
+        items={lightboxItems}
+        index={lightboxIndex}
+        onClose={() => setLightboxIndex(null)}
+        onChangeIndex={setLightboxIndex}
+        closeLabel={t(messages, "project.lightboxClose", "Kapat")}
+        prevLabel={t(messages, "project.lightboxPrev", "Önceki görsel")}
+        nextLabel={t(messages, "project.lightboxNext", "Sonraki görsel")}
       />
     </>
   );
