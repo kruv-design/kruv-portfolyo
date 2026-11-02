@@ -957,8 +957,18 @@ i {
   color: var(--accent);
 }
 
+.blog-article__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
 .blog-article__title,
 .blog-article__heading {
+  margin: 0;
+}
+
+.blog-article__date {
   margin: 0;
 }
 

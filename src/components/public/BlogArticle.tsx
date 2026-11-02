@@ -21,11 +21,22 @@ function Paragraphs({ text, className }: { text: string; className?: string }) {
  * Blog detay — Figma "Blog detay" (4225:3622): dar orta kolon,
  * yıldız + H1 + giriş, ardından bölümler (H2 + metin + opsiyonel görsel).
  */
-export function BlogArticle({ post }: { post: BlogPost }) {
+export function BlogArticle({
+  post,
+  dateLabel,
+}: {
+  post: BlogPost;
+  dateLabel?: string;
+}) {
   return (
     <article className="blog-article">
       <KruvStarIcon className="blog-article__star" size={38} />
-      <h1 className="h1 blog-article__title">{post.baslik}</h1>
+      <header className="blog-article__header">
+        <h1 className="h1 blog-article__title">{post.baslik}</h1>
+        {dateLabel ? (
+          <p className="b2 blog-article__date">{dateLabel}</p>
+        ) : null}
+      </header>
       {post.aciklama ? (
         <div className="blog-article__intro">
           <Paragraphs text={post.aciklama} />

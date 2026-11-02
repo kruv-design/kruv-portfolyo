@@ -12,6 +12,7 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
+    "check:haftalik": "node scripts/check-haftalik-not.mjs",
     "seed": "tsx scripts/seed.ts",
     "upload:drops": "node scripts/upload-drops-to-cloudinary.mjs",
     "test:e2e": "playwright test",
