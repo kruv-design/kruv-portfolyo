@@ -1388,7 +1388,7 @@ i {
   object-position: center;
   vertical-align: top;
   /* overflow:hidden + radius clip’te 1px saçak */
-  transform: translateZ(0) scale(1.02);
+  transform: translateZ(0) scale(1.04);
   transform-origin: center center;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -1511,7 +1511,7 @@ i {
   width: 100% !important;
   height: 100% !important;
   min-height: 0;
-  transform: translateZ(0) scale(1.02);
+  transform: translateZ(0) scale(1.04);
   transform-origin: center center;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -1523,7 +1523,7 @@ i {
   object-fit: cover;
   width: 100% !important;
   height: 100% !important;
-  transform: translateZ(0) scale(1.02);
+  transform: translateZ(0) scale(1.04);
   transform-origin: center center;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -2137,7 +2137,7 @@ i {
   inset: 0 !important;
   object-fit: cover;
   object-position: center;
-  transform: translateZ(0) scale(1.02);
+  transform: translateZ(0) scale(1.04);
   transform-origin: center center;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;

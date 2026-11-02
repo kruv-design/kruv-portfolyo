@@ -515,7 +515,7 @@
   height: 100% !important;
   object-fit: cover;
   object-position: center;
-  transform: translateZ(0) scale(1.02);
+  transform: translateZ(0) scale(1.04);
   transform-origin: center center;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
