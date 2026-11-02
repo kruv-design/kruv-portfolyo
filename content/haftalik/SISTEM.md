@@ -69,15 +69,23 @@ Onay olmadan Supabase’e yazılmaz, deploy edilmez. `yayinda: true` insan onay�
 
 Bitince başa dön. Yanına yeni mercek eklemek serbest. Silmek değil.
 
-1. `ikinci-yuzey` — sayfa, menü dosyası, rezervasyon, mail
-2. `sabah` — kahvaltı, sabah ışığı, otelin ilk saati
-3. `kucuk-yuzey` — anahtar kartı, tabela, peçete, fiş
-4. `gece` — karanlık fotoğraf, gece menüsü, geç saat sayfası
-5. `isim` — adın okunuşu, tabela, küçük punto
-6. `masa` — menü hiyerarşisi, fiyatın sesi, kâğıdın boşluğu
+1. `soguk-devam`: sayfa güzel, sonraki adım (menü, oda listesi, rezervasyon, mail) soğuk
+2. `sabah`: kahvaltı, sabah ışığı, otelin ilk saati
+3. `kucuk-nesne`: anahtar kartı, tabela, peçete, fiş
+4. `gece`: karanlık fotoğraf, gece menüsü, geç saat sayfası
+5. `isim`: adın okunuşu, tabela, küçük punto
+6. `masa`: menüde neyin önce okunduğu, fiyatın sayfadaki yeri, kâğıttaki boşluk
 
 `lobide-ilk-8-saniye` sosyal vitrini anlattı. Sosyal gözlem her sayıda bir kanal olarak durur. Sosyal, merceğin kendisi olmaz. Ta ki kayıtta ayrı bir sosyal sayı açılana kadar.
 
 ## Ses
 
-Kısa cümle. Somut isim. Bir sayıda bir fikir. Kaynak listesi yazının içinde dökülmez. Mekan geçiyorsa doğru ayrıntıyla geçer. Uydurulmuş metrekare, fiyat, alıntı yok.
+Okur bir otelci ya da restoran sahibi. Tasarım terimi bilmek zorunda değil.
+
+- İlk iki cümlede konu anlaşılsın. Başlık da düz Türkçe olsun. Bilmece kurma.
+- Tam cümle yaz. "17 metrekare. Duş. Katalog." gibi telgraf yok.
+- Yazıya şu kelimeler girmez: yüzey, envanter, mercek, vuruş. Mecazla kestirme yok.
+- Özel isimden önce o şeyin ne olduğu söylensin. "Roma’da Experimental adlı otel."
+- Önce fikir, sonra örnek. Örnek fikri açar, yerine geçmez.
+- Bölüm başlığı da günlük dille yazılır.
+- Kaynak listesi yazının içine dökülmez. Mekan geçiyorsa doğru ayrıntıyla geçer. Uydurulmuş metrekare, fiyat, alıntı yok.

@@ -1,72 +1,72 @@
 {
   "sayi": "2026-11-02",
   "tarih": "2026-11-02",
-  "mercek": "ikinci-yuzey",
+  "mercek": "soguk-devam",
   "beatler": ["iz", "tat", "cizik", "kapi"],
   "yayinda": false,
   "gorselHedef": {
-    "kapak": "kruv-portfolio/blog/ikinci-yuzey-kapak",
-    "iz": "kruv-portfolio/blog/ikinci-yuzey-iz",
-    "tat": "kruv-portfolio/blog/ikinci-yuzey-tat"
+    "kapak": "kruv-portfolio/blog/guzel-site-soguk-devam-kapak",
+    "iz": "kruv-portfolio/blog/guzel-site-soguk-devam-iz",
+    "tat": "kruv-portfolio/blog/guzel-site-soguk-devam-tat"
   },
   "kaynaklar": [
     {
       "ad": "Experimental Roma",
       "url": "https://www.experimentalroma.com/",
       "tur": "otel-sayfasi",
-      "ne": "Aynı kaydırmada film cümlesi ve oda envanteri. Petite Roma 17 m², Siena 21 m², Veneto 23 m². Parente, eski banka, asılı havuz, Passerini ve quinto quarto."
+      "ne": "Üstte hikâye, altta oda listesi. Petite Roma 17 m², Siena 21 m², Veneto 23 m². Parente, eski banka, çatı havuzu, şef Passerini."
     },
     {
       "ad": "Tallow",
       "url": "https://tallow.je/",
       "tur": "restoran-sayfasi",
-      "ne": "Kısa karşılama: ateş, Channel Island eti, şarap listesi, adres, saat, telefon. Menü ayrı dosya: /assets/tallow-menu.pdf."
+      "ne": "Kısa karşılama: ateş, ada eti, şarap, adres, saat, telefon. Menü ayrı dosya: /assets/tallow-menu.pdf."
     },
     {
       "ad": "It’s Nice That, NotR",
       "url": "https://www.itsnicethat.com/articles/vrints-kolsteren-napoli-on-the-road-graphic-design-project-010926",
       "tur": "tasarim-yayini",
-      "ne": "1 Eylül 2026. Vrints-Kolsteren. Napoli on the Road kısaldı, boşluk eski kelimeleri tutuyor. Damga, etiket, eş aralıklı yazı. Pizza kutusu grafik yüzey."
+      "ne": "1 Eylül 2026. Vrints-Kolsteren. Napoli on the Road, NotR oldu. Damga, etiket, pizza kutusu da aynı dilde."
     }
   ],
   "bakilamayan": [
-    "Sosyal ızgara bu sayıda açılmadı. NotR’nin kutu ve menü hali basın üzerinden okundu."
+    "Sosyal hesap bu sayıda açılmadı. NotR’nin kutu ve menü hali basın üzerinden okundu."
   ],
   "post": {
-    "slug": "ikinci-yuzey",
-    "baslik": "İkinci yüzey ilk izlenimi neden bozar",
-    "title": "Why the second surface undoes the first impression",
-    "aciklama": "Misafir bir otel sayfasına girer. Roma, Via Veneto, eski bir banka. Cümleler ağır, ışık yavaş. Aynı kaydırmada oda listesi başlar. 17 metrekare. Queen yatak. Duş. Kartpostal manzara.\n\nBu iki metin aynı binaya mı ait?",
-    "description": "A guest opens a hotel page. Rome, Via Veneto, a former bank. The sentences are heavy and the light is slow. On the same scroll, the room list begins. 17 square metres. Queen bed. Shower. Postcard view.\n\nDo these two texts belong to the same building?",
+    "slug": "guzel-site-soguk-devam",
+    "baslik": "Güzel site, soğuk devam",
+    "title": "A warm site, then a cold next step",
+    "aciklama": "Bir otel sitesine giriyorsunuz. Üstte Roma var. Eski bir banka, çatıda havuz, sizi içeri çağıran cümleler. Biraz aşağı kaydırınca liste başlıyor: 17 metrekare, queen boy bir yatak ve bir duş.\n\nDavetiye bitiyor, yerine katalog geliyor. Misafir kararını hikâyenin bittiği yerde verir. Oda listesinde, menüde, rezervasyon ekranında. Orası ilk sayfayla aynı sesle konuşmuyorsa güzel giriş neden boşa gidiyor?",
+    "description": "You open a hotel website. Up top is Rome: a former bank, a pool on the roof, sentences that invite you in. Scroll a little and a list begins: 17 square metres, a queen bed and a shower.\n\nThe invitation is over. A catalogue takes its place. A guest decides where the story stops: on the room list, the menu, the booking screen. If that next step does not sound like the first page, why does a beautiful welcome go to waste?",
     "kapak": "/haftalik/2026-11-02/kapak.jpg",
     "yayinda": false,
     "bolumler": [
       {
-        "baslik": "Aynı sayfada iki sıcaklık",
-        "title": "Two temperatures on one page",
-        "metin": "Bu hafta bir otel sayfasına, bir restoran sitesine ve bir kimlik haberine baktık.\n\nExperimental Roma kırılmayı açık gösteriyor. Üstte bir film var. Rodolphe Parente’nin oteli mahrem ve gösterişli. Eski bir banka. Şehrin üstünde asılı bir havuz. Giovanni Passerini, Roma mutfağının quinto quarto dediği parçayı, hayvanın beşinci çeyreğini pişiriyor. Hemen altta katalog başlıyor. Petite Roma, 17 metrekare. Siena, 21. Veneto, 23. Her oda bir satır duygu, ardından bir satır envanter.\n\nJersey’de Tallow tersinden kuruyor. Site bir kartvizit kadar kısa. Ateş, ada eti, şarap, adres, saat, telefon. Menü ayrı bir dosya. Misafir sakin cümleyi okuyup fiyat listesine iniyor. İlk yüzey davet. İkinci yüzey tablo.",
-        "text": "This week we looked at a hotel page, a restaurant site, and one identity story.\n\nExperimental Roma shows the break in the open. Up top, a film. Rodolphe Parente’s hotel is intimate and spectacular. A former bank. A pool hung over the city. Giovanni Passerini cooks the quinto quarto, the fifth quarter of the animal, the part Roman cooking refuses to waste. Just below, a catalogue starts. Petite Roma, 17 square metres. Siena, 21. Veneto, 23. Each room gets a line of feeling, then a line of inventory.\n\nIn Jersey, Tallow builds from the other side. The site is as short as a calling card. Fire, island beef, wine, an address, the hours, a phone. The menu is a separate file. The guest reads a calm sentence, then lands in a price list. The first surface is an invitation. The second surface is a table.",
+        "baslik": "Aynı sayfada iki ayrı dil",
+        "title": "Two languages on the same page",
+        "metin": "Bu hafta aynı kopmayı iki yerde gördük.\n\nRoma’da Experimental adında yeni bir otel var. Sitesinin üstü bir hikâye. İç mimar Rodolphe Parente eski bir bankayı otele çevirmiş. Havuz çatıda. Mutfakta şef Giovanni Passerini var. Roma’da genellikle kenara ayrılan et parçalarını pişiriyor.\n\nSayfanın altı ise bir liste. Petite Roma 17 metrekare, Siena 21, Veneto 23. Her odanın önce güzel bir cümlesi var. Hemen ardından metrekaresi ve yatak tipi geliyor.\n\nJersey’de Tallow adında bir steakhouse var. Sitesi sakin ve kısa. Ateşte et, adanın ürünleri, şarap, adres, saat, telefon. Menüye bakınca ayrı bir dosya iniyor. Sakin cümle bitiyor, fiyat tablosu başlıyor.\n\nMisafir bunların ayrı ekiplerden çıktığını bilmez. Ona göre mekan bir anda başka bir yere dönmüştür.",
+        "text": "We saw the same break in two places this week.\n\nIn Rome there is a new hotel called Experimental. The top of its site tells a story. Interior designer Rodolphe Parente turned a former bank into a hotel. The pool is on the roof. In the kitchen, chef Giovanni Passerini cooks the cuts Roman cooking usually sets aside.\n\nThe bottom of the page is a list. Petite Roma is 17 square metres, Siena is 21, Veneto is 23. Each room gets a nice sentence first. Right after that come the size and the bed.\n\nIn Jersey there is a steakhouse called Tallow. The site is calm and short. Meat over fire, the island’s produce, wine, an address, the hours, a phone. Open the menu and a separate file downloads. The calm sentence ends. A price table begins.\n\nA guest does not know these came from different teams. To them, the place suddenly became somewhere else.",
         "gorsel": "/haftalik/2026-11-02/iz.jpg"
       },
       {
-        "baslik": "Kutunun üstü de bir kapı",
-        "title": "The lid is a door too",
-        "metin": "Londra’da Napoli on the Road bu sonbahar NotR oldu. Vrints-Kolsteren, İtalyan restoranlarının kırmızı el yazısına ve hazır illüstrasyonuna gitmedi. Damga, etiket, eş aralıklı yazı. Eski addan düşen kelimeler, harflerin arasındaki boşlukta duruyor. Pizza kutusu da bir afiş.\n\nİkinci yüzey aynı nefeste konuşuyor. Menüdeki boşluk da bu işi görür. Satırın etrafındaki hava, siparişten önceki nefestir. Kalabalık bir dosya o nefesi keser. Misafir tabloyu okumaya başlar.",
-        "text": "In London this autumn, Napoli on the Road became NotR. Vrints-Kolsteren left the red script and the ready-made Italian illustration alone. Stamps, labels, monospace. The words that fell out of the old name still sit in the space between the letters. The pizza box works as a poster.\n\nThe second surface speaks in the same breath. The space on a menu does that job too. The air around a line is the breath before an order. A crowded file cuts that breath. The guest starts reading the grid.",
+        "baslik": "Kutu da aynı dükkândan çıkmalı",
+        "title": "The box should come from the same shop",
+        "metin": "Londra’da bir pizza yeri bu sonbahar adını kısalttı. Napoli on the Road artık NotR. Tasarımı Antwerp’ten Vrints-Kolsteren yaptı. İtalyan restoranından beklenen kırmızı el yazısına gitmediler. Damga, kargo etiketi ve düzgün aralıklı harfler kullandılar. Eski ismin atılan kelimeleri, harflerin arasındaki boşlukta duruyor.\n\nAsıl iş kutuda. Pizza kutusu da aynı dilde. Ayrı bir iş gibi durmuyor. Gördüğünüz yerin devamı.\n\nMenüde boşluk da bunu yapar. Satırın kenarındaki boş yer, siparişten önce nefes almanızı sağlar. Sayfa tıka basa olunca insan yemeği seçemez. Kalabalığı okur.",
+        "text": "A pizza place in London shortened its name this autumn. Napoli on the Road is now NotR. The identity is by Vrints-Kolsteren, a studio in Antwerp. They skipped the red handwriting people expect from an Italian restaurant. They used stamps, shipping labels, and evenly spaced letters. The words cut from the old name still sit in the gaps between the letters.\n\nThe real test is the box. The pizza box speaks the same language. It does not look like a separate job. It is the next step of the place you already saw.\n\nSpace on a menu does the same thing. The empty margin beside a line gives you a moment before you order. When the page is packed, people cannot choose the food. They read the crowd.",
         "gorsel": "/haftalik/2026-11-02/tat.jpg"
       },
       {
-        "baslik": "Misafir tedarikçiyi görmez",
-        "title": "The guest never meets the vendor",
-        "metin": "Markalar ilk yüzeyi tasarlatır. Ana sayfa, çekim, logo. İkinci yüzeyi bir şablona bırakır. Rezervasyon motoru, menü dosyası, onay maili, Google’daki fotoğraf. Misafir bu parçaların ayrı ekiplerden geldiğini bilmez. Ona göre otel fikrini değiştirmiştir.\n\nGüzel bir lobi, resepsiyonda başka bir form uzatırsa sözünü tutmamış gibi hissedilir. Ekranda da aynı şey olur. Işık sıcak, buton soğuk. Yazı fısıldar, fiyat bağırır.",
-        "text": "Brands commission the first surface. The homepage, the shoot, the logo. They leave the second surface to a template. The booking engine, the menu file, the confirmation email, the photo on Google. A guest does not know these pieces came from separate teams. To them, the hotel changed its mind.\n\nA beautiful lobby that offers a stranger’s form at the desk feels as if it broke its word. The same thing happens on a screen. The light is warm and the button is cold. The writing whispers and the price shouts.",
+        "baslik": "Misafir arka tarafı görmez",
+        "title": "The guest never sees the back office",
+        "metin": "Çoğu işletme ilk kareyi özenle yaptırır. Ana sayfa, fotoğraf, logo. Bir sonraki adımı hazır bir şablona bırakır. Rezervasyon ekranı, menü dosyası, “rezervasyonunuz alındı” maili, Google’daki fotoğraf. Bunlar çoğu zaman başka firmanın ekranıdır.\n\nMisafir bu ayrımı yapmaz. Sadece şunu hisseder: demin gördüğüm yer burası değil.\n\nLobide ışık sıcaksa, resepsiyondaki kâğıt da sıcak durmalıdır. Sitede cümle sakinse, fiyatın bağırmasına gerek yok.",
+        "text": "Most businesses take care of the first picture. The homepage, the photos, the logo. They leave the next step to a ready-made template. The booking screen, the menu file, the “your booking is confirmed” email, the photo on Google. Those are often another company’s screens.\n\nA guest does not sort that out. They only feel this: the place I just saw is not this place.\n\nIf the light in the lobby is warm, the paper at the desk should feel warm too. If the sentence on the site is calm, the price does not need to shout.",
         "gorsel": ""
       },
       {
-        "baslik": "Üç şeyi aynı masaya koyun",
-        "title": "Put three things on the same table",
-        "metin": "Bu hafta üç şeyi yan yana bırakın. Ana sayfa. Misafirin indirdiği ya da doldurduğu ikinci şey. İlk mail. Bir yabancı üçünü aynı eve bağlayamıyorsa, ikinci kapı başka bir binaya açılıyordur.\n\nİkinci yüzeyi de ilk kapı kadar sahiplenin. İşlere bakmak ya da konuşmak için kruv.com duruyor.",
-        "text": "This week, set three things side by side. The homepage. The second thing a guest downloads or fills in. The first email. If a stranger cannot tell they belong to one house, the second door opens onto another building.\n\nOwn the second surface the way you own the front door. The work sits at kruv.com, if you want to look or talk.",
+        "baslik": "Bu hafta üç şeyi yan yana açın",
+        "title": "This week, open three things side by side",
+        "metin": "Kendi yeriniz için üç şeyi yan yana koyun. Ana sayfanız. Misafirin hemen sonra gördüğü şey: oda listesi, menü ya da rezervasyon. Bir de ona giden ilk mail.\n\nÜçünü sesli okuyun. Aynı dükkân gibi durmuyorsa, düzeltilmesi gereken yer ilk sayfa değil. Ondan sonraki adım.\n\nO adımı da karşılama kadar sahiplenin. İşlere bakmak ya da konuşmak için kruv.com yeterli.",
+        "text": "For your own place, put three things side by side. Your homepage. The thing a guest sees right after it: the room list, the menu, or the booking screen. Then the first email you send them.\n\nRead the three out loud. If they do not sound like the same shop, the page to fix is not the first one. It is the step after it.\n\nOwn that step the way you own the welcome. kruv.com is there if you want to look at the work or talk.",
         "gorsel": ""
       }
     ]
