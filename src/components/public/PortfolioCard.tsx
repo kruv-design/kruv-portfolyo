@@ -58,8 +58,10 @@ export function PortfolioCard({
         )}
       </div>
       <div className="pw-card-meta">
-        <h2 className="pw-card-title">{project.baslik}</h2>
-        {categoryLabel ? <p className="pw-card-category">{categoryLabel}</p> : null}
+        <h2 className="pw-card-title card-meta-title">{project.baslik}</h2>
+        {categoryLabel ? (
+          <p className="pw-card-category card-meta-category">{categoryLabel}</p>
+        ) : null}
       </div>
     </Link>
   );

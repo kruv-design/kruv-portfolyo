@@ -918,16 +918,22 @@ i {
   aspect-ratio: 425 / 287;
   border-radius: var(--radius-md);
   overflow: hidden;
-  background: var(--gray-80);
+  background: transparent;
+  isolation: isolate;
+  line-height: 0;
 }
 
 .blog-card__img {
   object-fit: cover;
+  transform: translateZ(0) scale(1.02);
+  transform-origin: center center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
   transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .blog-card:hover .blog-card__img {
-  transform: scale(1.03);
+  transform: translateZ(0) scale(1.04);
 }
 
 .blog-card__placeholder {
@@ -1160,9 +1166,11 @@ i {
   max-height: none;
   object-fit: unset;
   display: block;
-  border-radius: inherit;
+  border-radius: 0;
   vertical-align: top;
   transition: none;
+  /* doğal yükseklik — scale clip saçağını bozmasın */
+  transform: none;
 }
 
 .project-next-banner__placeholder {
@@ -1363,7 +1371,9 @@ i {
   box-sizing: border-box;
   overflow: hidden;
   border-radius: 0;
-  background: var(--surface);
+  background: transparent;
+  isolation: isolate;
+  line-height: 0;
 }
 
 .project-detail-cover-img,
@@ -1377,6 +1387,11 @@ i {
   object-fit: cover;
   object-position: center;
   vertical-align: top;
+  /* overflow:hidden + radius clip’te 1px saçak */
+  transform: translateZ(0) scale(1.02);
+  transform-origin: center center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 /* Poster + opsiyonel loop video (LCP = poster) */
@@ -1386,6 +1401,9 @@ i {
   width: 100%;
   overflow: hidden;
   aspect-ratio: var(--project-media-aspect-ratio);
+  isolation: isolate;
+  line-height: 0;
+  background: transparent;
 }
 
 .project-detail-media__poster-wrap {
@@ -1493,6 +1511,10 @@ i {
   width: 100% !important;
   height: 100% !important;
   min-height: 0;
+  transform: translateZ(0) scale(1.02);
+  transform-origin: center center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .project-detail-media--gallery .project-detail-media__video {
@@ -1501,6 +1523,10 @@ i {
   object-fit: cover;
   width: 100% !important;
   height: 100% !important;
+  transform: translateZ(0) scale(1.02);
+  transform-origin: center center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 
@@ -1755,7 +1781,7 @@ i {
   aspect-ratio: 16 / 9;
   width: 100%;
   overflow: hidden;
-  background: var(--surface);
+  background: transparent;
 }
 
 .home-showreel__variant--web .project-detail-media__poster-wrap {
@@ -1791,7 +1817,7 @@ i {
   max-height: min(92vh, 52rem);
   height: auto;
   overflow: hidden;
-  background: var(--surface);
+  background: transparent;
 }
 
 .home-showreel__variant--mobile .project-detail-media__poster-wrap {
@@ -1920,7 +1946,9 @@ i {
   flex-shrink: 0;
   border-radius: var(--radius-md);
   overflow: hidden;
-  background: var(--surface);
+  background: transparent;
+  isolation: isolate;
+  line-height: 0;
   box-sizing: border-box;
 }
 
@@ -1947,7 +1975,9 @@ i {
   margin: 0;
   border-radius: var(--radius-md);
   overflow: hidden;
-  background: var(--surface);
+  background: transparent;
+  isolation: isolate;
+  line-height: 0;
 }
 .project-detail-video-pair__item .project-detail-media {
   position: relative;
@@ -2091,7 +2121,7 @@ i {
   width: 100%;
   overflow: hidden;
   border-radius: var(--space-sm);
-  background: var(--surface);
+  background: transparent;
   isolation: isolate;
   line-height: 0;
   aspect-ratio: var(--project-media-aspect-ratio);
@@ -2107,6 +2137,8 @@ i {
   inset: 0 !important;
   object-fit: cover;
   object-position: center;
+  transform: translateZ(0) scale(1.02);
+  transform-origin: center center;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
@@ -2137,25 +2169,32 @@ i {
   }
 }
 
+/* Figma Frame 1410097964 — H3 Medium 32 + Body 18, gap 4, sol pad 12 */
 .pw-card-meta {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  gap: var(--space-3);
+  align-items: flex-start;
+  gap: var(--card-meta-stack-gap);
   width: 100%;
+  box-sizing: border-box;
+  padding: 0 0 0 var(--space-3);
   box-shadow: none;
+  text-align: left;
 }
 
 .pw-card-title {
-  font-family: var(--h4-font-family);
-  font-size: calc(var(--h4-font-size) + 2pt);
-  font-weight: var(--h4-font-weight);
-  line-height: var(--h4-line-height);
-  letter-spacing: var(--card-meta-title-ls);
-  text-transform: var(--h4-text-transform);
-  color: var(--ink);
+  /* .card-meta-title ile aynı (H3 / Switzer Medium) */
   margin: 0;
   min-width: 0;
+  width: 100%;
+  font-family: var(--h3-font-family);
+  font-size: var(--h3-font-size);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: var(--card-meta-title-ls);
+  text-transform: none;
+  color: var(--card-meta-title-ink);
+  word-break: break-word;
 }
 
 /* Work grid: kart altında açıklama yok — yalnızca başlık + kategori */
@@ -2164,16 +2203,17 @@ i {
 }
 
 .pw-card-category {
+  margin: 0;
+  width: 100%;
+  max-width: none;
   font-family: var(--b1-font-family);
   font-size: var(--b1-font-size);
-  font-weight: var(--b1-font-weight);
-  line-height: var(--b1-line-height);
-  letter-spacing: var(--card-meta-tag-ls);
-  text-transform: var(--b1-text-transform);
-  color: var(--ink-soft);
+  font-weight: 400;
+  line-height: 1.42;
+  letter-spacing: var(--b1-letter-spacing);
+  text-transform: none;
   text-align: left;
-  margin: 0;
-  max-width: min(100%, calc(5 * var(--space-10)));
+  color: var(--card-meta-category-ink);
 }
 
 @media (max-width: 699px) {

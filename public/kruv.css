@@ -1589,17 +1589,17 @@ body:has(.card:hover) .ticker {
   mask-image: url("assets/clients/protel.png");
 }
 .ideal-logo-6 {
-  --ideal-logo-scale: 1.15;
+  --ideal-logo-scale: 1.45;
   -webkit-mask-image: url("assets/clients/gg-pizza.png");
   mask-image: url("assets/clients/gg-pizza.png");
 }
 .ideal-logo-7 {
-  --ideal-logo-scale: 1.35;
+  --ideal-logo-scale: 1.4;
   -webkit-mask-image: url("assets/clients/opera-hotel.png");
   mask-image: url("assets/clients/opera-hotel.png");
 }
 .ideal-logo-8 {
-  --ideal-logo-scale: 1.2;
+  --ideal-logo-scale: 1.25;
   -webkit-mask-image: url("assets/clients/pricing-coach.png");
   mask-image: url("assets/clients/pricing-coach.png");
 }
@@ -2980,7 +2980,9 @@ body:has(.card:hover) .ticker {
   box-shadow: none;
   position: relative;
   overflow: hidden;
-  background-color: var(--color-surface);
+  background-color: transparent;
+  isolation: isolate;
+  line-height: 0;
   transition: background-color 0.8s ease;
 }
 /* CMS kapak: tüm kartlar aynı oran (16:9), object-fit cover */
@@ -3007,6 +3009,11 @@ body:has(.card:hover) .ticker {
   max-width: none;
   object-fit: cover;
   object-position: center;
+  border-radius: 0;
+  transform: translateZ(0) scale(1.02);
+  transform-origin: center center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 /* Görsel pseudo elementte tutulur ki sadece o yavaşça zoom yapsın */
 .featured-work-media::before {

@@ -52,7 +52,7 @@ const payload = {
   slug: "opera-hotel-bosphorus",
   baslik: "Opera Hotel Bosphorus",
   title: "Opera Hotel Bosphorus",
-  kategori: "Sosyal medya, fotoğraf, hospitality içerik",
+  kategori: "Sosyal medya, fotoğraf, hospitality",
   category: "Social media, photography, hospitality content",
   aciklama:
     "Opera Hotel Bosphorus için Boğaz manzarasını, otel ritüellerini ve lifestyle anlarını tek bir görsel dilde topladık. Çekim, sosyal medya ve içerik üretimiyle markayı rezervasyona giden bir hikâyeye dönüştürdük.",
@@ -67,7 +67,7 @@ const payload = {
     }),
   ),
   bolumler: [],
-  etiketler: ["social-media", "photography", "hospitality"],
+  etiketler: ["Sosyal medya", "Fotoğraf", "Hospitality"],
   featured: true,
   yayinda: true,
   renk: "#C4A574",
