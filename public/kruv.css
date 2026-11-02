@@ -1578,9 +1578,9 @@ body:has(.card:hover) .ticker {
 }
 .ideal-logo-2 { -webkit-mask-image: url("assets/clients/group-19.svg"); mask-image: url("assets/clients/group-19.svg"); }
 .ideal-logo-3 {
-  --ideal-logo-scale: 1.15;
-  -webkit-mask-image: url("assets/clients/jungleous.png");
-  mask-image: url("assets/clients/jungleous.png");
+  --ideal-logo-scale: 1.65;
+  -webkit-mask-image: url("assets/clients/jungleous.png?v=2");
+  mask-image: url("assets/clients/jungleous.png?v=2");
 }
 .ideal-logo-4 { -webkit-mask-image: url("assets/clients/asset-18.svg"); mask-image: url("assets/clients/asset-18.svg"); }
 .ideal-logo-5 {
@@ -1594,9 +1594,16 @@ body:has(.card:hover) .ticker {
   mask-image: url("assets/clients/gg-pizza.png");
 }
 .ideal-logo-7 {
-  --ideal-logo-scale: 1.4;
-  -webkit-mask-image: url("assets/clients/opera-hotel.png");
-  mask-image: url("assets/clients/opera-hotel.png");
+  /* Stacked wordmark — kutuyu maske oranına kilitle (ezilmesin) */
+  --ideal-logo-scale: 1.2;
+  width: calc(58% * var(--ideal-logo-scale));
+  height: auto;
+  aspect-ratio: 800 / 280;
+  max-height: 78%;
+  -webkit-mask-image: url("assets/clients/opera-hotel.png?v=2");
+  mask-image: url("assets/clients/opera-hotel.png?v=2");
+  -webkit-mask-size: contain;
+  mask-size: contain;
 }
 .ideal-logo-8 {
   --ideal-logo-scale: 1.25;
