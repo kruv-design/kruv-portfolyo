@@ -1,13 +1,28 @@
--- Yana Cafe — kapak + 8 galeri + 2 video (yan yana: galeri_1_video / galeri_5_video)
--- Supabase SQL Editor'da çalıştır.
+-- Yana Cafe — güvenli seed (önce kolonlar, sonra upsert, sonda kontrol)
+-- Supabase → SQL Editor → New query → Run
+-- Başarı: alttaki SELECT 1 satır döner (slug = yana-cafe).
 
-INSERT INTO projects (
+-- 1) Eksik kolonlar (yoksa ekle)
+alter table public.projects add column if not exists yayinda boolean not null default true;
+alter table public.projects add column if not exists title text default '';
+alter table public.projects add column if not exists description text default '';
+alter table public.projects add column if not exists category text default '';
+alter table public.projects add column if not exists next_project_override text default '';
+alter table public.projects add column if not exists renk text default '#C8B8A8';
+alter table public.projects add column if not exists galeri_1_video text default '';
+alter table public.projects add column if not exists galeri_5_video text default '';
+alter table public.projects add column if not exists galeri_6 text default '';
+alter table public.projects add column if not exists galeri_7 text default '';
+alter table public.projects add column if not exists galeri_8 text default '';
+
+-- 2) Upsert
+insert into public.projects (
   slug, baslik, title, kategori, category, aciklama, description,
   kapak,
   galeri_1, galeri_2, galeri_3, galeri_4, galeri_5, galeri_6, galeri_7, galeri_8,
   galeri_1_video, galeri_5_video,
   bolumler, etiketler, featured, yayinda, next_project_override, renk, sira
-) VALUES (
+) values (
   'yana-cafe',
   'Yana Cafe',
   'Yana Cafe',
@@ -34,26 +49,33 @@ INSERT INTO projects (
   '#6B4F3A',
   2
 )
-ON CONFLICT (slug) DO UPDATE SET
-  baslik = EXCLUDED.baslik,
-  title = EXCLUDED.title,
-  kategori = EXCLUDED.kategori,
-  category = EXCLUDED.category,
-  aciklama = EXCLUDED.aciklama,
-  description = EXCLUDED.description,
-  kapak = EXCLUDED.kapak,
-  galeri_1 = EXCLUDED.galeri_1,
-  galeri_2 = EXCLUDED.galeri_2,
-  galeri_3 = EXCLUDED.galeri_3,
-  galeri_4 = EXCLUDED.galeri_4,
-  galeri_5 = EXCLUDED.galeri_5,
-  galeri_6 = EXCLUDED.galeri_6,
-  galeri_7 = EXCLUDED.galeri_7,
-  galeri_8 = EXCLUDED.galeri_8,
-  galeri_1_video = EXCLUDED.galeri_1_video,
-  galeri_5_video = EXCLUDED.galeri_5_video,
-  etiketler = EXCLUDED.etiketler,
-  featured = EXCLUDED.featured,
-  yayinda = EXCLUDED.yayinda,
-  renk = EXCLUDED.renk,
-  sira = EXCLUDED.sira;
+on conflict (slug) do update set
+  baslik = excluded.baslik,
+  title = excluded.title,
+  kategori = excluded.kategori,
+  category = excluded.category,
+  aciklama = excluded.aciklama,
+  description = excluded.description,
+  kapak = excluded.kapak,
+  galeri_1 = excluded.galeri_1,
+  galeri_2 = excluded.galeri_2,
+  galeri_3 = excluded.galeri_3,
+  galeri_4 = excluded.galeri_4,
+  galeri_5 = excluded.galeri_5,
+  galeri_6 = excluded.galeri_6,
+  galeri_7 = excluded.galeri_7,
+  galeri_8 = excluded.galeri_8,
+  galeri_1_video = excluded.galeri_1_video,
+  galeri_5_video = excluded.galeri_5_video,
+  etiketler = excluded.etiketler,
+  featured = excluded.featured,
+  yayinda = true,
+  renk = excluded.renk,
+  sira = excluded.sira,
+  updated_at = now();
+
+-- 3) Kontrol — 1 satır görmelisin
+select slug, baslik, yayinda, featured, sira, kapak is not null as has_kapak,
+       galeri_1_video <> '' as has_v1, galeri_5_video <> '' as has_v2
+from public.projects
+where slug = 'yana-cafe';

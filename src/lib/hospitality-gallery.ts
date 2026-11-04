@@ -24,12 +24,12 @@ function borden(n: number) {
 }
 
 /**
- * Figma Hospitaly portfolio — Opera 3×4 main şablon.
+ * Figma Hospitaly portfolio — Opera 3×8 (5837:2303).
  * GG Pizza: 4957:2234 (9 kare, 3×3)
  * Borden: 4958:2302 (6 kare, 3×2)
  */
 export const HOSPITALITY_GALLERY: HospitalityGalleryItem[] = [
-  // Opera Hotel Bosphorus — full 3×4
+  // Opera Hotel Bosphorus — full 3×8
   {
     id: "opera-1",
     filter: "opera",
@@ -113,6 +113,90 @@ export const HOSPITALITY_GALLERY: HospitalityGalleryItem[] = [
     src: opera(12),
     altTr: "Opera Hotel Bosphorus — pencere",
     altEn: "Opera Hotel Bosphorus — window",
+  },
+  {
+    id: "opera-13",
+    filter: "opera",
+    src: opera(13),
+    altTr: "Opera Hotel Bosphorus — Türk kahvaltısı",
+    altEn: "Opera Hotel Bosphorus — Turkish breakfast",
+  },
+  {
+    id: "opera-14",
+    filter: "opera",
+    src: opera(14),
+    altTr: "Opera Hotel Bosphorus — balkon kahvesi",
+    altEn: "Opera Hotel Bosphorus — balcony coffee",
+  },
+  {
+    id: "opera-15",
+    filter: "opera",
+    src: opera(15),
+    altTr: "Opera Hotel Bosphorus — bornoz detayı",
+    altEn: "Opera Hotel Bosphorus — robe detail",
+  },
+  {
+    id: "opera-16",
+    filter: "opera",
+    src: opera(16),
+    altTr: "Opera Hotel Bosphorus — restoran",
+    altEn: "Opera Hotel Bosphorus — restaurant",
+  },
+  {
+    id: "opera-17",
+    filter: "opera",
+    src: opera(17),
+    altTr: "Opera Hotel Bosphorus — havuz",
+    altEn: "Opera Hotel Bosphorus — pool",
+  },
+  {
+    id: "opera-18",
+    filter: "opera",
+    src: opera(18),
+    altTr: "Opera Hotel Bosphorus — yatak odası",
+    altEn: "Opera Hotel Bosphorus — bedroom",
+  },
+  {
+    id: "opera-19",
+    filter: "opera",
+    src: opera(19),
+    altTr: "Opera Hotel Bosphorus — Boğaz manzarası",
+    altEn: "Opera Hotel Bosphorus — Bosphorus view",
+  },
+  {
+    id: "opera-20",
+    filter: "opera",
+    src: opera(20),
+    altTr: "Opera Hotel Bosphorus — bar",
+    altEn: "Opera Hotel Bosphorus — bar",
+  },
+  {
+    id: "opera-21",
+    filter: "opera",
+    src: opera(21),
+    altTr: "Opera Hotel Bosphorus — gastronomi",
+    altEn: "Opera Hotel Bosphorus — dining",
+  },
+  {
+    id: "opera-22",
+    filter: "opera",
+    src: opera(22),
+    altTr: "Opera Hotel Bosphorus — oda servisi",
+    altEn: "Opera Hotel Bosphorus — room service",
+  },
+  {
+    id: "opera-23",
+    filter: "opera",
+    src: opera(23),
+    altTr: "Opera Hotel Bosphorus — havuz kenarı",
+    altEn: "Opera Hotel Bosphorus — poolside",
+  },
+  {
+    id: "opera-24",
+    filter: "opera",
+    src: opera(24),
+    altTr: "Opera Hotel Bosphorus — spa",
+    altEn: "Opera Hotel Bosphorus — spa",
   },
 
   // GG Pizza — Figma 4957:2243 reading order (3×3, same cell size as Opera)
