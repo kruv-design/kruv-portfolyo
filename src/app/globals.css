@@ -2169,7 +2169,7 @@ i {
   }
 }
 
-/* Figma Frame 1410097964 — H3 Medium 32 + Body 18, gap 4, sol pad 12 */
+/* Kart meta — sol pad 12; works ızgarasında H4+B2 (3 sütunda H3/B1 şişiyordu) */
 .pw-card-meta {
   display: flex;
   flex-direction: column;
@@ -2183,7 +2183,6 @@ i {
 }
 
 .pw-card-title {
-  /* .card-meta-title ile aynı (H3 / Switzer Medium) */
   margin: 0;
   min-width: 0;
   width: 100%;
@@ -2216,10 +2215,29 @@ i {
   color: var(--card-meta-category-ink);
 }
 
+/* /works 3-sütun: başlık H4 24, kategori B2 14 */
+.portfolio-works-page .pw-card-title,
+.portfolio-works-page .card-meta-title {
+  font-size: var(--h4-font-size);
+  font-weight: var(--h4-font-weight, 500);
+  line-height: var(--h4-line-height, 1.2);
+  letter-spacing: var(--h4-letter-spacing, var(--card-meta-title-ls));
+}
+
+.portfolio-works-page .pw-card-category,
+.portfolio-works-page .card-meta-category {
+  font-family: var(--b2-font-family, var(--b1-font-family));
+  font-size: var(--b2-font-size, var(--type-b2));
+  font-weight: var(--b2-font-weight, 400);
+  line-height: var(--b2-line-height, 1.45);
+  letter-spacing: var(--b2-letter-spacing, var(--b1-letter-spacing));
+}
+
 @media (max-width: 699px) {
-  .portfolio-works-page .pw-card-category {
-    font-size: var(--card-meta-tag-size-mobile);
-    letter-spacing: var(--b1-letter-spacing);
+  .portfolio-works-page .pw-card-category,
+  .portfolio-works-page .card-meta-category {
+    font-size: var(--b2-font-size, var(--type-b2));
+    letter-spacing: var(--b2-letter-spacing, var(--b1-letter-spacing));
   }
 }
 
