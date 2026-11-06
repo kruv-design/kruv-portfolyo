@@ -19,6 +19,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { buildLocaleAlternates } from "@/lib/seo/locale-alternates";
 import { withLocale } from "@/lib/i18n/path";
 import { buildBlogPostingSchema, buildBreadcrumbSchema } from "@/lib/seo/structured-data";
+import { formatBlogDate } from "@/lib/blog-date";
 
 export const revalidate = 60;
 export const dynamicParams = true;
@@ -101,7 +102,10 @@ export default async function BlogPostPage({
       />
       <MarketingSiteNav settings={settings} locale={locale} messages={messages} />
       <main className="works-shell-inner blog-shell flex-1" lang={locale}>
-        <BlogArticle post={localized} />
+        <BlogArticle
+          post={localized}
+          dateLabel={formatBlogDate(post.created_at, locale)}
+        />
       </main>
       <SiteFooter settings={settings} locale={locale} messages={messages} />
     </MarketingPageShell>

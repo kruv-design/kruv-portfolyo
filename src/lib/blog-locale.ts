@@ -25,17 +25,23 @@ export function blogIntroForLocale(post: BlogPost, locale: Locale): string {
 
 function resolveSections(sections: BlogSection[], locale: Locale): BlogSection[] {
   return sections.map((s) => {
+    const gorselNot =
+      locale === "en"
+        ? s.note?.trim() || s.gorselNot?.trim() || ""
+        : s.gorselNot?.trim() || "";
     if (locale === "en") {
       return {
         ...s,
         baslik: pickEn(s.baslik, s.title),
         metin: pickEn(s.metin, s.text),
+        ...(gorselNot ? { gorselNot } : {}),
       };
     }
     return {
       ...s,
       baslik: s.baslik?.trim() || "",
       metin: s.metin?.trim() || "",
+      ...(gorselNot ? { gorselNot } : {}),
     };
   });
 }

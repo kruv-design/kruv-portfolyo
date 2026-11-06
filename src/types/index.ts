@@ -87,6 +87,10 @@ export type BlogSection = {
   text?: string;
   /** Bölüm görseli (opsiyonel) */
   gorsel?: string;
+  /** TR görsel alt yazısı. Fotoğrafçı ve lisans burada durur. */
+  gorselNot?: string;
+  /** EN görsel alt yazısı (boşsa gorselNot) */
+  note?: string;
 };
 
 /** `blog_posts` tablosu — Supabase */

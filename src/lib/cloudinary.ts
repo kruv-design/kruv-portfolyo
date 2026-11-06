@@ -3,14 +3,20 @@ import { env } from "@/lib/env";
 
 /**
  * Server-only Cloudinary client. Uses signed uploads so the secret
- * never leaves the server.
+ * never leaves the server. Config runs on first use so a missing
+ * preview env does not crash the build while the module is imported.
  */
-cloudinary.config({
-  cloud_name: env.CLOUDINARY_CLOUD_NAME,
-  api_key: env.CLOUDINARY_API_KEY,
-  api_secret: env.CLOUDINARY_API_SECRET,
-  secure: true,
-});
+let configured = false;
+function ensureCloudinary() {
+  if (configured) return;
+  cloudinary.config({
+    cloud_name: env.CLOUDINARY_CLOUD_NAME,
+    api_key: env.CLOUDINARY_API_KEY,
+    api_secret: env.CLOUDINARY_API_SECRET,
+    secure: true,
+  });
+  configured = true;
+}
 
 export type UploadSignature = {
   cloudName: string;
@@ -26,6 +32,7 @@ export type UploadSignature = {
  * Keeps binary out of our server but verifies upload params.
  */
 export function buildUploadSignature(folder = "kruv-portfolio"): UploadSignature {
+  ensureCloudinary();
   const timestamp = Math.round(Date.now() / 1000);
   const paramsToSign: Record<string, string | number> = {
     folder,

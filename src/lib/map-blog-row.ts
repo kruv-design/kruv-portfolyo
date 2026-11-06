@@ -5,12 +5,16 @@ function normalizeSection(raw: unknown): BlogSection {
   const title = String(s.title ?? "").trim();
   const text = String(s.text ?? "").trim();
   const gorsel = String(s.gorsel ?? "").trim();
+  const gorselNot = String(s.gorselNot ?? "").trim();
+  const note = String(s.note ?? "").trim();
   return {
     baslik: String(s.baslik ?? ""),
     metin: String(s.metin ?? ""),
     ...(title ? { title } : {}),
     ...(text ? { text } : {}),
     ...(gorsel ? { gorsel } : {}),
+    ...(gorselNot ? { gorselNot } : {}),
+    ...(note ? { note } : {}),
   };
 }
 
