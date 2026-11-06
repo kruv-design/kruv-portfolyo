@@ -1578,9 +1578,9 @@ body:has(.card:hover) .ticker {
 }
 .ideal-logo-2 { -webkit-mask-image: url("assets/clients/group-19.svg"); mask-image: url("assets/clients/group-19.svg"); }
 .ideal-logo-3 {
-  --ideal-logo-scale: 1.15;
-  -webkit-mask-image: url("assets/clients/jungleous.png");
-  mask-image: url("assets/clients/jungleous.png");
+  --ideal-logo-scale: 1.65;
+  -webkit-mask-image: url("assets/clients/jungleous.png?v=2");
+  mask-image: url("assets/clients/jungleous.png?v=2");
 }
 .ideal-logo-4 { -webkit-mask-image: url("assets/clients/asset-18.svg"); mask-image: url("assets/clients/asset-18.svg"); }
 .ideal-logo-5 {
@@ -1589,17 +1589,24 @@ body:has(.card:hover) .ticker {
   mask-image: url("assets/clients/protel.png");
 }
 .ideal-logo-6 {
-  --ideal-logo-scale: 1.15;
+  --ideal-logo-scale: 1.45;
   -webkit-mask-image: url("assets/clients/gg-pizza.png");
   mask-image: url("assets/clients/gg-pizza.png");
 }
 .ideal-logo-7 {
-  --ideal-logo-scale: 1.35;
-  -webkit-mask-image: url("assets/clients/opera-hotel.png");
-  mask-image: url("assets/clients/opera-hotel.png");
+  /* Stacked wordmark — kutuyu maske oranına kilitle (ezilmesin) */
+  --ideal-logo-scale: 1.2;
+  width: calc(58% * var(--ideal-logo-scale));
+  height: auto;
+  aspect-ratio: 800 / 280;
+  max-height: 78%;
+  -webkit-mask-image: url("assets/clients/opera-hotel.png?v=2");
+  mask-image: url("assets/clients/opera-hotel.png?v=2");
+  -webkit-mask-size: contain;
+  mask-size: contain;
 }
 .ideal-logo-8 {
-  --ideal-logo-scale: 1.2;
+  --ideal-logo-scale: 1.25;
   -webkit-mask-image: url("assets/clients/pricing-coach.png");
   mask-image: url("assets/clients/pricing-coach.png");
 }
@@ -2980,13 +2987,14 @@ body:has(.card:hover) .ticker {
   box-shadow: none;
   position: relative;
   overflow: hidden;
-  background-color: var(--color-surface);
+  background-color: transparent;
+  isolation: isolate;
+  line-height: 0;
   transition: background-color 0.8s ease;
 }
-/* CMS kapak: kendi oranında, cover kırpma yok */
+/* CMS kapak: tüm kartlar aynı oran (16:9), object-fit cover */
 .featured-work-media--photo {
-  aspect-ratio: auto;
-  height: auto;
+  aspect-ratio: 16 / 9;
   background-color: transparent;
 }
 .featured-work-media--photo::before {
@@ -2999,6 +3007,20 @@ body:has(.card:hover) .ticker {
   max-width: 100%;
   border-radius: inherit;
   vertical-align: top;
+}
+.featured-work-media--photo .featured-work-media-img {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 0;
+  transform: translateZ(0) scale(1.04);
+  transform-origin: center center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 /* Görsel pseudo elementte tutulur ki sadece o yavaşça zoom yapsın */
 .featured-work-media::before {

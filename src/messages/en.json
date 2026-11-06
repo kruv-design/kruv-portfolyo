@@ -33,13 +33,31 @@
       "ctaLabel": "See projects",
       "ctaHref": "/works",
       "titleLines": [
-        [{ "type": "text", "value": "Award Winners" }],
         [
-          { "type": "text", "value": "on Adobe " },
-          { "type": "accent", "value": "Behance" }
+          {
+            "type": "text",
+            "value": "Award Winners"
+          }
+        ],
+        [
+          {
+            "type": "text",
+            "value": "on Adobe "
+          },
+          {
+            "type": "accent",
+            "value": "Behance"
+          }
         ]
       ],
-      "ribbons": [{ "variant": "gr" }, { "variant": "id" }]
+      "ribbons": [
+        {
+          "variant": "gr"
+        },
+        {
+          "variant": "id"
+        }
+      ]
     },
     "values": {
       "ariaLabel": "Who we work with",
@@ -82,8 +100,8 @@
       "instagramVisit": "Visit {brand} on Instagram",
       "videoTitles": {
         "ggpizza": {
-          "video1": "Beer & Pizza",
-          "video2": "Winter menu, soon"
+          "video1": "Pizza & shoot",
+          "video2": "Peach dessert"
         }
       }
     },
@@ -119,13 +137,27 @@
     },
     "ticker": {
       "items": [
-        { "label": "Brand identity" },
-        { "label": "Social media design" },
-        { "label": "Motion design" },
-        { "label": "Feed-first strategy" },
-        { "label": "Social native" },
-        { "label": "D2C brands" },
-        { "label": "Istanbul" }
+        {
+          "label": "Brand identity"
+        },
+        {
+          "label": "Social media design"
+        },
+        {
+          "label": "Motion design"
+        },
+        {
+          "label": "Feed-first strategy"
+        },
+        {
+          "label": "Social native"
+        },
+        {
+          "label": "D2C brands"
+        },
+        {
+          "label": "Istanbul"
+        }
       ]
     },
     "letsTalk": {
@@ -240,12 +272,30 @@
     "contact": "Contact us",
     "projectCount": "{count} / {total} projects",
     "serviceLinks": [
-      { "label": "Social media management", "filter": "social-media" },
-      { "label": "Brand identity", "filter": "branding" },
-      { "label": "Packaging", "filter": "packaging" },
-      { "label": "Editorial", "filter": "editorial" },
-      { "label": "UI/UX", "filter": "web-design" },
-      { "label": "Illustration", "filter": "branding" }
+      {
+        "label": "Social media management",
+        "filter": "social-media"
+      },
+      {
+        "label": "Brand identity",
+        "filter": "branding"
+      },
+      {
+        "label": "Packaging",
+        "filter": "packaging"
+      },
+      {
+        "label": "Editorial",
+        "filter": "editorial"
+      },
+      {
+        "label": "UI/UX",
+        "filter": "web-design"
+      },
+      {
+        "label": "Illustration",
+        "filter": "branding"
+      }
     ]
   },
   "contact": {
@@ -343,13 +393,19 @@
       "prev": "Previous testimonial",
       "next": "Next testimonial",
       "items": [
-        { "name": "Mehmet Temim", "role": "OPERA HOTEL BOSPHORUS" },
+        {
+          "name": "Mehmet Temim",
+          "role": "OPERA HOTEL BOSPHORUS"
+        },
         {
           "name": "Ergin k",
           "role": "PRICING COACH",
           "video": "https://res.cloudinary.com/di0qbhh46/video/upload/v1793315286/testimonal_pricing_coach_p0t5sd.mp4"
         },
-        { "name": "Burak Gedik", "role": "GG PIZZA" }
+        {
+          "name": "Burak Gedik",
+          "role": "GG PIZZA"
+        }
       ]
     },
     "process": {

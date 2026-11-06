@@ -73,8 +73,7 @@ export function MarketingFeaturedWorks({
                   <Image
                     src={cover}
                     alt={localized.baslik}
-                    width={0}
-                    height={0}
+                    fill
                     sizes="(max-width: 899px) 100vw, 80vw"
                     className="featured-work-media-img"
                   />

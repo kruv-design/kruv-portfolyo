@@ -43,8 +43,7 @@ export function PortfolioCard({
           <Image
             src={cover}
             alt={project.baslik}
-            width={0}
-            height={0}
+            fill
             sizes="(max-width: 639px) 100vw, (max-width: 899px) 50vw, 33vw"
             className="pw-card-media-img"
             placeholder="empty"
@@ -59,8 +58,10 @@ export function PortfolioCard({
         )}
       </div>
       <div className="pw-card-meta">
-        <h2 className="pw-card-title">{project.baslik}</h2>
-        {categoryLabel ? <p className="pw-card-category">{categoryLabel}</p> : null}
+        <h2 className="pw-card-title card-meta-title">{project.baslik}</h2>
+        {categoryLabel ? (
+          <p className="pw-card-category card-meta-category">{categoryLabel}</p>
+        ) : null}
       </div>
     </Link>
   );

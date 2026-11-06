@@ -196,13 +196,13 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
         url: "https://www.instagram.com/ggpizzaa/",
       },
     ],
-    video1Title: "Bira & Pizza",
+    video1Title: "Pizza & çekim",
     video1Url:
-      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=GG_6_rdirzm",
+      "https://res.cloudinary.com/di0qbhh46/video/upload/Bal%C4%B1k_editv6_a2zcrh.mp4",
     video1Aspect: "9:16",
-    video2Title: "Winter menü, yakında",
+    video2Title: "Şeftali tatlı",
     video2Url:
-      "https://res.cloudinary.com/di0qbhh46/video/upload/v1792754148/Bal%C4%B1k_editv6_a2zcrh.mp4",
+      "https://res.cloudinary.com/di0qbhh46/video/upload/seftali_tatli-v4_qlkigr.mp4",
     video2Aspect: "9:16",
     updatedAt: "",
   },

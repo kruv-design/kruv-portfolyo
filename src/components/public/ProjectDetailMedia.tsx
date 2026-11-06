@@ -22,17 +22,21 @@ export function ProjectDetailMedia({
   alt,
   priority = false,
   variant = "gallery",
+  photoFit = false,
   placeholderLabel,
   placeholderColor,
   playback = "auto",
   loadEagerly = false,
   playLabel = "Play video",
+  onLightboxOpen,
 }: {
   posterSrc: string;
   videoSrc: string | null;
   alt: string;
   priority?: boolean;
   variant?: Variant;
+  /** true = Figma oranı, object-fit cover croplama yok (GG Pizza vb.) */
+  photoFit?: boolean;
   placeholderLabel?: string;
   placeholderColor?: string;
   /** `click` = poster + oynat butonu; `auto` = scroll'da sessiz loop */
@@ -40,6 +44,8 @@ export function ProjectDetailMedia({
   /** Viewport beklemeden yükle (showreel); click modunda preload=auto */
   loadEagerly?: boolean;
   playLabel?: string;
+  /** Görsele tıklanınca lightbox (yalnızca video yokken) */
+  onLightboxOpen?: () => void;
 }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -187,14 +193,37 @@ export function ProjectDetailMedia({
     );
   }
 
+  const lightboxable = Boolean(onLightboxOpen && posterSrc && !videoSrc);
+
   return (
     <div
       ref={rootRef}
       className={
-        variant === "cover"
+        (variant === "cover"
           ? "project-detail-media project-detail-media--cover"
-          : "project-detail-media project-detail-media--gallery"
+          : "project-detail-media project-detail-media--gallery") +
+        (lightboxable ? " project-detail-media--lightboxable" : "")
       }
+      role={lightboxable ? "button" : undefined}
+      tabIndex={lightboxable ? 0 : undefined}
+      onClick={
+        lightboxable
+          ? () => {
+              onLightboxOpen?.();
+            }
+          : undefined
+      }
+      onKeyDown={
+        lightboxable
+          ? (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onLightboxOpen?.();
+              }
+            }
+          : undefined
+      }
+      aria-label={lightboxable ? `${alt} — büyüt` : undefined}
     >
       {posterSrc ? (
         <div
@@ -209,6 +238,7 @@ export function ProjectDetailMedia({
             alt={alt}
             priority={priority}
             variant={variant}
+            fit={photoFit ? "natural" : "frame"}
           />
           {showPlayButton ? (
             <button

@@ -918,16 +918,22 @@ i {
   aspect-ratio: 425 / 287;
   border-radius: var(--radius-md);
   overflow: hidden;
-  background: var(--gray-80);
+  background: transparent;
+  isolation: isolate;
+  line-height: 0;
 }
 
 .blog-card__img {
   object-fit: cover;
+  transform: translateZ(0) scale(1.02);
+  transform-origin: center center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
   transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .blog-card:hover .blog-card__img {
-  transform: scale(1.03);
+  transform: translateZ(0) scale(1.04);
 }
 
 .blog-card__placeholder {
@@ -1181,9 +1187,11 @@ i {
   max-height: none;
   object-fit: unset;
   display: block;
-  border-radius: inherit;
+  border-radius: 0;
   vertical-align: top;
   transition: none;
+  /* doğal yükseklik — scale clip saçağını bozmasın */
+  transform: none;
 }
 
 .project-next-banner__placeholder {
@@ -1384,18 +1392,27 @@ i {
   box-sizing: border-box;
   overflow: hidden;
   border-radius: 0;
-  background: var(--surface);
+  background: transparent;
+  isolation: isolate;
+  line-height: 0;
 }
 
 .project-detail-cover-img,
 .project-detail-media-img {
   display: block;
   width: 100% !important;
-  height: auto !important;
-  max-width: 100%;
-  position: static !important;
-  inset: auto !important;
+  height: 100% !important;
+  max-width: none;
+  position: absolute !important;
+  inset: 0 !important;
+  object-fit: cover;
+  object-position: center;
   vertical-align: top;
+  /* overflow:hidden + radius clip’te 1px saçak */
+  transform: translateZ(0) scale(1.04);
+  transform-origin: center center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 /* Poster + opsiyonel loop video (LCP = poster) */
@@ -1404,12 +1421,49 @@ i {
   display: block;
   width: 100%;
   overflow: hidden;
+  aspect-ratio: var(--project-media-aspect-ratio);
+  isolation: isolate;
+  line-height: 0;
+  background: transparent;
 }
+
+/* GG Pizza: fotoğraf ağırlıklı — 16:9 cover croplama yok, Figma oranı */
+.project-detail-page--photo-fit .project-detail-media--gallery,
+.project-detail-page--photo-fit .project-detail-media--cover {
+  aspect-ratio: auto;
+  height: auto;
+  max-height: none;
+}
+.project-detail-page--photo-fit .project-detail-media--gallery .project-detail-media__poster-wrap,
+.project-detail-page--photo-fit .project-detail-media--cover .project-detail-media__poster-wrap {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  height: auto;
+}
+.project-detail-page--photo-fit .project-detail-media--gallery .project-detail-media-img,
+.project-detail-page--photo-fit .project-detail-media--gallery .project-detail-cover-img,
+.project-detail-page--photo-fit .project-detail-media--cover .project-detail-media-img,
+.project-detail-page--photo-fit .project-detail-media--cover .project-detail-cover-img {
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100%;
+  object-fit: contain;
+  transform: none;
+}
+.project-detail-page--photo-fit .project-detail-gallery__item {
+  background: transparent;
+}
+
 
 .project-detail-media__poster-wrap {
   display: block;
   width: 100%;
-  position: relative;
+  height: 100%;
+  position: absolute;
+  inset: 0;
 }
 
 .project-detail-media__poster-wrap--video-only {
@@ -1503,12 +1557,30 @@ i {
 }
 
 .project-detail-media--cover .project-detail-media__video {
-  object-fit: contain;
-  width: 100%;
-  height: auto;
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  width: 100% !important;
+  height: 100% !important;
   min-height: 0;
-  aspect-ratio: auto;
+  transform: translateZ(0) scale(1.04);
+  transform-origin: center center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
+
+.project-detail-media--gallery .project-detail-media__video {
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  width: 100% !important;
+  height: 100% !important;
+  transform: translateZ(0) scale(1.04);
+  transform-origin: center center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
 
 /* Anasayfa üst showreel — tam genişlik (edge-to-edge), hero üstünde */
 .home-showreel {
@@ -1761,7 +1833,7 @@ i {
   aspect-ratio: 16 / 9;
   width: 100%;
   overflow: hidden;
-  background: var(--surface);
+  background: transparent;
 }
 
 .home-showreel__variant--web .project-detail-media__poster-wrap {
@@ -1797,7 +1869,7 @@ i {
   max-height: min(92vh, 52rem);
   height: auto;
   overflow: hidden;
-  background: var(--surface);
+  background: transparent;
 }
 
 .home-showreel__variant--mobile .project-detail-media__poster-wrap {
@@ -1875,6 +1947,7 @@ i {
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  gap: var(--project-gallery-inset-y);
   width: 100%;
   max-width: 100%;
   margin-inline: 0;
@@ -1909,7 +1982,7 @@ i {
   border: 1px solid var(--border);
   box-sizing: border-box;
 }
-/* Galeri: kolon genişliğinde, kendi oranında */
+/* Galeri: kolon genişliğinde, sabit 16:9 */
 .project-detail-gallery {
   display: flex;
   flex-direction: column;
@@ -1925,7 +1998,9 @@ i {
   flex-shrink: 0;
   border-radius: var(--radius-md);
   overflow: hidden;
-  background: var(--surface);
+  background: transparent;
+  isolation: isolate;
+  line-height: 0;
   box-sizing: border-box;
 }
 
@@ -1943,15 +2018,32 @@ i {
     gap: var(--space-4);
   }
 }
+/* 3–4 video: her zaman 2×2 */
+.project-detail-video-pair--grid {
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
 .project-detail-video-pair__item {
   margin: 0;
   border-radius: var(--radius-md);
   overflow: hidden;
-  background: var(--surface);
+  background: transparent;
+  isolation: isolate;
+  line-height: 0;
+  display: flex;
+  justify-content: center;
 }
 .project-detail-video-pair__item .project-detail-media {
   position: relative;
   aspect-ratio: 9 / 16;
+  /* 9:16 çift geniş ekranda viewport’tan taşmasın */
+  --project-video-pair-max-h: min(
+    72dvh,
+    calc(100svh - var(--site-nav-clearance, 5.5rem) - var(--space-10))
+  );
+  max-height: var(--project-video-pair-max-h);
+  width: min(100%, calc(var(--project-video-pair-max-h) * 9 / 16));
+  height: auto;
   overflow: hidden;
 }
 .project-detail-video-pair__item .project-detail-media__poster-wrap,
@@ -1962,6 +2054,118 @@ i {
   height: 100% !important;
   object-fit: cover;
 }
+/* Proje detay — görsel lightbox */
+.project-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+  box-sizing: border-box;
+}
+.project-lightbox__close {
+  position: fixed;
+  top: var(--space-5);
+  right: var(--space-5);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  background: color-mix(in srgb, var(--white-fixed) 14%, transparent);
+  color: var(--white-fixed);
+  font-size: 1.15rem;
+  line-height: 1;
+  transition: background 0.2s ease;
+}
+.project-lightbox__close:hover,
+.project-lightbox__close:focus-visible {
+  background: color-mix(in srgb, var(--white-fixed) 28%, transparent);
+  outline: none;
+}
+.project-lightbox__nav {
+  position: fixed;
+  top: 50%;
+  z-index: 2;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  background: color-mix(in srgb, var(--white-fixed) 14%, transparent);
+  color: var(--white-fixed);
+  font-size: 1.25rem;
+  line-height: 1;
+  transition: background 0.2s ease;
+}
+.project-lightbox__nav:hover,
+.project-lightbox__nav:focus-visible {
+  background: color-mix(in srgb, var(--white-fixed) 28%, transparent);
+  outline: none;
+}
+.project-lightbox__nav--prev {
+  left: var(--space-5);
+}
+.project-lightbox__nav--next {
+  right: var(--space-5);
+}
+.project-lightbox__img {
+  max-height: 88vh;
+  max-width: min(92vw, 1400px);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--radius-sm, 4px);
+  user-select: none;
+}
+.project-lightbox__count {
+  position: fixed;
+  bottom: var(--space-5);
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--black-fixed) 45%, transparent);
+  color: var(--white-fixed);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+}
+@media (max-width: 699px) {
+  .project-lightbox {
+    padding: var(--space-4);
+  }
+  .project-lightbox__nav--prev {
+    left: var(--space-3);
+  }
+  .project-lightbox__nav--next {
+    right: var(--space-3);
+  }
+  .project-lightbox__close {
+    top: var(--space-3);
+    right: var(--space-3);
+  }
+}
+.project-detail-media--lightboxable {
+  cursor: zoom-in;
+}
+.project-detail-media--lightboxable:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
 
 /* Homepage featured-work kart tipografisi (kruv.html) */
 .pw-card {
@@ -1979,20 +2183,24 @@ i {
   width: 100%;
   overflow: hidden;
   border-radius: var(--space-sm);
-  background: var(--surface);
+  background: transparent;
   isolation: isolate;
   line-height: 0;
+  aspect-ratio: var(--project-media-aspect-ratio);
 }
 
 .pw-card-media-img,
 .pw-card-media img {
   display: block;
   width: 100% !important;
-  height: auto !important;
-  max-width: 100%;
-  position: static !important;
-  inset: auto !important;
-  object-fit: unset;
+  height: 100% !important;
+  max-width: none;
+  position: absolute !important;
+  inset: 0 !important;
+  object-fit: cover;
+  object-position: center;
+  transform: translateZ(0) scale(1.04);
+  transform-origin: center center;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
@@ -2023,25 +2231,31 @@ i {
   }
 }
 
+/* Kart meta — sol pad 12; works ızgarasında H4+B2 (3 sütunda H3/B1 şişiyordu) */
 .pw-card-meta {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  gap: var(--space-3);
+  align-items: flex-start;
+  gap: var(--card-meta-stack-gap);
   width: 100%;
+  box-sizing: border-box;
+  padding: 0 0 0 var(--space-3);
   box-shadow: none;
+  text-align: left;
 }
 
 .pw-card-title {
-  font-family: var(--h4-font-family);
-  font-size: calc(var(--h4-font-size) + 2pt);
-  font-weight: var(--h4-font-weight);
-  line-height: var(--h4-line-height);
-  letter-spacing: var(--card-meta-title-ls);
-  text-transform: var(--h4-text-transform);
-  color: var(--ink);
   margin: 0;
   min-width: 0;
+  width: 100%;
+  font-family: var(--h3-font-family);
+  font-size: var(--h3-font-size);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: var(--card-meta-title-ls);
+  text-transform: none;
+  color: var(--card-meta-title-ink);
+  word-break: break-word;
 }
 
 /* Work grid: kart altında açıklama yok — yalnızca başlık + kategori */
@@ -2050,22 +2264,42 @@ i {
 }
 
 .pw-card-category {
+  margin: 0;
+  width: 100%;
+  max-width: none;
   font-family: var(--b1-font-family);
   font-size: var(--b1-font-size);
-  font-weight: var(--b1-font-weight);
-  line-height: var(--b1-line-height);
-  letter-spacing: var(--card-meta-tag-ls);
-  text-transform: var(--b1-text-transform);
-  color: var(--ink-soft);
+  font-weight: 400;
+  line-height: 1.42;
+  letter-spacing: var(--b1-letter-spacing);
+  text-transform: none;
   text-align: left;
-  margin: 0;
-  max-width: min(100%, calc(5 * var(--space-10)));
+  color: var(--card-meta-category-ink);
+}
+
+/* /works 3-sütun: başlık H4 24, kategori B2 14 */
+.portfolio-works-page .pw-card-title,
+.portfolio-works-page .card-meta-title {
+  font-size: var(--h4-font-size);
+  font-weight: var(--h4-font-weight, 500);
+  line-height: var(--h4-line-height, 1.2);
+  letter-spacing: var(--h4-letter-spacing, var(--card-meta-title-ls));
+}
+
+.portfolio-works-page .pw-card-category,
+.portfolio-works-page .card-meta-category {
+  font-family: var(--b2-font-family, var(--b1-font-family));
+  font-size: var(--b2-font-size, var(--type-b2));
+  font-weight: var(--b2-font-weight, 400);
+  line-height: var(--b2-line-height, 1.45);
+  letter-spacing: var(--b2-letter-spacing, var(--b1-letter-spacing));
 }
 
 @media (max-width: 699px) {
-  .portfolio-works-page .pw-card-category {
-    font-size: var(--card-meta-tag-size-mobile);
-    letter-spacing: var(--b1-letter-spacing);
+  .portfolio-works-page .pw-card-category,
+  .portfolio-works-page .card-meta-category {
+    font-size: var(--b2-font-size, var(--type-b2));
+    letter-spacing: var(--b2-letter-spacing, var(--b1-letter-spacing));
   }
 }
 

@@ -498,12 +498,27 @@
 
 .marketing-home-figma .featured-work-media,
 .marketing-home-figma .featured-work-media.featured-work-media--photo {
+  aspect-ratio: 16 / 9;
   border-radius: var(--home-featured-media-radius);
   overflow: hidden;
 }
 
 .marketing-home-figma .featured-work-media-img {
-  border-radius: var(--home-featured-media-radius);
+  /* radius yalnızca parent clip’te — çift radius 1px saçak yapar */
+  border-radius: 0;
+}
+
+.marketing-home-figma .featured-work-media--photo .featured-work-media-img {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+  object-position: center;
+  transform: translateZ(0) scale(1.04);
+  transform-origin: center center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 /* Figma Frame 1410097964 — başlık + kategori aynı sol hizada */

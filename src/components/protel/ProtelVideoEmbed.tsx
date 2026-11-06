@@ -44,8 +44,11 @@ export function ProtelVideoEmbed({
       <video
         src={src}
         poster={poster || undefined}
-        controls
+        autoPlay
+        muted
+        loop
         playsInline
+        controls
         preload="metadata"
         className="protel-video__el"
         aria-label={title || "Video"}
