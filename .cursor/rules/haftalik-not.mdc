@@ -9,6 +9,7 @@ Yeni blog sayısı `content/haftalik/SISTEM.md` iskeletine uyar. Kayıt `content
 
 - Okura gösterilmeyen sıra: eşik, soru, iz, tat, çizik, kapı.
 - Yazı düz Türkçe ve düz İngilizce. Telgraf cümle, slogan ve sektör jargonu yok. İlk iki cümlede konu anlaşılsın.
+- Ses sıcak olsun. Kullanım kılavuzu gibi yazma. Misafirin hissettiği an cümlenin içinde dursun.
 - Slug Türkçe. TR ve EN ayrı yazılır. Em dash yok.
 - Sayı: `content/haftalik/issues/YYYY-MM-DD.json`. Onay olmadan `yayinda: false`.
 - Onay olmadan Supabase’e yazma, deploy etme.

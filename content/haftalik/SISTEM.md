@@ -83,6 +83,7 @@ Bitince başa dön. Yanına yeni mercek eklemek serbest. Silmek değil.
 Okur bir otelci ya da restoran sahibi. Tasarım terimi bilmek zorunda değil.
 
 - İlk iki cümlede konu anlaşılsın. Başlık da düz Türkçe olsun. Bilmece kurma.
+- Ses insan ağzı olsun. Soğuk kılavuz yok. Misafirin durduğu, baktığı, suratının düştüğü an yazıya girsin.
 - Tam cümle yaz. "17 metrekare. Duş. Katalog." gibi telgraf yok.
 - Yazıya şu kelimeler girmez: yüzey, envanter, mercek, vuruş. Mecazla kestirme yok.
 - Özel isimden önce o şeyin ne olduğu söylensin. "Roma’da Experimental adlı otel."
