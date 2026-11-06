@@ -19,15 +19,19 @@ function normalizeSection(raw: unknown): ProjectSection {
 
 /** Supabase `projects` satırı → uygulama `Project` tipi (admin + API yanıtı). */
 export function mapProjectRow(data: Record<string, unknown>): Project {
+  const slug = String(data.slug);
+  const renamed = slug === "musterek";
+  const withName = (value: string) =>
+    renamed ? value.replace(/Müşterek(?! Hizalanma)/g, "Müşterek Hizalanma") : value;
   return {
     id: String(data.id),
-    slug: String(data.slug),
-    baslik: String(data.baslik ?? ""),
-    title: String(data.title ?? ""),
+    slug,
+    baslik: renamed ? "Müşterek Hizalanma" : String(data.baslik ?? ""),
+    title: renamed ? "Müşterek Hizalanma" : String(data.title ?? ""),
     kategori: String(data.kategori ?? ""),
     category: String(data.category ?? ""),
-    aciklama: String(data.aciklama ?? ""),
-    description: String(data.description ?? ""),
+    aciklama: withName(String(data.aciklama ?? "")),
+    description: withName(String(data.description ?? "")),
     kapak: kapakFromRow(data),
     ...galeriFieldsFromRow(data),
     ...galeriVideoFieldsFromRow(data),

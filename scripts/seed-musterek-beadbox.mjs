@@ -7,14 +7,14 @@ const CLD = "https://res.cloudinary.com/di0qbhh46/image/upload";
 const projects = [
   {
     slug: "musterek",
-    baslik: "Müşterek",
-    title: "Müşterek",
+    baslik: "Müşterek Hizalanma",
+    title: "Müşterek Hizalanma",
     kategori: "Fotoğraf, sosyal medya, hospitality",
     category: "Photography, social media, hospitality",
     aciklama:
-      "Müşterek için sofra ritüelini ve paylaşılan anları merkeze alan bir fotoğraf ve sosyal medya dili kurduk: sıcak ahşap, doğal ışık ve el işçiliğiyle markanın samimi hospitality tonunu netleştirdik.",
+      "Müşterek Hizalanma için sofra ritüelini ve paylaşılan anları merkeze alan bir fotoğraf ve sosyal medya dili kurduk: sıcak ahşap, doğal ışık ve el işçiliğiyle markanın samimi hospitality tonunu netleştirdik.",
     description:
-      "For Müşterek we built a photography and social language around the shared table — warm wood, natural light, and handcrafted moments that give the hospitality brand a clear, intimate tone.",
+      "For Müşterek Hizalanma we built a photography and social language around the shared table. Warm wood, natural light, and handcrafted moments give the hospitality brand a clear, intimate tone.",
     kapak: `${CLD}/v1793957252/kruv-portfolio/projects/musterek/kapak.png`,
     galeri_1: `${CLD}/v1793957254/kruv-portfolio/projects/musterek/g01.jpg`,
     galeri_2: `${CLD}/v1793957260/kruv-portfolio/projects/musterek/g02.png`,
