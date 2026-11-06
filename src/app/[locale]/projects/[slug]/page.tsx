@@ -125,7 +125,10 @@ export default async function LocalizedProjectPage({
       />
       <ProjectDetailPageFrame slug={project.slug}>
         <div
-          className="project-detail-page flex min-h-screen flex-col"
+          className={
+            "project-detail-page flex min-h-screen flex-col" +
+            (project.slug === "gg-pizza" ? " project-detail-page--photo-fit" : "")
+          }
           lang={locale}
           style={{ background: "var(--bg)", color: "var(--ink)", minHeight: "100vh" }}
         >

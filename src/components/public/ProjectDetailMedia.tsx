@@ -22,6 +22,7 @@ export function ProjectDetailMedia({
   alt,
   priority = false,
   variant = "gallery",
+  photoFit = false,
   placeholderLabel,
   placeholderColor,
   playback = "auto",
@@ -34,6 +35,8 @@ export function ProjectDetailMedia({
   alt: string;
   priority?: boolean;
   variant?: Variant;
+  /** true = Figma oranı, object-fit cover croplama yok (GG Pizza vb.) */
+  photoFit?: boolean;
   placeholderLabel?: string;
   placeholderColor?: string;
   /** `click` = poster + oynat butonu; `auto` = scroll'da sessiz loop */
@@ -235,6 +238,7 @@ export function ProjectDetailMedia({
             alt={alt}
             priority={priority}
             variant={variant}
+            fit={photoFit ? "natural" : "frame"}
           />
           {showPlayButton ? (
             <button

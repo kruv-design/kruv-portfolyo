@@ -33,6 +33,7 @@ export function ProjectDetail({
 }) {
   const cover = projectCover(project);
   const gallerySlots = projectGallerySlots(project);
+  const photoFit = project.slug === "gg-pizza";
   const title = projectTitleForLocale(project, locale);
   const intro = projectIntroForLocale(project, locale);
   const cmsVideoSlots = gallerySlots.filter((s) => s.videoSrc);
@@ -91,6 +92,7 @@ export function ProjectDetail({
           alt={title}
           priority
           variant="cover"
+          photoFit={photoFit}
           placeholderLabel={project.baslik[0] ?? "•"}
           placeholderColor={project.renk}
           onLightboxOpen={cover ? () => openLightboxAt(cover) : undefined}
@@ -151,6 +153,7 @@ export function ProjectDetail({
                     videoSrc={firstImage.videoSrc}
                     alt={`${title} — galeri görseli 1`}
                     variant="gallery"
+                    photoFit={photoFit}
                     onLightboxOpen={
                       firstImage.posterSrc && !firstImage.videoSrc
                         ? () => openLightboxAt(firstImage.posterSrc)
@@ -187,6 +190,7 @@ export function ProjectDetail({
                       videoSrc={videoSrc}
                       alt={`${title} — galeri görseli ${i + (firstImage ? 2 : 1)}`}
                       variant="gallery"
+                      photoFit={photoFit}
                       onLightboxOpen={
                         posterSrc && !videoSrc
                           ? () => openLightboxAt(posterSrc)

@@ -25,7 +25,7 @@ function borden(n: number) {
 
 /**
  * Figma Hospitaly portfolio — Opera 3×8 (5837:2303).
- * GG Pizza: 4957:2234 (9 kare, 3×3)
+ * GG Pizza: 4957:2243 (16 kare, 3 kolon — son satır 1)
  * Borden: 4958:2302 (6 kare, 3×2)
  */
 export const HOSPITALITY_GALLERY: HospitalityGalleryItem[] = [
@@ -199,70 +199,17 @@ export const HOSPITALITY_GALLERY: HospitalityGalleryItem[] = [
     altEn: "Opera Hotel Bosphorus — spa",
   },
 
-  // GG Pizza — Figma 4957:2243 reading order (3×3, same cell size as Opera)
-  {
-    id: "gg-1",
-    filter: "gg-pizza",
-    src: gg(1),
-    altTr: "GG Pizza — galeri 1",
-    altEn: "GG Pizza — gallery 1",
-  },
-  {
-    id: "gg-2",
-    filter: "gg-pizza",
-    src: gg(2),
-    altTr: "GG Pizza — galeri 2",
-    altEn: "GG Pizza — gallery 2",
-  },
-  {
-    id: "gg-3",
-    filter: "gg-pizza",
-    src: gg(3),
-    altTr: "GG Pizza — galeri 3",
-    altEn: "GG Pizza — gallery 3",
-  },
-  {
-    id: "gg-4",
-    filter: "gg-pizza",
-    src: gg(4),
-    altTr: "GG Pizza — galeri 4",
-    altEn: "GG Pizza — gallery 4",
-  },
-  {
-    id: "gg-5",
-    filter: "gg-pizza",
-    src: gg(5),
-    altTr: "GG Pizza — galeri 5",
-    altEn: "GG Pizza — gallery 5",
-  },
-  {
-    id: "gg-6",
-    filter: "gg-pizza",
-    src: gg(6),
-    altTr: "GG Pizza — galeri 6",
-    altEn: "GG Pizza — gallery 6",
-  },
-  {
-    id: "gg-7",
-    filter: "gg-pizza",
-    src: gg(7),
-    altTr: "GG Pizza — galeri 7",
-    altEn: "GG Pizza — gallery 7",
-  },
-  {
-    id: "gg-8",
-    filter: "gg-pizza",
-    src: gg(8),
-    altTr: "GG Pizza — galeri 8",
-    altEn: "GG Pizza — gallery 8",
-  },
-  {
-    id: "gg-9",
-    filter: "gg-pizza",
-    src: gg(9),
-    altTr: "GG Pizza — galeri 9",
-    altEn: "GG Pizza — gallery 9",
-  },
+  // GG Pizza — Figma 4957:2243 reading order (3 kolon × 16, same cell size as Opera)
+  ...Array.from({ length: 16 }, (_, i) => {
+    const n = i + 1;
+    return {
+      id: `gg-${n}`,
+      filter: "gg-pizza" as const,
+      src: gg(n),
+      altTr: `GG Pizza — galeri ${n}`,
+      altEn: `GG Pizza — gallery ${n}`,
+    };
+  }),
 
   // Borden — Figma 4958:2311 reading order (3×2)
   {
