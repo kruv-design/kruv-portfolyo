@@ -15,19 +15,31 @@ function opera(n: number) {
   return `${HOSP}/gallery-${String(n).padStart(2, "0")}`;
 }
 
-function gg(n: number) {
-  return `${HOSP}/gg-${String(n).padStart(2, "0")}`;
-}
-
 function borden(n: number) {
   return `${HOSP}/borden-${String(n).padStart(2, "0")}`;
 }
 
 /**
- * Figma Hospitaly portfolio — Opera 3×8 (5837:2303).
- * GG Pizza: 4957:2243 (16 kare, 3 kolon — son satır 1)
- * Borden: 4958:2302 (6 kare, 3×2)
+ * Opera 3×8 portre. Borden 3×2 portre.
+ * GG Pizza: proje galerisindeki yatay panolar (g02–g15), 16:9.
  */
+const GG_BOARDS = [
+  ["g02", "v1793312700"],
+  ["g03", "v1793312702"],
+  ["g04", "v1793312701"],
+  ["g05", "v1793312703"],
+  ["g06", "v1793312703"],
+  ["g07", "v1793312737"],
+  ["g08", "v1793312737"],
+  ["g09", "v1793312738"],
+  ["g10", "v1793312740"],
+  ["g11", "v1793312740"],
+  ["g12", "v1793312740"],
+  ["g13", "v1793312767"],
+  ["g14", "v1793312768"],
+  ["g15", "v1793312768"],
+] as const;
+
 export const HOSPITALITY_GALLERY: HospitalityGalleryItem[] = [
   // Opera Hotel Bosphorus — full 3×8
   {
@@ -199,13 +211,13 @@ export const HOSPITALITY_GALLERY: HospitalityGalleryItem[] = [
     altEn: "Opera Hotel Bosphorus — spa",
   },
 
-  // GG Pizza — Figma 4957:2243 reading order (3 kolon × 16, same cell size as Opera)
-  ...Array.from({ length: 16 }, (_, i) => {
-    const n = i + 1;
+  // GG Pizza — proje sayfasındaki yeni yatay panolar
+  ...GG_BOARDS.map(([file, version], index) => {
+    const n = index + 1;
     return {
       id: `gg-${n}`,
       filter: "gg-pizza" as const,
-      src: gg(n),
+      src: `${CLD}/${version}/kruv-portfolio/projects/gg-pizza/${file}.png`,
       altTr: `GG Pizza — galeri ${n}`,
       altEn: `GG Pizza — gallery ${n}`,
     };

@@ -124,6 +124,19 @@
   backface-visibility: hidden;
 }
 
+/* GG Pizza panoları 16:9. Kenar yazısı kırpılmasın. */
+.hosp-gallery--wide {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.hosp-gallery--wide .hosp-gallery__item {
+  aspect-ratio: 16 / 9;
+}
+
+.hosp-gallery--wide .hosp-gallery__item img {
+  transform: none;
+}
+
 .hosp-marquee {
   margin-top: var(--space-4);
 }
