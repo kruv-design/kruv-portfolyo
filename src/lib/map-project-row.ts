@@ -17,19 +17,28 @@ function normalizeSection(raw: unknown): ProjectSection {
   };
 }
 
+function dropHospitality(value: string): string {
+  return value
+    .split(/[,·|]/)
+    .map((part) => part.trim())
+    .filter((part) => part.toLowerCase() !== "hospitality")
+    .join(", ");
+}
+
 /** Supabase `projects` satırı → uygulama `Project` tipi (admin + API yanıtı). */
 export function mapProjectRow(data: Record<string, unknown>): Project {
   const slug = String(data.slug);
   const renamed = slug === "musterek";
   const withName = (value: string) =>
     renamed ? value.replace(/Müşterek(?! Hizalanma)/g, "Müşterek Hizalanma") : value;
+  const tags = Array.isArray(data.etiketler) ? (data.etiketler as string[]) : [];
   return {
     id: String(data.id),
     slug,
     baslik: renamed ? "Müşterek Hizalanma" : String(data.baslik ?? ""),
     title: renamed ? "Müşterek Hizalanma" : String(data.title ?? ""),
-    kategori: String(data.kategori ?? ""),
-    category: String(data.category ?? ""),
+    kategori: renamed ? dropHospitality(String(data.kategori ?? "")) : String(data.kategori ?? ""),
+    category: renamed ? dropHospitality(String(data.category ?? "")) : String(data.category ?? ""),
     aciklama: withName(String(data.aciklama ?? "")),
     description: withName(String(data.description ?? "")),
     kapak: kapakFromRow(data),
@@ -38,7 +47,9 @@ export function mapProjectRow(data: Record<string, unknown>): Project {
     bolumler: Array.isArray(data.bolumler)
       ? data.bolumler.map(normalizeSection)
       : [],
-    etiketler: Array.isArray(data.etiketler) ? (data.etiketler as string[]) : [],
+    etiketler: renamed
+      ? tags.filter((tag) => tag.trim().toLowerCase() !== "hospitality")
+      : tags,
     featured: Boolean(data.featured),
     yayinda: data.yayinda !== false,
     next_project_override: String(data.next_project_override ?? ""),

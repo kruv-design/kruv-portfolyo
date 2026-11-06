@@ -9,8 +9,8 @@ const projects = [
     slug: "musterek",
     baslik: "Müşterek Hizalanma",
     title: "Müşterek Hizalanma",
-    kategori: "Fotoğraf, sosyal medya, hospitality",
-    category: "Photography, social media, hospitality",
+    kategori: "Fotoğraf, sosyal medya",
+    category: "Photography, social media",
     aciklama:
       "Müşterek Hizalanma için sofra ritüelini ve paylaşılan anları merkeze alan bir fotoğraf ve sosyal medya dili kurduk: sıcak ahşap, doğal ışık ve el işçiliğiyle markanın samimi hospitality tonunu netleştirdik.",
     description:
@@ -29,7 +29,7 @@ const projects = [
     galeri_11: "",
     galeri_12: "",
     bolumler: [],
-    etiketler: ["Fotoğraf", "Sosyal medya", "Hospitality"],
+    etiketler: ["Fotoğraf", "Sosyal medya"],
     featured: true,
     yayinda: true,
     renk: "#A67C52",
