@@ -202,6 +202,8 @@ export const blogSectionSchema = z.object({
   title: z.string().trim().max(200).optional().default(""),
   text: z.string().trim().max(10000).optional().default(""),
   gorsel: imageUrlOrEmpty.optional().default(""),
+  gorselNot: z.string().trim().max(400).optional().default(""),
+  note: z.string().trim().max(400).optional().default(""),
 });
 
 export const blogPostSchema = z.object({

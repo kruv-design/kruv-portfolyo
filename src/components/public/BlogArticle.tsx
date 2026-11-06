@@ -53,13 +53,20 @@ export function BlogArticle({
             </div>
           ) : null}
           {section.gorsel ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={section.gorsel}
-              alt={section.baslik || post.baslik}
-              className="blog-article__image"
-              loading={i < 1 ? "eager" : "lazy"}
-            />
+            <figure className="blog-article__figure">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={section.gorsel}
+                alt={section.baslik || post.baslik}
+                className="blog-article__image"
+                loading={i < 1 ? "eager" : "lazy"}
+              />
+              {section.gorselNot ? (
+                <figcaption className="b2 blog-article__caption">
+                  {section.gorselNot}
+                </figcaption>
+              ) : null}
+            </figure>
           ) : null}
         </section>
       ))}

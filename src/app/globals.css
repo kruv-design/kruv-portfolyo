@@ -990,11 +990,22 @@ i {
   gap: var(--space-8);
 }
 
+.blog-article__figure {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: 0;
+}
+
 .blog-article__image {
   display: block;
   width: 100%;
   height: auto;
   border-radius: var(--radius-md);
+}
+
+.blog-article__caption {
+  margin: 0;
 }
 
 /* Project detail (/projects/[slug]) — Works shell + section / panel token */

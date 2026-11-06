@@ -33,4 +33,4 @@ Herkese açık ızgara. Kare kopyalanmaz. Not şunlar içindir: tempo, tekrar, �
 Tekrar ancak yeni bir mercekle ve en az sekiz sayı sonra.
 
 - 2026-11-02: Experimental Roma, Tallow (Jersey), NotR / Vrints-Kolsteren (It’s Nice That)
-- 2026-11-06: Jak Spedding, Janet Kwan, Cinematic360. Konu otel çekiminde lens. Mekan örneği yok.
+- 2026-11-06: Jak Spedding, Janet Kwan, Cinematic360. Fotoğraflar Basile Morin, CC BY-SA 4.0: Fullerton Bay lobisi 24 mm, Amantaka salonu 35 mm, sofrası 50 mm, süiti 20 mm, spa koridoru 28 mm, girişi 26 mm.

@@ -1,4 +1,4 @@
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync } from "node:fs";
 import path from "node:path";
 import type { BlogPost, BlogSection } from "@/types";
 
@@ -15,6 +15,8 @@ export type HaftalikIssue = {
   mercek: string;
   beatler: string[];
   yayinda: boolean;
+  /** Kullanıcı bu sayıyı siteye koymayı açıkça istediğinde "kullanici". */
+  onay?: string;
   gorselHedef: Record<string, string>;
   kaynaklar: HaftalikKaynak[];
   bakilamayan: string[];
@@ -45,7 +47,21 @@ export function readHaftalikIssue(sayi: string): HaftalikIssue | null {
   return raw;
 }
 
-/** Önizleme bileşeni yayında bayrağını dosyadan almaz. Dosya false kalır. */
+/** Kullanıcının siteye koyduğu sayılar. Supabase satırı yoksa blog bunları da okur. */
+export function listPublishedHaftalikPosts(): BlogPost[] {
+  const dir = path.join(process.cwd(), "content/haftalik/issues");
+  if (!existsSync(dir)) return [];
+  const posts: BlogPost[] = [];
+  for (const name of readdirSync(dir)) {
+    if (!name.endsWith(".json")) continue;
+    const issue = readHaftalikIssue(name.replace(/\.json$/, ""));
+    if (!issue || issue.onay !== "kullanici" || !issue.post.yayinda) continue;
+    posts.push(issueToPreviewPost(issue));
+  }
+  return posts;
+}
+
+/** Önizleme her zaman okunur. Canlı blog yalnızca onaylı ve yayındaki sayıyı alır. */
 export function issueToPreviewPost(issue: HaftalikIssue): BlogPost {
   return {
     id: `haftalik-${issue.sayi}`,

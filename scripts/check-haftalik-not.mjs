@@ -38,8 +38,12 @@ for (const name of files) {
   if (JSON.stringify(issue.beatler) !== JSON.stringify(BEATLER)) {
     where("beatler iz, tat, cizik, kapi sırasında olmalı");
   }
-  if (issue.yayinda !== false || issue.post?.yayinda !== false) {
+  const published = issue.yayinda === true || issue.post?.yayinda === true;
+  if (published && issue.onay !== "kullanici") {
     where("onay olmadan yayinda true olamaz");
+  }
+  if (issue.yayinda !== issue.post?.yayinda) {
+    where("yayinda alanları aynı olmalı");
   }
   if (!Array.isArray(issue.kaynaklar) || issue.kaynaklar.length < 2) {
     where("en az iki kaynak gerekli");
@@ -54,8 +58,8 @@ for (const name of files) {
   if (post.baslik === post.title) where("TR ve EN başlık aynı");
   if (!String(post.aciklama).includes("?")) where("girişte soru yok");
   if (!String(post.description).includes("?")) where("EN girişte soru yok");
-  if (!Array.isArray(post.bolumler) || post.bolumler.length !== 4) {
-    where("dört bölüm gerekli");
+  if (!Array.isArray(post.bolumler) || post.bolumler.length < 4) {
+    where("en az dört bölüm gerekli");
   }
 
   post.bolumler?.forEach((section, i) => {

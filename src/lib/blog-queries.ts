@@ -2,11 +2,20 @@ import "server-only";
 import { supabasePublic } from "@/lib/supabase/server";
 import { mapBlogRow } from "@/lib/map-blog-row";
 import { isPlaceholderEnv } from "@/lib/demo-data";
+import { listPublishedHaftalikPosts } from "@/lib/haftalik";
 import type { BlogPost } from "@/types";
+
+function mergePublished(remote: BlogPost[]): BlogPost[] {
+  const slugs = new Set(remote.map((post) => post.slug));
+  const local = listPublishedHaftalikPosts().filter((post) => !slugs.has(post.slug));
+  return [...remote, ...local].sort(
+    (a, b) => Date.parse(b.created_at) - Date.parse(a.created_at),
+  );
+}
 
 /** Public blog listesi — yalnızca yayında olanlar, yeniden eskiye. */
 export async function getBlogPosts(): Promise<BlogPost[]> {
-  if (isPlaceholderEnv()) return [];
+  if (isPlaceholderEnv()) return mergePublished([]);
 
   try {
     const sb = supabasePublic();
@@ -16,9 +25,9 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
       .eq("yayinda", true)
       .order("created_at", { ascending: false });
     if (error) throw error;
-    return (data ?? []).map(mapBlogRow);
+    return mergePublished((data ?? []).map(mapBlogRow));
   } catch {
-    return [];
+    return mergePublished([]);
   }
 }
 
@@ -40,7 +49,10 @@ export async function getBlogPostsAdmin(): Promise<BlogPost[]> {
 }
 
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
-  if (isPlaceholderEnv()) return null;
+  const local = () =>
+    listPublishedHaftalikPosts().find((post) => post.slug === slug) ?? null;
+
+  if (isPlaceholderEnv()) return local();
 
   try {
     const sb = supabasePublic();
@@ -50,8 +62,8 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
       .eq("slug", slug)
       .maybeSingle();
     if (error) throw error;
-    return data ? mapBlogRow(data) : null;
+    return data ? mapBlogRow(data) : local();
   } catch {
-    return null;
+    return local();
   }
 }
