@@ -33,3 +33,4 @@ Herkese açık ızgara. Kare kopyalanmaz. Not şunlar içindir: tempo, tekrar, �
 Tekrar ancak yeni bir mercekle ve en az sekiz sayı sonra.
 
 - 2026-11-02: Experimental Roma, Tallow (Jersey), NotR / Vrints-Kolsteren (It’s Nice That)
+- 2026-11-06: Jak Spedding, Janet Kwan, Cinematic360. Konu otel çekiminde lens. Mekan örneği yok.

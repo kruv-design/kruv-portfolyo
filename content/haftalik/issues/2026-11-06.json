@@ -1,0 +1,74 @@
+{
+  "sayi": "2026-11-06",
+  "tarih": "2026-11-06",
+  "mercek": "lens-secimi",
+  "beatler": ["iz", "tat", "cizik", "kapi"],
+  "yayinda": false,
+  "gorselHedef": {
+    "kapak": "kruv-portfolio/blog/hangi-mekani-hangi-lens-ceker-kapak",
+    "iz": "kruv-portfolio/blog/hangi-mekani-hangi-lens-ceker-iz",
+    "tat": "kruv-portfolio/blog/hangi-mekani-hangi-lens-ceker-tat"
+  },
+  "kaynaklar": [
+    {
+      "ad": "Jak Spedding, interior lenses",
+      "url": "https://jakspedding.co.uk/what-lenses-do-i-use-for-interior-photography/",
+      "tur": "fotograf-notu",
+      "ne": "Tam karede 16-35 mm iş lensi. 16 mm'den genişi doğal durmuyor, yakın eşya uzuyor. Shift, gövde düzken kadrajı kaydırıp dikeyleri dik tutuyor."
+    },
+    {
+      "ad": "Janet Kwan, interior photoshoot",
+      "url": "https://www.janetkwan.com/blog/interior-photography-part-2-the-photoshoot",
+      "tur": "fotograf-notu",
+      "ne": "Oda için 24 mm. 35 mm göze yakın ve az bozar. 50 mm detayı mekânla birlikte tutar. 85 mm kumaş ve nesne. Tilt-shift 17, 19 veya 24 mm yüksek bina ve yüksek tavan için."
+    },
+    {
+      "ad": "Cinematic360, restaurant interiors",
+      "url": "https://cinematic360.in/how-to-shoot-interiors-like-a-cinematographer/",
+      "tur": "fotograf-notu",
+      "ne": "Restoranda 35 mm salonu kurar, 50 mm masayı, 85 mm tabağı ve mumu çeker. 16 mm'nin altına inmek çarpıtma ister."
+    }
+  ],
+  "bakilamayan": [
+    "Bu sayı bir çekim notu. Sosyal ızgara açılmadı."
+  ],
+  "post": {
+    "slug": "hangi-mekani-hangi-lens-ceker",
+    "baslik": "Hangi mekânı hangi lens çeker",
+    "title": "Which lens each room actually needs",
+    "aciklama": "Otel çekiminde bütün günü tek lensle bitirmek, bütün mekânları aynı vaade sokar. Lobi de, yatak da, tabak da aynı genişlikte görünür. Misafir daha siteye bakarken otelin ne kadar büyük, ne kadar yakın ve ne kadar dürüst olduğunu o kadrajdan okur.\n\nKüçük milimetre kadraja daha çok yer sığdırır. Tam karede 16 mm geniş açıdır ve mekânı olduğundan büyük gösterir. 35 mm, odada durup başını hafif çeviren birinin gördüğüne yakındır. 50 mm tek bir şeye bakan göze benzer. 85 mm uzağı yaklaştırır, arkayı yumuşatır. Lobi, oda, tabak ve dış cephe bu dört alışkanlığın hangisine girer?",
+    "description": "Shooting a whole hotel on one lens gives every room the same promise. The lobby, the bed and the plate all come out the same width. Before a guest arrives, they read how big, how close and how honest the hotel is from that frame.\n\nA smaller millimetre fits more into the picture. On a full-frame camera, 16 mm is a wide angle and makes a room look larger than it is. 35 mm is close to what you see if you stand in the room and turn your head a little. 50 mm is closer to looking at one thing. 85 mm brings a distant detail forward and softens whatever sits behind it. Which of these four habits belongs to the lobby, the room, the plate and the facade?",
+    "kapak": "/haftalik/2026-11-06/kapak.jpg",
+    "yayinda": false,
+    "bolumler": [
+      {
+        "baslik": "Lobi ferah görünsün, duvar eğilmesin",
+        "title": "The lobby should feel open, and the walls should stay straight",
+        "metin": "Lobinin işi yüksekliği ve derinliği göstermektir. Tam karede bunun lensi 16-35 mm aralığıdır. 16 mm'ye gelince resepsiyon, tavan ve giriş aynı kareye sığar. Mekân cömert durur. Misafir daha kapıdan içeri bakıyormuş gibi hisseder.\n\n24 mm aynı ailenin sakin üyesidir. Kolon fazla şişmez, köşedeki lamba uzamaz. Lobi büyük görünür, ama misafir içeri girince fotoğrafı yalanlamaz. İç mekânda 16 mm'den daha genişe inmeyiz. 14 mm ve balıkgözü kenardaki insanı uzatır, düz duvarı yay yapar. Geniş açı ferahlık içindir. Çarpıtma, oteli oyun gibi gösterir.\n\nLobi baştan sona net kalsın diye diyaframı kısarız. Diyafram, lensin içeri aldığı ışığın deliğidir. f/8 ile f/11 arasında delik küçüktür, netlik resepsiyondan arka duvara kadar gider. Perde hızı düşünce sehpa şart olur. ISO'yu düşük tutarız. Mermer ve ahşap kumlanmasın diye.",
+        "text": "A lobby has to show height and depth. On a full-frame camera the lens for that is a 16-35 mm. At 16 mm the desk, the ceiling and the entrance fit in one frame. The room looks generous. A guest feels as if they are already looking in from the door.\n\n24 mm is the calmer one in the same family. Columns do not swell, and a lamp in the corner does not stretch. The lobby still looks large, and it does not break its word when the guest walks in. We do not go wider than 16 mm indoors. At 14 mm, and with a fisheye, a person at the edge grows long and a straight wall turns into a bow. A wide angle is for generosity. Distortion makes the hotel look like a toy.\n\nWe stop the aperture down so the lobby stays sharp from front to back. The aperture is the hole that lets light into the lens. Between f/8 and f/11 that hole is small, and sharpness runs from the desk to the far wall. When the shutter slows, the camera goes on a tripod. We keep the ISO low so marble and wood do not turn to grain.",
+        "gorsel": "/haftalik/2026-11-06/iz.jpg"
+      },
+      {
+        "baslik": "Tabak ve kumaş yakın ister",
+        "title": "A plate and a cloth want to be seen up close",
+        "metin": "Yemeğe geniş açı tutulursa tabağın yakın kenarı büyür, uzak kenarı küçülür. Yemek dökülüyor gibi durur. Restoran masası bu yüzden başka bir lense geçer.\n\n35 mm salonu kurar. Köşeden bakınca masaların derinliği ve odanın akışı görünür. Ortadan çekilen salon düz ve boş durur. 50 mm masanın kendisidir. Peçete, bardak ve biraz örtü kadraja girer. Arka plan yumuşar, mekân tamamen silinmez. Kahvaltı ve sofra için doğru uzaklıktır.\n\n85 mm tabağın portresidir. Uzağı yaklaştırır, arkayı eritir. Sos, buhar ve ekmeğin kabuğu öne çıkar. Kokteyl bardağı da böyle lobiden ayrılır. Bardak tek başına kalır. İçki ağır ve yakın görünür.\n\nKumaş, mermer damarı ve sabunun kabartması bir adım daha yaklaşır. 100 mm makro dokuyu kadrajı dolduracak kadar büyütür. Malzeme ancak bu mesafede malzeme gibi okunur. Otelin pahalı hissi çoğu zaman bu kareden gelir.\n\nBurada diyafram açılır. f/2 ile f/2.8 arası delik büyüktür, arkayı çözer. Detayda her şeyi net yapmak gerekmez. Net kalan şey, bakılması istenen şeydir.",
+        "text": "A wide lens on a plate makes the near edge huge and the far edge small. The food looks as if it is spilling. A restaurant table needs a different lens.\n\n35 mm builds the dining room. From a corner you see the depth of the tables and the way the room flows. A photo taken from the middle looks flat and empty. 50 mm belongs to the table itself. The napkin, the glass and a little of the cloth come into the frame. The background softens, and the room does not disappear. That is the right distance for breakfast and for a place setting.\n\n85 mm is the plate's portrait. It brings what is far closer and melts what is behind. Sauce, steam and the crust of the bread come forward. A cocktail glass leaves the lobby the same way. The glass stands alone. The drink looks heavy and close.\n\nCloth, a vein in the marble and the relief on a bar of soap come closer still. A 100 mm macro fills the frame with texture. Material only reads as material at that distance. The expensive feeling of a hotel often arrives in this frame.\n\nHere the aperture opens. Between f/2 and f/2.8 the hole is wide, and the background falls away. A detail does not need everything sharp. The sharp thing is the thing you want someone to look at.",
+        "gorsel": "/haftalik/2026-11-06/tat.jpg"
+      },
+      {
+        "baslik": "Oda 16 mm ile çekilirse söz büyür",
+        "title": "A room shot at 16 mm makes a promise it cannot keep",
+        "metin": "17 metrekarelik bir odayı 16 mm ile çekince yatak küçülür, zemin büyür. Fotoğraf bir süit vaat eder. Misafir kapıyı açınca başka bir metrekare bulur. Geniş açı burada ferahlık değil, kırılan bir sözdür.\n\nOda için doğru durak 24 mm civarıdır. Yatak, pencere ve bir köşe birlikte durur. Duvarlar tanınacak kadar düz kalır. Kamera köşeye alınırsa bu üçü aynı bakışa girer. 35 mm daha da dürüsttür. Burası bir salon demez. Burada oturulur, burada yatılır der.\n\nKoridorda da aynı tuzak vardır. 16 mm koridoru sonsuz bir tünele çevirir, kapılar minicik kalır. 35 mm kapı ritmini okunur bırakır. Koridor derin görünür, sonu kaybolmaz.\n\nBanyo çok darsa 16 mm gerekebilir. Duş ve lavabo tek karede anlatılacaksa geniş açı yalan değil, sığdırma aracıdır. Kenarda musluk uzuyorsa bir adım geri alınıp 20 ile 24 mm arasına gelinir. Aynalı lavaboda kaydırmalı lens işe yarar. Gövdeyi aynanın dışına alıp lensi yana kaydırınca fotoğrafçı camda görünmez. Çizgiler de dik kalır.",
+        "text": "Shoot a 17 square metre room at 16 mm and the bed shrinks while the floor grows. The photo promises a suite. The guest opens the door and finds a different size. Here a wide angle is not generosity. It is a broken promise.\n\nThe right stop for a room is around 24 mm. The bed, the window and one corner stand together. The walls stay straight enough to recognise. Put the camera in the corner and those three enter the same glance. 35 mm is more honest still. It does not say this is a hall. It says you can sit here, and you can sleep here.\n\nThe corridor has the same trap. At 16 mm it becomes an endless tunnel and the doors turn tiny. At 35 mm the rhythm of the doors stays readable. The corridor still looks deep, and the end of it does not vanish.\n\nA very tight bathroom may need 16 mm. If the shower and the basin have to be told in one frame, the wide angle is a way to fit them, not a lie. If the tap stretches at the edge, step back and come to somewhere between 20 and 24 mm. A shift lens helps at a mirrored basin. Stand the body outside the mirror and shift the lens sideways, and the photographer stays out of the glass. The lines stay upright too.",
+        "gorsel": ""
+      },
+      {
+        "baslik": "Bina dik durmalı",
+        "title": "The building has to stand upright",
+        "metin": "Sokaktan cepheyi 16 mm ile yukarı bakarak çekince bina arkaya devrilir. Otel eğilmiş bir kule gibi durur.\n\nBunu düzelten lens kaydırmalı 24 mm'dir. Adı tilt-shift'tir. İki hareketi vardır. Shift, lensi gövdeye paralel kaydırır. Gövde yere dik kalır, lens yukarı çıkar, dikey çizgiler dikey kalır. Bina ayakta durur. Yüksek lobide de aynı şey geçerlidir. Kamerayı tavana kaldırmak duvarları birbirine kapatır. Lensi kaydırmak kapatmaz.\n\nTilt, netlik düzlemini eğer. Uzun bir masada hem ön tabağı hem arka tabağı net tutmak için kullanılır. Cephede asıl iş shift'tedir.\n\nTilt-shift yoksa geriye çekilin ve cepheyi 35 veya 50 mm ile karşıdan alın. Yukarı bakmak zorunda kalmazsınız. Düzeltmeyi sadece bilgisayarda yapmak camı eğer, köşeleri keser.\n\nBir çekim gününde üç lens çoğu oteli anlatır. 16-35 mm lobi ve geniş salonlar için. 35 veya 50 mm oda, koridor ve masa için. 85 mm tabak, bardak ve kumaş için. Binanın kendisi kahramansa yanına 24 mm tilt-shift girer.\n\nÇekimden önce tek soru yeter. Bu kare mekânı mı büyütüyor, malzemeyi mi gösteriyor, binayı mı ayakta tutuyor? Lens, o sorunun cevabıdır.",
+        "text": "Point a 16 mm up at a facade from the street and the building falls backward. The hotel looks like a tower that is tipping.\n\nThe lens that fixes this is a 24 mm that can shift. It is called a tilt-shift. It has two movements. Shift slides the lens parallel to the body. The body stays level, the lens rises, and vertical lines stay vertical. The building stands. The same thing is true in a tall lobby. Tilting the camera toward the ceiling makes the walls lean into each other. Shifting the lens does not.\n\nTilt tips the plane of focus. It is how you keep both the near plate and the far plate sharp along a long table. On a facade, the movement that matters is shift.\n\nIf there is no tilt-shift, step back and photograph the facade straight on at 35 or 50 mm. You do not have to look up. Fixing the lean only on the computer bends the glass and cuts the corners.\n\nOn a shoot day, three lenses tell most hotels. A 16-35 mm for the lobby and the large rooms. A 35 or a 50 mm for the guest room, the corridor and the table. An 85 mm for the plate, the glass and the cloth. If the building itself is the hero, a 24 mm tilt-shift comes with them.\n\nOne question is enough before the shutter. Is this frame enlarging the room, showing the material, or keeping the building upright? The lens is the answer to that question.",
+        "gorsel": ""
+      }
+    ]
+  }
+}
