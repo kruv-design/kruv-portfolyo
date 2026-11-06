@@ -13,7 +13,7 @@ Bu kararın çoğu bilinçli değil. Koku, ışık, ses yüksekliği, birinin ba
   $en_intro$A guest walks through the door. No check-in yet, no room yet. But a decision is already forming: “Do I feel valued here, or am I just in line?”
 
 Most of that decision is not conscious. Scent, light, volume, how long someone looks at you, the sound of the floor. The brain sizes up trust fast. It reads luxury from the body, not from a brochure.$en_intro$,
-  'https://res.cloudinary.com/di0qbhh46/image/upload/kruv-portfolio/blog/premium-whitespace.png',
+  '/blog/lobide-ilk-8-saniye-kapak.jpg',
   true,
   $sections$[
     {

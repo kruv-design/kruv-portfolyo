@@ -44,9 +44,7 @@ if (!url || !key) {
   process.exit(1);
 }
 
-const cloud =
-  env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "di0qbhh46";
-const kapak = `https://res.cloudinary.com/${cloud}/image/upload/kruv-portfolio/blog/premium-whitespace.png`;
+const kapak = "/blog/lobide-ilk-8-saniye-kapak.jpg";
 
 const post = {
   slug: "lobide-ilk-8-saniye",
