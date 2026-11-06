@@ -14,7 +14,7 @@
 - Slug: `hangi-mekani-hangi-lens-ceker`
 - Başlık: Hangi mekânı hangi lens çeker
 - Title: Which lens each room actually needs
-- Not: Konu istendi. Kullanıcı siteye koymasını istedi. Fotoğraflar Basile Morin, CC BY-SA 4.0. Milimetreler dosyanın çekim bilgisiyle aynı.
+- Not: Konu istendi. Kullanıcı siteye koymasını istedi. Kapak dört lensin yan yana durduğu görsel. Yazıdaki kareler Basile Morin, CC BY-SA 4.0. Milimetreler dosyanın çekim bilgisiyle aynı.
 - Yayında: evet (kullanıcı onayı, 6 Kasım 2026)
 - Dosya: `content/haftalik/issues/2026-11-06.json`
 - Sayfa: `/tr/blog/hangi-mekani-hangi-lens-ceker`
