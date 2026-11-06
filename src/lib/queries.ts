@@ -53,6 +53,26 @@ function rowToProject(row: Record<string, unknown>): Project {
   return mapProjectRow(row);
 }
 
+/** Projeler sayfası ve anasayfa. Tek Pricing projesi Pricing Coach. */
+const PROJECT_LEAD = ["pricing-coach", "opera-hotel-bosphorus", "musterek"];
+
+function orderProjects(projects: Project[]): Project[] {
+  const lead = new Map(PROJECT_LEAD.map((slug, index) => [slug, index]));
+  const rest = [...projects]
+    .filter((project) => !lead.has(project.slug))
+    .sort((a, b) => a.sira - b.sira);
+  const restRank = new Map(rest.map((project, index) => [project.slug, PROJECT_LEAD.length + index]));
+  return [...projects]
+    .map((project) => {
+      const pinned = lead.get(project.slug);
+      if (pinned === undefined) {
+        return { ...project, sira: restRank.get(project.slug) ?? project.sira };
+      }
+      return { ...project, sira: pinned, featured: true };
+    })
+    .sort((a, b) => a.sira - b.sira);
+}
+
 export async function getProjects(): Promise<Project[]> {
   // Before Supabase is wired, surface demo content instead of a blank grid.
   if (isPlaceholderEnv()) return DEMO_PROJECTS;
@@ -66,7 +86,7 @@ export async function getProjects(): Promise<Project[]> {
       .order("sira", { ascending: true })
       .order("created_at", { ascending: false });
     if (error) throw error;
-    const rows = (data ?? []).map(rowToProject);
+    const rows = orderProjects((data ?? []).map(rowToProject));
     // If DB is reachable but empty, still show demo so the dev experience
     // is never an empty grid (admin-added projects obviously take priority).
     return rows.length > 0 ? rows : DEMO_PROJECTS;
@@ -91,7 +111,7 @@ export async function getProjectsAdmin(): Promise<Project[]> {
       .order("sira", { ascending: true })
       .order("created_at", { ascending: false });
     if (error) throw error;
-    return (data ?? []).map(rowToProject);
+    return orderProjects((data ?? []).map(rowToProject));
   } catch {
     return [];
   }
