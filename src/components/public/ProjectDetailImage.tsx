@@ -30,8 +30,8 @@ export function ProjectDetailImage({
       <Image
         src={src}
         alt={alt}
-        width={3840}
-        height={2160}
+        width={0}
+        height={0}
         sizes={resolvedSizes}
         priority={priority}
         className={className}

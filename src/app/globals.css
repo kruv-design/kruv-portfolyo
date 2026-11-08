@@ -1427,24 +1427,21 @@ i {
   background: transparent;
 }
 
-/* GG Pizza: fotoğraf ağırlıklı — 16:9 cover croplama yok, Figma oranı */
-.project-detail-page--photo-fit .project-detail-media--gallery,
-.project-detail-page--photo-fit .project-detail-media--cover {
+/* Proje sunumu — fotoğraf: galeri/kapak genişliğinde, dikey uzayabilir; kadrajı kırpma */
+.project-detail-media--natural.project-detail-media--gallery,
+.project-detail-media--natural.project-detail-media--cover {
   aspect-ratio: auto;
   height: auto;
   max-height: none;
 }
-.project-detail-page--photo-fit .project-detail-media--gallery .project-detail-media__poster-wrap,
-.project-detail-page--photo-fit .project-detail-media--cover .project-detail-media__poster-wrap {
+.project-detail-media--natural .project-detail-media__poster-wrap {
   position: relative;
   inset: auto;
   width: 100%;
   height: auto;
 }
-.project-detail-page--photo-fit .project-detail-media--gallery .project-detail-media-img,
-.project-detail-page--photo-fit .project-detail-media--gallery .project-detail-cover-img,
-.project-detail-page--photo-fit .project-detail-media--cover .project-detail-media-img,
-.project-detail-page--photo-fit .project-detail-media--cover .project-detail-cover-img {
+.project-detail-media--natural .project-detail-media-img,
+.project-detail-media--natural .project-detail-cover-img {
   position: relative !important;
   inset: auto !important;
   width: 100% !important;
@@ -1453,7 +1450,7 @@ i {
   object-fit: contain;
   transform: none;
 }
-.project-detail-page--photo-fit .project-detail-gallery__item {
+.project-detail-gallery__item:has(.project-detail-media--natural) {
   background: transparent;
 }
 
@@ -1982,7 +1979,7 @@ i {
   border: 1px solid var(--border);
   box-sizing: border-box;
 }
-/* Galeri: kolon genişliğinde, sabit 16:9 */
+/* Galeri: kolon genişliğinde; fotoğraflar doğal oran (--natural), videolar sabit oran */
 .project-detail-gallery {
   display: flex;
   flex-direction: column;

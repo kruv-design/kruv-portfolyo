@@ -19,26 +19,29 @@ function borden(n: number) {
   return `${HOSP}/borden-${String(n).padStart(2, "0")}`;
 }
 
-/**
- * Opera 3×8 portre. Borden 3×2 portre.
- * GG Pizza: proje galerisindeki yatay panolar (g02–g15), 16:9.
- */
-const GG_BOARDS = [
-  ["g02", "v1793312700"],
-  ["g03", "v1793312702"],
-  ["g04", "v1793312701"],
-  ["g05", "v1793312703"],
-  ["g06", "v1793312703"],
-  ["g07", "v1793312737"],
-  ["g08", "v1793312737"],
-  ["g09", "v1793312738"],
-  ["g10", "v1793312740"],
-  ["g11", "v1793312740"],
-  ["g12", "v1793312740"],
-  ["g13", "v1793312767"],
-  ["g14", "v1793312768"],
-  ["g15", "v1793312768"],
-] as const;
+function ggPizza(n: number) {
+  return `${HOSP}/gg-pizza-${String(n).padStart(2, "0")}`;
+}
+
+/** Opera 3×8 portre. Borden 3×2. GG Pizza 3×6 — Figma 4957:2234. */
+const GG_PIZZA_ALTS: { tr: string; en: string }[] = [
+  { tr: "GG Pizza — otlu semsek", en: "GG Pizza — herb pastry" },
+  { tr: "GG Pizza — şaşlık", en: "GG Pizza — şaşlık" },
+  { tr: "GG Pizza — şaşlık", en: "GG Pizza — şaşlık" },
+  { tr: "GG Pizza — zahter", en: "GG Pizza — zahter" },
+  { tr: "GG Pizza — burrata granita", en: "GG Pizza — burrata granita" },
+  { tr: "GG Pizza — dört peynir", en: "GG Pizza — four cheese" },
+  { tr: "GG Pizza — fırın", en: "GG Pizza — oven" },
+  { tr: "GG Pizza — otlu semsek", en: "GG Pizza — herb pastry" },
+  { tr: "GG Pizza — zahter", en: "GG Pizza — zahter" },
+  { tr: "GG Pizza — pizza servisi", en: "GG Pizza — pizza service" },
+  { tr: "GG Pizza — şef mutfakta", en: "GG Pizza — chef in kitchen" },
+  { tr: "GG Pizza — pizzayı kesmek", en: "GG Pizza — slicing pizza" },
+  { tr: "GG Pizza — garnitür", en: "GG Pizza — garnish" },
+  { tr: "GG Pizza — hamur", en: "GG Pizza — dough" },
+  { tr: "GG Pizza — fırın içi", en: "GG Pizza — inside the oven" },
+  { tr: "GG Pizza — malzeme hazırlığı", en: "GG Pizza — prep" },
+];
 
 export const HOSPITALITY_GALLERY: HospitalityGalleryItem[] = [
   // Opera Hotel Bosphorus — full 3×8
@@ -211,15 +214,15 @@ export const HOSPITALITY_GALLERY: HospitalityGalleryItem[] = [
     altEn: "Opera Hotel Bosphorus — spa",
   },
 
-  // GG Pizza — proje sayfasındaki yeni yatay panolar
-  ...GG_BOARDS.map(([file, version], index) => {
+  // GG Pizza — Figma 4957:2234 (3 sütun, Opera/Borden ile aynı grid)
+  ...GG_PIZZA_ALTS.map((alt, index) => {
     const n = index + 1;
     return {
       id: `gg-${n}`,
       filter: "gg-pizza" as const,
-      src: `${CLD}/${version}/kruv-portfolio/projects/gg-pizza/${file}.png`,
-      altTr: `GG Pizza — galeri ${n}`,
-      altEn: `GG Pizza — gallery ${n}`,
+      src: ggPizza(n),
+      altTr: alt.tr,
+      altEn: alt.en,
     };
   }),
 

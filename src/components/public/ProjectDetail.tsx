@@ -33,7 +33,8 @@ export function ProjectDetail({
 }) {
   const cover = projectCover(project);
   const gallerySlots = projectGallerySlots(project);
-  const photoFit = project.slug === "gg-pizza";
+  /** Fotoğraf portfolyosu: galeri genişliğinde, doğal oran (Figma), croplama yok. */
+  const photoFit = true;
   const title = projectTitleForLocale(project, locale);
   const intro = projectIntroForLocale(project, locale);
   const cmsVideoSlots = gallerySlots.filter((s) => s.videoSrc);

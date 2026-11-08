@@ -78,9 +78,7 @@ export function HospitalityPage({
           ))}
         </div>
 
-        <div
-          className={`hosp-gallery${filter === "gg-pizza" ? " hosp-gallery--wide" : ""}`}
-        >
+        <div className="hosp-gallery">
           {items.map((item) => (
             <figure key={item.id} className="hosp-gallery__item">
               <Image

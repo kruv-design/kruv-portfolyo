@@ -35,7 +35,7 @@ export function ProjectDetailMedia({
   alt: string;
   priority?: boolean;
   variant?: Variant;
-  /** true = Figma oranı, object-fit cover croplama yok (GG Pizza vb.) */
+  /** true = doğal fotoğraf oranı, galeri genişliğinde; 16:9 cover croplama yok */
   photoFit?: boolean;
   placeholderLabel?: string;
   placeholderColor?: string;
@@ -202,6 +202,7 @@ export function ProjectDetailMedia({
         (variant === "cover"
           ? "project-detail-media project-detail-media--cover"
           : "project-detail-media project-detail-media--gallery") +
+        (photoFit ? " project-detail-media--natural" : "") +
         (lightboxable ? " project-detail-media--lightboxable" : "")
       }
       role={lightboxable ? "button" : undefined}
