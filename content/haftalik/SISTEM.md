@@ -75,6 +75,8 @@ Bitince başa dön. Yanına yeni mercek eklemek serbest. Silmek değil.
 4. `gece`: karanlık fotoğraf, gece menüsü, geç saat sayfası
 5. `isim`: adın okunuşu, tabela, küçük punto
 6. `masa`: menüde neyin önce okunduğu, fiyatın sayfadaki yeri, kâğıttaki boşluk
+7. `yemek-isik`: tabakta ışığın yeri, fotoğrafçının duruşu, softbox ve ızgara
+8. `katalog-hissi`: otel hesabının boş ve kusursuz durması, kalınmış hissi
 
 `lobide-ilk-8-saniye` sosyal vitrini anlattı. Sosyal gözlem her sayıda bir kanal olarak durur. Sosyal, merceğin kendisi olmaz. Ta ki kayıtta ayrı bir sosyal sayı açılana kadar.
 

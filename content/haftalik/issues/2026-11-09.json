@@ -1,0 +1,106 @@
+{
+  "sayi": "2026-11-09",
+  "tarih": "2026-11-09",
+  "mercek": "yemek-isik",
+  "beatler": ["iz", "tat", "cizik", "kapi"],
+  "yayinda": false,
+  "gorselHedef": {
+    "kapak": "/haftalik/2026-11-09/kapak.jpg",
+    "iz": "/haftalik/2026-11-09/iz.jpg",
+    "tat": "/haftalik/2026-11-09/tat.jpg",
+    "grid": "/haftalik/2026-11-09/grid.jpg"
+  },
+  "kaynaklar": [
+    {
+      "ad": "Joanie Simon, KaTom",
+      "url": "https://www.katom.com/learning-center/food-photography-tips-joanie-simon.html",
+      "tur": "fotograf-notu",
+      "ne": "Phoenix'te yemek fotoğrafçısı. Dolaylı pencere, kuzey bakışta sabah ve akşam. Kamerayı pencereye 90 derece koyun. Işık yandan ya da arkadan gelsin. Önden düz ışık boyutu siler ve fazla parlatır."
+    },
+    {
+      "ad": "Joanie Simon, beyaz V perde",
+      "url": "https://joanieraysimon.substack.com/p/when-a-white-v-flat-isnt-the-best",
+      "tur": "fotograf-notu",
+      "ne": "Karşıdaki büyük beyaz perde gölgeyi fazla doldurur, parıltıyı öldürür. Küçük beyaz kart, sosun üstüne kıvılcım bırakır."
+    },
+    {
+      "ad": "Andrew Scrivani, Foodista ve LensVid",
+      "url": "https://www.foodista.com/blog/2011/06/10/15-essential-food-photography-tips-from-andrew-scrivani-part-1",
+      "tur": "fotograf-notu",
+      "ne": "New York Times için yemek çekti. Koyu yemekte parıltıyı yandan ışık verir. Tek kaynak. Işığın karşısına geçin. Siyah kart ışığı geri alır. Difüzör sert güneşi yumuşatır."
+    },
+    {
+      "ad": "Darina Kopcok, tek ışık",
+      "url": "https://expertphotography.com/food-photography-lighting",
+      "tur": "fotograf-notu",
+      "ne": "Saat kadranı: yan 9, rahat yer 10 ile 11, tam arka 12. Büyük ve yakın kaynak yumuşaktır. Petek ızgara 20 veya 30 derece, önünde büyük difüzör. Önden ve tepeden ışığı yemek için önermez."
+    },
+    {
+      "ad": "David Bergman, softbox ızgarası",
+      "url": "https://www.diyphotography.net/beginners-guide-using-grids-softboxes/",
+      "tur": "fotograf-notu",
+      "ne": "Izgara yumurta kolisi gibi yan açıyı keser. Işık öne gider. Yumuşaklık kalır, duvara dökülme azalır."
+    },
+    {
+      "ad": "ICE, üç açı",
+      "url": "https://www.ice.edu/blog/food-photography-angles-and-composition",
+      "tur": "fotograf-notu",
+      "ne": "Mutfak okulunda eğitmen Leo: tepeden pizza, çorba, turta. Yandan burger, pasta, lazanya. 45 derece masaya oturmuş bakıştır."
+    },
+    {
+      "ad": "Samantha Couzens, 45 derece",
+      "url": "https://samanthacouzens.co.uk/blog/45-degree-angle-food-photography",
+      "tur": "fotograf-notu",
+      "ne": "Üst de yan da lazımsa 45. Düz yemekte açıyı yükseltir, uzun yemekte alçaltır. Fokaccada hem kabartı hem katman görünsün diye 45 seçer."
+    }
+  ],
+  "bakilamayan": [
+    "Joanie Simon'un ücretli Substack videosu, I'm Obsessed with This Lighting Setup, açılmadı. Yazılı notu okundu.",
+    "Andrew Scrivani'nin Adobe videosu bu ortamda oynatılamadı. LensVid özeti, Foodista listesi, PictureCorrect notu ve New York Times soru cevap yazısı okundu.",
+    "Sosyal ızgara açılmadı. Bu sayı bir çekim notu."
+  ],
+  "post": {
+    "slug": "yemekte-isik-nereden-gelir",
+    "baslik": "Yemekte ışık nereden gelirse iştah gelir",
+    "title": "Where the light has to sit before the food looks edible",
+    "aciklama": "Tavan lambasının altında tabak düzleşir. Sos parlamaz, ekmeğin kabuğu kaybolur. Aşçı yemeğin iyi olduğunu bilir. Fotoğraf bilmez. Tavan lambası iyi bir aşçının üstünde çalışır, kötü bir fotoğrafçı gibi davranır.\n\nIşık nereden gelmeli, siz nerede durmalısınız, ızgara ne zaman işe yarar?",
+    "description": "Under a ceiling light the plate goes flat. The sauce does not shine, and the crust of the bread disappears. The cook knows the dish is good. The photo does not. A ceiling light is fine over a good cook, and it behaves like a bad photographer.\n\nWhere should the light sit, where should you stand, and when does a grid earn its place?",
+    "kapak": "/haftalik/2026-11-09/kapak.jpg",
+    "yayinda": false,
+    "bolumler": [
+      {
+        "baslik": "Işık yandan gelsin, siz karşıda durun",
+        "title": "Let the light come from the side, and stand across from it",
+        "metin": "Phoenix'te yemek fotoğrafçısı Joanie Simon bunu mutfak penceresine bağlar. Doğrudan güneş değil, dolaylı ışık. Kendi yeri kuzeye bakar. En iyi saat sabah ve akşamdır. Asıl kural duruştur. Pencerenin ışığına 90 derece dönün. Işık sol yüzü vurur, sağ yüz gölgede kalır. Birçok kişi tabağın önünü iyice aydınlatmak ister. O istek fotoğrafı düzleştirir ve fazla parlatır. Işık yandan ya da arkadan gelince yemeğin bir tarafı olur.\n\nNew York Times için yıllarca yemek çeken Andrew Scrivani aynı yere varır. Kahverengi et ve koyu yeşillik en zorudur. Parıltıyı yandan ışık verir. İki ışığı vardır: yan ve arka. Tek kaynak yeter. Siz o kaynağın karşısına geçersiniz. İnce limon, tuz tanesi, sosun kabarcığı o zaman parlar. Siyah bir karton, istemediğiniz ışığı geri alır. Gölge eksik ışık değildir. Gölge, yemeğin durduğu yerdir.\n\nYemek fotoğrafçısı Darina Kopcok bunu bir saat kadranına koyar. Tabak ortada. Siz altta, 6'dasınız. Tam yan 9'dur. En rahat yer 10 ile 11 arasıdır, yani yanın biraz arkası. Tam arka 12'dir. Çorba ve içecek orada cam gibi parlar. Burger, yüksek pasta ve derin tencere orada kararır, çünkü ön yüze yeterince ışık dönmez. Başlangıç için 10 ile 11 yeter. Karşıya küçük beyaz bir kart koyun. Joanie, kocaman beyaz perdenin gölgeyi fazla doldurduğunu ve o parıltıyı öldürdüğünü yazar. Küçük kart sosun üstüne bir kıvılcım bırakır. Gölgeyi silmez.\n\nAşağıdaki çizim bu saattir. Turuncu kutu ışık. Altta siz. Sağda küçük beyaz kart.",
+        "text": "Joanie Simon, a food photographer in Phoenix, ties this to a kitchen window. Not direct sun. Indirect light. Her own window faces north, and the useful hours are morning and evening. The real rule is where you stand. Turn 90 degrees to the light coming through the window. It hits the left side, and the right side falls into shadow. A lot of people want the front of the plate fully lit. That wish flattens the photo and blows it out. When the light comes from the side, or from behind, the food gets a side of its own.\n\nAndrew Scrivani, who photographed food for the New York Times for years, lands in the same place. Brown meat and dark greens are the hardest. Side light is what gives them a shimmer. He works with two directions, the side and the back. One source is enough. You stand across from it. A thin slice of lemon, a grain of salt, a bubble in the sauce starts to shine. A black card takes back the light you do not want. A shadow is not missing light. A shadow is where the food is standing.\n\nDarina Kopcok, a food photographer who writes about one-light setups, puts this on a clock. The plate is in the middle. You are at the bottom, at 6. Straight to the side is 9. The easy spot is between 10 and 11, a little behind the side. Straight behind is 12. Soup and a drink glow there, like glass. A burger, a tall cake and a deep pot go dark there, because not enough light comes back to the front. Start between 10 and 11. Put a small white card opposite the light. Joanie writes that a huge white board fills the shadow too much and kills the sparkle. A small card leaves a glint on the sauce. It does not erase the shadow.\n\nThe drawing below is that clock. The orange box is the light. You are at the bottom. The small white card is on the right.",
+        "gorsel": "/haftalik/2026-11-09/iz.jpg",
+        "gorselNot": "Solda ışık kamerayla aynı yerde, gölge yok. Sağda ışık 10 yönünde, bir yan aydınlık, bir yan gölgede. Çizim bu sayı için yapıldı.",
+        "note": "On the left the light sits with the camera, and there is no shadow. On the right the light comes from 10 o'clock, one side lit and one side in shadow. Drawn for this issue."
+      },
+      {
+        "baslik": "Yemeğin boyu sizin duruşunuzu seçer",
+        "title": "The height of the food picks where you stand",
+        "metin": "Işık doğru yerdeyken ikinci hata duruştur. Her tabağa tepeden bakmak, her burgeri kuşbakışı çekmek. Yemeğin boyu, sizin yüksekliğinizi seçer.\n\nÜç duruş yeter. New York'taki mutfak okulu Institute of Culinary Education'da eğitmen Leo bunları ayırır. Tepeden, yani 90 derece, pizza, çorba ve turta içindir. Hikaye tepededir. Üstten bakınca her dilim, her kömür lekesi durur. Yandan bakınca pizzadan bir kabuk şeridi kalır.\n\n45 derece masaya oturmuş bakıştır. Kase, ramen, üstü de yanı da gereken tabak. İngiltere'de yemek fotoğrafçısı Samantha Couzens fokaccalı sandviçte bunu seçer. Düz bakış katmanı gösterir, tepedeki kabartıyı yutar. 45 ikisini birden tutar. Düz yemekte açıyı yükseltir, uzayan yemekte alçaltır. Bir kadehte katman görünecekse 25 dereceye iner. Bir kasenin üstü asıl hikayeyse 75'e çıkar.\n\nYandan, neredeyse masa hizasında, burger, pasta dilimi ve lazanya durur. Tepeden bakınca iç katman kaybolur. Elinizde ekmek, ortada peynir, altta ekmek görürsünüz. O zaman iştah gelir.\n\nTepeden çekerken pencere ile tabak arasına girmeyin. Gölgeniz yemeğin üstüne düşer. Işık yanınızda kalsın, siz onun önünde durmayın.",
+        "text": "Once the light is in the right place, the second mistake is where you stand. Looking down on every plate. Shooting every burger from a bird's height. The height of the food picks your height.\n\nThree positions are enough. Leo, who teaches at the Institute of Culinary Education in New York, separates them. Overhead, at 90 degrees, is for pizza, soup and pie. The story is on top. From above, every slice and every char mark stays. From the side, a pizza becomes a strip of crust.\n\n45 degrees is the look of someone seated at the table. A bowl, a ramen, a plate that needs both its top and its side. Samantha Couzens, a food photographer in England, chooses it for a focaccia sandwich. Straight on shows the layers and swallows the top. Overhead shows the top and loses the layers. 45 holds both. She raises the angle for flat food and lowers it for tall food. If a glass needs its layers, she drops toward 25 degrees. If a bowl's top is the story, she climbs toward 75.\n\nFrom the side, almost at table height, a burger, a slice of cake and a lasagna can stand. Look down from above and the inside layers vanish. You want bread, then cheese, then bread. That is when appetite shows up.\n\nWhen you shoot from above, do not stand between the window and the plate. Your shadow falls on the food. Keep the light beside you. Do not stand in front of it.",
+        "gorsel": "/haftalik/2026-11-09/tat.jpg",
+        "gorselNot": "90 derece pizza, çorba, turta. 45 derece kase ve tabak. 0 ile 20 derece burger, pasta, lazanya. Çizim bu sayı için yapıldı.",
+        "note": "90 degrees for pizza, soup and pie. 45 degrees for a bowl and a plate. Between 0 and 20 degrees for a burger, a cake and lasagna. Drawn for this issue."
+      },
+      {
+        "baslik": "Softbox sarar, ızgara toplar",
+        "title": "A softbox wraps, a grid gathers",
+        "metin": "Pencere yoksa bir lamba yeter. Lambanın kendisi değil, önüne koyduğunuz şey işi bitirir.\n\nYumuşak ışık büyük bir kaynaktan gelir ve tabağa yakındır. Sert ışık küçük bir kaynaktan gelir. Çıplak ampul, doğrudan güneş, küçük metal çanak. Sert ışık kuşkonmazın her sapını ayırır. Yumuşak ışık bezelye filizini bir pencere gibi okşar. Kopcok ikisini de kullanır. Seçim tarza göre değil, yemeğin dokusuna göredir.\n\nSoftbox, lambanın önündeki büyük beyaz kutudur. Bir pencere gibi davranır. Işık her yöne dağılır. Yemek sevimli olur. Duvar da masa da aydınlanır. Küçük bir odada bu dağılma can sıkar. Arka duvar bağırır, leke diye bir şey kalmaz.\n\nIzgara, softbox'ın önüne takılan yumurta kolisidir. Adorama'da David Bergman bunu gösterir. Yan açıyı keser, ışığı öne yollar. Yumuşaklık durur, çünkü kaynak hâlâ büyüktür. Değişen şey dökülmedir. Duvar kararır. Işık bir havuza toplanır. Kopcok yemek için metal çanağa 20 veya 30 derecelik petek ızgara koyar, sonra önüne kocaman bir difüzör gerer. Difüzör pencere olur. Flaş, pencerenin arkasında kalır.\n\nIzgara sihirli bir sertlik düğmesi değildir. Işığı sertleştirmez. Toplar. Sertlik, kaynağı küçültünce ve uzaklaştırınca gelir.\n\nİşe yaramayan iki yer vardır. Önden, kamerayla aynı hizada. Ve tepeden, tabağın tam üstünden. Kopcok ikisini de yemek için önermez. Öndeki ışık düzleştirir. Tepedeki ışık seksenlerin usulüdür. Tavan spotu da telefon flaşı da bu aileden gelir. İkisini de kapatın. Odanın diğer lambalarını da. Renkleri birbirine karıştırırlar.",
+        "text": "If there is no window, one lamp is enough. The lamp itself does not finish the job. The thing you put in front of it does.\n\nSoft light comes from a large source, close to the plate. Hard light comes from a small source. A bare bulb, direct sun, a small metal dish. Hard light separates every stalk of asparagus. Soft light strokes pea shoots the way a window would. Kopcok uses both. The choice follows the texture of the food, not a mood board.\n\nA softbox is the large white box in front of the lamp. It behaves like a window. The light spills in every direction. The food turns friendly. So do the wall and the table. In a small room that spill gets annoying. The back wall shouts, and there is no pool of light left.\n\nA grid is the egg crate you clip to the front of the softbox. David Bergman, at Adorama, shows what it does. It cuts the side angles and sends the light forward. The softness stays, because the source is still large. What changes is the spill. The wall goes quiet. The light gathers into a pool. For food, Kopcok puts a 20 or 30 degree honeycomb on a metal dish, then stretches a huge diffuser in front of it. The diffuser becomes the window. The flash stays behind the window.\n\nA grid is not a magic hardness switch. It does not make the light hard. It gathers it. Hardness shows up when you make the source small and move it away.\n\nTwo places do not work. From the front, level with the camera. And from overhead, straight above the plate. Kopcok does not recommend either for food. Front light flattens. Overhead light is an eighties habit. A ceiling spot and a phone flash belong to that family. Turn both off. Turn the other lamps in the room off too. They mix the colors together.",
+        "gorsel": "/haftalik/2026-11-09/grid.jpg",
+        "gorselNot": "Solda açık softbox, ışık duvara da dökülür. Sağda ızgara, ışık yemekte toplanır, duvar susar. Çizim bu sayı için yapıldı.",
+        "note": "On the left an open softbox, and the light spills onto the wall. On the right a grid, the light gathers on the food, and the wall stays quiet. Drawn for this issue."
+      },
+      {
+        "baslik": "Bu hafta tabağı pencerenin yanına koyun",
+        "title": "This week, put the plate beside the window",
+        "metin": "Tabağı pencerenin altına değil, yanına koyun. Siz pencereye 90 derece dönün. Işık solunuzda kalsın. Sağınıza beyaz bir peçete dayayın. Gölge delik gibi kapkaranlıksa peçeteyi yaklaştırın. Yemek düzleştiyse peçeteyi uzaklaştırın. Arka duvar bağırıyorsa ışığın o kenarına siyah bir karton koyun. Softbox varsa ızgarayı takın, sonra hâlâ yumuşak mı diye bakın. Yumuşaklık kaybolduysa kutuyu tabağa yaklaştırın. Sertlik düğmesi uzaklıktır, ızgara değil.\n\nBir tabakta bunu birlikte kuralım. Gerisi mutfakta zaten duruyor.",
+        "text": "Put the plate beside the window, not under it. Turn 90 degrees to the window. Keep the light on your left. Prop a white napkin on your right. If the shadow is a black hole, bring the napkin closer. If the food goes flat, move the napkin away. If the back wall is shouting, put a black card on that edge of the light. If you have a softbox, clip the grid on, then look again to see if it is still soft. If the softness is gone, move the box closer to the plate. Distance is the hardness switch. The grid is not.\n\nLet us set this up on one plate together. The rest is already in the kitchen."
+      }
+    ]
+  }
+}

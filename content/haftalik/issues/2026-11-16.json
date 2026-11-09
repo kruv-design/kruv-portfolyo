@@ -1,0 +1,71 @@
+{
+  "sayi": "2026-11-16",
+  "tarih": "2026-11-16",
+  "mercek": "katalog-hissi",
+  "beatler": ["iz", "tat", "cizik", "kapi"],
+  "yayinda": false,
+  "gorselHedef": {
+    "kapak": "/haftalik/2026-11-16/kapak.jpg",
+    "iz": "/haftalik/2026-11-16/iz.jpg",
+    "tat": "/haftalik/2026-11-16/tat.jpg"
+  },
+  "kaynaklar": [
+    {
+      "ad": "Sara Serrano, Max Brown",
+      "url": "https://saraserrano.substack.com/p/when-hotels-start-selling-the-life",
+      "tur": "otel-yazisi",
+      "ne": "Yazar, Amsterdam'da Max Brown otelini fotoğraflamak için kalır. Eski otel karesi kanıttır: geniş oda, yatak, pencere, kenarda kahve makinesi. Bugün otel kırpılmış bir beden, yarım kahve, açılmamış yatak ister. Çok net oda hayal bırakmaz."
+    },
+    {
+      "ad": "Cecily Breeding, Malibu Beach Inn",
+      "url": "https://www.cecilybreeding.com/blog/malibu-beach-inn-luxury-hotel-lifestyle-photography",
+      "tur": "fotograf-notu",
+      "ne": "Otelin pazarlama işi, odanın, yemeğin ve sabahın içeriden görünmesini ister. Kadraja bir insanın girmesi kareye can verir."
+    }
+  ],
+  "bakilamayan": [
+    "Otel Instagram ızgarası bu sayıda açılmadı. Kare kopyalanmadı.",
+    "Serrano'nun yazısındaki DoubleTree ve Holiday Inn Express fotoğrafları yeniden basılmadı. Not, onun tarif ettiği kanıt karesidir."
+  ],
+  "post": {
+    "slug": "otel-hesabi-neden-katalog-gibi",
+    "baslik": "Otel hesabı neden katalog gibi durur",
+    "title": "Why the hotel account looks like a catalog",
+    "aciklama": "Yatak hastane gibi gerilmiş. Yastıklar kule. Bardak yok, kitap yok, ayakkabı yok. Oda pahalı durur ve boş durur. İçeri girip çantanızı koymazsınız. Çarşafı sayar, çıkarsınız.\n\nHer şey yerli yerindeyken hesap neden kataloga döner, küçük bir dağınıklık neden kalınmış hissi verir?",
+    "description": "The bed is pulled tight like a hospital. The pillows are a tower. No glass, no book, no shoe. The room looks expensive, and it looks empty. You would not walk in and put your bag down. You would count the sheets and leave.\n\nWhen everything is exactly in its place, why does the account turn into a catalog, and why does a little mess make it feel stayed in?",
+    "kapak": "/haftalik/2026-11-16/kapak.jpg",
+    "yayinda": false,
+    "bolumler": [
+      {
+        "baslik": "Katalog odayı kanıtlar, kişiyi koymaz",
+        "title": "A catalog proves the room and leaves the person out",
+        "metin": "Sara Serrano, Amsterdam'da Max Brown otelini fotoğraflamak için kalan bir yazar. Odasında yatak pencerenin önündedir. Işık arkadan gelir, oda fotoğrafı zorlaşır. O zorluk ona asıl soruyu sordurtur. Otel bugün ne satıyor?\n\nEski otel karesi bir kanıttır. Geniş açı, ortaya yatak, arkada pencere, kenarda kahve makinesi ya da televizyon. Amsterdam'daki bir Hilton ve bir Holiday Inn Express'i böyle hatırlar. Amaç, odanın geniş, temiz ve dolu olduğunu göstermektir. Bir süre işe yaradı. İnsan nerede uyuyacağını görüyordu. Sonra her yeni otel aynı kareyi çekebildi. Geniş yatak ayırt etmez oldu.\n\nSerrano'nun yazdığı şey şu. Otel artık çarşafın ipliğini değil, kalmanın kendisini göstermek istiyor. Parmakla bir kareyi gösterip bunu sen de yaşarsın demek istiyor. O kare ısrar etmez. Önerir. Kişisel bir fotoğrafın dilini ödünç alır. Kırpılmış bir beden. Yarım içilmiş bir kahve. Toplanmamış bir yatak. Her ayrıntı düşünülmüş olsa bile, görülmüş gibi durur. Çok net çekilen oda hayal bırakmaz. İnsan içine kendini koyamaz.\n\nBu, kirli oda çekin demek değildir. Serrano'nun bir okuru tam da bunu sorar. Ben uyumaya geldim. Fincan kapağı yetmez. Çarşaf pamuk mu, pencere açılıyor mu. İkisi de doğru. Katalog bilgiyi taşır. Hesap, birinin orada olduğunu taşır. İkisini aynı kareye sıkıştırmayın.",
+        "text": "Sara Serrano is a writer who stayed at the Max Brown hotel in Amsterdam in order to photograph it. In her room the bed sat in front of the window. The light came from behind, and the room was hard to photograph. That difficulty asked her the real question. What is a hotel selling now?\n\nThe old hotel picture is a piece of evidence. A wide lens, the bed in the middle, the window behind it, a coffee machine or a television at the edge. That is how she remembers a Hilton and a Holiday Inn Express in Amsterdam. The aim is to show that the room is large, clean and complete. It worked for a while. People could see where they would sleep. Then every new hotel could make the same picture. A wide bed stopped being a way to stand apart.\n\nWhat Serrano writes is this. A hotel no longer wants to show the thread of the sheet. It wants to show the stay. It wants to point at a picture and say you could live this too. That picture does not insist. It suggests. It borrows the language of a personal photo. A cropped body. A coffee half drunk. A bed that has not been made. Even when every detail was decided, it looks seen. A room photographed too clearly leaves no room to imagine yourself inside it.\n\nThis is not a request to photograph a dirty room. One of Serrano's readers asks exactly that. I came here to sleep. A close-up of a cup is not enough. Are the sheets cotton, does the window open. Both are right. A catalog carries information. An account carries the fact that someone was there. Do not cram both into the same frame.",
+        "gorsel": "/haftalik/2026-11-16/iz.jpg",
+        "gorselNot": "Geniş oda, ortaya yatak, kenarda televizyon ve kahve. Kanıt karesinin şeması. Çizim bu sayı için yapıldı, bir otelin fotoğrafı değil.",
+        "note": "A wide room, the bed in the middle, a television and a coffee machine at the edges. A sketch of the evidence picture. Drawn for this issue, not a photo of a hotel."
+      },
+      {
+        "baslik": "Dağınıklık bir hareket olsun",
+        "title": "Let the mess be one act",
+        "metin": "Dağınıklık kirli havlu değildir. Birinin oturduğunun izidir. Yastıkta bir çukur. Komodinde yarım fincan. Yüzükoyun bir kitap. Tam kapanmamış perde. Çekilmiş bir sandalye. Göz önce o çukura takılır, sonra odaya girer. Dümdüz yastıkta takılacak yer yoktur. Göz kayar, oda beklemede kalır.\n\nHareket de budur. Biri kadrajdan kesilir. Bir el fincana uzanır. Perde rüzgarda durmaz, tam o anda çekilmiştir. Fotoğrafçı Cecily Breeding, Malibu Beach Inn için içeriden bir kalış çeker. Oda, yemek, sabah. Kadraja bir insanın girmesinin kareye can verdiğini yazar. İnsan yüzü şart değil. Bir dirsek, bir diz, bir el yeter. Oda bir vitrin olmaktan çıkar, birinin günü olur.\n\nMükemmel simetri ürün çeker. Her yastık aynı hizada, her havlu aynı katta, her lamba aynı açıda. Güzeldir. Ve sıkıcıdır. Çünkü girecek bir kapı yoktur. Misafir odaya davet edilmez. Ürünü inceler.\n\nSınır ince. Bir fincan kalınmış hissi verir. Fincan, kitap, gözlük, bornoz ve bir kablo bir araya gelince oda yaşanmış olmaz. Vitrin dolmuş olur. Üç aksesuar koyunca samimiyet artmaz. Set kurulmuş gibi bağırır.",
+        "text": "Mess is not a wet towel. It is the trace that someone sat down. A dent in the pillow. A half cup on the nightstand. A book left face down. A curtain that is not quite closed. A chair pulled out. The eye catches the dent first, then enters the room. A perfectly smooth pillow has nowhere to catch. The eye slides off, and the room stays on hold.\n\nMovement is the same thing. A person is cut by the frame. A hand reaches for the cup. The curtain is not posing in the wind. It was photographed at that second. The photographer Cecily Breeding shot a stay from the inside for the Malibu Beach Inn. The room, the food, the morning. She writes that a person in the frame gives the picture life. A face is not required. An elbow, a knee, a hand is enough. The room stops being a display and becomes someone's day.\n\nPerfect symmetry photographs a product. Every pillow on the same line, every towel in the same fold, every lamp at the same angle. It is beautiful. And it is dull. There is no door to walk through. The guest is not invited into the room. They inspect the product.\n\nThe line is thin. One cup feels stayed in. A cup, a book, glasses, a robe and a cable together do not make a room lived in. They fill a display. Three props do not add warmth. They announce that a set was built.",
+        "gorsel": "/haftalik/2026-11-16/tat.jpg",
+        "gorselNot": "Solda tek fincan, bir hareket. Sağda üst üste aksesuar, vitrin. Çizim bu sayı için yapıldı.",
+        "note": "On the left one cup, one act. On the right a pile of props, a display. Drawn for this issue."
+      },
+      {
+        "baslik": "İki bozuk uç var",
+        "title": "There are two broken ends",
+        "metin": "Biri steril katalogdur. Yatak gerilmiş, yer boş, ışık her köşeyi eşit yıkar. Misafir fiyatı sorar, kalmayı hayal etmez.\n\nDiğeri gerçek dağınıklıktır. Yerde ıslak havlu, açık şarj aleti, yarım cips paketi, dağılmış çarşaf. Bu samimiyet değildir. Housekeeping gecikmiştir. İnsan o odaya girmek istemez, şikayet yazmak ister.\n\nİkisinin ortası tek bir insan hareketidir. Sandalye çekilmiştir, çünkü biri oturmuştur. Kitap açıktır, çünkü biri okumayı bırakmıştır. Fincan durur, çünkü biri kahveyi bitirmemiştir. Hareket bitmiş, izi kalmıştır. Oda hâlâ temizdir. Sadece boş değildir.\n\nHesabın her karesi böyle olmak zorunda değil. Haftada bir kanıt karesi de lazım. Yatak, pencere, banyo. İnsan nerede uyuyacağını bir kez görmek ister. Katalogun hatası, hesabın tamamının kanıt olmasıdır. Üst üste on yatak, on banyo, on boş lobi. Tempo ölür. Göz, birinin orada olduğunu unutur.",
+        "text": "One broken end is the sterile catalog. The bed is tight, the floor is empty, and the light washes every corner the same way. The guest asks the price and does not imagine staying.\n\nThe other is real mess. A wet towel on the floor, a charger left open, half a bag of chips, a sheet in a heap. That is not warmth. Housekeeping is late. Nobody wants to walk into that room. They want to write a complaint.\n\nBetween them is one human act. The chair is pulled out because someone sat. The book is open because someone stopped reading. The cup is there because someone did not finish the coffee. The act is over, and the trace remains. The room is still clean. It is just not empty.\n\nNot every frame on the account has to be this. Once a week you still need an evidence picture. The bed, the window, the bathroom. People want to see, once, where they will sleep. The catalog's mistake is when the whole account is evidence. Ten beds in a row, ten bathrooms, ten empty lobbies. The pace dies. The eye forgets that someone was there."
+      },
+      {
+        "baslik": "Aynı odayı iki kez çekin",
+        "title": "Shoot the same room twice",
+        "metin": "Bu hafta aynı odayı iki kez çekin. Işık değişmesin. İlki katalog olsun. Yastıklar düz, sandalye yerinde, komodin boş. İkincisinde bir tek şeyi bozun. Sandalyeyi çekin, ya da kitabı açın, ya da fincanı bırakın. Üçünü birden değil. İkincisini koyun.\n\nYan yana bakınca fark çarşaf değildir. Fark, birinin odaya dönmüş olmasıdır. O dönüşü birlikte kuralım. Katalog zaten çekilmiş.",
+        "text": "This week, shoot the same room twice. Do not change the light. The first one is the catalog. Pillows smooth, chair in place, nightstand empty. In the second, disturb one thing. Pull the chair, or open the book, or leave the cup. Not all three. Post the second one.\n\nSide by side, the difference is not the sheet. The difference is that someone came back into the room. Let us build that return together. The catalog has already been shot."
+      }
+    ]
+  }
+}
