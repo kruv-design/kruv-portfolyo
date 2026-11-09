@@ -18,3 +18,10 @@ test-results/
 playwright-report/
 playwright/.cache/
 .env*
+
+# Figma → Cloudinary upload ara dosyaları (asla commit etme)
+.tmp-gg-pizza-hosp/
+.tmp-opera-hosp/
+.tmp-gg-new/
+scripts/.opera-creds.json
+scripts/.gg-pizza-signatures.json

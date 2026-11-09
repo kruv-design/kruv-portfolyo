@@ -52,24 +52,28 @@ const OPERA_ALTS: { tr: string; en: string }[] = [
   { tr: "Opera Hotel Bosphorus — spa", en: "Opera Hotel Bosphorus — spa" },
 ];
 
-/** GG Pizza 3×6 — Figma 4957:2234 */
-const GG_PIZZA_ALTS: { tr: string; en: string }[] = [
-  { tr: "GG Pizza — otlu semsek", en: "GG Pizza — herb pastry" },
-  { tr: "GG Pizza — şaşlık", en: "GG Pizza — şaşlık" },
-  { tr: "GG Pizza — şaşlık", en: "GG Pizza — şaşlık" },
-  { tr: "GG Pizza — zahter", en: "GG Pizza — zahter" },
-  { tr: "GG Pizza — burrata granita", en: "GG Pizza — burrata granita" },
-  { tr: "GG Pizza — dört peynir", en: "GG Pizza — four cheese" },
-  { tr: "GG Pizza — fırın", en: "GG Pizza — oven" },
-  { tr: "GG Pizza — otlu semsek", en: "GG Pizza — herb pastry" },
-  { tr: "GG Pizza — zahter", en: "GG Pizza — zahter" },
-  { tr: "GG Pizza — pizza servisi", en: "GG Pizza — pizza service" },
-  { tr: "GG Pizza — şef mutfakta", en: "GG Pizza — chef in kitchen" },
-  { tr: "GG Pizza — pizzayı kesmek", en: "GG Pizza — slicing pizza" },
-  { tr: "GG Pizza — garnitür", en: "GG Pizza — garnish" },
-  { tr: "GG Pizza — hamur", en: "GG Pizza — dough" },
-  { tr: "GG Pizza — fırın içi", en: "GG Pizza — inside the oven" },
-  { tr: "GG Pizza — malzeme hazırlığı", en: "GG Pizza — prep" },
+/**
+ * GG Pizza — Figma 4957:2234 reading order.
+ * `cld` = mevcut Cloudinary slot (gg-pizza-NN); 17 yeni eklendi, diğerleri yeniden yüklenmedi.
+ */
+const GG_PIZZA_ITEMS: { cld: number; tr: string; en: string }[] = [
+  { cld: 6, tr: "GG Pizza — dört peynir", en: "GG Pizza — four cheese" },
+  { cld: 12, tr: "GG Pizza — şef mutfakta", en: "GG Pizza — chef in kitchen" },
+  { cld: 2, tr: "GG Pizza — şaşlık", en: "GG Pizza — şaşlık" },
+  { cld: 4, tr: "GG Pizza — zahter", en: "GG Pizza — zahter" },
+  { cld: 5, tr: "GG Pizza — burrata granita", en: "GG Pizza — burrata granita" },
+  { cld: 3, tr: "GG Pizza — şaşlık", en: "GG Pizza — şaşlık" },
+  { cld: 7, tr: "GG Pizza — fırın", en: "GG Pizza — oven" },
+  { cld: 17, tr: "GG Pizza — patates pırasa", en: "GG Pizza — potato leek" },
+  { cld: 8, tr: "GG Pizza — otlu semsek", en: "GG Pizza — herb pastry" },
+  { cld: 1, tr: "GG Pizza — otlu semsek", en: "GG Pizza — herb pastry" },
+  { cld: 9, tr: "GG Pizza — zahter", en: "GG Pizza — zahter" },
+  { cld: 10, tr: "GG Pizza — pizza servisi", en: "GG Pizza — pizza service" },
+  { cld: 11, tr: "GG Pizza — garnitür", en: "GG Pizza — garnish" },
+  { cld: 13, tr: "GG Pizza — mantar hazırlığı", en: "GG Pizza — mushroom prep" },
+  { cld: 14, tr: "GG Pizza — fırın içi", en: "GG Pizza — inside the oven" },
+  { cld: 15, tr: "GG Pizza — malzeme hazırlığı", en: "GG Pizza — prep" },
+  { cld: 16, tr: "GG Pizza — hamur", en: "GG Pizza — dough" },
 ];
 
 export const HOSPITALITY_GALLERY: HospitalityGalleryItem[] = [
@@ -84,16 +88,13 @@ export const HOSPITALITY_GALLERY: HospitalityGalleryItem[] = [
     };
   }),
 
-  ...GG_PIZZA_ALTS.map((alt, index) => {
-    const n = index + 1;
-    return {
-      id: `gg-${n}`,
-      filter: "gg-pizza" as const,
-      src: ggPizza(n),
-      altTr: alt.tr,
-      altEn: alt.en,
-    };
-  }),
+  ...GG_PIZZA_ITEMS.map((item, index) => ({
+    id: `gg-${index + 1}`,
+    filter: "gg-pizza" as const,
+    src: ggPizza(item.cld),
+    altTr: item.tr,
+    altEn: item.en,
+  })),
 
   {
     id: "borden-1",

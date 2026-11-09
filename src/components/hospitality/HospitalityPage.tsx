@@ -54,9 +54,6 @@ export function HospitalityPage({
   return (
     <div className="hosp-page">
       <section className="hosp-section hosp-hero" aria-labelledby="hosp-hero-title">
-        <MarketingHomeSectionTag className="hosp-hero__tag">
-          {copy.hero.tag}
-        </MarketingHomeSectionTag>
         <h1 id="hosp-hero-title" className="h1 hosp-hero__title">
           <span className="hosp-hero__title-line">{copy.hero.titleBefore}</span>
           <span className="hosp-hero__title-accent">{copy.hero.titleAccent}</span>
