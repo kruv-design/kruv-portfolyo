@@ -70,10 +70,10 @@ set sample_videos = '[
 ]'::jsonb
 where id = 1;
 
--- ── Pricing Coach — 1. video (Butik Oteller) ───────────────────
+-- ── Pricing Coach — 1. video (Otel fiyatlandırma) ───────────────────
 update public.protel_brands
 set
-  video_1_title = 'Butik Oteller',
+  video_1_title = 'Otel fiyatlandırma',
   video_1_url = 'https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Butik_Oteller_hykrwc',
   video_1_aspect = '9:16'
 where slug = 'pricing-coach';

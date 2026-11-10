@@ -9,7 +9,51 @@ export type HospitalityGalleryItem = {
 };
 
 const CLD = "https://res.cloudinary.com/di0qbhh46/image/upload/f_auto,q_auto";
+const CLD_VIDEO = "https://res.cloudinary.com/di0qbhh46/video/upload";
 const HOSP = `${CLD}/kruv-portfolio/hospitality`;
+
+export type HospitalityVideoItem = {
+  id: string;
+  src: string;
+  poster: string;
+  altTr: string;
+  altEn: string;
+};
+
+function operaVideo(publicId: string) {
+  return {
+    src: `${CLD_VIDEO}/f_auto:video,q_auto,c_limit,w_720/${publicId}.mp4`,
+    poster: `${CLD_VIDEO}/so_0,f_jpg,q_auto,c_limit,w_720/${publicId}.jpg`,
+  };
+}
+
+/** Opera Hotel — 4 dikey video, Cloudinary (soldan sağa). */
+export const OPERA_VIDEOS: HospitalityVideoItem[] = [
+  {
+    id: "opera-v-beyoglu",
+    ...operaVideo("beyog%CC%86lu_ufmgff"),
+    altTr: "Opera Hotel Bosphorus — Beyoğlu",
+    altEn: "Opera Hotel Bosphorus — Beyoğlu",
+  },
+  {
+    id: "opera-v-pizza",
+    ...operaVideo("pizza_etwcvu"),
+    altTr: "Opera Hotel Bosphorus — Trust the process",
+    altEn: "Opera Hotel Bosphorus — Trust the process",
+  },
+  {
+    id: "opera-v-kahvalti",
+    ...operaVideo("kahvalti_nvt3g3"),
+    altTr: "Opera Hotel Bosphorus — Breakfast but make it Fabulous",
+    altEn: "Opera Hotel Bosphorus — Breakfast but make it Fabulous",
+  },
+  {
+    id: "opera-v-banyo",
+    ...operaVideo("banyo_bybyvh"),
+    altTr: "Opera Hotel Bosphorus — I have a plan",
+    altEn: "Opera Hotel Bosphorus — I have a plan",
+  },
+];
 
 function opera(n: number) {
   return `${HOSP}/gallery-${String(n).padStart(2, "0")}`;
@@ -99,9 +143,9 @@ export const HOSPITALITY_GALLERY: HospitalityGalleryItem[] = [
   {
     id: "borden-1",
     filter: "borden",
-    src: borden(1),
-    altTr: "Borden — galeri 1",
-    altEn: "Borden — gallery 1",
+    src: borden(5),
+    altTr: "Borden — galeri 5",
+    altEn: "Borden — gallery 5",
   },
   {
     id: "borden-2",
@@ -127,9 +171,9 @@ export const HOSPITALITY_GALLERY: HospitalityGalleryItem[] = [
   {
     id: "borden-5",
     filter: "borden",
-    src: borden(5),
-    altTr: "Borden — galeri 5",
-    altEn: "Borden — gallery 5",
+    src: borden(1),
+    altTr: "Borden — galeri 1",
+    altEn: "Borden — gallery 1",
   },
   {
     id: "borden-6",

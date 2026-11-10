@@ -9,6 +9,7 @@ import { withLocale } from "@/lib/i18n/path";
 import { t } from "@/lib/i18n/t";
 import {
   HOSPITALITY_GALLERY,
+  OPERA_VIDEOS,
   type HospitalityFilter,
 } from "@/lib/hospitality-gallery";
 import { MarketingHomeSectionTag } from "@/components/public/MarketingHomeSectionTag";
@@ -74,6 +75,24 @@ export function HospitalityPage({
             </button>
           ))}
         </div>
+
+        {filter === "opera" ? (
+          <div className="hosp-videos" aria-label={copy.filters.opera}>
+            {OPERA_VIDEOS.map((clip) => (
+              <figure key={clip.id} className="hosp-videos__item">
+                <video
+                  className="hosp-videos__video"
+                  src={clip.src}
+                  poster={clip.poster}
+                  controls
+                  playsInline
+                  preload="metadata"
+                  aria-label={locale === "en" ? clip.altEn : clip.altTr}
+                />
+              </figure>
+            ))}
+          </div>
+        ) : null}
 
         <div className="hosp-gallery">
           {items.map((item) => (

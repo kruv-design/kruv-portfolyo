@@ -173,7 +173,7 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
         url: "https://www.instagram.com/pricing_coach/",
       },
     ],
-    video1Title: "Butik Oteller",
+    video1Title: "Otel fiyatlandırma",
     video1Url:
       "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Butik_Oteller_hykrwc",
     video1Aspect: "9:16",
@@ -412,6 +412,13 @@ function normalizeBrand(brand: ProtelBrand): ProtelBrand {
     next = { ...next, socialAccounts: fallback.socialAccounts };
   } else if (socialAccounts.length > 0) {
     next = { ...next, socialAccounts };
+  }
+
+  if (brand.slug === "pricing-coach") {
+    const title1 = next.video1Title.trim().toLowerCase();
+    if (title1 === "butik oteller" || title1 === "butik otel") {
+      next = { ...next, video1Title: fallback.video1Title };
+    }
   }
 
   if (brand.slug === "ggpizza") {

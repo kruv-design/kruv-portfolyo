@@ -105,7 +105,7 @@ where slug = 'the-scholar-school';
 -- ── Pricing Coach — 1. video ───────────────────────────────────
 update public.protel_brands
 set
-  video_1_title = 'Butik Oteller',
+  video_1_title = 'Otel fiyatlandırma',
   video_1_url = 'https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Butik_Oteller_hykrwc',
   video_1_aspect = '9:16'
 where slug = 'pricing-coach';

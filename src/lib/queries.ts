@@ -14,7 +14,7 @@ import type { Project, SiteSettings } from "@/types";
 export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   siteAdi: "kruv",
   tagline: "Paylaşmaya değer markalar tasarlıyoruz.",
-  footerYazi: "Estd 2025",
+  footerYazi: "Estd 2022",
   instagramUrl: "https://www.instagram.com/kruvsocial/",
   xUrl: "",
   linkedinUrl: "https://www.linkedin.com/company/kruv/?viewAsMember=true",
@@ -38,6 +38,8 @@ const LEGACY_FOOTER_YAZI = new Set([
   "kruv. — portfolyo",
   "kruv.-portfolyo",
   "kruv. - portfolyo",
+  "Estd 2025",
+  "estd 2025",
 ]);
 
 function normalizeFooterYazi(value: unknown): string {

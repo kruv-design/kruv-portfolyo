@@ -15,7 +15,7 @@ values (
   'pricing-coach',
   'Pricing Coach',
   0,
-  'Butik Oteller',
+  'Otel fiyatlandırma',
   'https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Butik_Oteller_hykrwc',
   '9:16',
   'İnsanların elinden işini mi alıyor?',
