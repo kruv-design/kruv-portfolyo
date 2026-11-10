@@ -2015,10 +2015,20 @@ i {
     gap: var(--space-4);
   }
 }
-/* 3–4 video: her zaman 2×2 */
+/* 3 video: 2×2 */
 .project-detail-video-pair--grid {
   grid-template-columns: 1fr 1fr;
   gap: var(--space-4);
+}
+/* 4 video: hospitality ile aynı — masaüstü 4 sütun, mobil 2 */
+.project-detail-video-pair--quad {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+@media (max-width: 768px) {
+  .project-detail-video-pair--quad {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 .project-detail-video-pair__item {
   margin: 0;
@@ -2029,6 +2039,7 @@ i {
   line-height: 0;
   display: flex;
   justify-content: center;
+  min-width: 0;
 }
 .project-detail-video-pair__item .project-detail-media {
   position: relative;
@@ -2042,6 +2053,15 @@ i {
   width: min(100%, calc(var(--project-video-pair-max-h) * 9 / 16));
   height: auto;
   overflow: hidden;
+}
+/* Quad: hospitality gibi sütun genişliğini doldur, max-height kısıtı yok */
+.project-detail-video-pair--quad .project-detail-video-pair__item {
+  display: block;
+}
+.project-detail-video-pair--quad .project-detail-video-pair__item .project-detail-media {
+  max-height: none;
+  width: 100%;
+  height: auto;
 }
 .project-detail-video-pair__item .project-detail-media__poster-wrap,
 .project-detail-video-pair__item .project-detail-media__video {

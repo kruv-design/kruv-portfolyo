@@ -1,4 +1,5 @@
 import type { Project } from "@/types";
+import { GG_PIZZA_VIDEOS } from "./hospitality-gallery";
 
 function cloudName(): string {
   return String(process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME ?? "").trim();
@@ -374,20 +375,17 @@ export function emptyGaleriVideoSlots(): Record<GaleriVideoKey, string> {
   ) as Record<GaleriVideoKey, string>;
 }
 
-/** GG Pizza — sosyal medya videoları (Cloudinary public_id), ilk galeri görselinden sonra. */
-export const GG_PIZZA_SOCIAL_VIDEOS = [
-  "https://res.cloudinary.com/di0qbhh46/video/upload/Bal%C4%B1k_editv6_a2zcrh.mp4",
-  "https://res.cloudinary.com/di0qbhh46/video/upload/seftali_tatli-v4_qlkigr.mp4",
-  "https://res.cloudinary.com/di0qbhh46/video/upload/ggpizza_j25rrf.mp4",
-  "https://res.cloudinary.com/di0qbhh46/video/upload/kruv-portfolio/nit0n7q4q4u0dgbn2j2q.mp4",
-] as const;
-
-export function ggPizzaSocialVideoSlots(): { key: string; posterSrc: string; videoSrc: string }[] {
-  return GG_PIZZA_SOCIAL_VIDEOS.map((id, i) => ({
-    key: `gg-social-${i + 1}`,
-    posterSrc: resolveProjectVideoPosterUrl(id),
-    videoSrc: resolveProjectVideoUrl(id),
-  })).filter((s) => Boolean(s.videoSrc));
+/** GG Pizza — hospitality ile aynı 4 dikey video; ilk galeri görselinden sonra. */
+export function ggPizzaSocialVideoSlots(): {
+  key: string;
+  posterSrc: string;
+  videoSrc: string;
+}[] {
+  return GG_PIZZA_VIDEOS.map((clip) => ({
+    key: clip.id,
+    posterSrc: clip.poster,
+    videoSrc: clip.src,
+  }));
 }
 
 export function projectCover(project: Pick<Project, "kapak">): string | null {

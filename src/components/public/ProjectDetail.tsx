@@ -50,22 +50,22 @@ export function ProjectDetail({
           videoSrc: s.videoSrc!,
         }));
   const showVideoGrid = videoSlots.length >= 2;
-  /** GG Pizza: ilk görsel → videolar → kalan görseller; diğerleri: videolar üstte. */
-  const firstImage = showVideoGrid && socialVideos.length > 0 ? imageSlots[0] : null;
-  const restImages =
-    showVideoGrid && socialVideos.length > 0
-      ? imageSlots.slice(1)
-      : showVideoGrid
-        ? imageSlots
-        : gallerySlots;
-  const galleryForList = showVideoGrid ? restImages : gallerySlots;
+  /**
+   * GG Pizza: eski “OUR SOCIAL MEDIA VIDEOS” kolajı (galeri 1) kalkar;
+   * hospitality tarzı 4’lü video grid + kalan görseller.
+   */
+  const galleryForList = socialVideos.length > 0
+    ? imageSlots.slice(1)
+    : showVideoGrid
+      ? imageSlots
+      : gallerySlots;
 
   const lightboxItems: LightboxItem[] = useMemo(() => {
     const items: LightboxItem[] = [];
     if (cover) {
       items.push({ src: cover, alt: title });
     }
-    for (const slot of imageSlots) {
+    for (const slot of galleryForList) {
       if (!slot.posterSrc) continue;
       // cover ile aynı URL ise tekrar etme
       if (cover && slot.posterSrc === cover) continue;
@@ -75,7 +75,7 @@ export function ProjectDetail({
       });
     }
     return items;
-  }, [cover, imageSlots, title]);
+  }, [cover, galleryForList, title]);
 
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
@@ -144,29 +144,17 @@ export function ProjectDetail({
           </div>
         </aside>
 
-        {(showVideoGrid || firstImage || galleryForList.length > 0) && (
+        {(showVideoGrid || galleryForList.length > 0) && (
           <div className="project-detail-gallery-wrap animate-fadeUp">
-            {firstImage ? (
-              <div className="project-detail-gallery">
-                <figure className="project-detail-gallery__item">
-                  <ProjectDetailMedia
-                    posterSrc={firstImage.posterSrc}
-                    videoSrc={firstImage.videoSrc}
-                    alt={`${title} — galeri görseli 1`}
-                    variant="gallery"
-                    photoFit={photoFit}
-                    onLightboxOpen={
-                      firstImage.posterSrc && !firstImage.videoSrc
-                        ? () => openLightboxAt(firstImage.posterSrc)
-                        : undefined
-                    }
-                  />
-                </figure>
-              </div>
-            ) : null}
             {showVideoGrid ? (
               <div
-                className={`project-detail-video-pair${videoSlots.length >= 3 ? " project-detail-video-pair--grid" : ""}`}
+                className={`project-detail-video-pair${
+                  videoSlots.length >= 4
+                    ? " project-detail-video-pair--quad"
+                    : videoSlots.length >= 3
+                      ? " project-detail-video-pair--grid"
+                      : ""
+                }`}
                 role="group"
                 aria-label={`${title} — videolar`}
               >
@@ -189,7 +177,7 @@ export function ProjectDetail({
                     <ProjectDetailMedia
                       posterSrc={posterSrc}
                       videoSrc={videoSrc}
-                      alt={`${title} — galeri görseli ${i + (firstImage ? 2 : 1)}`}
+                      alt={`${title} — galeri görseli ${i + 1}`}
                       variant="gallery"
                       photoFit={photoFit}
                       onLightboxOpen={

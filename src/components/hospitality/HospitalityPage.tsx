@@ -8,9 +8,11 @@ import type { Messages } from "@/lib/i18n/get-messages";
 import { withLocale } from "@/lib/i18n/path";
 import { t } from "@/lib/i18n/t";
 import {
+  GG_PIZZA_VIDEOS,
   HOSPITALITY_GALLERY,
   OPERA_VIDEOS,
   type HospitalityFilter,
+  type HospitalityVideoItem,
 } from "@/lib/hospitality-gallery";
 import { MarketingHomeSectionTag } from "@/components/public/MarketingHomeSectionTag";
 import { MarketingHomeKayanYazi } from "@/components/public/MarketingHomeKayanYazi";
@@ -52,6 +54,13 @@ export function HospitalityPage({
     borden: copy.filters.borden,
   };
 
+  const filterVideos: Record<HospitalityFilter, HospitalityVideoItem[] | null> = {
+    opera: OPERA_VIDEOS,
+    "gg-pizza": GG_PIZZA_VIDEOS,
+    borden: null,
+  };
+  const videos = filterVideos[filter];
+
   return (
     <div className="hosp-page">
       <section className="hosp-section hosp-hero" aria-labelledby="hosp-hero-title">
@@ -76,9 +85,9 @@ export function HospitalityPage({
           ))}
         </div>
 
-        {filter === "opera" ? (
-          <div className="hosp-videos" aria-label={copy.filters.opera}>
-            {OPERA_VIDEOS.map((clip) => (
+        {videos ? (
+          <div className="hosp-videos" aria-label={filterLabels[filter]}>
+            {videos.map((clip) => (
               <figure key={clip.id} className="hosp-videos__item">
                 <video
                   className="hosp-videos__video"

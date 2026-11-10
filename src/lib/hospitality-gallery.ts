@@ -20,38 +20,70 @@ export type HospitalityVideoItem = {
   altEn: string;
 };
 
-function operaVideo(publicId: string) {
+function hospVideo(publicId: string) {
+  const encoded = publicId
+    .split("/")
+    .map((segment) => encodeURIComponent(segment))
+    .join("/");
   return {
-    src: `${CLD_VIDEO}/f_auto:video,q_auto,c_limit,w_720/${publicId}.mp4`,
-    poster: `${CLD_VIDEO}/so_0,f_jpg,q_auto,c_limit,w_720/${publicId}.jpg`,
+    src: `${CLD_VIDEO}/f_auto:video,q_auto,c_limit,w_720/${encoded}.mp4`,
+    poster: `${CLD_VIDEO}/so_0,f_jpg,q_auto,c_limit,w_720/${encoded}.jpg`,
   };
 }
 
 /** Opera Hotel — 4 dikey video, Cloudinary (soldan sağa). */
 export const OPERA_VIDEOS: HospitalityVideoItem[] = [
   {
-    id: "opera-v-beyoglu",
-    ...operaVideo("beyog%CC%86lu_ufmgff"),
-    altTr: "Opera Hotel Bosphorus — Beyoğlu",
-    altEn: "Opera Hotel Bosphorus — Beyoğlu",
+    id: "opera-v-banyo",
+    ...hospVideo("banyo_bybyvh"),
+    altTr: "Opera Hotel Bosphorus — I have a plan",
+    altEn: "Opera Hotel Bosphorus — I have a plan",
   },
   {
     id: "opera-v-pizza",
-    ...operaVideo("pizza_etwcvu"),
+    ...hospVideo("pizza_etwcvu"),
     altTr: "Opera Hotel Bosphorus — Trust the process",
     altEn: "Opera Hotel Bosphorus — Trust the process",
   },
   {
     id: "opera-v-kahvalti",
-    ...operaVideo("kahvalti_nvt3g3"),
+    ...hospVideo("kahvalti_nvt3g3"),
     altTr: "Opera Hotel Bosphorus — Breakfast but make it Fabulous",
     altEn: "Opera Hotel Bosphorus — Breakfast but make it Fabulous",
   },
   {
-    id: "opera-v-banyo",
-    ...operaVideo("banyo_bybyvh"),
-    altTr: "Opera Hotel Bosphorus — I have a plan",
-    altEn: "Opera Hotel Bosphorus — I have a plan",
+    id: "opera-v-beyoglu",
+    ...hospVideo("beyoğlu_ufmgff"),
+    altTr: "Opera Hotel Bosphorus — Beyoğlu",
+    altEn: "Opera Hotel Bosphorus — Beyoğlu",
+  },
+];
+
+/** GG Pizza — 4 dikey video, Cloudinary (soldan sağa; media library seçimi). */
+export const GG_PIZZA_VIDEOS: HospitalityVideoItem[] = [
+  {
+    id: "gg-v-chef",
+    ...hospVideo("GG_B5V6_z4kdx7"),
+    altTr: "GG Pizza — Ben gözümü kapatsam",
+    altEn: "GG Pizza — Ben gözümü kapatsam",
+  },
+  {
+    id: "gg-v-sos",
+    ...hospVideo("Balık_editv6_krpyin"),
+    altTr: "GG Pizza — Domates sosu",
+    altEn: "GG Pizza — Tomato sauce",
+  },
+  {
+    id: "gg-v-pizza-bira",
+    ...hospVideo("PİZZA_BİRA_l4jbxi"),
+    altTr: "GG Pizza — Pizza ve bira",
+    altEn: "GG Pizza — Pizza and beer",
+  },
+  {
+    id: "gg-v-tatli",
+    ...hospVideo("Sequence_01_1_zj0jey"),
+    altTr: "GG Pizza — Tatlı / prodüksiyon",
+    altEn: "GG Pizza — Dessert / production",
   },
 ];
 
