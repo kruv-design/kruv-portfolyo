@@ -74,7 +74,17 @@ export function ProtelClientPanel({
       videoUrl: active.video2Url,
       aspectRatio: active.video2Aspect,
     },
-  ];
+    {
+      title: active.video3Title || `${active.name} — Video 3`,
+      videoUrl: active.video3Url,
+      aspectRatio: active.video3Aspect,
+    },
+    {
+      title: active.video4Title || `${active.name} — Video 4`,
+      videoUrl: active.video4Url,
+      aspectRatio: active.video4Aspect,
+    },
+  ].filter((video) => Boolean(video.videoUrl.trim()));
 
   return (
     <section className={sectionClass} aria-labelledby="protel-clients-heading">
@@ -132,7 +142,9 @@ export function ProtelClientPanel({
           </div>
         ) : null}
 
-        <div className="protel-clients__videos">
+        <div
+          className={`protel-clients__videos protel-clients__videos--count-${Math.min(videos.length, 4)}`}
+        >
           {videos.map((video, index) => (
             <div key={`${active.id}-${index}`} className="protel-clients__video">
               <ProtelVideoEmbed

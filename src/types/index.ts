@@ -209,6 +209,12 @@ export type ProtelBrand = {
   video2Title: string;
   video2Url: string;
   video2Aspect: ProtelVideoAspect;
+  video3Title: string;
+  video3Url: string;
+  video3Aspect: ProtelVideoAspect;
+  video4Title: string;
+  video4Url: string;
+  video4Aspect: ProtelVideoAspect;
   updatedAt: string;
 };
 

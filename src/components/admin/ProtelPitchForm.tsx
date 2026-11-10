@@ -540,10 +540,10 @@ function BrandEditor({
         </div>
       </div>
 
-      {[1, 2].map((slot) => {
-        const titleKey = slot === 1 ? "video1Title" : "video2Title";
-        const urlKey = slot === 1 ? "video1Url" : "video2Url";
-        const aspectKey = slot === 1 ? "video1Aspect" : "video2Aspect";
+      {([1, 2, 3, 4] as const).map((slot) => {
+        const titleKey = `video${slot}Title` as const;
+        const urlKey = `video${slot}Url` as const;
+        const aspectKey = `video${slot}Aspect` as const;
         return (
           <div
             key={slot}

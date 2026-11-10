@@ -3701,9 +3701,19 @@ i {
   width: 100%;
 }
 
+.protel-clients__videos--count-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.protel-clients__videos--count-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 @media (max-width: 899px) {
-  .protel-clients__videos {
-    grid-template-columns: 1fr;
+  .protel-clients__videos,
+  .protel-clients__videos--count-3,
+  .protel-clients__videos--count-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -4144,9 +4154,9 @@ i {
   display: none;
 }
 
-/* Videolar — yarı boyut, oran korunur (width:100% + height:auto) */
+/* Videolar — hospitality tarzı 4’lü grid, tam genişlik */
 .marketing-home-figma .home-social-clients .protel-clients__videos {
-  width: 50%;
+  width: 100%;
   max-width: 100%;
   margin-inline: auto;
 }

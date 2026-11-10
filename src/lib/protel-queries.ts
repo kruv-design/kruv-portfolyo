@@ -181,6 +181,12 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
     video2Url:
       "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=insanlar%C4%B1n_elinden_isini_mi_aliyor-_en_pt6cl9",
     video2Aspect: "9:16",
+    video3Title: "",
+    video3Url: "",
+    video3Aspect: "9:16",
+    video4Title: "",
+    video4Url: "",
+    video4Aspect: "9:16",
     updatedAt: "",
   },
   {
@@ -196,14 +202,22 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
         url: "https://www.instagram.com/ggpizzaa/",
       },
     ],
-    video1Title: "Pizza & çekim",
+    video1Title: "Şef",
     video1Url:
-      "https://res.cloudinary.com/di0qbhh46/video/upload/Bal%C4%B1k_editv6_a2zcrh.mp4",
+      "https://res.cloudinary.com/di0qbhh46/video/upload/GG_B5V6_z4kdx7.mp4",
     video1Aspect: "9:16",
-    video2Title: "Şeftali tatlı",
+    video2Title: "Domates sosu",
     video2Url:
-      "https://res.cloudinary.com/di0qbhh46/video/upload/seftali_tatli-v4_qlkigr.mp4",
+      "https://res.cloudinary.com/di0qbhh46/video/upload/Bal%C4%B1k_editv6_krpyin.mp4",
     video2Aspect: "9:16",
+    video3Title: "Pizza ve bira",
+    video3Url:
+      "https://res.cloudinary.com/di0qbhh46/video/upload/PI%CC%87ZZA_BI%CC%87RA_l4jbxi.mp4",
+    video3Aspect: "9:16",
+    video4Title: "Tatlı",
+    video4Url:
+      "https://res.cloudinary.com/di0qbhh46/video/upload/Sequence_01_1_zj0jey.mp4",
+    video4Aspect: "9:16",
     updatedAt: "",
   },
   {
@@ -227,6 +241,12 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
     video2Url:
       "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Jungleous_Bitki_Bak%C4%B1m-_lc7c7h",
     video2Aspect: "9:16",
+    video3Title: "",
+    video3Url: "",
+    video3Aspect: "9:16",
+    video4Title: "",
+    video4Url: "",
+    video4Aspect: "9:16",
     updatedAt: "",
   },
   {
@@ -250,6 +270,12 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
     video2Url:
       "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Istanbul-Viyana_qcmftc",
     video2Aspect: "16:9",
+    video3Title: "",
+    video3Url: "",
+    video3Aspect: "9:16",
+    video4Title: "",
+    video4Url: "",
+    video4Aspect: "9:16",
     updatedAt: "",
   },
   {
@@ -273,6 +299,12 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
     video2Url:
       "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=TSS-W2-THURSDAY_jg6m09",
     video2Aspect: "9:16",
+    video3Title: "",
+    video3Url: "",
+    video3Aspect: "9:16",
+    video4Title: "",
+    video4Url: "",
+    video4Aspect: "9:16",
     updatedAt: "",
   },
 ];
@@ -422,35 +454,22 @@ function normalizeBrand(brand: ProtelBrand): ProtelBrand {
   }
 
   if (brand.slug === "ggpizza") {
-    const video2Haystack = (() => {
-      try {
-        return decodeURIComponent(next.video2Url).toLowerCase();
-      } catch {
-        return next.video2Url.toLowerCase();
-      }
-    })();
-    const hasStaleFoodIsArt =
-      video2Haystack.includes("food_is_art") ||
-      video2Haystack.includes("tjuplhh3fvinklogpqi4");
-    const title1 = next.video1Title.trim().toLowerCase();
-    const title2 = next.video2Title.trim().toLowerCase();
-    const hasStaleTitles =
-      title1 === "gg pizza" ||
-      title2 === "food is art" ||
-      !title1 ||
-      !title2;
-    next = {
+    // Hospitality ile aynı 4 dikey video grid.
+    return {
       ...next,
-      video1Title: hasStaleTitles ? fallback.video1Title : next.video1Title,
-      video2Title: hasStaleTitles ? fallback.video2Title : next.video2Title,
-      ...(hasStaleFoodIsArt
-        ? {
-            video2Url: fallback.video2Url,
-            video2Aspect: fallback.video2Aspect,
-          }
-        : {}),
+      video1Title: fallback.video1Title,
+      video1Url: fallback.video1Url,
+      video1Aspect: fallback.video1Aspect,
+      video2Title: fallback.video2Title,
+      video2Url: fallback.video2Url,
+      video2Aspect: fallback.video2Aspect,
+      video3Title: fallback.video3Title,
+      video3Url: fallback.video3Url,
+      video3Aspect: fallback.video3Aspect,
+      video4Title: fallback.video4Title,
+      video4Url: fallback.video4Url,
+      video4Aspect: fallback.video4Aspect,
     };
-    return next;
   }
 
   if (brand.slug !== "the-scholar-school") {
@@ -498,6 +517,12 @@ function mergeBrandDefaults(brand: ProtelBrand): ProtelBrand {
     video2Title: brand.video2Title.trim() || fallback.video2Title,
     video2Url: brand.video2Url.trim() || fallback.video2Url,
     video2Aspect: brand.video2Aspect || fallback.video2Aspect,
+    video3Title: brand.video3Title.trim() || fallback.video3Title,
+    video3Url: brand.video3Url.trim() || fallback.video3Url,
+    video3Aspect: brand.video3Aspect || fallback.video3Aspect,
+    video4Title: brand.video4Title.trim() || fallback.video4Title,
+    video4Url: brand.video4Url.trim() || fallback.video4Url,
+    video4Aspect: brand.video4Aspect || fallback.video4Aspect,
   };
 
   return normalizeBrand(merged);

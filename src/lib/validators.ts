@@ -373,6 +373,12 @@ export const protelBrandSchema = z.object({
   video2Title: z.string().trim().max(200).optional().default(""),
   video2Url: z.string().trim().max(2000).optional().default(""),
   video2Aspect: protelVideoAspectSchema.optional().default("16:9"),
+  video3Title: z.string().trim().max(200).optional().default(""),
+  video3Url: z.string().trim().max(2000).optional().default(""),
+  video3Aspect: protelVideoAspectSchema.optional().default("9:16"),
+  video4Title: z.string().trim().max(200).optional().default(""),
+  video4Url: z.string().trim().max(2000).optional().default(""),
+  video4Aspect: protelVideoAspectSchema.optional().default("9:16"),
 });
 
 export const protelPitchSaveSchema = z.object({

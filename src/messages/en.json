@@ -100,8 +100,10 @@
       "instagramVisit": "Visit {brand} on Instagram",
       "videoTitles": {
         "ggpizza": {
-          "video1": "Pizza & shoot",
-          "video2": "Peach dessert"
+          "video1": "Chef",
+          "video2": "Tomato sauce",
+          "video3": "Pizza and beer",
+          "video4": "Dessert"
         }
       }
     },

@@ -105,6 +105,12 @@ export function mapProtelBrandRow(row: Record<string, unknown>): ProtelBrand {
     video2Title: String(row.video_2_title ?? ""),
     video2Url: String(row.video_2_url ?? ""),
     video2Aspect: asAspect(row.video_2_aspect),
+    video3Title: String(row.video_3_title ?? ""),
+    video3Url: String(row.video_3_url ?? ""),
+    video3Aspect: asAspect(row.video_3_aspect),
+    video4Title: String(row.video_4_title ?? ""),
+    video4Url: String(row.video_4_url ?? ""),
+    video4Aspect: asAspect(row.video_4_aspect),
     updatedAt: String(row.updated_at ?? ""),
   };
 }
@@ -147,5 +153,11 @@ export function brandInputToDbRow(
     video_2_title: input.video2Title,
     video_2_url: input.video2Url,
     video_2_aspect: input.video2Aspect,
+    video_3_title: input.video3Title,
+    video_3_url: input.video3Url,
+    video_3_aspect: input.video3Aspect,
+    video_4_title: input.video4Title,
+    video_4_url: input.video4Url,
+    video_4_aspect: input.video4Aspect,
   };
 }

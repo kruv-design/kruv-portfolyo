@@ -96,8 +96,10 @@
       "instagramVisit": "{brand} instagramını ziyaret et",
       "videoTitles": {
         "ggpizza": {
-          "video1": "Pizza & çekim",
-          "video2": "Şeftali tatlı"
+          "video1": "Şef",
+          "video2": "Domates sosu",
+          "video3": "Pizza ve bira",
+          "video4": "Tatlı"
         }
       }
     },

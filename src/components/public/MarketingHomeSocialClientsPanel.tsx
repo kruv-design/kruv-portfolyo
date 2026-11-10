@@ -17,6 +17,8 @@ function localizeBrandVideoTitles(
       ...brand,
       video1Title: titles.video1 || brand.video1Title,
       video2Title: titles.video2 || brand.video2Title,
+      video3Title: ("video3" in titles && titles.video3) || brand.video3Title,
+      video4Title: ("video4" in titles && titles.video4) || brand.video4Title,
     };
   });
 }
