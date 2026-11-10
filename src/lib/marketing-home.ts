@@ -162,7 +162,11 @@ function rewriteFocusSectionInHtml(
     (match, open: string, close: string) => {
       const item = focus.items[ledeIdx++];
       if (!item) return match;
-      return `${open}\n                    <p>${escapeHtml(item.lede1)}</p>\n                    <p>${escapeHtml(item.lede2)}</p>\n                  ${close}`;
+      const lede2 = item.lede2.trim();
+      const lede2Html = lede2
+        ? `\n                    <p>${escapeHtml(lede2)}</p>`
+        : "";
+      return `${open}\n                    <p>${escapeHtml(item.lede1)}</p>${lede2Html}\n                  ${close}`;
     },
   );
 

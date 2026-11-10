@@ -61,27 +61,27 @@
     },
     "values": {
       "ariaLabel": "Who we work with",
-      "tagLabel": "Who we work with",
+      "tagLabel": "WHO WE WORK WITH",
       "items": [
         {
           "index": "01",
-          "title": "Just getting started brands",
-          "body": "We build a strong brand structure, name, and core systems for your great idea."
+          "title": "Hotel brands",
+          "body": "The experience your hotel offers can reach a wider audience through its digital presence. With a visual language, strategic content and professional production that reflect everything from your architecture to your service ethos, we strengthen your digital visibility and support potential guests as they decide to book."
         },
         {
           "index": "02",
-          "title": "Ready to grow brands",
-          "body": "We create a scalable, consistent brand structure for your fast-growing business."
+          "title": "Restaurant and F&B brands",
+          "body": "When a guest arrives at your restaurant, the menu is one of the first touchpoints with your brand. But that experience usually starts much earlier — on social media. With photography, video and content that truly reflect your atmosphere, menu and flavours, we turn that first encounter into a strong brand experience."
         },
         {
           "index": "03",
-          "title": "Brands seeking visibility",
-          "body": "We reflect your quality and expertise clearly to the outside world."
+          "title": "Hospitality technology",
+          "body": "Communicating the value of specialist products like PMS, revenue management, pricing and operations software matters. We translate complex technology into language the industry understands, and make your product visible through social media, motion design and video production."
         },
         {
           "index": "04",
-          "title": "Brands ready for renewal",
-          "body": "We reposition your brand with an identity that's current and future-ready."
+          "title": "Multi-property structures and groups",
+          "body": "Keeping brand consistency across multiple properties or locations needs a shared strategy and a strong content standard. We build a centrally manageable, scalable social media system that protects each location’s character while holding the brand together."
         }
       ]
     },
@@ -167,34 +167,34 @@
     },
     "focus": {
       "recognitionTag": "Recognition",
-      "recognitionHeading": "Where are you?",
-      "recognitionNote": "Identify where your brand stands today. The next step is moving forward with the right system, in control.",
+      "recognitionHeading": "Where is your brand?",
+      "recognitionNote": "Where do you sit in hospitality? The next step is moving forward with the right system, in control.",
       "directionTag": "Direction",
       "directionHeading": "Where do you go from here?",
       "items": [
         {
-          "title": "Starting from zero",
-          "lede1": "You have an idea, but everything still feels scattered. No identity, no system, nothing solid to build on.",
-          "lede2": "A clear brand identity, a consistent visual language, and a system that works across every place you show up.",
-          "cta": "Start here →"
+          "title": "Hotel brands",
+          "lede1": "The experience your hotel offers can reach a wider audience through its digital presence. With a visual language, strategic content and professional production that reflect everything from your architecture to your service ethos, we strengthen your digital visibility and support potential guests as they decide to book.",
+          "lede2": "",
+          "cta": "Grow your hotel’s digital impact →"
         },
         {
-          "title": "Ready to scale",
-          "lede1": "Your product is working, but your brand is holding you back. You're growing, but it doesn't feel controlled.",
-          "lede2": "A brand that matches the business you've become. Consistent, intentional, and ready for the next stage.",
-          "cta": "Get in control →"
+          "title": "Restaurant and F&B brands",
+          "lede1": "When a guest arrives at your restaurant, the menu is one of the first touchpoints with your brand. But that experience usually starts much earlier — on social media. With photography, video and content that truly reflect your atmosphere, menu and flavours, we turn that first encounter into a strong brand experience.",
+          "lede2": "",
+          "cta": "Make the first encounter count →"
         },
         {
-          "title": "Need visibility",
-          "lede1": "You're doing serious work, but it's not seen that way. The perception doesn't match the level you operate at.",
-          "lede2": "A presence that speaks before you do. So when the right people find you, they immediately understand the level you're at.",
-          "cta": "Change perception →"
+          "title": "Hospitality technology",
+          "lede1": "Communicating the value of specialist products like PMS, revenue management, pricing and operations software matters. We translate complex technology into language the industry understands, and make your product visible through social media, motion design and video production.",
+          "lede2": "",
+          "cta": "Make your technology clear →"
         },
         {
-          "title": "Outdated identity",
-          "lede1": "Your brand got you here, but it won't take you further. It feels dated, inconsistent, and out of sync.",
-          "lede2": "A brand rebuilt for where you're going. Keeping what still works, replacing what holds you back.",
-          "cta": "Evolve the brand →"
+          "title": "Multi-property structures and groups",
+          "lede1": "Keeping brand consistency across multiple properties or locations needs a shared strategy and a strong content standard. We build a centrally manageable, scalable social media system that protects each location’s character while holding the brand together.",
+          "lede2": "",
+          "cta": "Scale your brand communication →"
         }
       ]
     }

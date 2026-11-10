@@ -56,28 +56,28 @@
       ]
     },
     "values": {
-      "ariaLabel": "Hedef müşteri tipleri",
-      "tagLabel": "KİME HİTAP EDİYORUZ?",
+      "ariaLabel": "Kiminle çalışıyoruz",
+      "tagLabel": "KİMİNLE ÇALIŞIYORUZ?",
       "items": [
         {
           "index": "01",
-          "title": "Kurulum aşamasındaki markalar",
-          "body": "Fikirden gerçeğe. Marka kimliğinizin temelini sağlam, ölçeklenebilir ve sosyal ağlarda öne çıkabilecek şekilde kuruyoruz."
+          "title": "Otel markaları",
+          "body": "Otelinizin sunduğu deneyim, dijital dünyadaki varlığıyla daha geniş kitlelere ulaşabilir. Mimarisinden hizmet anlayışına kadar markanızın tüm değerlerini yansıtan görsel dil, stratejik içerik ve profesyonel prodüksiyonla dijital görünürlüğünüzü güçlendiriyor, potansiyel misafirlerinizin rezervasyon kararına katkı sağlıyoruz."
         },
         {
           "index": "02",
-          "title": "Büyümeye hazır markalar",
-          "body": "Hızlı büyüyorsunuz ama marka tutarlılığınız kaymaya başladı. Tüm mecralarda (sosyal, web, reklam) güçlü ve tanınır kalmasını sağlıyoruz."
+          "title": "Restoran ve F&B markaları",
+          "body": "Bir misafir restoranınıza geldiğinde menü, markanızla kurduğu ilk temas noktalarından biridir. Ancak bu deneyim çoğu zaman çok daha önce, sosyal medyada başlar. Restoranınızın atmosferini, menüsünü ve lezzetlerini doğru yansıtan fotoğraf, video ve içeriklerle bu ilk karşılaşmayı güçlü bir marka deneyimine dönüştürüyoruz."
         },
         {
           "index": "03",
-          "title": "Görünürlük arayan markalar",
-          "body": "İyi bir ürün/hizmetiniz var ama insanlar bunu bilmiyor. Sizi keşfedilebilir ve konuşulan bir markaya dönüştürüyoruz."
+          "title": "Hospitality teknolojisi",
+          "body": "PMS, revenue management, pricing ve operasyon yazılımları gibi uzmanlık gerektiren ürünlerin değerini doğru anlatmak önemlidir. Karmaşık teknolojileri sektörün anlayacağı bir iletişim diline dönüştürüyor; sosyal medya, motion design ve video prodüksiyonuyla ürününüzü görünür kılıyoruz."
         },
         {
           "index": "04",
-          "title": "Yenilenme ihtiyacı duyan markalar",
-          "body": "Eski kimliğiniz artık sizin hikayenizi anlatmıyor. Markanızı bugünün pazarında ve hedef kitlenizin gözünde yeniden inşa ediyoruz."
+          "title": "Çok mülklü yapılar ve gruplar",
+          "body": "Birden fazla tesis veya şubede marka tutarlılığını korumak, ortak bir strateji ve güçlü bir içerik standardı gerektirir. Farklı lokasyonların karakterini korurken marka bütünlüğünü sağlayan, merkezi yönetilebilir ve ölçeklenebilir bir sosyal medya sistemi oluşturuyoruz."
         }
       ]
     },
@@ -163,34 +163,34 @@
     },
     "focus": {
       "recognitionTag": "Tanıma",
-      "recognitionHeading": "Neredesin?",
-      "recognitionNote": "Markanın şu anki evresini tanımla. Sonraki adım, doğru sistemle kontrollü biçimde ilerlemek.",
+      "recognitionHeading": "Markanız nerede?",
+      "recognitionNote": "Hospitality’de hangi yapıdasınız? Sonraki adım, doğru sistemle kontrollü biçimde ilerlemek.",
       "directionTag": "Yönlendirme",
       "directionHeading": "Buradan nereye gidiyorsun?",
       "items": [
         {
-          "title": "Sıfırdan başlıyorsun",
-          "lede1": "Bir fikrin var ama her şey hâlâ dağınık. Ortada kimlik yok, sistem yok, üzerine inşa edilecek sağlam bir zemin yok.",
-          "lede2": "Net bir marka kimliği, tutarlı bir görsel dil ve göründüğün her yerde çalışan bir sistem.",
-          "cta": "Buradan başla →"
+          "title": "Otel markaları",
+          "lede1": "Otelinizin sunduğu deneyim, dijital dünyadaki varlığıyla daha geniş kitlelere ulaşabilir. Mimarisinden hizmet anlayışına kadar markanızın tüm değerlerini yansıtan görsel dil, stratejik içerik ve profesyonel prodüksiyonla dijital görünürlüğünüzü güçlendiriyor, potansiyel misafirlerinizin rezervasyon kararına katkı sağlıyoruz.",
+          "lede2": "",
+          "cta": "Otelinizin dijital etkisini büyütün →"
         },
         {
-          "title": "Büyümeye hazırsın",
-          "lede1": "Ürünün çalışıyor ama markan seni geride tutuyor. Büyüyorsun ama kontrollü hissettirmiyor.",
-          "lede2": "Geldiğin noktaya yakışan bir marka: tutarlı, bilinçli ve bir sonraki aşamaya hazır.",
-          "cta": "Kontrolü ele al →"
+          "title": "Restoran ve F&B markaları",
+          "lede1": "Bir misafir restoranınıza geldiğinde menü, markanızla kurduğu ilk temas noktalarından biridir. Ancak bu deneyim çoğu zaman çok daha önce, sosyal medyada başlar. Restoranınızın atmosferini, menüsünü ve lezzetlerini doğru yansıtan fotoğraf, video ve içeriklerle bu ilk karşılaşmayı güçlü bir marka deneyimine dönüştürüyoruz.",
+          "lede2": "",
+          "cta": "İlk karşılaşmayı güçlü kılın →"
         },
         {
-          "title": "Görünür olman gerek",
-          "lede1": "Ciddi işler yapıyorsun ama öyle algılanmıyor. Algı, çalıştığın seviyeyle örtüşmüyor.",
-          "lede2": "Sen daha konuşmadan konuşan bir marka varlığı. Doğru insanlar seni bulduğunda seviyeni anında anlar.",
-          "cta": "Algıyı değiştir →"
+          "title": "Hospitality teknolojisi",
+          "lede1": "PMS, revenue management, pricing ve operasyon yazılımları gibi uzmanlık gerektiren ürünlerin değerini doğru anlatmak önemlidir. Karmaşık teknolojileri sektörün anlayacağı bir iletişim diline dönüştürüyor; sosyal medya, motion design ve video prodüksiyonuyla ürününüzü görünür kılıyoruz.",
+          "lede2": "",
+          "cta": "Teknolojinizi anlaşılır kılın →"
         },
         {
-          "title": "Kimliğin eskidi",
-          "lede1": "Markan seni buraya kadar getirdi ama daha ileri taşımayacak. Eski, tutarsız ve uyumsuz hissettiriyor.",
-          "lede2": "Gideceğin yere göre yeniden kurulan bir marka: işe yarayan kalır, seni geride tutan değişir.",
-          "cta": "Markayı dönüştür →"
+          "title": "Çok mülklü yapılar ve gruplar",
+          "lede1": "Birden fazla tesis veya şubede marka tutarlılığını korumak, ortak bir strateji ve güçlü bir içerik standardı gerektirir. Farklı lokasyonların karakterini korurken marka bütünlüğünü sağlayan, merkezi yönetilebilir ve ölçeklenebilir bir sosyal medya sistemi oluşturuyoruz.",
+          "lede2": "",
+          "cta": "Marka iletişiminizi ölçeklendirin →"
         }
       ]
     }
