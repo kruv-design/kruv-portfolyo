@@ -23,18 +23,34 @@ export function blogIntroForLocale(post: BlogPost, locale: Locale): string {
   return post.aciklama?.trim() || "";
 }
 
+function resolveSectionImages(
+  images: BlogSection["gorseller"],
+  locale: Locale,
+): BlogSection["gorseller"] {
+  if (!images?.length) return undefined;
+  return images.map((img) => ({
+    src: img.src,
+    caption:
+      locale === "en"
+        ? img.captionEn?.trim() || img.caption?.trim() || ""
+        : img.caption?.trim() || "",
+  }));
+}
+
 function resolveSections(sections: BlogSection[], locale: Locale): BlogSection[] {
   return sections.map((s) => {
     const gorselNot =
       locale === "en"
         ? s.note?.trim() || s.gorselNot?.trim() || ""
         : s.gorselNot?.trim() || "";
+    const gorseller = resolveSectionImages(s.gorseller, locale);
     if (locale === "en") {
       return {
         ...s,
         baslik: pickEn(s.baslik, s.title),
         metin: pickEn(s.metin, s.text),
         ...(gorselNot ? { gorselNot } : {}),
+        ...(gorseller ? { gorseller } : {}),
       };
     }
     return {
@@ -42,6 +58,7 @@ function resolveSections(sections: BlogSection[], locale: Locale): BlogSection[]
       baslik: s.baslik?.trim() || "",
       metin: s.metin?.trim() || "",
       ...(gorselNot ? { gorselNot } : {}),
+      ...(gorseller ? { gorseller } : {}),
     };
   });
 }

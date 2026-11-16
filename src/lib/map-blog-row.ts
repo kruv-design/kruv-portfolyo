@@ -1,5 +1,27 @@
 import type { BlogPost, BlogSection } from "@/types";
 
+function normalizeSectionImages(raw: unknown) {
+  if (!Array.isArray(raw)) return undefined;
+  const items = raw
+    .map((item) => {
+      const row =
+        item && typeof item === "object"
+          ? (item as Record<string, unknown>)
+          : {};
+      const src = String(row.src ?? "").trim();
+      if (!src) return null;
+      const caption = String(row.caption ?? "").trim();
+      const captionEn = String(row.captionEn ?? "").trim();
+      return {
+        src,
+        ...(caption ? { caption } : {}),
+        ...(captionEn ? { captionEn } : {}),
+      };
+    })
+    .filter((item): item is NonNullable<typeof item> => Boolean(item));
+  return items.length > 0 ? items : undefined;
+}
+
 function normalizeSection(raw: unknown): BlogSection {
   const s = (raw && typeof raw === "object" ? raw : {}) as Record<string, unknown>;
   const title = String(s.title ?? "").trim();
@@ -7,6 +29,7 @@ function normalizeSection(raw: unknown): BlogSection {
   const gorsel = String(s.gorsel ?? "").trim();
   const gorselNot = String(s.gorselNot ?? "").trim();
   const note = String(s.note ?? "").trim();
+  const gorseller = normalizeSectionImages(s.gorseller);
   return {
     baslik: String(s.baslik ?? ""),
     metin: String(s.metin ?? ""),
@@ -15,6 +38,7 @@ function normalizeSection(raw: unknown): BlogSection {
     ...(gorsel ? { gorsel } : {}),
     ...(gorselNot ? { gorselNot } : {}),
     ...(note ? { note } : {}),
+    ...(gorseller ? { gorseller } : {}),
   };
 }
 

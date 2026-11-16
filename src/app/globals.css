@@ -948,30 +948,68 @@ i {
 .blog-card__title {
   margin: 0;
   padding-inline: var(--space-3);
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: var(--ink);
 }
 
-/* Detay — dar orta kolon; tipografi: .h1 / .h2 / .b1 utility sınıfları */
+/* Detay — Figma 4225:4492 tipografi (Switzer; H1 72 Medium, H2 48 Medium, body 18/1.42) */
 .blog-article {
   display: flex;
   flex-direction: column;
-  gap: var(--space-8);
+  gap: var(--space-8); /* 32px content stack */
   width: min(100%, 688px);
   margin-inline: auto;
+  font-family: var(--font-display);
 }
 
 .blog-article__star {
   color: var(--accent);
+  /* Figma: yıldız → içerik 26px (stack gap 32 → −6) */
+  margin-bottom: calc(26px - var(--space-8));
 }
 
 .blog-article__header {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--space-8);
 }
 
 .blog-article__title,
 .blog-article__heading {
   margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink);
+}
+
+.blog-article__title {
+  font-size: var(--type-h1); /* 72 / mobil 32 */
+}
+
+.blog-article__heading {
+  font-size: var(--type-h2); /* 48 / mobil 28 */
+}
+
+.blog-article__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0;
+  font-family: var(--font-display);
+  /* Figma Heading/Mobile/H5 — tarih/yazar 16 Medium uppercase */
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ink);
 }
 
 .blog-article__date {
@@ -986,8 +1024,23 @@ i {
 }
 
 .blog-article__intro p,
-.blog-article__text p {
+.blog-article__text p,
+.blog-article__intro li,
+.blog-article__text li {
   margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--type-b1); /* 18 / mobil 16 */
+  font-weight: 400;
+  line-height: 1.42;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+
+.blog-article__intro strong,
+.blog-article__text strong,
+.blog-article__intro b,
+.blog-article__text b {
+  font-weight: 600;
 }
 
 .blog-article__section {
@@ -1012,7 +1065,61 @@ i {
 
 .blog-article__caption {
   margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--type-b2);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: var(--ink-faint);
 }
+
+/* Figma 5932:1627 — bölüm içi 3’lü lens karşılaştırma satırı */
+.blog-article__gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3); /* 12px */
+  width: 100%;
+}
+
+.blog-article__gallery-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  min-width: 0;
+}
+
+.blog-article__gallery-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 752 / 1344;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.blog-article__gallery-caption {
+  margin: 0;
+  width: 100%;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42;
+  letter-spacing: 0.02em;
+  text-align: center;
+  color: var(--ink-faint);
+}
+
+@media (max-width: 640px) {
+  .blog-article__gallery {
+    gap: var(--space-2);
+  }
+
+  .blog-article__gallery-caption {
+    font-size: 12px;
+  }
+}
+
 
 /* Project detail (/projects/[slug]) — Works shell + section / panel token */
 .project-detail-toolbar {
@@ -1637,19 +1744,6 @@ i {
   pointer-events: auto;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
-}
-
-.home-showreel-player__hit::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--ink) 8%, transparent) 0%,
-    color-mix(in srgb, var(--ink) 42%, transparent) 100%
-  );
 }
 
 .home-showreel-player__cta {

@@ -76,6 +76,14 @@ export type ProjectInput = Omit<
   slug?: string;
 };
 
+export type BlogSectionImage = {
+  src: string;
+  /** TR alt yazı (ör. "16 mm lens") */
+  caption?: string;
+  /** EN alt yazı (boşsa caption) */
+  captionEn?: string;
+};
+
 export type BlogSection = {
   /** TR bölüm başlığı */
   baslik: string;
@@ -91,6 +99,8 @@ export type BlogSection = {
   gorselNot?: string;
   /** EN görsel alt yazısı (boşsa gorselNot) */
   note?: string;
+  /** Figma lens karşılaştırması gibi 3’lü (veya çoklu) görsel satırı */
+  gorseller?: BlogSectionImage[];
 };
 
 /** `blog_posts` tablosu — Supabase */

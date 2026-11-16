@@ -35,6 +35,9 @@ export function ProtelBentoVideo({ item }: { item: ProtelSampleVideo }) {
       <video
         src={src}
         poster={poster || undefined}
+        autoPlay
+        muted
+        loop
         controls
         playsInline
         preload="metadata"

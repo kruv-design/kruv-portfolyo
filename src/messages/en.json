@@ -99,6 +99,12 @@
       "tabListLabel": "Clients",
       "instagramVisit": "Visit {brand} on Instagram",
       "videoTitles": {
+        "opera-hotel-bosphorus": {
+          "video1": "I have a plan",
+          "video2": "Trust the process",
+          "video3": "Breakfast but make it Fabulous",
+          "video4": "Beyoğlu"
+        },
         "ggpizza": {
           "video1": "Chef",
           "video2": "Tomato sauce",

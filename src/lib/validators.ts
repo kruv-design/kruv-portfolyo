@@ -196,6 +196,12 @@ export const reorderSchema = z.object({
 
 // ── Blog ────────────────────────────────────────────────────
 
+export const blogSectionImageSchema = z.object({
+  src: z.string().trim().max(2048),
+  caption: z.string().trim().max(200).optional().default(""),
+  captionEn: z.string().trim().max(200).optional().default(""),
+});
+
 export const blogSectionSchema = z.object({
   baslik: z.string().trim().max(200).optional().default(""),
   metin: z.string().trim().max(10000).optional().default(""),
@@ -204,6 +210,7 @@ export const blogSectionSchema = z.object({
   gorsel: imageUrlOrEmpty.optional().default(""),
   gorselNot: z.string().trim().max(400).optional().default(""),
   note: z.string().trim().max(400).optional().default(""),
+  gorseller: z.array(blogSectionImageSchema).max(12).optional().default([]),
 });
 
 export const blogPostSchema = z.object({

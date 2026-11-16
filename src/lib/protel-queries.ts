@@ -191,9 +191,40 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
   },
   {
     id: "",
+    slug: "opera-hotel-bosphorus",
+    name: "Opera Hotel Bosphorus",
+    sortOrder: 1,
+    metrics: [],
+    socialAccounts: [
+      {
+        platform: "Instagram",
+        handle: "@operahotelbosphorus",
+        url: "https://www.instagram.com/operahotelbosphorus/",
+      },
+    ],
+    video1Title: "I have a plan",
+    video1Url:
+      "https://res.cloudinary.com/di0qbhh46/video/upload/banyo_bybyvh.mp4",
+    video1Aspect: "9:16",
+    video2Title: "Trust the process",
+    video2Url:
+      "https://res.cloudinary.com/di0qbhh46/video/upload/pizza_etwcvu.mp4",
+    video2Aspect: "9:16",
+    video3Title: "Breakfast but make it Fabulous",
+    video3Url:
+      "https://res.cloudinary.com/di0qbhh46/video/upload/kahvalti_nvt3g3.mp4",
+    video3Aspect: "9:16",
+    video4Title: "Beyoğlu",
+    video4Url:
+      "https://res.cloudinary.com/di0qbhh46/video/upload/beyog%CC%86lu_ufmgff.mp4",
+    video4Aspect: "9:16",
+    updatedAt: "",
+  },
+  {
+    id: "",
     slug: "ggpizza",
     name: "GG Pizza",
-    sortOrder: 1,
+    sortOrder: 2,
     metrics: [],
     socialAccounts: [
       {
@@ -224,7 +255,7 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
     id: "",
     slug: "jungleous",
     name: "Jungleous",
-    sortOrder: 2,
+    sortOrder: 3,
     metrics: [],
     socialAccounts: [
       {
@@ -253,7 +284,7 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
     id: "",
     slug: "bulung-lojistik",
     name: "Bulung Lojistik",
-    sortOrder: 3,
+    sortOrder: 4,
     metrics: [],
     socialAccounts: [
       {
@@ -282,7 +313,7 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
     id: "",
     slug: "the-scholar-school",
     name: "The Scholars School",
-    sortOrder: 4,
+    sortOrder: 5,
     metrics: [],
     socialAccounts: [
       {
@@ -453,7 +484,7 @@ function normalizeBrand(brand: ProtelBrand): ProtelBrand {
     }
   }
 
-  if (brand.slug === "ggpizza") {
+  if (brand.slug === "ggpizza" || brand.slug === "opera-hotel-bosphorus") {
     // Hospitality ile aynı 4 dikey video grid.
     return {
       ...next,

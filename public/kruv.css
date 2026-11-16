@@ -1579,8 +1579,8 @@ body:has(.card:hover) .ticker {
 .ideal-logo-2 { -webkit-mask-image: url("assets/clients/group-19.svg"); mask-image: url("assets/clients/group-19.svg"); }
 .ideal-logo-3 {
   --ideal-logo-scale: 1.65;
-  -webkit-mask-image: url("assets/clients/jungleous.png?v=2");
-  mask-image: url("assets/clients/jungleous.png?v=2");
+  -webkit-mask-image: url("assets/clients/jungleous.svg?v=3");
+  mask-image: url("assets/clients/jungleous.svg?v=3");
 }
 .ideal-logo-4 { -webkit-mask-image: url("assets/clients/asset-18.svg"); mask-image: url("assets/clients/asset-18.svg"); }
 .ideal-logo-5 {
@@ -1600,8 +1600,8 @@ body:has(.card:hover) .ticker {
   height: auto;
   aspect-ratio: 800 / 280;
   max-height: 78%;
-  -webkit-mask-image: url("assets/clients/opera-hotel.png?v=2");
-  mask-image: url("assets/clients/opera-hotel.png?v=2");
+  -webkit-mask-image: url("assets/clients/opera-hotel.png?v=3");
+  mask-image: url("assets/clients/opera-hotel.png?v=3");
   -webkit-mask-size: contain;
   mask-size: contain;
 }

@@ -93,6 +93,9 @@ export function HospitalityPage({
                   className="hosp-videos__video"
                   src={clip.src}
                   poster={clip.poster}
+                  autoPlay
+                  muted
+                  loop
                   controls
                   playsInline
                   preload="metadata"
@@ -191,6 +194,9 @@ export function HospitalityPage({
                         /\/upload\//,
                         "/upload/so_0,f_jpg,q_auto/",
                       ).replace(/\.mp4$/i, ".jpg")}`}
+                      autoPlay
+                      muted
+                      loop
                       controls
                       playsInline
                       preload="metadata"
