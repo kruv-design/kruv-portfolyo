@@ -5,13 +5,13 @@
 const CLD = "https://res.cloudinary.com/di0qbhh46/image/upload";
 
 const COVERS = {
-  "pricing-coach": `${CLD}/v1794821889/kruv-portfolio/projects/pricing-coach/kapak.jpg`,
+  "pricing-coach": `${CLD}/v1794831797/kruv-portfolio/projects/pricing-coach/kapak.jpg`,
   "rootsadventure-travel": `${CLD}/v1794821890/kruv-portfolio/projects/rootsadventure-travel/kapak.jpg`,
   "oguz-media": `${CLD}/v1794821891/kruv-portfolio/projects/oguz-media/kapak.jpg`,
-  "gg-pizza": `${CLD}/v1794821893/kruv-portfolio/projects/gg-pizza/kapak.jpg`,
+  "gg-pizza": `${CLD}/v1794830906/kruv-portfolio/projects/gg-pizza/kapak.jpg`,
   beadbox: `${CLD}/v1794821900/kruv-portfolio/projects/beadbox/kapak.jpg`,
   musterek: `${CLD}/v1794821901/kruv-portfolio/projects/musterek/kapak.jpg`,
-  "opera-hotel-bosphorus": `${CLD}/v1794821902/kruv-portfolio/projects/opera-hotel-bosphorus/kapak.jpg`,
+  "opera-hotel-bosphorus": `${CLD}/v1794831799/kruv-portfolio/projects/opera-hotel-bosphorus/kapak.jpg`,
 };
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
