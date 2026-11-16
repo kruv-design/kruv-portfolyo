@@ -2,12 +2,23 @@
 
 ## Sıradaki
 
-- Tarih: 2026-11-16
-- Mercek: `sabah`
-- 2026-11-09 boş kalır. Sıradaki blog, 6 Kasım'da yazılan lens sayısıdır.
-- Kaçın: Experimental Roma, Tallow, NotR, "güzel ilk sayfa / soğuk sonraki adım" tekrarı, lens rehberinin tekrarı
+- Tarih: 2026-11-23
+- Mercek: `kucuk-nesne`
+- Kaçın: Experimental Roma, Tallow, NotR, JEN Hangzhou, Hotel Julien, PEACH Strasbourg. Soğuk devam ve lens rehberi tekrarlanmaz. Sabah ışığı / saat listesi bu sayıda kapanır.
 
 ## Sayılar
+
+### 2026-11-16 · sabah
+
+- Slug: `sabah-isigi-var-cumle-yok`
+- Başlık: Sabah ışığı var, cümle yok
+- Title: The morning light is there, the sentence is not
+- Not: Dezeen sırası. OpenHouse'ta kahve barı odayı bölüyor, otelin sayfası sabahı saat listesine koyuyor. Julien 2004, kahvaltı cümlesi ana sayfada ve bar sayfasında duyuru olmuş. PEACH menüsü açıldı, sosyal ızgara açılmadı. Görseller özgün.
+- Yayında: hayır (onay bekler)
+- Dosya: `content/haftalik/issues/2026-11-16.json`
+- Önizleme: `/tr/blog/onizleme/2026-11-16`
+
+
 
 ### 2026-11-06 · lens-secimi
 
