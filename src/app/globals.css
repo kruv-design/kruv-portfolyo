@@ -993,7 +993,8 @@ i {
 }
 
 .blog-article__heading {
-  font-size: var(--type-h2); /* 48 / mobil 28 */
+  /* Figma blog detay H3 — 32 / mobil type-h3 */
+  font-size: var(--type-h3);
 }
 
 .blog-article__meta {

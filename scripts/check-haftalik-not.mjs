@@ -66,12 +66,22 @@ for (const name of files) {
     for (const key of ["baslik", "title", "metin", "text"]) {
       if (!String(section[key] ?? "").trim()) where(`bölüm ${i + 1} ${key} boş`);
     }
-    if (i < 2 && !String(section.gorsel ?? "").trim()) {
+    const hasGallery =
+      Array.isArray(section.gorseller) &&
+      section.gorseller.some((g) => String(g?.src ?? "").trim());
+    if (i < 2 && !String(section.gorsel ?? "").trim() && !hasGallery) {
       where(`bölüm ${i + 1} görselsiz`);
     }
   });
 
-  for (const src of [post.kapak, ...(post.bolumler ?? []).map((s) => s.gorsel)]) {
+  const localSrcs = [post.kapak];
+  for (const section of post.bolumler ?? []) {
+    if (section.gorsel) localSrcs.push(section.gorsel);
+    for (const img of section.gorseller ?? []) {
+      if (img?.src) localSrcs.push(img.src);
+    }
+  }
+  for (const src of localSrcs) {
     if (!src || /^https?:\/\//i.test(src)) continue;
     const file = path.join(root, "public", src.replace(/^\//, ""));
     if (!existsSync(file)) where(`görsel yok: ${src}`);

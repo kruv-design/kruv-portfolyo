@@ -11,12 +11,24 @@
   "yayinda": true,
   "gorselHedef": {
     "kapak": "/haftalik/2026-11-06/kapak.jpg",
-    "lobi": "/haftalik/2026-11-06/lobi.jpg",
-    "salon": "/haftalik/2026-11-06/salon.jpg",
-    "sofra": "/haftalik/2026-11-06/sofra.jpg",
-    "oda": "/haftalik/2026-11-06/oda.jpg",
-    "koridor": "/haftalik/2026-11-06/koridor.jpg",
-    "cephe": "/haftalik/2026-11-06/cephe.jpg"
+    "lobi-16mm": "/haftalik/2026-11-06/lobi-16mm.jpg",
+    "lobi-50mm": "/haftalik/2026-11-06/lobi-50mm.jpg",
+    "lobi-135mm": "/haftalik/2026-11-06/lobi-135mm.jpg",
+    "salon-16mm": "/haftalik/2026-11-06/salon-16mm.jpg",
+    "salon-50mm": "/haftalik/2026-11-06/salon-50mm.jpg",
+    "salon-135mm": "/haftalik/2026-11-06/salon-135mm.jpg",
+    "sofra-16mm": "/haftalik/2026-11-06/sofra-16mm.jpg",
+    "sofra-50mm": "/haftalik/2026-11-06/sofra-50mm.jpg",
+    "sofra-135mm": "/haftalik/2026-11-06/sofra-135mm.jpg",
+    "oda-16mm": "/haftalik/2026-11-06/oda-16mm.jpg",
+    "oda-50mm": "/haftalik/2026-11-06/oda-50mm.jpg",
+    "oda-135mm": "/haftalik/2026-11-06/oda-135mm.jpg",
+    "koridor-16mm": "/haftalik/2026-11-06/koridor-16mm.jpg",
+    "koridor-50mm": "/haftalik/2026-11-06/koridor-50mm.jpg",
+    "koridor-135mm": "/haftalik/2026-11-06/koridor-135mm.jpg",
+    "cephe-16mm": "/haftalik/2026-11-06/cephe-16mm.jpg",
+    "cephe-50mm": "/haftalik/2026-11-06/cephe-50mm.jpg",
+    "cephe-135mm": "/haftalik/2026-11-06/cephe-135mm.jpg"
   },
   "kaynaklar": [
     {
@@ -40,7 +52,7 @@
   ],
   "bakilamayan": [
     "Bu sayı bir çekim notu. Sosyal ızgara açılmadı.",
-    "85 mm açık diyafram ve 100 mm makro için doğrulanmış ücretsiz otel karesi yok. Uydurulmadı."
+    "Karşılaştırma görselleri Figma’da üretildi; gerçek çekim değildir."
   ],
   "post": {
     "slug": "hangi-mekani-hangi-lens-ceker",
@@ -56,54 +68,138 @@
         "title": "1. Lobbies and shared spaces: Wide angle with controlled perspective",
         "metin": "Otel lobileri, geniş salonlar ve ortak kullanım alanları genellikle mekânın genel atmosferini yansıtacak şekilde fotoğraflanır. Bu alanlarda geniş açılı lensler, mimari detayları ve mekânın bütününü aynı karede göstermek için avantaj sağlar.\n\nTam kare makinelerde 16–35 mm aralığındaki lensler bu tür çekimlerde sıkça kullanılır.\n\n16 mm, geniş alanları tek kareye sığdırmak için idealdir. Ancak kameranın konumu ve perspektif nedeniyle kenarlardaki nesnelerde belirgin şekil bozulmaları oluşabilir.\n\n24 mm ise daha kontrollü bir perspektif sunar. Mekânın genişliğini korurken mobilya, kolon ve mimari detayların doğal oranlarını muhafaza etmeyi kolaylaştırır.\n\nİç mekân çekimlerinde f/8–f/11 aralığı, alan derinliğini artırarak ön ve arka plandaki detayların net kalmasına yardımcı olur. Işık koşulları yetersizse tripod kullanmak daha düşük ISO değerlerinde çalışmayı mümkün kılar.",
         "text": "Hotel lobbies, large halls and shared spaces are usually photographed to show the overall atmosphere of the place. Wide-angle lenses help you put architectural detail and the whole room into one frame.\n\nOn full-frame cameras, lenses in the 16–35 mm range are commonly used for this kind of work.\n\n16 mm is ideal for fitting a large space into a single frame. Depending on camera position and perspective, though, objects near the edges can distort clearly.\n\n24 mm offers a more controlled perspective. It keeps the sense of width while making it easier to preserve the natural proportions of furniture, columns and architectural detail.\n\nIndoors, an aperture between f/8 and f/11 increases depth of field so both near and far detail stay sharp. When the light is weak, a tripod lets you work at lower ISO values.",
-        "gorsel": "/haftalik/2026-11-06/lobi.jpg",
-        "gorselNot": "Fullerton Bay Hotel, Singapur. Tam kare, 24 mm, f/9. Fotoğraf: Basile Morin, CC BY-SA 4.0.",
-        "note": "Fullerton Bay Hotel, Singapore. Full frame, 24 mm, f/9. Photo: Basile Morin, CC BY-SA 4.0."
+        "gorseller": [
+          {
+            "src": "/haftalik/2026-11-06/lobi-16mm.jpg",
+            "caption": "16 mm lens",
+            "captionEn": "16 mm lens"
+          },
+          {
+            "src": "/haftalik/2026-11-06/lobi-50mm.jpg",
+            "caption": "50 mm lens",
+            "captionEn": "50 mm lens"
+          },
+          {
+            "src": "/haftalik/2026-11-06/lobi-135mm.jpg",
+            "caption": "135 mm lens",
+            "captionEn": "135 mm lens"
+          }
+        ]
       },
       {
         "baslik": "2. Restoran ve yemek çekimleri: Doğru açı, doğru odak uzaklığı",
         "title": "2. Restaurant and food photography: The right angle and focal length",
         "metin": "Restoran fotoğrafçılığında yalnızca yemekleri değil, sunumun yapıldığı ortamı ve atmosferi de anlatmak önemlidir.\n\n35 mm lens, restoranın genel görünümünü ve masa düzenini fotoğraflamak için iyi bir tercihtir. Özellikle çapraz açılardan yapılan çekimlerde masalar, sandalyeler ve dekorasyon arasında doğal bir derinlik oluşturur.\n\nYemek fotoğraflarında ise 50 mm ve 85 mm lensler daha kontrollü kompozisyonlar oluşturmayı sağlar.\n\n50 mm, tabağı çevresindeki masa düzeniyle birlikte göstermek için uygundur. 85 mm ise daha dar bir görüş açısı sunarak yemeğin sunumuna ve detaylarına odaklanmayı kolaylaştırır.\n\nBurada diyafram tercihi de önemlidir. f/2–f/2.8 gibi geniş diyafram açıklıkları arka planı yumuşatarak ana konuyu öne çıkarır. Daha geniş bir alanın net kalması isteniyorsa f/5.6 veya daha yüksek değerler tercih edilebilir.",
         "text": "In restaurant photography it matters to show not only the food, but also the setting and the atmosphere around the dish.\n\nA 35 mm lens is a strong choice for the overall look of the restaurant and the layout of the tables. Shot from a diagonal angle, it creates natural depth between tables, chairs and decor.\n\nFor food photographs, 50 mm and 85 mm lenses allow more controlled compositions.\n\n50 mm works well when you want the plate together with the table setting around it. 85 mm gives a narrower field of view and makes it easier to focus on plating and detail.\n\nAperture choice matters here too. Wide openings such as f/2–f/2.8 soften the background and push the main subject forward. If you want a wider area to stay sharp, prefer f/5.6 or a higher value.",
-        "gorsel": "/haftalik/2026-11-06/salon.jpg",
-        "gorselNot": "Amantaka, Luang Prabang. Tam kare, 35 mm, f/16. Fotoğraf: Basile Morin, CC BY-SA 4.0.",
-        "note": "Amantaka, Luang Prabang. Full frame, 35 mm, f/16. Photo: Basile Morin, CC BY-SA 4.0."
+        "gorseller": [
+          {
+            "src": "/haftalik/2026-11-06/salon-16mm.jpg",
+            "caption": "16 mm lens",
+            "captionEn": "16 mm lens"
+          },
+          {
+            "src": "/haftalik/2026-11-06/salon-50mm.jpg",
+            "caption": "50 mm lens",
+            "captionEn": "50 mm lens"
+          },
+          {
+            "src": "/haftalik/2026-11-06/salon-135mm.jpg",
+            "caption": "135 mm lens",
+            "captionEn": "135 mm lens"
+          }
+        ]
       },
       {
         "baslik": "3. Detay ve ürün çekimleri: 50 mm, 85 mm ve makro lensler",
         "title": "3. Detail and product shots: 50 mm, 85 mm and macro lenses",
         "metin": "Bir otelin kalitesini anlatan unsurlar yalnızca geniş mekânlar değildir. Tekstil ürünleri, mobilya yüzeyleri, banyo detayları, oda aksesuarları ve yiyecek sunumları da görsel anlatımın önemli parçalarıdır.\n\n50 mm lens, doğal perspektifi ve çok yönlü kullanım imkânıyla detay çekimleri için iyi bir başlangıç noktasıdır.\n\n85 mm lens, konuyu arka plandan ayırmak ve daha seçici kompozisyonlar oluşturmak için tercih edilebilir. Özellikle yiyecek, içecek ve dekoratif ürün çekimlerinde etkili sonuçlar verir.\n\nDaha küçük ayrıntıları büyüterek göstermek gerektiğinde ise makro lensler devreye girer. 100 mm makro lens; kumaş dokusu, mermer damarları, sabun detayları ve malzeme yüzeyleri gibi unsurları yakından fotoğraflamak için idealdir.\n\nBu çekimlerde geniş diyafram açıklığı arka planı yumuşatırken, netlik alanının çok daralabileceği unutulmamalıdır.",
         "text": "The quality of a hotel is not told only through large spaces. Textiles, furniture surfaces, bathroom details, room accessories and food presentation are also important parts of the visual story.\n\nA 50 mm lens is a good starting point for detail work thanks to its natural perspective and flexible use.\n\nAn 85 mm lens can separate the subject from the background and build more selective compositions. It works especially well for food, drinks and decorative objects.\n\nWhen smaller details need to be shown larger, macro lenses come in. A 100 mm macro is ideal for fabric texture, marble veins, soap details and material surfaces shot up close.\n\nA wide aperture softens the background in these frames, but remember that the plane of focus can become very shallow.",
-        "gorsel": "/haftalik/2026-11-06/sofra.jpg",
-        "gorselNot": "Amantaka, Luang Prabang. Tam kare, 50 mm, f/14. Fotoğraf: Basile Morin, CC BY-SA 4.0.",
-        "note": "Amantaka, Luang Prabang. Full frame, 50 mm, f/14. Photo: Basile Morin, CC BY-SA 4.0."
+        "gorseller": [
+          {
+            "src": "/haftalik/2026-11-06/sofra-16mm.jpg",
+            "caption": "16 mm lens",
+            "captionEn": "16 mm lens"
+          },
+          {
+            "src": "/haftalik/2026-11-06/sofra-50mm.jpg",
+            "caption": "50 mm lens",
+            "captionEn": "50 mm lens"
+          },
+          {
+            "src": "/haftalik/2026-11-06/sofra-135mm.jpg",
+            "caption": "135 mm lens",
+            "captionEn": "135 mm lens"
+          }
+        ]
       },
       {
         "baslik": "4. Oda fotoğrafçılığı: Mekânı doğru oranlarla göstermek",
         "title": "4. Guest-room photography: Showing the space in true proportion",
         "metin": "Otel odalarının fotoğraflanmasında en önemli konulardan biri mekânın gerçek boyutlarını doğru yansıtmaktır.\n\nÇok geniş açılı lensler, özellikle küçük odalarda olduğundan daha büyük bir alan algısı oluşturabilir. Bu durum yatağın, mobilyaların ve diğer unsurların gerçek oranlarının değişmiş gibi görünmesine neden olabilir.\n\nTam kare makinelerde 20–24 mm aralığı, oda fotoğraflarında genişlik ve doğal perspektif arasında dengeli bir tercih sunar.\n\n35 mm ise odanın belirli bölümlerini, mobilyaları ve dekoratif unsurları daha doğal bir bakış açısıyla göstermek için kullanılabilir.\n\nKameranın yüksekliği ve konumu da en az lens seçimi kadar önemlidir. Dikey çizgilerin paralel kalmasına dikkat etmek, fotoğrafların daha profesyonel görünmesini sağlar.\n\nKüçük banyolar gibi dar alanlarda 16 mm tercih edilebilir. Ancak mümkün olduğunda daha kontrollü bir odak uzaklığı kullanmak, perspektif bozulmalarını azaltır.\n\nAynalı alanlarda ise tilt-shift lensler, kameranın yansımasını kadraj dışında tutmaya ve perspektifi kontrol etmeye yardımcı olabilir.",
         "text": "One of the most important points in guest-room photography is showing the real size of the space correctly.\n\nVery wide lenses, especially in small rooms, can make the area feel larger than it is. That can make the bed, furniture and other elements look out of true proportion.\n\nOn full-frame cameras, the 20–24 mm range is a balanced choice between width and natural perspective for room photographs.\n\n35 mm can be used to show particular parts of the room, furniture and decorative elements with a more natural point of view.\n\nCamera height and position matter as much as lens choice. Keeping vertical lines parallel helps the photographs look more professional.\n\nIn tight spaces such as small bathrooms, 16 mm can be useful. Whenever possible, though, a more controlled focal length reduces perspective distortion.\n\nIn mirrored spaces, tilt-shift lenses can help keep the camera reflection out of the frame and keep perspective under control.",
-        "gorsel": "/haftalik/2026-11-06/oda.jpg",
-        "gorselNot": "Amantaka süiti, Luang Prabang. Tam kare, 20 mm, f/11. Fotoğraf: Basile Morin, CC BY-SA 4.0.",
-        "note": "Amantaka suite, Luang Prabang. Full frame, 20 mm, f/11. Photo: Basile Morin, CC BY-SA 4.0."
+        "gorseller": [
+          {
+            "src": "/haftalik/2026-11-06/oda-16mm.jpg",
+            "caption": "16 mm lens",
+            "captionEn": "16 mm lens"
+          },
+          {
+            "src": "/haftalik/2026-11-06/oda-50mm.jpg",
+            "caption": "50 mm lens",
+            "captionEn": "50 mm lens"
+          },
+          {
+            "src": "/haftalik/2026-11-06/oda-135mm.jpg",
+            "caption": "135 mm lens",
+            "captionEn": "135 mm lens"
+          }
+        ]
       },
       {
         "baslik": "5. Koridor ve geçiş alanları: Derinlik ve perspektif",
         "title": "5. Corridors and transitional spaces: Depth and perspective",
         "metin": "Koridorlar, otelin mimari düzenini ve mekânlar arasındaki bağlantıyı gösteren önemli alanlardır.\n\nBu tür çekimlerde 24–35 mm aralığındaki lensler, koridorun derinliğini ve mimari ritmini dengeli biçimde yansıtmak için kullanılabilir.\n\n16 mm gibi çok geniş odak uzaklıkları, perspektif etkisini belirginleştirerek koridorun olduğundan daha uzun görünmesine neden olabilir.\n\n28 mm ve 35 mm gibi odak uzaklıkları ise daha kontrollü bir perspektif sunar.\n\nKapıların, duvarların ve aydınlatma elemanlarının kadraj içindeki konumlarına dikkat ederek güçlü bir simetri veya derinlik hissi oluşturabilirsiniz.",
         "text": "Corridors are important spaces for showing the hotel’s architectural layout and how rooms connect.\n\nLenses in the 24–35 mm range can reflect the depth of a corridor and its architectural rhythm in a balanced way.\n\nVery wide focal lengths such as 16 mm exaggerate perspective and can make the corridor look longer than it is.\n\nFocal lengths such as 28 mm and 35 mm offer a more controlled perspective.\n\nPay attention to where doors, walls and light fixtures sit in the frame, and you can build a strong sense of symmetry or depth.",
-        "gorsel": "/haftalik/2026-11-06/koridor.jpg",
-        "gorselNot": "Amantaka spa koridoru, Luang Prabang. Tam kare, 28 mm, f/13. Fotoğraf: Basile Morin, CC BY-SA 4.0.",
-        "note": "Amantaka spa corridor, Luang Prabang. Full frame, 28 mm, f/13. Photo: Basile Morin, CC BY-SA 4.0."
+        "gorseller": [
+          {
+            "src": "/haftalik/2026-11-06/koridor-16mm.jpg",
+            "caption": "16 mm lens",
+            "captionEn": "16 mm lens"
+          },
+          {
+            "src": "/haftalik/2026-11-06/koridor-50mm.jpg",
+            "caption": "50 mm lens",
+            "captionEn": "50 mm lens"
+          },
+          {
+            "src": "/haftalik/2026-11-06/koridor-135mm.jpg",
+            "caption": "135 mm lens",
+            "captionEn": "135 mm lens"
+          }
+        ]
       },
       {
         "baslik": "6. Mimari fotoğrafçılık: Dikey çizgileri ve perspektifi korumak",
         "title": "6. Architectural photography: Keeping verticals and perspective under control",
         "metin": "Otel cepheleri, yüksek tavanlı lobiler ve mimari detayların fotoğraflanmasında perspektif kontrolü büyük önem taşır.\n\nKamerayı yukarı doğru eğerek çekim yaptığınızda dikey çizgiler birbirine yaklaşır. Bu durum özellikle yüksek binaların fotoğraflarında belirginleşir.\n\nTilt-shift lensler, bu sorunu kontrol etmek için geliştirilmiştir.\n\nShift hareketi sayesinde lens, kamera gövdesine göre yukarı veya aşağı kaydırılabilir. Böylece kamerayı yukarı eğmeden yüksek yapıların üst bölümleri kadraja alınabilir ve dikey çizgiler daha düzgün korunur.\n\nTilt hareketi ise netlik düzlemini kontrol ederek özellikle mimari ve ürün fotoğrafçılığında farklı netlik alanları oluşturmayı sağlar.\n\nTilt-shift lens bulunmadığında kamerayı mümkün olduğunca düz tutmak, daha geriden çekim yapmak ve uygun bir odak uzaklığı seçmek alternatif yöntemlerdir. Perspektif düzeltmeleri daha sonra düzenleme yazılımlarında da yapılabilir; ancak aşırı düzeltmeler görüntüde bozulmalara yol açabilir.",
         "text": "Perspective control matters a great deal when photographing hotel facades, high-ceilinged lobbies and architectural detail.\n\nIf you tip the camera upward, vertical lines converge. That becomes especially clear in photographs of tall buildings.\n\nTilt-shift lenses were developed to keep this under control.\n\nWith the shift movement, the lens can slide up or down relative to the camera body. That lets you include the upper parts of a tall structure without tipping the camera, and keeps vertical lines straighter.\n\nThe tilt movement controls the plane of focus and can create different zones of sharpness, especially in architectural and product photography.\n\nWithout a tilt-shift lens, keep the camera as level as possible, step farther back and choose a suitable focal length. Perspective can also be corrected later in editing software, but heavy corrections can distort the image.",
-        "gorsel": "/haftalik/2026-11-06/cephe.jpg",
-        "gorselNot": "Amantaka girişi, Luang Prabang. Tam kare, 26 mm, f/11. Fotoğraf: Basile Morin, CC BY-SA 4.0.",
-        "note": "Amantaka entrance, Luang Prabang. Full frame, 26 mm, f/11. Photo: Basile Morin, CC BY-SA 4.0."
+        "gorseller": [
+          {
+            "src": "/haftalik/2026-11-06/cephe-16mm.jpg",
+            "caption": "16 mm lens",
+            "captionEn": "16 mm lens"
+          },
+          {
+            "src": "/haftalik/2026-11-06/cephe-50mm.jpg",
+            "caption": "50 mm lens",
+            "captionEn": "50 mm lens"
+          },
+          {
+            "src": "/haftalik/2026-11-06/cephe-135mm.jpg",
+            "caption": "135 mm lens",
+            "captionEn": "135 mm lens"
+          }
+        ]
       },
       {
         "baslik": "7. Otel çekimi için hangi lensler gerekli?",
