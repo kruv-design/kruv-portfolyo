@@ -109,9 +109,14 @@ export function ProjectDetailMedia({
 
   useEffect(() => {
     const v = videoRef.current;
-    if (!v || !shouldMountSrc || !videoSrc || clickMode) return;
+    if (!v || !shouldMountSrc || !videoSrc) return;
 
     primeVideoForInlinePlay(v);
+    if (!v.currentSrc) {
+      v.load();
+    }
+
+    if (clickMode) return;
 
     const attemptPlay = () => {
       if (document.hidden) return;
@@ -254,10 +259,20 @@ export function ProjectDetailMedia({
               <span className="project-detail-media__play-icon" aria-hidden="true" />
             </button>
           ) : null}
-          {playError && !posterHidden ? (
-            <p className="project-detail-media__play-error" role="status">
-              Video yüklenemedi — URL adresini kontrol edin.
-            </p>
+          {playError && !posterHidden && videoSrc ? (
+            <div className="project-detail-media__play-error-wrap" role="status">
+              <p className="project-detail-media__play-error">
+                Video oynatılamadı — tekrar deneyin veya yeni sekmede açın.
+              </p>
+              <a
+                className="project-detail-media__open-link"
+                href={videoSrc}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Videoyu aç
+              </a>
+            </div>
           ) : null}
         </div>
       ) : showPlayButton ? (
@@ -273,10 +288,20 @@ export function ProjectDetailMedia({
           >
             <span className="project-detail-media__play-icon" aria-hidden="true" />
           </button>
-          {playError ? (
-            <p className="project-detail-media__play-error" role="status">
-              Video yüklenemedi — URL adresini kontrol edin.
-            </p>
+          {playError && videoSrc ? (
+            <div className="project-detail-media__play-error-wrap" role="status">
+              <p className="project-detail-media__play-error">
+                Video oynatılamadı — tekrar deneyin veya yeni sekmede açın.
+              </p>
+              <a
+                className="project-detail-media__open-link"
+                href={videoSrc}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Videoyu aç
+              </a>
+            </div>
           ) : null}
         </div>
       ) : null}
@@ -302,7 +327,6 @@ export function ProjectDetailMedia({
                 : "none"
           }
           tabIndex={clickMode ? 0 : -1}
-          src={shouldMountSrc ? videoSrc : undefined}
           onLoadedData={() => setVideoReady(true)}
           onCanPlay={() => {
             if (clickMode) return;
@@ -317,7 +341,11 @@ export function ProjectDetailMedia({
             setPlayError(true);
             setAutoplayBlocked(true);
           }}
-        />
+        >
+          {shouldMountSrc ? (
+            <source src={videoSrc} type="video/mp4" />
+          ) : null}
+        </video>
       ) : null}
     </div>
   );

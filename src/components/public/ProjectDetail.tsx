@@ -165,6 +165,10 @@ export function ProjectDetail({
                       videoSrc={slot.videoSrc}
                       alt={`${title} — video ${i + 1}`}
                       variant="gallery"
+                      playback="click"
+                      playLabel={
+                        locale === "en" ? "Play video" : "Videoyu oynat"
+                      }
                     />
                   </figure>
                 ))}
@@ -180,6 +184,10 @@ export function ProjectDetail({
                       alt={`${title} — galeri görseli ${i + 1}`}
                       variant="gallery"
                       photoFit={photoFit}
+                      playback={videoSrc ? "click" : "auto"}
+                      playLabel={
+                        locale === "en" ? "Play video" : "Videoyu oynat"
+                      }
                       onLightboxOpen={
                         posterSrc && !videoSrc
                           ? () => openLightboxAt(posterSrc)

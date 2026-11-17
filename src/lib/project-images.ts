@@ -5,7 +5,8 @@ function cloudName(): string {
   return String(process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME ?? "").trim();
 }
 
-const PROJECT_VIDEO_TRANSFORMS = "q_auto,f_auto:video,w_1920,c_limit";
+/** Windows / Safari / Chrome — H.264 MP4 (f_auto:video WebM/HEVC seçebilir). */
+const PROJECT_VIDEO_TRANSFORMS = "q_auto,f_mp4,vc_h264,w_1920,c_limit";
 
 function showreelVideoTransforms(
   layout: ShowreelLayout,
@@ -13,10 +14,10 @@ function showreelVideoTransforms(
 ): string {
   const width = layout === "landscape" ? "w_1920" : "w_720";
   if (options?.preserveAspect) {
-    return `q_auto,f_mp4,${width},c_limit`;
+    return `q_auto,f_mp4,vc_h264,${width},c_limit`;
   }
   const crop = showreelAspectCrop(layout);
-  return `q_auto,f_mp4,${crop},${width}`;
+  return `q_auto,f_mp4,vc_h264,${crop},${width}`;
 }
 
 /**
@@ -35,7 +36,7 @@ export function resolveProjectImageUrl(raw: string): string {
   return `https://res.cloudinary.com/${cloud}/image/upload/f_auto,q_auto/${id}`;
 }
 
-/** Video: https URL veya Cloudinary video public_id */
+/** Video: https URL veya Cloudinary video public_id → her zaman H.264 MP4 delivery. */
 export function resolveProjectVideoUrl(raw: string): string {
   const s = raw.trim().replace(/\s+/g, "");
   if (!s) return "";
@@ -48,11 +49,14 @@ export function resolveProjectVideoUrl(raw: string): string {
         embed.cloud,
       );
     }
-    if (s.includes("/image/upload/")) {
-      return s.replace(
-        "/image/upload/",
-        `/video/upload/${PROJECT_VIDEO_TRANSFORMS}/`,
-      );
+    if (s.includes("res.cloudinary.com")) {
+      if (s.includes("/image/upload/") || s.includes("/video/upload/")) {
+        const id =
+          cloudinaryPublicIdFromUrl(s, "video") ??
+          cloudinaryPublicIdFromUrl(s, "image");
+        const cloud = cloudinaryCloudFromDeliveryUrl(s) || undefined;
+        if (id) return buildCloudinaryVideoUrl(id, PROJECT_VIDEO_TRANSFORMS, cloud);
+      }
     }
     return s;
   }
@@ -279,7 +283,13 @@ export function resolveShowreelVideoUrl(
         if (id) return buildCloudinaryVideoUrl(id, transforms);
         return s;
       }
-      if (/f_mp4/.test(s) && urlHasShowreelAspect(s, layout)) return s;
+      if (
+        /f_mp4/.test(s) &&
+        /vc_h264/.test(s) &&
+        urlHasShowreelAspect(s, layout)
+      ) {
+        return s;
+      }
       const id = cloudinaryPublicIdFromUrl(s, "video");
       if (id) return buildCloudinaryVideoUrl(id, transforms);
     }
@@ -471,7 +481,27 @@ export function galeriVideoFieldsFromRow(
   return out;
 }
 
+/** Figma SUNUMLAR `* Kapak` / en üst kare — DB’deki eski version URL’lerini ezer. */
+const KAPAK_OVERRIDES: Record<string, string> = {
+  "gg-pizza":
+    "https://res.cloudinary.com/di0qbhh46/image/upload/v1794902621/kruv-portfolio/projects/gg-pizza/kapak.jpg",
+  "opera-hotel-bosphorus":
+    "https://res.cloudinary.com/di0qbhh46/image/upload/v1794902621/kruv-portfolio/projects/opera-hotel-bosphorus/kapak.jpg",
+  beadbox:
+    "https://res.cloudinary.com/di0qbhh46/image/upload/v1794902623/kruv-portfolio/projects/beadbox/kapak.jpg",
+  musterek:
+    "https://res.cloudinary.com/di0qbhh46/image/upload/v1794902624/kruv-portfolio/projects/musterek/kapak.jpg",
+  "pricing-coach":
+    "https://res.cloudinary.com/di0qbhh46/image/upload/v1794902625/kruv-portfolio/projects/pricing-coach/kapak.jpg",
+  Rootsadventuretravel:
+    "https://res.cloudinary.com/di0qbhh46/image/upload/v1794902626/kruv-portfolio/projects/rootsadventure-travel/kapak.jpg",
+  "oguz-media":
+    "https://res.cloudinary.com/di0qbhh46/image/upload/v1794902627/kruv-portfolio/projects/oguz-media/kapak.jpg",
+};
+
 export function kapakFromRow(data: Record<string, unknown>): string | null {
+  const slug = String(data.slug ?? "").trim();
+  if (slug && KAPAK_OVERRIDES[slug]) return KAPAK_OVERRIDES[slug];
   const k = String(data.kapak ?? data.gorsel ?? "").trim();
   return k || null;
 }

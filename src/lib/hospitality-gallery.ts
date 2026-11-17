@@ -26,7 +26,7 @@ function hospVideo(publicId: string) {
     .map((segment) => encodeURIComponent(segment))
     .join("/");
   return {
-    src: `${CLD_VIDEO}/f_auto:video,q_auto,c_limit,w_720/${encoded}.mp4`,
+    src: `${CLD_VIDEO}/f_mp4,vc_h264,q_auto,c_limit,w_720/${encoded}`,
     poster: `${CLD_VIDEO}/so_0,f_jpg,q_auto,c_limit,w_720/${encoded}.jpg`,
   };
 }
