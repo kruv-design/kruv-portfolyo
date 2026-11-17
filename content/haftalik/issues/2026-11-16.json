@@ -1,0 +1,91 @@
+{
+  "sayi": "2026-11-16",
+  "tarih": "2026-11-16",
+  "mercek": "sabah",
+  "beatler": ["iz", "tat", "cizik", "kapi"],
+  "yayinda": false,
+  "gorselHedef": {
+    "kapak": "kruv-portfolio/blog/sabah-isigi-var-cumle-yok-kapak",
+    "iz": "kruv-portfolio/blog/sabah-isigi-var-cumle-yok-iz",
+    "tat": "kruv-portfolio/blog/sabah-isigi-var-cumle-yok-tat"
+  },
+  "kaynaklar": [
+    {
+      "ad": "Dezeen, JEN Hangzhou",
+      "url": "https://www.dezeen.com/2026/11/05/linehouse-jen-hotel-hangzhou/",
+      "tur": "tasarim-yayini",
+      "ne": "5 Kasım 2026. Linehouse. Altıncı katta OpenHouse boydan boya cam. Ortadaki kahve barı odayı yemek tarafı ve gün boyu salon diye ikiye ayırıyor."
+    },
+    {
+      "ad": "OpenHouse, JEN Hangzhou",
+      "url": "https://www.shangri-la.com/restaurants-bars/hangzhou/gongshudistrict/openhouse/",
+      "tur": "otel-restoran",
+      "ne": "Kahvaltı her gün 7-10. Alıp çıkılan kahvaltı 7'den öğlen 1'e. Öğle, çay, akşam 9'a kadar. Metin ışığı bir kez anıyor: yumuşak gün ışığı, ahşap, yeşillik."
+    },
+    {
+      "ad": "Hotel Julien",
+      "url": "https://www.hotel-julien.com/",
+      "tur": "otel-sayfasi",
+      "ne": "Antwerp, 2004, iki 16. yüzyıl evi, 20 oda ve 1 süit. Ana sayfanın ilk listesinde menüden kahvaltı var. Altta aynı duyuru: son dakika kahvaltı yeri."
+    },
+    {
+      "ad": "Hotel Julien bar",
+      "url": "https://www.hotel-julien.com/bar-lounge-rooftop/",
+      "tur": "otel-sayfasi",
+      "ne": "Her gün 8'den gece yarısına. Kahvaltı geniş ve havadar yemek odasında, misafire de şehirden gelene de. Aynı son dakika duyurusu burada da duruyor."
+    },
+    {
+      "ad": "PEACH Strasbourg",
+      "url": "https://peachstrasbourg.com/en/carte",
+      "tur": "restoran-sayfasi",
+      "ne": "22 Rue de la 1ère Armée. Pazartesi-çarşamba 9-18, perşembe-pazar 9-23. Tek menü sabahtan kapanışa, mutfak servis arasında durmuyor. Saat 9 brunch saati."
+    }
+  ],
+  "bakilamayan": [
+    "Sosyal ızgara açılmadı. PEACH rezervasyon sayfası @peach.strasbourg yazıyor. Instagram zaman aşımına uğradı, tempo notu alınmadı.",
+    "peach-strasbourg.fr bu turda 500 verdi. Saatler ve adres, açılan İngilizce sayfa ile arama kaydından doğrulandı. Fiyat uydurulmadı."
+  ],
+  "post": {
+    "slug": "sabah-isigi-var-cumle-yok",
+    "baslik": "Sabah ışığı var, cümle yok",
+    "title": "The morning light is there, the sentence is not",
+    "aciklama": "Sabah sekizde aşağı indiğinizde oda, gece gördüğünüz yer değildir. Işık pencereden gelir, masada bir fincan durur, ama çoğu sitenin bu saate ayırdığı yer açılış saatlerinin ilk satırıdır.\n\nMisafir o masayı sayfada neden bulamaz?",
+    "description": "At eight in the morning the room is not the place you saw the night before. Light comes through the window, a cup is already on the table, and yet most websites give that hour nothing but the first line of the opening times.\n\nWhy can't a guest find that table on the page?",
+    "kapak": "/haftalik/2026-11-16/kapak.jpg",
+    "yayinda": false,
+    "bolumler": [
+      {
+        "baslik": "Cam sabahı içeri almış",
+        "title": "The glass lets the morning in",
+        "metin": "Bu hafta aynı saati iki yerde aradık.\n\nHangzhou'da Shangri-La grubunun JEN adlı oteli var. Altıncı katta OpenHouse adında uzun bir restoran duruyor. 5 Kasım 2026'da Dezeen adlı tasarım yayını, iç mekânı Linehouse stüdyosunun yaptığını yazdı. Restoran boydan boya camla sarılı. Ortada bir kahve barı odayı ikiye ayırıyor. Bir yanda yemek masaları, öbür yanda gün boyu oturulan bir salon var.\n\nOtelin kendi restoran sayfası sabahı saatlerle yazıyor. Kahvaltı her gün 7'den 10'a. Saat 7'den öğlen 1'e kadar alıp çıkılan bir kahvaltı da var. Sonra öğle, çay ve akşam 9'a kadar süren servis geliyor. Oda, sabahın kendi tarafı olsun diye çizilmiş. Sayfayı açan kişinin gözü saatte kalıyor.\n\nAntwerp'te Hotel Julien 2004'ten beri açık. İki eski kent evi. Ana sayfanın ilk listesinde menüden seçilen kahvaltı var. Bar her gün saat 8'de açılıyor ve gece yarısına kadar açık kalıyor. Kahvaltı geniş, havadar bir yemek odasında. Otelde kalan da oturabilir, şehirden gelen de.\n\nSayfanın altında bir soru daha duruyor. Son dakika bir kahvaltı yeri mi arıyorsunuz? Aynı soru bar sayfasında da var. Sabah bir kez, sıcak bir cümleyle söylenmiş. Sonra kapıya asılan bir nota dönmüş.",
+        "text": "We went looking for that hour in two places this week.\n\nIn Hangzhou there is a hotel called JEN, part of the Shangri-La group. On the sixth floor is a long restaurant called OpenHouse. On 5 November 2026, the design publication Dezeen wrote that the interior is by the studio Linehouse. Glass runs the length of the room. A coffee bar in the middle splits it in two. Dining tables sit on one side, and a lounge for the rest of the day sits on the other.\n\nThe hotel's own restaurant page writes the morning as hours. Breakfast runs from 7 to 10 every day. From 7 until 1 in the afternoon there is also a breakfast you can take with you. Then comes lunch, tea, and dinner service through 9. The room was drawn so the morning could have its own side. The person who opens the page stays with the clock.\n\nIn Antwerp, Hotel Julien has been open since 2004. Two old townhouses. The first list on the homepage includes breakfast you order from a menu. The bar opens at 8 every day and stays open until midnight. Breakfast is served in a wide, airy dining room. People staying at the hotel can sit down, and so can people who live in the city.\n\nUnder that, another question sits on the page. Are you looking for a last-minute place for breakfast? The same question is on the bar page too. The morning was said once, in a warm sentence. Then it turned into a note pinned to the door.",
+        "gorsel": "/haftalik/2026-11-16/iz.jpg",
+        "gorselNot": "Özgün kare. Sabah ışığı uzun odaya girmiş, ortada alçak bir tezgâh.",
+        "note": "Original frame. Morning light in a long room, a low counter in the middle."
+      },
+      {
+        "baslik": "Ortadaki tezgâh",
+        "title": "The counter in the middle",
+        "metin": "Akılda kalan şey o kahve barı. Alçak bir tezgâh, uzun odanın ortasında duruyor. Bir yanda masalar kahvaltıya hazır. Öbür yanda koltuklar henüz günün geri kalanına ayrılmış.\n\nFincanı oraya bıraktığınızda öğle yemeği başlamamıştır. Sabahın kendi köşesi vardır. Işık camdan gelir ve tezgâhın kenarında kalır. Oda bir anda akşam tarifine dönmez.",
+        "text": "The thing that stays with you is that coffee bar. A low counter stands in the middle of the long room. On one side the tables are ready for breakfast. On the other, the chairs are still kept for the rest of the day.\n\nWhen you set a cup down there, lunch has not started. The morning has a corner of its own. Light comes through the glass and stays on the edge of the counter. The room does not suddenly turn into a description of dinner.",
+        "gorsel": "/haftalik/2026-11-16/tat.jpg",
+        "gorselNot": "Özgün kare. Fincanın durduğu kenar.",
+        "note": "Original frame. The edge where the cup sits."
+      },
+      {
+        "baslik": "Sabah bir duyuru olunca",
+        "title": "When morning becomes a notice",
+        "metin": "Kahvaltı odası duruyor. Kırılan yer oda değil. Sabah bir cümle olmaktan çıkıp duyuruya dönünce, masadaki fincan sayfada kaybolur.\n\nJulien'de kapı gerçekten açık. Kahvaltı havadar bir odada, şehirden gelene de var. Yine de son dakika kahvaltı arayanlara seslenen cümle, ana sayfanın da bar sayfasının da altında duruyor. Bir kez söylense davet olur. İki sayfada da durunca kapıya asılmış bir not olur. İnsan notu okur, masayı görmez.\n\nHangzhou'da oda gün ışığı için yapılmış. Sayfa ışığı bir kez anıyor, içeri yumuşak bir gün ışığı doluyor diye. Sonra saatleri dizer. Işık cümlede kısa kalır. Liste uzar.\n\nGece için yazdığınız cümle masada oturan biri gibi konuşuyorsa, sabah da öyle konuşmalıdır. Saatler o cümlenin altında durabilir.",
+        "text": "The breakfast room is there. What breaks is not the room. When morning stops being a sentence and becomes a notice, the cup on the table disappears from the page.\n\nAt Julien the door really is open. Breakfast is in an airy room, and people from the city can come too. Even so, the sentence that calls out to anyone hunting for a last-minute breakfast sits at the bottom of the homepage and at the bottom of the bar page. Said once, it is an invitation. Sitting on both pages, it becomes a note pinned to the door. People read the note. They do not see the table.\n\nIn Hangzhou the room was made for daylight. The page mentions the light once, a soft wash of day coming in, and then it lines up the hours. The light stays short in the sentence. The list runs long.\n\nIf the sentence you wrote for the night sounds like someone sitting at a table, the morning should sound like that too. The hours can sit underneath that sentence.",
+        "gorsel": ""
+      },
+      {
+        "baslik": "Açılış saatinde iki cümle",
+        "title": "Two sentences at opening time",
+        "metin": "Bu hafta kendi kahvaltı odanıza, kapıyı açtığınız saatte girin. Misafir aşağı inmeden önce okuyacağı iki cümle yazın. Nereye oturacağını söyleyin. Işığın nereye düştüğünü söyleyin. Saatleri o iki cümlenin altına koyun.\n\nAynı paragraf ana sayfada da bar sayfasında da duruyorsa, onu bir kez yazın. O saatin sesiyle yazın. Kapıya asılan not, sabahın yerine geçmesin.\n\nO ilk saati de lobi kadar sahiplenin. Bakmak ya da konuşmak için kruv.com duruyor.",
+        "text": "This week, walk into your own breakfast room at the hour you unlock the door. Write the two sentences a guest could read before they come downstairs. Say where they will sit. Say where the light falls. Put the hours under those two sentences.\n\nIf the same paragraph sits on the homepage and on the bar page, write it once. Write it in the voice of that hour. A note pinned to the door should not stand in for the morning.\n\nOwn that first hour the way you own the lobby. kruv.com is there if you want to look or talk.",
+        "gorsel": ""
+      }
+    ]
+  }
+}

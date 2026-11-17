@@ -7,8 +7,8 @@ Her sayıda dörtlüden birer yüzey. Hepsi her hafta açılmaz. Açılanlar say
 Sırayla dön:
 
 1. It’s Nice That
-2. Dezeen (hospitality / interiors)
-3. Sight Unseen
+2. Dezeen (hospitality / interiors). 2026-11-16 kullanıldı.
+3. Sight Unseen. Sıradaki.
 4. The Brand Identity
 5. Wallpaper
 
@@ -34,3 +34,4 @@ Tekrar ancak yeni bir mercekle ve en az sekiz sayı sonra.
 
 - 2026-11-02: Experimental Roma, Tallow (Jersey), NotR / Vrints-Kolsteren (It’s Nice That)
 - 2026-11-06: Jak Spedding, Janet Kwan, Cinematic360. Fotoğraflar Basile Morin, CC BY-SA 4.0: Fullerton Bay lobisi 24 mm, Amantaka salonu 35 mm, sofrası 50 mm, süiti 20 mm, spa koridoru 28 mm, girişi 26 mm.
+- 2026-11-16: Dezeen / Linehouse / JEN Hangzhou OpenHouse, Hotel Julien (Antwerp), PEACH Strasbourg. Sosyal ızgara açılmadı.

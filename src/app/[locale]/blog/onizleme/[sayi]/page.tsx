@@ -24,10 +24,17 @@ export async function generateMetadata({
 }: {
   params: Promise<Params>;
 }): Promise<Metadata> {
-  const { sayi } = await params;
+  const { sayi, locale } = await params;
   const issue = previewAcik() ? readHaftalikIssue(sayi) : null;
+  const title = issue
+    ? locale === "en"
+      ? issue.post.title
+      : issue.post.baslik
+    : locale === "en"
+      ? "Preview"
+      : "Önizleme";
   return {
-    title: issue ? issue.post.baslik : "Önizleme",
+    title,
     robots: { index: false, follow: false },
   };
 }
