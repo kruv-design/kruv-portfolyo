@@ -267,6 +267,18 @@ export function MarketingHomeShowreelPlayer({
     }
   }, [isMuted]);
 
+  useEffect(() => {
+    if (!loadVideo || !videoSrc || reducedMotion || videoReady || playError) {
+      return;
+    }
+    const timer = window.setTimeout(() => {
+      if (!videoRef.current || videoRef.current.paused) {
+        setPlayError(true);
+      }
+    }, 2500);
+    return () => window.clearTimeout(timer);
+  }, [loadVideo, videoSrc, reducedMotion, videoReady, playError]);
+
   const showPlayUi =
     Boolean(videoSrc) && (playError || (reducedMotion && !videoReady));
   const videoShowing = loadVideo && (hasFrames || videoReady) && !playError;
@@ -348,7 +360,6 @@ export function MarketingHomeShowreelPlayer({
               videoShowing ? " is-visible" : ""
             }`}
             poster={posterSrc || undefined}
-            src={videoSrc}
             muted={isMuted}
             autoPlay
             playsInline
@@ -371,7 +382,9 @@ export function MarketingHomeShowreelPlayer({
               setPlayError(true);
               setVideoReady(false);
             }}
-          />
+          >
+            <source src={videoSrc} type="video/mp4" />
+          </video>
           {showSoundToggle ? (
             <button
               type="button"
