@@ -56,8 +56,8 @@ function rowToProject(row: Record<string, unknown>): Project {
   return mapProjectRow(row);
 }
 
-/** Projeler sayfası ve anasayfa. Tek Pricing projesi Pricing Coach. */
-const PROJECT_LEAD = ["pricing-coach", "opera-hotel-bosphorus", "musterek"];
+/** Projeler sayfası ve anasayfa — sabit ön sıra. */
+const PROJECT_LEAD = ["gg-pizza", "opera-hotel-bosphorus", "pricing-coach"];
 
 function orderProjects(projects: Project[]): Project[] {
   const lead = new Map(PROJECT_LEAD.map((slug, index) => [slug, index]));
