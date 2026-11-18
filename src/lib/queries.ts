@@ -24,7 +24,8 @@ export const DEFAULT_SITE_SETTINGS: SiteSettings = {
   pinterestUrl: "https://www.pinterest.com/kruvdesign/",
   githubUrl: "",
   homeVideoPoster: "",
-  homeVideo: "",
+  homeVideo:
+    "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Kruv_Showreel_-_16x9_v2_v4xc70",
   homeVideoPosterMobile: "",
   homeVideoMobile: "",
 };

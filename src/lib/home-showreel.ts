@@ -6,6 +6,10 @@ import {
 } from "@/lib/project-images";
 import type { SiteSettings } from "@/types";
 
+/** Hero web (16:9) — Cloudinary embed; player ayarları aynı kalır. */
+const HOME_SHOWREEL_WEB_VIDEO =
+  "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Kruv_Showreel_-_16x9_v2_v4xc70";
+
 export type HomeShowreelSlot = {
   posterSrc: string;
   videoSrc: string | null;
@@ -91,11 +95,18 @@ export function resolveHomeShowreelSlots(settings: SiteSettings): {
 } {
   const web = buildShowreelSlot(
     settings.homeVideoPoster ?? "",
-    settings.homeVideo ?? "",
+    HOME_SHOWREEL_WEB_VIDEO,
     "landscape",
   );
 
-  const mobile = resolveMobileShowreelSlot(settings, web);
+  const mobile = resolveMobileShowreelSlot(
+    {
+      ...settings,
+      // Mobil ayrı ayar yoksa web hero’nun yeni kaynağını kullanır
+      homeVideo: HOME_SHOWREEL_WEB_VIDEO,
+    },
+    web,
+  );
 
   return {
     web,
