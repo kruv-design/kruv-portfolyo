@@ -3741,10 +3741,23 @@ i {
 }
 
 .protel-clients__picker {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
   gap: var(--protel-tight-gap);
   justify-content: center;
+  justify-items: stretch;
+  width: 100%;
+}
+
+@media (max-width: 699px) {
+  .protel-clients__picker {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .protel-clients__btn {
+    width: 100%;
+    padding-inline: var(--space-4);
+  }
 }
 
 .protel-clients__btn {
@@ -3830,9 +3843,27 @@ i {
 
 @media (max-width: 899px) {
   .protel-clients__videos,
-  .protel-clients__videos--count-3,
-  .protel-clients__videos--count-4 {
+  .protel-clients__videos--count-3 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-2);
+  }
+
+  /* 4’lü: mobilde tek sıra, sıkı aralık — ekrana sığsın */
+  .protel-clients__videos--count-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-1);
+  }
+
+  .protel-clients__video .protel-video__el {
+    border-radius: var(--radius-sm);
+  }
+}
+
+@media (max-width: 899px) {
+  .marketing-home-figma .home-social-clients {
+    --protel-media-gap: var(--space-2);
+    --protel-content-gap: var(--space-4);
+    padding-inline: var(--space-3);
   }
 }
 

@@ -2,6 +2,7 @@
 
 import { useState, type ReactNode } from "react";
 import type { ProtelBrand, ProtelSocialAccount } from "@/types";
+import { ENABLE_PROTEL_VIDEO_TITLES } from "@/lib/marketing-flags";
 import { ProtelSectionHeading } from "./ProtelSectionHeading";
 import { ProtelVideoEmbed } from "./ProtelVideoEmbed";
 
@@ -151,6 +152,7 @@ export function ProtelClientPanel({
                 title={video.title}
                 videoUrl={video.videoUrl}
                 aspectRatio={video.aspectRatio}
+                showCaption={ENABLE_PROTEL_VIDEO_TITLES}
               />
             </div>
           ))}

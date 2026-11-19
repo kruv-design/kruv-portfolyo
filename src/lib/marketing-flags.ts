@@ -17,3 +17,9 @@ export const ENABLE_KAYAN_IKONLU_YAZI = false;
  * Altyapı (Supabase, Resend) hazır olunca true yapın ve yeniden deploy edin.
  */
 export const ENABLE_PUBLIC_CONTACT = true;
+
+/**
+ * Aktif yönetim 4’lü video başlıkları (figcaption).
+ * Geri açmak için true yapın.
+ */
+export const ENABLE_PROTEL_VIDEO_TITLES = false;

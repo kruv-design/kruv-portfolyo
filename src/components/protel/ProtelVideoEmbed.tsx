@@ -11,6 +11,7 @@ export function ProtelVideoEmbed({
   aspectRatio = "16:9",
   framed = false,
   naturalSize = false,
+  showCaption = true,
 }: {
   title?: string;
   videoUrl: string;
@@ -18,6 +19,8 @@ export function ProtelVideoEmbed({
   framed?: boolean;
   /** Bento: videonun kendi boyutu; container zorlaması yok. */
   naturalSize?: boolean;
+  /** false = başlık gizle (aria-label kalır). */
+  showCaption?: boolean;
 }) {
   const src = resolveProjectVideoUrl(videoUrl);
   const poster = resolveProjectVideoPosterUrl(videoUrl);
@@ -53,7 +56,7 @@ export function ProtelVideoEmbed({
         className="protel-video__el"
         aria-label={title || "Video"}
       />
-      {title && !naturalSize ? (
+      {showCaption && title && !naturalSize ? (
         <figcaption className="protel-video__caption">{title}</figcaption>
       ) : null}
     </figure>
