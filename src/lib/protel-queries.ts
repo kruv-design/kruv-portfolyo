@@ -173,9 +173,9 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
         url: "https://www.instagram.com/pricing_coach/",
       },
     ],
-    video1Title: "Otel",
+    video1Title: "2025 Özet",
     video1Url:
-      "https://res.cloudinary.com/di0qbhh46/video/upload/Otel_ymhzl1",
+      "https://res.cloudinary.com/di0qbhh46/video/upload/2025_O%CC%88zet_1_jirwsa",
     video1Aspect: "9:16",
     video2Title: "Rate Shopper",
     video2Url:
@@ -266,9 +266,9 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
         url: "https://www.instagram.com/jungleous/",
       },
     ],
-    video1Title: "Kampanya",
+    video1Title: "Otel",
     video1Url:
-      "https://res.cloudinary.com/di0qbhh46/video/upload/Jungleous_Kampanya_nb7nue",
+      "https://res.cloudinary.com/di0qbhh46/video/upload/Otel_ymhzl1",
     video1Aspect: "9:16",
     video2Title: "Bitki Bakımı",
     video2Url:
