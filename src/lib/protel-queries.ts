@@ -173,19 +173,21 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
         url: "https://www.instagram.com/pricing_coach/",
       },
     ],
-    video1Title: "Otel fiyatlandırma",
+    video1Title: "Otel",
     video1Url:
-      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Butik_Oteller_hykrwc",
+      "https://res.cloudinary.com/di0qbhh46/video/upload/Otel_ymhzl1",
     video1Aspect: "9:16",
-    video2Title: "İnsanların elinden işini mi alıyor?",
+    video2Title: "Rate Shopper",
     video2Url:
-      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=insanlar%C4%B1n_elinden_isini_mi_aliyor-_en_pt6cl9",
+      "https://res.cloudinary.com/di0qbhh46/video/upload/TR_-_Rate_Shopper_-_UI_Ad_-_9x16_ryeth4",
     video2Aspect: "9:16",
-    video3Title: "",
-    video3Url: "",
+    video3Title: "Airline Capacity",
+    video3Url:
+      "https://res.cloudinary.com/di0qbhh46/video/upload/AIRLINE_CAPACITY_1_xsmyx9",
     video3Aspect: "9:16",
-    video4Title: "",
-    video4Url: "",
+    video4Title: "RC nedir",
+    video4Url:
+      "https://res.cloudinary.com/di0qbhh46/video/upload/rc_nedir_paylas%C4%B1ld%C4%B1_h3oetq",
     video4Aspect: "9:16",
     updatedAt: "",
   },
@@ -264,19 +266,21 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
         url: "https://www.instagram.com/jungleous/",
       },
     ],
-    video1Title: "Jungleous Kampanya",
+    video1Title: "Kampanya",
     video1Url:
-      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Jungleous_Kampanya_nb7nue",
+      "https://res.cloudinary.com/di0qbhh46/video/upload/Jungleous_Kampanya_nb7nue",
     video1Aspect: "9:16",
-    video2Title: "Jungleous Bitki Bakımı",
+    video2Title: "Bitki Bakımı",
     video2Url:
-      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Jungleous_Bitki_Bak%C4%B1m-_lc7c7h",
+      "https://res.cloudinary.com/di0qbhh46/video/upload/Jungleous_Bitki_Bak%C4%B1m-_1_t56dj8",
     video2Aspect: "9:16",
-    video3Title: "",
-    video3Url: "",
+    video3Title: "Anneler Günü",
+    video3Url:
+      "https://res.cloudinary.com/di0qbhh46/video/upload/Jungleous_Anneler_Gu%CC%88nu%CC%88_-_Ad_3_nbrz5h",
     video3Aspect: "9:16",
-    video4Title: "",
-    video4Url: "",
+    video4Title: "Ofis Bitki Bakım",
+    video4Url:
+      "https://res.cloudinary.com/di0qbhh46/video/upload/Ofis_Bitki_Bak%C4%B1m_mi3jov",
     video4Aspect: "9:16",
     updatedAt: "",
   },
@@ -293,19 +297,21 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
         url: "https://www.instagram.com/bulunglogistics/",
       },
     ],
-    video1Title: "Bulung Safety",
+    video1Title: "Reels",
     video1Url:
-      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Bulung_Safety_ftvgc2",
+      "https://res.cloudinary.com/di0qbhh46/video/upload/kruv-portfolio/social/bulung-lojistik/01-reels",
     video1Aspect: "9:16",
-    video2Title: "İstanbul – Viyana",
+    video2Title: "4 mevsim",
     video2Url:
-      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=Istanbul-Viyana_qcmftc",
-    video2Aspect: "16:9",
-    video3Title: "",
-    video3Url: "",
+      "https://res.cloudinary.com/di0qbhh46/video/upload/kruv-portfolio/social/bulung-lojistik/02-4-mevsim",
+    video2Aspect: "9:16",
+    video3Title: "Soru cevap",
+    video3Url:
+      "https://res.cloudinary.com/di0qbhh46/video/upload/kruv-portfolio/social/bulung-lojistik/03-soru-cevap",
     video3Aspect: "9:16",
-    video4Title: "",
-    video4Url: "",
+    video4Title: "Bulung Safety",
+    video4Url:
+      "https://res.cloudinary.com/di0qbhh46/video/upload/kruv-portfolio/social/bulung-lojistik/04-safety",
     video4Aspect: "9:16",
     updatedAt: "",
   },
@@ -322,19 +328,21 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
         url: "https://www.instagram.com/the.scholarsschool/",
       },
     ],
-    video1Title: "The Scholars School",
+    video1Title: "TSS v2",
     video1Url:
-      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=TSS-W1-THURSDAY_ryll1v",
+      "https://res.cloudinary.com/di0qbhh46/video/upload/tssv2_cptimb",
     video1Aspect: "9:16",
-    video2Title: "The Scholars School",
+    video2Title: "W1 Thursday",
     video2Url:
-      "https://player.cloudinary.com/embed/?cloud_name=di0qbhh46&public_id=TSS-W2-THURSDAY_jg6m09",
+      "https://res.cloudinary.com/di0qbhh46/video/upload/TSS-W1-THURSDAY_btanhk",
     video2Aspect: "9:16",
-    video3Title: "",
-    video3Url: "",
+    video3Title: "W2 Thursday",
+    video3Url:
+      "https://res.cloudinary.com/di0qbhh46/video/upload/TSS-W2-THURSDAY_mnztlt",
     video3Aspect: "9:16",
-    video4Title: "",
-    video4Url: "",
+    video4Title: "W6 Tuesday",
+    video4Url:
+      "https://res.cloudinary.com/di0qbhh46/video/upload/TSS-W6-TUESDAY_qsowjo",
     video4Aspect: "9:16",
     updatedAt: "",
   },
@@ -484,8 +492,16 @@ function normalizeBrand(brand: ProtelBrand): ProtelBrand {
     }
   }
 
-  if (brand.slug === "ggpizza" || brand.slug === "opera-hotel-bosphorus") {
-    // Hospitality ile aynı 4 dikey video grid.
+  const forceVideoGrid = new Set([
+    "ggpizza",
+    "opera-hotel-bosphorus",
+    "bulung-lojistik",
+    "the-scholar-school",
+    "pricing-coach",
+    "jungleous",
+  ]);
+
+  if (forceVideoGrid.has(brand.slug)) {
     return {
       ...next,
       video1Title: fallback.video1Title,
@@ -503,34 +519,7 @@ function normalizeBrand(brand: ProtelBrand): ProtelBrand {
     };
   }
 
-  if (brand.slug !== "the-scholar-school") {
-    return next;
-  }
-
-  const video1Haystack = (() => {
-    try {
-      return decodeURIComponent(brand.video1Url).toLowerCase();
-    } catch {
-      return brand.video1Url.toLowerCase();
-    }
-  })();
-
-  const hasWrongFirstVideo =
-    video1Haystack.includes("insanlar") ||
-    video1Haystack.includes("09-03_pc") ||
-    video1Haystack.includes("pricing_coach");
-
-  if (!hasWrongFirstVideo) {
-    return next;
-  }
-
-  return {
-    ...next,
-    name: fallback.name,
-    video1Title: fallback.video1Title,
-    video1Url: fallback.video1Url,
-    video1Aspect: fallback.video1Aspect,
-  };
+  return next;
 }
 
 function mergeBrandDefaults(brand: ProtelBrand): ProtelBrand {

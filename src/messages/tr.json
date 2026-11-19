@@ -106,6 +106,30 @@
           "video2": "Domates sosu",
           "video3": "Pizza ve bira",
           "video4": "Tatlı"
+        },
+        "pricing-coach": {
+          "video1": "Otel",
+          "video2": "Rate Shopper",
+          "video3": "Airline Capacity",
+          "video4": "RC nedir"
+        },
+        "bulung-lojistik": {
+          "video1": "Reels",
+          "video2": "4 mevsim",
+          "video3": "Soru cevap",
+          "video4": "Bulung Safety"
+        },
+        "the-scholar-school": {
+          "video1": "TSS v2",
+          "video2": "W1 Thursday",
+          "video3": "W2 Thursday",
+          "video4": "W6 Tuesday"
+        },
+        "jungleous": {
+          "video1": "Kampanya",
+          "video2": "Bitki Bakımı",
+          "video3": "Anneler Günü",
+          "video4": "Ofis Bitki Bakım"
         }
       }
     },

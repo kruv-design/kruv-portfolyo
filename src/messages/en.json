@@ -110,6 +110,30 @@
           "video2": "Tomato sauce",
           "video3": "Pizza and beer",
           "video4": "Dessert"
+        },
+        "pricing-coach": {
+          "video1": "Hotel",
+          "video2": "Rate Shopper",
+          "video3": "Airline Capacity",
+          "video4": "What is RC"
+        },
+        "bulung-lojistik": {
+          "video1": "Reels",
+          "video2": "4 seasons",
+          "video3": "Q&A",
+          "video4": "Bulung Safety"
+        },
+        "the-scholar-school": {
+          "video1": "TSS v2",
+          "video2": "W1 Thursday",
+          "video3": "W2 Thursday",
+          "video4": "W6 Tuesday"
+        },
+        "jungleous": {
+          "video1": "Campaign",
+          "video2": "Plant care",
+          "video3": "Mother's Day",
+          "video4": "Office plant care"
         }
       }
     },
