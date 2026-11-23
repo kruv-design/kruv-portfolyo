@@ -949,8 +949,10 @@ i {
   margin: 0;
   padding-inline: var(--space-3);
   font-family: var(--font-display);
+  /* Liste kartı — global h3 (32px) yerine daha kompakt ölçek */
+  font-size: clamp(var(--type-b1), 0.875rem + 0.45vw, 1.375rem);
   font-weight: 500;
-  line-height: 1.2;
+  line-height: 1.3;
   letter-spacing: 0;
   color: var(--ink);
 }
@@ -3741,17 +3743,33 @@ i {
 }
 
 .protel-clients__picker {
-  display: grid;
-  grid-template-columns: repeat(3, max-content);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: var(--protel-tight-gap);
-  justify-content: center;
-  justify-items: stretch;
   width: 100%;
 }
 
-@media (max-width: 699px) {
-  .protel-clients__picker {
+.protel-clients__picker-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--protel-tight-gap);
+  justify-content: center;
+  width: 100%;
+}
+
+.protel-clients__picker-row--secondary {
+  max-width: min(100%, 28rem);
+}
+
+@media (max-width: 899px) {
+  .protel-clients__picker-row {
+    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .protel-clients__picker-row--secondary {
+    max-width: none;
   }
 
   .protel-clients__btn {

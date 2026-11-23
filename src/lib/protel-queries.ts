@@ -7,6 +7,7 @@ import {
 } from "@/lib/map-protel-row";
 import type { ProtelPitch, ProtelPitchSettings, ProtelBrand, ProtelAdminPitch, ProtelSampleVideo, ProtelSocialAccount, ProtelProcessStep } from "@/types";
 import { resolveProtelPassword } from "@/lib/protel-auth";
+import { orderProtelBrands } from "@/lib/protel-tab-order";
 
 export const DEFAULT_PROTEL_PROCESS_STEPS = [
   {
@@ -255,9 +256,40 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
   },
   {
     id: "",
+    slug: "the-scholar-school",
+    name: "The Scholars School",
+    sortOrder: 3,
+    metrics: [],
+    socialAccounts: [
+      {
+        platform: "Instagram",
+        handle: "@the.scholarsschool",
+        url: "https://www.instagram.com/the.scholarsschool/",
+      },
+    ],
+    video1Title: "TSS v2",
+    video1Url:
+      "https://res.cloudinary.com/di0qbhh46/video/upload/tssv2_cptimb",
+    video1Aspect: "9:16",
+    video2Title: "W1 Thursday",
+    video2Url:
+      "https://res.cloudinary.com/di0qbhh46/video/upload/TSS-W1-THURSDAY_btanhk",
+    video2Aspect: "9:16",
+    video3Title: "W2 Thursday",
+    video3Url:
+      "https://res.cloudinary.com/di0qbhh46/video/upload/TSS-W2-THURSDAY_mnztlt",
+    video3Aspect: "9:16",
+    video4Title: "W6 Tuesday",
+    video4Url:
+      "https://res.cloudinary.com/di0qbhh46/video/upload/TSS-W6-TUESDAY_qsowjo",
+    video4Aspect: "9:16",
+    updatedAt: "",
+  },
+  {
+    id: "",
     slug: "jungleous",
     name: "Jungleous",
-    sortOrder: 3,
+    sortOrder: 4,
     metrics: [],
     socialAccounts: [
       {
@@ -288,7 +320,7 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
     id: "",
     slug: "bulung-lojistik",
     name: "Bulung Lojistik",
-    sortOrder: 4,
+    sortOrder: 5,
     metrics: [],
     socialAccounts: [
       {
@@ -314,38 +346,8 @@ export const DEFAULT_PROTEL_BRANDS: ProtelBrand[] = [
       "https://res.cloudinary.com/di0qbhh46/video/upload/kruv-portfolio/social/bulung-lojistik/04-safety",
     video4Aspect: "9:16",
     updatedAt: "",
-  },
-  {
-    id: "",
-    slug: "the-scholar-school",
-    name: "The Scholars School",
-    sortOrder: 5,
-    metrics: [],
-    socialAccounts: [
-      {
-        platform: "Instagram",
-        handle: "@the.scholarsschool",
-        url: "https://www.instagram.com/the.scholarsschool/",
-      },
-    ],
-    video1Title: "TSS v2",
-    video1Url:
-      "https://res.cloudinary.com/di0qbhh46/video/upload/tssv2_cptimb",
-    video1Aspect: "9:16",
-    video2Title: "W1 Thursday",
-    video2Url:
-      "https://res.cloudinary.com/di0qbhh46/video/upload/TSS-W1-THURSDAY_btanhk",
-    video2Aspect: "9:16",
-    video3Title: "W2 Thursday",
-    video3Url:
-      "https://res.cloudinary.com/di0qbhh46/video/upload/TSS-W2-THURSDAY_mnztlt",
-    video3Aspect: "9:16",
-    video4Title: "W6 Tuesday",
-    video4Url:
-      "https://res.cloudinary.com/di0qbhh46/video/upload/TSS-W6-TUESDAY_qsowjo",
-    video4Aspect: "9:16",
-    updatedAt: "",
-  },
+  }
+
 ];
 
 function normalizeProposalTitle(title: string) {
@@ -552,7 +554,7 @@ export async function getProtelPitch(): Promise<ProtelPitch> {
   if (isPlaceholderEnv()) {
     return {
       settings: DEFAULT_PROTEL_SETTINGS,
-      brands: DEFAULT_PROTEL_BRANDS,
+      brands: orderProtelBrands(DEFAULT_PROTEL_BRANDS),
     };
   }
 
@@ -594,11 +596,11 @@ export async function getProtelPitch(): Promise<ProtelPitch> {
           )
         : DEFAULT_PROTEL_BRANDS;
 
-    return { settings, brands };
+    return { settings, brands: orderProtelBrands(brands) };
   } catch {
     return {
       settings: DEFAULT_PROTEL_SETTINGS,
-      brands: DEFAULT_PROTEL_BRANDS,
+      brands: orderProtelBrands(DEFAULT_PROTEL_BRANDS),
     };
   }
 }

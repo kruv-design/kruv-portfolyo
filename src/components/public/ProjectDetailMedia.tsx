@@ -139,6 +139,22 @@ export function ProjectDetailMedia({
     };
   }, [shouldMountSrc, videoSrc, clickMode, tryPlay]);
 
+  useEffect(() => {
+    if (!clickMode || !activated || !videoSrc || playError || !shouldMountSrc) {
+      return;
+    }
+    const v = videoRef.current;
+    if (!v) return;
+    primeVideoForInlinePlay(v);
+    if (v.src !== videoSrc) {
+      v.src = videoSrc;
+      v.load();
+    }
+    if (v.paused && v.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      void tryPlay(v).catch(() => {});
+    }
+  }, [clickMode, activated, videoSrc, playError, shouldMountSrc, tryPlay]);
+
   /** Tıklama jesti içinde play — src aynı event döngüsünde */
   const handlePlayClick = useCallback(() => {
     if (!videoSrc || reducedMotion) return;
@@ -147,35 +163,33 @@ export function ProjectDetailMedia({
     setLoadVideo(true);
     setPlayError(false);
 
-    const v = videoRef.current;
-    if (!v) return;
-
-    primeVideoForInlinePlay(v);
-
-    if (!v.currentSrc && videoSrc) {
-      v.src = videoSrc;
-    }
-
-    if (v.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
-      void tryPlay(v);
-      return;
-    }
-
-    const onReady = () => {
-      void tryPlay(v);
+    const startPlayback = (v: HTMLVideoElement) => {
+      primeVideoForInlinePlay(v);
+      if (videoSrc && v.src !== videoSrc) {
+        v.src = videoSrc;
+      }
+      v.load();
+      if (v.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+        void tryPlay(v);
+        return;
+      }
+      const onReady = () => {
+        void tryPlay(v);
+      };
+      v.addEventListener("canplay", onReady, { once: true });
+      v.addEventListener("loadeddata", onReady, { once: true });
     };
-    v.addEventListener("canplay", onReady, { once: true });
-    v.addEventListener("loadeddata", onReady, { once: true });
-    if (v.networkState === HTMLMediaElement.NETWORK_EMPTY && videoSrc) {
-      v.src = videoSrc;
+
+    const v = videoRef.current;
+    if (v) {
+      startPlayback(v);
     }
-    void tryPlay(v);
   }, [videoSrc, reducedMotion, tryPlay]);
 
-  const posterHidden = clickMode && activated && !playError;
   const showVideoVisible = clickMode
-    ? activated && !playError
+    ? activated && !playError && videoReady
     : Boolean(videoSrc) && loadVideo && !reducedMotion && videoReady;
+  const posterHidden = clickMode && activated && !playError && showVideoVisible;
 
   const showPlayButton =
     Boolean(videoSrc) &&
@@ -312,6 +326,7 @@ export function ProjectDetailMedia({
           className={`project-detail-media__video${
             shouldMountSrc ? " is-mounted" : ""
           }${showVideoVisible ? " is-visible" : ""}`}
+          src={shouldMountSrc ? videoSrc : undefined}
           poster={posterSrc || undefined}
           muted
           playsInline
@@ -319,7 +334,7 @@ export function ProjectDetailMedia({
           autoPlay={!clickMode && loadVideo}
           preload={
             clickMode
-              ? loadEagerly
+              ? loadEagerly || activated
                 ? "auto"
                 : "metadata"
               : loadEagerly
@@ -340,12 +355,10 @@ export function ProjectDetailMedia({
           onError={() => {
             setPlayError(true);
             setAutoplayBlocked(true);
+            setActivated(false);
+            setVideoReady(false);
           }}
-        >
-          {shouldMountSrc ? (
-            <source src={videoSrc} type="video/mp4" />
-          ) : null}
-        </video>
+        />
       ) : null}
     </div>
   );

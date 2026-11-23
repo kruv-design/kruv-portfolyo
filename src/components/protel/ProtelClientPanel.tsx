@@ -3,6 +3,7 @@
 import { useState, type ReactNode } from "react";
 import type { ProtelBrand, ProtelSocialAccount } from "@/types";
 import { ENABLE_PROTEL_VIDEO_TITLES } from "@/lib/marketing-flags";
+import { partitionProtelTabBrands } from "@/lib/protel-tab-order";
 import { ProtelSectionHeading } from "./ProtelSectionHeading";
 import { ProtelVideoEmbed } from "./ProtelVideoEmbed";
 
@@ -59,6 +60,7 @@ export function ProtelClientPanel({
     return <p className="protel-pitch__empty">Marka bulunamadı.</p>;
   }
 
+  const { primaryRow, secondaryRow } = partitionProtelTabBrands(brands);
   const instagramAccounts = active.socialAccounts.filter(isInstagramAccount);
   const sectionClass = ["protel-section", "protel-section--clients", sectionClassName]
     .filter(Boolean)
@@ -103,22 +105,47 @@ export function ProtelClientPanel({
           role="tablist"
           aria-label={tabListAriaLabel}
         >
-          {brands.map((brand) => {
-            const selected = brand.id === active.id;
-            return (
-              <button
-                key={brand.id}
-                type="button"
-                role="tab"
-                aria-selected={selected}
-                aria-controls={`protel-clients-panel-${brand.id}`}
-                className={`protel-clients__btn${selected ? " is-active" : ""}`}
-                onClick={() => setActiveId(brand.id)}
-              >
-                {brand.name}
-              </button>
-            );
-          })}
+          <div className="protel-clients__picker-row" role="presentation">
+            {primaryRow.map((brand) => {
+              const selected = brand.id === active.id;
+              return (
+                <button
+                  key={brand.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={selected}
+                  aria-controls={`protel-clients-panel-${brand.id}`}
+                  className={`protel-clients__btn${selected ? " is-active" : ""}`}
+                  onClick={() => setActiveId(brand.id)}
+                >
+                  {brand.name}
+                </button>
+              );
+            })}
+          </div>
+          {secondaryRow.length > 0 ? (
+            <div
+              className="protel-clients__picker-row protel-clients__picker-row--secondary"
+              role="presentation"
+            >
+              {secondaryRow.map((brand) => {
+                const selected = brand.id === active.id;
+                return (
+                  <button
+                    key={brand.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={selected}
+                    aria-controls={`protel-clients-panel-${brand.id}`}
+                    className={`protel-clients__btn${selected ? " is-active" : ""}`}
+                    onClick={() => setActiveId(brand.id)}
+                  >
+                    {brand.name}
+                  </button>
+                );
+              })}
+            </div>
+          ) : null}
         </div>
 
         {instagramAccounts.length > 0 ? (

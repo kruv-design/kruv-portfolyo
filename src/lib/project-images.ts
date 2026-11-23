@@ -106,15 +106,19 @@ function resolveGallerySlotMedia(
 ): { posterSrc: string; videoSrc: string | null } {
   const dedicatedVideo = videoRaw.trim();
   if (dedicatedVideo) {
+    const videoSrc = resolveProjectVideoUrl(dedicatedVideo) || null;
     return {
-      posterSrc: resolveProjectImageUrl(posterRaw),
-      videoSrc: resolveProjectVideoUrl(dedicatedVideo) || null,
+      posterSrc:
+        resolveProjectImageUrl(posterRaw) ||
+        resolveProjectVideoPosterUrl(dedicatedVideo),
+      videoSrc,
     };
   }
   if (allowVideoInPosterField && isVideoMediaRaw(posterRaw)) {
+    const videoSrc = resolveProjectVideoUrl(posterRaw) || null;
     return {
-      posterSrc: "",
-      videoSrc: resolveProjectVideoUrl(posterRaw) || null,
+      posterSrc: resolveProjectVideoPosterUrl(posterRaw),
+      videoSrc,
     };
   }
   return {
