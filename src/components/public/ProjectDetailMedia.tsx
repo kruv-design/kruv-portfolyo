@@ -189,7 +189,7 @@ export function ProjectDetailMedia({
   const showVideoVisible = clickMode
     ? activated && !playError && videoReady
     : Boolean(videoSrc) && loadVideo && !reducedMotion && videoReady;
-  const posterHidden = clickMode && activated && !playError && showVideoVisible;
+  const hidePosterLayer = showVideoVisible;
 
   const showPlayButton =
     Boolean(videoSrc) &&
@@ -248,7 +248,7 @@ export function ProjectDetailMedia({
       {posterSrc ? (
         <div
           className={
-            posterHidden || showVideoVisible
+            hidePosterLayer
               ? "project-detail-media__poster-wrap is-under-video"
               : "project-detail-media__poster-wrap"
           }
@@ -273,7 +273,7 @@ export function ProjectDetailMedia({
               <span className="project-detail-media__play-icon" aria-hidden="true" />
             </button>
           ) : null}
-          {playError && !posterHidden && videoSrc ? (
+          {playError && !hidePosterLayer && videoSrc ? (
             <div className="project-detail-media__play-error-wrap" role="status">
               <p className="project-detail-media__play-error">
                 Video oynatılamadı — tekrar deneyin veya yeni sekmede açın.
@@ -320,7 +320,7 @@ export function ProjectDetailMedia({
         </div>
       ) : null}
 
-      {videoSrc && !reducedMotion ? (
+      {videoSrc && !reducedMotion && shouldMountSrc ? (
         <video
           ref={videoRef}
           className={`project-detail-media__video${
