@@ -2,7 +2,7 @@
 
 import { resolveProjectVideoPosterUrl, resolveProjectVideoUrl } from "@/lib/project-images";
 import type { ProtelSampleVideo } from "@/types";
-import { protelAspectClass } from "./ProtelVideoEmbed";
+import { protelAspectClass } from "./protel-aspect";
 
 function bentoOrientationClass(item: ProtelSampleVideo): string {
   return item.aspectRatio === "9:16" || item.aspectRatio === "4:5"
